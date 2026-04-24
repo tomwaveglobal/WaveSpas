@@ -304,23 +304,67 @@
         });
       }
 
+      buildSearchTerms(rawQuery) {
+        const stopwords = new Set([
+          'a','an','and','are','as','at','be','by','can','could','do','does','for',
+          'from','had','has','have','he','her','here','how','i','in','is','it','its',
+          'just','me','my','no','not','of','on','or','our','should','so','some','that',
+          'the','their','them','then','there','these','they','this','to','use','using',
+          'want','was','we','were','what','when','where','which','who','why','will',
+          'with','would','you','your','yours'
+        ]);
+        const tokens = rawQuery
+          .toLowerCase()
+          .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+          .split(/\s+/)
+          .filter(Boolean);
+        const meaningful = tokens.filter(t => t.length > 1 && !stopwords.has(t));
+        return meaningful.length > 0 ? meaningful : tokens;
+      }
+
+      async fetchSuggest(q) {
+        const response = await fetch(
+          `/search/suggest.json?q=${encodeURIComponent(q)}&resources[type]=article,page&resources[limit]=10`
+        );
+        if (!response.ok) throw new Error('Search request failed');
+        return response.json();
+      }
+
+      mergeResults(a, b) {
+        const merged = {
+          articles: [...(a.articles || [])],
+          pages: [...(b.pages || a.pages || [])]
+        };
+        const seen = new Set(merged.articles.map(x => x.id));
+        for (const art of (b.articles || [])) {
+          if (!seen.has(art.id)) { merged.articles.push(art); seen.add(art.id); }
+        }
+        return merged;
+      }
+
       async performSearch(query) {
         this.currentQuery = query;
         this.showLoading();
 
         try {
-          const response = await fetch(
-            `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=article,page&resources[limit]=10`
-          );
+          const terms = this.buildSearchTerms(query);
+          const cleaned = terms.join(' ');
 
-          if (!response.ok) {
-            throw new Error('Search request failed');
+          // Pass 1: cleaned query (stopwords removed) — best for natural-language questions
+          let data = await this.fetchSuggest(cleaned || query);
+          let results = data.resources.results;
+          let total = (results.articles?.length || 0) + (results.pages?.length || 0);
+
+          // Pass 2: if nothing, search each remaining term individually and merge
+          if (total === 0 && terms.length > 1) {
+            for (const term of terms) {
+              const extra = await this.fetchSuggest(term);
+              results = this.mergeResults(results, extra.resources.results);
+            }
           }
 
-          const data = await response.json();
-          
           if (this.currentQuery === query) {
-            this.displayResults(data.resources.results);
+            this.displayResults(results);
           }
         } catch (error) {
           console.error('Search error:', error);
