@@ -1,0 +1,616 @@
+{% doc %}
+  @prompt
+    Create a search bar block for a knowledge base blog page that only shows blog posts, pages, and articles in search results. Exclude products entirely. Use Shopify's predictive search API with the types parameter set to article,page to filter out products. Keep a clean, modern search bar design with a dropdown for results.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-kb-search-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-kb-search-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-kb-search-form-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-kb-search-input-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: {{ block.settings.input_background }};
+    border: {{ block.settings.input_border_width }}px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-kb-search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    color: {{ block.settings.icon_color }};
+    pointer-events: none;
+  }
+
+  .ai-kb-search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.input_padding }}px {{ block.settings.input_padding }}px {{ block.settings.input_padding }}px 48px;
+    border: none;
+    background: transparent;
+    font-size: {{ block.settings.input_font_size }}px;
+    color: {{ block.settings.input_text_color }};
+    outline: none;
+  }
+
+  .ai-kb-search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-kb-search-input-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.focus_color }};
+    outline-offset: -2px;
+  }
+
+  .ai-kb-search-clear-{{ ai_gen_id }} {
+    position: absolute;
+    right: 16px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: {{ block.settings.icon_color }};
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .ai-kb-search-clear-{{ ai_gen_id }}.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-kb-search-clear-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  .ai-kb-search-results-{{ ai_gen_id }} {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background-color: {{ block.settings.dropdown_background }};
+    border: 1px solid {{ block.settings.dropdown_border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .ai-kb-search-results-{{ ai_gen_id }}.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .ai-kb-search-loading-{{ ai_gen_id }} {
+    padding: 24px;
+    text-align: center;
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+  }
+
+  .ai-kb-search-empty-{{ ai_gen_id }} {
+    padding: 24px;
+    text-align: center;
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+  }
+
+  .ai-kb-search-section-{{ ai_gen_id }} {
+    padding: 12px 0;
+  }
+
+  .ai-kb-search-section-{{ ai_gen_id }}:not(:last-child) {
+    border-bottom: 1px solid {{ block.settings.dropdown_border_color }};
+  }
+
+  .ai-kb-search-section-title-{{ ai_gen_id }} {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: {{ block.settings.section_title_color }};
+    letter-spacing: 0.5px;
+  }
+
+  .ai-kb-search-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: {{ block.settings.text_color }};
+    transition: background-color 0.2s ease;
+  }
+
+  .ai-kb-search-item-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.hover_background }};
+  }
+
+  .ai-kb-search-item-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-kb-search-item-content-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-kb-search-item-title-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-kb-search-item-excerpt-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.excerpt_color }};
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .ai-kb-search-item-meta-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.meta_color }};
+    margin-top: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-kb-search-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-kb-search-input-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+
+    .ai-kb-search-results-{{ ai_gen_id }} {
+      max-height: 300px;
+    }
+  }
+{% endstyle %}
+
+<knowledge-base-search-{{ ai_gen_id }} class="ai-kb-search-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-kb-search-container-{{ ai_gen_id }}">
+    <form class="ai-kb-search-form-{{ ai_gen_id }}" role="search">
+      <div class="ai-kb-search-input-wrapper-{{ ai_gen_id }}">
+        <svg class="ai-kb-search-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input
+          type="search"
+          class="ai-kb-search-input-{{ ai_gen_id }}"
+          placeholder="{{ block.settings.placeholder }}"
+          autocomplete="off"
+          aria-label="Search knowledge base"
+          aria-autocomplete="list"
+          aria-controls="ai-kb-search-results-{{ ai_gen_id }}"
+        >
+        <button
+          type="button"
+          class="ai-kb-search-clear-{{ ai_gen_id }}"
+          aria-label="Clear search"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div
+      id="ai-kb-search-results-{{ ai_gen_id }}"
+      class="ai-kb-search-results-{{ ai_gen_id }}"
+      role="listbox"
+    ></div>
+  </div>
+</knowledge-base-search-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class KnowledgeBaseSearch{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.input = this.querySelector('.ai-kb-search-input-{{ ai_gen_id }}');
+        this.clearButton = this.querySelector('.ai-kb-search-clear-{{ ai_gen_id }}');
+        this.resultsContainer = this.querySelector('.ai-kb-search-results-{{ ai_gen_id }}');
+        this.form = this.querySelector('.ai-kb-search-form-{{ ai_gen_id }}');
+        this.debounceTimer = null;
+        this.currentQuery = '';
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.input.addEventListener('input', (e) => {
+          const query = e.target.value.trim();
+          
+          if (query.length > 0) {
+            this.clearButton.classList.add('visible');
+          } else {
+            this.clearButton.classList.remove('visible');
+          }
+
+          clearTimeout(this.debounceTimer);
+          
+          if (query.length >= 2) {
+            this.debounceTimer = setTimeout(() => {
+              this.performSearch(query);
+            }, 300);
+          } else {
+            this.hideResults();
+          }
+        });
+
+        this.clearButton.addEventListener('click', () => {
+          this.input.value = '';
+          this.clearButton.classList.remove('visible');
+          this.hideResults();
+          this.input.focus();
+        });
+
+        this.form.addEventListener('submit', (e) => {
+          e.preventDefault();
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!this.contains(e.target)) {
+            this.hideResults();
+          }
+        });
+
+        this.input.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.hideResults();
+            this.input.blur();
+          }
+        });
+      }
+
+      async performSearch(query) {
+        this.currentQuery = query;
+        this.showLoading();
+
+        try {
+          const response = await fetch(
+            `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=article,page&resources[limit]=10`
+          );
+
+          if (!response.ok) {
+            throw new Error('Search request failed');
+          }
+
+          const data = await response.json();
+          
+          if (this.currentQuery === query) {
+            this.displayResults(data.resources.results);
+          }
+        } catch (error) {
+          console.error('Search error:', error);
+          this.showError();
+        }
+      }
+
+      showLoading() {
+        this.resultsContainer.innerHTML = `
+          <div class="ai-kb-search-loading-{{ ai_gen_id }}">
+            Searching...
+          </div>
+        `;
+        this.resultsContainer.classList.add('visible');
+      }
+
+      showError() {
+        this.resultsContainer.innerHTML = `
+          <div class="ai-kb-search-empty-{{ ai_gen_id }}">
+            An error occurred. Please try again.
+          </div>
+        `;
+        this.resultsContainer.classList.add('visible');
+      }
+
+      displayResults(results) {
+        const articles = results.articles || [];
+        const pages = results.pages || [];
+        const totalResults = articles.length + pages.length;
+
+        if (totalResults === 0) {
+          this.resultsContainer.innerHTML = `
+            <div class="ai-kb-search-empty-{{ ai_gen_id }}">
+              No articles or pages found for "${this.escapeHtml(this.currentQuery)}"
+            </div>
+          `;
+          this.resultsContainer.classList.add('visible');
+          return;
+        }
+
+        let html = '';
+
+        if (articles.length > 0) {
+          html += `
+            <div class="ai-kb-search-section-{{ ai_gen_id }}">
+              <div class="ai-kb-search-section-title-{{ ai_gen_id }}">Articles</div>
+              ${articles.map(article => this.renderArticle(article)).join('')}
+            </div>
+          `;
+        }
+
+        if (pages.length > 0) {
+          html += `
+            <div class="ai-kb-search-section-{{ ai_gen_id }}">
+              <div class="ai-kb-search-section-title-{{ ai_gen_id }}">Pages</div>
+              ${pages.map(page => this.renderPage(page)).join('')}
+            </div>
+          `;
+        }
+
+        this.resultsContainer.innerHTML = html;
+        this.resultsContainer.classList.add('visible');
+      }
+
+      renderArticle(article) {
+        const excerpt = article.summary_html 
+          ? this.stripHtml(article.summary_html) 
+          : '';
+        
+        const publishedDate = article.published_at 
+          ? new Date(article.published_at).toLocaleDateString('en-GB', { 
+              year: 'numeric', 
+              month: 'short', 
+              day: 'numeric' 
+            })
+          : '';
+
+        return `
+          <a href="${article.url}" class="ai-kb-search-item-{{ ai_gen_id }}" role="option">
+            <svg class="ai-kb-search-item-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <div class="ai-kb-search-item-content-{{ ai_gen_id }}">
+              <h3 class="ai-kb-search-item-title-{{ ai_gen_id }}">${this.escapeHtml(article.title)}</h3>
+              ${excerpt ? `<p class="ai-kb-search-item-excerpt-{{ ai_gen_id }}">${this.escapeHtml(excerpt)}</p>` : ''}
+              ${publishedDate ? `<div class="ai-kb-search-item-meta-{{ ai_gen_id }}">${publishedDate}</div>` : ''}
+            </div>
+          </a>
+        `;
+      }
+
+      renderPage(page) {
+        const excerpt = page.body_html 
+          ? this.stripHtml(page.body_html).substring(0, 150) 
+          : '';
+
+        return `
+          <a href="${page.url}" class="ai-kb-search-item-{{ ai_gen_id }}" role="option">
+            <svg class="ai-kb-search-item-icon-{{ ai_gen_id }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <div class="ai-kb-search-item-content-{{ ai_gen_id }}">
+              <h3 class="ai-kb-search-item-title-{{ ai_gen_id }}">${this.escapeHtml(page.title)}</h3>
+              ${excerpt ? `<p class="ai-kb-search-item-excerpt-{{ ai_gen_id }}">${this.escapeHtml(excerpt)}</p>` : ''}
+            </div>
+          </a>
+        `;
+      }
+
+      hideResults() {
+        this.resultsContainer.classList.remove('visible');
+      }
+
+      stripHtml(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+      }
+
+      escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+    }
+
+    customElements.define('knowledge-base-search-{{ ai_gen_id }}', KnowledgeBaseSearch{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Knowledge base search",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Search input"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder text",
+      "default": "Search articles and pages..."
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_padding",
+      "label": "Padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "input_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder text",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "focus_color",
+      "label": "Focus outline",
+      "default": "#0b61cd"
+    },
+    {
+      "type": "header",
+      "content": "Dropdown"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_border_color",
+      "label": "Border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "section_title_color",
+      "label": "Section title",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Excerpt text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Meta text",
+      "default": "#999999"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Knowledge base search"
+    }
+  ]
+}
+{% endschema %}

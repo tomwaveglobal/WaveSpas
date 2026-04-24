@@ -1,0 +1,128 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "blocks": {
+        "collection_zBtdfP": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-full-range",
+            "image": "shopify://shop_images/spas.jpg",
+            "title": "Spas",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_nzGEnP": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "sup-range",
+            "image": "shopify://shop_images/New_SUPs_Homepage.png",
+            "title": "SUPs",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_8jFDE3": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "kayak-and-canoe-range",
+            "image": "shopify://shop_images/Kayaks_Homepage.png",
+            "title": "Kayaks & Canoes",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_6d8iG9": {
+          "type": "collection",
+          "settings": {
+            "collection": "robes",
+            "image": "shopify://shop_images/robes.png",
+            "title": "Changing Robes",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_9bcfMf": {
+          "type": "collection",
+          "settings": {
+            "collection": "accessories",
+            "image": "shopify://shop_images/hot-tub-chemical-starter-kit-the-kilo-collection-wave-spas-uk-396662.jpg",
+            "title": "Spa Extras",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_H4aBX8": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "sup-accessories",
+            "title": "SUP Extras",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "collection_zBtdfP",
+        "collection_nzGEnP",
+        "collection_8jFDE3",
+        "collection_6d8iG9",
+        "collection_9bcfMf",
+        "collection_H4aBX8"
+      ],
+      "settings": {
+        "display_type": "selected",
+        "sort": "alphabetical",
+        "card_style": "card",
+        "image_type": "collection",
+        "image_ratio": "square",
+        "show_products_count": false,
+        "columns": 4,
+        "columns_mobile": "2",
+        "heading": "Collections",
+        "heading_size": "title-lg tracking-heading",
+        "heading_alignment": "text-left",
+        "heading_tag": "h1",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

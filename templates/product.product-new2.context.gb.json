@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "gb"
+  },
+  "parent": "product.product-new2.json",
+  "sections": {
+    "comparison_table_GXKLn7": {
+      "settings": {},
+      "blocks": {
+        "values_HPGReU": {
+          "settings": {
+            "product": "como-hot-tub"
+          }
+        },
+        "values_RrJMQQ": {
+          "settings": {
+            "product": "garda-hot-tub"
+          }
+        },
+        "values_DhMnA6": {
+          "settings": {
+            "product": "tahoe-hot-tub"
+          }
+        },
+        "values_8wPDyh": {
+          "settings": {
+            "product": "aegean-hot-tub"
+          }
+        },
+        "values_TjpQ63": {
+          "settings": {
+            "product": "atlantic-hot-tub"
+          }
+        },
+        "values_nLycxb": {
+          "settings": {
+            "product": "pacific-hot-tub"
+          }
+        }
+      }
+    },
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "text_nncjDG": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
+    }
+  }
+}

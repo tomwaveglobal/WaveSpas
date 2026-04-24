@@ -1,0 +1,429 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_with_text_overlay_UUJXg3": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_Y43UBW": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Hot Tub Comparison Guide",
+            "subheading_size": "subtitle-md",
+            "secondary_color": true
+          }
+        },
+        "heading_BfQxDb": {
+          "type": "heading",
+          "settings": {
+            "heading": "Need Help Finding The Perfect Hot Tub?",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_6hzdgd": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Dive into our guide</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_Y43UBW",
+        "heading_BfQxDb",
+        "text_6hzdgd"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "transparent_header": false,
+        "image": "shopify://shop_images/Carousel_Home_page_a3342113-1313-451c-8edf-c93284a8276e.jpg",
+        "image_height": "550px",
+        "content_width": "medium",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#ffa300",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 30,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "image_with_text_zgwMzK": {
+      "type": "image-with-text",
+      "blocks": {
+        "text_CY9rBg": {
+          "type": "text",
+          "settings": {
+            "text": "<h5><strong>Eco Foam Hot Tubs</strong></h5><p>Foam insulation is a game-changer for hot tubs, and our new foam spas are leading the charge. The foam core at the heart of our rigid models means the hot tub is up to 50% more thermally efficient, giving you cheaper bills whilst being better for the environment. The newest foam spas are made up of 3 models: the Garda, the Tahoe and the Como, each featuring a different shape and available in a range of 4 styles.</p><h5><strong>Inflatable Hot Tubs</strong></h5><p>Add a touch of luxury to your outdoor space, with our collection of inflatable hot tubs, the most indulgent way to relax all year round. Available in a variety of sizes, shapes and designs, accommodating up to 6 people, our Wave hot tubs are perfect for enjoying on your own or spending quality time with friends and family.<br/><br/><br/><br/></p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "text_CY9rBg"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify://shop_images/spas.jpg",
+        "image_height": "adapt",
+        "image_width": "medium",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "content_position": "align-self-center",
+        "image_height_mobile": "auto",
+        "text_alignment_mobile": "left",
+        "color_text": "",
+        "color_background": "#f6f6f6",
+        "gradient_background": "",
+        "color_background_2": "",
+        "gradient_background_2": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "comparison_table_ab3GRU": {
+      "type": "comparison-table",
+      "blocks": {
+        "headings_nBmRCt": {
+          "type": "headings",
+          "settings": {
+            "heading_1": "Dimensions",
+            "heading_2": "Shape",
+            "heading_3": "Material",
+            "heading_4": "Massage System",
+            "heading_5": "",
+            "heading_6": "Heater/Filter",
+            "heading_7": "Flow Rate",
+            "heading_8": "",
+            "heading_9": "",
+            "heading_10": "",
+            "heading_11": "",
+            "heading_12": "",
+            "heading_13": "",
+            "heading_14": "",
+            "heading_15": "",
+            "heading_16": "",
+            "heading_17": "",
+            "heading_18": "",
+            "heading_19": "",
+            "heading_20": "",
+            "heading_21": "",
+            "heading_22": "",
+            "heading_23": "",
+            "heading_24": "",
+            "heading_25": ""
+          }
+        },
+        "values_hEMzCN": {
+          "type": "values",
+          "settings": {
+            "product": "como-hot-tub-ce",
+            "value_1": "<p>6 Person | 195×70cm | 77×27″</p>",
+            "value_2": "<p>Octagon</p>",
+            "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
+            "value_4": "<p>90 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        },
+        "values_qJgxPc": {
+          "type": "values",
+          "settings": {
+            "product": "garda-hot-tub-ce",
+            "value_1": "<p>4 Person | 160×70cm | 63×27″<br/>6 Person | 180×70cm | 71×27″</p>",
+            "value_2": "<p>Square</p>",
+            "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
+            "value_4": "<p>70/90 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        },
+        "values_eTbjkm": {
+          "type": "values",
+          "settings": {
+            "product": "tahoe-hot-tub-ce",
+            "value_1": "<p>4 Person | 156×70cm | 61×27″<br/>6 Person | 184×70cm | 72×27″</p>",
+            "value_2": "<p>Round</p>",
+            "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
+            "value_4": "<p>70/90 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        },
+        "values_qjCb8Y": {
+          "type": "values",
+          "settings": {
+            "product": "aegean-hot-tub-ce",
+            "value_1": "<p>6 Person | 195x65cm | 77x25.6\"</p>",
+            "value_2": "<p>Octagon</p>",
+            "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
+            "value_4": "<p>130 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        },
+        "values_fFdVKX": {
+          "type": "values",
+          "settings": {
+            "product": "atlantic-hot-tub-ce",
+            "value_1": "<p>4 Person | 180×65cm | 71×25.6″<br/>6 Person | 208×65cm | 82×25.6″</p>",
+            "value_2": "<p>Round</p>",
+            "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
+            "value_4": "<p>110/130 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        },
+        "values_6ULGp4": {
+          "type": "values",
+          "settings": {
+            "product": "pacific-hot-tub-ce",
+            "value_1": "<p>4 Person | 155x65cm | 61x25.6\"<br/>6 Person | 185x65cm | 73x25.6\"</p>",
+            "value_2": "<p>Square</p>",
+            "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
+            "value_4": "<p>110/130 Bubble Jet massage system</p>",
+            "value_5": "<p>Available with Klarna</p>",
+            "value_6": "<p>1800W eco heater with a max controllable temperature of 40°C (104°F)</p>",
+            "value_7": "<p>1,325L (350GAL)/hour</p>",
+            "value_8": "",
+            "value_9": "",
+            "value_10": "",
+            "value_11": "",
+            "value_12": "",
+            "value_13": "",
+            "value_14": "",
+            "value_15": "",
+            "value_16": "",
+            "value_17": "",
+            "value_18": "",
+            "value_19": "",
+            "value_20": "",
+            "value_21": "",
+            "value_22": "",
+            "value_23": "",
+            "value_24": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "headings_nBmRCt",
+        "values_hEMzCN",
+        "values_qJgxPc",
+        "values_eTbjkm",
+        "values_qjCb8Y",
+        "values_fFdVKX",
+        "values_6ULGp4"
+      ],
+      "name": "t:sections.comparison-table.name",
+      "settings": {
+        "sticky_product_info": false,
+        "first_available_variant": false,
+        "show_vendor": false,
+        "show_price": true,
+        "show_rating": true,
+        "heading": "",
+        "heading_size": "title-lg tracking-heading",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "main-page": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "title-sm",
+        "heading_alignment": "text-center",
+        "heading_tag": "h1",
+        "text_size": "text-base",
+        "padding_top": 32,
+        "padding_bottom": 52,
+        "divider": false,
+        "narrow": true,
+        "rounded": true
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_UUJXg3",
+    "image_with_text_zgwMzK",
+    "comparison_table_ab3GRU",
+    "main-page"
+  ]
+}

@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "usa"
+  },
+  "parent": "index.json",
+  "sections": {
+    "featured-product": {
+      "settings": {
+        "product": "garda-hot-tub-etl"
+      },
+      "blocks": {}
+    },
+    "slideshow_aYCGKX": {
+      "settings": {},
+      "blocks": {
+        "image_hc4WwT": {
+          "disabled": true,
+          "settings": {}
+        },
+        "image_rmPQY4": {
+          "disabled": false,
+          "settings": {}
+        },
+        "image_EUEdiE": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
+    }
+  }
+}

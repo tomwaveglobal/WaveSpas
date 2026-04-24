@@ -1,0 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "usa"
+  },
+  "parent": "page.spa-comparison-guide.json",
+  "sections": {
+    "comparison_table_ab3GRU": {
+      "settings": {},
+      "blocks": {
+        "values_hEMzCN": {
+          "settings": {
+            "product": "como-hot-tub-etl"
+          }
+        },
+        "values_qJgxPc": {
+          "settings": {
+            "product": "garda-hot-tub-etl"
+          }
+        },
+        "values_eTbjkm": {
+          "settings": {
+            "product": "tahoe-hot-tub-etl"
+          }
+        },
+        "values_qjCb8Y": {
+          "settings": {
+            "product": "aegean-hot-tub-etl"
+          }
+        },
+        "values_fFdVKX": {
+          "settings": {
+            "product": "atlantic-hot-tub-etl"
+          }
+        },
+        "values_6ULGp4": {
+          "settings": {
+            "product": "pacific-hot-tub-etl"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "gb"
+  },
+  "parent": "index.json",
+  "sections": {
+    "slideshow_aYCGKX": {
+      "settings": {},
+      "blocks": {
+        "image_hc4WwT": {
+          "disabled": false,
+          "settings": {
+            "heading": "Bring the Holiday Home. <br> <span style=\"color: #F59E0B;\"> FREE </span> Next Day Delivery <br> on Hot Tubs"
+          }
+        },
+        "image_9rd3Vt": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
+    },
+    "featured-product": {
+      "settings": {
+        "product": "garda-hot-tub"
+      },
+      "blocks": {}
+    }
+  }
+}

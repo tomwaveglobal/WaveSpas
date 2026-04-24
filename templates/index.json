@@ -1,0 +1,1338 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_aYCGKX": {
+      "type": "slideshow",
+      "blocks": {
+        "image_hc4WwT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_1c125408-0aa0-47ce-a31e-eb983b568e24.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_6093568a-1538-42a6-9e5e-8dc11c8868a8.jpg",
+            "heading": "Bring the Holiday Home. <br> <span style=\"color: #F59E0B;\"> FREE </span> Next Day Delivery  on Hot Tubs",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_9rd3Vt": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_68930e51-cb64-45c6-931b-3f8c9949dc64.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_3646b25d-2cb3-41c1-94b8-efe20f8b2c74.jpg",
+            "heading": "<span style=\"color: #F59E0B;\">Price:</span> Lowered<br>\n<span style=\"color:#F59E0B;\">Shipping:</span> Covered<br>\n20% Off All Wave Hot Tubs + Free Delivery",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_JUM7dH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Gym_Carousel_1.png",
+            "image_mobile": "shopify://shop_images/Gym_Carousel_mobile.png",
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Spring Sale </span> now on!",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_rmPQY4": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Spring_Carousel.png",
+            "image_mobile": "shopify://shop_images/Spring_Carousel_Mobile.png",
+            "heading": "Relaxation in every season.<br> Anti-Freeze heater protection for <span style=\"color: #F59E0B;\"> year-round </span> usage.",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Relaxation",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_EUEdiE": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Valentines_webassets_SpaCarousel_Home_V2.jpg",
+            "image_mobile": "shopify://shop_images/Valentines_webassets_Spa_Mobile.png",
+            "heading": "The Ultimate Date Night In! Romance, Relaxation,<br> <span style=\"color: #F59E0B;\"> and Bubbles </span>",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Valentine's Day",
+            "button_link": "shopify://collections/valentines-with-wave",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "image_hc4WwT",
+        "image_9rd3Vt",
+        "image_JUM7dH",
+        "image_rmPQY4",
+        "image_EUEdiE"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 7,
+        "show_navigation": true,
+        "image_height": "700px",
+        "content_width": "small",
+        "image_height_mobile": "500px",
+        "accessibility_info": "Slideshow about our brand",
+        "color_text": "#ffffff",
+        "color_background": "#ffffff",
+        "gradient_background": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 10,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "image_wLABf7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/BF-Sup-Homepage-Desktop2.jpg",
+            "image_mobile": "shopify://shop_images/BF-SPA-Homepage-Mobile.jpg",
+            "heading": "EXTRA 5% OFF All Hot Tubs. Code <span style=\"color: #F59E0B;\">BLACK5</span> Auto Applied!",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop BLACK FRIDAY",
+            "button_link": "shopify://collections/hot-tub-spa-sale",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_UPWkm3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Pacific_Carousel_SnowBigger.jpg",
+            "image_mobile": "shopify://shop_images/Pacific_Carousel_Snow-mobile_e80a2dba-0f14-487e-a74d-b8da00a9b404.jpg",
+            "heading": "Relaxation in every season.<br> Anti-Freeze heater protection for <span style=\"color: #F59E0B;\"> year-round </span> usage.",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Relaxation",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "image_MGQwRL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg",
+            "image_mobile": "shopify://shop_images/Website_Garda_Overhead_Snow_mobile_4f3ec29b-c9ba-484b-be71-ee7922466732.jpg",
+            "heading": "Extended Returns Until <br>7th Jan 2026 on all <span style=\"color: #F59E0B;\"> Hot Tubs! </span>",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
+        "slide-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Furniture-Global-Homepage.jpg",
+            "image_mobile": "shopify://shop_images/Global-Homepage-Mobile-Furniture_da2abf8c-4776-41a9-9c67-1ee0e4e1030f.jpg",
+            "heading": "Portable Luxury That Goes Wherever You Do.",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Furniture",
+            "button_link": "shopify://products/chair-and-double-sofa-set-ukca",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "image_wLABf7",
+        "image_UPWkm3",
+        "image_MGQwRL",
+        "slide-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 7,
+        "show_navigation": true,
+        "image_height": "700px",
+        "content_width": "small",
+        "image_height_mobile": "500px",
+        "accessibility_info": "Slideshow about our brand",
+        "color_text": "#ffffff",
+        "color_background": "#ffffff",
+        "gradient_background": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 10,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "countdown_timer_EWMdYc": {
+      "type": "countdown-timer",
+      "blocks": {
+        "heading_TUFCHA": {
+          "type": "heading",
+          "settings": {
+            "heading": "No Tricks, Just Treats",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_JhTQMT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>An Extra <em>10% OFF</em> Hot Tubs This Halloween</p>",
+            "text_font": "body",
+            "text_size": "subtext-xl",
+            "text_max_size": 36,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "timer_cNfBhP": {
+          "type": "timer",
+          "settings": {
+            "year": "2025",
+            "month": "10",
+            "day": "17",
+            "hour": "23",
+            "minute": "59",
+            "text_font": "heading",
+            "text_size": "title-lg tracking-heading",
+            "message": ""
+          }
+        },
+        "button_jabgLG": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Before It's Gone!",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_TUFCHA",
+        "text_JhTQMT",
+        "timer_cNfBhP",
+        "button_jabgLG"
+      ],
+      "disabled": true,
+      "name": "t:sections.countdown-timer.presets.name",
+      "settings": {
+        "transparent_header": false,
+        "image": "shopify://shop_images/persona_68_img_309_46a4d9e1-b1e7-4eaa-b2f9-c1329eda0db9.png",
+        "image_height": "650px",
+        "content_width": "small",
+        "content_position": "md:items-center md:justify-center",
+        "text_alignment": "center",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-center justify-center",
+        "text_alignment_mobile": "center",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#f59e0b",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 30,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
+      }
+    },
+    "rich-text-1": {
+      "type": "rich-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Elevate your lifestyle with our award-winning range of premium hot tubs, designed to make relaxation effortless. As the highest-rated portable hot tub brand on Trustpilot, we blend everyday luxury with industry-leading efficiency across our entire collection. Choose the sleek, contemporary style of our drop-stitch range or the ultimate performance of our frame spas, featuring advanced aluminium panels for up to 70% better efficiency. From our signature foam spas that use up to 60% less energy to our versatile inflatable models, our whisper-quiet heaters and simple setup guides ensure your path to tranquillity is always seamless.</p><p>Soak, relax, <em>switch off.</em> <strong>Wave has you covered.</strong></p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "text"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "We believe in the importance of <em>Relaxation</em>",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "Our Story",
+        "button_link": "shopify://pages/why-wave-1",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "collection_list_ia4R7V": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_A6AcF4": {
+          "type": "collection",
+          "settings": {
+            "collection": "foam-hot-tubs",
+            "image": "shopify://shop_images/mobile_03.jpg",
+            "title": "Eco-Foam Hot Tubs",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_KYeFrN": {
+          "type": "collection",
+          "settings": {
+            "collection": "inflatable-hot-tubs",
+            "image": "shopify://shop_images/mobile_01.jpg",
+            "title": "Inflatable Hot Tubs",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_9kDDVV": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-frame-spas",
+            "image": "shopify://shop_images/mobile_04.jpg",
+            "title": "Frame Hot Tub",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_AJNh7p": {
+          "type": "collection",
+          "settings": {
+            "collection": "drop-stitch-hot-tubs",
+            "image": "shopify://shop_images/mobile_02.jpg",
+            "title": "Drop-Stitch Hot Tubs",
+            "description": "",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "collection_A6AcF4",
+        "collection_KYeFrN",
+        "collection_9kDDVV",
+        "collection_AJNh7p"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "card_style": "card",
+        "image_type": "collection",
+        "image_ratio": "square",
+        "show_products_count": false,
+        "show_view_all": false,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "video-with-text-overlay": {
+      "type": "video-with-text-overlay",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Garda",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A revolutionary eco-foam hot tub featuring an integrated heater for 60% more thermal efficiency than traditional inflatable models.<br/><br/></p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/garda-hot-tub",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "transparent_header": false,
+        "video": "shopify://files/videos/Garda.mp4",
+        "video_url": "",
+        "description": "",
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "image_height": "750px",
+        "content_width": "small",
+        "content_position": "md:items-center md:justify-center",
+        "text_alignment": "center",
+        "video_mobile": "shopify://files/videos/Garda Lifestyle.mp4",
+        "video_url_mobile": "",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-center justify-center",
+        "text_alignment_mobile": "center",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 25,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": true
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-md",
+            "title_size_mobile": "product-title-md",
+            "title_tag": "h2",
+            "show_price": true,
+            "show_rating": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "heading": "Hurry up!",
+            "subheading": "Sale end in:",
+            "color_text": "#e11d48",
+            "color_background": "#fff1f2",
+            "gradient_background": ""
+          }
+        },
+        "product_variations_GYNCNa": {
+          "type": "product_variations",
+          "disabled": true,
+          "settings": {
+            "option_name": "Colour",
+            "option_value_metafield": "custom.variation_value",
+            "products": "{{ section.settings.product.metafields.custom.variation_colour.value }}",
+            "enable_color_swatches": true,
+            "color_swatch_type": "variant",
+            "size_chart": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "enable_dynamic_variants": true,
+            "show_variant_labels": false,
+            "picker_type": "button",
+            "enable_color_swatches": true,
+            "color_swatch_type": "variant",
+            "size_chart": ""
+          }
+        },
+        "variant_pre_order_zyBdWW": {
+          "type": "variant_pre_order",
+          "settings": {
+            "text_size": "text-base",
+            "color_text": "#ffffff",
+            "color_background": "#052c31"
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 15,
+            "show_inventory_transfer": true,
+            "show_inventory_quantity": "low",
+            "color_scheme": "accent-1"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_price": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "enable_back_in_stock": true,
+            "show_back_in_stock_name": false,
+            "show_back_in_stock_phone": false
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "disabled": true,
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share",
+            "show_help_desk": true,
+            "help_label": "Need help?",
+            "help_page": "",
+            "help_page_external": false
+          }
+        },
+        "read_more": {
+          "type": "read_more",
+          "disabled": true,
+          "settings": {}
+        },
+        "spinning_text": {
+          "type": "spinning_text",
+          "disabled": true,
+          "settings": {
+            "text": "Best Seller"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "description",
+        "countdown",
+        "product_variations_GYNCNa",
+        "variant_picker",
+        "variant_pre_order_zyBdWW",
+        "inventory",
+        "buy_buttons",
+        "pickup_availability",
+        "share",
+        "read_more",
+        "spinning_text"
+      ],
+      "settings": {
+        "product": "garda-hot-tub-ce",
+        "enable_sticky_info": true,
+        "media_size": 64,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "below",
+        "image_ratio": "square",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "mobile_layout": "partial",
+        "image_ratio_mobile": "adapt",
+        "mobile_thumbnail": false,
+        "padding_top": 120,
+        "padding_bottom": 80,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "collage_aPckAU": {
+      "type": "collage",
+      "blocks": {
+        "image_QfGzg7": {
+          "type": "image",
+          "settings": {
+            "subheading": "",
+            "heading": "Eco-Foam",
+            "link": "shopify://collections/foam-hot-tubs",
+            "invert_subheading_heading": false,
+            "image": "shopify://shop_images/1._Garda_Hero_0a89f456-d60b-431d-9f4f-d8581a69294b.jpg",
+            "image_ratio": "square",
+            "content_position": "md:items-end md:justify-start",
+            "text_alignment": "left",
+            "image_ratio_mobile": "portrait",
+            "content_position_mobile": "items-end justify-start",
+            "text_alignment_mobile": "left",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#ffffff",
+            "color_highlight": "",
+            "gradient_highlight": "",
+            "color_overlay": "#171717",
+            "overlay_opacity": 10
+          }
+        },
+        "image_HxHYA3": {
+          "type": "image",
+          "settings": {
+            "subheading": "",
+            "heading": "Frame",
+            "link": "shopify://collections/hot-tub-frame-spas",
+            "invert_subheading_heading": false,
+            "image": "shopify://shop_images/Mobile_b92d214f-3c25-4868-b9cf-e474c5bc6f1a.jpg",
+            "image_ratio": "square",
+            "content_position": "md:items-end md:justify-start",
+            "text_alignment": "left",
+            "image_ratio_mobile": "portrait",
+            "content_position_mobile": "items-end justify-start",
+            "text_alignment_mobile": "left",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#ffffff",
+            "color_highlight": "",
+            "gradient_highlight": "",
+            "color_overlay": "#171717",
+            "overlay_opacity": 10
+          }
+        },
+        "image_zHGMxr": {
+          "type": "image",
+          "settings": {
+            "subheading": "",
+            "heading": "Inflatable",
+            "link": "shopify://collections/inflatable-hot-tubs",
+            "invert_subheading_heading": false,
+            "image": "shopify://shop_images/Aegean-Hero.jpg",
+            "image_ratio": "square",
+            "content_position": "md:items-end md:justify-start",
+            "text_alignment": "left",
+            "image_ratio_mobile": "square",
+            "content_position_mobile": "items-end justify-start",
+            "text_alignment_mobile": "left",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#ffffff",
+            "color_highlight": "",
+            "gradient_highlight": "",
+            "color_overlay": "#171717",
+            "overlay_opacity": 10
+          }
+        },
+        "image_8JM8yB": {
+          "type": "image",
+          "settings": {
+            "subheading": "",
+            "heading": "Drop Stitch",
+            "link": "shopify://collections/drop-stitch-hot-tubs",
+            "invert_subheading_heading": false,
+            "image": "shopify://shop_images/Ontario-Hero.jpg",
+            "image_ratio": "square",
+            "content_position": "md:items-end md:justify-start",
+            "text_alignment": "left",
+            "image_ratio_mobile": "square",
+            "content_position_mobile": "items-end justify-start",
+            "text_alignment_mobile": "left",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#ffffff",
+            "color_highlight": "",
+            "gradient_highlight": "",
+            "color_overlay": "#171717",
+            "overlay_opacity": 10
+          }
+        }
+      },
+      "block_order": [
+        "image_QfGzg7",
+        "image_HxHYA3",
+        "image_zHGMxr",
+        "image_8JM8yB"
+      ],
+      "disabled": true,
+      "name": "t:sections.collage.presets.name",
+      "settings": {
+        "heading": "A Hot Tub For Every Ocassion...",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "<p>Browse the full Wave spas collection</p>",
+        "button_label": "Shop All",
+        "button_link": "shopify://collections/hot-tub-full-range",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": true
+      }
+    },
+    "collection-list": {
+      "type": "collection-list",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-entire-collection",
+            "image": "shopify://shop_images/Ontario-Hero-homepage-3.jpg",
+            "title": "All products",
+            "description": "Check out all our products",
+            "overlay_content": true,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-full-range",
+            "image": "shopify://shop_images/spas.jpg",
+            "title": "Hot Tubs",
+            "description": "With built in integrated heaters",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-accessories",
+            "image": "shopify://shop_images/luxury-spa-comfort-pack-drinks-holder-2-head-rests-black-wave-spas-uk-946796.jpg",
+            "title": "Hot Tub Accessories",
+            "description": "Elevate your experience",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        },
+        "collection_9Leb6a": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-chemicals",
+            "image": "shopify://shop_images/hot-tub-chemical-starter-kit-the-kilo-collection-hot-tub-chemical-starter-kit-the-kilo-collection-934154.png",
+            "title": "Hot Tub Chemicals",
+            "description": "Keep your tub clean and fresh",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_zGth8g": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-spare-parts",
+            "image": "shopify://shop_images/connector_transparent.png",
+            "title": "Hot Tub Spare Parts",
+            "description": "Get your spa up and running again",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-6": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-robes",
+            "image": "shopify://shop_images/robes.png",
+            "title": "Changing Robes",
+            "description": "Waterproof, windproof, adventure ready",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        },
+        "collection_HkK9Ei": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "sup-accessories",
+            "title": "SUP Accessories",
+            "description": "Ready for any adventure",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection-4": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "sup-range",
+            "title": "SUPs",
+            "description": "Unleash your surfing spirit",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        },
+        "collection-5": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "kayak-and-canoe-range",
+            "title": "Kayaks & Canoes",
+            "description": "The ultimate water adventure",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection-2",
+        "collection-3",
+        "collection_9Leb6a",
+        "collection_zGth8g",
+        "collection-6",
+        "collection_HkK9Ei",
+        "collection-4",
+        "collection-5"
+      ],
+      "disabled": true,
+      "settings": {
+        "card_style": "card",
+        "image_type": "collection",
+        "image_ratio": "square",
+        "show_products_count": false,
+        "show_view_all": false,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h3",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-full-range",
+            "products": [],
+            "title": "Hot Tubs"
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-accessories",
+            "products": [],
+            "title": "Accessories"
+          }
+        },
+        "collection_wrCVga": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-chemicals",
+            "products": [],
+            "title": "Chemicals"
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "furniture",
+            "products": [],
+            "title": "Furniture"
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection-2",
+        "collection_wrCVga",
+        "collection-3"
+      ],
+      "settings": {
+        "product_limit": 4,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "heading": "Best Sellers",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "blog-posts-collage": {
+      "type": "blog-posts-collage",
+      "settings": {
+        "blog": "wave-spas-uk",
+        "post_limit": 3,
+        "show_view_all": true,
+        "image_ratio": "adapt",
+        "show_tags": false,
+        "show_date": true,
+        "show_comments": false,
+        "show_author": false,
+        "show_excerpt": true,
+        "heading": "Latest Stories",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "rich_text_EczWEh": {
+      "type": "rich-text",
+      "blocks": {
+        "image_ztMhdQ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Trustpilot_Spas.png",
+            "image_width": "custom",
+            "image_max_width": 500,
+            "image_max_width_mobile": 300
+          }
+        },
+        "heading_eBYWU6": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Our reviews speak for themselves",
+            "heading_size": "title-sm",
+            "heading_tag": "h6",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_xe9HUR": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>Rated <em>4.8/5</em> Based on <em>10700+ Reviews</em> with Reviews.io</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "button_39bPj9": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "image_ztMhdQ",
+        "heading_eBYWU6",
+        "text_xe9HUR",
+        "button_39bPj9"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_alignment": "center",
+        "text_alignment_mobile": "center",
+        "heading": "",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#f59e0b",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "17525779273de64cfc": {
+      "type": "apps",
+      "blocks": {
+        "reviews_io_reviewsio_card_carousel_MjbGUz": {
+          "type": "shopify://apps/reviews-io/blocks/reviewsio-card-carousel/92a082e5-b297-4e88-b428-ac96cbc505f9",
+          "settings": {
+            "star": "#00b67b",
+            "review_type": "company",
+            "reviews_shown": 20,
+            "header_bg_colour": "#000000",
+            "header_colour": "#ffffff",
+            "header_star_colour": "#00b67b",
+            "heading_text_colour": "#0e1311",
+            "heading_font": "sans_serif_n4",
+            "body_text_colour": "#0e1311",
+            "badge_icon_colour": "#00b67b",
+            "badge_text_colour": "#0e1311",
+            "bg_start_colour": "#ffffff",
+            "bg_end_colour": "#ffffff",
+            "item_border_width": "0px",
+            "item_border_colour": "#f2f2f2",
+            "item_border_radius": "0px",
+            "item_shadow_size": "10px",
+            "item_shadow_colour": "#f2f2f2",
+            "enable_rich_snippets": false,
+            "disable_same_customer": false,
+            "logo_colour": "var(--logo-inverted)"
+          }
+        }
+      },
+      "block_order": [
+        "reviews_io_reviewsio_card_carousel_MjbGUz"
+      ],
+      "settings": {
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 12,
+        "padding_bottom": 32,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "product_bundle_jxjH8A": {
+      "type": "product-bundle",
+      "disabled": true,
+      "name": "t:sections.product-bundle.presets.name",
+      "settings": {
+        "collection": "hot-tub-full-range",
+        "products": [],
+        "product_limit": 12,
+        "columns": 4,
+        "columns_mobile": "1",
+        "minimum_quantity": 3,
+        "maximum_quantity": 3,
+        "prevent_duplicate_products": true,
+        "allow_quantity_change": true,
+        "quantity_increment": "1",
+        "quantity_minimum": "1",
+        "quantity_maximum": "",
+        "show_variant_labels": false,
+        "picker_type": "dropdown",
+        "enable_color_swatches": true,
+        "color_swatch_type": "color",
+        "heading": "Your bundle",
+        "heading_size": "lg:text-5xl text-2xl",
+        "heading_alignment": "text-left",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": true,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "1776865835daf9f9f6": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_bb42f47_yaVKNb": {
+          "type": "ai_gen_block_bb42f47",
+          "settings": {
+            "placeholder": "Search...",
+            "input_font_size": 16,
+            "input_padding": 14,
+            "border_radius": 8,
+            "input_border_width": 1,
+            "desktop_width_percent": 60,
+            "input_background": "#ffffff",
+            "input_border_color": "#000000",
+            "input_text_color": "#000000",
+            "placeholder_color": "#999999",
+            "icon_color": "#666666",
+            "focus_color": "#0b61cd",
+            "dropdown_background": "#ffffff",
+            "dropdown_border_color": "#000000",
+            "hover_background": "#f5f5f5",
+            "text_color": "#000000",
+            "section_title_color": "#666666",
+            "excerpt_color": "#666666",
+            "meta_color": "#999999"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_bb42f47_yaVKNb"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "slideshow_aYCGKX",
+    "slideshow",
+    "countdown_timer_EWMdYc",
+    "rich-text-1",
+    "collection_list_ia4R7V",
+    "video-with-text-overlay",
+    "featured-product",
+    "collage_aPckAU",
+    "collection-list",
+    "featured-collections",
+    "blog-posts-collage",
+    "rich_text_EczWEh",
+    "17525779273de64cfc",
+    "product_bundle_jxjH8A",
+    "1776865835daf9f9f6"
+  ]
+}
