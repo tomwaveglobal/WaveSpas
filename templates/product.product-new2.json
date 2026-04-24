@@ -1218,6 +1218,7 @@
       "block_order": [
         "heading_QRHRYE"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.name",
       "settings": {
         "text_alignment": "center",
@@ -1493,7 +1494,7 @@
         "show_vendor": false,
         "show_price": true,
         "show_rating": true,
-        "heading": "",
+        "heading": "Compare Spas",
         "heading_size": "title-lg tracking-heading",
         "heading_alignment": "text-center md:items-center",
         "heading_tag": "h2",
