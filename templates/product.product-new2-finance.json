@@ -175,6 +175,34 @@
             "message_text_color": "#00a341"
           }
         },
+        "on_site_message_AzpeAk": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/klarna-logo-v2_15247818-6fe1-47df-99b3-5e24c2e9a156.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "3",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_eHcPRX": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/shop_buttons.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "24",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
         "text_7jAC96": {
           "type": "text",
           "disabled": true,
@@ -282,6 +310,8 @@
         "buy_buttons_nBMjqf",
         "share",
         "on_site_message_EFzeYN",
+        "on_site_message_AzpeAk",
+        "on_site_message_eHcPRX",
         "text_7jAC96",
         "product_bundle_tWCDMV",
         "pickup_availability",
