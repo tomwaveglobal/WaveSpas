@@ -33,10 +33,9 @@
         "mega_menu_tab_zgiwaa": {
           "settings": {
             "tab_products_2": [
-              "aegean-hot-tub-etl",
-              "atlantic-hot-tub-etl",
-              "pacific-hot-tub-etl",
-              "ontario-drop-stitch-hot-tub"
+              "garda-hot-tub-etl",
+              "tahoe-hot-tub-etl",
+              "como-hot-tub-etl"
             ]
           }
         },
