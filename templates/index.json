@@ -316,9 +316,9 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Elevate your lifestyle with our award-winning range of premium hot tubs, designed to make relaxation effortless. As the highest-rated portable hot tub brand on Trustpilot, we blend everyday luxury with industry-leading efficiency across our entire collection. Choose the sleek, contemporary style of our drop-stitch range or the ultimate performance of our frame spas, featuring advanced aluminium panels for up to 70% better efficiency. From our signature foam spas that use up to 60% less energy to our versatile inflatable models, our whisper-quiet heaters and simple setup guides ensure your path to tranquillity is always seamless.</p><p>Soak, relax, <em>switch off.</em> <strong>Wave has you covered.</strong></p>",
+            "text": "<p>Most people don't have a hot tub because they think it requires a patio, a contractor, and a five-figure budget. We've spent the last decade proving it doesn't.</p><p>A Wave Spa arrives in a box and sets up in twenty minutes, no tools required. We're the UK's highest-rated portable hot tub brand on Trustpilot - by some distance - with thousands of five-star reviews from people who hadn't thought this was for them either.</p><p><strong>Soak, relax, </strong><em><strong>switch off.</strong></em><strong> </strong></p>",
             "text_font": "body",
-            "text_size": "subtext-md",
+            "text_size": "subtext-lg",
             "text_max_size": 32,
             "text_line_height": 1.6,
             "text_letter_spacing": 0,
@@ -335,7 +335,7 @@
       "settings": {
         "text_alignment": "left",
         "text_alignment_mobile": "left",
-        "heading": "We believe in the importance of <em>Relaxation</em>",
+        "heading": "Hot tubs, without the <em><strong>hassle.</strong></em>",
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "small",
