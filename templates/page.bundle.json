@@ -210,7 +210,7 @@
         "products": [],
         "product_limit": 3,
         "image": "shopify://shop_images/Untitled-1.jpg",
-        "image_height": "800px",
+        "image_height": "900px",
         "layout": "image_first",
         "content_position": "md:items-end",
         "text_alignment": "left",
