@@ -49,7 +49,7 @@
       ],
       "settings": {
         "transparent_header": true,
-        "image": "shopify://shop_images/HEader_02.jpg",
+        "image": "shopify://shop_images/HEader_03.jpg",
         "image_height": "750px",
         "content_width": "large",
         "content_position": "md:items-end md:justify-start",
