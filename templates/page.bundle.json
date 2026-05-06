@@ -293,7 +293,7 @@
         "product_limit": 3,
         "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
         "layout": "text_first",
-        "content_position": "md:items-end",
+        "content_position": "md:items-start",
         "text_alignment": "right",
         "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
         "image_height_mobile": "400px",
