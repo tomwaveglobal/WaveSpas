@@ -76,6 +76,88 @@
         "parallax_direction": "vertical"
       }
     },
+    "compact-product-bundle": {
+      "type": "compact-product-bundle",
+      "blocks": {
+        "icon": {
+          "type": "icon",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 48,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Create Your Bundle",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Save $30 when buying all 3 items</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "icon",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "collection": "",
+        "products": [],
+        "product_limit": 3,
+        "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
+        "layout": "text_first",
+        "content_position": "md:items-start",
+        "text_alignment": "right",
+        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
+        "image_height_mobile": "400px",
+        "content_position_mobile": "items-center",
+        "text_alignment_mobile": "center",
+        "swipe_on_mobile": true,
+        "show_variant_labels": true,
+        "picker_type": "button",
+        "enable_color_swatches": true,
+        "color_swatch_type": "color",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 35,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
     "floating-product-bundle": {
       "type": "floating-product-bundle",
       "blocks": {
@@ -162,88 +244,6 @@
         "parallax_direction": "vertical"
       }
     },
-    "compact-product-bundle": {
-      "type": "compact-product-bundle",
-      "blocks": {
-        "icon": {
-          "type": "icon",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 48,
-            "link": "",
-            "accessibility_info": "",
-            "external": false
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Create Your Bundle",
-            "heading_size": "title-md",
-            "heading_tag": "h2",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "highlighted_reveal": false
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Save $30 when buying all 3 items</p>",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "icon",
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "collection": "",
-        "products": [],
-        "product_limit": 3,
-        "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
-        "layout": "text_first",
-        "content_position": "md:items-start",
-        "text_alignment": "right",
-        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
-        "image_height_mobile": "400px",
-        "content_position_mobile": "items-center",
-        "text_alignment_mobile": "center",
-        "swipe_on_mobile": true,
-        "show_variant_labels": true,
-        "picker_type": "button",
-        "enable_color_swatches": true,
-        "color_swatch_type": "color",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "color_overlay": "#000000",
-        "overlay_opacity": 35,
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "divider": false,
-        "full_width": false,
-        "rounded": true,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
-      }
-    },
     "rich-text": {
       "type": "rich-text",
       "custom_css": [
@@ -289,8 +289,8 @@
       "settings": {
         "collection": "hot-tub-chemicals",
         "products": [],
-        "product_limit": 6,
-        "columns": 3,
+        "product_limit": 12,
+        "columns": 4,
         "columns_mobile": "1",
         "minimum_quantity": 3,
         "maximum_quantity": 3,
