@@ -176,7 +176,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Create Your Bundle",
+            "heading": "Essential Accessories",
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "none",
@@ -187,7 +187,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Save $30 when buying all 3 items</p>",
+            "text": "<p>Save £30 when buying all 3 items</p>",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
@@ -273,7 +273,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Save $30 when buying all 3 items</p>",
+            "text": "<p>Save £30 when buying all 3 items</p>",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
