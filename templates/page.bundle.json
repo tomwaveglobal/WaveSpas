@@ -49,8 +49,8 @@
       ],
       "settings": {
         "transparent_header": true,
-        "image": "shopify://shop_images/2._Easter_Carousel.png",
-        "image_height": "550px",
+        "image": "shopify://shop_images/HEader_02.jpg",
+        "image_height": "750px",
         "content_width": "large",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
@@ -84,7 +84,7 @@
       "settings": {
         "text_alignment": "left",
         "text_alignment_mobile": "left",
-        "heading": "Buy any 2 and <em>save 10%</em>",
+        "heading": "Buy 3 and <em>save 30%</em>",
         "heading_size": "title-sm",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "large",
@@ -106,7 +106,7 @@
         "color_button_text": "",
         "color_button_background": "",
         "color_button_gradient": "",
-        "padding_top": 52,
+        "padding_top": 100,
         "padding_bottom": 28,
         "divider": false,
         "narrow": false,
@@ -119,22 +119,9 @@
         "@media screen and (min-width: 1536px) {.product-bundle {flex: 0 0 25%; } .product-bundle__sidebar {width: 100%; }}"
       ],
       "settings": {
-        "collection": "",
-        "products": [
-          "como-hot-tub",
-          "garda-hot-tub",
-          "tahoe-hot-tub",
-          "aegean-hot-tub",
-          "atlantic-hot-tub",
-          "pacific-hot-tub",
-          "energy-save-thermal-cover",
-          "insulating-floor-mat",
-          "premium-all-weather-hot-tub-cover",
-          "luxury-comfort-pack-3",
-          "solar-floating-pool-lights",
-          "hot-tub-vacuum"
-        ],
-        "product_limit": 12,
+        "collection": "hot-tub-chemicals",
+        "products": [],
+        "product_limit": 6,
         "columns": 3,
         "columns_mobile": "1",
         "minimum_quantity": 3,
@@ -144,7 +131,7 @@
         "quantity_increment": "1",
         "quantity_minimum": "1",
         "quantity_maximum": "",
-        "show_variant_labels": false,
+        "show_variant_labels": true,
         "picker_type": "button",
         "enable_color_swatches": true,
         "color_swatch_type": "color",
@@ -172,92 +159,6 @@
         "rounded": false
       }
     },
-    "compact-product-bundle": {
-      "type": "compact-product-bundle",
-      "blocks": {
-        "icon": {
-          "type": "icon",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 48,
-            "link": "",
-            "accessibility_info": "",
-            "external": false
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Essential Chemicals",
-            "heading_size": "title-md",
-            "heading_tag": "h2",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "highlighted_reveal": false
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Save $30 when buying all 3 items</p>",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "icon",
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "collection": "",
-        "products": [
-          "filter-catridge-cleaner-1l",
-          "chlorine-granules-1kg",
-          "hot-tub-no-foam-1l"
-        ],
-        "product_limit": 4,
-        "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
-        "layout": "text_first",
-        "content_position": "md:items-start",
-        "text_alignment": "right",
-        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
-        "image_height_mobile": "400px",
-        "content_position_mobile": "items-center",
-        "text_alignment_mobile": "center",
-        "swipe_on_mobile": true,
-        "show_variant_labels": true,
-        "picker_type": "button",
-        "enable_color_swatches": true,
-        "color_swatch_type": "color",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "color_overlay": "#000000",
-        "overlay_opacity": 35,
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "divider": false,
-        "full_width": false,
-        "rounded": true,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
-      }
-    },
     "floating-product-bundle": {
       "type": "floating-product-bundle",
       "blocks": {
@@ -275,7 +176,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Essential Extras",
+            "heading": "Create Your Bundle",
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "none",
@@ -343,6 +244,92 @@
         "enable_parallax": false,
         "parallax_direction": "vertical"
       }
+    },
+    "compact-product-bundle": {
+      "type": "compact-product-bundle",
+      "blocks": {
+        "icon": {
+          "type": "icon",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 48,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Create Your Bundle",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Save $30 when buying all 3 items</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "icon",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "collection": "",
+        "products": [
+          "pacific-hot-tub",
+          "energy-save-thermal-cover",
+          "insulating-floor-mat"
+        ],
+        "product_limit": 3,
+        "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
+        "layout": "text_first",
+        "content_position": "md:items-start",
+        "text_alignment": "right",
+        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
+        "image_height_mobile": "400px",
+        "content_position_mobile": "items-center",
+        "text_alignment_mobile": "center",
+        "swipe_on_mobile": true,
+        "show_variant_labels": true,
+        "picker_type": "button",
+        "enable_color_swatches": true,
+        "color_swatch_type": "color",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 35,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
     }
   },
   "order": [
@@ -350,7 +337,7 @@
     "image-with-text-overlay",
     "rich-text",
     "product-bundle",
-    "compact-product-bundle",
-    "floating-product-bundle"
+    "floating-product-bundle",
+    "compact-product-bundle"
   ]
 }
