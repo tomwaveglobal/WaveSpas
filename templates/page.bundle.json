@@ -135,7 +135,7 @@
           "hot-tub-vacuum"
         ],
         "product_limit": 12,
-        "columns": 4,
+        "columns": 3,
         "columns_mobile": "1",
         "minimum_quantity": 3,
         "maximum_quantity": 3,
@@ -144,7 +144,7 @@
         "quantity_increment": "1",
         "quantity_minimum": "1",
         "quantity_maximum": "",
-        "show_variant_labels": true,
+        "show_variant_labels": false,
         "picker_type": "button",
         "enable_color_swatches": true,
         "color_swatch_type": "color",
