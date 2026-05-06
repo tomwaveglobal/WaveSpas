@@ -125,11 +125,11 @@
       "settings": {
         "collection": "",
         "products": [
-          "pacific-hot-tub",
-          "energy-save-thermal-cover",
-          "insulating-floor-mat"
+          "filter-catridge-cleaner-1l",
+          "chlorine-granules-1kg",
+          "hot-tub-no-foam-1l"
         ],
-        "product_limit": 3,
+        "product_limit": 4,
         "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
         "layout": "text_first",
         "content_position": "md:items-start",
@@ -256,7 +256,7 @@
       "settings": {
         "text_alignment": "left",
         "text_alignment_mobile": "left",
-        "heading": "Buy 2 and <em>save 10%</em>",
+        "heading": "Buy any 3 chemicals and <em>save 10%</em>",
         "heading_size": "title-sm",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "large",
