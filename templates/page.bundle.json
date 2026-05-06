@@ -54,7 +54,6 @@
         "content_width": "large",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
-        "image_mobile": "shopify://shop_images/Mobile_4e61e6c5-7be6-4107-800a-eac3fbeac3ac.jpg",
         "image_height_mobile": "auto",
         "content_position_mobile": "items-end justify-start",
         "text_alignment_mobile": "left",
@@ -331,6 +330,100 @@
         "enable_parallax": false,
         "parallax_direction": "vertical"
       }
+    },
+    "rich_text_rrgLRX": {
+      "type": "rich-text",
+      "custom_css": [
+        "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "Buy 2 and <em>save 10%</em>",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "large",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "<p>The choice is yours. With our bundle builder, you can select any combination from our range of products. The easiest way to keep everyone happy.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "squiggle-underline",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 28,
+        "divider": false,
+        "narrow": false,
+        "rounded": true
+      }
+    },
+    "product_bundle_M3rftG": {
+      "type": "product-bundle",
+      "name": "t:sections.product-bundle.name",
+      "settings": {
+        "collection": "",
+        "products": [
+          "como-hot-tub",
+          "garda-hot-tub",
+          "tahoe-hot-tub",
+          "aegean-hot-tub",
+          "atlantic-hot-tub",
+          "pacific-hot-tub",
+          "energy-save-thermal-cover",
+          "insulating-floor-mat",
+          "premium-all-weather-hot-tub-cover",
+          "solar-floating-pool-lights",
+          "hot-tub-vacuum",
+          "luxury-comfort-pack-3"
+        ],
+        "product_limit": 6,
+        "columns": 3,
+        "columns_mobile": "1",
+        "minimum_quantity": 3,
+        "maximum_quantity": 3,
+        "prevent_duplicate_products": true,
+        "allow_quantity_change": true,
+        "quantity_increment": "1",
+        "quantity_minimum": "1",
+        "quantity_maximum": "",
+        "show_variant_labels": true,
+        "picker_type": "button",
+        "enable_color_swatches": true,
+        "color_swatch_type": "color",
+        "heading": "Your bundle",
+        "heading_size": "lg:text-5xl text-2xl",
+        "heading_alignment": "text-left",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -339,6 +432,8 @@
     "rich-text",
     "product-bundle",
     "floating-product-bundle",
-    "compact-product-bundle"
+    "compact-product-bundle",
+    "rich_text_rrgLRX",
+    "product_bundle_M3rftG"
   ]
 }
