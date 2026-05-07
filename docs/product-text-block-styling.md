@@ -1,6 +1,10 @@
-# Add color, height, and radius options to the product Text block
+# Add color, padding, alignment, and radius options to the product Text block
 
-This document describes how to extend the product page **Text block** with merchant-controlled styling (text color, icon color, background color, alignment, block height, border radius). It is written so an AI agent or developer can replicate the change on another Shopify theme that follows the same architecture.
+This document describes how to extend the product page **Text block** with merchant-controlled styling. It is written so an AI agent or developer can replicate the change on another Shopify theme that follows the same architecture.
+
+**Final settings added:**
+- **Colors:** Text color, Icon color, Background color (independent of each other)
+- **Layout:** Alignment (Left / Center / Right), Vertical padding (px), Border radius (px)
 
 ## Context
 
@@ -206,16 +210,17 @@ Find the `{ "type": "text", "name": "...", "settings": [ ... ] }` block within t
 1. Run `shopify theme dev` (or push to a development theme) and open a product page in the theme editor.
 2. Click an existing **Text** block on a product page → the inspector should now show **Colors** and **Layout** sections with the new settings.
 3. Test each setting:
-   - Set a **background color** → block renders with that background and auto-padding (`px-3 py-2`).
-   - Set **text color** and **icon color** independently → confirm they don't override each other.
-   - Set **block height** → the inner container respects the `min-height`.
-   - Set **border radius** → corners round.
-   - Set **alignment** → text/icon align left/center/right.
-4. Confirm existing Text blocks that haven't been touched still look identical to before (defaults are transparent / 0, so they should be unchanged).
+   - **Background color** → block renders full-width with that background colour edge-to-edge across the section column.
+   - **Text color** and **Icon color** independently → confirm they don't override each other.
+   - **Vertical padding** → padding above and below the text grows; horizontal padding from the theme default stays unchanged.
+   - **Border radius** → corners round.
+   - **Alignment** → Left / Center / Right all visibly position the icon + text inside the block.
+4. Confirm existing Text blocks that haven't been touched still look identical to before (defaults are transparent / 0 / left, so nothing should change visually).
 
 ## Notes for replication on other themes
 
-- This change assumes the theme uses Tailwind-style utility classes (`flex`, `items-center`, `gap-2d5`, `px-3`, `py-2`, `justify-start`/`center`/`end`). If the theme uses a different utility system, swap the class names for the equivalents.
+- This change assumes the theme uses Tailwind-style utility classes (`flex`, `items-center`, `gap-2d5`, `text-left|center|right`, `justify-start|center|end`). If the theme uses a different utility system, swap the class names for the equivalents.
 - The icon snippet is `icon-guarantee.liquid`. Other themes may name it differently (`icon.liquid`, `icon-feature.liquid`); update the `render` calls accordingly. The `currentColor` recoloring trick works as long as the SVG uses `stroke="currentColor"`.
-- The `px-3 py-2` auto-padding is small and unobtrusive. If the theme already pads the block container, this can be removed.
-- If the theme stores blocks as standalone block files (`blocks/text.liquid`) rather than section-scoped blocks, apply the same render and schema changes inside that file instead.
+- This guide assumes the theme has an existing `.product__text-inner` CSS rule that applies default padding (`padding: var(--sp-5) var(--sp-6)` or similar). If that doesn't exist in your theme, add a small default padding (e.g. `px-3 py-2`) to the inner div in the render code so the block doesn't look squashed when a background color is applied with no Vertical padding set.
+- If the theme stores blocks as standalone block files (`blocks/text.liquid`) rather than section-scoped blocks, apply the same render and schema changes inside that file instead. The schema lives in `{% schema %} ... {% endschema %}` at the bottom, and the render is the rest of the file (no `{%- when 'text' -%}` wrapper needed).
+- Why both `text-align` and `justify-content` for alignment: the outer wrapper's `text-align` controls how multi-line text wraps and how inline content sits; the inner flex container's `justify-content` positions the flex items (icon + text) within the full-width block. Using only one of them leaves edge cases — only `text-align` doesn't position flex items, and only `justify-content` doesn't help wrapped text lines.
