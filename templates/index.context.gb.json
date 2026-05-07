@@ -19,7 +19,9 @@
         "image_hc4WwT": {
           "disabled": false,
           "settings": {
-            "heading": "Bring the Holiday Home. <br> <span style=\"color: #F59E0B;\"> Shop</span> Hot Tubs Today!"
+            "image": "shopify://shop_images/Carousel_Home_page_5c7f4b9a-9572-4168-b641-58d54fa1267a.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_2c38bfd8-b0a6-4543-a96d-4c62e417df84.jpg",
+            "heading": "Buy the spa. <span style=\"color: #F59E0B;\"> Skip the admin.</span> <br>x48 filters and starter kit with every <span style=\"color: #F59E0B;\">Foam Tub. </span>"
           }
         },
         "image_9rd3Vt": {
