@@ -79,13 +79,16 @@ Find the `{%- when 'text' -%}` case inside the section's block loop (search for 
   {%- if block.settings.text_color != blank and block.settings.text_color != 'rgba(0,0,0,0)' -%}color: {{ block.settings.text_color }};{%- endif -%}
 {%- endcapture -%}
 {%- assign outer_align = 'left' -%}
+{%- assign justify_class = 'justify-start' -%}
 {%- if block.settings.alignment == 'center' -%}
   {%- assign outer_align = 'center' -%}
+  {%- assign justify_class = 'justify-center' -%}
 {%- elsif block.settings.alignment == 'right' -%}
   {%- assign outer_align = 'right' -%}
+  {%- assign justify_class = 'justify-end' -%}
 {%- endif -%}
 <div class="product__text text-{{ outer_align }}{% if modulo == 0 %} even{% endif %}{% if prev_block.type != 'text' %} first{% endif %}{% if next_block.type != 'text' %} last{% endif %}" {{ block.shopify_attributes }}>
-  <div class="product__text-inner inline-flex items-center gap-2d5{% if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)' %} px-3 py-2{% endif %}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
+  <div class="product__text-inner flex items-center gap-2d5 {{ justify_class }}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
     {%- if block.settings.icon_image != blank -%}
       {%- liquid
         if block.settings.iwidth == 'fit'
@@ -126,10 +129,10 @@ Find the `{%- when 'text' -%}` case inside the section's block loop (search for 
 | Added `icon_style` capture | Lets `icon_color` be applied to the icon container without affecting text. |
 | Added `border-radius` to `text_block_style` | New setting. |
 | `background_height` writes `padding-top` + `padding-bottom` (not `min-height`) | Merchants want vertical breathing room around the text, not a tall empty box. |
-| Outer wrapper uses `text-{{ outer_align }}` and inner uses `inline-flex` | Reliable alignment: the outer block applies `text-align`, the inner shrinks to its content and aligns like inline content. Using `justify-content` on a full-width flex inner doesn't always work because the parent column may constrain width. |
+| Outer wrapper uses `text-{{ outer_align }}`; inner uses `flex` + `justify-content` | The outer block applies `text-align` (handles wrapped lines and inline content), and the inner full-width flex container uses `justify-content` to position the icon + text horizontally. Using both ensures alignment is reliable while the block keeps its full section width — important when a background color is set so the bg fills edge-to-edge. |
 | Wrapped the SVG icon in a `<span class="inline-flex items-center">` with inline color | The icon SVGs use `stroke="currentColor"`, so the wrapper's `color` recolors the icon stroke without touching the text. |
 | Added `figure` inline-style for image icons | Same purpose for image-based icons. |
-| Added `px-3 py-2` to the inner div when a background color is set | Prevents text from touching the edges when a background is applied. |
+| No extra utility padding when bg is set | The default `.product__text-inner` CSS rule (`padding: var(--sp-5) var(--sp-6)`) already provides horizontal/vertical breathing room, and the `background_height` setting writes `padding-top` / `padding-bottom` inline (overriding the vertical default) when the merchant wants more. |
 
 ## Step 2 — Add the schema settings
 
