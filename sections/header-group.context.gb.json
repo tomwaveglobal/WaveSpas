@@ -16,15 +16,18 @@
     "announcement-bar": {
       "settings": {},
       "blocks": {
-        "announcement_mnCMPh": {
-          "disabled": false,
-          "settings": {}
-        },
         "announcement-2": {
           "disabled": false,
           "settings": {
-            "text": "<em><strong>Free x48 Filter Pack & Starter Kit </strong></em>with all Foam Hot Tubs"
+            "text": "<em><strong>Free x48 Filter Pack & Starter Kit </strong></em> on Foam Hot Tubs",
+            "link": "shopify://collections/foam-hot-tubs",
+            "highlighted_text": "text",
+            "text_mobile": "<em><strong>Free Starter Kit  & Filters</strong></em> on Foam Hot Tubs"
           }
+        },
+        "announcement_mnCMPh": {
+          "disabled": false,
+          "settings": {}
         }
       }
     },
