@@ -19,6 +19,12 @@
         "announcement_mnCMPh": {
           "disabled": false,
           "settings": {}
+        },
+        "announcement-2": {
+          "disabled": false,
+          "settings": {
+            "text": "<em><strong>Free x48 Filter Pack & Starter Kit </strong></em>with all Foam Hot Tubs"
+          }
         }
       }
     },
