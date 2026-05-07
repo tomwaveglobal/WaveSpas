@@ -251,13 +251,16 @@
                     {%- if block.settings.text_color != blank and block.settings.text_color != 'rgba(0,0,0,0)' -%}color: {{ block.settings.text_color }};{%- endif -%}
                   {%- endcapture -%}
                   {%- assign outer_align = 'left' -%}
+                  {%- assign justify_class = 'justify-start' -%}
                   {%- if block.settings.alignment == 'center' -%}
                     {%- assign outer_align = 'center' -%}
+                    {%- assign justify_class = 'justify-center' -%}
                   {%- elsif block.settings.alignment == 'right' -%}
                     {%- assign outer_align = 'right' -%}
+                    {%- assign justify_class = 'justify-end' -%}
                   {%- endif -%}
                   <div class="product__text text-{{ outer_align }}{% if modulo == 0 %} even{% endif %}{% if prev_block.type != 'text' %} first{% endif %}{% if next_block.type != 'text' %} last{% endif %}" {{ block.shopify_attributes }}>
-                    <div class="product__text-inner inline-flex items-center gap-2d5{% if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)' %} px-3 py-2{% endif %}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
+                    <div class="product__text-inner flex items-center gap-2d5 {{ justify_class }}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
                       {%- if block.settings.icon_image != blank -%}
                         {%- liquid
                           if block.settings.iwidth == 'fit'
