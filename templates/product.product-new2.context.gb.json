@@ -13,6 +13,15 @@
   },
   "parent": "product.product-new2.json",
   "sections": {
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "text_nncjDG": {
+          "disabled": false,
+          "settings": {}
+        }
+      }
+    },
     "comparison_table_GXKLn7": {
       "settings": {},
       "blocks": {
@@ -45,15 +54,6 @@
           "settings": {
             "product": "pacific-hot-tub"
           }
-        }
-      }
-    },
-    "main-product": {
-      "settings": {},
-      "blocks": {
-        "text_nncjDG": {
-          "disabled": true,
-          "settings": {}
         }
       }
     }
