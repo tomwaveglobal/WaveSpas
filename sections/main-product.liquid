@@ -241,7 +241,7 @@
                   -%}
                   {%- capture text_block_style -%}
                     {%- if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)' -%}background-color: {{ block.settings.background_color }};{%- endif -%}
-                    {%- if block.settings.background_height > 0 -%}min-height: {{ block.settings.background_height }}px;{%- endif -%}
+                    {%- if block.settings.background_height > 0 -%}padding-top: {{ block.settings.background_height }}px;padding-bottom: {{ block.settings.background_height }}px;{%- endif -%}
                     {%- if block.settings.border_radius > 0 -%}border-radius: {{ block.settings.border_radius }}px;{%- endif -%}
                   {%- endcapture -%}
                   {%- capture icon_style -%}
@@ -250,14 +250,14 @@
                   {%- capture text_style -%}
                     {%- if block.settings.text_color != blank and block.settings.text_color != 'rgba(0,0,0,0)' -%}color: {{ block.settings.text_color }};{%- endif -%}
                   {%- endcapture -%}
-                  {%- assign alignment_class = 'justify-start' -%}
+                  {%- assign outer_align = 'left' -%}
                   {%- if block.settings.alignment == 'center' -%}
-                    {%- assign alignment_class = 'justify-center' -%}
+                    {%- assign outer_align = 'center' -%}
                   {%- elsif block.settings.alignment == 'right' -%}
-                    {%- assign alignment_class = 'justify-end' -%}
+                    {%- assign outer_align = 'right' -%}
                   {%- endif -%}
-                  <div class="product__text{% if modulo == 0 %} even{% endif %}{% if prev_block.type != 'text' %} first{% endif %}{% if next_block.type != 'text' %} last{% endif %}" {{ block.shopify_attributes }}>
-                    <div class="product__text-inner flex items-center gap-2d5 {{ alignment_class }}{% if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)' %} px-3 py-2{% endif %}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
+                  <div class="product__text text-{{ outer_align }}{% if modulo == 0 %} even{% endif %}{% if prev_block.type != 'text' %} first{% endif %}{% if next_block.type != 'text' %} last{% endif %}" {{ block.shopify_attributes }}>
+                    <div class="product__text-inner inline-flex items-center gap-2d5{% if block.settings.background_color != blank and block.settings.background_color != 'rgba(0,0,0,0)' %} px-3 py-2{% endif %}"{% if text_block_style != blank %} style="{{ text_block_style }}"{% endif %}>
                       {%- if block.settings.icon_image != blank -%}
                         {%- liquid
                           if block.settings.iwidth == 'fit'
@@ -1938,9 +1938,10 @@
         {
           "type": "range",
           "id": "background_height",
-          "label": "Block height",
+          "label": "Vertical padding",
+          "info": "Adds equal padding above and below the text.",
           "min": 0,
-          "max": 200,
+          "max": 100,
           "step": 2,
           "unit": "px",
           "default": 0
