@@ -19,7 +19,12 @@
         "text_nncjDG": {
           "disabled": false,
           "settings": {
-            "text": "Free 48pk Filter & Starter Kit With Foam Spa Purchases"
+            "text": "Free 48pk Filter & Starter Kit With Foam Spa Purchases",
+            "text_color": "#ffffff",
+            "icon_color": "#ffffff",
+            "background_color": "#f59e0b",
+            "border_radius": 10,
+            "background_height": 10
           }
         }
       }
