@@ -13,18 +13,17 @@
   },
   "parent": "index.json",
   "sections": {
-    "featured-product": {
-      "settings": {
-        "product": "garda-hot-tub-etl"
-      },
-      "blocks": {}
-    },
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
         "image_hc4WwT": {
-          "disabled": true,
-          "settings": {}
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_ebc6195b-1e56-4acf-9c0b-eb7e73679705.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_5e731895-3487-43fa-b5f5-b2cda9ee4063.jpg",
+            "heading": "Set for <span style=\"color: #F59E0B;\">summer. </span> <br>Sorted for the year. <br><span style=\"color: #F59E0B;\">x48 filters</span> with every Tub.",
+            "button_label": "Shop Before Memorial Day"
+          }
         },
         "image_rmPQY4": {
           "disabled": false,
@@ -35,6 +34,18 @@
           "settings": {}
         }
       }
+    },
+    "featured-product": {
+      "settings": {
+        "product": "garda-hot-tub-etl"
+      },
+      "blocks": {}
+    },
+    "blog-posts-collage": {
+      "settings": {
+        "blog": "wave-spas-usa"
+      },
+      "blocks": {}
     }
   }
 }
