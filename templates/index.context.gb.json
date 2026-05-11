@@ -20,7 +20,7 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/carousel_home_bundle.jpg",
-            "image_mobile": "shopify://shop_images/Mobile_2c38bfd8-b0a6-4543-a96d-4c62e417df84.jpg",
+            "image_mobile": "shopify://shop_images/carousel_home_bundle_Mobile.jpg",
             "heading": ".",
             "button_label": "Shop Bundle"
           }
