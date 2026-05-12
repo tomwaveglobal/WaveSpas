@@ -74,7 +74,14 @@
           {%- assign badge_show_text = settings.advanced_badge_map_10_show_text -%}
         {%- endif -%}
 
-        {%- if badge_image != blank -%}
+        {%- if badge_image != blank and badge_show_text -%}
+          <div class="badge-image-wrap relative inline-block">
+            {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
+            <span class="badge badge-on-image flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
+              {{- label_text | escape -}}
+            </span>
+          </div>
+        {%- elsif badge_image != blank -%}
           {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
         {%- elsif badge_show_text -%}
           <span class="badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>

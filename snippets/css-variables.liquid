@@ -246,6 +246,14 @@
       width: {{ settings.advanced_badge_image_desktop | default: 120 }}px;
     }
   }
+  .badge-image-wrap .badge-on-image {
+    position: absolute;
+    left: 50%;
+    bottom: var(--sp-2);
+    transform: translateX(-50%);
+    z-index: 1;
+    white-space: nowrap;
+  }
 
   .product-card__media.swatches-overlay .product-card__bottom {
     position: absolute;
