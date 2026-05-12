@@ -236,6 +236,15 @@
     }
   }
 
+  .badges .badge {
+    font-size: {{ settings.product_badge_text_size | default: 12 }}px;
+  }
+  @media screen and (min-width: 768px) {
+    .badges .badge {
+      font-size: {{ settings.product_badge_text_size_desktop | default: 16 }}px;
+    }
+  }
+
   .badge-image {
     display: block;
     width: {{ settings.advanced_badge_image_mobile | default: 60 }}px;

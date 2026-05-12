@@ -18,11 +18,9 @@
   {%- if label_value != blank -%}
     {%- assign badge_bg = product.metafields.theme.label_color.value | default: settings.product_badge_bg_color -%}
     {%- assign badge_fg = settings.product_badge_text_color | default: '#ffffff' -%}
-    {%- assign badge_size = settings.product_badge_text_size | default: 12 -%}
     {%- capture styles -%}
       {%- if badge_bg != blank -%}--badge-background: {{ badge_bg }};{%- endif -%}
       {%- if badge_fg != blank -%}--badge-foreground: {{ badge_fg }};{%- endif -%}
-      font-size: {{ badge_size }}px;
     {%- endcapture -%}
 
     {%- assign label_entries = label_value | split: ';' -%}

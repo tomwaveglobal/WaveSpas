@@ -1083,8 +1083,19 @@
         "step": 1,
         "unit": "px",
         "default": 12,
-        "label": "Badge text size",
-        "info": "Controls the font size of product badges like \"Free Gift!\""
+        "label": "Badge text size (mobile)",
+        "info": "Controls the font size of product badges like \"Free Gift!\" on screens under 768px"
+      },
+      {
+        "type": "range",
+        "id": "product_badge_text_size_desktop",
+        "min": 8,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 16,
+        "label": "Badge text size (desktop)",
+        "info": "Font size from 768px and up"
       },
       {
         "type": "color",
