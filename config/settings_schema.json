@@ -1178,6 +1178,12 @@
         "label": "Image for badge 1"
       },
       {
+        "type": "checkbox",
+        "id": "advanced_badge_map_1_show_text",
+        "label": "Show text on top of image (badge 1)",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_2_text",
         "label": "Badge text 2"
@@ -1186,6 +1192,12 @@
         "type": "image_picker",
         "id": "advanced_badge_map_2_image",
         "label": "Image for badge 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_2_show_text",
+        "label": "Show text on top of image (badge 2)",
+        "default": true
       },
       {
         "type": "text",
@@ -1198,6 +1210,12 @@
         "label": "Image for badge 3"
       },
       {
+        "type": "checkbox",
+        "id": "advanced_badge_map_3_show_text",
+        "label": "Show text on top of image (badge 3)",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_4_text",
         "label": "Badge text 4"
@@ -1206,6 +1224,12 @@
         "type": "image_picker",
         "id": "advanced_badge_map_4_image",
         "label": "Image for badge 4"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_4_show_text",
+        "label": "Show text on top of image (badge 4)",
+        "default": true
       },
       {
         "type": "text",
@@ -1218,6 +1242,12 @@
         "label": "Image for badge 5"
       },
       {
+        "type": "checkbox",
+        "id": "advanced_badge_map_5_show_text",
+        "label": "Show text on top of image (badge 5)",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_6_text",
         "label": "Badge text 6"
@@ -1226,6 +1256,12 @@
         "type": "image_picker",
         "id": "advanced_badge_map_6_image",
         "label": "Image for badge 6"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_6_show_text",
+        "label": "Show text on top of image (badge 6)",
+        "default": true
       },
       {
         "type": "text",
@@ -1238,6 +1274,12 @@
         "label": "Image for badge 7"
       },
       {
+        "type": "checkbox",
+        "id": "advanced_badge_map_7_show_text",
+        "label": "Show text on top of image (badge 7)",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_8_text",
         "label": "Badge text 8"
@@ -1246,6 +1288,12 @@
         "type": "image_picker",
         "id": "advanced_badge_map_8_image",
         "label": "Image for badge 8"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_8_show_text",
+        "label": "Show text on top of image (badge 8)",
+        "default": true
       },
       {
         "type": "text",
@@ -1258,6 +1306,12 @@
         "label": "Image for badge 9"
       },
       {
+        "type": "checkbox",
+        "id": "advanced_badge_map_9_show_text",
+        "label": "Show text on top of image (badge 9)",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_10_text",
         "label": "Badge text 10"
@@ -1266,6 +1320,12 @@
         "type": "image_picker",
         "id": "advanced_badge_map_10_image",
         "label": "Image for badge 10"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_10_show_text",
+        "label": "Show text on top of image (badge 10)",
+        "default": true
       }
     ]
   },
