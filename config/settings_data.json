@@ -104,6 +104,7 @@
     "product_sold_out": true,
     "product_save_amount": false,
     "product_save_type": "percent",
+    "product_badge_text_size": 8,
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
