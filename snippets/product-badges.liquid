@@ -40,19 +40,31 @@
       {%- endif -%}
 
       {%- if show_label and label_text != blank -%}
-        {%- comment -%}
-          Hardcoded badge image map. To add a new mapping, copy a `when` block
-          and update both the text match and the image URL.
-          To change image sizes, edit the .badge-image CSS in css-variables.liquid.
-        {%- endcomment -%}
-        {%- assign badge_image_url = blank -%}
-        {%- case label_text -%}
-          {%- when 'Free Gift!' -%}
-            {%- assign badge_image_url = 'https://cdn.shopify.com/s/files/1/0058/2284/0889/files/500-x-500_Starter_kit_tag.png?v=1778585052' -%}
-        {%- endcase -%}
+        {%- assign badge_image = blank -%}
+        {%- if settings.advanced_badge_map_1_image != blank and settings.advanced_badge_map_1_text != blank and settings.advanced_badge_map_1_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_1_image -%}
+        {%- elsif settings.advanced_badge_map_2_image != blank and settings.advanced_badge_map_2_text != blank and settings.advanced_badge_map_2_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_2_image -%}
+        {%- elsif settings.advanced_badge_map_3_image != blank and settings.advanced_badge_map_3_text != blank and settings.advanced_badge_map_3_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_3_image -%}
+        {%- elsif settings.advanced_badge_map_4_image != blank and settings.advanced_badge_map_4_text != blank and settings.advanced_badge_map_4_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_4_image -%}
+        {%- elsif settings.advanced_badge_map_5_image != blank and settings.advanced_badge_map_5_text != blank and settings.advanced_badge_map_5_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_5_image -%}
+        {%- elsif settings.advanced_badge_map_6_image != blank and settings.advanced_badge_map_6_text != blank and settings.advanced_badge_map_6_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_6_image -%}
+        {%- elsif settings.advanced_badge_map_7_image != blank and settings.advanced_badge_map_7_text != blank and settings.advanced_badge_map_7_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_7_image -%}
+        {%- elsif settings.advanced_badge_map_8_image != blank and settings.advanced_badge_map_8_text != blank and settings.advanced_badge_map_8_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_8_image -%}
+        {%- elsif settings.advanced_badge_map_9_image != blank and settings.advanced_badge_map_9_text != blank and settings.advanced_badge_map_9_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_9_image -%}
+        {%- elsif settings.advanced_badge_map_10_image != blank and settings.advanced_badge_map_10_text != blank and settings.advanced_badge_map_10_text == label_text -%}
+          {%- assign badge_image = settings.advanced_badge_map_10_image -%}
+        {%- endif -%}
 
-        {%- if badge_image_url != blank -%}
-          <img src="{{ badge_image_url }}" alt="{{ label_text | escape }}" class="badge-image" loading="lazy" />
+        {%- if badge_image != blank -%}
+          {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
         {%- else -%}
           <span class="badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
             {{- label_text | escape -}}
