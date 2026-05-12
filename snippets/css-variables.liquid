@@ -235,6 +235,17 @@
       --page-padding: max(var(--sp-12), 50vw - var(--scrollbar-width, 0px)/2 - var(--page-width)/2);
     }
   }
+
+  .badge-image {
+    display: block;
+    width: {{ settings.product_badge_image_mobile | default: 48 }}px;
+    height: auto;
+  }
+  @media screen and (min-width: 768px) {
+    .badge-image {
+      width: {{ settings.product_badge_image_desktop | default: 72 }}px;
+    }
+  }
 </style>
 
 {%- unless settings.type_body_font.system? -%}
