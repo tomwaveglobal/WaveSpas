@@ -1149,7 +1149,7 @@
         "id": "advanced_badge_image_mobile",
         "min": 16,
         "max": 400,
-        "step": 2,
+        "step": 4,
         "unit": "px",
         "default": 60,
         "label": "Badge image width (mobile)"
