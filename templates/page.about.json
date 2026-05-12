@@ -60,6 +60,7 @@
       ],
       "settings": {
         "transparent_header": true,
+        "image": "shopify://shop_images/Blog_header_e2791fb3-f89d-4b76-b86b-15af229da3f1.jpg",
         "image_height": "750px",
         "content_width": "large",
         "content_position": "md:items-end md:justify-start",
@@ -143,6 +144,8 @@
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/Wave_GJmr-9149.jpg",
+        "image_2": "shopify://shop_images/Wave_GJmr-9132.jpg",
         "image_ratio": "portrait",
         "image_width": "medium",
         "layout": "image_first",
@@ -170,6 +173,8 @@
         "profile-1": {
           "type": "profile",
           "settings": {
+            "image": "shopify://shop_images/Pacific_Grey_Rattan_1.jpg",
+            "image_mobile": "shopify://shop_images/Pacific_Grey_Rattan_1.jpg",
             "heading": "Relax, don't renovate.",
             "text": "<p>The reason most people don't own a hot tub isn't that they don't want one. It's the patio, the contractor, the project that wasn't supposed to be a project. We built Wave so that doesn't happen.<br/><br/></p>",
             "pdf_link": "",
@@ -180,6 +185,8 @@
         "profile-2": {
           "type": "profile",
           "settings": {
+            "image": "shopify://shop_images/Atlantic_Navy_2.jpg",
+            "image_mobile": "shopify://shop_images/Atlantic_Navy_2.jpg",
             "heading": "The reviews say it all.",
             "text": "<p>We'd rather you read what 16,000 customers have said about Wave than what we say about it. Every product page has the reviews built in. Read them before you read us.</p>",
             "pdf_link": "",
@@ -190,6 +197,8 @@
         "profile-3": {
           "type": "profile",
           "settings": {
+            "image": "shopify://shop_images/AdriaticZoom.png",
+            "image_mobile": "shopify://shop_images/AdriaticZoom.png",
             "heading": "Made to be used.",
             "text": "<p>Wave Spas live outside, year-round, and we test in real British weather. They're built to be soaked in, not stared at.</p>",
             "pdf_link": "",
@@ -289,6 +298,9 @@
         "content_width": "small",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
+        "image_1": "shopify://shop_images/Aegean_Navy_3.jpg",
+        "image_2": "shopify://shop_images/Pacific_Dark_Grey_2.jpg",
+        "image_3": "shopify://shop_images/Pacific_Grey_Rattan_2.jpg",
         "image_height_mobile": "auto",
         "content_position_mobile": "items-end justify-start",
         "text_alignment_mobile": "left",
@@ -365,6 +377,7 @@
         "content_QFfdhK": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/Wave_GJmr-9073.jpg",
             "subheading": "2018",
             "heading": "Wave is founded.",
             "heading_tag": "h2",
@@ -382,6 +395,7 @@
         "content-1": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-05-12_132322.png",
             "subheading": "2020",
             "heading": "Two Gold Standards in one year.",
             "heading_tag": "h2",
@@ -399,6 +413,7 @@
         "content-2": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/Sams_Action_Como_2_1348edc2-c452-4ce1-bff8-f9191a694d3e.jpg",
             "subheading": "2021",
             "heading": "The Eco Foam range launches.",
             "heading_tag": "h2",
@@ -568,6 +583,8 @@
       ],
       "name": "t:sections.images-with-text.name",
       "settings": {
+        "image": "shopify://shop_images/SUPinStock.gif",
+        "image_2": "shopify://shop_images/Gemini_Generated_Image_guwowtguwowtguwo.png",
         "image_ratio": "portrait",
         "image_width": "medium",
         "layout": "image_first",
