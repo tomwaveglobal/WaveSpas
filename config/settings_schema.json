@@ -1086,33 +1086,6 @@
         "default": "#f5a623"
       },
       {
-        "type": "range",
-        "id": "product_badge_image_mobile",
-        "min": 16,
-        "max": 400,
-        "step": 2,
-        "unit": "px",
-        "default": 48,
-        "label": "Badge image width (mobile)"
-      },
-      {
-        "type": "range",
-        "id": "product_badge_image_desktop",
-        "min": 16,
-        "max": 600,
-        "step": 4,
-        "unit": "px",
-        "default": 96,
-        "label": "Badge image width (desktop)"
-      },
-      {
-        "type": "textarea",
-        "id": "product_badge_image_map",
-        "label": "Badge image mappings",
-        "info": "One mapping per line in the format Badge text:Image URL. Upload images to Settings → Files first, then paste the URL. Country rules from the badge text still apply.",
-        "placeholder": "Free Gift!:https://cdn.shopify.com/s/files/.../free-gift.png\nNEW IN:https://cdn.shopify.com/s/files/.../new-in.png"
-      },
-      {
         "type": "header",
         "content": "t:settings_schema.products.settings.header__icon_list.content",
         "info": "t:settings_schema.products.settings.header__icon_list.info"

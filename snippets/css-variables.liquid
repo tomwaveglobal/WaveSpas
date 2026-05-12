@@ -236,14 +236,15 @@
     }
   }
 
+  /* Badge image sizes — hardcoded; edit values here to resize */
   .badge-image {
     display: block;
-    width: {{ settings.product_badge_image_mobile | default: 48 }}px;
+    width: 60px;
     height: auto;
   }
   @media screen and (min-width: 768px) {
     .badge-image {
-      width: {{ settings.product_badge_image_desktop | default: 96 }}px;
+      width: 120px;
     }
   }
 </style>

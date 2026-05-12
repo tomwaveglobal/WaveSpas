@@ -40,21 +40,16 @@
       {%- endif -%}
 
       {%- if show_label and label_text != blank -%}
+        {%- comment -%}
+          Hardcoded badge image map. To add a new mapping, copy a `when` block
+          and update both the text match and the image URL.
+          To change image sizes, edit the .badge-image CSS in css-variables.liquid.
+        {%- endcomment -%}
         {%- assign badge_image_url = blank -%}
-        {%- if settings.product_badge_image_map != blank -%}
-          {%- assign map_entries = settings.product_badge_image_map | newline_to_br | split: '<br />' -%}
-          {%- for map_entry in map_entries -%}
-            {%- assign map_trimmed = map_entry | strip -%}
-            {%- if map_trimmed == blank -%}{%- continue -%}{%- endif -%}
-            {%- assign map_parts = map_trimmed | split: ':' -%}
-            {%- assign map_key = map_parts.first | strip -%}
-            {%- if map_key == label_text -%}
-              {%- assign map_value_parts = map_parts | slice: 1, 999 -%}
-              {%- assign badge_image_url = map_value_parts | join: ':' | strip -%}
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
+        {%- case label_text -%}
+          {%- when 'Free Gift!' -%}
+            {%- assign badge_image_url = 'https://cdn.shopify.com/s/files/1/0058/2284/0889/files/500-x-500_Starter_kit_tag.png?v=1778585052' -%}
+        {%- endcase -%}
 
         {%- if badge_image_url != blank -%}
           <img src="{{ badge_image_url }}" alt="{{ label_text | escape }}" class="badge-image" loading="lazy" />
