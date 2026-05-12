@@ -70,6 +70,7 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "transparent_header": false,
+        "image": "shopify://shop_images/Blog_header_US_Spring_Sale_24e8913d-7ec0-4bb8-afb7-53311b9da908.jpg",
         "image_height": "650px",
         "content_width": "small",
         "content_position": "md:items-end md:justify-start",
@@ -309,6 +310,7 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "transparent_header": false,
+        "image": "shopify://shop_images/HEader_03.jpg",
         "image_height": "650px",
         "content_width": "small",
         "content_position": "md:items-end md:justify-start",
@@ -341,6 +343,7 @@
         "logo_4ymXk8": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/Debenhams-logo-500x292.png",
             "height": 80,
             "link": ""
           }
@@ -348,6 +351,7 @@
         "logo_edHmdw": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/b_q_08cd0b36-e206-4fdb-8b24-44c9bcce79ea.jpg",
             "height": 80,
             "link": ""
           }
@@ -355,6 +359,7 @@
         "logo_mWLzLP": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/t3_85131d39-2111-4c5b-951c-bd74781e9429_1_1.png",
             "height": 80,
             "link": ""
           }
@@ -362,6 +367,7 @@
         "logo_P63Ptn": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/homebase_315b03ec-de91-4c05-9c87-073dfe18e511.jpg",
             "height": 80,
             "link": ""
           }
@@ -369,6 +375,7 @@
         "logo_hEGpgt": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/times_1_1.png",
             "height": 80,
             "link": ""
           }
@@ -376,6 +383,7 @@
         "logo_biUpTE": {
           "type": "logo",
           "settings": {
+            "image": "shopify://shop_images/wilko_dcb3e9cc-c682-4ec7-afef-48774f7f6b19.jpg",
             "height": 80,
             "link": ""
           }
@@ -395,7 +403,7 @@
         "grid_horizontal": 70,
         "direction": "left",
         "speed": 5,
-        "heading": "Logo list",
+        "heading": "Trusted by",
         "heading_size": "title-md",
         "heading_alignment": "text-center md:items-center",
         "heading_tag": "h2",
