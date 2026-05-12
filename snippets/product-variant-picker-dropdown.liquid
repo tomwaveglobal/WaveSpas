@@ -36,7 +36,7 @@
       data-option-index="option{{ forloop.index }}"
       data-option-slug="{{ option.name | handleize }}"
     >
-      <div class="form__label flex items-center justify-between gap-2 w-full {{ label_text_size }}">
+      <div class="form__label flex items-center justify-between gap-2 w-full">
         {%- if show_variant_labels -%}
           <label class="flex gap-2" for="Option-{{ section_id }}-{{ product_id }}-{{ forloop.index0 }}">
             {{- option.name -}}:
