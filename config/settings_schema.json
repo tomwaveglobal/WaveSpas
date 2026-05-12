@@ -1153,6 +1153,38 @@
         "content": "Map product badge text (e.g. \"Free Gift!\") to an uploaded image. When a product's badge text matches a mapping, the image replaces the styled text pill. Country rules from the badge text (e.g. GB:NEW IN) still apply."
       },
       {
+        "type": "header",
+        "content": "Visibility"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_show_on_product",
+        "label": "Show on product pages",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_show_on_collection",
+        "label": "Show on collection pages",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_show_on_home",
+        "label": "Show on home page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_show_on_search",
+        "label": "Show on search results",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Image sizing"
+      },
+      {
         "type": "text",
         "id": "advanced_badge_image_mobile",
         "label": "Badge image width (mobile, px)",

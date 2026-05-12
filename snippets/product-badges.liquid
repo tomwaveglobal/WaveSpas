@@ -1,4 +1,18 @@
-{%- assign current_country = localization.country.iso_code | upcase -%}
+{%- liquid
+  assign current_country = localization.country.iso_code | upcase
+
+  assign badges_visible = true
+  if template.name == 'product' and settings.advanced_badge_show_on_product == false
+    assign badges_visible = false
+  elsif template.name == 'collection' and settings.advanced_badge_show_on_collection == false
+    assign badges_visible = false
+  elsif template.name == 'index' and settings.advanced_badge_show_on_home == false
+    assign badges_visible = false
+  elsif template.name == 'search' and settings.advanced_badge_show_on_search == false
+    assign badges_visible = false
+  endif
+-%}
+{%- if badges_visible -%}
 <div class="badges{% if class != blank %} {{ class }}{% endif %} pointer-events-none">
   {%- assign label_value = product.metafields.theme.label.value -%}
   {%- if label_value != blank -%}
@@ -92,3 +106,4 @@
     {%- endfor -%}
   {%- endif -%}
 </div>
+{%- endif -%}
