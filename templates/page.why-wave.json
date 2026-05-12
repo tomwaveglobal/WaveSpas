@@ -257,7 +257,7 @@
         "subheading_BRVYYC": {
           "type": "subheading",
           "settings": {
-            "subheading": "Add a tagline",
+            "subheading": "Effortless Relaxation",
             "subheading_size": "subtitle-md",
             "secondary_color": true
           }
@@ -334,6 +334,94 @@
         "enable_parallax": true,
         "parallax_direction": "vertical"
       }
+    },
+    "logo_list_tLQLLk": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_4ymXk8": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        },
+        "logo_edHmdw": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        },
+        "logo_mWLzLP": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        },
+        "logo_P63Ptn": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        },
+        "logo_hEGpgt": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        },
+        "logo_biUpTE": {
+          "type": "logo",
+          "settings": {
+            "height": 80,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_4ymXk8",
+        "logo_edHmdw",
+        "logo_mWLzLP",
+        "logo_P63Ptn",
+        "logo_hEGpgt",
+        "logo_biUpTE"
+      ],
+      "name": "t:sections.logo-list.name",
+      "settings": {
+        "layout": "default",
+        "grid_horizontal": 70,
+        "direction": "left",
+        "speed": 5,
+        "heading": "Logo list",
+        "heading_size": "title-md",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -341,6 +429,7 @@
     "image_with_text_overlay_EWkC9f",
     "image_with_text_KfQeV6",
     "testimonials_iCx6wm",
-    "image_with_text_overlay_d8z9pp"
+    "image_with_text_overlay_d8z9pp",
+    "logo_list_tLQLLk"
   ]
 }
