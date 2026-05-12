@@ -1120,31 +1120,68 @@
       },
       {
         "type": "header",
-        "content": "Visibility — badges only show on pages ticked below"
+        "content": "Visibility — choose what each page type shows"
       },
       {
-        "type": "checkbox",
-        "id": "advanced_badge_show_on_product",
-        "label": "Show on product pages",
-        "default": false
+        "type": "select",
+        "id": "advanced_badge_mode_product",
+        "label": "Product pages",
+        "options": [
+          { "value": "hidden", "label": "Hidden" },
+          { "value": "text", "label": "Text only" },
+          { "value": "image", "label": "Image only" },
+          { "value": "both", "label": "Image + text" }
+        ],
+        "default": "hidden"
       },
       {
-        "type": "checkbox",
-        "id": "advanced_badge_show_on_collection",
-        "label": "Show on collection pages",
-        "default": false
+        "type": "select",
+        "id": "advanced_badge_mode_collection",
+        "label": "Collection pages",
+        "options": [
+          { "value": "hidden", "label": "Hidden" },
+          { "value": "text", "label": "Text only" },
+          { "value": "image", "label": "Image only" },
+          { "value": "both", "label": "Image + text" }
+        ],
+        "default": "hidden"
       },
       {
-        "type": "checkbox",
-        "id": "advanced_badge_show_on_home",
-        "label": "Show on home page",
-        "default": false
+        "type": "select",
+        "id": "advanced_badge_mode_home",
+        "label": "Home page",
+        "options": [
+          { "value": "hidden", "label": "Hidden" },
+          { "value": "text", "label": "Text only" },
+          { "value": "image", "label": "Image only" },
+          { "value": "both", "label": "Image + text" }
+        ],
+        "default": "hidden"
       },
       {
-        "type": "checkbox",
-        "id": "advanced_badge_show_on_search",
-        "label": "Show on search results",
-        "default": false
+        "type": "select",
+        "id": "advanced_badge_mode_search",
+        "label": "Search results",
+        "options": [
+          { "value": "hidden", "label": "Hidden" },
+          { "value": "text", "label": "Text only" },
+          { "value": "image", "label": "Image only" },
+          { "value": "both", "label": "Image + text" }
+        ],
+        "default": "hidden"
+      },
+      {
+        "type": "select",
+        "id": "advanced_badge_mode_nav",
+        "label": "Top navigation menu",
+        "info": "Product cards inside the header mega-menu dropdown.",
+        "options": [
+          { "value": "hidden", "label": "Hidden" },
+          { "value": "text", "label": "Text only" },
+          { "value": "image", "label": "Image only" },
+          { "value": "both", "label": "Image + text" }
+        ],
+        "default": "hidden"
       },
       {
         "type": "header",

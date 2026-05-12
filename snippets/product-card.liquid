@@ -129,9 +129,7 @@
           {%- endunless -%}
         {%- endif -%}
 
-        {%- unless hide_badges -%}
-          {%- render 'product-badges', product: product, vertical_badges: vertical_badges, show_sold_out: show_sold_out, show_save_amount: show_save_amount, save_type: save_type, class: 'z-2 absolute grid gap-3 pointer-events-none' -%}
-        {%- endunless -%}
+        {%- render 'product-badges', product: product, vertical_badges: vertical_badges, show_sold_out: show_sold_out, show_save_amount: show_save_amount, save_type: save_type, badge_context: badge_context, class: 'z-2 absolute grid gap-3 pointer-events-none' -%}
 
         <a class="block relative media media--{{ image_ratio }}{% unless image_fill %} media--contain{% endunless %}{% unless show_secondary_image and media_count > 1 %} overflow-hidden{% endunless %}" href="{{ product_url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
           {%- unless featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}
