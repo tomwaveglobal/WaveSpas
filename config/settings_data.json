@@ -632,9 +632,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "/* Zendesk widget iframe */iframe#launcher,iframe.zEWidgetLauncher {right: auto !important; left: 20px !important; bottom: 100px !important;}",
-      "/* Pre-order message block — smaller text, less top padding, more bottom */.pre-order-message-block .pre-order-message-container {font-size: 14px !important;}",
-      ".pre-order-message-block .pre-order-message-container.pre-order-message-container-padding {padding-top: 0; padding-bottom: var(--sp-4);}"
+      "/* Zendesk widget iframe */iframe#launcher,iframe.zEWidgetLauncher {right: auto !important; left: 20px !important; bottom: 100px !important;}"
     ]
   }
 }
