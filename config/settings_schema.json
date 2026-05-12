@@ -855,6 +855,13 @@
         "id": "swatch_image_tooltip",
         "label": "t:settings_schema.swatches.settings.swatch_image_tooltip.label",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_swatches_overlay",
+        "label": "Overlay swatches on product image",
+        "info": "When enabled, colour swatches appear over the bottom-centre of the product image on collection cards instead of below it.",
+        "default": false
       }
     ]
   },

@@ -246,6 +246,19 @@
       width: {{ settings.advanced_badge_image_desktop | default: 120 }}px;
     }
   }
+
+  .product-card__media.swatches-overlay .product-card__bottom {
+    position: absolute;
+    left: 50%;
+    bottom: var(--sp-3);
+    transform: translateX(-50%);
+    z-index: 3;
+    padding: var(--sp-1d5) var(--sp-3);
+    background: rgb(var(--color-background) / 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 999px;
+    pointer-events: auto;
+  }
 </style>
 
 {%- unless settings.type_body_font.system? -%}
