@@ -28,15 +28,15 @@
       when 'button'
         if block.settings.enable_color_swatches
           if block.settings.color_swatch_type == 'variant'
-            render 'product-variant-picker-variant', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product', image_ratio: image_ratio, image_ratio_mobile: image_ratio_mobile, image_fill: image_fill
+            render 'product-variant-picker-variant', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, label_text_size: block.settings.label_text_size, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product', image_ratio: image_ratio, image_ratio_mobile: image_ratio_mobile, image_fill: image_fill
           else
-            render 'product-variant-picker-swatch', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
+            render 'product-variant-picker-swatch', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, label_text_size: block.settings.label_text_size, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
           endif
         else
-          render 'product-variant-picker-button', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
+          render 'product-variant-picker-button', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, label_text_size: block.settings.label_text_size, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
         endif
       when 'dropdown'
-        render 'product-variant-picker-dropdown', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
+        render 'product-variant-picker-dropdown', product: product, product_id: product_id, section_id: section_id, enable_dynamic_variants: block.settings.enable_dynamic_variants, show_variant_labels: block.settings.show_variant_labels, label_text_size: block.settings.label_text_size, size_chart: block.settings.size_chart, shopify_attributes: block.shopify_attributes, context: 'product'
     endcase
   -%}
 {%- endunless -%}
