@@ -20,7 +20,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "{{ product.metafields.product_card_overwrite.vendor.value }}",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "breadcrumb_ybVtDL": {
@@ -103,9 +109,9 @@
           "settings": {
             "show_quantity_selector": true,
             "show_price": false,
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true,
-            "enable_back_in_stock": true,
+            "enable_back_in_stock": false,
             "show_back_in_stock_name": false,
             "show_back_in_stock_phone": false
           }
@@ -140,7 +146,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "<strong>Free Shipping On Orders Over £100</strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "text_nyTcfN": {
@@ -151,7 +163,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "<strong>1 Year Warranty</strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "text_gG7GfK": {
@@ -163,7 +181,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "<strong>Excellent Customer Support</strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "text_epWAym": {
@@ -173,7 +197,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "{{ product.metafields.custom.description_snippet.value }}",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "collapsible_tab_G994Ez": {
