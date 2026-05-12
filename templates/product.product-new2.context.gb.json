@@ -22,7 +22,7 @@
             "iwidth": "custom",
             "icon_width": 30,
             "text": "Free 48pk Filter & Starter Kit With ANY Spa Purchase",
-            "text_size": "text-base",
+            "text_size": "text-sm",
             "text_color": "#ffffff",
             "icon_color": "#ffffff",
             "background_color": "#f59e0b",
