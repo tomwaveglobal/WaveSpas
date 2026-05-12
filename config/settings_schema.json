@@ -1086,12 +1086,8 @@
         "default": "#f5a623"
       },
       {
-        "type": "header",
-        "content": "Badge images"
-      },
-      {
         "type": "paragraph",
-        "content": "Map badge text (e.g. \"Free Gift!\") to an uploaded image. When a product's badge text matches, the image is shown instead. Country rules like GB:NEW IN still apply."
+        "content": "Badge images: map badge text (e.g. \"Free Gift!\") to an uploaded image. When a product's badge text matches, the image is shown instead of the styled text pill. Country rules like GB:NEW IN still apply."
       },
       {
         "type": "range",
