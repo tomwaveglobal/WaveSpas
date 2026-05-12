@@ -1,15 +1,15 @@
 {%- liquid
   assign current_country = localization.country.iso_code | upcase
 
-  assign badges_visible = true
-  if template.name == 'product' and settings.advanced_badge_show_on_product == false
-    assign badges_visible = false
-  elsif template.name == 'collection' and settings.advanced_badge_show_on_collection == false
-    assign badges_visible = false
-  elsif template.name == 'index' and settings.advanced_badge_show_on_home == false
-    assign badges_visible = false
-  elsif template.name == 'search' and settings.advanced_badge_show_on_search == false
-    assign badges_visible = false
+  assign badges_visible = false
+  if template.name == 'product' and settings.advanced_badge_show_on_product
+    assign badges_visible = true
+  elsif template.name == 'collection' and settings.advanced_badge_show_on_collection
+    assign badges_visible = true
+  elsif template.name == 'index' and settings.advanced_badge_show_on_home
+    assign badges_visible = true
+  elsif template.name == 'search' and settings.advanced_badge_show_on_search
+    assign badges_visible = true
   endif
 -%}
 {%- if badges_visible -%}

@@ -1112,84 +1112,39 @@
       },
       {
         "type": "header",
-        "content": "t:settings_schema.products.settings.header__icon_list.content",
-        "info": "t:settings_schema.products.settings.header__icon_list.info"
+        "content": "Advanced Badges"
       },
-      {
-        "type": "text",
-        "id": "product_icon_list_metafield",
-        "label": "t:settings_schema.products.settings.product_icon_list_metafield.label",
-        "info": "t:settings_schema.products.settings.product_icon_list_metafield.info"
-      },
-      {
-        "type": "checkbox",
-        "id": "product_icon_list",
-        "default": false,
-        "label": "t:settings_schema.products.settings.product_icon_list.label"
-      },
-      {
-        "visible_if": "{{ settings.product_icon_list == true }}",
-        "type": "range",
-        "id": "product_icon_list_max",
-        "min": 2,
-        "max": 6,
-        "step": 1,
-        "label": "t:settings_schema.products.settings.product_icon_list_max.label",
-        "default": 4
-      },
-      {
-        "visible_if": "{{ settings.product_icon_list == true }}",
-        "type": "checkbox",
-        "id": "product_icon_list_carousel",
-        "default": false,
-        "label": "t:settings_schema.products.settings.product_icon_list_carousel.label"
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.products.settings.header__miscellaneous.content"
-      },
-      {
-        "type": "checkbox",
-        "id": "product_disable_collection_portion",
-        "default": false,
-        "label": "t:settings_schema.products.settings.disable_collection_portion.label"
-      }
-    ]
-  },
-  {
-    "name": "Advanced Badges",
-    "settings": [
       {
         "type": "paragraph",
         "content": "Map product badge text (e.g. \"Free Gift!\") to an uploaded image. When a product's badge text matches a mapping, the image replaces the styled text pill. Country rules from the badge text (e.g. GB:NEW IN) still apply."
       },
       {
         "type": "header",
-        "content": "Visibility"
+        "content": "Visibility — badges only show on pages ticked below"
       },
       {
         "type": "checkbox",
         "id": "advanced_badge_show_on_product",
         "label": "Show on product pages",
-        "default": true
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "advanced_badge_show_on_collection",
         "label": "Show on collection pages",
-        "default": true
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "advanced_badge_show_on_home",
         "label": "Show on home page",
-        "default": true
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "advanced_badge_show_on_search",
         "label": "Show on search results",
-        "default": true
+        "default": false
       },
       {
         "type": "header",
@@ -1369,6 +1324,50 @@
         "id": "advanced_badge_map_10_show_text",
         "label": "Show text on top of image (badge 10)",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.products.settings.header__icon_list.content",
+        "info": "t:settings_schema.products.settings.header__icon_list.info"
+      },
+      {
+        "type": "text",
+        "id": "product_icon_list_metafield",
+        "label": "t:settings_schema.products.settings.product_icon_list_metafield.label",
+        "info": "t:settings_schema.products.settings.product_icon_list_metafield.info"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_icon_list",
+        "default": false,
+        "label": "t:settings_schema.products.settings.product_icon_list.label"
+      },
+      {
+        "visible_if": "{{ settings.product_icon_list == true }}",
+        "type": "range",
+        "id": "product_icon_list_max",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "label": "t:settings_schema.products.settings.product_icon_list_max.label",
+        "default": 4
+      },
+      {
+        "visible_if": "{{ settings.product_icon_list == true }}",
+        "type": "checkbox",
+        "id": "product_icon_list_carousel",
+        "default": false,
+        "label": "t:settings_schema.products.settings.product_icon_list_carousel.label"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.products.settings.header__miscellaneous.content"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_disable_collection_portion",
+        "default": false,
+        "label": "t:settings_schema.products.settings.disable_collection_portion.label"
       }
     ]
   },
