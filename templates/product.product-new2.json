@@ -65,7 +65,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "{{ product.metafields.custom.description_snippet.value }}",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "description": {
@@ -95,7 +101,7 @@
             "picker_type": "button",
             "show_colour_buttons": false,
             "enable_color_swatches": true,
-            "color_swatch_type": "variant",
+            "color_swatch_type": "color",
             "size_chart": ""
           }
         },
@@ -135,7 +141,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "Use code <strong>EXTRA10</strong> for 10% off | Ends Soon!",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "buy_buttons_nBMjqf": {
@@ -183,7 +195,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "Klarna's Pay in 3 / Pay in 30 days are unregulated credit agreements. Borrowing more than you can afford or paying late may negatively impact your financial status and ability to obtain credit. 18+, UK residents only. Subject to status. Late fees may apply. <a href=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\" title=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\">Ts&Cs</a> apply.” or, if applicable, the limited one \"18+, T&C apply, Credit subject to status.",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "product_bundle_tWCDMV": {
@@ -236,7 +254,13 @@
             "iwidth": "custom",
             "icon_width": 30,
             "text": "<strong>Running Cost - From £2 a day</strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "text_9JnzcB": {
@@ -248,7 +272,13 @@
             "iwidth": "custom",
             "icon_width": 30,
             "text": "<strong>UK-based 7-Day Customer Support</strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         },
         "text_wxnQw7": {
@@ -260,7 +290,13 @@
             "iwidth": "custom",
             "icon_width": 30,
             "text": "<strong>Free Chemical & Filter Starter Kit </strong>",
-            "text_size": "text-sm"
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
           }
         }
       },
@@ -562,7 +598,7 @@
           "type": "nav_item",
           "settings": {
             "title": "Comparison Table",
-            "target_id": "shopify-section-template--28923892892035__rich_text_j33Gc7"
+            "target_id": "shopify-section-template--28923892892035__comparison_table_GXKLn7"
           }
         },
         "nav_item_qVtYUr": {
