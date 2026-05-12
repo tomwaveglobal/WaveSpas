@@ -354,6 +354,8 @@
 
       {%- if show_color_swatches and settings.product_card_swatches_overlay == false -%}
         {%- render 'product-card-swatches', product: product, product_url: product_url, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
+      {%- elsif show_color_swatches and settings.product_card_swatches_overlay and settings.product_card_swatches_keep_text -%}
+        {%- render 'product-card-swatches', product: product, product_url: product_url, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
       {%- endif -%}
     </div>
 

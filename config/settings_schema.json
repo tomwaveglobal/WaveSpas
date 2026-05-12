@@ -860,7 +860,14 @@
         "type": "checkbox",
         "id": "product_card_swatches_overlay",
         "label": "Overlay swatches on product image",
-        "info": "When enabled, colour swatches appear over the bottom-centre of the product image on collection cards instead of below it.",
+        "info": "When enabled, colour swatches appear over the bottom-centre of the product image on collection cards.",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_card_swatches_keep_text",
+        "label": "Also keep swatches under the image",
+        "info": "Only applies when overlay is on. Off = overlay only. On = swatches appear in both places.",
         "default": false
       }
     ]
