@@ -107,6 +107,7 @@
         },
         "variant_pre_order_hC7D4E": {
           "type": "variant_pre_order",
+          "disabled": true,
           "settings": {
             "text_size": "text-base lg:text-lg",
             "color_text": "#ffffff",
@@ -155,7 +156,7 @@
           "settings": {
             "show_quantity_selector": true,
             "show_price": false,
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true,
             "enable_back_in_stock": false,
             "show_back_in_stock_name": false,
