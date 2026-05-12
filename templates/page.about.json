@@ -14,6 +14,7 @@
       "disabled": true,
       "settings": {
         "heading_size": "title-xl tracking-heading",
+        "heading_alignment": "text-left",
         "heading_tag": "h1",
         "text_size": "text-base",
         "padding_top": 72,
@@ -29,10 +30,13 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p><em><strong>Add a tagline</strong></em></p>",
+            "text": "<p><em><strong>About Us</strong></em></p>",
             "text_font": "body",
             "text_size": "subtext-lg",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": false,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
@@ -41,11 +45,12 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image with text overlay",
+            "heading": "The UK's highest-rated portable hot tub brand",
             "heading_size": "title-xl tracking-heading",
             "heading_tag": "h2",
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         }
       },
@@ -55,7 +60,6 @@
       ],
       "settings": {
         "transparent_header": true,
-        "image": "",
         "image_height": "750px",
         "content_width": "large",
         "content_position": "md:items-end md:justify-start",
@@ -64,6 +68,8 @@
         "content_position_mobile": "items-end justify-start",
         "text_alignment_mobile": "left",
         "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
         "color_highlight": "#e0a580",
         "gradient_highlight": "",
         "color_button_text": "#171717",
@@ -86,23 +92,36 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Example <em>heading</em>",
-            "heading_size": "title-md",
+            "heading": "We didn't start Wave because the world needed another <em><strong>hot tub brand.</strong></em>",
+            "heading_size": "title-sm",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline"
+            "highlighted_scribble": "basic-underline",
+            "highlighted_reveal": false
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<br/><br/>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store. Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>We started it because most people who want one will never have one.</p><p>For most households, a hot tub is shorthand for hassle. A patio you don't have. A contractor you don't want to call. A price tag that turns an afternoon's idea into a five-year plan. The biggest market in leisure, in other words, is the one that never gets to enjoy it.</p><p>We thought that was nonsense.</p><p>A decade later, Wave is the UK's highest-rated portable hot tub brand on Trustpilot, with thousands of five-star reviews from people who'd never have called themselves hot tub people. We built the company for them and we're still building it for them.</p><p><em>Tom & Dan, Founders</em></p>",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": false,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
+          }
+        },
+        "image_jYQnJH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Tom_Dan_signature.png",
+            "image_width": "custom",
+            "image_max_width": 410,
+            "image_max_width_mobile": 180
           }
         },
         "button": {
@@ -112,6 +131,7 @@
             "button_link": "",
             "button_style": "secondary",
             "button_size": "md",
+            "button_external": false,
             "button_icon": true
           }
         }
@@ -119,11 +139,10 @@
       "block_order": [
         "heading",
         "text",
+        "image_jYQnJH",
         "button"
       ],
       "settings": {
-        "image": "",
-        "image_2": "",
         "image_ratio": "portrait",
         "image_width": "medium",
         "layout": "image_first",
@@ -151,9 +170,9 @@
         "profile-1": {
           "type": "profile",
           "settings": {
-            "image": "",
-            "heading": "Example title",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<br/><br/>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store. Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "heading": "Relax, don't renovate.",
+            "text": "<p>The reason most people don't own a hot tub isn't that they don't want one. It's the patio, the contractor, the project that wasn't supposed to be a project. We built Wave so that doesn't happen.<br/><br/></p>",
+            "pdf_link": "",
             "color_text": "#ffffff",
             "color_background": "#000000"
           }
@@ -161,9 +180,9 @@
         "profile-2": {
           "type": "profile",
           "settings": {
-            "image": "",
-            "heading": "Example title",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<br/><br/>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store. Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "heading": "The reviews say it all.",
+            "text": "<p>We'd rather you read what 16,000 customers have said about Wave than what we say about it. Every product page has the reviews built in. Read them before you read us.</p>",
+            "pdf_link": "",
             "color_text": "#ffffff",
             "color_background": "#000000"
           }
@@ -171,9 +190,9 @@
         "profile-3": {
           "type": "profile",
           "settings": {
-            "image": "",
-            "heading": "Example title",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<br/><br/>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store. Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "heading": "Made to be used.",
+            "text": "<p>Wave Spas live outside, year-round, and we test in real British weather. They're built to be soaked in, not stared at.</p>",
+            "pdf_link": "",
             "color_text": "#ffffff",
             "color_background": "#000000"
           }
@@ -186,19 +205,25 @@
       ],
       "settings": {
         "columns": 4,
+        "carousel_on_desktop": false,
         "layout": "grid",
         "image_ratio": "portrait",
         "image_ratio_mobile": "portrait",
         "columns_mobile": "1",
         "swipe_on_mobile": true,
-        "heading": "Talk about your <em>brand</em>",
+        "heading": "What we believe",
         "heading_size": "title-md",
         "heading_alignment": "text-left justify-start",
         "heading_tag": "h2",
-        "subheading": "Add a tagline",
-        "description": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "subheading": "Effortless Relaxation",
+        "description": "<p>Everything we make is built around one idea - that relaxation should be effortless. These three convictions are how we get there.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
         "highlighted_text": "scribble",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "",
         "color_background": "",
         "gradient_background": "",
@@ -214,36 +239,75 @@
         "rounded": false
       }
     },
-    "scrolling-text": {
-      "type": "scrolling-text",
+    "images_with_text_overlay_q7LqaG": {
+      "type": "images-with-text-overlay",
       "blocks": {
-        "text": {
+        "subheading_Kba8mc": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "For the rest of us",
+            "subheading_size": "subtitle-md",
+            "secondary_color": true
+          }
+        },
+        "heading_WaNDbP": {
+          "type": "heading",
+          "settings": {
+            "heading": "Who we're for?",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_jkiYzC": {
           "type": "text",
           "settings": {
-            "text": "<em><strong>Free shipping and returns</strong></em>",
-            "text_size": 160,
+            "text": "<p>Many of our customers are first timers, couples looking for time to connect or families looking for some quality time. Most are doing it on a normal budget, on a normal weekend, in a normal garden. None of them needed a contractor.</p>",
             "text_font": "body",
-            "highlighted_text": "stencil",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
         }
       },
       "block_order": [
-        "text"
+        "subheading_Kba8mc",
+        "heading_WaNDbP",
+        "text_jkiYzC"
       ],
+      "name": "t:sections.images-with-text-overlay.name",
       "settings": {
-        "direction": "left",
-        "speed": 20,
-        "grid_horizontal": 70,
-        "enable_twin": false,
-        "enable_parallax": true,
-        "color_text": "",
+        "transparent_header": false,
+        "image_height": "650px",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
         "color_background": "",
         "gradient_background": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 100,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "divider": false,
-        "rounded": false
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true
       }
     },
     "testimonials": {
@@ -253,9 +317,14 @@
           "type": "testimonial",
           "settings": {
             "icon": "quote",
-            "text": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
-            "author": "Author's name",
-            "image_ratio": "rounded"
+            "text": "<p>When it arrived I thought oh god this looks complicated, but it's not! It took about 20 minutes to build, my first soak was fabulous, and I slept like a baby. Best purchase so far.</p>",
+            "author": "Dawn, Manchester. ★★★★★",
+            "author_info": "",
+            "author_url": "",
+            "image_ratio": "rounded",
+            "image_height": 30,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         }
       },
@@ -271,9 +340,11 @@
         "description": "",
         "button_label": "",
         "button_link": "",
+        "button_external": false,
         "button_icon": true,
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "",
         "color_background": "",
         "gradient_background": "",
@@ -291,93 +362,141 @@
     "timeline": {
       "type": "timeline",
       "blocks": {
+        "content_QFfdhK": {
+          "type": "content",
+          "settings": {
+            "subheading": "2018",
+            "heading": "Wave is founded.",
+            "heading_tag": "h2",
+            "text": "<p>Two founders, one conviction: that the things putting people off owning a hot tub - patios, contractors, five-figure budgets - were the wrong problem to be solving.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
         "content-1": {
           "type": "content",
           "settings": {
-            "image": "",
-            "subheading": "2019",
-            "heading": "Image with text",
+            "subheading": "2020",
+            "heading": "Two Gold Standards in one year.",
             "heading_tag": "h2",
-            "text": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>The industry agrees. In our second full year of trading, Wave wins both Gold Standard Spa Retailer of the Year <em>and</em> Gold Standard Spa Product of the Year.</p>",
             "button_label": "",
             "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
             "button_icon": true,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "content-2": {
           "type": "content",
           "settings": {
-            "image": "",
-            "subheading": "2020",
-            "heading": "Image with text",
+            "subheading": "2021",
+            "heading": "The Eco Foam range launches.",
             "heading_tag": "h2",
-            "text": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>A new category of portable hot tub, designed from scratch around insulation and efficiency. First to market - and still the benchmark.</p>",
             "button_label": "",
             "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
             "button_icon": true,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "content-3": {
           "type": "content",
           "settings": {
-            "image": "",
-            "subheading": "2021",
-            "heading": "Image with text",
+            "subheading": "2023",
+            "heading": "Heat Integrated Technology arrives (HIT).",
             "heading_tag": "h2",
-            "text": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>We move the heater inside the spa. Quieter. Faster. Neater. The product gets a little closer to the simplicity the brand was built on.</p>",
             "button_label": "",
             "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
             "button_icon": true,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "content-4": {
           "type": "content",
           "settings": {
-            "image": "",
-            "subheading": "2022",
-            "heading": "Image with text",
+            "subheading": "2024",
+            "heading": "WaveFlow launches.",
             "heading_tag": "h2",
-            "text": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>A new dual-circulation system: cleaner water, better flow, less for the owner to think about. The same logic, applied again - take the hassle out, leave the soaking in.</p>",
             "button_label": "",
             "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
             "button_icon": true,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "content-5": {
           "type": "content",
           "settings": {
-            "image": "",
-            "subheading": "2024",
-            "heading": "Image with text",
+            "subheading": "2025",
+            "heading": "A second Product of the Year.",
             "heading_tag": "h2",
-            "text": "<p>Share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>The Adriatic, featuring WaveFlow, takes Gold Standard Spa Product of the Year. Five years on from the first. Waveflow Technology also picks up a gold standard, now featured accross the full range.<br/><br/></p>",
             "button_label": "",
             "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
             "button_icon": true,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content_cNAUzV": {
+          "type": "content",
+          "settings": {
+            "subheading": "2026",
+            "heading": "Highest rated, by some distance.",
+            "heading_tag": "h2",
+            "text": "<p>Wave becomes the UK's highest-rated portable hot tub brand on Trustpilot. The customers, finally, get the last word.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         }
       },
       "block_order": [
+        "content_QFfdhK",
         "content-1",
         "content-2",
         "content-3",
         "content-4",
-        "content-5"
+        "content-5",
+        "content_cNAUzV"
       ],
       "settings": {
+        "show_navigation": true,
+        "layout": "image_first",
         "image_ratio": "portrait",
         "image_ratio_mobile": "wide",
-        "heading": "Example heading",
+        "heading": "The Wave Journey",
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
@@ -385,6 +504,7 @@
         "description": "",
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "#ffffff",
         "color_background": "#171717",
         "gradient_background": "",
@@ -400,16 +520,88 @@
         "rounded": true
       }
     },
+    "images_with_text_9M6tEm": {
+      "type": "images-with-text",
+      "blocks": {
+        "heading_TT4gcp": {
+          "type": "heading",
+          "settings": {
+            "heading": "One more thing",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_hLAdaf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We also make paddleboards, kayaks and canoes under Wave Watersports. Different kit, same principle - get on the water without making a project of it.</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "button_RdmzrC": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Watersports",
+            "button_link": "",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": true,
+            "button_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_TT4gcp",
+        "text_hLAdaf",
+        "button_RdmzrC"
+      ],
+      "name": "t:sections.images-with-text.name",
+      "settings": {
+        "image_ratio": "portrait",
+        "image_width": "medium",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": true
+      }
+    },
     "rich-text": {
       "type": "rich-text",
       "blocks": {
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Add a tagline</p>",
+            "text": "",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": false,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -418,11 +610,12 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Example <em>heading</em>",
+            "heading": "Trusted by",
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
-            "highlighted_scribble": "squiggle-underline"
+            "highlighted_scribble": "basic-underline",
+            "highlighted_reveal": false
           }
         }
       },
@@ -436,14 +629,17 @@
         "heading": "",
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
         "heading_tag": "h2",
         "subheading": "",
         "description": "",
         "button_label": "",
         "button_link": "",
+        "button_external": false,
         "button_icon": true,
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "",
         "color_background": "#fafafa",
         "gradient_background": "",
@@ -465,7 +661,7 @@
         "logo-1": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/wilko_dcb3e9cc-c682-4ec7-afef-48774f7f6b19.jpg",
             "height": 60,
             "link": ""
           }
@@ -473,7 +669,7 @@
         "logo-2": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/Debenhams-logo-500x292.png",
             "height": 60,
             "link": ""
           }
@@ -481,7 +677,7 @@
         "logo-3": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/t3_85131d39-2111-4c5b-951c-bd74781e9429_1_1.png",
             "height": 60,
             "link": ""
           }
@@ -489,7 +685,7 @@
         "logo-4": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/b_q_30deb5bc-1968-4bb1-8553-bb1ac984c8ba.jpg",
             "height": 60,
             "link": ""
           }
@@ -497,7 +693,7 @@
         "logo-5": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/amazon_1_1_1_bd7555cc-96d4-49e6-b670-ebf94b2d2d7b.png",
             "height": 60,
             "link": ""
           }
@@ -505,7 +701,7 @@
         "logo-6": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/times_1_1.png",
             "height": 60,
             "link": ""
           }
@@ -513,7 +709,7 @@
         "logo-7": {
           "type": "logo",
           "settings": {
-            "image": "",
+            "image": "shopify://shop_images/homebase_315b03ec-de91-4c05-9c87-073dfe18e511.jpg",
             "height": 60,
             "link": ""
           }
@@ -541,9 +737,11 @@
         "description": "",
         "button_label": "",
         "button_link": "",
+        "button_external": false,
         "button_icon": true,
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "",
         "color_background": "#fafafa",
         "gradient_background": "",
@@ -565,9 +763,10 @@
     "image-with-text-overlay",
     "images-with-text",
     "portfolio",
-    "scrolling-text",
+    "images_with_text_overlay_q7LqaG",
     "testimonials",
     "timeline",
+    "images_with_text_9M6tEm",
     "rich-text",
     "logo-list"
   ]
