@@ -107,6 +107,7 @@
     "product_badge_text_size": 8,
     "product_badge_text_size_desktop": 12,
     "advanced_badge_show_on_product": true,
+    "advanced_badge_show_on_collection": true,
     "advanced_badge_image_mobile": "100",
     "advanced_badge_image_desktop": "180",
     "advanced_badge_map_1_text": "Free Starter Kit & Filters",
