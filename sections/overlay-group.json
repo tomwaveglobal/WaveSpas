@@ -140,6 +140,104 @@
         "color_drawer_overlay": "#171717"
       }
     },
+    "newsletter-popup-mobile": {
+      "type": "newsletter-popup-mobile",
+      "disabled": true,
+      "blocks": {
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>FIRST TIMER?</p>",
+            "text_font": "body",
+            "text_size": "subtext-custom",
+            "text_max_size": 12,
+            "secondary_color": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sign up and get <em>5% off</em> your first order",
+            "heading_size": "text-2xl lg:text-3xl",
+            "heading_tag": "h2",
+            "highlighted_text": "scribble",
+            "highlighted_scribble": "basic-underline"
+          }
+        },
+        "spacing": {
+          "type": "spacing",
+          "settings": {
+            "height": 32,
+            "height_mobile": 12
+          }
+        },
+        "form": {
+          "type": "form",
+          "settings": {}
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Subscribe to our newsletter and be the first to hear about our new arrivals, special promotions and online exclusives.</p>",
+            "text_font": "body",
+            "text_size": "text-sm",
+            "text_max_size": 32,
+            "secondary_color": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "media": {
+          "type": "media",
+          "settings": {}
+        },
+        "floating": {
+          "type": "floating",
+          "settings": {
+            "heading": "GET 5% OFF",
+            "content_position": "left-0",
+            "show_social": false,
+            "mobile_disabled": true,
+            "mobile_hide_social": true,
+            "color_text": "#171717",
+            "color_background": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "text-1",
+        "heading",
+        "spacing",
+        "form",
+        "text-2",
+        "media",
+        "floating"
+      ],
+      "settings": {
+        "mode": "enabled",
+        "only_homepage": true,
+        "only_visitor": false,
+        "delay": 60,
+        "expiry": 30,
+        "text_alignment": "left",
+        "content_position": "left-0",
+        "flow": "email_then_mobile",
+        "allow_skip": true,
+        "step_heading": "Get SMS-exclusive offers",
+        "step_text": "<p>Add your mobile number to receive our best deals first by text.</p>",
+        "success_heading": "You're in!",
+        "success_text": "<p>Thanks — check your inbox for your discount code.</p>",
+        "color_drawer_text": "#171717",
+        "color_drawer_background": "#ffffff",
+        "color_drawer_highlight": "#f59e0b",
+        "color_drawer_button_text": "#ffffff",
+        "color_drawer_button_background": "#171717",
+        "color_drawer_button_gradient": "",
+        "color_drawer_overlay": "#171717"
+      }
+    },
     "age-verifier": {
       "type": "age-verifier",
       "blocks": {
@@ -336,6 +434,7 @@
     "cart-drawer",
     "search-drawer",
     "newsletter-popup",
+    "newsletter-popup-mobile",
     "age-verifier",
     "cookie-banner",
     "mobile-dock"
