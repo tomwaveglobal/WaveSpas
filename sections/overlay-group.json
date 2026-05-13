@@ -17,6 +17,7 @@
         "show_vendor": false,
         "show_cart_note": false,
         "show_shipping_calculator": true,
+        "add_discount_code": true,
         "show_view_cart_button": false,
         "show_checkout_button": true,
         "show_free_shipping_bar": true,
@@ -59,6 +60,9 @@
             "text_font": "body",
             "text_size": "subtext-custom",
             "text_max_size": 12,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": true,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -71,7 +75,8 @@
             "heading_size": "text-2xl lg:text-3xl",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline"
+            "highlighted_scribble": "basic-underline",
+            "highlighted_reveal": false
           }
         },
         "spacing": {
@@ -92,6 +97,9 @@
             "text_font": "body",
             "text_size": "text-sm",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": true,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -123,6 +131,7 @@
         "media",
         "floating"
       ],
+      "disabled": true,
       "settings": {
         "mode": "enabled",
         "only_homepage": true,
@@ -142,7 +151,6 @@
     },
     "newsletter-popup-mobile": {
       "type": "newsletter-popup-mobile",
-      "disabled": true,
       "blocks": {
         "text-1": {
           "type": "text",
@@ -151,6 +159,9 @@
             "text_font": "body",
             "text_size": "subtext-custom",
             "text_max_size": 12,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": true,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -163,7 +174,8 @@
             "heading_size": "text-2xl lg:text-3xl",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline"
+            "highlighted_scribble": "basic-underline",
+            "highlighted_reveal": false
           }
         },
         "spacing": {
@@ -184,6 +196,9 @@
             "text_font": "body",
             "text_size": "text-sm",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": true,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -223,7 +238,7 @@
         "expiry": 30,
         "text_alignment": "left",
         "content_position": "left-0",
-        "flow": "email_then_mobile",
+        "flow": "mobile_only",
         "allow_skip": true,
         "step_heading": "Get SMS-exclusive offers",
         "step_text": "<p>Add your mobile number to receive our best deals first by text.</p>",
@@ -231,6 +246,7 @@
         "success_text": "<p>Thanks — check your inbox for your discount code.</p>",
         "show_sms_consent": true,
         "sms_consent_text": "<p>I agree to receive marketing text messages from Wave Spas at the number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe.</p>",
+        "require_consent_checkbox": false,
         "color_drawer_text": "#171717",
         "color_drawer_background": "#ffffff",
         "color_drawer_highlight": "#f59e0b",
@@ -250,7 +266,8 @@
             "heading_size": "text-lg-2xl",
             "heading_tag": "h2",
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "text": {
@@ -260,6 +277,9 @@
             "text_font": "body",
             "text_size": "text-base",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": false,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -314,7 +334,8 @@
             "heading_size": "text-lg-2xl",
             "heading_tag": "h2",
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
           }
         },
         "text": {
@@ -324,6 +345,9 @@
             "text_font": "body",
             "text_size": "text-base",
             "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
             "secondary_color": false,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -442,4 +466,3 @@
     "mobile-dock"
   ]
 }
-
