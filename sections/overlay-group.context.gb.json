@@ -20,7 +20,11 @@
     },
     "newsletter-popup-mobile": {
       "disabled": false,
-      "settings": {},
+      "settings": {
+        "only_homepage": false,
+        "delay": 10,
+        "expiry": 1
+      },
       "blocks": {}
     }
   }
