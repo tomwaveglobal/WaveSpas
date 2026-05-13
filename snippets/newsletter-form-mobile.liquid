@@ -199,25 +199,6 @@
                 </button>
               </div>
             {%- endif -%}
-
-            {%- comment -%} dead branch kept for clean removal of stale block {%- endcomment -%}
-            <div class="hidden">
-              {%- if false -%}
-                <button type="submit" class="button button--primary flex justify-center items-center" data-newsletter-submit>
-                  <span class="btn-text">{{ 'general.newsletter.submit' | t }}</span>
-                </button>
-              {%- else -%}
-                <button type="button" class="button button--primary flex justify-center items-center" data-newsletter-next>
-                  <span class="btn-text">{{ 'general.newsletter.next' | t }}</span>
-                </button>
-              {%- endif -%}
-
-              {%- if allow_skip and step_count > 1 and is_last == false -%}
-                <button type="button" class="link inline-block" data-newsletter-skip>
-                  {{- 'general.newsletter.skip' | t -}}
-                </button>
-              {%- endif -%}
-            </div>
           </div>
         {%- endif -%}
       {%- endif -%}
