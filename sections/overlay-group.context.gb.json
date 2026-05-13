@@ -17,6 +17,11 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "newsletter-popup-mobile": {
+      "disabled": false,
+      "settings": {},
+      "blocks": {}
     }
   }
 }
