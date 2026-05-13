@@ -98,7 +98,12 @@
     "newsletter": {
       "label": "Enter your email",
       "success": "Thanks for subscribing",
-      "submit": "Subscribe"
+      "submit": "Subscribe",
+      "next": "Continue",
+      "phone_label": "Mobile number",
+      "phone_invalid": "Please enter a valid mobile number",
+      "sms_consent": "I agree to receive marketing text messages from Wave Spas at the number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe.",
+      "skip": "Skip"
     },
     "search": {
       "title": "Search",
