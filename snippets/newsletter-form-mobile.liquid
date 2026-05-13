@@ -181,12 +181,6 @@
                   {{- 'general.newsletter.skip' | t -}}
                 </button>
               {%- endif -%}
-
-              {%- if allow_skip and step_count > 1 and is_last -%}
-                <button type="button" class="link inline-block" data-newsletter-skip-final>
-                  {{- 'general.newsletter.skip' | t -}}
-                </button>
-              {%- endif -%}
             </div>
           </div>
         {%- endif -%}
