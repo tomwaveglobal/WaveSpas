@@ -103,6 +103,48 @@
             "help_page_external": false
           }
         },
+        "on_site_message_bRUC8y": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Klarna.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "3",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_gkMxRa": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/DivideBuy.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "12",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_QWzbc3": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Payl8r.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "24",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
         "product_bundle_tWCDMV": {
           "type": "product_bundle",
           "settings": {
@@ -236,6 +278,9 @@
         "variant_picker",
         "buy_buttons",
         "share",
+        "on_site_message_bRUC8y",
+        "on_site_message_gkMxRa",
+        "on_site_message_QWzbc3",
         "product_bundle_tWCDMV",
         "inventory",
         "pickup_availability",
