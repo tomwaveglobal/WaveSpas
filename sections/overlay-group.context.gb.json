@@ -14,12 +14,12 @@
   },
   "sections": {
     "newsletter-popup": {
-      "disabled": true,
+      "disabled": false,
       "settings": {},
       "blocks": {}
     },
     "newsletter-popup-mobile": {
-      "disabled": false,
+      "disabled": true,
       "settings": {
         "only_homepage": false,
         "delay": 10,
