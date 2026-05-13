@@ -41,6 +41,9 @@
   if show_mobile
     assign default_tags = 'newsletter, sms-marketing-consent'
   endif
+  if flow == 'mobile_only'
+    assign default_tags = 'sms-marketing-consent, sms-only-signup'
+  endif
 -%}
 
 <div class="newsletter-form-mobile-wrap"
