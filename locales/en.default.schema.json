@@ -4019,6 +4019,14 @@
         "success_text": {
           "label": "Success message",
           "default": "<p>Thanks — check your inbox for your discount code.</p>"
+        },
+        "show_sms_consent": {
+          "label": "Show SMS consent text",
+          "info": "When on, customers must tick a consent box before submitting the mobile step."
+        },
+        "sms_consent_text": {
+          "label": "SMS consent text",
+          "info": "Shown next to the consent checkbox on the mobile step. Required for SMS marketing in most regions."
         }
       }
     },
