@@ -3975,6 +3975,61 @@
     "newsletter-banner": {
       "name": "Email signup banner"
     },
+    "newsletter-popup-mobile": {
+      "name": "Newsletter popup with Mobile",
+      "settings": {
+        "header__flow": {
+          "content": "Sign-up flow"
+        },
+        "flow": {
+          "label": "Fields & order",
+          "info": "Pick which fields to collect and in what order.",
+          "options__1": {
+            "label": "Email, then mobile"
+          },
+          "options__2": {
+            "label": "Mobile, then email"
+          },
+          "options__3": {
+            "label": "Email only"
+          },
+          "options__4": {
+            "label": "Mobile only"
+          }
+        },
+        "allow_skip": {
+          "label": "Allow customer to skip second step",
+          "info": "When on, a 'Skip' link lets them submit with only the first field."
+        },
+        "header__mobile_step": {
+          "content": "Mobile step copy"
+        },
+        "step_heading": {
+          "label": "Mobile-step heading",
+          "default": "Get SMS-exclusive offers"
+        },
+        "step_text": {
+          "label": "Mobile-step text",
+          "default": "<p>Add your mobile number to receive our best deals first by text.</p>"
+        },
+        "success_heading": {
+          "label": "Success heading",
+          "default": "You're in!"
+        },
+        "success_text": {
+          "label": "Success message",
+          "default": "<p>Thanks — check your inbox for your discount code.</p>"
+        },
+        "show_sms_consent": {
+          "label": "Show SMS consent text",
+          "info": "When on, customers must tick a consent box before submitting the mobile step."
+        },
+        "sms_consent_text": {
+          "label": "SMS consent text",
+          "info": "Shown next to the consent checkbox on the mobile step. Required for SMS marketing in most regions."
+        }
+      }
+    },
     "newsletter-popup": {
       "name": "Newsletter popup",
       "settings": {
