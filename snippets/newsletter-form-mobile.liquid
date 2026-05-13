@@ -58,6 +58,9 @@
     <input type="hidden" name="contact[context]" value="{{ context }}" />
     <input type="hidden" name="contact[accepts_marketing]" value="1" />
     <input type="hidden" name="contact[note]" id="NewsletterMobileNote--{{ section_id }}" value="" data-newsletter-note />
+    {%- if flow == 'mobile_only' -%}
+      <input type="hidden" name="contact[email]" value="" data-newsletter-synth-email />
+    {%- endif -%}
 
     {%- comment -%} Render steps in the configured order {%- endcomment -%}
     {%- assign order_index = 0 -%}
