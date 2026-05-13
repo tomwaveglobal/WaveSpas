@@ -1315,6 +1315,7 @@
       "block_order": [
         "ai_gen_block_bb42f47_yaVKNb"
       ],
+      "disabled": true,
       "settings": {}
     }
   },
