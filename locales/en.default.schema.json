@@ -3975,6 +3975,30 @@
     "newsletter-banner": {
       "name": "Email signup banner"
     },
+    "newsletter-popup-mobile": {
+      "name": "Newsletter popup with Mobile",
+      "settings": {
+        "header__mobile_step": {
+          "content": "Mobile step"
+        },
+        "step_heading": {
+          "label": "Step 2 heading",
+          "default": "Get SMS-exclusive offers"
+        },
+        "step_text": {
+          "label": "Step 2 text",
+          "default": "<p>Add your mobile number to receive our best deals first by text.</p>"
+        },
+        "success_heading": {
+          "label": "Success heading",
+          "default": "You're in!"
+        },
+        "success_text": {
+          "label": "Success message",
+          "default": "<p>Thanks — check your inbox for your discount code.</p>"
+        }
+      }
+    },
     "newsletter-popup": {
       "name": "Newsletter popup",
       "settings": {
