@@ -229,6 +229,8 @@
         "step_text": "<p>Add your mobile number to receive our best deals first by text.</p>",
         "success_heading": "You're in!",
         "success_text": "<p>Thanks — check your inbox for your discount code.</p>",
+        "show_sms_consent": true,
+        "sms_consent_text": "<p>I agree to receive marketing text messages from Wave Spas at the number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe.</p>",
         "color_drawer_text": "#171717",
         "color_drawer_background": "#ffffff",
         "color_drawer_highlight": "#f59e0b",
@@ -440,3 +442,4 @@
     "mobile-dock"
   ]
 }
+
