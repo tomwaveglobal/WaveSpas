@@ -1,0 +1,108 @@
+{%- doc -%}
+  Two-step newsletter form: step 1 captures email, step 2 captures mobile + SMS consent.
+  Submits as a single Shopify customer form so email, phone, and consent tags are saved together.
+
+  @param {object} section - Section object (used for step 2 heading/body settings)
+  @param {string} context - Form location identifier ('popup-mobile')
+{%- enddoc -%}
+
+{%- liquid
+  assign section_id = section.id
+  assign form_id = 'newsletter-mobile-' | append: section_id
+-%}
+
+<div class="newsletter-form-mobile-wrap" data-newsletter-form>
+  {%- form 'customer', id: form_id, class: 'newsletter-form newsletter-form--mobile grid gap-5' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter, sms-marketing-consent" />
+    <input type="hidden" name="contact[context]" value="{{ context }}" />
+    <input type="hidden" name="contact[accepts_marketing]" value="1" />
+    <input type="hidden" name="contact[note]" id="NewsletterMobileNote--{{ section_id }}" value="" />
+
+    {%- comment -%} Step 1 — email {%- endcomment -%}
+    <div class="newsletter-step newsletter-step--1 is-active" data-step="1">
+      <div class="field relative">
+        <input
+          id="NewsletterMobileEmail--{{ section_id }}"
+          class="input is-floating input--fill"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email }}"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          placeholder="{{ 'general.newsletter.label' | t | escape }}"
+          required
+          {%- if form.errors %} autofocus{% endif -%}
+          data-newsletter-email
+        />
+        <label class="label is-floating" for="NewsletterMobileEmail--{{ section_id }}">{{ 'general.newsletter.label' | t }}</label>
+        <div class="self-submit-button absolute">
+          <button type="button" class="button button--primary self-button flex justify-center items-center" is="magnet-button" data-magnet="20" data-newsletter-next aria-label="{{ 'general.newsletter.next' | t | escape }}">
+            <span class="btn-text">
+              <svg class="icon icon-arrow-right icon-xs transform" viewBox="0 0 16 16" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 8.00012H14M14 8.00012L9.33333 3.3335M14 8.00012L9.33333 12.6668"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Step 2 — phone + SMS consent {%- endcomment -%}
+    <div class="newsletter-step newsletter-step--2" data-step="2">
+      {%- if section.settings.step_heading != blank -%}
+        <h3 class="heading leading-none text-base-xl mb-3">{{ section.settings.step_heading }}</h3>
+      {%- endif -%}
+      {%- if section.settings.step_text != blank -%}
+        <div class="rte text-base leading-normal mb-5">{{ section.settings.step_text }}</div>
+      {%- endif -%}
+
+      <div class="field relative">
+        <input
+          id="NewsletterMobilePhone--{{ section_id }}"
+          class="input is-floating input--fill"
+          type="tel"
+          name="contact[phone]"
+          autocomplete="tel"
+          inputmode="tel"
+          pattern="^\+?[0-9\s\-()]{7,}$"
+          placeholder="{{ 'general.newsletter.phone_label' | t | escape }}"
+          data-newsletter-phone
+        />
+        <label class="label is-floating" for="NewsletterMobilePhone--{{ section_id }}">{{ 'general.newsletter.phone_label' | t }}</label>
+      </div>
+
+      <label class="newsletter-consent flex gap-3 items-start text-sm leading-snug cursor-pointer" for="NewsletterMobileConsent--{{ section_id }}">
+        <input
+          id="NewsletterMobileConsent--{{ section_id }}"
+          type="checkbox"
+          class="mt-1"
+          required
+          data-newsletter-consent
+        />
+        <span>{{ 'general.newsletter.sms_consent' | t }}</span>
+      </label>
+
+      <div class="newsletter-step__actions flex gap-3 items-center">
+        <button type="submit" class="button button--primary flex justify-center items-center" data-newsletter-submit>
+          <span class="btn-text">{{ 'general.newsletter.submit' | t }}</span>
+        </button>
+        <button type="button" class="link inline-block" data-newsletter-skip>
+          {{- 'general.newsletter.skip' | t -}}
+        </button>
+      </div>
+    </div>
+
+    {%- liquid
+      if form.errors and form.context == context
+        assign form_errors = form.errors | default_errors
+        render 'alert', status: 'error', content: form_errors
+      endif
+
+      if form.posted_successfully?
+        assign success_message = 'general.newsletter.success' | t
+        render 'alert', status: 'success', content: success_message
+      endif
+    -%}
+  {%- endform -%}
+</div>
