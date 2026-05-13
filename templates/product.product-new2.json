@@ -177,7 +177,7 @@
         "on_site_message_KFREgF": {
           "type": "on_site_message",
           "settings": {
-            "message_custom_icon": "shopify://shop_images/Klarna.png",
+            "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
             "message_icon_width": 100,
             "message_image_checkbox": true,
             "message": "<p>Starting at #amount* per month</p>",
