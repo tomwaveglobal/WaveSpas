@@ -310,6 +310,31 @@
     },
     {
       "type": "header",
+      "content": "t:sections.newsletter-popup-mobile.settings.header__flow.content"
+    },
+    {
+      "type": "select",
+      "id": "flow",
+      "label": "t:sections.newsletter-popup-mobile.settings.flow.label",
+      "info": "t:sections.newsletter-popup-mobile.settings.flow.info",
+      "options": [
+        { "value": "email_then_mobile", "label": "t:sections.newsletter-popup-mobile.settings.flow.options__1.label" },
+        { "value": "mobile_then_email", "label": "t:sections.newsletter-popup-mobile.settings.flow.options__2.label" },
+        { "value": "email_only", "label": "t:sections.newsletter-popup-mobile.settings.flow.options__3.label" },
+        { "value": "mobile_only", "label": "t:sections.newsletter-popup-mobile.settings.flow.options__4.label" }
+      ],
+      "default": "email_then_mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_skip",
+      "label": "t:sections.newsletter-popup-mobile.settings.allow_skip.label",
+      "info": "t:sections.newsletter-popup-mobile.settings.allow_skip.info",
+      "default": true,
+      "visible_if": "{{ section.settings.flow == 'email_then_mobile' or section.settings.flow == 'mobile_then_email' }}"
+    },
+    {
+      "type": "header",
       "content": "t:sections.newsletter-popup-mobile.settings.header__mobile_step.content"
     },
     {
