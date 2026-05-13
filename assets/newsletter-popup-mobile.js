@@ -68,8 +68,16 @@ if (!customElements.get('newsletter-mobile-modal')) {
         this.form = this.querySelector('form');
         if (!this.form) return;
 
+        this.wrap = this.querySelector('[data-newsletter-form]');
+        this.flow = this.wrap ? this.wrap.dataset.flow : '';
         this.tagsInput = this.form.querySelector('[data-newsletter-tags]');
         this.noteInput = this.form.querySelector('[data-newsletter-note]');
+        this.synthEmailInput = this.form.querySelector('[data-newsletter-synth-email]');
+
+        // For mobile-only: populate synthetic email + intercept submit to fill it from phone
+        if (this.flow === 'mobile_only' && this.synthEmailInput) {
+          this.form.addEventListener('submit', this.onMobileOnlySubmit.bind(this));
+        }
 
         // Sort steps by their data-step order
         this.stepEls = Array.from(this.form.querySelectorAll('.newsletter-step'))
@@ -152,6 +160,15 @@ if (!customElements.get('newsletter-mobile-modal')) {
         }
 
         this.form.submit();
+      }
+
+      onMobileOnlySubmit(e) {
+        const phoneEl = this.form.querySelector('[data-newsletter-phone]');
+        const phone = phoneEl ? phoneEl.value.trim() : '';
+        const normalised = phone.replace(/[^0-9]/g, '');
+        if (!normalised) return; // browser will block on phone validation
+        const host = (window.Shopify && Shopify.shop) ? Shopify.shop.replace('.myshopify.com', '') + '.placeholder' : 'wavespas.placeholder';
+        this.synthEmailInput.value = 'sms-' + normalised + '@' + host;
       }
 
       showStep(n) {
