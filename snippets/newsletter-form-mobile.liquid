@@ -165,53 +165,31 @@
                 data-newsletter-phone
               />
               <label class="label is-floating" for="NewsletterMobilePhone--{{ section_id }}">{{ 'general.newsletter.phone_label' | t }}</label>
-              <div class="self-submit-button absolute">
-                {%- if is_last -%}
-                  <button type="submit" class="button button--primary self-button flex justify-center items-center" is="magnet-button" data-magnet="20" data-newsletter-submit aria-label="{{ 'general.newsletter.submit' | t | escape }}">
-                    <span class="btn-text">
-                      <svg class="icon icon-arrow-right icon-xs transform" viewBox="0 0 16 16" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2 8.00012H14M14 8.00012L9.33333 3.3335M14 8.00012L9.33333 12.6668"></path>
-                      </svg>
-                    </span>
-                  </button>
-                {%- else -%}
-                  <button type="button" class="button button--primary self-button flex justify-center items-center" is="magnet-button" data-magnet="20" data-newsletter-next aria-label="{{ 'general.newsletter.next' | t | escape }}">
-                    <span class="btn-text">
-                      <svg class="icon icon-arrow-right icon-xs transform" viewBox="0 0 16 16" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2 8.00012H14M14 8.00012L9.33333 3.3335M14 8.00012L9.33333 12.6668"></path>
-                      </svg>
-                    </span>
-                  </button>
-                {%- endif -%}
-              </div>
             </div>
 
             {%- if section.settings.show_sms_consent and section.settings.sms_consent_text != blank -%}
-              {%- if section.settings.require_consent_checkbox -%}
-                <label class="newsletter-consent flex gap-3 items-start text-sm leading-snug cursor-pointer mt-3" for="NewsletterMobileConsent--{{ section_id }}">
-                  <input
-                    id="NewsletterMobileConsent--{{ section_id }}"
-                    type="checkbox"
-                    class="mt-1"
-                    required
-                    data-newsletter-consent
-                  />
-                  <span class="rte">{{ section.settings.sms_consent_text }}</span>
-                </label>
-              {%- else -%}
-                <div class="newsletter-consent rte text-sm leading-snug mt-3">
-                  {{- section.settings.sms_consent_text -}}
-                </div>
-              {%- endif -%}
-            {%- endif -%}
-
-            {%- if allow_skip and step_count > 1 and is_last == false -%}
-              <div class="newsletter-step__actions flex justify-end mt-2">
-                <button type="button" class="link inline-block text-sm" data-newsletter-skip>
-                  {{- 'general.newsletter.skip' | t -}}
-                </button>
+              <div class="newsletter-consent rte text-sm leading-snug mt-3">
+                {{- section.settings.sms_consent_text -}}
               </div>
             {%- endif -%}
+
+            <div class="newsletter-step__actions flex gap-3 items-center mt-4">
+              {%- if is_last -%}
+                <button type="submit" class="button button--primary flex justify-center items-center" data-newsletter-submit>
+                  <span class="btn-text">{{ 'general.newsletter.submit' | t }}</span>
+                </button>
+              {%- else -%}
+                <button type="button" class="button button--primary flex justify-center items-center" data-newsletter-next>
+                  <span class="btn-text">{{ 'general.newsletter.next' | t }}</span>
+                </button>
+              {%- endif -%}
+
+              {%- if allow_skip and step_count > 1 and is_last == false -%}
+                <button type="button" class="link inline-block" data-newsletter-skip>
+                  {{- 'general.newsletter.skip' | t -}}
+                </button>
+              {%- endif -%}
+            </div>
           </div>
         {%- endif -%}
       {%- endif -%}

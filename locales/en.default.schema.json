@@ -4022,15 +4022,11 @@
         },
         "show_sms_consent": {
           "label": "Show SMS consent text",
-          "info": "Display informational consent copy on the mobile step."
+          "info": "When on, customers must tick a consent box before submitting the mobile step."
         },
         "sms_consent_text": {
           "label": "SMS consent text",
-          "info": "Shown on the mobile step. Recommended for SMS marketing in most regions."
-        },
-        "require_consent_checkbox": {
-          "label": "Require consent checkbox",
-          "info": "When on, a tickbox is shown in front of the consent text and customers must tick it before submitting."
+          "info": "Shown next to the consent checkbox on the mobile step. Required for SMS marketing in most regions."
         }
       }
     },
