@@ -126,6 +126,13 @@
                 {%- endif -%}
               </div>
             </div>
+            {%- if allow_skip and step_count > 1 and is_last == false -%}
+              <div class="newsletter-step__actions flex justify-end mt-2">
+                <button type="button" class="link inline-block text-sm" data-newsletter-skip>
+                  {{- 'general.newsletter.skip' | t -}}
+                </button>
+              </div>
+            {%- endif -%}
           </div>
 
         {%- elsif render_step == 'mobile' -%}
@@ -154,16 +161,18 @@
               <label class="label is-floating" for="NewsletterMobilePhone--{{ section_id }}">{{ 'general.newsletter.phone_label' | t }}</label>
             </div>
 
-            <label class="newsletter-consent flex gap-3 items-start text-sm leading-snug cursor-pointer mt-3" for="NewsletterMobileConsent--{{ section_id }}">
-              <input
-                id="NewsletterMobileConsent--{{ section_id }}"
-                type="checkbox"
-                class="mt-1"
-                required
-                data-newsletter-consent
-              />
-              <span>{{ 'general.newsletter.sms_consent' | t }}</span>
-            </label>
+            {%- if section.settings.show_sms_consent and section.settings.sms_consent_text != blank -%}
+              <label class="newsletter-consent flex gap-3 items-start text-sm leading-snug cursor-pointer mt-3" for="NewsletterMobileConsent--{{ section_id }}">
+                <input
+                  id="NewsletterMobileConsent--{{ section_id }}"
+                  type="checkbox"
+                  class="mt-1"
+                  required
+                  data-newsletter-consent
+                />
+                <span class="rte">{{ section.settings.sms_consent_text }}</span>
+              </label>
+            {%- endif -%}
 
             <div class="newsletter-step__actions flex gap-3 items-center mt-4">
               {%- if is_last -%}

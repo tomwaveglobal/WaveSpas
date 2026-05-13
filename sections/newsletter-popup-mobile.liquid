@@ -362,6 +362,21 @@
       "default": "<p>Thanks — check your inbox for your discount code.</p>"
     },
     {
+      "type": "checkbox",
+      "id": "show_sms_consent",
+      "label": "t:sections.newsletter-popup-mobile.settings.show_sms_consent.label",
+      "info": "t:sections.newsletter-popup-mobile.settings.show_sms_consent.info",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "sms_consent_text",
+      "label": "t:sections.newsletter-popup-mobile.settings.sms_consent_text.label",
+      "info": "t:sections.newsletter-popup-mobile.settings.sms_consent_text.info",
+      "default": "<p>I agree to receive marketing text messages from Wave Spas at the number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe.</p>",
+      "visible_if": "{{ section.settings.show_sms_consent }}"
+    },
+    {
       "type": "header",
       "content": "t:sections.global.settings.image.label"
     },
