@@ -174,8 +174,51 @@
             "help_page_external": false
           }
         },
+        "on_site_message_KFREgF": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Klarna.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "3",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_CFpriq": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/DivideBuy.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "12",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_hKD98d": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Payl8r.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "24",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/shop_buttons.png",
             "message_icon_width": 100,
@@ -318,6 +361,9 @@
         "text_nncjDG",
         "buy_buttons_nBMjqf",
         "share",
+        "on_site_message_KFREgF",
+        "on_site_message_CFpriq",
+        "on_site_message_hKD98d",
         "on_site_message_EFzeYN",
         "text_7jAC96",
         "product_bundle_tWCDMV",
