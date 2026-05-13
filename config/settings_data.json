@@ -106,10 +106,8 @@
     "product_save_type": "percent",
     "product_badge_text_size": 8,
     "product_badge_text_size_desktop": 12,
-    "advanced_badge_mode_product": "both",
-    "advanced_badge_mode_collection": "text",
-    "advanced_badge_mode_search": "both",
-    "advanced_badge_mode_nav": "text",
+    "advanced_badge_show_on_product": true,
+    "advanced_badge_show_on_collection": true,
     "advanced_badge_image_mobile": "100",
     "advanced_badge_image_desktop": "180",
     "advanced_badge_map_1_text": "Free Starter Kit & Filters",
@@ -151,8 +149,6 @@
     "tab_attention_message_1": "Something we said?",
     "tab_attention_message_2": "We're still here!",
     "tab_attention_message_delay": 3,
-    "advanced_badge_show_on_product": true,
-    "advanced_badge_show_on_collection": true,
     "product_image_background": "#f8f8f8",
     "checkout_logo_position": "left",
     "checkout_logo_size": "small",
@@ -291,11 +287,6 @@
       },
       "11945366711752539959": {
         "type": "shopify://apps/zendesk/blocks/zendesk_web_widget/c0b417b1-b90b-4754-baaf-f55627e6acd4",
-        "disabled": false,
-        "settings": {}
-      },
-      "8764476057892802672": {
-        "type": "shopify://apps/stoq/blocks/main/4bb73be2-b7c2-4870-949f-c528145452a3",
         "disabled": false,
         "settings": {}
       }
