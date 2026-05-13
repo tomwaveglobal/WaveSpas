@@ -23,7 +23,10 @@
       "settings": {
         "only_homepage": false,
         "delay": 10,
-        "expiry": 1
+        "expiry": 1,
+        "flow": "email_then_mobile",
+        "step_heading": "Want the he best deals?",
+        "step_text": "<p>Add your mobile number to exclusive offers</p>"
       },
       "blocks": {}
     }
