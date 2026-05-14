@@ -53,10 +53,19 @@
     "newsletter-popup": {
       "type": "newsletter-popup",
       "blocks": {
+        "image_MXybWd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
+            "image_width": "full_width",
+            "image_max_width": 50,
+            "image_max_width_mobile": 50
+          }
+        },
         "text-1": {
           "type": "text",
           "settings": {
-            "text": "<p>FIRST TIMER?</p>",
+            "text": "<p>LIMITED TIME OFFER</p>",
             "text_font": "body",
             "text_size": "subtext-custom",
             "text_max_size": 12,
@@ -71,7 +80,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Sign up and get <em>5% off</em> your first order",
+            "heading": "Get a <em><strong>Free</strong></em>  Starter Kit + 48 Filters (Worth £119) with every Spa",
             "heading_size": "text-2xl lg:text-3xl",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
@@ -79,11 +88,19 @@
             "highlighted_reveal": false
           }
         },
-        "spacing": {
-          "type": "spacing",
+        "text_yVqDTb": {
+          "type": "text",
           "settings": {
-            "height": 32,
-            "height_mobile": 12
+            "text": "<p>Plus, sign up today and we’ll also give you <strong>5% off</strong> your first order.</p>",
+            "text_font": "body",
+            "text_size": "text-base",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
         "form": {
@@ -92,6 +109,7 @@
         },
         "text-2": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Subscribe to our newsletter and be the first to hear about our new arrivals, special promotions and online exclusives.</p>",
             "text_font": "body",
@@ -107,6 +125,7 @@
         },
         "media": {
           "type": "media",
+          "disabled": true,
           "settings": {}
         },
         "floating": {
@@ -123,21 +142,21 @@
         }
       },
       "block_order": [
+        "image_MXybWd",
         "text-1",
         "heading",
-        "spacing",
+        "text_yVqDTb",
         "form",
         "text-2",
         "media",
         "floating"
       ],
-      "disabled": true,
       "settings": {
         "mode": "enabled",
         "only_homepage": true,
         "only_visitor": false,
-        "delay": 60,
-        "expiry": 30,
+        "delay": 5,
+        "expiry": 1,
         "text_alignment": "left",
         "content_position": "left-0",
         "color_drawer_text": "#171717",
