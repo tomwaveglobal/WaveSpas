@@ -56,7 +56,7 @@
         "liquid_9jNjAQ": {
           "type": "liquid",
           "settings": {
-            "liquid": "<img class=\"wave-popup-float\" src=\"https://cdn.shopify.com/s/files/1/0058/2284/0889/files/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg?v=1778068283\" alt=\"\" aria-hidden=\"true\">\n\n<style>\n  /* Make the popup let the image escape its bounds */\n  newsletter-modal .modal__content,\n  .newsletter-popup__content,\n  .modal-newsletter__inner {\n    overflow: visible !important;\n    position: relative;\n  }\n\n  .wave-popup-float {\n    position: absolute;\n    top: -60px;\n    right: -60px;\n    width: 220px;\n    height: auto;\n    pointer-events: none;\n    z-index: 2;\n    opacity: 0;\n    transform: translate(40px, 40px) scale(0.6) rotate(-8deg);\n    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,\n                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;\n  }\n\n  /* When the popup is open, animate it in. \n     Adjust the parent selector to match what the theme adds. \n     Common ones: .is-open, .is-visible, [open] */\n  newsletter-modal[open] .wave-popup-float,\n  .newsletter-popup.is-open .wave-popup-float,\n  .modal-newsletter.is-visible .wave-popup-float {\n    opacity: 1;\n    transform: translate(0, 0) scale(1) rotate(0deg);\n  }\n</style>"
+            "liquid": ""
           }
         },
         "image_MXybWd": {
