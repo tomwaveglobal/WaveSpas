@@ -56,7 +56,7 @@
         "liquid_9jNjAQ": {
           "type": "liquid",
           "settings": {
-            "liquid": "<img class=\"wave-popup-float\" src=\"https://cdn.shopify.com/s/files/1/0058/2284/0889/files/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg?v=1778068283\" alt=\"\" aria-hidden=\"true\">\n\n<style>\n  /* Force all popup wrappers to let the image escape */\n  newsletter-modal,\n  newsletter-modal *,\n  .newsletter-popup,\n  .newsletter-popup *,\n  .modal-newsletter,\n  .modal-newsletter * {\n    overflow: visible !important;\n  }\n\n  /* Keep the floating image as a positioning context */\n  .wave-popup-float {\n    position: absolute;\n    top: -80px;\n    right: -100px;\n    width: 320px;\n    height: auto;\n    pointer-events: none;\n    z-index: 5;\n    transform-origin: bottom left;\n    animation: wavePopupBurst 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;\n  }\n\n  @keyframes wavePopupBurst {\n    0% {\n      opacity: 0;\n      transform: translate(-40px, 60px) scale(0.4) rotate(-12deg);\n    }\n    100% {\n      opacity: 1;\n      transform: translate(0, 0) scale(1) rotate(0deg);\n    }\n  }\n\n  /* Mobile — pull the image in so it doesn't overflow the viewport */\n  @media (max-width: 749px) {\n    .wave-popup-float {\n      top: -50px;\n      right: -30px;\n      width: 180px;\n    }\n  }\n</style>"
+            "liquid": ""
           }
         },
         "image_MXybWd": {
