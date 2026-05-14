@@ -302,6 +302,11 @@
         "type": "shopify://apps/stoq/blocks/main/4bb73be2-b7c2-4870-949f-c528145452a3",
         "disabled": false,
         "settings": {}
+      },
+      "17450752420321394331": {
+        "type": "shopify://apps/vex-auto-add-to-cart/blocks/vex-theme-extension/4050c1c7-5b58-4120-af12-e290cb2b28f0",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
