@@ -72,7 +72,7 @@
         "text-1": {
           "type": "text",
           "settings": {
-            "text": "<p>LIMITED TIME OFFER</p>",
+            "text": "<p><em><strong>LIMITED TIME OFFER</strong></em></p>",
             "text_font": "body",
             "text_size": "subtext-custom",
             "text_max_size": 12,
@@ -80,7 +80,7 @@
             "text_letter_spacing": 0,
             "text_capitalize": false,
             "secondary_color": true,
-            "highlighted_text": "none",
+            "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
         },
