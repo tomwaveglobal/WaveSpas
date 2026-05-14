@@ -163,7 +163,7 @@
         "mode": "enabled",
         "only_homepage": true,
         "only_visitor": false,
-        "delay": 5,
+        "delay": 6,
         "expiry": 1,
         "text_alignment": "left",
         "content_position": "left-0",
