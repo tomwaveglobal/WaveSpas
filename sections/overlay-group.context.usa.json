@@ -12,5 +12,16 @@
     "market": "usa"
   },
   "parent": "overlay-group.json",
-  "sections": {}
+  "sections": {
+    "newsletter-popup": {
+      "settings": {},
+      "blocks": {
+        "heading": {
+          "settings": {
+            "heading": "<em><strong>Free</strong></em>  x48 Filters (Worth $99) with every Spa"
+          }
+        }
+      }
+    }
+  }
 }
