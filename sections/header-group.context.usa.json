@@ -16,13 +16,26 @@
     "announcement-bar": {
       "settings": {},
       "blocks": {
+        "announcement-2": {
+          "disabled": false,
+          "settings": {
+            "icon": "sale",
+            "text": "Order now and get <em><strong>x48 Filters in the box </strong></em>",
+            "highlighted_text": "text",
+            "link": "shopify://collections/hot-tub-full-range"
+          }
+        },
         "announcement-1": {
           "settings": {
-            "text": "Fast Shipping 3-5 Working Days Via FedEx",
+            "text": "<em><strong>Fast Shipping</strong></em> 3-5 Working Days Via FedEx",
             "link": "shopify://pages/us-shipping-and-returns"
           }
         }
-      }
+      },
+      "block_order": [
+        "announcement-2",
+        "announcement-1"
+      ]
     },
     "header": {
       "settings": {
