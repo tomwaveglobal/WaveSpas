@@ -19,8 +19,8 @@
         "image_hc4WwT": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/carousel_home_bundle.jpg",
-            "image_mobile": "shopify://shop_images/carousel_home_bundle_Mobile_1.jpg",
+            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1.jpg",
+            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-Mobile.jpg",
             "heading": "‎",
             "button_label": "Shop Bundle"
           }
@@ -36,6 +36,16 @@
         "product": "garda-hot-tub"
       },
       "blocks": {}
+    },
+    "17525779273de64cfc": {
+      "settings": {},
+      "blocks": {
+        "reviews_io_reviewsio_card_carousel_MjbGUz": {
+          "settings": {
+            "enable_rich_snippets": true
+          }
+        }
+      }
     }
   }
 }
