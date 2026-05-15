@@ -53,12 +53,6 @@
     "newsletter-popup": {
       "type": "newsletter-popup",
       "blocks": {
-        "liquid_qGyyTD": {
-          "type": "liquid",
-          "settings": {
-            "liquid": ""
-          }
-        },
         "image_MXybWd": {
           "type": "image",
           "disabled": true,
@@ -149,7 +143,6 @@
         }
       },
       "block_order": [
-        "liquid_qGyyTD",
         "image_MXybWd",
         "text-1",
         "heading",
