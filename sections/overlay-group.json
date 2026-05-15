@@ -53,6 +53,12 @@
     "newsletter-popup": {
       "type": "newsletter-popup",
       "blocks": {
+        "liquid_qGyyTD": {
+          "type": "liquid",
+          "settings": {
+            "liquid": ""
+          }
+        },
         "image_MXybWd": {
           "type": "image",
           "disabled": true,
@@ -81,7 +87,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Get a <em><strong>Free</strong></em>  Starter Kit + 48 Filters (Worth £139) with every Spa",
+            "heading": "<em><strong>Free</strong></em>  Starter Chemicals + 48 Filters (Worth £139) with every Spa",
             "heading_size": "text-2xl lg:text-3xl",
             "heading_tag": "h2",
             "highlighted_text": "scribble",
@@ -143,6 +149,7 @@
         }
       },
       "block_order": [
+        "liquid_qGyyTD",
         "image_MXybWd",
         "text-1",
         "heading",
