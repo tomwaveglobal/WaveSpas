@@ -12,8 +12,13 @@
   }
 
   {%- assign first_media = product.selected_or_first_available_variant.featured_media | default: product.media.first -%}
-  {%- if section.settings.hide_first_media and first_media.id == product.media.first.id and product.media.size > 1 -%}
-    {%- assign first_media = product.media[1] -%}
+  {%- if section.settings.hide_first_media -%}
+    {%- assign _first_media_variant_gang = product.selected_or_first_available_variant.metafields.theme.gang_media.value -%}
+    {%- if _first_media_variant_gang != blank and product.selected_or_first_available_variant.metafields.theme.gang_media.list? and _first_media_variant_gang.size > 0 -%}
+      {%- assign first_media = _first_media_variant_gang | first | default: first_media -%}
+    {%- elsif first_media.id == product.media.first.id and product.media.size > 1 -%}
+      {%- assign first_media = product.media[1] -%}
+    {%- endif -%}
   {%- endif -%}
   @media screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} {
@@ -1404,8 +1409,8 @@
       "type": "checkbox",
       "id": "hide_first_media",
       "default": false,
-      "label": "Hide first product image from gallery",
-      "info": "Hides the first media item from the PDP gallery and thumbnails on this template only. Featured image (collection cards, sharing) is unaffected."
+      "label": "Hide first image / use variant gang media as gallery",
+      "info": "When the selected variant has a 'Gang media' metafield set, the gallery shows only those gang_media items (sticky/featured uses the first gang media). Otherwise the first product image is hidden from the gallery. Featured image for collection cards and sharing is unaffected."
     },
     {
       "type": "checkbox",
