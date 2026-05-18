@@ -1202,6 +1202,17 @@
         "info": "Number of pixels, e.g. 120"
       },
       {
+        "type": "range",
+        "id": "product_media_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 16,
+        "label": "PDP gallery image radius",
+        "info": "Border radius applied to all product page gallery images. 0 = square corners."
+      },
+      {
         "type": "text",
         "id": "advanced_badge_map_1_text",
         "label": "Badge text 1",
