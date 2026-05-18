@@ -38,28 +38,35 @@
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
 
-  assign hide_first_media_active = false
-  assign hidden_first_media_id = 0
-  if hide_first_media and product.media.size > 0
-    assign hide_first_media_active = true
-    assign hidden_first_media_id = product.media.first.id
-    if media_count > 0
-      assign media_count = media_count | minus: 1
-    endif
-  endif
-
   assign product_variant = product.selected_or_first_available_variant
   assign featured_media = product_variant.featured_media | default: product.featured_media
-  if hide_first_media_active
-    if product.media.size > 1
-      assign featured_media = product.media[1]
+
+  assign hide_first_media_active = false
+  assign hidden_first_media_id = 0
+  assign use_gang_media_only = false
+
+  if hide_first_media and product.media.size > 0
+    assign hide_first_media_active = true
+    assign variant_gang_media = product_variant.metafields.theme.gang_media.value
+
+    if variant_gang_media != blank and product_variant.metafields.theme.gang_media.list? and variant_gang_media.size > 0
+      assign use_gang_media_only = true
+      assign featured_media = variant_gang_media | first
     else
-      assign featured_media = blank
+      assign hidden_first_media_id = product.media.first.id
+      if media_count > 0
+        assign media_count = media_count | minus: 1
+      endif
+      if product.media.size > 1
+        assign featured_media = product.media[1]
+      else
+        assign featured_media = blank
+      endif
     endif
   endif
 -%}
 
-{%- if hide_first_media_active -%}<!-- pdp-hide-first-media:on id={{ hidden_first_media_id }} --> {%- endif -%}
+{%- if hide_first_media_active -%}<!-- pdp-hide-first-media:v3 gang={{ use_gang_media_only }} featured-id={{ featured_media.id }} --> {%- endif -%}
 {%- capture sizes -%}(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 75vw{%- endcapture -%}
 
 <media-gallery
