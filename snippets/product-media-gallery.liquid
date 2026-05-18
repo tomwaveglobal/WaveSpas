@@ -32,14 +32,29 @@
 
 {%- liquid
   assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
-  
+
   assign media_count = product.media.size
   if hide_variants and media_count > 1
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
-  
+
+  assign hidden_first_media_id = nil
+  if hide_first_media and product.media.size > 0
+    assign hidden_first_media_id = product.media.first.id
+    if media_count > 0
+      assign media_count = media_count | minus: 1
+    endif
+  endif
+
   assign product_variant = product.selected_or_first_available_variant
   assign featured_media = product_variant.featured_media | default: product.featured_media
+  if hidden_first_media_id != nil and featured_media.id == hidden_first_media_id
+    if product.media.size > 1
+      assign featured_media = product.media[1]
+    else
+      assign featured_media = null
+    endif
+  endif
 -%}
 {%- capture sizes -%}(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 75vw{%- endcapture -%}
 
@@ -159,7 +174,7 @@
           {%- endif -%}
 
           {%- for media in product.media -%}
-            {%- if media.id != featured_media.id -%}
+            {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
               {%- render 'product-media',
                 product: product,
                 product_id: product_id,
@@ -221,7 +236,7 @@
             {%- endif -%}
     
             {%- for media in product.media -%}
-              {%- if media.id != featured_media.id -%}
+              {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
                 {%- render 'product-thumbnail',
                   product: product,
                   product_variant: product_variant,
