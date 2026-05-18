@@ -80,6 +80,7 @@
 
     /*! Product card */
     --card-radius: var(--rounded-card);
+    --product-media-radius: {{ settings.product_media_radius | default: 16 }}px;
     --card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
     --card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
     --card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
