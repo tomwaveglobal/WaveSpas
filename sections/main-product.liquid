@@ -12,6 +12,14 @@
   }
 
   {%- assign first_media = product.selected_or_first_available_variant.featured_media | default: product.media.first -%}
+  {%- if section.settings.hide_first_media -%}
+    {%- assign _first_media_variant_gang = product.selected_or_first_available_variant.metafields.theme.gang_media.value -%}
+    {%- if _first_media_variant_gang != blank and product.selected_or_first_available_variant.metafields.theme.gang_media.list? and _first_media_variant_gang.size > 0 -%}
+      {%- assign first_media = _first_media_variant_gang | first | default: first_media -%}
+    {%- elsif first_media.id == product.media.first.id and product.media.size > 1 -%}
+      {%- assign first_media = product.media[1] -%}
+    {%- endif -%}
+  {%- endif -%}
   @media screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} {
       --aspect-ratio: {{ first_media.aspect_ratio }};
@@ -28,6 +36,9 @@
 {%- liquid
   assign product_form_id = 'ProductForm-' | append: section.id | append: '-' | append: product.id
   assign media_count = product.media.size
+  if section.settings.hide_first_media and media_count > 0
+    assign media_count = media_count | minus: 1
+  endif
   assign first_3d_model = product.media | where: 'media_type', 'model' | first
   assign icon_list_block = section.blocks | where: 'type', 'icon_list' | first
 -%}
@@ -133,6 +144,7 @@
             mobile_layout: section.settings.mobile_layout,
             mobile_thumbnail: section.settings.mobile_thumbnail,
             hide_variants: section.settings.hide_variants,
+            hide_first_media: section.settings.hide_first_media,
             enable_video_autoplay: section.settings.enable_video_autoplay,
             enable_video_looping: section.settings.enable_video_looping,
             first_3d_model: first_3d_model,
@@ -1392,6 +1404,13 @@
       "id": "hide_variants",
       "default": false,
       "label": "t:sections.main-product.settings.hide_variants.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_first_media",
+      "default": false,
+      "label": "Hide first image / use variant gang media as gallery",
+      "info": "When the selected variant has a 'Gang media' metafield set, the gallery shows only those gang_media items (sticky/featured uses the first gang media). Otherwise the first product image is hidden from the gallery. Featured image for collection cards and sharing is unaffected."
     },
     {
       "type": "checkbox",

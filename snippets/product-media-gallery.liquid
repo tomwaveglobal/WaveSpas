@@ -32,15 +32,75 @@
 
 {%- liquid
   assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
-  
+
   assign media_count = product.media.size
   if hide_variants and media_count > 1
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
-  
+
   assign product_variant = product.selected_or_first_available_variant
   assign featured_media = product_variant.featured_media | default: product.featured_media
+
+  assign hide_first_media_active = false
+  assign hidden_first_media_id = 0
+  assign use_gang_media_only = false
+  assign variant_gang_media = blank
+
+  if hide_first_media and product.media.size > 0
+    assign hide_first_media_active = true
+    assign variant_gang_media = product_variant.metafields.theme.gang_media.value
+
+    if variant_gang_media != blank and variant_gang_media.size > 0
+      assign use_gang_media_only = true
+
+      assign hero_media_id = 0
+      if product_variant.featured_media != blank
+        assign hero_media_id = product_variant.featured_media.id
+      elsif product.featured_media != blank
+        assign hero_media_id = product.featured_media.id
+      elsif product.media.first != blank
+        assign hero_media_id = product.media.first.id
+      endif
+      assign hidden_first_media_id = hero_media_id
+
+      assign featured_media = blank
+      assign visible_gang_count = 0
+      for gang_item in variant_gang_media
+        if gang_item.id == hero_media_id
+          continue
+        endif
+        assign visible_gang_count = visible_gang_count | plus: 1
+        if featured_media == blank
+          assign featured_media = gang_item
+        endif
+      endfor
+      assign media_count = visible_gang_count
+    else
+      assign hidden_first_media_id = product.media.first.id
+      if media_count > 0
+        assign media_count = media_count | minus: 1
+      endif
+      if product.media.size > 1
+        assign featured_media = product.media[1]
+      else
+        assign featured_media = blank
+      endif
+    endif
+  endif
 -%}
+
+{%- if hide_first_media_active -%}
+<!-- pdp-hide-first-media:v5
+  variant-id={{ product_variant.id }}
+  variant-gang-blank={% if product_variant.metafields.theme.gang_media.value == blank %}true{% else %}false{% endif %}
+  variant-gang-list-flag={{ product_variant.metafields.theme.gang_media.list? }}
+  variant-gang-size={{ product_variant.metafields.theme.gang_media.value.size }}
+  use-gang={{ use_gang_media_only }}
+  hero-id={{ hidden_first_media_id }}
+  featured-id={{ featured_media.id }}
+  media-count={{ media_count }}
+-->
+{%- endif -%}
 {%- capture sizes -%}(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(100vw - 64px), 75vw{%- endcapture -%}
 
 <media-gallery
@@ -158,29 +218,55 @@
             -%}
           {%- endif -%}
 
-          {%- for media in product.media -%}
-            {%- if media.id != featured_media.id -%}
-              {%- render 'product-media',
-                product: product,
-                product_id: product_id,
-                section_id: section_id,
-                product_variant: product_variant,
-                media: media,
-                featured_media: featured_media,
-                variant_images: variant_images,
-                hide_variants: hide_variants,
-                gallery_layout: gallery_layout,
-                image_zoom: image_zoom,
-                image_fill: image_fill,
-                image_ratio: image_ratio,
-                image_ratio_mobile: image_ratio_mobile,
-                preload: false,
-                sizes: sizes,
-                autoplay: enable_video_autoplay,
-                loop: enable_video_looping
-              -%}
-            {%- endif -%}
-          {%- endfor -%}
+          {%- if use_gang_media_only -%}
+            {%- for media in variant_gang_media -%}
+              {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
+                {%- render 'product-media',
+                  product: product,
+                  product_id: product_id,
+                  section_id: section_id,
+                  product_variant: product_variant,
+                  media: media,
+                  featured_media: featured_media,
+                  variant_images: variant_images,
+                  hide_variants: hide_variants,
+                  gallery_layout: gallery_layout,
+                  image_zoom: image_zoom,
+                  image_fill: image_fill,
+                  image_ratio: image_ratio,
+                  image_ratio_mobile: image_ratio_mobile,
+                  preload: false,
+                  sizes: sizes,
+                  autoplay: enable_video_autoplay,
+                  loop: enable_video_looping
+                -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for media in product.media -%}
+              {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
+                {%- render 'product-media',
+                  product: product,
+                  product_id: product_id,
+                  section_id: section_id,
+                  product_variant: product_variant,
+                  media: media,
+                  featured_media: featured_media,
+                  variant_images: variant_images,
+                  hide_variants: hide_variants,
+                  gallery_layout: gallery_layout,
+                  image_zoom: image_zoom,
+                  image_fill: image_fill,
+                  image_ratio: image_ratio,
+                  image_ratio_mobile: image_ratio_mobile,
+                  preload: false,
+                  sizes: sizes,
+                  autoplay: enable_video_autoplay,
+                  loop: enable_video_looping
+                -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
       </slider-element>
 
@@ -220,22 +306,41 @@
               -%}
             {%- endif -%}
     
-            {%- for media in product.media -%}
-              {%- if media.id != featured_media.id -%}
-                {%- render 'product-thumbnail',
-                  product: product,
-                  product_variant: product_variant,
-                  media: media,
-                  featured_media: featured_media,
-                  variant_images: variant_images,
-                  hide_variants: hide_variants,
-                  image_fill: image_fill,
-                  image_ratio: image_ratio,
-                  image_ratio_mobile: image_ratio_mobile,
-                  position: forloop.index
-                -%}
-              {%- endif -%}
-            {%- endfor -%}
+            {%- if use_gang_media_only -%}
+              {%- for media in variant_gang_media -%}
+                {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
+                  {%- render 'product-thumbnail',
+                    product: product,
+                    product_variant: product_variant,
+                    media: media,
+                    featured_media: featured_media,
+                    variant_images: variant_images,
+                    hide_variants: hide_variants,
+                    image_fill: image_fill,
+                    image_ratio: image_ratio,
+                    image_ratio_mobile: image_ratio_mobile,
+                    position: forloop.index
+                  -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for media in product.media -%}
+                {%- if media.id != featured_media.id and media.id != hidden_first_media_id -%}
+                  {%- render 'product-thumbnail',
+                    product: product,
+                    product_variant: product_variant,
+                    media: media,
+                    featured_media: featured_media,
+                    variant_images: variant_images,
+                    hide_variants: hide_variants,
+                    image_fill: image_fill,
+                    image_ratio: image_ratio,
+                    image_ratio_mobile: image_ratio_mobile,
+                    position: forloop.index
+                  -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
           </media-dots>
         {%- if gallery_layout != 'dots' -%}
           <template>
