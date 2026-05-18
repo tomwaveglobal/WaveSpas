@@ -80,7 +80,6 @@
 
     /*! Product card */
     --card-radius: var(--rounded-card);
-    --product-media-radius: {{ settings.product_media_radius | default: 16 }}px;
     --card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
     --card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
     --card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
@@ -250,6 +249,7 @@
     display: block;
     width: {{ settings.advanced_badge_image_mobile | default: 60 }}px;
     height: auto;
+    border-radius: {{ settings.product_badge_image_radius | default: 0 }}px;
   }
   @media screen and (min-width: 768px) {
     .badge-image {
