@@ -1111,6 +1111,17 @@
         "default": "#f5a623"
       },
       {
+        "type": "range",
+        "id": "product_badge_image_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 0,
+        "label": "Badge image radius",
+        "info": "Corner radius for image-based badges (e.g. Free Starter Kit). 0 = square corners."
+      },
+      {
         "type": "header",
         "content": "Advanced Badges"
       },
@@ -1200,17 +1211,6 @@
         "label": "Badge image width (desktop, px)",
         "default": "120",
         "info": "Number of pixels, e.g. 120"
-      },
-      {
-        "type": "range",
-        "id": "product_media_radius",
-        "min": 0,
-        "max": 50,
-        "step": 1,
-        "unit": "px",
-        "default": 16,
-        "label": "PDP gallery image radius",
-        "info": "Border radius applied to all product page gallery images. 0 = square corners."
       },
       {
         "type": "text",

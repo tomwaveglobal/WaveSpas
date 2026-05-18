@@ -12738,7 +12738,12 @@ video-media[suspended]~* {
 
 .product__media {
   background-color: rgb(var(--color-placeholder));
-  border-radius: var(--product-media-radius);
+}
+
+@media screen and (min-width: 1024px) {
+  .product__media {
+    border-radius: var(--card-radius);
+  }
 }
 
 @media screen and (min-width: 768px) {
