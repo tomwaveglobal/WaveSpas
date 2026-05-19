@@ -203,61 +203,62 @@
   .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
 
   /* ═══ Tile cards (size / edition / etc.) ══════════════════════════ */
-  .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-3); }
+  .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-2d5); }
   @media (min-width: 480px) {
     .vpa__choices--tile { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
   }
   .vpa__tile {
     position: relative;
     cursor: pointer;
-    border: 2px solid var(--vpa-border);
+    border: 1.5px solid var(--vpa-border);
     border-radius: var(--rounded-card, 12px);
     background: rgb(var(--color-background));
-    padding: var(--sp-4);
-    padding-block-start: var(--sp-7);
+    padding: var(--sp-3d5);
+    padding-block-start: var(--sp-6);
     display: block;
     transition: border-color 0.15s, background 0.15s;
-    min-height: 132px;
   }
   .vpa__tile:hover { border-color: var(--vpa-text-muted); }
   .vpa__tile:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
   .vpa__tile:has(input:focus-visible) { outline: 2px solid var(--vpa-accent); outline-offset: 2px; }
   .vpa__tile--sold-out { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
-  .vpa__tile-body { display: grid; grid-template-columns: 52px 1fr; gap: var(--sp-3); align-items: center; }
-  .vpa__tile-media { width: 52px; height: 52px; border-radius: var(--rounded-block, 10px); background: var(--vpa-surface-muted); overflow: hidden; }
+  .vpa__tile-body { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--sp-2d5); align-items: start; }
+  .vpa__tile-media { width: 48px; height: 48px; border-radius: var(--rounded-block, 10px); background: var(--vpa-surface-muted); overflow: hidden; flex-shrink: 0; }
   .vpa__tile-media img { width: 100%; height: 100%; object-fit: cover; }
   .vpa__tile-text { min-width: 0; }
-  .vpa__tile-name { font-weight: var(--font-bold); font-size: var(--text-sm); line-height: 1.25; margin-block-end: var(--sp-1); }
+  .vpa__tile-name { font-weight: var(--font-bold); font-size: var(--text-sm); line-height: 1.2; margin-block-end: 2px; }
   @media (min-width: 768px) { .vpa__tile-name { font-size: var(--text-base); } }
-  .vpa__tile-price { font-size: var(--text-sm); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.25; }
-  .vpa__tile-price del { color: var(--vpa-text-muted); font-size: 0.85em; }
+  .vpa__tile-price { font-size: var(--text-sm); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.2; font-weight: var(--font-bold); }
+  .vpa__tile-price del { color: var(--vpa-text-muted); font-size: 0.8em; font-weight: var(--font-regular); opacity: 0.7; }
 
   /* ═══ Tile corner pills (Most Popular / Sold Out / % OFF) ═════════ */
   .vpa__tag, .vpa__discount {
     position: absolute;
-    top: var(--sp-2d5);
-    font-size: 10px;
+    top: var(--sp-2);
+    font-size: 9.5px;
     font-weight: var(--font-bold);
-    padding: 3px 7px;
+    padding: 2.5px 6px;
     border-radius: var(--rounded-full, 999px);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     z-index: 1;
     line-height: 1;
   }
-  .vpa__tag { left: var(--sp-3); background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
+  .vpa__tag { left: var(--sp-2d5); background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
   .vpa__tag--sold-out { background: rgb(var(--color-foreground) / 0.45); }
-  .vpa__discount { right: var(--sp-3); background: var(--vpa-sale); color: var(--vpa-sale-text); }
+  .vpa__discount { right: var(--sp-2d5); background: var(--vpa-sale); color: var(--vpa-sale-text); }
 
   /* ═══ Tile soft pills: pre-order chip, info banner ════════════════ */
+  /* The pre-order chip can carry a long market-specific string; clamp it
+     to 2 lines so it never blows the tile height on narrow columns. */
   .vpa__chip, .vpa__tile-info {
     display: block;
     margin-block-start: var(--sp-2);
-    padding: var(--sp-1d5) var(--sp-2d5);
+    padding: 4px 8px;
     border-radius: 6px;
-    font-size: 11px;
-    line-height: 1.35;
+    font-size: 10.5px;
+    line-height: 1.3;
     max-width: 100%;
     word-wrap: break-word;
   }
@@ -267,11 +268,18 @@
     color: rgb(var(--color-foreground));
     font-weight: var(--font-medium);
     display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 5px;
   }
-  .vpa__chip .icon { width: 12px; height: 12px; flex-shrink: 0; }
-  .vpa__chip-text { min-width: 0; word-wrap: break-word; }
+  .vpa__chip .icon { width: 11px; height: 11px; flex-shrink: 0; margin-block-start: 1px; }
+  .vpa__chip-text {
+    min-width: 0;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .vpa__tile-info { background: var(--vpa-info-bg); color: rgb(var(--color-foreground)); }
   .vpa__tile-info strong { font-weight: var(--font-bold); }
 
@@ -404,11 +412,130 @@
     .vpa__addon-price { grid-column: 2 / -1; padding-inline-start: calc(40px + var(--sp-3)); }
     .vpa__addon-sub { padding-inline-start: 0; }
   }
+
+  /* ═══════════════════════════════════════════════════════════════════
+     SIZE PRESETS — same layout, scaled density. Switchable per-block via
+     the Size preset setting (XS / S / M / L). Each preset is scoped to
+     .vpa[data-vpa-size="…"] so they compose with the base styles above
+     and never bleed across instances on the same page.
+  ═══════════════════════════════════════════════════════════════════ */
+
+  /* ─── XS — Ultra compact ───────────────────────────────────────── */
+  .vpa[data-vpa-size="xs"] { gap: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__step { padding: var(--sp-3) var(--sp-3d5); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xs"] .vpa__step { padding: var(--sp-3d5) var(--sp-4); } }
+  .vpa[data-vpa-size="xs"] .vpa__head { margin-block-end: var(--sp-3); gap: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__num { width: 22px; height: 22px; font-size: 11px; border-width: 1.25px; }
+  .vpa[data-vpa-size="xs"] .vpa__title { font-size: var(--text-sm); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xs"] .vpa__title { font-size: var(--text-base); } }
+  .vpa[data-vpa-size="xs"] .vpa__status { font-size: 10px; }
+  .vpa[data-vpa-size="xs"] .vpa__choices--tile { gap: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__tile { padding: var(--sp-2d5); padding-block-start: var(--sp-5); border-width: 1px; }
+  .vpa[data-vpa-size="xs"] .vpa__tile-body { grid-template-columns: 36px minmax(0, 1fr); gap: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__tile-media { width: 36px; height: 36px; }
+  .vpa[data-vpa-size="xs"] .vpa__tile-name { font-size: var(--text-xs); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xs"] .vpa__tile-name { font-size: var(--text-sm); } }
+  .vpa[data-vpa-size="xs"] .vpa__tile-price { font-size: var(--text-xs); gap: var(--sp-1); }
+  .vpa[data-vpa-size="xs"] .vpa__tag, .vpa[data-vpa-size="xs"] .vpa__discount { font-size: 8.5px; padding: 2px 5px; top: var(--sp-1d5); }
+  .vpa[data-vpa-size="xs"] .vpa__tag { left: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__discount { right: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__chip, .vpa[data-vpa-size="xs"] .vpa__tile-info { font-size: 9.5px; padding: 3px 6px; margin-block-start: var(--sp-1d5); }
+  .vpa[data-vpa-size="xs"] .vpa__chip .icon { width: 10px; height: 10px; }
+  .vpa[data-vpa-size="xs"] .vpa__swatch { width: 50px; gap: var(--sp-1); }
+  .vpa[data-vpa-size="xs"] .vpa__swatch-fill { width: 32px; height: 32px; }
+  .vpa[data-vpa-size="xs"] .vpa__swatch-label { font-size: 10px; }
+
+  /* ─── S — Compact ──────────────────────────────────────────────── */
+  .vpa[data-vpa-size="s"] .vpa__step { padding: var(--sp-3d5) var(--sp-4); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="s"] .vpa__step { padding: var(--sp-4) var(--sp-5); } }
+  .vpa[data-vpa-size="s"] .vpa__head { margin-block-end: var(--sp-3); }
+  .vpa[data-vpa-size="s"] .vpa__num { width: 24px; height: 24px; font-size: 12px; }
+  .vpa[data-vpa-size="s"] .vpa__choices--tile { gap: var(--sp-2); }
+  .vpa[data-vpa-size="s"] .vpa__tile { padding: var(--sp-3); padding-block-start: var(--sp-5d5); }
+  .vpa[data-vpa-size="s"] .vpa__tile-body { grid-template-columns: 42px minmax(0, 1fr); gap: var(--sp-2d5); }
+  .vpa[data-vpa-size="s"] .vpa__tile-media { width: 42px; height: 42px; }
+  .vpa[data-vpa-size="s"] .vpa__tag, .vpa[data-vpa-size="s"] .vpa__discount { font-size: 9px; padding: 2px 5.5px; }
+  .vpa[data-vpa-size="s"] .vpa__chip, .vpa[data-vpa-size="s"] .vpa__tile-info { font-size: 10px; padding: 3px 7px; }
+  .vpa[data-vpa-size="s"] .vpa__swatch { width: 58px; }
+  .vpa[data-vpa-size="s"] .vpa__swatch-fill { width: 36px; height: 36px; }
+
+  /* ─── M — Medium (default, no overrides) ───────────────────────── */
+  /* The tightened baseline from the .vpa__tile rules is the M preset. */
+
+  /* ─── Colour swatch layout + label modifiers ────────────────────── */
+  /* Spread: distribute swatches evenly across the row (single line). */
+  .vpa[data-vpa-color-layout="spread"] .vpa__choices--swatch {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: var(--sp-2);
+    justify-items: center;
+  }
+  .vpa[data-vpa-color-layout="spread"] .vpa__swatch { width: 100%; max-width: 80px; }
+
+  /* Label: hover — hide label inline, show as a styled tooltip on hover. */
+  .vpa[data-vpa-color-label="hover"] .vpa__swatch-label {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: calc(100% + 4px);
+    transform: translateX(-50%);
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+    font-size: 10.5px;
+    font-weight: var(--font-medium);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    z-index: 10;
+  }
+  .vpa[data-vpa-color-label="hover"] .vpa__swatch:hover .vpa__swatch-label,
+  .vpa[data-vpa-color-label="hover"] .vpa__swatch:focus-within .vpa__swatch-label { opacity: 1; }
+
+  /* Label: hidden — never render the label visually. */
+  .vpa[data-vpa-color-label="hidden"] .vpa__swatch-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ─── L — Large / spacious ─────────────────────────────────────── */
+  .vpa[data-vpa-size="l"] { gap: var(--sp-4); }
+  .vpa[data-vpa-size="l"] .vpa__step { padding: var(--sp-5) var(--sp-5d5); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="l"] .vpa__step { padding: var(--sp-6) var(--sp-7); } }
+  .vpa[data-vpa-size="l"] .vpa__head { margin-block-end: var(--sp-5); }
+  .vpa[data-vpa-size="l"] .vpa__num { width: 32px; height: 32px; font-size: 14px; border-width: 2px; }
+  .vpa[data-vpa-size="l"] .vpa__title { font-size: var(--text-lg); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="l"] .vpa__title { font-size: var(--text-xl); } }
+  .vpa[data-vpa-size="l"] .vpa__choices--tile { gap: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__tile { padding: var(--sp-5); padding-block-start: var(--sp-7); border-width: 2px; }
+  .vpa[data-vpa-size="l"] .vpa__tile-body { grid-template-columns: 64px minmax(0, 1fr); gap: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__tile-media { width: 64px; height: 64px; border-radius: 12px; }
+  .vpa[data-vpa-size="l"] .vpa__tile-name { font-size: var(--text-base); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="l"] .vpa__tile-name { font-size: var(--text-lg); } }
+  .vpa[data-vpa-size="l"] .vpa__tile-price { font-size: var(--text-base); gap: var(--sp-2); }
+  .vpa[data-vpa-size="l"] .vpa__tag, .vpa[data-vpa-size="l"] .vpa__discount { font-size: 11px; padding: 3.5px 8px; top: var(--sp-3); }
+  .vpa[data-vpa-size="l"] .vpa__tag { left: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__discount { right: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__chip, .vpa[data-vpa-size="l"] .vpa__tile-info { font-size: 12px; padding: 5px 10px; margin-block-start: var(--sp-2d5); }
+  .vpa[data-vpa-size="l"] .vpa__chip .icon { width: 13px; height: 13px; }
+  .vpa[data-vpa-size="l"] .vpa__swatch { width: 72px; gap: var(--sp-2); }
+  .vpa[data-vpa-size="l"] .vpa__swatch-fill { width: 46px; height: 46px; }
+  .vpa[data-vpa-size="l"] .vpa__swatch-label { font-size: 13px; }
+
 </style>
 
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
+  data-vpa-size="{{ block.settings.size_preset | default: 'm' }}"
+  data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
+  data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
@@ -581,7 +708,7 @@
             -%}
             {%- comment -%} Colour swatches are always clickable — stock/availability cascades through the size + edition steps. {%- endcomment -%}
             <label class="vpa__swatch" for="{{ input_id }}" title="{{ value_string | escape }}">
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}">
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}">
               <span class="vpa__swatch-fill" style="{% if sw_image_url != '' %}background-image: url('{{ sw_image_url }}');{% endif %}{% if sw_bg != '' %}background-color: {{ sw_bg }};{% else %}background-color: rgb(var(--color-foreground)/0.06);{% endif %}"></span>
               <span class="vpa__swatch-label">{{ value_string }}</span>
             </label>
@@ -589,7 +716,7 @@
           {%- elsif is_color -%}
             {%- comment -%} Colour text-button (when image swatches disabled) — always clickable too. {%- endcomment -%}
             <label class="vpa__text-btn" for="{{ input_id }}">
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}">
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}">
               {{ value_string }}
             </label>
 
@@ -617,7 +744,7 @@
               {%- if rep_discount_pct > 0 and show_sold_out_treatment == false -%}
                 <span class="vpa__discount">{{ rep_discount_pct }}% OFF</span>
               {%- endif -%}
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}"{% if value_unavailable %} disabled{% endif %}>
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body">
                 <div class="vpa__tile-media">
                   {%- if rep_image != blank -%}
@@ -809,6 +936,8 @@
   var productHandle  = root.dataset.productHandle;
   var productTitle   = root.dataset.productTitle || '';
   var sectionId      = root.dataset.sectionId;
+  var productId      = '{{ product.id }}';
+  var galleryElId    = 'ProductGallery-' + sectionId + '-' + productId;
   var chipPrefix     = {{ block.settings.pre_order_chip_prefix | default: 'Pre-order · ships' | json }};
   var moneyFormat    = {{ shop.money_format | json }};
   var skuPrefixLength = {{ block.settings.addon_match_sku_prefix_length | default: 4 }};
@@ -863,6 +992,24 @@
     {%- assign _emit = false -%}
     {%- for v in product.variants -%}
       {%- if _emit %},{% endif -%}"{{ v.id }}": {{ v.sku | default: '' | json }}{%- assign _emit = true -%}
+    {%- endfor -%}
+  };
+
+  // variant id → first gang_media item. This theme stores per-variant media
+  // in variant.metafields.theme.gang_media (a list), and the media-gallery
+  // section reads it server-side. But the gallery's variant:change listener
+  // only looks at variant.featured_media — so for variants that use
+  // gang_media but not featured_media, the gallery wouldn't swap. We
+  // surface the first gang_media item here and synthesise it as
+  // featured_media when dispatching, so the gallery's setActiveMedia call
+  // hits the right media id.
+  var gangMediaByVariant = {
+    {%- assign _emit = false -%}
+    {%- for v in product.variants -%}
+      {%- assign _gm = v.metafields.theme.gang_media.value -%}
+      {%- if _gm and _gm.size > 0 -%}
+        {%- if _emit %},{% endif -%}"{{ v.id }}": {{ _gm | first | json }}{%- assign _emit = true -%}
+      {%- endif -%}
     {%- endfor -%}
   };
 
@@ -1090,8 +1237,42 @@
     });
   }
 
-  // Sync the host form's hidden id input + fire variant:change so other
-  // PDP blocks (price, buy buttons, pre-order message) update normally.
+  // Fire the variant:change event the theme's media gallery + other PDP
+  // blocks listen for. Works for any variant — full match or partial.
+  // If the variant lacks Shopify's built-in featured_media but has the
+  // theme's per-variant gang_media metafield, synthesise a featured_media
+  // from the first gang_media item so the gallery's setActiveMedia call
+  // still finds the right media id and swaps the hero image.
+  function dispatchVariantChange(variant) {
+    if (!variant) return;
+    if (!variant.featured_media && gangMediaByVariant[variant.id]) {
+      var gm = gangMediaByVariant[variant.id];
+      variant = Object.assign({}, variant, {
+        featured_media: { id: gm.id, alt: gm.alt, position: gm.position, preview_image: gm.preview_image, media_type: gm.media_type }
+      });
+    }
+    var form = document.getElementById(formId);
+    if (!form) return;
+    form.dispatchEvent(new CustomEvent('variant:change', {
+      bubbles: true,
+      detail: { variant: variant }
+    }));
+  }
+
+  // First variant compatible with the user's current selections (any subset).
+  // Used to surface a representative image for the gallery / price block
+  // while the user is still mid-flow (e.g. has only picked colour so far).
+  function findFirstCompatibleVariant() {
+    return variants.find(function (v) {
+      for (var i = 1; i <= optionCount; i++) {
+        if (selected[i] && selected[i] !== v['option' + i]) return false;
+      }
+      return true;
+    });
+  }
+
+  // Sync the host form's hidden id input AND fire variant:change. Only
+  // call this when we have a full, valid variant.
   function syncFormVariant(variant) {
     if (!variant) return;
     currentMainVariantId = variant.id;
@@ -1101,8 +1282,8 @@
     if (idInput && idInput.value != variant.id) {
       idInput.value = variant.id;
       idInput.dispatchEvent(new Event('change', { bubbles: true }));
-      form.dispatchEvent(new CustomEvent('variant:change', { bubbles: true, detail: { variant: variant } }));
     }
+    dispatchVariantChange(variant);
   }
 
   // ═══ Add-on variant matching ═════════════════════════════════════════
@@ -1257,6 +1438,52 @@
     root.querySelectorAll('label.vpa__addon').forEach(applyAddonMatch);
   }
 
+  // Self-contained gallery swap on selection — same mechanism the standard
+  // variant_picker block uses (Section Rendering API with option_values),
+  // but driven directly rather than via theme.pubsub + ProductInfo, so this
+  // works regardless of how the host section is wired up.
+  var lastGalleryFetch = '';
+  var galleryAbort = null;
+  function refreshGalleryFromServer() {
+    if (!sectionId || !productHandle) return;
+    var checked = root.querySelectorAll('input[data-option-value-id]:checked');
+    var ids = Array.prototype.map.call(checked, function (el) {
+      return el.getAttribute('data-option-value-id');
+    }).filter(Boolean);
+    if (!ids.length) return;
+    var key = ids.join(',');
+    if (key === lastGalleryFetch) return;
+    lastGalleryFetch = key;
+
+    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&option_values=' + encodeURIComponent(key);
+    if (galleryAbort) galleryAbort.abort();
+    galleryAbort = new AbortController();
+    fetch(url, { credentials: 'same-origin', signal: galleryAbort.signal })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (html) {
+        if (!html) return;
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var source = doc.getElementById(galleryElId);
+        var dest = document.getElementById(galleryElId);
+        if (!source || !dest) {
+          if (window.console) console.warn('[vpa] gallery swap skipped — source/dest missing', { srcFound: !!source, destFound: !!dest, galleryElId: galleryElId });
+          return;
+        }
+        dest.innerHTML = source.innerHTML;
+        dest.removeAttribute('hidden');
+        // Fire variant:change so other listeners (price, badges, etc.) react.
+        // media-gallery's onVariantChanged calls setActiveMedia against the
+        // freshly-rendered media list. Use full variant when available;
+        // otherwise a representative match for the current partial selection.
+        var v = findVariant() || findFirstCompatibleVariant();
+        if (v) dispatchVariantChange(v);
+      })
+      .catch(function (err) {
+        if (err && err.name === 'AbortError') return;
+        if (window.console) console.error('[vpa] gallery refetch failed', err);
+      });
+  }
+
   // ═══ Event handlers ══════════════════════════════════════════════════
   root.addEventListener('change', function (e) {
     var input = e.target.closest('input[data-option-position]');
@@ -1266,12 +1493,25 @@
     updateAvailability();
     renumberAndLock();
     updateAllTiles();
-    // Resolve + sync the new variant BEFORE running add-on matching so the
-    // SKU matcher reads the fresh currentMainVariantId. Otherwise every
-    // selection change is off-by-one (matches against the previous spa).
-    var variant = findVariant();
-    if (variant) syncFormVariant(variant);
+    // Resolve the variant FIRST so the SKU-matcher reads the fresh id when
+    // running add-on matching (otherwise every selection is off-by-one).
+    var fullVariant = findVariant();
+    if (fullVariant) {
+      syncFormVariant(fullVariant);
+    } else {
+      // Partial selection (e.g. user has only picked colour so far). The
+      // form's hidden id stays at the last-committed value, but we still
+      // fire variant:change with a representative variant matching the
+      // current selections — that's what triggers the media gallery to
+      // swap its hero image, the price block to refresh, etc.
+      var representative = findFirstCompatibleVariant();
+      if (representative) dispatchVariantChange(representative);
+    }
     applyAllAddonMatches();
+    // Fetch the freshly-rendered section and swap in the new ProductGallery
+    // HTML. Same mechanism the standard variant_picker block uses, just
+    // driven directly so it doesn't depend on ProductInfo's pubsub wiring.
+    refreshGalleryFromServer();
   });
 
   // Size-chart trigger

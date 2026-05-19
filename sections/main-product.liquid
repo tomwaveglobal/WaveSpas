@@ -2337,6 +2337,19 @@
       "limit": 1,
       "settings": [
         {
+          "type": "select",
+          "id": "size_preset",
+          "options": [
+            { "value": "xs", "label": "XS — Ultra compact" },
+            { "value": "s",  "label": "S — Compact" },
+            { "value": "m",  "label": "M — Medium (default)" },
+            { "value": "l",  "label": "L — Large / spacious" }
+          ],
+          "default": "m",
+          "label": "Size preset",
+          "info": "Scales the picker's tile padding, thumbnail, type sizes and chips together. Same layout — just tighter or roomier."
+        },
+        {
           "type": "checkbox",
           "id": "enable_dynamic_variants",
           "default": true,
@@ -2388,6 +2401,28 @@
           "default": "color",
           "label": "Swatch type",
           "info": "Colour swatch uses settings.swatch_config (Name:filename or Name:#hex). Variant image uses each variant's featured image."
+        },
+        {
+          "type": "select",
+          "id": "colour_layout",
+          "options": [
+            { "value": "wrap",   "label": "Wrap (default — flow left, wrap as needed)" },
+            { "value": "spread", "label": "Spread evenly across the line" }
+          ],
+          "default": "wrap",
+          "label": "Swatch layout"
+        },
+        {
+          "type": "select",
+          "id": "colour_label",
+          "options": [
+            { "value": "always", "label": "Always show name" },
+            { "value": "hover",  "label": "Show name on hover only" },
+            { "value": "hidden", "label": "Never show name" }
+          ],
+          "default": "always",
+          "label": "Swatch label",
+          "info": "Pair with Spread layout when names are long — keeps the row clean."
         },
         {
           "type": "header",
