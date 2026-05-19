@@ -450,6 +450,7 @@
       data-option-position="{{ option_pos }}"
       data-option-name="{{ option.name | escape }}"
       data-is-size="{{ is_size }}"
+      data-is-color="{{ is_color }}"
     >
       <div class="vpa__head">
         <span class="vpa__num" data-num-label>{{ display_order }}</span>
@@ -569,16 +570,17 @@
                 assign sw_bg = ''
               endif
             -%}
-            <label class="vpa__swatch{% if value_unavailable %} vpa__choice--unavailable{% endif %}" for="{{ input_id }}" title="{{ value_string | escape }}">
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}"{% if value_unavailable %} disabled{% endif %}>
+            {%- comment -%} Colour swatches are always clickable — stock/availability cascades through the size + edition steps. {%- endcomment -%}
+            <label class="vpa__swatch" for="{{ input_id }}" title="{{ value_string | escape }}">
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}">
               <span class="vpa__swatch-fill" style="{% if sw_image_url != '' %}background-image: url('{{ sw_image_url }}');{% endif %}{% if sw_bg != '' %}background-color: {{ sw_bg }};{% else %}background-color: rgb(var(--color-foreground)/0.06);{% endif %}"></span>
               <span class="vpa__swatch-label">{{ value_string }}</span>
             </label>
 
           {%- elsif is_color -%}
-            {%- comment -%} Colour text-button (when image swatches disabled). {%- endcomment -%}
-            <label class="vpa__text-btn{% if value_unavailable %} vpa__choice--unavailable{% endif %}" for="{{ input_id }}">
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}"{% if value_unavailable %} disabled{% endif %}>
+            {%- comment -%} Colour text-button (when image swatches disabled) — always clickable too. {%- endcomment -%}
+            <label class="vpa__text-btn" for="{{ input_id }}">
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}">
               {{ value_string }}
             </label>
 
@@ -932,6 +934,11 @@
   function updateAvailability() {
     if (!enableDynamic) return;
     root.querySelectorAll('input[data-option-position]').forEach(function (input) {
+      // Colour step is always interactive — stock/availability cascades
+      // through size + edition rather than locking colour choices.
+      var step = input.closest('.vpa__step');
+      if (step && step.dataset.isColor === 'true') return;
+
       var pos = +input.dataset.optionPosition;
       var value = input.dataset.value;
       var possible = variants.some(function (v) {
@@ -1348,6 +1355,17 @@
   }, true /* capture */);
 
   // ═══ Initial paint ═══════════════════════════════════════════════════
+  // Belt-and-braces: strip any stale "unavailable" state from colour
+  // swatches/buttons. Earlier server versions added the class when all
+  // variants for a colour were sold out; we now want colour always
+  // clickable, so clear any cached HTML that came in with the class set.
+  root.querySelectorAll('.vpa__step[data-is-color="true"] label').forEach(function (l) {
+    l.classList.remove('vpa__choice--unavailable');
+  });
+  root.querySelectorAll('.vpa__step[data-is-color="true"] input[disabled]').forEach(function (i) {
+    i.disabled = false;
+  });
+
   updateAvailability();
   renumberAndLock();
   updateAllTiles();
