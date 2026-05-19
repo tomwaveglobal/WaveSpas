@@ -169,18 +169,17 @@
         },
         "text_nncjDG": {
           "type": "text",
-          "disabled": true,
           "settings": {
             "icon": "sale",
             "iwidth": "custom",
             "icon_width": 20,
-            "text": "Use code <strong>EXTRA10</strong> for 10% off | Ends Soon!",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
+            "text": "Free Starter Chemicals & Filters",
+            "text_size": "text-base",
+            "text_color": "#ffffff",
+            "icon_color": "#ffffff",
+            "background_color": "#f59e0b",
+            "alignment": "center",
+            "background_height": 12,
             "border_radius": 0
           }
         },
@@ -291,6 +290,7 @@
         },
         "product_bundle_tWCDMV": {
           "type": "product_bundle",
+          "disabled": true,
           "settings": {
             "opened": true,
             "clickable": true,
@@ -1041,175 +1041,6 @@
         "parallax_direction": "vertical"
       }
     },
-    "image-with-text-2": {
-      "type": "image-with-text",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "image_width": "custom",
-            "image_max_width": 60,
-            "image_max_width_mobile": 60
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "{{ product.metafields.custom.product_hero_image_2_title.value }}",
-            "heading_size": "title-sm",
-            "heading_tag": "h2",
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.metafields.custom.product_hero_image_2_description | metafield_tag }}",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "image",
-        "heading",
-        "text"
-      ],
-      "disabled": true,
-      "settings": {
-        "image": "{{ product.metafields.custom.product_image_6.value }}",
-        "image_height": "600px",
-        "image_width": "medium",
-        "layout": "text_first",
-        "text_alignment": "left",
-        "content_position": "align-self-center",
-        "image_height_mobile": "400px",
-        "text_alignment_mobile": "left",
-        "color_text": "#171717",
-        "color_background": "",
-        "gradient_background": "",
-        "color_background_2": "#fafafa",
-        "gradient_background_2": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": false,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
-      }
-    },
-    "timeline_87wmYq": {
-      "type": "timeline",
-      "blocks": {
-        "content_RCEB99": {
-          "type": "content",
-          "settings": {
-            "image": "shopify://shop_images/Como-Energy-Save-Product_Slide_1.jpg",
-            "image_mobile": "shopify://shop_images/Como-Energy-Save-Product_Slide_1.jpg",
-            "subheading": "The EnergyBundle™",
-            "heading": "Thermal Cove<em>r & Foam Mat</em>",
-            "heading_tag": "h2",
-            "text": "<p>Maximize your hot tub's efficiency by adding The EnergyBundle™, which pairs our Thermal Hot Tub Cover with the Insulating Foam Mat. This comprehensive solution shields your spa from debris and UV rays while creating a thermal barrier against the ground below. By sealing in heat from all sides, this bundle significantly reduces energy costs and safeguards your investment against weather and wear.</p>",
-            "button_label": "",
-            "button_link": "",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": true,
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
-          }
-        },
-        "content_nHDyaQ": {
-          "type": "content",
-          "settings": {
-            "image": "shopify://shop_images/large-square-insulating-foam-mat-floor-protector-49-pieces-wave-spas-uk-996928.jpg",
-            "image_mobile": "shopify://shop_images/large-square-insulating-foam-mat-floor-protector-49-pieces-wave-spas-uk-996928.jpg",
-            "subheading": "The EnergyBundle™",
-            "heading": "<em>Insulating Foam Mat</em>",
-            "heading_tag": "h2",
-            "text": "<p>Enhance your hot tub experience with our Insulating Foam Mat, designed to provide superior heat retention, comfort, and energy efficiency. This mat acts as a barrier between your tub and the ground, ensuring your water stays warm longer while protecting your hot tub from damage.<br/><br/><br/></p>",
-            "button_label": "",
-            "button_link": "",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": true,
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
-          }
-        },
-        "content_GzKHUM": {
-          "type": "content",
-          "settings": {
-            "image": "shopify://shop_images/ComoEPSCover.png",
-            "image_mobile": "shopify://shop_images/ComoEPSCover.png",
-            "subheading": "Premium Tub Cover",
-            "heading": "<em>All Weather Hot Tub Cover</em>",
-            "heading_tag": "h2",
-            "text": "<p>The Wave Premium All Weather Cover is an essential accessory designed to keep your spa strictly \"\"ready-to-use\"\" all year round. This isn't just a cover; it’s an engineered solution to dramatically reduce your running costs. By using advanced thermal technology, you can spend less time waiting for your water to warm up and more time enjoying the bubbles.\"</p>",
-            "button_label": "",
-            "button_link": "",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": true,
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
-          }
-        }
-      },
-      "block_order": [
-        "content_RCEB99",
-        "content_nHDyaQ",
-        "content_GzKHUM"
-      ],
-      "disabled": true,
-      "name": "t:sections.timeline.presets.name",
-      "settings": {
-        "show_navigation": true,
-        "layout": "image_first",
-        "image_ratio": "adapt",
-        "image_ratio_mobile": "wide",
-        "heading": "Take Control Of Energy Costs",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "<p>Unlock ultimate energy efficiency by pairing your spa with our EnergyBundle™ and Premium Cover. This system boosts efficiency by an additional 30%, locking in your 40°C soak for just £2 a day.</p>",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "highlighted_reveal": false,
-        "color_text": "#171717",
-        "color_background": "rgba(0,0,0,0)",
-        "gradient_background": "",
-        "color_highlight": "#f59e0b",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": true
-      }
-    },
     "product-details": {
       "type": "product-details",
       "blocks": {
@@ -1324,58 +1155,6 @@
         "divider": false,
         "full_width": false,
         "rounded": true
-      }
-    },
-    "rich_text_j33Gc7": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_QRHRYE": {
-          "type": "heading",
-          "settings": {
-            "heading": "Compare Spas",
-            "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h2",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "highlighted_reveal": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_QRHRYE"
-      ],
-      "disabled": true,
-      "name": "t:sections.rich-text.name",
-      "settings": {
-        "text_alignment": "center",
-        "text_alignment_mobile": "center",
-        "heading": "",
-        "heading_size": "title-lg tracking-heading",
-        "heading_alignment": "text-center md:items-center",
-        "heading_width": "medium",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "divider": false,
-        "narrow": true,
-        "rounded": false
       }
     },
     "comparison_table_GXKLn7": {
@@ -1881,51 +1660,6 @@
         "full_width": false,
         "rounded": true
       }
-    },
-    "product_bundle_GTdfXA": {
-      "type": "product-bundle",
-      "disabled": true,
-      "name": "t:sections.product-bundle.presets.name",
-      "settings": {
-        "collection": "",
-        "products": [],
-        "product_limit": 12,
-        "columns": 4,
-        "columns_mobile": "1",
-        "minimum_quantity": 3,
-        "maximum_quantity": 3,
-        "prevent_duplicate_products": true,
-        "allow_quantity_change": false,
-        "quantity_increment": "1",
-        "quantity_minimum": "1",
-        "quantity_maximum": "",
-        "show_variant_labels": true,
-        "picker_type": "button",
-        "enable_color_swatches": true,
-        "color_swatch_type": "color",
-        "heading": "Your bundle",
-        "heading_size": "lg:text-5xl text-2xl",
-        "heading_alignment": "text-left",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
-      }
     }
   },
   "order": [
@@ -1937,15 +1671,11 @@
     "collage",
     "image-with-text-1",
     "video_with_text_8VEKJe",
-    "image-with-text-2",
-    "timeline_87wmYq",
     "product-details",
-    "rich_text_j33Gc7",
     "comparison_table_GXKLn7",
     "faq",
     "rich_text_XazzCf",
     "174653922467a5c413",
-    "product-recommendations",
-    "product_bundle_GTdfXA"
+    "product-recommendations"
   ]
 }
