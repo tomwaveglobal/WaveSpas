@@ -2337,39 +2337,33 @@
       "limit": 1,
       "settings": [
         {
-          "type": "header",
-          "content": "Visual setup"
-        },
-        {
           "type": "select",
-          "id": "vpa_style",
+          "id": "visual_style",
           "options": [
-            { "value": "card",       "label": "1 — Card (subtle border)" },
-            { "value": "borderless", "label": "2 — Borderless / Tinted" },
-            { "value": "underline",  "label": "3 — Underline (no box)" },
-            { "value": "accent",     "label": "4 — Accent (brand-colour selected)" },
-            { "value": "shadow",     "label": "5 — Shadow (floating cards)" }
+            { "value": "card",       "label": "1 — Card (default, subtle border)" },
+            { "value": "borderless", "label": "2 — Borderless / Tinted (soft grey fill, no border)" },
+            { "value": "underline",  "label": "3 — Underline (no box, thin line under heading)" },
+            { "value": "accent",     "label": "4 — Accent (highlight bar + brand-colour selected state)" },
+            { "value": "shadow",     "label": "5 — Shadow (floating white cards, soft drop shadow)" }
           ],
           "default": "card",
-          "label": "Style"
+          "label": "Visual style",
+          "info": "Switches the step container + tile chrome. Combines freely with the Size preset below."
         },
         {
           "type": "select",
-          "id": "vpa_size",
+          "id": "size_preset",
           "options": [
             { "value": "xxxs", "label": "XXXS — Micro" },
             { "value": "xxs",  "label": "XXS — Very tight" },
             { "value": "xs",   "label": "XS — Ultra compact" },
             { "value": "s",    "label": "S — Compact" },
             { "value": "m",    "label": "M — Medium" },
-            { "value": "l",    "label": "L — Large" }
+            { "value": "l",    "label": "L — Large / spacious" }
           ],
           "default": "s",
-          "label": "Size"
-        },
-        {
-          "type": "paragraph",
-          "content": "Style switches the step container + tile chrome. Size scales padding, thumbnails and type together. Combine freely."
+          "label": "Size preset",
+          "info": "Scales the picker's tile padding, thumbnail, type sizes and chips together. Same layout — just tighter or roomier."
         },
         {
           "type": "checkbox",
