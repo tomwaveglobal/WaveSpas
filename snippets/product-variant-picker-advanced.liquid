@@ -405,6 +405,8 @@
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
+  data-product-handle="{{ product.handle }}"
+  data-section-id="{{ section_id }}"
   {{ block.shopify_attributes }}
 >
   {%- comment -%}
@@ -747,6 +749,21 @@
   {%- endif -%}
 </div>
 
+{%- comment -%}
+  Fresh pre-order data block. JS reads this on every page load (and on
+  every Section Rendering API refetch) so chip text stays in sync with
+  the metafield even when the page HTML is served from CDN cache.
+{%- endcomment -%}
+<script type="application/json" data-vpa-preorder-map="{{ vpa_id }}">
+{
+  {%- assign _emit = false -%}
+  {%- for v in product.variants -%}
+    {%- assign po = v.metafields.custom[pre_order_key] -%}
+    {%- if po != blank -%}{%- if _emit %},{% endif -%}"{{ v.id }}": {{ po | json }}{%- assign _emit = true -%}{%- endif -%}
+  {%- endfor -%}
+}
+</script>
+
 {%- comment -%} ═══ Size-chart modal (matches the theme's existing pattern) ═══ {%- endcomment -%}
 {%- if size_chart != blank -%}
   <x-modal id="SizeChart-{{ vpa_id }}" class="x-modal drawer z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none" role="dialog" aria-modal="true" aria-label="{{ size_chart.title | escape }}" hidden>
@@ -775,11 +792,13 @@
   if (!root) return;
 
   // ═══ Constants & state ═══════════════════════════════════════════════
+  var vpaId          = root.id;
   var optionCount    = {{ product.options.size }};
   var formId         = root.dataset.formId;
   var enableDynamic  = root.dataset.dynamic === 'true';
   var productHandle  = root.dataset.productHandle;
   var productTitle   = root.dataset.productTitle || '';
+  var sectionId      = root.dataset.sectionId;
   var chipPrefix     = {{ block.settings.pre_order_chip_prefix | default: 'Pre-order · ships' | json }};
   var moneyFormat    = {{ shop.money_format | json }};
   var skuPrefixLength = {{ block.settings.addon_match_sku_prefix_length | default: 4 }};
@@ -1354,6 +1373,42 @@
     submitWithAddons(form || document.getElementById(formId), btn);
   }, true /* capture */);
 
+  // ═══ Live pre-order data refresh ═════════════════════════════════════
+  // The pre-order chip's metafield value is baked into the HTML at render
+  // time and Shopify's CDN caches PDPs for anonymous visitors. To keep the
+  // chip in sync with the live metafield, we refetch this section via the
+  // Section Rendering API (with a cache-bust query) on every page load and
+  // update the in-memory preOrderByVariant map from the fresh JSON blob.
+
+  function loadPreOrderMapFromDocument(docLike) {
+    var sel = '[data-vpa-preorder-map="' + vpaId + '"]';
+    var el = docLike.querySelector(sel);
+    if (!el) return null;
+    try {
+      return JSON.parse(el.textContent);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function refreshPreOrderFromServer() {
+    if (!sectionId || !productHandle) return;
+    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&_=' + Date.now();
+    fetch(url, { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (html) {
+        if (!html) return;
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var fresh = loadPreOrderMapFromDocument(doc);
+        if (!fresh) return;
+        // Replace map in-place so closures over preOrderByVariant pick up new values.
+        Object.keys(preOrderByVariant).forEach(function (k) { delete preOrderByVariant[k]; });
+        Object.keys(fresh).forEach(function (k) { preOrderByVariant[k] = fresh[k]; });
+        updateAllTiles();
+      })
+      .catch(function () { /* network failure → keep server-rendered values */ });
+  }
+
   // ═══ Initial paint ═══════════════════════════════════════════════════
   // Belt-and-braces: strip any stale "unavailable" state from colour
   // swatches/buttons. Earlier server versions added the class when all
@@ -1370,6 +1425,7 @@
   renumberAndLock();
   updateAllTiles();
   applyAllAddonMatches();
+  refreshPreOrderFromServer();
 })();
 </script>
 {%- endunless -%}
