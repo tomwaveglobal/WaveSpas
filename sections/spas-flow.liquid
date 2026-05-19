@@ -1,0 +1,1061 @@
+{%- comment -%}
+  Spas-Flow — guided stepped PDP buy-box.
+  Gallery mirrors main-product; right column is a stepped flow
+  (Colour → Size → Edition/Bundle → Add-Ons). Add-Ons reveal animates in
+  once all core option steps are chosen. Pre-order is surfaced per tile
+  via variant.metafields.custom.pre_order_date_{uk|eu|usa}.
+{%- endcomment -%}
+
+{%- liquid
+  assign product_form_id = 'ProductForm-' | append: section.id | append: '-' | append: product.id
+  assign current_variant = product.selected_or_first_available_variant
+
+  case localization.market.metafields.country.code
+    when 'UK'
+      assign pre_order_key = 'pre_order_date_uk'
+    when 'EU'
+      assign pre_order_key = 'pre_order_date_eu'
+    when 'US'
+      assign pre_order_key = 'pre_order_date_usa'
+    else
+      assign pre_order_key = 'pre_order_date_uk'
+  endcase
+
+  assign popular_upgrades = product.metafields.custom.popular_upgrades.value
+
+  assign icons_meta = nil
+  if settings.product_icon_list_metafield != blank
+    assign meta_parts = settings.product_icon_list_metafield | split: '.'
+    assign meta_ns = meta_parts | first
+    assign meta_key = meta_parts | last
+    assign icons_meta = product.metafields[meta_ns][meta_key].value
+  endif
+
+  assign first_media = product.selected_or_first_available_variant.featured_media | default: product.media.first
+  if section.settings.hide_first_media
+    assign _gang = product.selected_or_first_available_variant.metafields.theme.gang_media.value
+    if _gang != blank and product.selected_or_first_available_variant.metafields.theme.gang_media.list? and _gang.size > 0
+      assign first_media = _gang | first | default: first_media
+    elsif first_media.id == product.media.first.id and product.media.size > 1
+      assign first_media = product.media[1]
+    endif
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} { --aspect-ratio: {{ first_media.aspect_ratio }}; }
+  }
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} { --aspect-ratio: {{ first_media.aspect_ratio }}; }
+  }
+</style>
+
+{% style %}
+  .spas-flow {
+    --sf-border: rgb(var(--color-foreground) / 0.10);
+    --sf-border-strong: rgb(var(--color-foreground) / 0.85);
+    --sf-surface-muted: rgb(var(--color-foreground) / 0.03);
+    --sf-text-muted: rgb(var(--color-foreground) / 0.6);
+    --sf-accent: rgb(var(--color-highlight));
+    --sf-accent-soft: rgb(var(--color-highlight) / 0.10);
+    --sf-sale: rgb(var(--color-sale-tag));
+    --sf-sale-text: rgb(var(--color-sale-tag-text));
+  }
+  .spas-flow__layout {
+    display: grid;
+    gap: clamp(var(--sp-6), 3vw, var(--sp-10));
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .spas-flow__layout {
+      grid-template-columns: minmax(0, {{ section.settings.media_size | divided_by: 50.0 }}fr) minmax(0, {{ 2.0 | minus: section.settings.media_size | divided_by: 50.0 }}fr);
+    }
+    .spas-flow__gallery-col { position: sticky; top: calc(var(--header-height) + var(--sp-6)); }
+  }
+
+  .spas-flow__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+
+  .spas-flow__step {
+    border: 1px solid var(--sf-border);
+    border-radius: var(--rounded-card, 14px);
+    background: rgb(var(--color-background));
+    padding: var(--sp-4) var(--sp-5);
+    transition: opacity 0.2s, border-color 0.2s;
+  }
+  @media (min-width: 768px) {
+    .spas-flow__step { padding: var(--sp-5) var(--sp-6); }
+  }
+  .spas-flow__step--complete { border-color: rgb(var(--color-foreground) / 0.25); }
+  .spas-flow__step--locked { opacity: 0.45; pointer-events: none; }
+  .spas-flow__step--locked .spas-flow__step-num {
+    background: var(--sf-surface-muted);
+    color: var(--sf-text-muted);
+  }
+
+  .spas-flow__step-head {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-block-end: var(--sp-4);
+    width: 100%;
+    padding: 0;
+  }
+  .spas-flow__step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    flex-shrink: 0;
+  }
+  .spas-flow__step-title {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+  }
+  @media (min-width: 768px) {
+    .spas-flow__step-title { font-size: var(--text-lg); }
+  }
+  .spas-flow__step-status {
+    margin-inline-start: auto;
+    font-size: var(--text-xs);
+    color: var(--sf-text-muted);
+    font-weight: var(--font-medium);
+  }
+  .spas-flow__step-status[data-step-status]:not(:empty)::before {
+    content: '✓ ';
+    color: var(--sf-accent);
+    font-weight: var(--font-bold);
+  }
+
+  /* Colour swatches */
+  .spas-flow__choices--swatch { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+  .spas-flow__swatch {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-1d5);
+    width: 64px;
+  }
+  .spas-flow__swatch input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .spas-flow__swatch-fill {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 1px var(--sf-border);
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .spas-flow__swatch input:checked + .spas-flow__swatch-fill {
+    box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px var(--sf-border-strong);
+    transform: scale(1.05);
+  }
+  .spas-flow__swatch input:focus-visible + .spas-flow__swatch-fill {
+    outline: 2px solid var(--sf-accent);
+    outline-offset: 3px;
+  }
+  .spas-flow__swatch-label {
+    font-size: var(--text-xs);
+    text-align: center;
+    line-height: 1.2;
+    color: var(--sf-text-muted);
+    word-wrap: break-word;
+  }
+  .spas-flow__swatch-tag {
+    position: absolute;
+    top: -4px;
+    right: -2px;
+    background: var(--sf-sale);
+    color: var(--sf-sale-text);
+    font-size: 9px;
+    font-weight: var(--font-bold);
+    padding: 2px 5px;
+    border-radius: var(--rounded-full, 999px);
+    letter-spacing: 0.04em;
+    z-index: 2;
+  }
+
+  /* Tile cards */
+  .spas-flow__choices--tile {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: var(--sp-3);
+  }
+  .spas-flow__tile {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--sf-border);
+    border-radius: var(--rounded-card, 12px);
+    background: rgb(var(--color-background));
+    padding: var(--sp-4);
+    padding-block-start: var(--sp-7);
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+    min-height: 132px;
+  }
+  .spas-flow__tile:hover { border-color: var(--sf-text-muted); }
+  .spas-flow__tile input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .spas-flow__tile:has(input:checked) {
+    border-color: var(--sf-border-strong);
+    background: var(--sf-surface-muted);
+  }
+  .spas-flow__tile:has(input:focus-visible) {
+    outline: 2px solid var(--sf-accent);
+    outline-offset: 2px;
+  }
+  .spas-flow__tile-tag,
+  .spas-flow__tile-discount {
+    position: absolute;
+    top: var(--sp-2d5);
+    font-size: 10px;
+    font-weight: var(--font-bold);
+    padding: 3px 7px;
+    border-radius: var(--rounded-full, 999px);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    z-index: 1;
+    line-height: 1;
+  }
+  .spas-flow__tile-tag {
+    left: var(--sp-3);
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+  }
+  .spas-flow__tile-discount {
+    right: var(--sp-3);
+    background: var(--sf-sale);
+    color: var(--sf-sale-text);
+  }
+  .spas-flow__tile-body {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: var(--sp-3);
+    align-items: center;
+  }
+  .spas-flow__tile-media {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--rounded-block, 10px);
+    background: var(--sf-surface-muted);
+    overflow: hidden;
+  }
+  .spas-flow__tile-media img { width: 100%; height: 100%; object-fit: cover; }
+  .spas-flow__tile-text { min-width: 0; }
+  .spas-flow__tile-name {
+    font-weight: var(--font-bold);
+    font-size: var(--text-sm);
+    line-height: 1.25;
+    margin-block-end: var(--sp-1);
+  }
+  @media (min-width: 768px) {
+    .spas-flow__tile-name { font-size: var(--text-base); }
+  }
+  .spas-flow__tile-price {
+    font-size: var(--text-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--sp-1d5);
+    line-height: 1.25;
+  }
+  .spas-flow__tile-price del { color: var(--sf-text-muted); font-size: 0.85em; }
+  .spas-flow__tile-pre-order {
+    display: inline-block;
+    margin-block-start: var(--sp-2d5);
+    background: var(--sf-accent-soft);
+    color: rgb(var(--color-foreground));
+    font-size: 11px;
+    font-weight: var(--font-medium);
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1.3;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+  .spas-flow__tile-pre-order::before { content: '⏱ '; }
+
+  .spas-flow__info {
+    margin-block-start: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--sf-accent-soft);
+    border-radius: var(--rounded-block, 10px);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    display: none;
+  }
+  .spas-flow__info[data-info-visible="true"] { display: block; }
+  .spas-flow__info strong { font-weight: var(--font-bold); }
+
+  /* Add-Ons step — hidden until core options complete, then animates in */
+  .spas-flow__step--addons {
+    opacity: 0;
+    transform: translateY(20px);
+    max-height: 0;
+    padding-block: 0;
+    margin: 0;
+    border-width: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.5s ease, padding 0.4s ease, border-width 0.2s ease;
+    pointer-events: none;
+  }
+  .spas-flow__step--addons[data-revealed="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+    padding: var(--sp-4) var(--sp-5);
+    border-width: 1px;
+    pointer-events: auto;
+  }
+  @media (min-width: 768px) {
+    .spas-flow__step--addons[data-revealed="true"] { padding: var(--sp-5) var(--sp-6); }
+  }
+
+  .spas-flow__addon-list { display: grid; gap: var(--sp-2); }
+  .spas-flow__addon {
+    display: grid;
+    grid-template-columns: auto 48px 1fr auto;
+    align-items: center;
+    gap: var(--sp-3);
+    border: 1px solid var(--sf-border);
+    border-radius: var(--rounded-block, 10px);
+    padding: var(--sp-2d5) var(--sp-3d5);
+    background: rgb(var(--color-background));
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .spas-flow__addon:hover { border-color: var(--sf-text-muted); }
+  .spas-flow__addon:has(input:checked) {
+    border-color: var(--sf-border-strong);
+    background: var(--sf-surface-muted);
+  }
+  .spas-flow__addon-check {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--sf-border-strong);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    background: rgb(var(--color-background));
+  }
+  .spas-flow__addon-check:checked {
+    background: rgb(var(--color-foreground));
+    border-color: rgb(var(--color-foreground));
+  }
+  .spas-flow__addon-check:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    width: 5px;
+    height: 10px;
+    border: solid rgb(var(--color-background));
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .spas-flow__addon-media {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--sf-surface-muted);
+    overflow: hidden;
+  }
+  .spas-flow__addon-media img { width: 100%; height: 100%; object-fit: cover; }
+  .spas-flow__addon-name {
+    font-weight: var(--font-bold);
+    font-size: var(--text-sm);
+    line-height: 1.3;
+  }
+  .spas-flow__addon-price {
+    font-weight: var(--font-bold);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+
+  /* Total + CTA */
+  .spas-flow__total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-block: var(--sp-4);
+    border-top: 1px solid var(--sf-border);
+    margin-block-start: var(--sp-3);
+  }
+  .spas-flow__total-label {
+    font-size: var(--text-base);
+    color: var(--sf-text-muted);
+  }
+  .spas-flow__total-value {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+  }
+  .spas-flow__total-value[data-pending="true"] {
+    color: var(--sf-text-muted);
+    font-weight: var(--font-medium);
+  }
+  .spas-flow__cta { width: 100%; }
+  .spas-flow__cta:disabled { opacity: 0.5; cursor: not-allowed; }
+  .spas-flow__shop-pay { margin-block-start: var(--sp-3); display: grid; }
+  .spas-flow__finance {
+    margin-block-start: var(--sp-3);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--sf-text-muted);
+  }
+{% endstyle %}
+
+<section class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %} spas-flow">
+  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+    <div class="spas-flow__layout">
+
+      {%- comment -%} ===== LEFT: gallery (same snippet + settings as main-product) ===== {%- endcomment -%}
+      <div class="spas-flow__gallery-col product__gallery-container w-full relative">
+        {% render 'product-media-gallery',
+          product: product,
+          product_form_id: product_form_id,
+          product_id: product.id,
+          section_id: section.id,
+          gallery_layout: section.settings.gallery_layout,
+          thumbnail_position: section.settings.thumbnail_position,
+          image_ratio: section.settings.image_ratio,
+          image_ratio_mobile: section.settings.image_ratio_mobile,
+          image_zoom: section.settings.image_zoom,
+          image_fill: settings.product_image_fill,
+          mobile_layout: section.settings.mobile_layout,
+          mobile_thumbnail: section.settings.mobile_thumbnail,
+          hide_variants: section.settings.hide_variants,
+          hide_first_media: section.settings.hide_first_media,
+          enable_video_autoplay: section.settings.enable_video_autoplay,
+          enable_video_looping: section.settings.enable_video_looping
+        %}
+        {% render 'product-badges',
+          product: product,
+          show_save_amount: true,
+          save_type: 'percentage',
+          class: 'z-2 absolute top-0 left-0 grid gap-3 p-4'
+        %}
+      </div>
+
+      {%- comment -%} ===== RIGHT: buy-box flow ===== {%- endcomment -%}
+      <div class="spas-flow__buybox product__info-container">
+        <div class="product__info grid gap-6">
+
+          {%- comment -%} Vendor — same logic as main-product's vendor block (metafield overrides + breadcrumb-collection link) {%- endcomment -%}
+          {%- if product.metafields.product_card_overwrite.vendor != blank -%}
+            {%- if product.metafields.custom.default_collection_for_breadcrumbs != blank -%}
+              <a href="{{ product.metafields.custom.default_collection_for_breadcrumbs.value.url }}" class="product__vendor text-sm">
+                <span class="reversed-link">{{- product.metafields.product_card_overwrite.vendor -}}</span>
+              </a>
+            {%- else -%}
+              <p class="product__vendor text-sm">
+                <span class="reversed-link">{{- product.metafields.product_card_overwrite.vendor -}}</span>
+              </p>
+            {%- endif -%}
+          {%- else -%}
+            {%- if product.metafields.custom.default_collection_for_breadcrumbs != blank -%}
+              <a href="{{ product.metafields.custom.default_collection_for_breadcrumbs.value.url }}" class="product__vendor text-sm">
+                {{- product.vendor | link_to_vendor: class: 'reversed-link' -}}
+              </a>
+            {%- else -%}
+              <p class="product__vendor text-sm">
+                {{- product.vendor | link_to_vendor: class: 'reversed-link' -}}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- comment -%} Title with price on the right — mirrors main-product's title block when show_price=true {%- endcomment -%}
+          {%- assign on_sale = false -%}
+          {%- if current_variant.compare_at_price > current_variant.price -%}{%- assign on_sale = true -%}{%- endif -%}
+          <div class="product__title grid gap-3 with-price{% if on_sale %} with-price--on-sale{% endif %}">
+            <h1 class="heading leading-none product-title-md mobile:product-title-md col-span-full">
+              {%- if product.metafields.product_card_overwrite.title != blank -%}
+                {{ product.metafields.product_card_overwrite.title }}
+              {%- else -%}
+                {{- product.title -}}
+              {%- endif -%}
+            </h1>
+            <div id="Price-{{ section.id }}-{{ product.id }}" class="product__price">
+              {%- render 'product-price', product: product, use_variant: true, class: 'flex flex-wrap items-baseline gap-2 lg:flex-col xl:items-end lg:gap-1d5' -%}
+            </div>
+          </div>
+
+          {%- if product.metafields.reviews.rating.value != blank -%}
+            {%- render 'product-rating', product: product -%}
+          {%- else -%}
+            <div class="product__rating flex items-center gap-2">
+              <div class="rating text-lg leading-none" aria-hidden="true" style="color: #00b67a; letter-spacing: 0.08em;">★★★★★</div>
+              <span class="text-sm text-opacity">4.7 · Trustpilot Reviews</span>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Description — same as main-product's description block {%- endcomment -%}
+          {%- if product.description != blank -%}
+            <div class="product__text rte text-base">{{ product.description }}</div>
+          {%- endif -%}
+
+          {%- if icons_meta != blank -%}
+            <div class="product__highlights flex flex-col gap-5 relative">
+              <scroll-shadow class="product-card__spec block overflow-hidden">
+                <div class="product-card__icons flex flex-nowrap lg:flex-wrap" is="icons-carousel" tabindex="0">
+                  {%- for item in icons_meta -%}
+                    <div class="product-card__icon shrink-0">
+                      <div class="flex flex-col items-center md:flex-row md:items-start gap-2">
+                        {%- if item.icon.value != blank -%}
+                          {%- assign icon_alt = item.icon.value.alt | default: item.title | escape -%}
+                          {%- assign max_width = item.icon.value.width -%}
+                          <figure class="shrink-0 media media--transparent relative inline-block">
+                            {%- capture sizes -%}32px{%- endcapture -%}
+                            {%- capture widths -%}{{ 32 | times: 1.5 | at_most: max_width | round }}, {{ 32 | times: 2 | at_most: max_width }}, {{ 32 | times: 3 | at_most: max_width }}{%- endcapture -%}
+                            {{- item.icon.value | image_url: width: max_width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, alt: icon_alt, class: 'w-full h-full', is: 'lazy-image' -}}
+                          </figure>
+                        {%- endif -%}
+                        <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left text-sm font-medium leading-none">
+                          {{- item.title -}}
+                          {%- if item.description != blank -%}
+                            <p class="text-opacity font-normal text-xs leading-tight">{{ item.description }}</p>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              </scroll-shadow>
+            </div>
+          {%- endif -%}
+
+          {%- form 'product', product, id: product_form_id, class: 'spas-flow__form grid gap-4' -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}" data-selected-variant-id>
+
+            <div class="spas-flow__steps">
+              {%- for option in product.options_with_values -%}
+                {%- liquid
+                  assign option_pos = forloop.index
+                  assign name_lower = option.name | downcase
+                  assign is_color = false
+                  if name_lower contains 'color' or name_lower contains 'colour'
+                    assign display_order = 1
+                    assign is_color = true
+                  elsif name_lower contains 'size'
+                    assign display_order = 2
+                  elsif name_lower contains 'edition' or name_lower contains 'bundle' or name_lower contains 'version'
+                    assign display_order = 3
+                  else
+                    assign display_order = option_pos | plus: 10
+                  endif
+                -%}
+
+                <fieldset
+                  class="spas-flow__step{% if display_order > 1 %} spas-flow__step--locked{% endif %}"
+                  style="order: {{ display_order }};"
+                  data-step-num="{{ display_order }}"
+                  data-option-position="{{ option_pos }}"
+                  data-option-name="{{ option.name | escape }}"
+                >
+                  <div class="spas-flow__step-head">
+                    <span class="spas-flow__step-num" data-step-num-label>{{ display_order }}</span>
+                    <span class="spas-flow__step-title">Pick your {{ option.name | downcase }}</span>
+                    <span class="spas-flow__step-status" data-step-status></span>
+                  </div>
+
+                  <div class="spas-flow__choices spas-flow__choices--{% if is_color %}swatch{% else %}tile{% endif %}">
+                    {%- for value in option.values -%}
+                      {%- liquid
+                        assign value_string = value | default: value.name
+                        assign rep_variant = nil
+                        case option_pos
+                          when 1
+                            assign rep_variant = product.variants | where: 'option1', value_string | first
+                          when 2
+                            assign rep_variant = product.variants | where: 'option2', value_string | first
+                          when 3
+                            assign rep_variant = product.variants | where: 'option3', value_string | first
+                        endcase
+
+                        assign rep_image = product.featured_image
+                        if rep_variant.featured_image != blank
+                          assign rep_image = rep_variant.featured_image
+                        endif
+
+                        assign rep_pre_order = rep_variant.metafields.custom[pre_order_key]
+                        assign value_handle = value_string | handle
+                        assign input_id = 'sf-' | append: section.id | append: '-' | append: option_pos | append: '-' | append: value_handle
+
+                        assign rep_discount_pct = 0
+                        if rep_variant.compare_at_price > rep_variant.price
+                          assign rep_discount_pct = rep_variant.compare_at_price | minus: rep_variant.price | times: 100.0 | divided_by: rep_variant.compare_at_price | round
+                        endif
+                      -%}
+
+                      {%- if is_color -%}
+                        <label class="spas-flow__swatch" for="{{ input_id }}" title="{{ value_string | escape }}">
+                          <input
+                            type="radio"
+                            id="{{ input_id }}"
+                            name="sf-option-{{ option_pos }}-{{ section.id }}"
+                            value="{{ value_string | escape }}"
+                            data-option-position="{{ option_pos }}"
+                            data-value="{{ value_string | escape }}"
+                            data-info="Selected colour: <strong>{{ value_string | escape }}</strong>."
+                          >
+                          <span class="spas-flow__swatch-fill" style="background-image: url('{{ rep_image | image_url: width: 120 }}'); background-color: rgb(var(--color-foreground)/0.06);"></span>
+                          {%- if forloop.first and option.values.size > 3 -%}
+                            <span class="spas-flow__swatch-tag">NEW</span>
+                          {%- endif -%}
+                          <span class="spas-flow__swatch-label">{{ value_string }}</span>
+                        </label>
+                      {%- else -%}
+                        <label class="spas-flow__tile" for="{{ input_id }}">
+                          {%- if forloop.first and option.values.size > 1 -%}
+                            <span class="spas-flow__tile-tag">Most Popular</span>
+                          {%- endif -%}
+                          {%- if rep_discount_pct > 0 -%}
+                            <span class="spas-flow__tile-discount">{{ rep_discount_pct }}% OFF</span>
+                          {%- endif -%}
+                          <input
+                            type="radio"
+                            id="{{ input_id }}"
+                            name="sf-option-{{ option_pos }}-{{ section.id }}"
+                            value="{{ value_string | escape }}"
+                            data-option-position="{{ option_pos }}"
+                            data-value="{{ value_string | escape }}"
+                            data-info="Choice: <strong>{{ value_string | escape }}</strong>."
+                          >
+                          <div class="spas-flow__tile-body">
+                            <div class="spas-flow__tile-media">
+                              {%- if rep_image != blank -%}
+                                {{ rep_image | image_url: width: 104 | image_tag: loading: 'lazy', alt: value_string }}
+                              {%- endif -%}
+                            </div>
+                            <div class="spas-flow__tile-text">
+                              <div class="spas-flow__tile-name">{{ value_string }}</div>
+                              {%- if rep_variant -%}
+                                <div class="spas-flow__tile-price">
+                                  <span>{{ rep_variant.price | money }}</span>
+                                  {%- if rep_variant.compare_at_price > rep_variant.price -%}
+                                    <del>{{ rep_variant.compare_at_price | money }}</del>
+                                  {%- endif -%}
+                                </div>
+                              {%- endif -%}
+                              {%- if rep_pre_order != blank -%}
+                                <span class="spas-flow__tile-pre-order">Pre-order · ships {{ rep_pre_order }}</span>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        </label>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+
+                  <div class="spas-flow__info" data-step-info></div>
+                </fieldset>
+              {%- endfor -%}
+
+              {%- if popular_upgrades != blank -%}
+                <fieldset class="spas-flow__step spas-flow__step--addons" style="order: 50;" data-addons-step aria-hidden="true">
+                  <div class="spas-flow__step-head">
+                    <span class="spas-flow__step-num" data-step-num-label>4</span>
+                    <span class="spas-flow__step-title">{{ section.settings.addons_heading | default: 'Popular Add-Ons' }}</span>
+                    <span class="spas-flow__step-status" data-step-status>Optional</span>
+                  </div>
+                  <div class="spas-flow__addon-list">
+                    {%- for addon in popular_upgrades -%}
+                      {%- liquid
+                        assign addon_variant = addon.selected_or_first_available_variant
+                        assign addon_image = addon.featured_image
+                        assign addon_id = 'sf-addon-' | append: section.id | append: '-' | append: forloop.index
+                      -%}
+                      <label class="spas-flow__addon" for="{{ addon_id }}">
+                        <input
+                          type="checkbox"
+                          id="{{ addon_id }}"
+                          class="spas-flow__addon-check"
+                          data-addon-variant-id="{{ addon_variant.id }}"
+                          data-addon-price="{{ addon_variant.price }}"
+                        >
+                        <div class="spas-flow__addon-media">
+                          {%- if addon_image != blank -%}
+                            {{ addon_image | image_url: width: 96 | image_tag: loading: 'lazy', alt: addon.title }}
+                          {%- endif -%}
+                        </div>
+                        <span class="spas-flow__addon-name">{{ addon.title }}</span>
+                        <span class="spas-flow__addon-price">{{ addon_variant.price | money }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endif -%}
+            </div>
+
+            <div class="spas-flow__total">
+              <span class="spas-flow__total-label">Your total</span>
+              <span class="spas-flow__total-value" data-total data-pending="true">Pending</span>
+            </div>
+
+            <button type="submit" class="button button--primary spas-flow__cta" data-cta disabled>
+              <span class="btn-fill"></span>
+              <span class="btn-text">Add to Cart</span>
+            </button>
+
+            <div class="spas-flow__shop-pay">
+              {{ form | payment_button }}
+            </div>
+
+            <p class="spas-flow__finance">{{ section.settings.finance_text | default: '3 payments at 0% with Klarna or Payl8r at checkout' }}</p>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    const scope = root.querySelector('.spas-flow');
+    if (!scope) return;
+
+    const variants = {{ product.variants | json }};
+    const optionCount = {{ product.options.size }};
+    const currency = {{ shop.currency | json }};
+
+    // Variant metafields aren't included in product.variants | json — server-side map.
+    const preOrderByVariant = {
+      {%- for v in product.variants -%}
+        {%- assign po = v.metafields.custom[pre_order_key] -%}
+        {%- if po != blank %}"{{ v.id }}": {{ po | json }}{% unless forloop.last %},{% endunless %}{%- endif -%}
+      {%- endfor -%}
+    };
+
+    const hiddenId = scope.querySelector('[data-selected-variant-id]');
+    const totalEl = scope.querySelector('[data-total]');
+    const ctaEl = scope.querySelector('[data-cta]');
+    const ctaText = ctaEl ? ctaEl.querySelector('.btn-text') : null;
+    const addonsStep = scope.querySelector('[data-addons-step]');
+
+    const formatMoney = (cents) => {
+      const sym = currency === 'GBP' ? '£' : currency === 'USD' ? '$' : currency === 'EUR' ? '€' : '';
+      const value = (cents / 100).toFixed(2);
+      return sym + value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+
+    const selected = {};
+
+    const findVariant = () => variants.find((v) => {
+      for (let i = 1; i <= optionCount; i++) {
+        if (selected[i] !== v['option' + i]) return false;
+      }
+      return true;
+    });
+
+    const renumberAndLock = () => {
+      const optionSteps = Array.from(scope.querySelectorAll('.spas-flow__step[data-option-position]'))
+        .sort((a, b) => +a.dataset.stepNum - +b.dataset.stepNum);
+
+      let allChosen = true;
+      optionSteps.forEach((step, i) => {
+        const pos = +step.dataset.optionPosition;
+        const previousChosen = i === 0 || optionSteps.slice(0, i).every((s) => selected[+s.dataset.optionPosition]);
+        const thisChosen = selected[pos];
+
+        step.classList.toggle('spas-flow__step--locked', !previousChosen);
+        step.classList.toggle('spas-flow__step--complete', !!thisChosen);
+
+        const label = step.querySelector('[data-step-num-label]');
+        if (label) label.textContent = i + 1;
+        const status = step.querySelector('[data-step-status]');
+        if (status) status.textContent = thisChosen || '';
+
+        if (!thisChosen) allChosen = false;
+      });
+
+      if (addonsStep) {
+        if (allChosen) {
+          addonsStep.setAttribute('data-revealed', 'true');
+          addonsStep.setAttribute('aria-hidden', 'false');
+        } else {
+          addonsStep.removeAttribute('data-revealed');
+          addonsStep.setAttribute('aria-hidden', 'true');
+        }
+        const label = addonsStep.querySelector('[data-step-num-label]');
+        if (label) label.textContent = optionSteps.length + 1;
+      }
+
+      return allChosen;
+    };
+
+    const updateTotal = (allChosen, variant) => {
+      let cents = variant ? variant.price : 0;
+      scope.querySelectorAll('.spas-flow__addon-check:checked').forEach((a) => {
+        cents += parseInt(a.dataset.addonPrice, 10) || 0;
+      });
+      if (!allChosen || !variant) {
+        totalEl.textContent = 'Pending';
+        totalEl.setAttribute('data-pending', 'true');
+        ctaEl.disabled = true;
+      } else {
+        totalEl.textContent = formatMoney(cents);
+        totalEl.setAttribute('data-pending', 'false');
+        ctaEl.disabled = !variant.available;
+        if (ctaText) ctaText.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+      }
+    };
+
+    const showInfo = (step, info) => {
+      const infoEl = step.querySelector('[data-step-info]');
+      if (!infoEl) return;
+      if (info) {
+        infoEl.innerHTML = info;
+        infoEl.setAttribute('data-info-visible', 'true');
+      } else {
+        infoEl.removeAttribute('data-info-visible');
+      }
+    };
+
+    scope.addEventListener('change', (e) => {
+      const input = e.target.closest('input[data-option-position]');
+      if (input) {
+        const pos = parseInt(input.dataset.optionPosition, 10);
+        selected[pos] = input.dataset.value;
+        const step = input.closest('.spas-flow__step');
+        showInfo(step, input.dataset.info);
+
+        const allChosen = renumberAndLock();
+        const variant = findVariant();
+        if (variant) hiddenId.value = variant.id;
+        updateTotal(allChosen, variant);
+        return;
+      }
+
+      if (e.target.classList.contains('spas-flow__addon-check')) {
+        const variant = findVariant();
+        const allChosen = renumberAndLock();
+        updateTotal(allChosen, variant);
+      }
+    });
+
+    scope.querySelector('form.spas-flow__form').addEventListener('submit', async (e) => {
+      const addons = scope.querySelectorAll('.spas-flow__addon-check:checked');
+      if (addons.length === 0) return;
+      e.preventDefault();
+      const items = [{ id: parseInt(hiddenId.value, 10), quantity: 1 }];
+      addons.forEach((a) => items.push({ id: parseInt(a.dataset.addonVariantId, 10), quantity: 1 }));
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items })
+        });
+        if (res.ok) {
+          window.location.href = '/cart';
+        } else {
+          e.target.submit();
+        }
+      } catch (_) {
+        e.target.submit();
+      }
+    });
+
+    renumberAndLock();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Spas Flow",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "range",
+      "id": "media_size",
+      "min": 35,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 66,
+      "label": "Gallery width"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "options": [
+        { "value": "scroll", "label": "Scroll" },
+        { "value": "columns", "label": "Columns" },
+        { "value": "thumbnail", "label": "Thumbnail" }
+      ],
+      "default": "scroll",
+      "label": "Gallery layout"
+    },
+    {
+      "type": "select",
+      "id": "thumbnail_position",
+      "options": [
+        { "value": "beside", "label": "Beside" },
+        { "value": "below", "label": "Below" }
+      ],
+      "default": "below",
+      "label": "Thumbnail position"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Landscape" }
+      ],
+      "default": "square",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "options": [
+        { "value": "lightbox", "label": "Lightbox" },
+        { "value": "hover", "label": "Hover" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "lightbox",
+      "label": "Image zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "default": false,
+      "label": "Hide variant images from gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_first_media",
+      "default": true,
+      "label": "Hide first image / use variant gang media as gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_autoplay",
+      "default": true,
+      "label": "Autoplay videos"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "default": true,
+      "label": "Loop videos"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "options": [
+        { "value": "partial", "label": "Partial" },
+        { "value": "full_width", "label": "Full width" }
+      ],
+      "default": "full_width",
+      "label": "Mobile gallery layout"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio_mobile",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Landscape" }
+      ],
+      "default": "square",
+      "label": "Mobile image ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_thumbnail",
+      "default": true,
+      "label": "Show thumbnails on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Flow copy"
+    },
+    {
+      "type": "text",
+      "id": "addons_heading",
+      "label": "Add-Ons step heading",
+      "default": "Popular Add-Ons"
+    },
+    {
+      "type": "text",
+      "id": "finance_text",
+      "label": "Finance line below cart button",
+      "default": "3 payments at 0% with Klarna or Payl8r at checkout"
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full-width container"
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "default": false,
+      "label": "Show divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": true,
+      "label": "Rounded corners"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32,
+      "label": "Padding bottom"
+    }
+  ]
+}
+{% endschema %}
