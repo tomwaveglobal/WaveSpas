@@ -16,7 +16,13 @@
     "newsletter-popup": {
       "disabled": false,
       "settings": {},
-      "blocks": {}
+      "blocks": {
+        "heading": {
+          "settings": {
+            "heading": "<em><strong>Free</strong></em>  Starter Chemicals & Filters with every Spa"
+          }
+        }
+      }
     },
     "newsletter-popup-mobile": {
       "disabled": true,
