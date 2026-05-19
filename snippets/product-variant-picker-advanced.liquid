@@ -730,7 +730,7 @@
   .vpa[data-vpa-visual="highlights"] .vpa__step--complete { background: rgb(var(--color-foreground) / 0.035); }
   .vpa[data-vpa-visual="highlights"] .vpa__head { gap: var(--sp-2d5); align-items: baseline; }
   .vpa[data-vpa-visual="highlights"] .vpa__num {
-    width: auto; height: auto; border-radius: 4px; border: 0;
+    width: auto; height: auto; border-radius: var(--rounded-button, 6px); border: 0;
     background: rgb(var(--color-foreground) / 0.08);
     color: rgb(var(--color-foreground) / 0.7);
     padding: 3px 7px; font-size: 10.5px; letter-spacing: 0.08em;
@@ -758,7 +758,7 @@
     grid-template-columns: minmax(0, 1fr) 44px;
     direction: ltr;
   }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile-media { grid-column: 2; width: 44px; height: 44px; border-radius: 8px; }
+  .vpa[data-vpa-visual="highlights"] .vpa__tile-media { grid-column: 2; width: 44px; height: 44px; border-radius: var(--rounded-block, 10px); }
   .vpa[data-vpa-visual="highlights"] .vpa__tile-text { grid-column: 1; }
   /* Tags pull right; OFF tag stacks below MOST POPULAR on the same side. */
   .vpa[data-vpa-visual="highlights"] .vpa__tag { left: auto; right: var(--sp-3); }
@@ -768,7 +768,7 @@
   .vpa[data-vpa-visual="highlights"] .vpa__chip {
     background: rgb(var(--color-foreground) / 0.04);
     border: 1px solid rgb(var(--color-foreground) / 0.08);
-    border-radius: 999px;
+    border-radius: var(--rounded-full, 999px);
   }
   .vpa[data-vpa-visual="highlights"] .vpa__addon { border: 0; background: rgb(var(--color-background)); box-shadow: none; }
   .vpa[data-vpa-visual="highlights"] .vpa__addon:has(input:checked) { box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground)); }
@@ -841,7 +841,7 @@
   }
   .vpa[data-vpa-visual="strip"] .vpa__tile-media {
     width: 100%; height: 80px; aspect-ratio: auto;
-    border-radius: 8px;
+    border-radius: var(--rounded-block, 10px);
     background: rgb(var(--color-foreground) / 0.04);
   }
   .vpa[data-vpa-visual="strip"] .vpa__tile-name { font-size: var(--text-sm); }
