@@ -95,7 +95,6 @@
         },
         "variant_picker_advanced": {
           "type": "variant_picker_advanced",
-          "disabled": true,
           "settings": {
             "size_preset": "xs",
             "enable_dynamic_variants": true,
