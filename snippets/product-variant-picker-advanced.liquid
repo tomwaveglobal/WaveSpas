@@ -1355,6 +1355,17 @@
   }, true /* capture */);
 
   // ═══ Initial paint ═══════════════════════════════════════════════════
+  // Belt-and-braces: strip any stale "unavailable" state from colour
+  // swatches/buttons. Earlier server versions added the class when all
+  // variants for a colour were sold out; we now want colour always
+  // clickable, so clear any cached HTML that came in with the class set.
+  root.querySelectorAll('.vpa__step[data-is-color="true"] label').forEach(function (l) {
+    l.classList.remove('vpa__choice--unavailable');
+  });
+  root.querySelectorAll('.vpa__step[data-is-color="true"] input[disabled]').forEach(function (i) {
+    i.disabled = false;
+  });
+
   updateAvailability();
   renumberAndLock();
   updateAllTiles();
