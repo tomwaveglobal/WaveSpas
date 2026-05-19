@@ -79,6 +79,10 @@
     --vpa-info-bg: rgb(var(--color-foreground) / 0.04);
     --vpa-sale: rgb(var(--color-sale-tag));
     --vpa-sale-text: rgb(var(--color-sale-tag-text));
+    /* Bold-weight token — defaults to the theme's --font-bold (700) so
+       nothing changes out of the box; overridden inline on the picker
+       root by the "Bold text weight" block setting. */
+    --vpa-bold: var(--font-bold);
   }
 
   /* ═══ Step container ══════════════════════════════════════════════ */
@@ -113,15 +117,15 @@
     border: 1.5px solid rgb(var(--color-foreground));
     color: rgb(var(--color-foreground));
     font-size: var(--text-sm);
-    font-weight: var(--font-bold);
+    font-weight: var(--vpa-bold);
     flex-shrink: 0;
     transition: background 0.2s, color 0.2s;
   }
   .vpa__step--complete .vpa__num { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
-  .vpa__title { font-size: var(--text-base); font-weight: var(--font-bold); }
+  .vpa__title { font-size: var(--text-base); font-weight: var(--vpa-bold); }
   @media (min-width: 768px) { .vpa__title { font-size: var(--text-lg); } }
   .vpa__status { margin-inline-start: auto; font-size: var(--text-xs); color: var(--vpa-text-muted); font-weight: var(--font-medium); }
-  .vpa__status:not(:empty)::before { content: '✓ '; color: var(--vpa-accent); font-weight: var(--font-bold); }
+  .vpa__status:not(:empty)::before { content: '✓ '; color: var(--vpa-accent); font-weight: var(--vpa-bold); }
   .vpa__size-chart-link {
     font-size: var(--text-sm);
     color: var(--vpa-text-muted);
@@ -185,7 +189,7 @@
     font-size: 9px;
     line-height: 1;
     color: rgb(var(--color-foreground) / 0.5);
-    font-weight: var(--font-bold);
+    font-weight: var(--vpa-bold);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-block-start: 4px;
@@ -232,9 +236,9 @@
   .vpa__tile-media { width: 48px; height: 48px; border-radius: var(--rounded-block, 10px); background: var(--vpa-surface-muted); overflow: hidden; flex-shrink: 0; }
   .vpa__tile-media img { width: 100%; height: 100%; object-fit: cover; }
   .vpa__tile-text { min-width: 0; }
-  .vpa__tile-name { font-weight: var(--font-bold); font-size: var(--text-sm); line-height: 1.2; margin-block-end: 2px; }
+  .vpa__tile-name { font-weight: var(--vpa-bold); font-size: var(--text-sm); line-height: 1.2; margin-block-end: 2px; }
   @media (min-width: 768px) { .vpa__tile-name { font-size: var(--text-base); } }
-  .vpa__tile-price { font-size: var(--text-sm); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.2; font-weight: var(--font-bold); }
+  .vpa__tile-price { font-size: var(--text-sm); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.2; font-weight: var(--vpa-bold); }
   .vpa__tile-price del { color: var(--vpa-text-muted); font-size: 0.8em; font-weight: var(--font-regular); opacity: 0.7; }
 
   /* ═══ Tile corner pills (Most Popular / Sold Out / % OFF) ═════════ */
@@ -242,7 +246,7 @@
     position: absolute;
     top: var(--sp-2);
     font-size: 9.5px;
-    font-weight: var(--font-bold);
+    font-weight: var(--vpa-bold);
     padding: 2.5px 6px;
     border-radius: var(--rounded-full, 999px);
     letter-spacing: 0.04em;
@@ -286,7 +290,7 @@
     overflow: hidden;
   }
   .vpa__tile-info { background: var(--vpa-info-bg); color: rgb(var(--color-foreground)); }
-  .vpa__tile-info strong { font-weight: var(--font-bold); }
+  .vpa__tile-info strong { font-weight: var(--vpa-bold); }
 
   /* ═══ Dynamic-options "unavailable" treatment ═════════════════════ */
   .vpa__choice--unavailable { opacity: 0.35; pointer-events: none; position: relative; }
@@ -364,10 +368,10 @@
   .vpa__addon-media { width: 48px; height: 48px; border-radius: 8px; background: var(--vpa-surface-muted); overflow: hidden; }
   .vpa__addon-media img { width: 100%; height: 100%; object-fit: cover; }
   .vpa__addon-name-wrap { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .vpa__addon-name { font-weight: var(--font-bold); font-size: var(--text-sm); line-height: 1.3; min-width: 0; }
+  .vpa__addon-name { font-weight: var(--vpa-bold); font-size: var(--text-sm); line-height: 1.3; min-width: 0; }
   .vpa__addon-variant { font-size: 11px; color: var(--vpa-text-muted); font-weight: var(--font-medium); line-height: 1.2; }
   .vpa__addon-variant::before { content: 'Variant: '; opacity: 0.7; }
-  .vpa__addon-price { font-weight: var(--font-bold); font-size: var(--text-sm); white-space: nowrap; }
+  .vpa__addon-price { font-weight: var(--vpa-bold); font-size: var(--text-sm); white-space: nowrap; }
 
   /* ═══ Add-on subscription panel ═══════════════════════════════════ */
   .vpa__addon-sub {
@@ -395,7 +399,7 @@
   .vpa__addon-sub-savings {
     display: inline-flex;
     align-items: center;
-    font-weight: var(--font-bold);
+    font-weight: var(--vpa-bold);
     font-size: 12px;
     color: rgb(var(--color-foreground));
     letter-spacing: 0.02em;
@@ -676,7 +680,7 @@
     padding: 0;
     margin-inline-end: var(--sp-1d5);
     font-size: 9px;
-    font-weight: var(--font-bold);
+    font-weight: var(--vpa-bold);
     letter-spacing: 0.08em;
   }
   .vpa[data-vpa-visual="card-inline"] .vpa__discount { color: rgb(var(--color-sale-tag)); }
@@ -721,10 +725,11 @@
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
-  data-vpa-size="{{ block.settings.vpa_size | default: block.settings.size_preset | default: 's' }}"
-  data-vpa-visual="{{ block.settings.vpa_style | default: block.settings.visual_style | default: 'card' }}"
-  data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
-  data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
+  data-vpa-size="{{ vpa_size | default: block.settings.vpa_size | default: block.settings.size_preset | default: 's' }}"
+  data-vpa-visual="{{ vpa_style | default: block.settings.vpa_style | default: block.settings.visual_style | default: 'card' }}"
+  data-vpa-color-layout="{{ vpa_color_layout | default: block.settings.colour_layout | default: 'wrap' }}"
+  data-vpa-color-label="{{ vpa_color_label | default: block.settings.colour_label | default: 'always' }}"
+  style="--vpa-bold: {{ vpa_bold_weight | default: block.settings.vpa_bold_weight | default: 700 }};"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
