@@ -96,8 +96,6 @@
         "variant_picker_advanced_Vyc9TT": {
           "type": "variant_picker_advanced",
           "settings": {
-            "vpa_style": "card",
-            "vpa_size": "s",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
             "picker_type": "button",
@@ -105,7 +103,7 @@
             "enable_color_swatches": true,
             "color_swatch_type": "color",
             "colour_layout": "spread",
-            "colour_label": "always",
+            "colour_label": "hover",
             "size_chart": "",
             "step1_label": "Pick your colour",
             "step2_label": "Pick your size",
