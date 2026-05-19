@@ -2352,6 +2352,20 @@
           "info": "Scales the picker's tile padding, thumbnail, type sizes and chips together. Same layout — just tighter or roomier."
         },
         {
+          "type": "select",
+          "id": "visual_style",
+          "options": [
+            { "value": "card",       "label": "1 — Card (default, subtle border)" },
+            { "value": "borderless", "label": "2 — Borderless / Tinted (soft grey fill, no border)" },
+            { "value": "underline",  "label": "3 — Underline (no box, thin line under heading)" },
+            { "value": "accent",     "label": "4 — Accent (highlight bar + brand-colour selected state)" },
+            { "value": "shadow",     "label": "5 — Shadow (floating white cards, soft drop shadow)" }
+          ],
+          "default": "card",
+          "label": "Visual style",
+          "info": "Switches the step container + tile chrome. Combines freely with the Size preset above."
+        },
+        {
           "type": "checkbox",
           "id": "enable_dynamic_variants",
           "default": true,
