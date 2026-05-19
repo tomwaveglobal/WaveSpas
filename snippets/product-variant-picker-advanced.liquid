@@ -1437,10 +1437,21 @@
     }
     var form = document.getElementById(formId);
     if (!form) return;
-    form.dispatchEvent(new CustomEvent('variant:change', {
-      bubbles: true,
-      detail: { variant: variant }
-    }));
+    // media-gallery.setActiveMedia (theme.js) calls scrollIntoView on the
+    // newly-active media item, which yanks the page back up to the gallery
+    // every time the user picks a variant. Neutralise scrollIntoView for
+    // the duration of the dispatch (handler chain is synchronous) and
+    // restore it immediately after, so smooth scroll never schedules.
+    var origScrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function () {};
+    try {
+      form.dispatchEvent(new CustomEvent('variant:change', {
+        bubbles: true,
+        detail: { variant: variant }
+      }));
+    } finally {
+      Element.prototype.scrollIntoView = origScrollIntoView;
+    }
   }
 
   // First variant compatible with the user's current selections (any subset).
