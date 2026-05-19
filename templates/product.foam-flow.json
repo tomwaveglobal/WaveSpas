@@ -103,7 +103,7 @@
             "show_colour_buttons": true,
             "enable_color_swatches": true,
             "color_swatch_type": "color",
-            "colour_layout": "wrap",
+            "colour_layout": "spread",
             "colour_label": "always",
             "size_chart": "",
             "step1_label": "Pick your colour",
