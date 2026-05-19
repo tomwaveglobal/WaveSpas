@@ -28,8 +28,24 @@
         "image_9rd3Vt": {
           "disabled": true,
           "settings": {}
+        },
+        "image_rmPQY4": {
+          "settings": {
+            "image": "shopify://shop_images/10Off_Pebble_May26_V2.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_420c2669-df4a-464e-bc1d-3b04c89f4c3e.jpg",
+            "heading": "‎",
+            "button_label": "Shop Pebble White",
+            "button_link": "shopify://collections/foam-hot-tubs"
+          }
         }
-      }
+      },
+      "block_order": [
+        "image_hc4WwT",
+        "image_rmPQY4",
+        "image_9rd3Vt",
+        "image_JUM7dH",
+        "image_EUEdiE"
+      ]
     },
     "featured-product": {
       "settings": {
