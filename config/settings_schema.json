@@ -1797,5 +1797,125 @@
         "unit": "s"
       }
     ]
+  },
+  {
+    "name": "Variant picker (advanced)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Per-element font weight and size controls for the stepped Variant picker (advanced) block. Defaults match the theme's existing bold so nothing changes out of the box."
+      },
+      {
+        "type": "header",
+        "content": "Step heading (e.g. \"Pick your colour\")"
+      },
+      {
+        "type": "select",
+        "id": "vpa_step_size",
+        "options": [
+          { "value": "xs", "label": "XS" },
+          { "value": "s",  "label": "S" },
+          { "value": "m",  "label": "M (default)" },
+          { "value": "l",  "label": "L" },
+          { "value": "xl", "label": "XL" }
+        ],
+        "default": "m",
+        "label": "Size"
+      },
+      {
+        "type": "select",
+        "id": "vpa_step_weight",
+        "options": [
+          { "value": "400", "label": "XXS — Regular" },
+          { "value": "500", "label": "XS — Medium" },
+          { "value": "600", "label": "S — SemiBold" },
+          { "value": "700", "label": "M — Bold (default)" },
+          { "value": "800", "label": "L — ExtraBold" },
+          { "value": "900", "label": "XL — Black" }
+        ],
+        "default": "700",
+        "label": "Weight"
+      },
+      {
+        "type": "header",
+        "content": "Tile name (e.g. \"4 Person | 160x70cm\")"
+      },
+      {
+        "type": "select",
+        "id": "vpa_name_size",
+        "options": [
+          { "value": "xs", "label": "XS" },
+          { "value": "s",  "label": "S" },
+          { "value": "m",  "label": "M (default)" },
+          { "value": "l",  "label": "L" },
+          { "value": "xl", "label": "XL" }
+        ],
+        "default": "m",
+        "label": "Size"
+      },
+      {
+        "type": "select",
+        "id": "vpa_name_weight",
+        "options": [
+          { "value": "400", "label": "XXS — Regular" },
+          { "value": "500", "label": "XS — Medium" },
+          { "value": "600", "label": "S — SemiBold" },
+          { "value": "700", "label": "M — Bold (default)" },
+          { "value": "800", "label": "L — ExtraBold" },
+          { "value": "900", "label": "XL — Black" }
+        ],
+        "default": "700",
+        "label": "Weight"
+      },
+      {
+        "type": "header",
+        "content": "Tile price (e.g. \"£1,099.99\")"
+      },
+      {
+        "type": "select",
+        "id": "vpa_price_size",
+        "options": [
+          { "value": "xs", "label": "XS" },
+          { "value": "s",  "label": "S" },
+          { "value": "m",  "label": "M (default)" },
+          { "value": "l",  "label": "L" },
+          { "value": "xl", "label": "XL" }
+        ],
+        "default": "m",
+        "label": "Size"
+      },
+      {
+        "type": "select",
+        "id": "vpa_price_weight",
+        "options": [
+          { "value": "400", "label": "XXS — Regular" },
+          { "value": "500", "label": "XS — Medium" },
+          { "value": "600", "label": "S — SemiBold" },
+          { "value": "700", "label": "M — Bold (default)" },
+          { "value": "800", "label": "L — ExtraBold" },
+          { "value": "900", "label": "XL — Black" }
+        ],
+        "default": "700",
+        "label": "Weight"
+      },
+      {
+        "type": "header",
+        "content": "Tags & pills (MOST POPULAR / OFF / Pre-order)"
+      },
+      {
+        "type": "select",
+        "id": "vpa_tag_weight",
+        "options": [
+          { "value": "400", "label": "XXS — Regular" },
+          { "value": "500", "label": "XS — Medium" },
+          { "value": "600", "label": "S — SemiBold" },
+          { "value": "700", "label": "M — Bold (default)" },
+          { "value": "800", "label": "L — ExtraBold" },
+          { "value": "900", "label": "XL — Black" }
+        ],
+        "default": "700",
+        "label": "Weight"
+      }
+    ]
   }
 ]

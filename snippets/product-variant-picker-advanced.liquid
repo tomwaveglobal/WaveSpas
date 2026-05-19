@@ -54,6 +54,37 @@
   endif
   assign size_chart = block.settings.size_chart
   assign most_popular_min_stock = block.settings.most_popular_min_stock | default: 0
+
+  # ─── Per-element font-size scale mappings ──────────────────────────
+  # Theme-level settings (config/settings_schema.json → "Variant picker
+  # (advanced)") give the merchant XS/S/M/L/XL labels per element.
+  # Translate to a numeric multiplier applied via calc() in the CSS.
+  assign vpa_step_s = '1'
+  case settings.vpa_step_size
+    when 'xs' assign vpa_step_s = '0.85'
+    when 's'  assign vpa_step_s = '0.92'
+    when 'l'  assign vpa_step_s = '1.1'
+    when 'xl' assign vpa_step_s = '1.2'
+  endcase
+  assign vpa_name_s = '1'
+  case settings.vpa_name_size
+    when 'xs' assign vpa_name_s = '0.85'
+    when 's'  assign vpa_name_s = '0.92'
+    when 'l'  assign vpa_name_s = '1.1'
+    when 'xl' assign vpa_name_s = '1.2'
+  endcase
+  assign vpa_price_s = '1'
+  case settings.vpa_price_size
+    when 'xs' assign vpa_price_s = '0.85'
+    when 's'  assign vpa_price_s = '0.92'
+    when 'l'  assign vpa_price_s = '1.1'
+    when 'xl' assign vpa_price_s = '1.2'
+  endcase
+
+  assign vpa_step_w  = settings.vpa_step_weight  | default: '700'
+  assign vpa_name_w  = settings.vpa_name_weight  | default: '700'
+  assign vpa_price_w = settings.vpa_price_weight | default: '700'
+  assign vpa_tag_w   = settings.vpa_tag_weight   | default: '700'
 -%}
 
 {%- unless product.has_only_default_variant -%}
@@ -79,10 +110,23 @@
     --vpa-info-bg: rgb(var(--color-foreground) / 0.04);
     --vpa-sale: rgb(var(--color-sale-tag));
     --vpa-sale-text: rgb(var(--color-sale-tag-text));
-    /* Bold-weight token — defaults to the theme's --font-bold (700) so
-       nothing changes out of the box; overridden inline on the picker
-       root by the "Bold text weight" block setting. */
+    /* Font-weight tokens — default to the theme's --font-bold (700) so
+       nothing changes out of the box. Each element pulls its own weight
+       token, falling back to --vpa-bold when not overridden, falling
+       back to --font-bold as the ultimate default. Per-element values
+       are set inline on the picker root from the theme-level "Variant
+       picker (advanced)" settings panel (config/settings_schema.json).
+       --vpa-*-s tokens are multiplier scales (0.85 → 1.2) applied with
+       calc() against the base font-size so the picker's Size preset
+       still works on top. */
     --vpa-bold: var(--font-bold);
+    --vpa-step-w: var(--vpa-bold);
+    --vpa-name-w: var(--vpa-bold);
+    --vpa-price-w: var(--vpa-bold);
+    --vpa-tag-w:  var(--vpa-bold);
+    --vpa-step-s: 1;
+    --vpa-name-s: 1;
+    --vpa-price-s: 1;
   }
 
   /* ═══ Step container ══════════════════════════════════════════════ */
@@ -117,15 +161,15 @@
     border: 1.5px solid rgb(var(--color-foreground));
     color: rgb(var(--color-foreground));
     font-size: var(--text-sm);
-    font-weight: var(--vpa-bold);
+    font-weight: var(--vpa-step-w);
     flex-shrink: 0;
     transition: background 0.2s, color 0.2s;
   }
   .vpa__step--complete .vpa__num { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
-  .vpa__title { font-size: var(--text-base); font-weight: var(--vpa-bold); }
-  @media (min-width: 768px) { .vpa__title { font-size: var(--text-lg); } }
+  .vpa__title { font-size: calc(var(--text-base) * var(--vpa-step-s)); font-weight: var(--vpa-step-w); }
+  @media (min-width: 768px) { .vpa__title { font-size: calc(var(--text-lg) * var(--vpa-step-s)); } }
   .vpa__status { margin-inline-start: auto; font-size: var(--text-xs); color: var(--vpa-text-muted); font-weight: var(--font-medium); }
-  .vpa__status:not(:empty)::before { content: '✓ '; color: var(--vpa-accent); font-weight: var(--vpa-bold); }
+  .vpa__status:not(:empty)::before { content: '✓ '; color: var(--vpa-accent); font-weight: var(--vpa-step-w); }
   .vpa__size-chart-link {
     font-size: var(--text-sm);
     color: var(--vpa-text-muted);
@@ -236,9 +280,9 @@
   .vpa__tile-media { width: 48px; height: 48px; border-radius: var(--rounded-block, 10px); background: var(--vpa-surface-muted); overflow: hidden; flex-shrink: 0; }
   .vpa__tile-media img { width: 100%; height: 100%; object-fit: cover; }
   .vpa__tile-text { min-width: 0; }
-  .vpa__tile-name { font-weight: var(--vpa-bold); font-size: var(--text-sm); line-height: 1.2; margin-block-end: 2px; }
-  @media (min-width: 768px) { .vpa__tile-name { font-size: var(--text-base); } }
-  .vpa__tile-price { font-size: var(--text-sm); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.2; font-weight: var(--vpa-bold); }
+  .vpa__tile-name { font-weight: var(--vpa-name-w); font-size: calc(var(--text-sm) * var(--vpa-name-s)); line-height: 1.2; margin-block-end: 2px; }
+  @media (min-width: 768px) { .vpa__tile-name { font-size: calc(var(--text-base) * var(--vpa-name-s)); } }
+  .vpa__tile-price { font-size: calc(var(--text-sm) * var(--vpa-price-s)); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1d5); line-height: 1.2; font-weight: var(--vpa-price-w); }
   .vpa__tile-price del { color: var(--vpa-text-muted); font-size: 0.8em; font-weight: var(--font-regular); opacity: 0.7; }
 
   /* ═══ Tile corner pills (Most Popular / Sold Out / % OFF) ═════════ */
@@ -246,7 +290,7 @@
     position: absolute;
     top: var(--sp-2);
     font-size: 9.5px;
-    font-weight: var(--vpa-bold);
+    font-weight: var(--vpa-tag-w);
     padding: 2.5px 6px;
     border-radius: var(--rounded-full, 999px);
     letter-spacing: 0.04em;
@@ -725,11 +769,11 @@
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
-  data-vpa-size="{{ vpa_size | default: block.settings.vpa_size | default: block.settings.size_preset | default: 's' }}"
-  data-vpa-visual="{{ vpa_style | default: block.settings.vpa_style | default: block.settings.visual_style | default: 'card' }}"
-  data-vpa-color-layout="{{ vpa_color_layout | default: block.settings.colour_layout | default: 'wrap' }}"
-  data-vpa-color-label="{{ vpa_color_label | default: block.settings.colour_label | default: 'always' }}"
-  style="--vpa-bold: {{ vpa_bold_weight | default: block.settings.vpa_bold_weight | default: 700 }};"
+  data-vpa-size="{{ vpa_size | default: 's' }}"
+  data-vpa-visual="{{ vpa_style | default: 'card' }}"
+  data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
+  data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
+  style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }};"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
