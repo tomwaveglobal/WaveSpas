@@ -769,8 +769,8 @@
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
-  data-vpa-size="{{ vpa_size | default: 's' }}"
-  data-vpa-visual="{{ vpa_style | default: 'card' }}"
+  data-vpa-size="{{ settings.vpa_size | default: 's' }}"
+  data-vpa-visual="{{ settings.vpa_style | default: 'card' }}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
   style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }};"

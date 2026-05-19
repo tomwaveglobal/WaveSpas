@@ -621,9 +621,7 @@
                 product: product,
                 product_id: product.id,
                 section_id: section.id,
-                product_form_id: product_form_id,
-                vpa_style:        section.settings.vpa_style,
-                vpa_size:         section.settings.vpa_size
+                product_form_id: product_form_id
               -%}
 
             {%- when 'product_variations' -%}
@@ -1295,42 +1293,6 @@
 {
   "name": "t:sections.main-product.name",
   "settings": [
-    {
-      "type": "header",
-      "content": "Variant picker (advanced) — Visual setup"
-    },
-    {
-      "type": "paragraph",
-      "content": "Style + Size for the stepped picker. Per-element font weights and sizes live under Theme settings → Variant picker (advanced). Colour swatch layout/label live on the Variant picker (advanced) block."
-    },
-    {
-      "type": "select",
-      "id": "vpa_style",
-      "options": [
-        { "value": "card",                "label": "1 — Card (default)" },
-        { "value": "card-soft",           "label": "2 — Card · Soft pills" },
-        { "value": "card-outline-pills",  "label": "3 — Card · Outlined pills" },
-        { "value": "card-inline",         "label": "4 — Card · Inline tags (no corner pills)" },
-        { "value": "card-quiet-chip",     "label": "5 — Card · Quiet pre-order chip" },
-        { "value": "card-stripped",       "label": "6 — Card · Stripped (most minimal)" }
-      ],
-      "default": "card",
-      "label": "Style"
-    },
-    {
-      "type": "select",
-      "id": "vpa_size",
-      "options": [
-        { "value": "xxxs", "label": "XXXS — Micro" },
-        { "value": "xxs",  "label": "XXS — Very tight" },
-        { "value": "xs",   "label": "XS — Ultra compact" },
-        { "value": "s",    "label": "S — Compact" },
-        { "value": "m",    "label": "M — Medium" },
-        { "value": "l",    "label": "L — Large" }
-      ],
-      "default": "s",
-      "label": "Size"
-    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",
@@ -2376,7 +2338,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Style and Size live on the parent section panel. Per-element font weights and sizes live under Theme settings → Variant picker (advanced)."
+          "content": "Style, Size and per-element font weights/sizes all live under Theme settings → Variant picker (advanced)."
         },
         {
           "type": "checkbox",
