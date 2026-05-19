@@ -155,7 +155,7 @@
     "tab_attention_message_1": "Something we said?",
     "tab_attention_message_2": "We're still here!",
     "tab_attention_message_delay": 3,
-    "vpa_selected_bg": false,
+    "vpa_selected_bg": true,
     "vpa_step_size": "s",
     "vpa_step_weight": "500",
     "vpa_name_size": "xs",
