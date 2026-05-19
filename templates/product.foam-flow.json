@@ -142,14 +142,15 @@
         "variant_picker_advanced_9FXn4D": {
           "type": "variant_picker_advanced",
           "settings": {
-            "size_preset": "m",
+            "vpa_style": "card",
+            "vpa_size": "xs",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
             "picker_type": "button",
             "show_colour_buttons": true,
             "enable_color_swatches": true,
             "color_swatch_type": "color",
-            "colour_layout": "wrap",
+            "colour_layout": "spread",
             "colour_label": "always",
             "size_chart": "",
             "step1_label": "Pick your colour",
