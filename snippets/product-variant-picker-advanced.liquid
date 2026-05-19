@@ -262,9 +262,16 @@
     word-wrap: break-word;
   }
   .vpa__chip[hidden], .vpa__tile-info[hidden] { display: none; }
-  .vpa__chip:empty { display: none; }
-  .vpa__chip { background: var(--vpa-accent-soft); color: rgb(var(--color-foreground)); font-weight: var(--font-medium); }
-  .vpa__chip::before { content: '⏱ '; }
+  .vpa__chip {
+    background: var(--vpa-accent-soft);
+    color: rgb(var(--color-foreground));
+    font-weight: var(--font-medium);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .vpa__chip .icon { width: 12px; height: 12px; flex-shrink: 0; }
+  .vpa__chip-text { min-width: 0; word-wrap: break-word; }
   .vpa__tile-info { background: var(--vpa-info-bg); color: rgb(var(--color-foreground)); }
   .vpa__tile-info strong { font-weight: var(--font-bold); }
 
@@ -635,9 +642,12 @@
                   {%- if block.settings.show_per_tile_chip -%}
                     {%- assign cleaned_pre_order = rep_pre_order | replace: 'Pre Order ', '' | replace: 'Pre-Order ', '' | replace: 'Pre-order ', '' | replace: 'pre order ', '' | replace: 'pre-order ', '' | replace: 'PreOrder ', '' | replace: 'preorder ', '' -%}
                     <span class="vpa__chip" data-pre-order-chip{% if rep_pre_order == blank %} hidden{% endif %}>
-                      {%- if rep_pre_order != blank -%}
-                        {%- if block.settings.pre_order_chip_prefix != blank %}{{ block.settings.pre_order_chip_prefix }} {% endif -%}{{ cleaned_pre_order }}
-                      {%- endif -%}
+                      {%- render 'icon', icon: 'calendar', size: 'xs', class: 'icon' -%}
+                      <span class="vpa__chip-text" data-pre-order-chip-text>
+                        {%- if rep_pre_order != blank -%}
+                          {%- if block.settings.pre_order_chip_prefix != blank %}{{ block.settings.pre_order_chip_prefix }} {% endif -%}{{ cleaned_pre_order }}
+                        {%- endif -%}
+                      </span>
                     </span>
                   {%- endif -%}
 
@@ -1020,14 +1030,17 @@
   function updateTilePreOrderChip(label, variant) {
     var chip = label.querySelector('[data-pre-order-chip]');
     if (!chip) return;
+    // Text node lives in a child span so the calendar icon next to it
+    // isn't wiped on every update.
+    var textEl = chip.querySelector('[data-pre-order-chip-text]') || chip;
     var date = variant ? preOrderByVariant[variant.id] : null;
     if (date) {
       // Strip a leading "Pre-order"/"Pre order"/"Preorder" so the prefix doesn't double up.
       var cleaned = String(date).replace(/^(pre[\s-]*order)[\s:\-—·,]*/i, '').trim();
-      chip.textContent = (chipPrefix ? chipPrefix + ' ' : '') + cleaned;
+      textEl.textContent = (chipPrefix ? chipPrefix + ' ' : '') + cleaned;
       chip.hidden = false;
     } else {
-      chip.textContent = '';
+      textEl.textContent = '';
       chip.hidden = true;
     }
   }
