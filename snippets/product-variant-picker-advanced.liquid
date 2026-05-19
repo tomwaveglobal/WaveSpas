@@ -66,6 +66,11 @@
     gap: var(--sp-3);
     --vpa-border: rgb(var(--color-foreground) / 0.10);
     --vpa-border-strong: rgb(var(--color-foreground) / 0.85);
+    /* Calmer, more sophisticated selected-state border — used by tiles,
+       text buttons and add-on rows. Half-opacity foreground reads as
+       deliberate without the heavy near-black jump-on-click. */
+    --vpa-border-selected: rgb(var(--color-foreground) / 0.45);
+    --vpa-surface-selected: rgb(var(--color-foreground) / 0.02);
     --vpa-surface-muted: rgb(var(--color-foreground) / 0.03);
     --vpa-surface-card: rgb(var(--color-foreground) / 0.02);
     --vpa-text-muted: rgb(var(--color-foreground) / 0.6);
@@ -200,7 +205,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
-  .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
 
   /* ═══ Tile cards (size / edition / etc.) ══════════════════════════ */
   .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-2d5); }
@@ -219,7 +224,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .vpa__tile:hover { border-color: var(--vpa-text-muted); }
-  .vpa__tile:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__tile:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   .vpa__tile:has(input:focus-visible) { outline: 2px solid var(--vpa-accent); outline-offset: 2px; }
   .vpa__tile--sold-out { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
@@ -334,7 +339,7 @@
   }
   .vpa__addon[hidden] { display: none; }
   .vpa__addon:hover { border-color: var(--vpa-text-muted); }
-  .vpa__addon:has(input.vpa__addon-check:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__addon:has(input.vpa__addon-check:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   .vpa__addon-check {
     appearance: none;
     width: 18px;
@@ -710,231 +715,6 @@
   }
   .vpa[data-vpa-visual="shadow"] .vpa__addon { border: 0; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 6px rgb(0 0 0 / 0.05); }
   .vpa[data-vpa-visual="shadow"] .vpa__addon:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 3px 10px rgb(0 0 0 / 0.08); }
-
-  /* ─── 6 — Highlights (Icon-List inspired) ──────────────────────────
-     Inspired by the theme's Icon list "Product highlights" block:
-     a soft grey-tinted step container holding white-card pill tiles
-     with no borders anywhere. Layout shifts: thumbnail moves to the
-     RIGHT side of the tile; price drops to the bottom-right corner
-     so the name reads first. Step number is a small uppercase pill
-     ("STEP 01") instead of a round badge — feels editorial.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="highlights"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.025);
-    padding: var(--sp-5) var(--sp-5);
-  }
-  @media (min-width: 768px) {
-    .vpa[data-vpa-visual="highlights"] .vpa__step { padding: var(--sp-6) var(--sp-6); }
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__step--complete { background: rgb(var(--color-foreground) / 0.035); }
-  .vpa[data-vpa-visual="highlights"] .vpa__head { gap: var(--sp-2d5); align-items: baseline; }
-  .vpa[data-vpa-visual="highlights"] .vpa__num {
-    width: auto; height: auto; border-radius: var(--rounded-button, 6px); border: 0;
-    background: rgb(var(--color-foreground) / 0.08);
-    color: rgb(var(--color-foreground) / 0.7);
-    padding: 3px 7px; font-size: 10.5px; letter-spacing: 0.08em;
-    text-transform: uppercase; font-weight: var(--font-bold);
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__num::before { content: 'Step '; }
-  .vpa[data-vpa-visual="highlights"] .vpa__step--complete .vpa__num {
-    background: rgb(var(--color-foreground));
-    color: rgb(var(--color-background));
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-background));
-    box-shadow: none;
-    padding: var(--sp-3d5) var(--sp-4);
-    padding-block-start: var(--sp-3d5);
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile:hover { background: rgb(var(--color-background)); box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.12); }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-background));
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
-  }
-  /* Thumbnail moves to the right; tags absolute over the body still ok. */
-  .vpa[data-vpa-visual="highlights"] .vpa__tile-body {
-    grid-template-columns: minmax(0, 1fr) 44px;
-    direction: ltr;
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile-media { grid-column: 2; width: 44px; height: 44px; border-radius: var(--rounded-block, 10px); }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile-text { grid-column: 1; }
-  /* Tags pull right; OFF tag stacks below MOST POPULAR on the same side. */
-  .vpa[data-vpa-visual="highlights"] .vpa__tag { left: auto; right: var(--sp-3); }
-  .vpa[data-vpa-visual="highlights"] .vpa__discount { top: calc(var(--sp-2) + 20px); }
-  .vpa[data-vpa-visual="highlights"] .vpa__tile:not(:has([data-most-popular]:not([hidden]))) .vpa__discount { top: var(--sp-2); }
-  /* Pre-order chip becomes a pill with white bg + faint outline. */
-  .vpa[data-vpa-visual="highlights"] .vpa__chip {
-    background: rgb(var(--color-foreground) / 0.04);
-    border: 1px solid rgb(var(--color-foreground) / 0.08);
-    border-radius: var(--rounded-full, 999px);
-  }
-  .vpa[data-vpa-visual="highlights"] .vpa__addon { border: 0; background: rgb(var(--color-background)); box-shadow: none; }
-  .vpa[data-vpa-visual="highlights"] .vpa__addon:has(input:checked) { box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground)); }
-
-  /* ─── 7 — Sidebar (number lives in a left margin column) ───────────
-     The step number breaks out of the header into a dedicated left
-     gutter column. Header text + tiles all shift right. Reads like a
-     numbered specification document — clear progression, more
-     hierarchical. Step container has only a hairline top border.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="sidebar"] .vpa__step {
-    border: 0;
-    border-block-start: 1px solid rgb(var(--color-foreground) / 0.1);
-    background: transparent;
-    padding: var(--sp-5) 0;
-    padding-inline-start: 44px;
-    position: relative;
-  }
-  .vpa[data-vpa-visual="sidebar"] .vpa__num {
-    position: absolute;
-    inset-inline-start: 0;
-    inset-block-start: var(--sp-5);
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border-width: 1.5px;
-    font-size: 13px;
-  }
-  .vpa[data-vpa-visual="sidebar"] .vpa__step--complete { background: transparent; }
-  .vpa[data-vpa-visual="sidebar"] .vpa__step--complete .vpa__num { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
-  .vpa[data-vpa-visual="sidebar"] .vpa__head {
-    margin-block-end: var(--sp-3);
-    padding-block-end: 0;
-    gap: var(--sp-2);
-  }
-  .vpa[data-vpa-visual="sidebar"] .vpa__title { font-size: var(--text-lg); }
-  .vpa[data-vpa-visual="sidebar"] .vpa__step--addons[data-revealed="true"] { padding-block: var(--sp-5); padding-inline-start: 44px; border-width: 0; border-block-start: 1px solid rgb(var(--color-foreground) / 0.1); }
-
-  /* ─── 8 — Strip (horizontal scrolling cards, thumbnail on top) ─────
-     Tiles flip from horizontal body to vertical: thumbnail on top
-     (large, full-width), name + price below. Tiles align in a single
-     horizontal row that scrolls if overflowing — a product-card
-     mental model rather than a list-row one. Best with thumbnails.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="strip"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.025);
-  }
-  .vpa[data-vpa-visual="strip"] .vpa__step--complete { background: rgb(var(--color-foreground) / 0.035); }
-  .vpa[data-vpa-visual="strip"] .vpa__choices--tile {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(170px, 1fr);
-    gap: var(--sp-2d5);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-block-end: var(--sp-2);
-  }
-  .vpa[data-vpa-visual="strip"] .vpa__tile {
-    scroll-snap-align: start;
-    padding: var(--sp-3); padding-block-start: var(--sp-5d5);
-    border: 0;
-    background: rgb(var(--color-background));
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.04);
-  }
-  .vpa[data-vpa-visual="strip"] .vpa__tile:hover { box-shadow: 0 2px 6px rgb(0 0 0 / 0.08); }
-  .vpa[data-vpa-visual="strip"] .vpa__tile:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 3px 10px rgb(0 0 0 / 0.08); }
-  .vpa[data-vpa-visual="strip"] .vpa__tile-body {
-    grid-template-columns: 1fr;
-    gap: var(--sp-2);
-  }
-  .vpa[data-vpa-visual="strip"] .vpa__tile-media {
-    width: 100%; height: 80px; aspect-ratio: auto;
-    border-radius: var(--rounded-block, 10px);
-    background: rgb(var(--color-foreground) / 0.04);
-  }
-  .vpa[data-vpa-visual="strip"] .vpa__tile-name { font-size: var(--text-sm); }
-  .vpa[data-vpa-visual="strip"] .vpa__tile-price { font-size: var(--text-sm); }
-
-  /* ─── 9 — Inverse (dark container, light tile cards) ───────────────
-     The step container goes dark (foreground colour) with light text;
-     tiles invert to light cards. Premium / showroom feel without
-     using accent colour. Note: this requires the brand foreground
-     colour to read well as a background — adjust in settings if not.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="inverse"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-foreground));
-    color: rgb(var(--color-background));
-  }
-  .vpa[data-vpa-visual="inverse"] .vpa__step--complete { background: rgb(var(--color-foreground)); }
-  .vpa[data-vpa-visual="inverse"] .vpa__title { color: rgb(var(--color-background)); }
-  .vpa[data-vpa-visual="inverse"] .vpa__status { color: rgb(var(--color-background) / 0.7); }
-  .vpa[data-vpa-visual="inverse"] .vpa__num {
-    border-color: rgb(var(--color-background) / 0.7);
-    color: rgb(var(--color-background));
-  }
-  .vpa[data-vpa-visual="inverse"] .vpa__step--complete .vpa__num {
-    background: rgb(var(--color-background));
-    color: rgb(var(--color-foreground));
-  }
-  .vpa[data-vpa-visual="inverse"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-background));
-    color: rgb(var(--color-foreground));
-    box-shadow: none;
-  }
-  .vpa[data-vpa-visual="inverse"] .vpa__tile:hover { box-shadow: 0 0 0 2px rgb(var(--color-background) / 0.4); }
-  .vpa[data-vpa-visual="inverse"] .vpa__tile:has(input:checked) {
-    box-shadow: 0 0 0 2px rgb(var(--color-background));
-  }
-  /* Tags re-tinted for dark surround. */
-  .vpa[data-vpa-visual="inverse"] .vpa__tag { background: rgb(var(--color-background)); color: rgb(var(--color-foreground)); }
-  .vpa[data-vpa-visual="inverse"] .vpa__chip { background: rgb(var(--color-foreground) / 0.06); }
-  .vpa[data-vpa-visual="inverse"] .vpa__size-chart-link { color: rgb(var(--color-background) / 0.8); }
-  .vpa[data-vpa-visual="inverse"] .vpa__addon { border: 0; background: rgb(var(--color-background)); color: rgb(var(--color-foreground)); }
-  .vpa[data-vpa-visual="inverse"] .vpa__addon:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-background)); }
-
-  /* ─── 10 — Magazine (editorial — name big, price as a side tag) ────
-     The tile becomes editorial: the name occupies a generous block,
-     price moves into a coloured tag pill on the right edge. Thumbnail
-     stays left and small. Step container has only a hairline divider.
-     Most opinionated layout — best on wide product columns.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="magazine"] .vpa__step {
-    border: 0;
-    background: transparent;
-    border-block-end: 1px solid rgb(var(--color-foreground) / 0.1);
-    padding-block: var(--sp-5);
-  }
-  .vpa[data-vpa-visual="magazine"] .vpa__step:last-of-type { border-block-end: 0; }
-  .vpa[data-vpa-visual="magazine"] .vpa__step--complete { background: transparent; }
-  .vpa[data-vpa-visual="magazine"] .vpa__title { font-family: var(--font-heading-family, inherit); font-size: var(--text-xl); letter-spacing: -0.02em; }
-  .vpa[data-vpa-visual="magazine"] .vpa__num { display: none; }
-  .vpa[data-vpa-visual="magazine"] .vpa__head { margin-block-end: var(--sp-3d5); }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.025);
-    padding: var(--sp-4) var(--sp-4d5);
-    padding-block-start: var(--sp-4);
-  }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile:hover { background: rgb(var(--color-foreground) / 0.05); }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-background));
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
-  }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-body {
-    grid-template-columns: 44px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: var(--sp-3);
-  }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-media { width: 44px; height: 44px; }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-name { font-size: var(--text-base); margin-block-end: 2px; letter-spacing: -0.01em; }
-  /* Price becomes a tag on the right side, no struck-price wrapping. */
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-price {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0;
-    font-size: var(--text-sm);
-  }
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-price del { font-size: 10.5px; }
-  /* Pre-order chip + info span the full row beneath. */
-  .vpa[data-vpa-visual="magazine"] .vpa__chip,
-  .vpa[data-vpa-visual="magazine"] .vpa__tile-info { grid-column: 1 / -1; }
-  .vpa[data-vpa-visual="magazine"] .vpa__tag { background: rgb(var(--color-foreground)); }
-  .vpa[data-vpa-visual="magazine"] .vpa__discount { background: var(--vpa-sale); }
-
   /* ─── 11 — Outline (Product Highlights inspired) ───────────────────
      Mirrors the theme's "Product highlights" Icon-list pattern in the
      gallery column: a hairline-bordered container with the heading
