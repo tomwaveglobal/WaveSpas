@@ -96,7 +96,7 @@
         "variant_picker_advanced_Vyc9TT": {
           "type": "variant_picker_advanced",
           "settings": {
-            "vpa_style": "card",
+            "vpa_style": "card-quiet-chip",
             "vpa_size": "s",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
