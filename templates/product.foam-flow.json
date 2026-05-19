@@ -142,7 +142,7 @@
         "variant_picker_advanced_9FXn4D": {
           "type": "variant_picker_advanced",
           "settings": {
-            "vpa_style": "card",
+            "vpa_style": "accent",
             "vpa_size": "xs",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
