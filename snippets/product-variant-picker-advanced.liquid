@@ -1354,9 +1354,19 @@
           originatingBtn.disabled = false;
           originatingBtn.removeAttribute('aria-busy');
         }
-      } else {
-        window.location.href = '/cart';
+        return;
       }
+      // Notify 3rd-party apps (auto-add, upsell, free-gift, cart drawers,
+      // etc.) that the cart was updated, so their hooks fire before we
+      // navigate away. Dispatch a few common event names since themes
+      // and apps each pick their own.
+      var detail = { source: 'variant-picker-advanced', itemCount: items.length };
+      ['cart:updated', 'cart:refresh', 'cart:added', 'cart:change'].forEach(function (name) {
+        document.documentElement.dispatchEvent(new CustomEvent(name, { bubbles: true, detail: detail }));
+      });
+      // Brief pause so an auto-add app's own /cart/add.js call has time to
+      // land before we redirect (apps typically debounce by a tick or two).
+      setTimeout(function () { window.location.href = '/cart'; }, 350);
     }).catch(function (err) {
       console.error('VPA cart submit error:', err);
       showCartError('Network error adding to cart.');
@@ -1380,9 +1390,14 @@
     var addonsChecked = root.querySelectorAll('.vpa__addon-check:checked');
     if (addonsChecked.length === 0) return; // let native product-form flow run
 
+    // preventDefault only — let other click listeners on the button (auto-add
+    // apps, upsell apps, analytics) keep running. Skipping stopPropagation /
+    // stopImmediatePropagation here is deliberate: those would cancel 3rd-
+    // party app hooks attached at the same level. Because we preventDefault
+    // the click, the browser won't fire the form's submit event, so the
+    // product-form custom element's own submit handler stays out of our way
+    // without us needing to stop propagation explicitly.
     e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
     submitWithAddons(form || document.getElementById(formId), btn);
   }, true /* capture */);
 
