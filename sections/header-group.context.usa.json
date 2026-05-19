@@ -16,13 +16,28 @@
     "announcement-bar": {
       "settings": {},
       "blocks": {
+        "announcement_qLAXY": {
+          "type": "announcement",
+          "disabled": false,
+          "settings": {
+            "icon": "rocket",
+            "text": "<em><strong>15% off  </strong></em>Inflatable Hot Tubs",
+            "link": "shopify://collections/inflatable-hot-tubs",
+            "header-a9d512433e8c9dc4c59de93b3bf01bca": null,
+            "hide_icon_mobile": true,
+            "text_mobile": "<em><strong>15% off  </strong></em>Inflatable Hot Tubs",
+            "header-f17e6de0c93e606690afa505896d0a08": null,
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
+          }
+        },
         "announcement-2": {
           "disabled": false,
           "settings": {
             "icon": "sale",
             "text": "Order now and get <em><strong>x48 Filters in the box </strong></em>",
-            "highlighted_text": "text",
-            "link": "shopify://collections/hot-tub-full-range"
+            "link": "shopify://collections/hot-tub-full-range",
+            "highlighted_text": "text"
           }
         },
         "announcement-1": {
@@ -33,6 +48,7 @@
         }
       },
       "block_order": [
+        "announcement_qLAXY",
         "announcement-2",
         "announcement-1"
       ]
