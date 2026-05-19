@@ -273,6 +273,13 @@
   }
   .vpa__tile:hover { border-color: var(--vpa-text-muted); }
   .vpa__tile:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
+  /* "Tint tile background when selected" theme setting (default ON). When
+     OFF, keep selected tiles on the same background as the others; only
+     the border indicates selection. Wins over all Card variant rules
+     thanks to the higher-specificity data-attribute selector. */
+  .vpa[data-vpa-selected-bg="off"] .vpa__tile:has(input:checked) {
+    background: rgb(var(--color-background));
+  }
   .vpa__tile:has(input:focus-visible) { outline: 2px solid var(--vpa-accent); outline-offset: 2px; }
   .vpa__tile--sold-out { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
@@ -769,8 +776,9 @@
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
-  data-vpa-size="{{ vpa_size | default: 's' }}"
-  data-vpa-visual="{{ vpa_style | default: 'card' }}"
+  data-vpa-size="{{ settings.vpa_size | default: 's' }}"
+  data-vpa-visual="{{ settings.vpa_style | default: 'card' }}"
+  data-vpa-selected-bg="{% if settings.vpa_selected_bg == false %}off{% else %}on{% endif %}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
   style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }};"

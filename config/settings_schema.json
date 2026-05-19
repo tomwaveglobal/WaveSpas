@@ -1803,7 +1803,46 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Per-element font weight and size controls for the stepped Variant picker (advanced) block. Defaults match the theme's existing bold so nothing changes out of the box."
+        "content": "Visual setup and per-element font controls for the stepped Variant picker (advanced) block. Defaults match the current look so nothing changes out of the box."
+      },
+      {
+        "type": "header",
+        "content": "Visual setup"
+      },
+      {
+        "type": "select",
+        "id": "vpa_style",
+        "options": [
+          { "value": "card",                "label": "1 — Card (default)" },
+          { "value": "card-soft",           "label": "2 — Card · Soft pills" },
+          { "value": "card-outline-pills",  "label": "3 — Card · Outlined pills" },
+          { "value": "card-inline",         "label": "4 — Card · Inline tags (no corner pills)" },
+          { "value": "card-quiet-chip",     "label": "5 — Card · Quiet pre-order chip" },
+          { "value": "card-stripped",       "label": "6 — Card · Stripped (most minimal)" }
+        ],
+        "default": "card",
+        "label": "Style"
+      },
+      {
+        "type": "select",
+        "id": "vpa_size",
+        "options": [
+          { "value": "xxxs", "label": "XXXS — Micro" },
+          { "value": "xxs",  "label": "XXS — Very tight" },
+          { "value": "xs",   "label": "XS — Ultra compact" },
+          { "value": "s",    "label": "S — Compact (default)" },
+          { "value": "m",    "label": "M — Medium" },
+          { "value": "l",    "label": "L — Large" }
+        ],
+        "default": "s",
+        "label": "Size"
+      },
+      {
+        "type": "checkbox",
+        "id": "vpa_selected_bg",
+        "default": true,
+        "label": "Tint tile background when selected",
+        "info": "Off = selected tile keeps the same background as the others; only the border changes. Useful for testing a quieter selected state."
       },
       {
         "type": "header",
