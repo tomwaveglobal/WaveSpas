@@ -66,6 +66,11 @@
     gap: var(--sp-3);
     --vpa-border: rgb(var(--color-foreground) / 0.10);
     --vpa-border-strong: rgb(var(--color-foreground) / 0.85);
+    /* Calmer, more sophisticated selected-state border — used by tiles,
+       text buttons and add-on rows. Half-opacity foreground reads as
+       deliberate without the heavy near-black jump-on-click. */
+    --vpa-border-selected: rgb(var(--color-foreground) / 0.45);
+    --vpa-surface-selected: rgb(var(--color-foreground) / 0.02);
     --vpa-surface-muted: rgb(var(--color-foreground) / 0.03);
     --vpa-surface-card: rgb(var(--color-foreground) / 0.02);
     --vpa-text-muted: rgb(var(--color-foreground) / 0.6);
@@ -200,7 +205,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
-  .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
 
   /* ═══ Tile cards (size / edition / etc.) ══════════════════════════ */
   .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-2d5); }
@@ -219,7 +224,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .vpa__tile:hover { border-color: var(--vpa-text-muted); }
-  .vpa__tile:has(input:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__tile:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   .vpa__tile:has(input:focus-visible) { outline: 2px solid var(--vpa-accent); outline-offset: 2px; }
   .vpa__tile--sold-out { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
@@ -334,7 +339,7 @@
   }
   .vpa__addon[hidden] { display: none; }
   .vpa__addon:hover { border-color: var(--vpa-text-muted); }
-  .vpa__addon:has(input.vpa__addon-check:checked) { border-color: var(--vpa-border-strong); background: var(--vpa-surface-muted); }
+  .vpa__addon:has(input.vpa__addon-check:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   .vpa__addon-check {
     appearance: none;
     width: 18px;
@@ -625,18 +630,18 @@
     background: rgb(var(--color-background));
     box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06);
   }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:hover { box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.2); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:hover { box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.15); }
+  /* Gentle selected state — no aggressive colour invert; just a slightly
+     stronger ring + faint tint, in keeping with the borderless feel. */
   .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-foreground));
-    color: rgb(var(--color-background));
-    box-shadow: none;
+    background: rgb(var(--color-foreground) / 0.04);
+    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground) / 0.85);
   }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-price del { color: rgb(var(--color-background) / 0.55); }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__chip { background: rgb(var(--color-background) / 0.18); color: rgb(var(--color-background)); }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-info { background: rgb(var(--color-background) / 0.18); color: rgb(var(--color-background)); }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-media { background: rgb(var(--color-background) / 0.18); }
   .vpa[data-vpa-visual="borderless"] .vpa__addon { border: 0; box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06); }
-  .vpa[data-vpa-visual="borderless"] .vpa__addon:has(input:checked) { box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground)); }
+  .vpa[data-vpa-visual="borderless"] .vpa__addon:has(input:checked) {
+    background: rgb(var(--color-foreground) / 0.04);
+    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground) / 0.85);
+  }
 
   /* ─── 3 — Underline ────────────────────────────────────────────────
      No box at all on the step — just a hairline under the heading.
@@ -710,6 +715,85 @@
   }
   .vpa[data-vpa-visual="shadow"] .vpa__addon { border: 0; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 6px rgb(0 0 0 / 0.05); }
   .vpa[data-vpa-visual="shadow"] .vpa__addon:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 3px 10px rgb(0 0 0 / 0.08); }
+  /* ─── 11 — Outline (Product Highlights inspired) ───────────────────
+     Mirrors the theme's "Product highlights" Icon-list pattern in the
+     gallery column: a hairline-bordered container with the heading
+     floating over the top edge (background-coloured pill that breaks
+     the border line). Inside, tiles are soft grey-tinted with no
+     borders — pure tonal contrast, no clutter, generous radius.
+     Builds on Style 1's clean Card baseline.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="outline"] .vpa__step {
+    border: 1px solid rgb(var(--color-foreground) / 0.1);
+    background: transparent;
+    border-radius: var(--rounded-block, 10px);
+    padding: var(--sp-6) var(--sp-5);
+    padding-block-start: var(--sp-6);
+    margin-block-start: var(--sp-3);
+    position: relative;
+  }
+  @media (min-width: 768px) {
+    .vpa[data-vpa-visual="outline"] .vpa__step { padding: var(--sp-7) var(--sp-6); padding-block-start: var(--sp-7); }
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__step--complete { background: transparent; }
+  /* Floating heading: position the head row over the top border, pad it
+     with background colour so it visually cuts the border line. Mirrors
+     .product__gallery-container .product__highlights.with-heading > p. */
+  .vpa[data-vpa-visual="outline"] .vpa__head {
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: var(--sp-5);
+    transform: translateY(-50%);
+    margin: 0;
+    padding: var(--sp-1) var(--sp-2d5);
+    background: rgb(var(--color-background));
+    width: auto;
+    flex-wrap: nowrap;
+    gap: var(--sp-2);
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__status { display: none; }
+  .vpa[data-vpa-visual="outline"] .vpa__size-chart-link { display: none; }
+  .vpa[data-vpa-visual="outline"] .vpa__num {
+    width: 22px; height: 22px;
+    border-width: 1.5px;
+    font-size: 11px;
+  }
+  /* Tiles: soft grey-tinted cards, no border, larger radius, generous
+     padding — exactly the Product Highlights item pattern. */
+  .vpa[data-vpa-visual="outline"] .vpa__tile {
+    border: 0;
+    background: rgb(var(--color-foreground) / 0.04);
+    border-radius: var(--rounded-block, 10px);
+    box-shadow: none;
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__tile:hover { background: rgb(var(--color-foreground) / 0.06); }
+  .vpa[data-vpa-visual="outline"] .vpa__tile:has(input:checked) {
+    background: rgb(var(--color-background));
+    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
+  }
+  /* The Icon-list rows are quiet — drop the bright corner pills to
+     in-flow chips so the surface stays calm. */
+  .vpa[data-vpa-visual="outline"] .vpa__tile { padding-block-start: var(--sp-3d5); }
+  .vpa[data-vpa-visual="outline"] .vpa__tag, .vpa[data-vpa-visual="outline"] .vpa__discount {
+    position: static;
+    display: inline-flex;
+    margin-inline-end: var(--sp-1d5);
+    vertical-align: middle;
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__tile-text { display: flex; flex-direction: column; gap: 2px; }
+  .vpa[data-vpa-visual="outline"] .vpa__chip {
+    background: rgb(var(--color-background));
+    border: 1px solid rgb(var(--color-foreground) / 0.08);
+    border-radius: var(--rounded-full, 999px);
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__addon {
+    border: 0;
+    background: rgb(var(--color-foreground) / 0.04);
+  }
+  .vpa[data-vpa-visual="outline"] .vpa__addon:has(input:checked) {
+    background: rgb(var(--color-background));
+    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
+  }
 
 </style>
 
