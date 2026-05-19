@@ -373,25 +373,34 @@
   .vpa__addon-sub {
     grid-column: 1 / -1;
     margin-block-start: var(--sp-2d5);
-    padding: var(--sp-2d5) var(--sp-3);
+    padding: var(--sp-3) var(--sp-3d5);
     background: var(--vpa-accent-soft);
-    border-radius: 8px;
+    border-radius: var(--rounded-block, 10px);
     display: none;
     flex-direction: column;
-    gap: var(--sp-1d5);
+    gap: var(--sp-2);
   }
   .vpa__addon:has(input.vpa__addon-check:checked) .vpa__addon-sub { display: flex; }
-  .vpa__addon-sub-head { display: flex; align-items: center; gap: var(--sp-2); }
+  .vpa__addon-sub-head { display: flex; align-items: center; gap: var(--sp-1d5); }
+  .vpa__addon-sub-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--vpa-accent);
+  }
+  .vpa__addon-sub-icon svg { width: 100%; height: 100%; display: block; }
   .vpa__addon-sub-savings {
     display: inline-flex;
     align-items: center;
-    gap: var(--sp-1);
     font-weight: var(--font-bold);
     font-size: 12px;
     color: rgb(var(--color-foreground));
     letter-spacing: 0.02em;
+    line-height: 1.2;
   }
-  .vpa__addon-sub-savings::before { content: '⟳'; font-size: 14px; color: var(--vpa-accent); }
   .vpa__addon-sub-desc { font-size: 11px; line-height: 1.4; color: var(--vpa-text-muted); }
   .vpa__addon-sub select {
     width: 100%;
@@ -415,7 +424,8 @@
     .vpa__addon { grid-template-columns: auto 40px 1fr; }
     .vpa__addon-media { width: 40px; height: 40px; }
     .vpa__addon-price { grid-column: 2 / -1; padding-inline-start: calc(40px + var(--sp-3)); }
-    .vpa__addon-sub { padding-inline-start: 0; }
+    /* Subscription panel keeps its full horizontal padding on mobile so
+       the heading/icon/select don't hug the cream-fill left edge. */
   }
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -607,193 +617,104 @@
   .vpa[data-vpa-size="l"] .vpa__swatch-label { font-size: 13px; }
 
   /* ═══════════════════════════════════════════════════════════════════
-     VISUAL STYLES — five distinct treatments for the step container and
-     tile chrome. Switchable from the block's Visual style setting. Each
-     is fully scoped to .vpa[data-vpa-visual="…"] so they compose with
-     the Size preset and never bleed across instances.
+     VISUAL STYLES — Style 1 (Card) is the baseline; styles 2–6 each
+     make targeted "noise reduction" tweaks so you can see exactly which
+     element in the busy tile is doing the most work. Each option is a
+     subtle variant of Card, not a different aesthetic.
 
-     Style 1 (card) is the default — no overrides, uses the base rules.
+     Goal: progressively quieten the tile from "full chrome" (1) toward
+     "stripped" (6), one source of visual weight at a time.
   ═══════════════════════════════════════════════════════════════════ */
 
-  /* ─── 2 — Borderless / Tinted ──────────────────────────────────────
-     No outer border on the step. Soft grey-tinted background. Tiles
-     also drop their border and sit on a slightly stronger tint;
-     selected tiles flip to the foreground for a clean filled look.
+  /* ─── 2 — Card · Soft pills ────────────────────────────────────────
+     Same layout. Only change: the MOST POPULAR / OFF corner pills
+     shrink in size + tone down so they stop dominating the tile crown.
   ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="borderless"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.035);
+  .vpa[data-vpa-visual="card-soft"] .vpa__tag {
+    background: rgb(var(--color-foreground) / 0.9);
+    font-size: 8.5px;
+    padding: 2px 5px;
+    letter-spacing: 0.03em;
   }
-  .vpa[data-vpa-visual="borderless"] .vpa__step--complete { background: rgb(var(--color-foreground) / 0.05); }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-background));
-    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06);
-  }
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:hover { box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.15); }
-  /* Gentle selected state — no aggressive colour invert; just a slightly
-     stronger ring + faint tint, in keeping with the borderless feel. */
-  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-foreground) / 0.04);
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground) / 0.85);
-  }
-  .vpa[data-vpa-visual="borderless"] .vpa__addon { border: 0; box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06); }
-  .vpa[data-vpa-visual="borderless"] .vpa__addon:has(input:checked) {
-    background: rgb(var(--color-foreground) / 0.04);
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground) / 0.85);
+  .vpa[data-vpa-visual="card-soft"] .vpa__discount {
+    background: rgb(var(--color-sale-tag) / 0.85);
+    font-size: 8.5px;
+    padding: 2px 5px;
   }
 
-  /* ─── 3 — Underline ────────────────────────────────────────────────
-     No box at all on the step — just a hairline under the heading.
-     Tiles keep a hairline border. The picker reads as a list, not
-     stacked panels. Most minimal, easiest to scan.
+  /* ─── 3 — Card · Outlined pills ────────────────────────────────────
+     Corner pills lose their filled background and become hairline
+     outlines instead. Far calmer top edge — no two coloured stickers
+     fighting for attention. Best when you still want them visible.
   ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="underline"] .vpa__step {
-    border: 0;
+  .vpa[data-vpa-visual="card-outline-pills"] .vpa__tag {
     background: transparent;
-    padding: 0;
-    padding-block-end: var(--sp-4);
+    color: rgb(var(--color-foreground) / 0.75);
+    border: 1px solid rgb(var(--color-foreground) / 0.2);
+    font-weight: var(--font-medium);
   }
-  .vpa[data-vpa-visual="underline"] .vpa__head {
-    margin-block-end: var(--sp-3);
-    padding-block-end: var(--sp-2d5);
-    border-block-end: 1px solid rgb(var(--color-foreground) / 0.12);
-  }
-  .vpa[data-vpa-visual="underline"] .vpa__step--complete { background: transparent; }
-  .vpa[data-vpa-visual="underline"] .vpa__step--addons[data-revealed="true"] { padding: 0; padding-block-end: var(--sp-4); border: 0; }
-  .vpa[data-vpa-visual="underline"] .vpa__step--addons[data-revealed="true"] .vpa__head { border-block-end: 1px solid rgb(var(--color-foreground) / 0.12); }
-  .vpa[data-vpa-visual="underline"] .vpa__tile { border-width: 1px; }
-
-  /* ─── 4 — Accent (highlight bar + brand selected state) ────────────
-     Soft tinted step container with a 3px highlight-coloured left bar.
-     Tiles get the highlight border + soft glow when selected. Brings
-     the brand orange (color-highlight) into the picker.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="accent"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-highlight) / 0.04);
-    border-inline-start: 3px solid rgb(var(--color-highlight) / 0.45);
-  }
-  .vpa[data-vpa-visual="accent"] .vpa__step--complete { border-inline-start-color: rgb(var(--color-highlight)); background: rgb(var(--color-highlight) / 0.06); }
-  .vpa[data-vpa-visual="accent"] .vpa__num { border-color: rgb(var(--color-highlight)); color: rgb(var(--color-highlight)); }
-  .vpa[data-vpa-visual="accent"] .vpa__step--complete .vpa__num { background: rgb(var(--color-highlight)); color: rgb(var(--color-background)); }
-  .vpa[data-vpa-visual="accent"] .vpa__status:not(:empty)::before { color: rgb(var(--color-highlight)); }
-  .vpa[data-vpa-visual="accent"] .vpa__tile { border-color: rgb(var(--color-foreground) / 0.08); }
-  .vpa[data-vpa-visual="accent"] .vpa__tile:hover { border-color: rgb(var(--color-highlight) / 0.5); }
-  .vpa[data-vpa-visual="accent"] .vpa__tile:has(input:checked) {
-    border-color: rgb(var(--color-highlight));
-    background: rgb(var(--color-highlight) / 0.05);
-    box-shadow: 0 0 0 3px rgb(var(--color-highlight) / 0.12);
-  }
-  .vpa[data-vpa-visual="accent"] .vpa__addon:has(input:checked) {
-    border-color: rgb(var(--color-highlight));
-    background: rgb(var(--color-highlight) / 0.05);
-  }
-  .vpa[data-vpa-visual="accent"] .vpa__addon-check:checked { background: rgb(var(--color-highlight)); border-color: rgb(var(--color-highlight)); }
-  .vpa[data-vpa-visual="accent"] .vpa__chip { background: rgb(var(--color-highlight) / 0.14); }
-
-  /* ─── 5 — Shadow (floating white cards) ────────────────────────────
-     Borderless white cards on a quiet drop shadow. Steps and tiles
-     both float. Selected tiles get a heavier shadow + thin foreground
-     ring instead of a coloured border.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="shadow"] .vpa__step {
-    border: 0;
-    background: rgb(var(--color-background));
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.05);
-  }
-  .vpa[data-vpa-visual="shadow"] .vpa__step--complete { box-shadow: 0 1px 3px rgb(0 0 0 / 0.05), 0 6px 18px rgb(0 0 0 / 0.07); }
-  .vpa[data-vpa-visual="shadow"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-background));
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 3px 8px rgb(0 0 0 / 0.05);
-  }
-  .vpa[data-vpa-visual="shadow"] .vpa__tile:hover { box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 6px 14px rgb(0 0 0 / 0.08); transform: translateY(-1px); }
-  .vpa[data-vpa-visual="shadow"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-background));
-    box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 4px 16px rgb(0 0 0 / 0.10);
-  }
-  .vpa[data-vpa-visual="shadow"] .vpa__addon { border: 0; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 6px rgb(0 0 0 / 0.05); }
-  .vpa[data-vpa-visual="shadow"] .vpa__addon:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 3px 10px rgb(0 0 0 / 0.08); }
-  /* ─── 11 — Outline (Product Highlights inspired) ───────────────────
-     Mirrors the theme's "Product highlights" Icon-list pattern in the
-     gallery column: a hairline-bordered container with the heading
-     floating over the top edge (background-coloured pill that breaks
-     the border line). Inside, tiles are soft grey-tinted with no
-     borders — pure tonal contrast, no clutter, generous radius.
-     Builds on Style 1's clean Card baseline.
-  ─────────────────────────────────────────────────────────────────── */
-  .vpa[data-vpa-visual="outline"] .vpa__step {
-    border: 1px solid rgb(var(--color-foreground) / 0.1);
+  .vpa[data-vpa-visual="card-outline-pills"] .vpa__discount {
     background: transparent;
-    border-radius: var(--rounded-block, 10px);
-    padding: var(--sp-6) var(--sp-5);
-    padding-block-start: var(--sp-6);
-    margin-block-start: var(--sp-3);
-    position: relative;
+    color: rgb(var(--color-sale-tag));
+    border: 1px solid rgb(var(--color-sale-tag) / 0.45);
+    font-weight: var(--font-medium);
   }
-  @media (min-width: 768px) {
-    .vpa[data-vpa-visual="outline"] .vpa__step { padding: var(--sp-7) var(--sp-6); padding-block-start: var(--sp-7); }
-  }
-  .vpa[data-vpa-visual="outline"] .vpa__step--complete { background: transparent; }
-  /* Floating heading: position the head row over the top border, pad it
-     with background colour so it visually cuts the border line. Mirrors
-     .product__gallery-container .product__highlights.with-heading > p. */
-  .vpa[data-vpa-visual="outline"] .vpa__head {
-    position: absolute;
-    inset-block-start: -1px;
-    inset-inline-start: var(--sp-5);
-    transform: translateY(-50%);
-    margin: 0;
-    padding: var(--sp-1) var(--sp-2d5);
-    background: rgb(var(--color-background));
-    width: auto;
-    flex-wrap: nowrap;
-    gap: var(--sp-2);
-  }
-  .vpa[data-vpa-visual="outline"] .vpa__status { display: none; }
-  .vpa[data-vpa-visual="outline"] .vpa__size-chart-link { display: none; }
-  .vpa[data-vpa-visual="outline"] .vpa__num {
-    width: 22px; height: 22px;
-    border-width: 1.5px;
-    font-size: 11px;
-  }
-  /* Tiles: soft grey-tinted cards, no border, larger radius, generous
-     padding — exactly the Product Highlights item pattern. */
-  .vpa[data-vpa-visual="outline"] .vpa__tile {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.04);
-    border-radius: var(--rounded-block, 10px);
-    box-shadow: none;
-  }
-  .vpa[data-vpa-visual="outline"] .vpa__tile:hover { background: rgb(var(--color-foreground) / 0.06); }
-  .vpa[data-vpa-visual="outline"] .vpa__tile:has(input:checked) {
-    background: rgb(var(--color-background));
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
-  }
-  /* The Icon-list rows are quiet — drop the bright corner pills to
-     in-flow chips so the surface stays calm. */
-  .vpa[data-vpa-visual="outline"] .vpa__tile { padding-block-start: var(--sp-3d5); }
-  .vpa[data-vpa-visual="outline"] .vpa__tag, .vpa[data-vpa-visual="outline"] .vpa__discount {
+
+  /* ─── 4 — Card · Inline tags ───────────────────────────────────────
+     Demote the corner pills entirely. They become tiny uppercase
+     in-flow labels above the name (no absolute positioning, no
+     coloured fills). Frees the tile crown completely and recovers
+     vertical space — the tile no longer needs --sp-6 top padding.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="card-inline"] .vpa__tile { padding-block-start: var(--sp-3d5); }
+  .vpa[data-vpa-visual="card-inline"] .vpa__tag,
+  .vpa[data-vpa-visual="card-inline"] .vpa__discount {
     position: static;
     display: inline-flex;
+    background: transparent;
+    color: rgb(var(--color-foreground) / 0.6);
+    padding: 0;
     margin-inline-end: var(--sp-1d5);
-    vertical-align: middle;
+    font-size: 9px;
+    font-weight: var(--font-bold);
+    letter-spacing: 0.08em;
   }
-  .vpa[data-vpa-visual="outline"] .vpa__tile-text { display: flex; flex-direction: column; gap: 2px; }
-  .vpa[data-vpa-visual="outline"] .vpa__chip {
-    background: rgb(var(--color-background));
-    border: 1px solid rgb(var(--color-foreground) / 0.08);
-    border-radius: var(--rounded-full, 999px);
+  .vpa[data-vpa-visual="card-inline"] .vpa__discount { color: rgb(var(--color-sale-tag)); }
+  /* Wrap the inline labels in a row above the body so they sit cleanly. */
+  .vpa[data-vpa-visual="card-inline"] .vpa__tile-text > .vpa__tile-name { margin-block-start: 0; }
+
+  /* ─── 5 — Card · Quiet chip ────────────────────────────────────────
+     Pre-order chip drops its tinted background and becomes a quiet
+     inline line: just the calendar icon + grey text. Lets the price
+     read more cleanly. Corner pills stay (use 2 or 3 to also calm
+     those).
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="card-quiet-chip"] .vpa__chip {
+    background: transparent;
+    padding: 0;
+    margin-block-start: var(--sp-1d5);
+    color: rgb(var(--color-foreground) / 0.6);
+    font-weight: var(--font-medium);
   }
-  .vpa[data-vpa-visual="outline"] .vpa__addon {
-    border: 0;
-    background: rgb(var(--color-foreground) / 0.04);
+  .vpa[data-vpa-visual="card-quiet-chip"] .vpa__chip .icon { opacity: 0.7; }
+
+  /* ─── 6 — Card · Stripped ──────────────────────────────────────────
+     Everything quietened. No corner pills, no chip background, no
+     thumbnail outline. Pure name + price + a soft pre-order line.
+     The most minimal Card — closest to "just the essentials".
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="card-stripped"] .vpa__tile { padding-block-start: var(--sp-3d5); }
+  .vpa[data-vpa-visual="card-stripped"] .vpa__tag,
+  .vpa[data-vpa-visual="card-stripped"] .vpa__discount { display: none; }
+  .vpa[data-vpa-visual="card-stripped"] .vpa__chip {
+    background: transparent;
+    padding: 0;
+    margin-block-start: var(--sp-1d5);
+    color: rgb(var(--color-foreground) / 0.6);
+    font-weight: var(--font-medium);
   }
-  .vpa[data-vpa-visual="outline"] .vpa__addon:has(input:checked) {
-    background: rgb(var(--color-background));
-    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
-  }
+  .vpa[data-vpa-visual="card-stripped"] .vpa__chip .icon { opacity: 0.7; }
+  .vpa[data-vpa-visual="card-stripped"] .vpa__tile-media { background: transparent; }
 
 </style>
 
@@ -1132,6 +1053,12 @@
               {%- endcomment -%}
               <div class="vpa__addon-sub">
                 <div class="vpa__addon-sub-head">
+                  <span class="vpa__addon-sub-icon" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" role="presentation">
+                      <path d="M14 8a6 6 0 1 1-1.76-4.24"/>
+                      <path d="M14 2v3.5h-3.5"/>
+                    </svg>
+                  </span>
                   <span class="vpa__addon-sub-savings">{{ block.settings.subscribe_savings_label | default: 'Subscribe & Save' }}</span>
                 </div>
                 {%- if block.settings.subscribe_description != blank -%}
