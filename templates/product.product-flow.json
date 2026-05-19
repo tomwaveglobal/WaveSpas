@@ -108,7 +108,7 @@
             "step3_label": "Pick your edition",
             "show_per_tile_chip": true,
             "pre_order_chip_prefix": "Pre-order · ships",
-            "energy_saving_text": "<p><strong>Energy-Saving Bundle Option Includes:</strong> Eco-foam hot tub, thermal cover, and foam mat for maximum heat retention and lower energy bills.</p>",
+            "energy_saving_text": "<p><strong>Includes:</strong> Eco-foam hot tub, thermal cover, and foam mat for maximum heat retention and lower energy bills.</p>",
             "addons_enabled": true,
             "addons_heading": "Popular Add-Ons",
             "addons_optional_label": "Optional",
