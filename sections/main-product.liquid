@@ -2337,17 +2337,39 @@
       "limit": 1,
       "settings": [
         {
+          "type": "header",
+          "content": "Visual setup"
+        },
+        {
           "type": "select",
-          "id": "size_preset",
+          "id": "vpa_style",
           "options": [
-            { "value": "xs", "label": "XS — Ultra compact" },
-            { "value": "s",  "label": "S — Compact" },
-            { "value": "m",  "label": "M — Medium (default)" },
-            { "value": "l",  "label": "L — Large / spacious" }
+            { "value": "card",       "label": "1 — Card (subtle border)" },
+            { "value": "borderless", "label": "2 — Borderless / Tinted" },
+            { "value": "underline",  "label": "3 — Underline (no box)" },
+            { "value": "accent",     "label": "4 — Accent (brand-colour selected)" },
+            { "value": "shadow",     "label": "5 — Shadow (floating cards)" }
           ],
-          "default": "m",
-          "label": "Size preset",
-          "info": "Scales the picker's tile padding, thumbnail, type sizes and chips together. Same layout — just tighter or roomier."
+          "default": "card",
+          "label": "Style"
+        },
+        {
+          "type": "select",
+          "id": "vpa_size",
+          "options": [
+            { "value": "xxxs", "label": "XXXS — Micro" },
+            { "value": "xxs",  "label": "XXS — Very tight" },
+            { "value": "xs",   "label": "XS — Ultra compact" },
+            { "value": "s",    "label": "S — Compact" },
+            { "value": "m",    "label": "M — Medium" },
+            { "value": "l",    "label": "L — Large" }
+          ],
+          "default": "s",
+          "label": "Size"
+        },
+        {
+          "type": "paragraph",
+          "content": "Style switches the step container + tile chrome. Size scales padding, thumbnails and type together. Combine freely."
         },
         {
           "type": "checkbox",

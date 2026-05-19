@@ -415,10 +415,62 @@
 
   /* ═══════════════════════════════════════════════════════════════════
      SIZE PRESETS — same layout, scaled density. Switchable per-block via
-     the Size preset setting (XS / S / M / L). Each preset is scoped to
-     .vpa[data-vpa-size="…"] so they compose with the base styles above
-     and never bleed across instances on the same page.
+     the Size preset setting (XXXS / XXS / XS / S / M / L). Each preset
+     is scoped to .vpa[data-vpa-size="…"] so they compose with the base
+     styles above and never bleed across instances on the same page.
   ═══════════════════════════════════════════════════════════════════ */
+
+  /* ─── XXXS — Micro ─────────────────────────────────────────────── */
+  .vpa[data-vpa-size="xxxs"] { gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__step { padding: var(--sp-2) var(--sp-2d5); border-radius: 10px; }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxxs"] .vpa__step { padding: var(--sp-2d5) var(--sp-3); } }
+  .vpa[data-vpa-size="xxxs"] .vpa__head { margin-block-end: var(--sp-2); gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__num { width: 16px; height: 16px; font-size: 9px; border-width: 1px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__title { font-size: var(--text-xs); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxxs"] .vpa__title { font-size: var(--text-sm); } }
+  .vpa[data-vpa-size="xxxs"] .vpa__status { font-size: 9px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__choices--tile { gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile { padding: var(--sp-1d5) var(--sp-2); padding-block-start: var(--sp-4); border-width: 1px; border-radius: 8px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile-body { grid-template-columns: 24px minmax(0, 1fr); gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile-media { width: 24px; height: 24px; border-radius: 6px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile-name { font-size: 11px; line-height: 1.15; margin-block-end: 1px; }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxxs"] .vpa__tile-name { font-size: 11.5px; } }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile-price { font-size: 11px; gap: 4px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__tag, .vpa[data-vpa-size="xxxs"] .vpa__discount { font-size: 7.5px; padding: 1.5px 4px; top: var(--sp-1); }
+  .vpa[data-vpa-size="xxxs"] .vpa__tag { left: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__discount { right: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__chip, .vpa[data-vpa-size="xxxs"] .vpa__tile-info { font-size: 8.5px; padding: 2px 5px; margin-block-start: var(--sp-1); }
+  .vpa[data-vpa-size="xxxs"] .vpa__chip .icon { width: 9px; height: 9px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__choices--swatch { gap: var(--sp-2); }
+  .vpa[data-vpa-size="xxxs"] .vpa__swatch { width: 36px; gap: 2px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__swatch-fill { width: 24px; height: 24px; }
+  .vpa[data-vpa-size="xxxs"] .vpa__swatch-label { font-size: 9px; }
+
+  /* ─── XXS — Very tight ─────────────────────────────────────────── */
+  .vpa[data-vpa-size="xxs"] { gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxs"] .vpa__step { padding: var(--sp-2d5) var(--sp-3); border-radius: 10px; }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxs"] .vpa__step { padding: var(--sp-3) var(--sp-3d5); } }
+  .vpa[data-vpa-size="xxs"] .vpa__head { margin-block-end: var(--sp-2d5); gap: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__num { width: 19px; height: 19px; font-size: 10px; border-width: 1px; }
+  .vpa[data-vpa-size="xxs"] .vpa__title { font-size: var(--text-xs); }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxs"] .vpa__title { font-size: var(--text-sm); } }
+  .vpa[data-vpa-size="xxs"] .vpa__status { font-size: 9.5px; }
+  .vpa[data-vpa-size="xxs"] .vpa__choices--tile { gap: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxs"] .vpa__tile { padding: var(--sp-2) var(--sp-2d5); padding-block-start: var(--sp-4d5); border-width: 1px; border-radius: 10px; }
+  .vpa[data-vpa-size="xxs"] .vpa__tile-body { grid-template-columns: 28px minmax(0, 1fr); gap: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__tile-media { width: 28px; height: 28px; border-radius: 6px; }
+  .vpa[data-vpa-size="xxs"] .vpa__tile-name { font-size: 11.5px; line-height: 1.15; }
+  @media (min-width: 768px) { .vpa[data-vpa-size="xxs"] .vpa__tile-name { font-size: 12px; } }
+  .vpa[data-vpa-size="xxs"] .vpa__tile-price { font-size: 11.5px; gap: 4px; }
+  .vpa[data-vpa-size="xxs"] .vpa__tag, .vpa[data-vpa-size="xxs"] .vpa__discount { font-size: 8px; padding: 1.5px 4.5px; top: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxs"] .vpa__tag { left: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__discount { right: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__chip, .vpa[data-vpa-size="xxs"] .vpa__tile-info { font-size: 9px; padding: 2.5px 5.5px; margin-block-start: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxs"] .vpa__chip .icon { width: 9.5px; height: 9.5px; }
+  .vpa[data-vpa-size="xxs"] .vpa__choices--swatch { gap: var(--sp-2d5); }
+  .vpa[data-vpa-size="xxs"] .vpa__swatch { width: 42px; gap: var(--sp-1); }
+  .vpa[data-vpa-size="xxs"] .vpa__swatch-fill { width: 28px; height: 28px; }
+  .vpa[data-vpa-size="xxs"] .vpa__swatch-label { font-size: 9.5px; }
 
   /* ─── XS — Ultra compact ───────────────────────────────────────── */
   .vpa[data-vpa-size="xs"] { gap: var(--sp-2); }
@@ -472,7 +524,28 @@
   }
   .vpa[data-vpa-color-layout="spread"] .vpa__swatch { width: 100%; max-width: 80px; }
 
-  /* Label: hover — hide label inline, show as a styled tooltip on hover. */
+  /* Label: hover — hide inline, show as a tooltip-style pill on hover.
+     CRITICAL: also shrink the swatch container itself so the row tightens
+     up visually; the swatch only needs to fit the colour fill now. */
+  .vpa[data-vpa-color-label="hover"] .vpa__swatch,
+  .vpa[data-vpa-color-label="hidden"] .vpa__swatch {
+    width: -webkit-fit-content;
+    width: fit-content;
+    gap: 0;
+  }
+  .vpa[data-vpa-color-label="hover"] .vpa__choices--swatch,
+  .vpa[data-vpa-color-label="hidden"] .vpa__choices--swatch {
+    gap: var(--sp-2);
+  }
+  /* When the row is also set to Spread, keep the fill centred but don't
+     let it stretch to the full grid cell. */
+  .vpa[data-vpa-color-layout="spread"][data-vpa-color-label="hover"] .vpa__swatch,
+  .vpa[data-vpa-color-layout="spread"][data-vpa-color-label="hidden"] .vpa__swatch,
+  .vpa[data-vpa-color-label="hover"][data-vpa-color-layout="spread"] .vpa__swatch,
+  .vpa[data-vpa-color-label="hidden"][data-vpa-color-layout="spread"] .vpa__swatch {
+    width: 100%;
+    max-width: none;
+  }
   .vpa[data-vpa-color-label="hover"] .vpa__swatch-label {
     position: absolute;
     inset-inline-start: 50%;
@@ -493,7 +566,7 @@
   .vpa[data-vpa-color-label="hover"] .vpa__swatch:hover .vpa__swatch-label,
   .vpa[data-vpa-color-label="hover"] .vpa__swatch:focus-within .vpa__swatch-label { opacity: 1; }
 
-  /* Label: hidden — never render the label visually. */
+  /* Label: hidden — never render the label visually (clip for a11y). */
   .vpa[data-vpa-color-label="hidden"] .vpa__swatch-label {
     position: absolute;
     width: 1px; height: 1px;
@@ -528,12 +601,123 @@
   .vpa[data-vpa-size="l"] .vpa__swatch-fill { width: 46px; height: 46px; }
   .vpa[data-vpa-size="l"] .vpa__swatch-label { font-size: 13px; }
 
+  /* ═══════════════════════════════════════════════════════════════════
+     VISUAL STYLES — five distinct treatments for the step container and
+     tile chrome. Switchable from the block's Visual style setting. Each
+     is fully scoped to .vpa[data-vpa-visual="…"] so they compose with
+     the Size preset and never bleed across instances.
+
+     Style 1 (card) is the default — no overrides, uses the base rules.
+  ═══════════════════════════════════════════════════════════════════ */
+
+  /* ─── 2 — Borderless / Tinted ──────────────────────────────────────
+     No outer border on the step. Soft grey-tinted background. Tiles
+     also drop their border and sit on a slightly stronger tint;
+     selected tiles flip to the foreground for a clean filled look.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="borderless"] .vpa__step {
+    border: 0;
+    background: rgb(var(--color-foreground) / 0.035);
+  }
+  .vpa[data-vpa-visual="borderless"] .vpa__step--complete { background: rgb(var(--color-foreground) / 0.05); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile {
+    border: 0;
+    background: rgb(var(--color-background));
+    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06);
+  }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:hover { box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.2); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) {
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+    box-shadow: none;
+  }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-price del { color: rgb(var(--color-background) / 0.55); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__chip { background: rgb(var(--color-background) / 0.18); color: rgb(var(--color-background)); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-info { background: rgb(var(--color-background) / 0.18); color: rgb(var(--color-background)); }
+  .vpa[data-vpa-visual="borderless"] .vpa__tile:has(input:checked) .vpa__tile-media { background: rgb(var(--color-background) / 0.18); }
+  .vpa[data-vpa-visual="borderless"] .vpa__addon { border: 0; box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06); }
+  .vpa[data-vpa-visual="borderless"] .vpa__addon:has(input:checked) { box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground)); }
+
+  /* ─── 3 — Underline ────────────────────────────────────────────────
+     No box at all on the step — just a hairline under the heading.
+     Tiles keep a hairline border. The picker reads as a list, not
+     stacked panels. Most minimal, easiest to scan.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="underline"] .vpa__step {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    padding-block-end: var(--sp-4);
+  }
+  .vpa[data-vpa-visual="underline"] .vpa__head {
+    margin-block-end: var(--sp-3);
+    padding-block-end: var(--sp-2d5);
+    border-block-end: 1px solid rgb(var(--color-foreground) / 0.12);
+  }
+  .vpa[data-vpa-visual="underline"] .vpa__step--complete { background: transparent; }
+  .vpa[data-vpa-visual="underline"] .vpa__step--addons[data-revealed="true"] { padding: 0; padding-block-end: var(--sp-4); border: 0; }
+  .vpa[data-vpa-visual="underline"] .vpa__step--addons[data-revealed="true"] .vpa__head { border-block-end: 1px solid rgb(var(--color-foreground) / 0.12); }
+  .vpa[data-vpa-visual="underline"] .vpa__tile { border-width: 1px; }
+
+  /* ─── 4 — Accent (highlight bar + brand selected state) ────────────
+     Soft tinted step container with a 3px highlight-coloured left bar.
+     Tiles get the highlight border + soft glow when selected. Brings
+     the brand orange (color-highlight) into the picker.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="accent"] .vpa__step {
+    border: 0;
+    background: rgb(var(--color-highlight) / 0.04);
+    border-inline-start: 3px solid rgb(var(--color-highlight) / 0.45);
+  }
+  .vpa[data-vpa-visual="accent"] .vpa__step--complete { border-inline-start-color: rgb(var(--color-highlight)); background: rgb(var(--color-highlight) / 0.06); }
+  .vpa[data-vpa-visual="accent"] .vpa__num { border-color: rgb(var(--color-highlight)); color: rgb(var(--color-highlight)); }
+  .vpa[data-vpa-visual="accent"] .vpa__step--complete .vpa__num { background: rgb(var(--color-highlight)); color: rgb(var(--color-background)); }
+  .vpa[data-vpa-visual="accent"] .vpa__status:not(:empty)::before { color: rgb(var(--color-highlight)); }
+  .vpa[data-vpa-visual="accent"] .vpa__tile { border-color: rgb(var(--color-foreground) / 0.08); }
+  .vpa[data-vpa-visual="accent"] .vpa__tile:hover { border-color: rgb(var(--color-highlight) / 0.5); }
+  .vpa[data-vpa-visual="accent"] .vpa__tile:has(input:checked) {
+    border-color: rgb(var(--color-highlight));
+    background: rgb(var(--color-highlight) / 0.05);
+    box-shadow: 0 0 0 3px rgb(var(--color-highlight) / 0.12);
+  }
+  .vpa[data-vpa-visual="accent"] .vpa__addon:has(input:checked) {
+    border-color: rgb(var(--color-highlight));
+    background: rgb(var(--color-highlight) / 0.05);
+  }
+  .vpa[data-vpa-visual="accent"] .vpa__addon-check:checked { background: rgb(var(--color-highlight)); border-color: rgb(var(--color-highlight)); }
+  .vpa[data-vpa-visual="accent"] .vpa__chip { background: rgb(var(--color-highlight) / 0.14); }
+
+  /* ─── 5 — Shadow (floating white cards) ────────────────────────────
+     Borderless white cards on a quiet drop shadow. Steps and tiles
+     both float. Selected tiles get a heavier shadow + thin foreground
+     ring instead of a coloured border.
+  ─────────────────────────────────────────────────────────────────── */
+  .vpa[data-vpa-visual="shadow"] .vpa__step {
+    border: 0;
+    background: rgb(var(--color-background));
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.05);
+  }
+  .vpa[data-vpa-visual="shadow"] .vpa__step--complete { box-shadow: 0 1px 3px rgb(0 0 0 / 0.05), 0 6px 18px rgb(0 0 0 / 0.07); }
+  .vpa[data-vpa-visual="shadow"] .vpa__tile {
+    border: 0;
+    background: rgb(var(--color-background));
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 3px 8px rgb(0 0 0 / 0.05);
+  }
+  .vpa[data-vpa-visual="shadow"] .vpa__tile:hover { box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 6px 14px rgb(0 0 0 / 0.08); transform: translateY(-1px); }
+  .vpa[data-vpa-visual="shadow"] .vpa__tile:has(input:checked) {
+    background: rgb(var(--color-background));
+    box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 4px 16px rgb(0 0 0 / 0.10);
+  }
+  .vpa[data-vpa-visual="shadow"] .vpa__addon { border: 0; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 6px rgb(0 0 0 / 0.05); }
+  .vpa[data-vpa-visual="shadow"] .vpa__addon:has(input:checked) { box-shadow: 0 0 0 1.5px rgb(var(--color-foreground)), 0 3px 10px rgb(0 0 0 / 0.08); }
+
 </style>
 
 <div class="vpa"
   id="{{ vpa_id }}"
   data-vpa-root
-  data-vpa-size="{{ block.settings.size_preset | default: 'm' }}"
+  data-vpa-size="{{ block.settings.vpa_size | default: block.settings.size_preset | default: 's' }}"
+  data-vpa-visual="{{ block.settings.vpa_style | default: block.settings.visual_style | default: 'card' }}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
   data-form-id="{{ product_form_id }}"
@@ -1253,10 +1437,21 @@
     }
     var form = document.getElementById(formId);
     if (!form) return;
-    form.dispatchEvent(new CustomEvent('variant:change', {
-      bubbles: true,
-      detail: { variant: variant }
-    }));
+    // media-gallery.setActiveMedia (theme.js) calls scrollIntoView on the
+    // newly-active media item, which yanks the page back up to the gallery
+    // every time the user picks a variant. Neutralise scrollIntoView for
+    // the duration of the dispatch (handler chain is synchronous) and
+    // restore it immediately after, so smooth scroll never schedules.
+    var origScrollIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function () {};
+    try {
+      form.dispatchEvent(new CustomEvent('variant:change', {
+        bubbles: true,
+        detail: { variant: variant }
+      }));
+    } finally {
+      Element.prototype.scrollIntoView = origScrollIntoView;
+    }
   }
 
   // First variant compatible with the user's current selections (any subset).
