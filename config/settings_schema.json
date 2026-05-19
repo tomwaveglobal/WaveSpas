@@ -1838,6 +1838,13 @@
         "label": "Size"
       },
       {
+        "type": "checkbox",
+        "id": "vpa_selected_bg",
+        "default": true,
+        "label": "Tint tile background when selected",
+        "info": "Off = selected tile keeps the same background as the others; only the border changes. Useful for testing a quieter selected state."
+      },
+      {
         "type": "header",
         "content": "Step heading (e.g. \"Pick your colour\")"
       },
