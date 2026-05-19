@@ -96,12 +96,15 @@
         "variant_picker_advanced": {
           "type": "variant_picker_advanced",
           "settings": {
+            "size_preset": "xs",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
             "picker_type": "button",
             "show_colour_buttons": true,
             "enable_color_swatches": true,
             "color_swatch_type": "color",
+            "colour_layout": "wrap",
+            "colour_label": "always",
             "size_chart": "",
             "step1_label": "Pick your colour",
             "step2_label": "Pick your size",
