@@ -96,12 +96,16 @@
         "variant_picker_advanced_Vyc9TT": {
           "type": "variant_picker_advanced",
           "settings": {
+            "vpa_style": "outline",
+            "vpa_size": "s",
             "enable_dynamic_variants": true,
             "show_variant_labels": true,
             "picker_type": "button",
             "show_colour_buttons": true,
             "enable_color_swatches": true,
             "color_swatch_type": "color",
+            "colour_layout": "spread",
+            "colour_label": "always",
             "size_chart": "",
             "step1_label": "Pick your colour",
             "step2_label": "Pick your size",
@@ -119,7 +123,7 @@
             "addon_variant_match_map": "4 Person | 160x70cm: 4 Person, 160\n6 Person | 180x70cm: 6 Person, 180\n8 Person | 200x70cm: 8 Person, 200\n4 Person | 160x60cm: 4 Person, 160\n6 Person | 180x65cm: 6 Person, 180\n4 Person | 180x180cm: 4 Person\n6 Person | 200x200cm: 6 Person\n4 Person: 4 Person\n6 Person: 6 Person\n8 Person: 8 Person",
             "most_popular_label": "Most Popular",
             "most_popular_min_stock": 10,
-            "sold_out_label": "Sold Out",
+            "sold_out_label": "",
             "subscribe_savings_label": "Subscribe & Save",
             "subscribe_description": "<p>Get this delivered regularly and save on every order. Cancel anytime.</p>",
             "addon_onetime_label": "No, thanks — one-time only"
