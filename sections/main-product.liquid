@@ -2512,6 +2512,20 @@
           "label": "Optional badge text"
         },
         {
+          "type": "select",
+          "id": "addon_text_size",
+          "label": "Add-on text size",
+          "info": "Scales the product name, variant subtitle, and price together. The rest of the picker's typography is unaffected.",
+          "options": [
+            { "value": "xs", "label": "Extra small" },
+            { "value": "s",  "label": "Small" },
+            { "value": "m",  "label": "Medium (default)" },
+            { "value": "l",  "label": "Large" },
+            { "value": "xl", "label": "Extra large" }
+          ],
+          "default": "m"
+        },
+        {
           "type": "text",
           "id": "addon_priority_keywords",
           "default": "filter,chemical,cover",
