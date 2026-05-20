@@ -164,7 +164,7 @@
     "vpa_name_weight": "500",
     "vpa_price_size": "xs",
     "vpa_price_weight": "500",
-    "vpa_tag_weight": "400",
+    "vpa_tag_weight": "500",
     "advanced_badge_show_on_product": true,
     "advanced_badge_show_on_collection": true,
     "product_image_background": "#f8f8f8",
