@@ -2463,6 +2463,13 @@
           "label": "Chip prefix"
         },
         {
+          "type": "textarea",
+          "id": "pre_order_chip_trim",
+          "default": "Pre Order\nPre-Order\nPre-order\nPreorder\nShips\nShip\n|\n·",
+          "label": "Trim from metafield",
+          "info": "One pattern per line. Each is stripped from the start of the variant's pre-order metafield value before the chip prefix is added, so you don't get duplicate words like \"Pre-order · ships | Ships 19/06/26\". Matching is case-insensitive and stops once nothing more matches."
+        },
+        {
           "type": "paragraph",
           "content": "Pre-order chip reads variant metafield custom.pre_order_date_{uk|eu|usa} for the active market. To pull from a pre-order app, point that metafield at the app's data — usually configurable via the app's Shopify integration."
         },
@@ -2473,7 +2480,7 @@
         {
           "type": "richtext",
           "id": "energy_saving_text",
-          "default": "<p><strong>Energy-Saving Bundle Option Includes:</strong> Eco-foam hot tub, thermal cover, and foam mat for maximum heat retention and lower energy bills.</p>",
+          "default": "<p><strong>Includes:</strong> Thermal cover, and foam mat for max heat retention and lower energy bills.</p>",
           "label": "Energy-Saving info text",
           "info": "Auto-detected — shown on any tile whose value name contains 'energy', 'saving' or 'eco'. Leave blank to disable."
         },

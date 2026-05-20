@@ -183,7 +183,9 @@
     align-items: center;
     gap: var(--sp-1);
   }
-  .vpa__size-chart-link:hover { color: rgb(var(--color-foreground)); }
+  @media (hover: hover) {
+    .vpa__size-chart-link:hover { color: rgb(var(--color-foreground)); }
+  }
 
   /* ═══ Hidden inputs — sr-only clip technique ══════════════════════ */
   .vpa__swatch input,
@@ -221,7 +223,9 @@
     box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 1px var(--vpa-border);
     transition: box-shadow 0.15s, transform 0.15s;
   }
-  .vpa__swatch:hover .vpa__swatch-fill { box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 2px var(--vpa-text-muted); }
+  @media (hover: hover) {
+    .vpa__swatch:hover .vpa__swatch-fill { box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 2px var(--vpa-text-muted); }
+  }
   .vpa__swatch input:checked + .vpa__swatch-fill {
     box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px var(--vpa-border-strong);
     transform: scale(1.05);
@@ -252,11 +256,16 @@
     font-weight: var(--font-medium);
     transition: border-color 0.15s, background 0.15s;
   }
-  .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
+  @media (hover: hover) {
+    .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
+  }
   .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
 
   /* ═══ Tile cards (size / edition / etc.) ══════════════════════════ */
-  .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-2d5); }
+  /* CSS Grid implicitly stretches all tiles in the same row to equal
+     height — keeps the row tidy when one tile has a pre-order chip and
+     another doesn't. */
+  .vpa__choices--tile { display: grid; grid-template-columns: 1fr; gap: var(--sp-2d5); align-items: stretch; }
   @media (min-width: 480px) {
     .vpa__choices--tile { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
   }
@@ -271,7 +280,12 @@
     display: block;
     transition: border-color 0.15s, background 0.15s;
   }
-  .vpa__tile:hover { border-color: var(--vpa-text-muted); }
+  /* Scope hover to devices that actually have a cursor — mobile browsers
+     fire :hover on touch and never clear it until the user taps elsewhere,
+     which leaves tiles looking "semi-selected" after every tap. */
+  @media (hover: hover) {
+    .vpa__tile:hover { border-color: var(--vpa-text-muted); }
+  }
   .vpa__tile:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   /* "Tint tile background when selected" theme setting (default ON). When
      OFF, keep selected tiles on the same background as the others; only
@@ -284,6 +298,10 @@
   .vpa__tile--sold-out { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
   .vpa__tile-body { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--sp-2d5); align-items: start; }
+  /* When the variant has no dedicated image, drop the media column entirely
+     so name + price + chip get the full tile width. Cleaner than rendering
+     a clone of the gallery hero in a 48px square. */
+  .vpa__tile-body.vpa__tile-body--no-media { grid-template-columns: 1fr; }
   .vpa__tile-media { width: 48px; height: 48px; border-radius: var(--rounded-block, 10px); background: var(--vpa-surface-muted); overflow: hidden; flex-shrink: 0; }
   .vpa__tile-media img { width: 100%; height: 100%; object-fit: cover; }
   .vpa__tile-text { min-width: 0; }
@@ -305,9 +323,25 @@
     z-index: 1;
     line-height: 1;
   }
-  .vpa__tag { left: var(--sp-2d5); background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
+  /* Both pills sit top-right so they group visually instead of fighting
+     across the tile crown. When BOTH are present, MOST POPULAR drops
+     below the % OFF pill. Sold Out (a vpa__tag variant) keeps the same
+     top-right position — it never co-occurs with MOST POPULAR. */
+  .vpa__tag, .vpa__discount { right: var(--sp-2d5); left: auto; }
+  .vpa__tag { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
   .vpa__tag--sold-out { background: rgb(var(--color-foreground) / 0.45); }
-  .vpa__discount { right: var(--sp-2d5); background: var(--vpa-sale); color: var(--vpa-sale-text); }
+  .vpa__discount { background: var(--vpa-sale); color: var(--vpa-sale-text); }
+  .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag {
+    top: calc(var(--sp-2) + 20px);
+  }
+  /* Bump the tile crown when both pills stack so the second pill doesn't
+     crash into the tile name underneath. Applied to EVERY tile in the
+     row when any one tile in that row has both pills, so the thumbnails
+     across the row stay vertically aligned (not just on the stacked
+     tile). */
+  .vpa__choices--tile:has(.vpa__tile:has(.vpa__tag:not([hidden])):has(.vpa__discount:not([hidden]))) .vpa__tile {
+    padding-block-start: calc(var(--sp-6) + 16px);
+  }
 
   /* ═══ Tile soft pills: pre-order chip, info banner ════════════════ */
   /* The pre-order chip can carry a long market-specific string; clamp it
@@ -324,7 +358,7 @@
   }
   .vpa__chip[hidden], .vpa__tile-info[hidden] { display: none; }
   .vpa__chip {
-    background: var(--vpa-accent-soft);
+    background: var(--vpa-info-bg);
     color: rgb(var(--color-foreground));
     font-weight: var(--font-medium);
     display: inline-flex;
@@ -393,7 +427,9 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .vpa__addon[hidden] { display: none; }
-  .vpa__addon:hover { border-color: var(--vpa-text-muted); }
+  @media (hover: hover) {
+    .vpa__addon:hover { border-color: var(--vpa-text-muted); }
+  }
   .vpa__addon:has(input.vpa__addon-check:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
   .vpa__addon-check {
     appearance: none;
@@ -507,7 +543,8 @@
   @media (min-width: 768px) { .vpa[data-vpa-size="xxxs"] .vpa__tile-name { font-size: 11.5px; } }
   .vpa[data-vpa-size="xxxs"] .vpa__tile-price { font-size: 11px; gap: 4px; }
   .vpa[data-vpa-size="xxxs"] .vpa__tag, .vpa[data-vpa-size="xxxs"] .vpa__discount { font-size: 7.5px; padding: 1.5px 4px; top: var(--sp-1); }
-  .vpa[data-vpa-size="xxxs"] .vpa__tag { left: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__tag { right: var(--sp-1d5); }
+  .vpa[data-vpa-size="xxxs"] .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag { top: calc(var(--sp-1) + 16px); }
   .vpa[data-vpa-size="xxxs"] .vpa__discount { right: var(--sp-1d5); }
   .vpa[data-vpa-size="xxxs"] .vpa__chip, .vpa[data-vpa-size="xxxs"] .vpa__tile-info { font-size: 8.5px; padding: 2px 5px; margin-block-start: var(--sp-1); }
   .vpa[data-vpa-size="xxxs"] .vpa__chip .icon { width: 9px; height: 9px; }
@@ -533,7 +570,8 @@
   @media (min-width: 768px) { .vpa[data-vpa-size="xxs"] .vpa__tile-name { font-size: 12px; } }
   .vpa[data-vpa-size="xxs"] .vpa__tile-price { font-size: 11.5px; gap: 4px; }
   .vpa[data-vpa-size="xxs"] .vpa__tag, .vpa[data-vpa-size="xxs"] .vpa__discount { font-size: 8px; padding: 1.5px 4.5px; top: var(--sp-1d5); }
-  .vpa[data-vpa-size="xxs"] .vpa__tag { left: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__tag { right: var(--sp-2); }
+  .vpa[data-vpa-size="xxs"] .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag { top: calc(var(--sp-1d5) + 17px); }
   .vpa[data-vpa-size="xxs"] .vpa__discount { right: var(--sp-2); }
   .vpa[data-vpa-size="xxs"] .vpa__chip, .vpa[data-vpa-size="xxs"] .vpa__tile-info { font-size: 9px; padding: 2.5px 5.5px; margin-block-start: var(--sp-1d5); }
   .vpa[data-vpa-size="xxs"] .vpa__chip .icon { width: 9.5px; height: 9.5px; }
@@ -559,7 +597,8 @@
   @media (min-width: 768px) { .vpa[data-vpa-size="xs"] .vpa__tile-name { font-size: var(--text-sm); } }
   .vpa[data-vpa-size="xs"] .vpa__tile-price { font-size: var(--text-xs); gap: var(--sp-1); }
   .vpa[data-vpa-size="xs"] .vpa__tag, .vpa[data-vpa-size="xs"] .vpa__discount { font-size: 8.5px; padding: 2px 5px; top: var(--sp-1d5); }
-  .vpa[data-vpa-size="xs"] .vpa__tag { left: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__tag { right: var(--sp-2); }
+  .vpa[data-vpa-size="xs"] .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag { top: calc(var(--sp-1d5) + 18px); }
   .vpa[data-vpa-size="xs"] .vpa__discount { right: var(--sp-2); }
   .vpa[data-vpa-size="xs"] .vpa__chip, .vpa[data-vpa-size="xs"] .vpa__tile-info { font-size: 9.5px; padding: 3px 6px; margin-block-start: var(--sp-1d5); }
   .vpa[data-vpa-size="xs"] .vpa__chip .icon { width: 10px; height: 10px; }
@@ -663,7 +702,8 @@
   @media (min-width: 768px) { .vpa[data-vpa-size="l"] .vpa__tile-name { font-size: var(--text-lg); } }
   .vpa[data-vpa-size="l"] .vpa__tile-price { font-size: var(--text-base); gap: var(--sp-2); }
   .vpa[data-vpa-size="l"] .vpa__tag, .vpa[data-vpa-size="l"] .vpa__discount { font-size: 11px; padding: 3.5px 8px; top: var(--sp-3); }
-  .vpa[data-vpa-size="l"] .vpa__tag { left: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__tag { right: var(--sp-3d5); }
+  .vpa[data-vpa-size="l"] .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag { top: calc(var(--sp-3) + 24px); }
   .vpa[data-vpa-size="l"] .vpa__discount { right: var(--sp-3d5); }
   .vpa[data-vpa-size="l"] .vpa__chip, .vpa[data-vpa-size="l"] .vpa__tile-info { font-size: 12px; padding: 5px 10px; margin-block-start: var(--sp-2d5); }
   .vpa[data-vpa-size="l"] .vpa__chip .icon { width: 13px; height: 13px; }
@@ -781,7 +821,7 @@
   data-vpa-selected-bg="{% if settings.vpa_selected_bg == false %}off{% else %}on{% endif %}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
-  style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }};"
+  style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }}; padding-block-end: {{ settings.vpa_bottom_padding | default: 0 }}px;"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
@@ -862,7 +902,11 @@
             endcase
             assign rep_variant = all_for_value | first
 
-            assign rep_image = product.featured_image
+            # Tile media: only show a thumbnail if the variant has its own
+            # dedicated image. Falling back to product.featured_image just
+            # renders a tiny clone of the gallery hero in every tile, which
+            # reads as placeholder. Blank rep_image → hide the media column.
+            assign rep_image = blank
             if rep_variant.featured_image != blank
               assign rep_image = rep_variant.featured_image
             endif
@@ -991,12 +1035,19 @@
                 <span class="vpa__discount">{{ rep_discount_pct }}% OFF</span>
               {%- endif -%}
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
-              <div class="vpa__tile-body">
-                <div class="vpa__tile-media">
-                  {%- if rep_image != blank -%}
-                    {{ rep_image | image_url: width: 104 | image_tag: loading: 'lazy', alt: value_string }}
-                  {%- endif -%}
-                </div>
+              <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
+                {%- if rep_image != blank -%}
+                  <div class="vpa__tile-media">
+                    {{ rep_image | image_url: width: 128 | image_tag:
+                         loading: 'lazy',
+                         widths: '48, 64, 96, 128, 192',
+                         sizes: '64px',
+                         width: 64,
+                         height: 64,
+                         alt: value_string
+                    }}
+                  </div>
+                {%- endif -%}
                 <div class="vpa__tile-text">
                   <div class="vpa__tile-name">{{ value_string }}</div>
                   {%- if rep_variant -%}
@@ -1013,7 +1064,21 @@
                     the metafield value so it doesn't double up with the chip prefix.
                   {%- endcomment -%}
                   {%- if block.settings.show_per_tile_chip -%}
-                    {%- assign cleaned_pre_order = rep_pre_order | replace: 'Pre Order ', '' | replace: 'Pre-Order ', '' | replace: 'Pre-order ', '' | replace: 'pre order ', '' | replace: 'pre-order ', '' | replace: 'PreOrder ', '' | replace: 'preorder ', '' -%}
+                    {%- comment -%}
+                      Apply the merchant's "Trim from metafield" patterns
+                      (one per line). Each is removed from the metafield
+                      value (everywhere it appears) so the prefix and the
+                      cleaned date can be combined without duplicates.
+                    {%- endcomment -%}
+                    {%- assign cleaned_pre_order = rep_pre_order -%}
+                    {%- assign _trim_lines = block.settings.pre_order_chip_trim | default: '' | newline_to_br | split: '<br />' -%}
+                    {%- for _raw_pat in _trim_lines -%}
+                      {%- assign _pat = _raw_pat | strip -%}
+                      {%- if _pat != blank -%}
+                        {%- assign cleaned_pre_order = cleaned_pre_order | replace: _pat, '' -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- assign cleaned_pre_order = cleaned_pre_order | strip -%}
                     <span class="vpa__chip" data-pre-order-chip{% if rep_pre_order == blank %} hidden{% endif %}>
                       {%- render 'icon', icon: 'calendar', size: 'xs', class: 'icon' -%}
                       <span class="vpa__chip-text" data-pre-order-chip-text>
@@ -1090,7 +1155,14 @@
             <input type="checkbox" id="{{ addon_id }}" class="vpa__addon-check" data-addon-variant-id="{{ addon_variant.id }}" data-addon-price="{{ addon_variant.price }}">
             <div class="vpa__addon-media" data-addon-media>
               {%- if addon_image != blank -%}
-                {{ addon_image | image_url: width: 96 | image_tag: loading: 'lazy', alt: addon.title }}
+                {{ addon_image | image_url: width: 96 | image_tag:
+                     loading: 'lazy',
+                     widths: '48, 96, 144',
+                     sizes: '48px',
+                     width: 48,
+                     height: 48,
+                     alt: addon.title
+                }}
               {%- endif -%}
             </div>
             <div class="vpa__addon-name-wrap">
@@ -1191,6 +1263,19 @@
   var productId      = '{{ product.id }}';
   var galleryElId    = 'ProductGallery-' + sectionId + '-' + productId;
   var chipPrefix     = {{ block.settings.pre_order_chip_prefix | default: 'Pre-order · ships' | json }};
+  // Same trim patterns the Liquid uses, applied identically in JS so the
+  // chip text doesn't suddenly diverge when the JS re-renders it on
+  // selection change. One pattern per line in the textarea setting.
+  var chipTrimRaw    = {{ block.settings.pre_order_chip_trim | default: '' | json }};
+  var chipTrimPatterns = chipTrimRaw.split('\n').map(function (p) { return p.trim(); }).filter(Boolean);
+  function cleanPreOrderText(s) {
+    if (!s) return '';
+    var out = String(s);
+    for (var i = 0; i < chipTrimPatterns.length; i++) {
+      out = out.split(chipTrimPatterns[i]).join('');
+    }
+    return out.trim();
+  }
   var moneyFormat    = {{ shop.money_format | json }};
   var skuPrefixLength = {{ block.settings.addon_match_sku_prefix_length | default: 4 }};
   var skuMatchingEnabled = {{ block.settings.addon_match_by_sku_prefix | default: true }};
@@ -1223,11 +1308,13 @@
     {%- endfor -%}
   };
 
-  // variant id → featured image URL (for swapping tile media on colour change)
+  // variant id → featured image URL (for swapping tile media on colour
+  // change). Tile media is 48-64px depending on the Size preset, so 128px
+  // covers 2x retina on the largest case without delivering a 1MB jpeg.
   var variantImageUrl = {
     {%- assign _emit = false -%}
     {%- for v in product.variants -%}
-      {%- if v.featured_image -%}{%- if _emit %},{% endif -%}"{{ v.id }}": {{ v.featured_image | image_url: width: 208 | json }}{%- assign _emit = true -%}{%- endif -%}
+      {%- if v.featured_image -%}{%- if _emit %},{% endif -%}"{{ v.id }}": {{ v.featured_image | image_url: width: 128 | json }}{%- assign _emit = true -%}{%- endif -%}
     {%- endfor -%}
   };
 
@@ -1280,7 +1367,7 @@
             "sku": {{ v.sku | default: '' | json }},
             "price": {{ v.price }},
             "available": {{ v.available }},
-            "image": {% if v.featured_image %}{{ v.featured_image | image_url: width: 192 | json }}{% else %}null{% endif %}
+            "image": {% if v.featured_image %}{{ v.featured_image | image_url: width: 96 | json }}{% else %}null{% endif %}
           }
           {%- assign _emit_v = true -%}
         {%- endfor -%}
@@ -1434,8 +1521,9 @@
     var textEl = chip.querySelector('[data-pre-order-chip-text]') || chip;
     var date = variant ? preOrderByVariant[variant.id] : null;
     if (date) {
-      // Strip a leading "Pre-order"/"Pre order"/"Preorder" so the prefix doesn't double up.
-      var cleaned = String(date).replace(/^(pre[\s-]*order)[\s:\-—·,]*/i, '').trim();
+      // Use the merchant-controlled trim patterns (same as the Liquid path)
+      // so the prefix doesn't double up with whatever's in the metafield.
+      var cleaned = cleanPreOrderText(date);
       textEl.textContent = (chipPrefix ? chipPrefix + ' ' : '') + cleaned;
       chip.hidden = false;
     } else {
@@ -1667,6 +1755,8 @@
         if (img) {
           if (img.src !== matched.image) {
             img.src = matched.image;
+            // Drop the server-rendered srcset / data-src — the variant URL is
+            // already sized for the media box (96px wide, fine for 2x retina).
             img.removeAttribute('srcset');
             img.removeAttribute('data-src');
           }
@@ -1674,6 +1764,8 @@
           var newImg = document.createElement('img');
           newImg.src = matched.image;
           newImg.loading = 'lazy';
+          newImg.width = 48;
+          newImg.height = 48;
           newImg.alt = matched.title;
           mediaEl.appendChild(newImg);
         }
