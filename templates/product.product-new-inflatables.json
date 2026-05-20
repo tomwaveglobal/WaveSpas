@@ -95,6 +95,7 @@
         },
         "variant_picker": {
           "type": "variant_picker",
+          "disabled": true,
           "settings": {
             "enable_dynamic_variants": true,
             "show_variant_labels": false,
@@ -103,6 +104,41 @@
             "enable_color_swatches": true,
             "color_swatch_type": "color",
             "size_chart": ""
+          }
+        },
+        "variant_picker_advanced_L6PJbE": {
+          "type": "variant_picker_advanced",
+          "settings": {
+            "enable_dynamic_variants": true,
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "show_colour_buttons": true,
+            "enable_color_swatches": true,
+            "color_swatch_type": "color",
+            "colour_layout": "wrap",
+            "colour_label": "always",
+            "size_chart": "",
+            "step1_label": "Pick your colour",
+            "step2_label": "Pick your size",
+            "step3_label": "Pick your edition",
+            "show_per_tile_chip": true,
+            "pre_order_chip_prefix": "Pre-order · ships",
+            "pre_order_chip_trim": "Pre Order\nPre-Order\nPre-order\nPreorder\nShips\nShip\n|\n·",
+            "energy_saving_text": "<p><strong>Includes:</strong> Thermal cover, and foam mat for max heat retention and lower energy bills.</p>",
+            "addons_enabled": true,
+            "addons_heading": "Popular Add-Ons",
+            "addons_optional_label": "Optional",
+            "addon_priority_keywords": "filter,chemical,cover",
+            "addon_match_by_sku_prefix": true,
+            "addon_match_sku_prefix_length": 4,
+            "addon_sku_match_map": "GAR4: GAR4EPSCVRWW\nGAR6: GAR6EPSCVRWW\nTAH4: TAH4EPSCVRWW\nTAH6: TAH6EPSCVRWW\nCOM6: COM6EPSCVRWW",
+            "addon_variant_match_map": "4 Person | 160x70cm: 4 Person, 160\n6 Person | 180x70cm: 6 Person, 180\n8 Person | 200x70cm: 8 Person, 200\n4 Person | 160x60cm: 4 Person, 160\n6 Person | 180x65cm: 6 Person, 180\n4 Person | 180x180cm: 4 Person\n6 Person | 200x200cm: 6 Person\n4 Person: 4 Person\n6 Person: 6 Person\n8 Person: 8 Person",
+            "most_popular_label": "Most Popular",
+            "most_popular_min_stock": 0,
+            "sold_out_label": "Sold Out",
+            "subscribe_savings_label": "Subscribe & Save",
+            "subscribe_description": "<p>Get this delivered regularly and save on every order. Cancel anytime.</p>",
+            "addon_onetime_label": "No, thanks — one-time only"
           }
         },
         "variant_pre_order_hC7D4E": {
@@ -363,6 +399,7 @@
         "description",
         "product_variations_rEWtef",
         "variant_picker",
+        "variant_picker_advanced_L6PJbE",
         "variant_pre_order_hC7D4E",
         "inventory",
         "countdown",
