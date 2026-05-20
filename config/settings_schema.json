@@ -1845,6 +1845,17 @@
         "info": "Off = selected tile keeps the same background as the others; only the border changes. Useful for testing a quieter selected state."
       },
       {
+        "type": "range",
+        "id": "vpa_bottom_padding",
+        "min": 0,
+        "max": 64,
+        "step": 4,
+        "unit": "px",
+        "default": 0,
+        "label": "Bottom padding",
+        "info": "Adds extra space below the entire picker module — useful when the next section on the page (e.g. Add to Bag) feels too close."
+      },
+      {
         "type": "header",
         "content": "Step heading (e.g. \"Pick your colour\")"
       },
