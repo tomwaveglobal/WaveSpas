@@ -1027,9 +1027,12 @@
               {%- if forloop.first and block.settings.most_popular_label != blank and option.values.size > 1 -%}
                 <span class="vpa__tag" data-most-popular{% unless show_most_popular %} hidden{% endunless %}>{{ block.settings.most_popular_label }}</span>
               {%- endif -%}
-              {%- if rep_discount_pct > 0 and show_sold_out_treatment == false -%}
-                <span class="vpa__discount">{{ rep_discount_pct }}% OFF</span>
-              {%- endif -%}
+              {%- comment -%}
+                Always render the discount pill so JS can toggle its
+                visibility + text when the colour changes (different
+                colours can have different discount %).
+              {%- endcomment -%}
+              <span class="vpa__discount" data-tile-discount{% if rep_discount_pct == 0 or show_sold_out_treatment %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}
@@ -1047,11 +1050,16 @@
                 <div class="vpa__tile-text">
                   <div class="vpa__tile-name">{{ value_string }}</div>
                   {%- if rep_variant -%}
+                    {%- comment -%}
+                      Price + compare-at always rendered so JS can refresh
+                      them when the colour changes. `<del>` stays in the
+                      DOM with `hidden` when there's no discount so a
+                      colour swap into a discounted variant has somewhere
+                      to write to.
+                    {%- endcomment -%}
                     <div class="vpa__tile-price">
-                      <span>{{ rep_variant.price | money }}</span>
-                      {%- if rep_variant.compare_at_price > rep_variant.price -%}
-                        <del>{{ rep_variant.compare_at_price | money }}</del>
-                      {%- endif -%}
+                      <span data-tile-price-current>{{ rep_variant.price | money }}</span>
+                      <del data-tile-price-compare{% if rep_variant.compare_at_price <= rep_variant.price %} hidden{% endif %}>{% if rep_variant.compare_at_price > rep_variant.price %}{{ rep_variant.compare_at_price | money }}{% endif %}</del>
                     </div>
                   {%- endif -%}
 
@@ -1532,11 +1540,14 @@
   function tileRefs(label) {
     if (label._vpa) return label._vpa;
     return label._vpa = {
-      chip:       label.querySelector('[data-pre-order-chip]'),
-      chipText:   label.querySelector('[data-pre-order-chip-text]'),
-      img:        label.querySelector('.vpa__tile-media img'),
-      soldOutTag: label.querySelector('[data-sold-out]'),
-      mostPopTag: label.querySelector('[data-most-popular]')
+      chip:         label.querySelector('[data-pre-order-chip]'),
+      chipText:     label.querySelector('[data-pre-order-chip-text]'),
+      img:          label.querySelector('.vpa__tile-media img'),
+      soldOutTag:   label.querySelector('[data-sold-out]'),
+      mostPopTag:   label.querySelector('[data-most-popular]'),
+      priceCurrent: label.querySelector('[data-tile-price-current]'),
+      priceCompare: label.querySelector('[data-tile-price-compare]'),
+      discountTag:  label.querySelector('[data-tile-discount]')
     };
   }
 
@@ -1589,6 +1600,44 @@
     }
   }
 
+  // Refresh per-tile price, compare-at strike-through, and discount pill
+  // for the variant resolved against the user's current selections. Server
+  // render uses the first variant in Shopify order — which is the wrong
+  // colour for every step after the first — so without this the size +
+  // edition cards keep showing the original colour's price after a swap.
+  // Called AFTER updateTilePills so the sold-out class is current.
+  function updateTilePrice(label, variant) {
+    var refs = tileRefs(label);
+    if (!variant) return;
+
+    if (refs.priceCurrent) {
+      refs.priceCurrent.textContent = formatMoney(variant.price);
+    }
+
+    var hasDiscount = variant.compare_at_price && variant.compare_at_price > variant.price;
+    if (refs.priceCompare) {
+      if (hasDiscount) {
+        refs.priceCompare.textContent = formatMoney(variant.compare_at_price);
+        refs.priceCompare.hidden = false;
+      } else {
+        refs.priceCompare.textContent = '';
+        refs.priceCompare.hidden = true;
+      }
+    }
+
+    if (refs.discountTag) {
+      // Sold-out tiles hide the discount pill (matches the Liquid guard).
+      var isSoldOut = label.classList.contains('vpa__tile--sold-out');
+      if (hasDiscount && !isSoldOut) {
+        var pct = Math.round((variant.compare_at_price - variant.price) * 100 / variant.compare_at_price);
+        refs.discountTag.textContent = pct + '% OFF';
+        refs.discountTag.hidden = false;
+      } else {
+        refs.discountTag.hidden = true;
+      }
+    }
+  }
+
   function updateAllTiles() {
     root.querySelectorAll('label[data-tile-option-position]').forEach(function (label) {
       var pos = +label.dataset.tileOptionPosition;
@@ -1600,6 +1649,7 @@
         isSize:  label.dataset.tileIsSize === 'true',
         isFirst: label.dataset.tileIsFirst === 'true'
       });
+      updateTilePrice(label, variant);
     });
   }
 
