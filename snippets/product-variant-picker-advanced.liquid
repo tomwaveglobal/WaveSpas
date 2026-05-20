@@ -1155,8 +1155,18 @@
             <input type="checkbox" id="{{ addon_id }}" class="vpa__addon-check" data-addon-variant-id="{{ addon_variant.id }}" data-addon-price="{{ addon_variant.price }}">
             <div class="vpa__addon-media" data-addon-media>
               {%- if addon_image != blank -%}
+                {%- comment -%}
+                  Eager-load add-on thumbnails. The add-ons step starts
+                  collapsed (max-height: 0) and browsers treat lazy
+                  images inside a collapsed parent as off-screen — so
+                  they don't fetch until the step reveals, then all
+                  fire at once and the user sees blank cards. Eager
+                  loading fetches them as part of normal page load so
+                  they're already there when the step opens.
+                {%- endcomment -%}
                 {{ addon_image | image_url: width: 96 | image_tag:
-                     loading: 'lazy',
+                     loading: 'eager',
+                     fetchpriority: 'low',
                      widths: '48, 96, 144',
                      sizes: '48px',
                      width: 48,
@@ -1763,7 +1773,7 @@
         } else {
           var newImg = document.createElement('img');
           newImg.src = matched.image;
-          newImg.loading = 'lazy';
+          newImg.loading = 'eager';
           newImg.width = 48;
           newImg.height = 48;
           newImg.alt = matched.title;
