@@ -294,6 +294,7 @@
         },
         "product_bundle_tWCDMV": {
           "type": "product_bundle",
+          "disabled": true,
           "settings": {
             "opened": true,
             "clickable": true,
