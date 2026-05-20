@@ -127,6 +127,11 @@
     --vpa-step-s: 1;
     --vpa-name-s: 1;
     --vpa-price-s: 1;
+    /* Transition durations — centralised so they tune together if needed. */
+    --vpa-t-fast:   0.15s;
+    --vpa-t-base:   0.2s;
+    --vpa-t-reveal: 0.4s;
+    --vpa-t-expand: 0.5s;
   }
 
   /* ═══ Step container ══════════════════════════════════════════════ */
@@ -135,7 +140,7 @@
     border-radius: var(--rounded-card, 14px);
     background: var(--vpa-surface-card);
     padding: var(--sp-4) var(--sp-5);
-    transition: opacity 0.2s, border-color 0.2s, background 0.2s;
+    transition: opacity var(--vpa-t-base), border-color var(--vpa-t-base), background var(--vpa-t-base);
   }
   @media (min-width: 768px) { .vpa__step { padding: var(--sp-5) var(--sp-6); } }
   .vpa__step--complete { border-color: rgb(var(--color-foreground) / 0.18); background: rgb(var(--color-background)); }
@@ -163,7 +168,7 @@
     font-size: var(--text-sm);
     font-weight: var(--vpa-step-w);
     flex-shrink: 0;
-    transition: background 0.2s, color 0.2s;
+    transition: background var(--vpa-t-base), color var(--vpa-t-base);
   }
   .vpa__step--complete .vpa__num { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
   .vpa__title { font-size: calc(var(--text-base) * var(--vpa-step-s)); font-weight: var(--vpa-step-w); }
@@ -221,7 +226,7 @@
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 1px var(--vpa-border);
-    transition: box-shadow 0.15s, transform 0.15s;
+    transition: box-shadow var(--vpa-t-fast), transform var(--vpa-t-fast);
   }
   @media (hover: hover) {
     .vpa__swatch:hover .vpa__swatch-fill { box-shadow: inset 0 0 0 2px rgb(var(--color-background)), 0 0 0 2px var(--vpa-text-muted); }
@@ -232,16 +237,6 @@
   }
   .vpa__swatch input:focus-visible + .vpa__swatch-fill { outline: 2px solid var(--vpa-accent); outline-offset: 3px; }
   .vpa__swatch-label { font-size: var(--text-xs); text-align: center; line-height: 1.2; color: var(--vpa-text-muted); word-wrap: break-word; }
-  .vpa__swatch-soldout {
-    display: block;
-    font-size: 9px;
-    line-height: 1;
-    color: rgb(var(--color-foreground) / 0.5);
-    font-weight: var(--vpa-bold);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-block-start: 4px;
-  }
 
   /* ═══ Colour text buttons (when swatches disabled) ════════════════ */
   .vpa__choices--text { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
@@ -254,7 +249,7 @@
     background: rgb(var(--color-background));
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color var(--vpa-t-fast), background var(--vpa-t-fast);
   }
   @media (hover: hover) {
     .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
@@ -278,7 +273,7 @@
     padding: var(--sp-3d5);
     padding-block-start: var(--sp-6);
     display: block;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color var(--vpa-t-fast), background var(--vpa-t-fast);
   }
   /* Scope hover to devices that actually have a cursor — mobile browsers
      fire :hover on touch and never clear it until the user taps elsewhere,
@@ -397,7 +392,7 @@
     margin: 0;
     border-width: 0;
     overflow: hidden;
-    transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.5s ease, padding 0.4s ease, border-width 0.2s ease;
+    transition: opacity var(--vpa-t-reveal) ease, transform var(--vpa-t-reveal) ease, max-height var(--vpa-t-expand) ease, padding var(--vpa-t-reveal) ease, border-width var(--vpa-t-base) ease;
     pointer-events: none;
   }
   .vpa__step--addons[data-revealed="true"] {
@@ -424,7 +419,7 @@
     padding: var(--sp-2d5) var(--sp-3d5);
     background: rgb(var(--color-background));
     cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color var(--vpa-t-fast), background var(--vpa-t-fast);
   }
   .vpa__addon[hidden] { display: none; }
   @media (hover: hover) {
@@ -669,7 +664,7 @@
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.15s;
+    transition: opacity var(--vpa-t-fast);
     z-index: 10;
   }
   .vpa[data-vpa-color-label="hover"] .vpa__swatch:hover .vpa__swatch-label,
@@ -874,6 +869,7 @@
       data-is-size="{{ is_size }}"
       data-is-color="{{ is_color }}"
     >
+      <legend class="sr-only">{{ step_label | escape }}</legend>
       <div class="vpa__head">
         <span class="vpa__num" data-num-label>{{ display_order }}</span>
         <span class="vpa__title">{{ step_label }}</span>
@@ -1155,8 +1151,18 @@
             <input type="checkbox" id="{{ addon_id }}" class="vpa__addon-check" data-addon-variant-id="{{ addon_variant.id }}" data-addon-price="{{ addon_variant.price }}">
             <div class="vpa__addon-media" data-addon-media>
               {%- if addon_image != blank -%}
+                {%- comment -%}
+                  Eager-load add-on thumbnails. The add-ons step starts
+                  collapsed (max-height: 0) and browsers treat lazy
+                  images inside a collapsed parent as off-screen — so
+                  they don't fetch until the step reveals, then all
+                  fire at once and the user sees blank cards. Eager
+                  loading fetches them as part of normal page load so
+                  they're already there when the step opens.
+                {%- endcomment -%}
                 {{ addon_image | image_url: width: 96 | image_tag:
-                     loading: 'lazy',
+                     loading: 'eager',
+                     fetchpriority: 'low',
                      widths: '48, 96, 144',
                      sizes: '48px',
                      width: 48,
@@ -1277,6 +1283,10 @@
     return out.trim();
   }
   var moneyFormat    = {{ shop.money_format | json }};
+  // Max characters of the spa SKU prefix used to find a matching add-on
+  // variant (e.g. "GAR4" from "GAR4CHARATUK"). Matcher walks DOWN from
+  // this length until it finds a hit, so 4 is a safe ceiling for the
+  // current SKU naming convention (4-char model+size codes).
   var skuPrefixLength = {{ block.settings.addon_match_sku_prefix_length | default: 4 }};
   var skuMatchingEnabled = {{ block.settings.addon_match_by_sku_prefix | default: true }};
   var mostPopularMinStock = {{ most_popular_min_stock | default: 0 }};
@@ -1377,27 +1387,29 @@
   };
 
   // ═══ Schema-driven match tables (parsed from textarea settings) ══════
-  function parseKVLines(text, valueTransform) {
+  // Parses "key: value\nkey: value" textareas into a JS map. Defaults to
+  // lowercased keys (for case-insensitive lookup), but the optional
+  // transforms let callers normalise either side — e.g. uppercase both
+  // for the SKU map.
+  function parseKVLines(text, valueTransform, keyTransform) {
     var map = {};
+    var keyT = keyTransform || function (k) { return k.toLowerCase(); };
     String(text || '').split('\n').forEach(function (line) {
       var idx = line.indexOf(':');
       if (idx === -1) return;
       var k = line.slice(0, idx).trim();
       var v = line.slice(idx + 1).trim();
-      if (k && v) map[k.toLowerCase()] = valueTransform ? valueTransform(v) : v;
+      if (k && v) map[keyT(k)] = valueTransform ? valueTransform(v) : v;
     });
     return map;
   }
+  var upper = function (s) { return s.toUpperCase(); };
 
   // Explicit spa-SKU → add-on-SKU map. Keys & values stored UPPER for case-insensitive matching.
-  var skuExplicitMap = {};
-  String({{ block.settings.addon_sku_match_map | default: '' | json }}).split('\n').forEach(function (line) {
-    var idx = line.indexOf(':');
-    if (idx === -1) return;
-    var k = line.slice(0, idx).trim().toUpperCase();
-    var v = line.slice(idx + 1).trim().toUpperCase();
-    if (k && v) skuExplicitMap[k] = v;
-  });
+  var skuExplicitMap = parseKVLines(
+    {{ block.settings.addon_sku_match_map | default: '' | json }},
+    upper, upper
+  );
   // Longest-pattern-first so specific entries override broad ones.
   var skuExplicitKeys = Object.keys(skuExplicitMap).sort(function (a, b) { return b.length - a.length; });
 
@@ -1513,28 +1525,43 @@
   // Per-tile UI: pre-order chip text, variant image swap, Most Popular pill,
   // Sold Out treatment. All evaluated at the variant resolved for the tile
   // under the user's current selections (not the colour-level rep variant).
+  // Lazy-cache per-tile child element references the update functions
+  // need. Caching on the label itself avoids re-querying the DOM on every
+  // selection click — with ~30 tiles per page it removes ~150 querySelector
+  // calls per updateAllTiles() pass.
+  function tileRefs(label) {
+    if (label._vpa) return label._vpa;
+    return label._vpa = {
+      chip:       label.querySelector('[data-pre-order-chip]'),
+      chipText:   label.querySelector('[data-pre-order-chip-text]'),
+      img:        label.querySelector('.vpa__tile-media img'),
+      soldOutTag: label.querySelector('[data-sold-out]'),
+      mostPopTag: label.querySelector('[data-most-popular]')
+    };
+  }
+
   function updateTilePreOrderChip(label, variant) {
-    var chip = label.querySelector('[data-pre-order-chip]');
-    if (!chip) return;
+    var refs = tileRefs(label);
+    if (!refs.chip) return;
     // Text node lives in a child span so the calendar icon next to it
     // isn't wiped on every update.
-    var textEl = chip.querySelector('[data-pre-order-chip-text]') || chip;
+    var textEl = refs.chipText || refs.chip;
     var date = variant ? preOrderByVariant[variant.id] : null;
     if (date) {
       // Use the merchant-controlled trim patterns (same as the Liquid path)
       // so the prefix doesn't double up with whatever's in the metafield.
       var cleaned = cleanPreOrderText(date);
       textEl.textContent = (chipPrefix ? chipPrefix + ' ' : '') + cleaned;
-      chip.hidden = false;
+      refs.chip.hidden = false;
     } else {
       textEl.textContent = '';
-      chip.hidden = true;
+      refs.chip.hidden = true;
     }
   }
 
   function updateTileMedia(label, variant) {
     if (!variant) return;
-    var img = label.querySelector('.vpa__tile-media img');
+    var img = tileRefs(label).img;
     if (!img) return;
     var url = variantImageUrl[variant.id];
     if (url && img.src !== url) {
@@ -1545,21 +1572,20 @@
   }
 
   function updateTilePills(label, variant, opts) {
+    var refs = tileRefs(label);
     var hasPreOrder = variant ? !!preOrderByVariant[variant.id] : false;
     var sellable = variant ? (variant.available || hasPreOrder) : false;
     var soldOut = !sellable;
 
     // Sold-out treatment is Size-step only.
-    var soldOutTag = label.querySelector('[data-sold-out]');
-    if (soldOutTag) soldOutTag.hidden = !(opts.isSize && soldOut);
+    if (refs.soldOutTag) refs.soldOutTag.hidden = !(opts.isSize && soldOut);
     label.classList.toggle('vpa__tile--sold-out', opts.isSize && soldOut);
 
     // Most Popular: first-of-its-option, sellable, inventory > threshold, not sold out.
-    var mostPopTag = label.querySelector('[data-most-popular]');
-    if (mostPopTag) {
+    if (refs.mostPopTag) {
       var qty = variant ? (inventoryByVariant[variant.id] || 0) : 0;
       var show = opts.isFirst && sellable && qty > mostPopularMinStock && !(opts.isSize && soldOut);
-      mostPopTag.hidden = !show;
+      refs.mostPopTag.hidden = !show;
     }
   }
 
@@ -1763,7 +1789,7 @@
         } else {
           var newImg = document.createElement('img');
           newImg.src = matched.image;
-          newImg.loading = 'lazy';
+          newImg.loading = 'eager';
           newImg.width = 48;
           newImg.height = 48;
           newImg.alt = matched.title;
