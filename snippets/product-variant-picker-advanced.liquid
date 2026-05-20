@@ -2262,14 +2262,19 @@
     i.disabled = false;
   });
 
-  // Hydrate `selected` and tick the matching radios from the URL-resolved
-  // variant (`product.selected_or_first_available_variant`). Without this
-  // step, `selected` stays {} until the user clicks, the resolvers fall
-  // back to the first variant in Shopify order, and the picker visually
-  // disagrees with the URL. The radio match uses normOpt so a merchant-
-  // data whitespace / casing quirk on an option value can't leave a
-  // swatch visually unselected when its JS state IS selected.
+  // Hydrate `selected` and tick the matching radios — but ONLY when the
+  // URL explicitly points at a variant (?variant=… or ?option_values=…).
+  // A clean PDP load (no query string) should still start with `selected`
+  // empty so the picker walks the user through step 1 → 2 → 3 with the
+  // locked-step styling and the Step 4 add-ons reveal animation fires
+  // when step 3 lands. Without this guard, `currentMainVariantId` falls
+  // back to first-available and we'd auto-complete every step on first
+  // paint, killing the guided flow.
   (function hydrateInitialSelection() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (!params.has('variant') && !params.has('option_values')) return;
+    } catch (e) { return; }
     var initial = null;
     for (var i = 0; i < variants.length; i++) {
       if (variants[i].id === currentMainVariantId) { initial = variants[i]; break; }
