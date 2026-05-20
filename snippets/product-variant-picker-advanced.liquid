@@ -455,6 +455,23 @@
   .vpa__addon-variant::before { content: 'Variant: '; opacity: 0.7; }
   .vpa__addon-price { font-weight: var(--vpa-bold); font-size: var(--text-sm); white-space: nowrap; }
 
+  /* ═══ Add-on text-size presets (block setting `addon_text_size`) ═══ */
+  /* `m` is the default ruleset above; presets nudge the three text
+     elements as one group so merchants can dial the section's visual
+     weight without touching the rest of the picker's typography. */
+  .vpa__step--addons[data-addon-text-size="xs"] .vpa__addon-name { font-size: 11px; }
+  .vpa__step--addons[data-addon-text-size="xs"] .vpa__addon-variant { font-size: 9px; }
+  .vpa__step--addons[data-addon-text-size="xs"] .vpa__addon-price { font-size: 11px; }
+  .vpa__step--addons[data-addon-text-size="s"] .vpa__addon-name { font-size: 12px; }
+  .vpa__step--addons[data-addon-text-size="s"] .vpa__addon-variant { font-size: 10px; }
+  .vpa__step--addons[data-addon-text-size="s"] .vpa__addon-price { font-size: 12px; }
+  .vpa__step--addons[data-addon-text-size="l"] .vpa__addon-name { font-size: var(--text-base); }
+  .vpa__step--addons[data-addon-text-size="l"] .vpa__addon-variant { font-size: 12px; }
+  .vpa__step--addons[data-addon-text-size="l"] .vpa__addon-price { font-size: var(--text-base); }
+  .vpa__step--addons[data-addon-text-size="xl"] .vpa__addon-name { font-size: var(--text-lg); }
+  .vpa__step--addons[data-addon-text-size="xl"] .vpa__addon-variant { font-size: 13px; }
+  .vpa__step--addons[data-addon-text-size="xl"] .vpa__addon-price { font-size: var(--text-lg); }
+
   /* ═══ Add-on subscription panel ═══════════════════════════════════ */
   .vpa__addon-sub {
     grid-column: 1 / -1;
@@ -896,7 +913,58 @@
               when 3
                 assign all_for_value = product.variants | where: 'option3', value_string
             endcase
-            assign rep_variant = all_for_value | first
+
+            # Resolve rep_variant against `product.selected_or_first_available_variant`
+            # so the OTHER options match the URL-selected variant — not just the
+            # first variant in product order. Without this, every tile after the
+            # first option showed the colour-1 price (e.g. the EnergySave Bundle
+            # tile rendered Charcoal Black's price even when the URL pointed at
+            # a Pebble White variant). When the section is re-rendered via the
+            # section-rendering API with the new option_values, the resolver
+            # naturally picks the right variant for the new selection too.
+            # `| money` is already Markets / B2B-catalog-aware, so this single
+            # change makes ALL tile prices respect the active price list.
+            # Normalise (strip + downcase) so subtle merchant-data
+            # inconsistencies (e.g. one variant stores "Pebble White" and
+            # another stores "Pebble White " or "pebble white") don't make
+            # the resolver silently fall back to the wrong colour. Same
+            # reason JS does normOpt on its side.
+            assign cv = product.selected_or_first_available_variant
+            assign cv_o1 = cv.option1 | default: '' | strip | downcase
+            assign cv_o2 = cv.option2 | default: '' | strip | downcase
+            assign cv_o3 = cv.option3 | default: '' | strip | downcase
+            assign rep_variant = nil
+            for _v in all_for_value
+              assign _ok = true
+              if option_pos != 1
+                assign _v_o1 = _v.option1 | default: '' | strip | downcase
+                if _v_o1 != cv_o1
+                  assign _ok = false
+                endif
+              endif
+              if option_pos != 2
+                assign _v_o2 = _v.option2 | default: '' | strip | downcase
+                if _v_o2 != cv_o2
+                  assign _ok = false
+                endif
+              endif
+              if option_pos != 3
+                assign _v_o3 = _v.option3 | default: '' | strip | downcase
+                if _v_o3 != cv_o3
+                  assign _ok = false
+                endif
+              endif
+              if _ok
+                assign rep_variant = _v
+                break
+              endif
+            endfor
+            if rep_variant == nil
+              # Fallback for variant combinations that don't exist (e.g. an
+              # unavailable colour × size pairing) — pick any variant for this
+              # value so the tile still has a price to show.
+              assign rep_variant = all_for_value | first
+            endif
 
             # Tile media: only show a thumbnail if the variant has its own
             # dedicated image. Falling back to product.featured_image just
@@ -1027,9 +1095,13 @@
               {%- if forloop.first and block.settings.most_popular_label != blank and option.values.size > 1 -%}
                 <span class="vpa__tag" data-most-popular{% unless show_most_popular %} hidden{% endunless %}>{{ block.settings.most_popular_label }}</span>
               {%- endif -%}
-              {%- if rep_discount_pct > 0 and show_sold_out_treatment == false -%}
-                <span class="vpa__discount">{{ rep_discount_pct }}% OFF</span>
-              {%- endif -%}
+              {%- comment -%}
+                Discount pill is always emitted (hidden when no discount)
+                so refreshSectionFromServer can copy text + hidden state
+                across by [data-tile-discount] selector — different
+                colours can have different discount %.
+              {%- endcomment -%}
+              <span class="vpa__discount" data-tile-discount{% if rep_discount_pct == 0 or show_sold_out_treatment %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}
@@ -1047,6 +1119,13 @@
                 <div class="vpa__tile-text">
                   <div class="vpa__tile-name">{{ value_string }}</div>
                   {%- if rep_variant -%}
+                    {%- comment -%}
+                      Tile prices are pure Liquid — Markets / B2B-catalog
+                      adjustments come through `| money`. On selection
+                      change, refreshSectionFromServer replaces the whole
+                      `.vpa__tile-price` innerHTML from a fresh
+                      section-render so the values stay in sync.
+                    {%- endcomment -%}
                     <div class="vpa__tile-price">
                       <span>{{ rep_variant.price | money }}</span>
                       {%- if rep_variant.compare_at_price > rep_variant.price -%}
@@ -1118,7 +1197,7 @@
       assign priority_kw_raw = block.settings.addon_priority_keywords | default: ''
       assign priority_keywords = priority_kw_raw | downcase | split: ','
     -%}
-    <fieldset class="vpa__step vpa__step--addons" style="order: 50;" data-addons-step aria-hidden="true">
+    <fieldset class="vpa__step vpa__step--addons" style="order: 50;" data-addons-step data-addon-text-size="{{ block.settings.addon_text_size | default: 'm' }}" aria-hidden="true">
       <div class="vpa__head">
         <span class="vpa__num" data-num-label>4</span>
         <span class="vpa__title">{{ block.settings.addons_heading | default: 'Popular Add-Ons' }}</span>
@@ -1434,11 +1513,21 @@
   }
 
   // ═══ Variant resolution ═════════════════════════════════════════════
+  // Option-value comparisons are normalised (trim + lowercase) because
+  // merchant-entered Shopify option values aren't always byte-identical
+  // across variants — e.g. one set of variants stores "Pebble White" and
+  // another stores "Pebble White " with a trailing space, which makes a
+  // strict === colour filter silently drop those variants and the
+  // resolver falls back to the wrong colour. Normalisation costs nothing
+  // and is safe because every value flows through here, including the
+  // ones we read off radio inputs (`data-value`).
+  function normOpt(s) { return String(s == null ? '' : s).trim().toLowerCase(); }
+
   // Variant that matches ALL current selections (used for the main spa variant).
   function findVariant() {
     return variants.find(function (v) {
       for (var i = 1; i <= optionCount; i++) {
-        if (selected[i] !== v['option' + i]) return false;
+        if (normOpt(selected[i]) !== normOpt(v['option' + i])) return false;
       }
       return true;
     });
@@ -1447,11 +1536,12 @@
   // Variant that matches a tile's option value + the user's OTHER selections
   // (used for per-tile chip/image/Most-Popular evaluation).
   function variantForTile(pos, value) {
+    var tileVal = normOpt(value);
     return variants.find(function (v) {
-      if (v['option' + pos] !== value) return false;
+      if (normOpt(v['option' + pos]) !== tileVal) return false;
       for (var i = 1; i <= optionCount; i++) {
         if (i === pos) continue;
-        if (selected[i] && selected[i] !== v['option' + i]) return false;
+        if (selected[i] && normOpt(selected[i]) !== normOpt(v['option' + i])) return false;
       }
       return true;
     });
@@ -1467,14 +1557,14 @@
       if (step && step.dataset.isColor === 'true') return;
 
       var pos = +input.dataset.optionPosition;
-      var value = input.dataset.value;
+      var value = normOpt(input.dataset.value);
       var possible = variants.some(function (v) {
         // Selectable if available in stock, back-orderable, OR has a pre-order date.
         if (!v.available && !preOrderByVariant[v.id]) return false;
-        if (v['option' + pos] !== value) return false;
+        if (normOpt(v['option' + pos]) !== value) return false;
         for (var i = 1; i <= optionCount; i++) {
           if (i === pos) continue;
-          if (selected[i] && selected[i] !== v['option' + i]) return false;
+          if (selected[i] && normOpt(selected[i]) !== normOpt(v['option' + i])) return false;
         }
         return true;
       });
@@ -1642,7 +1732,7 @@
   function findFirstCompatibleVariant() {
     return variants.find(function (v) {
       for (var i = 1; i <= optionCount; i++) {
-        if (selected[i] && selected[i] !== v['option' + i]) return false;
+        if (selected[i] && normOpt(selected[i]) !== normOpt(v['option' + i])) return false;
       }
       return true;
     });
@@ -1819,49 +1909,111 @@
     root.querySelectorAll('label.vpa__addon').forEach(applyAddonMatch);
   }
 
-  // Self-contained gallery swap on selection — same mechanism the standard
-  // variant_picker block uses (Section Rendering API with option_values),
-  // but driven directly rather than via theme.pubsub + ProductInfo, so this
-  // works regardless of how the host section is wired up.
-  var lastGalleryFetch = '';
-  var galleryAbort = null;
-  function refreshGalleryFromServer() {
+  // Self-contained section refresh on selection — same mechanism the
+  // standard <variant-picker> block uses (Section Rendering API + the
+  // updateSourceFromDestination pattern in theme.js's ProductInfo), but
+  // driven directly so it works regardless of the wrapping section's
+  // wiring. One fetch handles four things:
+  //   1. Gallery swap (replace media list with the fetched section's).
+  //   2. Picker tile merge — copies .vpa__tile-price / [data-tile-discount]
+  //      / [data-sold-out] from the freshly-rendered section so tile
+  //      prices stay Liquid-authoritative (Markets / B2B-catalog-aware).
+  //   3. Product-info region update — Price, StickyPrice, BuyButtonPrice,
+  //      Sku, Badges, Inventory, etc., matching the standard picker.
+  //   4. Fires variant:change for the media-gallery + other listeners
+  //      that don't read directly from the section response.
+  var lastSectionFetch = '';
+  var sectionAbort = null;
+  function refreshSectionFromServer() {
     if (!sectionId || !productHandle) return;
-    var checked = root.querySelectorAll('input[data-option-value-id]:checked');
-    var ids = Array.prototype.map.call(checked, function (el) {
-      return el.getAttribute('data-option-value-id');
-    }).filter(Boolean);
-    if (!ids.length) return;
-    var key = ids.join(',');
-    if (key === lastGalleryFetch) return;
-    lastGalleryFetch = key;
 
-    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&option_values=' + encodeURIComponent(key);
-    if (galleryAbort) galleryAbort.abort();
-    galleryAbort = new AbortController();
-    fetch(url, { credentials: 'same-origin', signal: galleryAbort.signal })
+    // Resolve the variant from the JS state (findVariant uses the
+    // normalised option-value comparison) rather than from input:checked.
+    // input:checked can lie when hydrate failed to tick a radio because
+    // the merchant-entered option value isn't byte-identical to the
+    // radio's data-value — and then ?option_values=... silently drops
+    // that option and Shopify falls back to first-available, which is
+    // why tiles after a click were rendering with Charcoal Black as the
+    // colour context. A direct ?variant=<id> is unambiguous.
+    var fullV = findVariant() || findFirstCompatibleVariant();
+    if (!fullV) return;
+    if (fullV.id === lastSectionFetch) return;
+    lastSectionFetch = fullV.id;
+
+    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&variant=' + fullV.id;
+    if (sectionAbort) sectionAbort.abort();
+    sectionAbort = new AbortController();
+    fetch(url, { credentials: 'same-origin', signal: sectionAbort.signal })
       .then(function (r) { return r.ok ? r.text() : null; })
       .then(function (html) {
         if (!html) return;
         var doc = new DOMParser().parseFromString(html, 'text/html');
-        var source = doc.getElementById(galleryElId);
-        var dest = document.getElementById(galleryElId);
-        if (!source || !dest) {
-          if (window.console) console.warn('[vpa] gallery swap skipped — source/dest missing', { srcFound: !!source, destFound: !!dest, galleryElId: galleryElId });
-          return;
+
+        // (1) Gallery swap
+        var srcGallery = doc.getElementById(galleryElId);
+        var destGallery = document.getElementById(galleryElId);
+        if (srcGallery && destGallery) {
+          destGallery.innerHTML = srcGallery.innerHTML;
+          destGallery.removeAttribute('hidden');
+        } else if (window.console) {
+          console.warn('[vpa] gallery swap skipped — source/dest missing', { srcFound: !!srcGallery, destFound: !!destGallery, galleryElId: galleryElId });
         }
-        dest.innerHTML = source.innerHTML;
-        dest.removeAttribute('hidden');
-        // Fire variant:change so other listeners (price, badges, etc.) react.
-        // media-gallery's onVariantChanged calls setActiveMedia against the
-        // freshly-rendered media list. Use full variant when available;
-        // otherwise a representative match for the current partial selection.
+
+        // (2) Picker tile price/discount/sold-out merge — keyed by
+        // option position + value so the source and dest tiles match
+        // regardless of DOM order.
+        var srcPicker = doc.getElementById(vpaId);
+        if (srcPicker) {
+          var destByKey = {};
+          root.querySelectorAll('label[data-tile-option-position]').forEach(function (dl) {
+            destByKey[dl.dataset.tileOptionPosition + '|' + dl.dataset.tileValue] = dl;
+          });
+          srcPicker.querySelectorAll('label[data-tile-option-position]').forEach(function (sl) {
+            var dl = destByKey[sl.dataset.tileOptionPosition + '|' + sl.dataset.tileValue];
+            if (!dl) return;
+            var srcPrice = sl.querySelector('.vpa__tile-price');
+            var destPrice = dl.querySelector('.vpa__tile-price');
+            if (srcPrice && destPrice) destPrice.innerHTML = srcPrice.innerHTML;
+            var srcDiscount = sl.querySelector('[data-tile-discount]');
+            var destDiscount = dl.querySelector('[data-tile-discount]');
+            if (srcDiscount && destDiscount) {
+              destDiscount.textContent = srcDiscount.textContent;
+              destDiscount.hidden = srcDiscount.hasAttribute('hidden');
+            }
+            var srcSoldOut = sl.querySelector('[data-sold-out]');
+            var destSoldOut = dl.querySelector('[data-sold-out]');
+            if (srcSoldOut && destSoldOut) {
+              destSoldOut.hidden = srcSoldOut.hasAttribute('hidden');
+              dl.classList.toggle('vpa__tile--sold-out', !srcSoldOut.hasAttribute('hidden'));
+            }
+          });
+        }
+
+        // (3) Update the same product-info regions the standard
+        // <variant-picker> updates (Price, Sticky Price, Badges, Sku,
+        // Inventory, etc.). Mirrors ProductInfo.updateSourceFromDestination
+        // in theme.js — for each known prefix, find live elements by
+        // exact ID and replace innerHTML from the parsed section so the
+        // Liquid-rendered (Markets / B2B-catalog-aware) values flow into
+        // the page. Without this the main top price stayed on the
+        // initial Charcoal Black render no matter what was selected.
+        ['Price', 'BuyButtonPrice', 'StickyPrice', 'Sku', 'Badges', 'Inventory', 'Volume', 'PricePerItem', 'BackInStock', 'ProductBundle', 'VolumeNote'].forEach(function (prefix) {
+          document.querySelectorAll('[id^="' + prefix + '-"]').forEach(function (destEl) {
+            var srcEl = doc.getElementById(destEl.id);
+            if (!srcEl) return;
+            destEl.innerHTML = srcEl.innerHTML;
+            destEl.removeAttribute('hidden');
+          });
+        });
+
+        // (4) Fire variant:change so the media-gallery + any other
+        // listeners that don't read from the section response react.
         var v = findVariant() || findFirstCompatibleVariant();
         if (v) dispatchVariantChange(v);
       })
       .catch(function (err) {
         if (err && err.name === 'AbortError') return;
-        if (window.console) console.error('[vpa] gallery refetch failed', err);
+        if (window.console) console.error('[vpa] section refresh failed', err);
       });
   }
 
@@ -1889,10 +2041,11 @@
       if (representative) dispatchVariantChange(representative);
     }
     applyAllAddonMatches();
-    // Fetch the freshly-rendered section and swap in the new ProductGallery
-    // HTML. Same mechanism the standard variant_picker block uses, just
-    // driven directly so it doesn't depend on ProductInfo's pubsub wiring.
-    refreshGalleryFromServer();
+    // Fetch the freshly-rendered section: swaps in the new ProductGallery
+    // HTML AND merges the picker's Liquid-rendered tile prices (Markets /
+    // catalog-aware) back into the live picker so prices follow the active
+    // price list without any client-side override logic.
+    refreshSectionFromServer();
   });
 
   // Size-chart trigger
@@ -2108,6 +2261,34 @@
   root.querySelectorAll('.vpa__step[data-is-color="true"] input[disabled]').forEach(function (i) {
     i.disabled = false;
   });
+
+  // Hydrate `selected` and tick the matching radios from the URL-resolved
+  // variant (`product.selected_or_first_available_variant`). Without this
+  // step, `selected` stays {} until the user clicks, the resolvers fall
+  // back to the first variant in Shopify order, and the picker visually
+  // disagrees with the URL. The radio match uses normOpt so a merchant-
+  // data whitespace / casing quirk on an option value can't leave a
+  // swatch visually unselected when its JS state IS selected.
+  (function hydrateInitialSelection() {
+    var initial = null;
+    for (var i = 0; i < variants.length; i++) {
+      if (variants[i].id === currentMainVariantId) { initial = variants[i]; break; }
+    }
+    if (!initial) return;
+    for (var pos = 1; pos <= optionCount; pos++) {
+      var value = initial['option' + pos];
+      if (!value) continue;
+      selected[pos] = value;
+      var target = normOpt(value);
+      var inputs = root.querySelectorAll('input[data-option-position="' + pos + '"]');
+      for (var j = 0; j < inputs.length; j++) {
+        if (normOpt(inputs[j].dataset.value) === target) {
+          inputs[j].checked = true;
+          break;
+        }
+      }
+    }
+  })();
 
   updateAvailability();
   renumberAndLock();
