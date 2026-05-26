@@ -18,8 +18,18 @@
       "blocks": {
         "heading": {
           "settings": {
-            "heading": "<em><strong>Free</strong></em>  x48 Filters (Worth $99) with every Spa"
+            "heading": "Sign up today and we’ll also give you <em><strong>5% off</strong></em> your first order."
           }
+        },
+        "text_yVqDTb": {
+          "disabled": true,
+          "settings": {
+            "text": "<p>Plus, sign up today and we’ll give you <strong>5% off</strong> your first order.</p>"
+          }
+        },
+        "media": {
+          "disabled": false,
+          "settings": {}
         }
       }
     }
