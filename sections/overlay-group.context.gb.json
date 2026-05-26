@@ -19,8 +19,16 @@
       "blocks": {
         "heading": {
           "settings": {
-            "heading": "<em><strong>Free</strong></em>  Starter Chemicals & Filters with every Spa"
+            "heading": "Sign up today and we’ll give you <em><strong>5% off</strong></em> your first order."
           }
+        },
+        "text_yVqDTb": {
+          "disabled": true,
+          "settings": {}
+        },
+        "media": {
+          "disabled": false,
+          "settings": {}
         }
       }
     },
