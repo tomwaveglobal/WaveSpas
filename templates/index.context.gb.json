@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "image_hc4WwT": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_32253671-96f6-4da9-9bfc-f5b182221b47.jpg",
             "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2.jpg",
