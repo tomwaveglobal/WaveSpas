@@ -47,6 +47,15 @@
           }
         }
       }
+    },
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "text_nncjDG": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
     }
   }
 }
