@@ -23,16 +23,16 @@
             "icon": "rocket",
             "text": "<em><strong>10% off  </strong></em>Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-f6685ca9f94d97d31d6304897dea7820": null,
+            "header-05d1110aea5b902d5e23b7f52814e263": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>10% off  </strong></em>Inflatable Hot Tubs",
-            "header-dd4cc49954acf0526a32de91d061f836": null,
+            "header-444d9f1244c446aad6804186ebc50bf4": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
         },
         "announcement-2": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "icon": "sale",
             "text": "Order now and get <em><strong>x48 Filters in the box </strong></em>",
