@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "text_nncjDG": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "iwidth": "custom",
             "icon_width": 30,
