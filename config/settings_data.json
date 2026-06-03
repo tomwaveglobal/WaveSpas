@@ -113,8 +113,10 @@
     "advanced_badge_mode_nav": "text",
     "advanced_badge_image_mobile": "100",
     "advanced_badge_image_desktop": "180",
-    "advanced_badge_map_1_text": "",
-    "advanced_badge_map_2_text": "",
+    "advanced_badge_map_1_text": "GB:Free Head Rest & Drinks Holder",
+    "advanced_badge_map_1_image": "shopify://shop_images/Head_Rest_a1078fd2-ac87-471b-b057-d282607ab1a0.png",
+    "advanced_badge_map_2_text": "GB:Free Solar Light",
+    "advanced_badge_map_2_image": "shopify://shop_images/Solar_Light.png",
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
@@ -266,11 +268,6 @@
       },
       "6610233760104865948": {
         "type": "shopify://apps/pushowl-brevo/blocks/pushowl-app-embed-3d2ff2b5/fa20c3ba-38bf-43e0-ba5c-431f6ae07d95",
-        "disabled": false,
-        "settings": {}
-      },
-      "924744721961926860": {
-        "type": "shopify://apps/freshmarketer-email-sms/blocks/freshmarketer-onsite-js/6fac208c-ff40-4b41-be01-e5940014bcb0",
         "disabled": false,
         "settings": {}
       },
