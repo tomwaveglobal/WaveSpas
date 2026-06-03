@@ -115,6 +115,7 @@
             "addons_enabled": true,
             "addons_heading": "Popular Add-Ons",
             "addons_optional_label": "Optional",
+            "addon_text_size": "m",
             "addon_priority_keywords": "filter,chemical,cover",
             "addon_match_by_sku_prefix": true,
             "addon_match_sku_prefix_length": 4,
@@ -172,6 +173,7 @@
         },
         "text_nncjDG": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "icon": "sale",
             "iwidth": "custom",
