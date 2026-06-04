@@ -29,7 +29,7 @@
         "image_9rd3Vt": {
           "disabled": false,
           "settings": {
-            "heading": "The heatwave's gone. Summer isn't."
+            "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
           }
         }
       },
