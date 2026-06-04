@@ -31,13 +31,23 @@
           "settings": {
             "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
           }
+        },
+        "image_EUEdiE": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_Page_Solar_free_6018e63a-8ae1-45e4-9972-956d1692a58f.png",
+            "image_mobile": "shopify://shop_images/Home_Carousel_Mobile_Solar.png",
+            "heading": "Every Eco Foam hot tub comes with a <span style=\"color: #F59E0B;\"> free </span> Solar Light",
+            "button_label": "Shop Whilst Stocks Last",
+            "button_link": "shopify://collections/foam-hot-tubs"
+          }
         }
       },
       "block_order": [
-        "image_rmPQY4",
+        "image_EUEdiE",
         "image_9rd3Vt",
         "image_JUM7dH",
-        "image_EUEdiE"
+        "image_rmPQY4"
       ]
     },
     "featured-product": {
