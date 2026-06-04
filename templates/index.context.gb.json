@@ -26,6 +26,23 @@
             "button_link": "shopify://collections/foam-hot-tubs"
           }
         },
+        "image_YL8tbf": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_1c125408-0aa0-47ce-a31e-eb983b568e24.jpg",
+            "image_mobile": "shopify://shop_images/Home_Carousel_Mobile_Solar.png",
+            "header-c72cf7e4e1737dde1b6319478b4bcba2": null,
+            "heading": "Every Eco Foam hot tub comes with a <span style=\"color: #F59E0B;\"> free </span> Solar Light",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Whilst Stocks Last",
+            "button_link": "shopify://collections/foam-hot-tubs",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
         "image_9rd3Vt": {
           "disabled": false,
           "settings": {
@@ -45,6 +62,7 @@
       },
       "block_order": [
         "image_EUEdiE",
+        "image_YL8tbf",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"
