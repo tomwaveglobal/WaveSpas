@@ -17,9 +17,9 @@
       "settings": {},
       "blocks": {
         "announcement-2": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "text": "<em><strong>Free Starter Chemicals & Filters </strong></em> on all Hot Tubs",
+            "text": "<em><strong>Free Gift</strong></em> with all Hot Tubs",
             "link": "shopify://collections/hot-tub-full-range",
             "text_mobile": "<em><strong>Free Starter Chemicals & Filters</strong></em> on all Hot Tubs",
             "highlighted_text": "text"
