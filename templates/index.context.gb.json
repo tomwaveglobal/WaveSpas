@@ -16,13 +16,13 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_rmPQY4": {
-          "disabled": true,
+        "image_EUEdiE": {
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/10Off_Pebble_May26_V2.jpg",
-            "image_mobile": "shopify://shop_images/Mobile_V2.jpg",
-            "heading": "‎",
-            "button_label": "Shop Pebble White",
+            "image": "shopify://shop_images/Carousel_Home_Page_Solar_free_6018e63a-8ae1-45e4-9972-956d1692a58f.png",
+            "image_mobile": "shopify://shop_images/Home_Carousel_Mobile_Solar.png",
+            "heading": "Every Eco Foam hot tub comes with a <span style=\"color: #F59E0B;\"> free </span> Solar Light",
+            "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
         },
@@ -32,13 +32,13 @@
             "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
           }
         },
-        "image_EUEdiE": {
-          "disabled": false,
+        "image_rmPQY4": {
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Carousel_Home_Page_Solar_free_6018e63a-8ae1-45e4-9972-956d1692a58f.png",
-            "image_mobile": "shopify://shop_images/Home_Carousel_Mobile_Solar.png",
-            "heading": "Every Eco Foam hot tub comes with a <span style=\"color: #F59E0B;\"> free </span> Solar Light",
-            "button_label": "Shop Whilst Stocks Last",
+            "image": "shopify://shop_images/10Off_Pebble_May26_V2.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_V2.jpg",
+            "heading": "‎",
+            "button_label": "Shop Pebble White",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
         }
