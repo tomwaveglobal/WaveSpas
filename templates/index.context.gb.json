@@ -22,7 +22,7 @@
           "settings": {
             "image": "shopify://shop_images/Freebies-inflatable-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies-inflatable-2_13582f00-a9db-41f9-a841-3a1c743a0272.jpg",
-            "header-6a72ba83187dd1806ea75e003da444ad": null,
+            "header-7001cd61cfe7525cc473279d0e6fc929": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -36,8 +36,8 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Carousel_Home_Page_Solar_free_6018e63a-8ae1-45e4-9972-956d1692a58f.png",
-            "image_mobile": "shopify://shop_images/Home_Carousel_Mobile_Solar.png",
+            "image": "shopify://shop_images/Freebies-Foam-1.jpg",
+            "image_mobile": "shopify://shop_images/Freebies-Foam-2.jpg",
             "heading": "Every Eco Foam hot tub comes with a <span style=\"color: #F59E0B;\"> free </span> Solar Light",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
