@@ -38,7 +38,7 @@
           "settings": {
             "image": "shopify://shop_images/Freebies-Foam-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies-Foam-2.jpg",
-            "heading": "‎",
+            "heading": "",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
