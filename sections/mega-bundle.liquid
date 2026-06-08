@@ -1,22 +1,19 @@
 {%- comment -%}
   Mega Bundle
   ───────────────────────────────────────────────────────────────
-  A section with repeatable "bundle" blocks. Each block is one
-  complete, merchant-curated bundle (e.g. "Hot Tub Bundle",
-  "Buy 1 Get 1", "Accessories Bundle"). Reorder bundles by
-  reordering the blocks in the theme editor.
-
-  Per bundle:
-   • Up to 6 items, each = product picker + optional Variant ID
-     (leave blank → first available variant) + quantity.
-   • Variant-level: paste a specific variant ID to lock a
-     colour / size / model. In the theme editor each item shows a
-     copy-paste list of that product's variants + IDs.
-   • Savings are DISPLAY-ONLY (regular total, bundle price, £/% saved)
-     driven by a per-bundle discount %. Configure a matching Shopify
-     automatic discount so the saving actually applies at checkout.
-   • Single click adds every item to the cart in one /cart/add.js call
-     (see assets/mega-bundle.js), then opens the cart drawer.
+  Repeatable "bundle" blocks. Each block is one curated bundle and
+  reuses the theme's compact-product-bundle design 1:1 (promo image
+  panel + product card-grid + single add-to-cart button), with the
+  new functionality layered on top:
+   • Variant-level: per item = product + optional Variant ID
+     (blank → first available) + quantity. Merchant-locked variant.
+   • Savings DISPLAY-ONLY (regular total, bundle price, £/% saved)
+     from a per-bundle discount %. Pair with a Shopify automatic
+     discount so it applies at checkout.
+   • Single click adds every item in one /cart/add.js call
+     (assets/mega-bundle.js).
+   • Theme-editor-only panel below each bundle lists every item's
+     variants, IDs and stock for easy copy/paste.
 {%- endcomment -%}
 
 <style>
@@ -25,30 +22,41 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     {%- render 'section-variables', section: section -%}
   }
-  #shopify-section-{{ section.id }} .mega-bundle + .mega-bundle { margin-top: var(--sp-10, 2.5rem); }
+  #shopify-section-{{ section.id }} .mega-bundle + .mega-bundle { margin-top: var(--sp-16, 4rem); }
   #shopify-section-{{ section.id }} .mega-bundle__summary {
-    border-top: 1px solid rgb(var(--color-foreground) / 0.12);
+    margin-top: var(--sp-2, 0.5rem);
     padding-top: var(--sp-5, 1.25rem);
+    border-top: 1px solid rgb(var(--color-foreground) / 0.12);
   }
   #shopify-section-{{ section.id }} .mega-bundle__saving {
     background: var(--gradient-highlight, var(--color-highlight, #e0a580));
     color: #171717;
   }
-  /* In-editor variant ID + stock helper */
-  #shopify-section-{{ section.id }} .mega-bundle__id-helper { font-size: 0.72rem; margin-top: 0.5rem; }
-  #shopify-section-{{ section.id }} .mega-bundle__selected { margin: 0.5rem 0 0.25rem; line-height: 1.5; }
-  #shopify-section-{{ section.id }} .mega-bundle__selected code { user-select: all; font-weight: 600; }
-  #shopify-section-{{ section.id }} .mega-bundle__selected .oos { color: #b3261e; font-weight: 600; }
-  #shopify-section-{{ section.id }} .mega-bundle__id-helper summary { cursor: pointer; font-weight: 600; }
+  #shopify-section-{{ section.id }} .product-card--promo .product-card__media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0) 55%);
+    pointer-events: none;
+  }
+  /* Editor-only variant ID + stock panel */
+  #shopify-section-{{ section.id }} .mega-bundle__editor { margin-top: var(--sp-5, 1.25rem); border: 1px dashed rgb(var(--color-foreground) / 0.3); border-radius: 8px; padding: var(--sp-4, 1rem); font-size: 0.72rem; background: rgb(var(--color-foreground) / 0.03); }
+  #shopify-section-{{ section.id }} .mega-bundle__editor h4 { font-weight: 700; margin-bottom: 0.5rem; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor details + details { margin-top: 0.4rem; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor summary { cursor: pointer; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor code { user-select: all; font-weight: 600; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor .scroll { overflow-x: auto; }
   #shopify-section-{{ section.id }} .mega-bundle__id-table { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
   #shopify-section-{{ section.id }} .mega-bundle__id-table th,
-  #shopify-section-{{ section.id }} .mega-bundle__id-table td { text-align: left; padding: 0.25rem 0.4rem; border-bottom: 1px solid rgb(var(--color-foreground) / 0.1); white-space: nowrap; }
-  #shopify-section-{{ section.id }} .mega-bundle__id-table code { user-select: all; font-weight: 600; }
+  #shopify-section-{{ section.id }} .mega-bundle__id-table td { text-align: left; padding: 0.2rem 0.6rem; border-bottom: 1px solid rgb(var(--color-foreground) / 0.1); white-space: nowrap; }
   #shopify-section-{{ section.id }} .mega-bundle__id-table tr.is-active { background: rgb(var(--color-highlight, 224 165 128) / 0.18); }
   #shopify-section-{{ section.id }} .mega-bundle__id-table .oos { color: #b3261e; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor .oos { color: #b3261e; font-weight: 600; }
 </style>
 
 {{ 'product-bundle.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'mega-bundle.js' | asset_url }}" defer="defer"></script>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
   <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
@@ -74,90 +82,85 @@
       </div>
     {%- endif -%}
 
-    <div class="mega-bundle-list grid gap-16">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          # ── Pass 1: resolve every item once, tally totals + column count ──
-          assign regular_total = 0
-          assign item_count = 0
-          assign any_unavailable = false
-          for n in (1..6)
-            assign prod = block.settings['product_' | append: n]
-            if prod == blank
-              continue
-            endif
-            assign qty = block.settings['qty_' | append: n] | default: 1
-            assign vid_str = block.settings['variant_' | append: n] | strip
-            assign chosen = blank
-            if vid_str != blank
-              assign vid_num = vid_str | plus: 0
-              for v in prod.variants
-                if v.id == vid_num
-                  assign chosen = v
-                  break
-                endif
-              endfor
-            endif
-            if chosen == blank
-              assign chosen = prod.selected_or_first_available_variant
-            endif
-            assign line_subtotal = chosen.price | times: qty
-            assign regular_total = regular_total | plus: line_subtotal
-            assign item_count = item_count | plus: 1
-            unless chosen.available
-              assign any_unavailable = true
-            endunless
-          endfor
+    {%- for block in section.blocks -%}
+      {%- liquid
+        # ── Resolve every item once: totals, availability, column count ──
+        assign regular_total = 0
+        assign item_count = 0
+        assign any_unavailable = false
+        for n in (1..6)
+          assign prod = block.settings['product_' | append: n]
+          if prod == blank
+            continue
+          endif
+          assign qty = block.settings['qty_' | append: n] | default: 1
+          assign vid_str = block.settings['variant_' | append: n] | strip
+          assign chosen = blank
+          if vid_str != blank
+            assign vid_num = vid_str | plus: 0
+            for v in prod.variants
+              if v.id == vid_num
+                assign chosen = v
+                break
+              endif
+            endfor
+          endif
+          if chosen == blank
+            assign chosen = prod.selected_or_first_available_variant
+          endif
+          assign line_subtotal = chosen.price | times: qty
+          assign regular_total = regular_total | plus: line_subtotal
+          assign item_count = item_count | plus: 1
+          unless chosen.available
+            assign any_unavailable = true
+          endunless
+        endfor
 
-          assign cols = item_count | at_most: 4 | at_least: 1
-          assign pct = block.settings.discount_percent | default: 0
-          assign saving = regular_total | times: pct | divided_by: 100
-          assign bundle_total = regular_total | minus: saving
-        -%}
-        <mega-bundle
-          class="mega-bundle block relative"
-          id="MegaBundle-{{ section.id }}-{{ block.id }}"
-          {{ block.shopify_attributes }}
-        >
-          <div class="{% if block.settings.image != blank %}compact-product-bundle-wrapper flex flex-col gap-6 lg:grid lg:gap-10{% unless block.settings.image_position == 'left' %} lg:grid-row-reverse{% endunless %}{% endif %}">
-            {%- if block.settings.image != blank -%}
-              {%- comment -%} Promo image card on the side — mirrors compact-product-bundle {%- endcomment -%}
-              <div class="card product-card product-card--promo block leading-none relative overflow-hidden">
-                <div class="product-card__media mobile:media--300px relative top-0 left-0 w-full h-full">
-                  <div class="media media--height block w-full h-full relative overflow-hidden">
-                    {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', widths: '300,500,700,900,1200,1600', sizes: '(max-width: 1023px) 100vw, 45vw', is: 'lazy-image' }}
-                    <span class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 60%);"></span>
-                  </div>
+        assign cols = item_count | at_most: 4 | at_least: 1
+        assign pct = block.settings.discount_percent | default: 0
+        assign saving = regular_total | times: pct | divided_by: 100
+        assign bundle_total = regular_total | minus: saving
+        assign has_image = block.settings.image
+      -%}
+      <mega-bundle class="mega-bundle block relative" id="MegaBundle-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+        <div class="compact-product-bundle-wrapper flex flex-col gap-6{% if has_image != blank %} lg:grid lg:gap-10{% unless block.settings.image_position == 'left' %} lg:grid-row-reverse{% endunless %}{% endif %}">
+          {%- if has_image != blank -%}
+            {%- comment -%} Promo image card — same structure/classes as compact-product-bundle {%- endcomment -%}
+            <div class="card product-card product-card--promo block leading-none relative overflow-hidden">
+              <div class="product-card__media relative top-0 left-0 w-full h-full">
+                <div class="media media--height block w-full h-full relative overflow-hidden">
+                  {{ has_image | image_url: width: has_image.width | image_tag: loading: 'lazy', widths: '300,500,700,900,1200,1600', sizes: '(max-width: 1023px) 100vw, 45vw', is: 'lazy-image' }}
                 </div>
-                {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
-                  <div class="product-card__content z-1 absolute top-0 left-0 w-full h-full flex flex-col justify-end" style="color:#fff;">
+              </div>
+              {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
+                <div class="product-card__content z-1 absolute top-0 left-0 w-full h-full flex justify-center items-end" style="color:#fff;">
+                  <div class="w-full text-left">
                     {%- if block.settings.heading != blank -%}
-                      <h3 class="banner__title heading leading-none text-3xl md:text-4xl">{{ block.settings.heading | escape }}</h3>
+                      <h3 class="heading leading-none tracking-tight text-2xl lg:text-3xl">{{ block.settings.heading | escape }}</h3>
                     {%- endif -%}
                     {%- if block.settings.subheading != blank -%}
-                      <div class="rte leading-normal mt-2">{{ block.settings.subheading }}</div>
+                      <div class="rte leading-normal mt-2" style="color:rgba(255,255,255,0.9);">{{ block.settings.subheading }}</div>
                     {%- endif -%}
                   </div>
-                {%- endif -%}
-              </div>
-            {%- elsif block.settings.heading != blank or block.settings.subheading != blank -%}
-              <div class="title-wrapper leading-none grid gap-2 mb-6">
-                {%- if block.settings.heading != blank -%}
-                  <h3 class="heading text-2xl md:text-3xl leading-none tracking-tight">{{ block.settings.heading | escape }}</h3>
-                {%- endif -%}
-                {%- if block.settings.subheading != blank -%}
-                  <div class="rte text-opacity leading-normal">{{ block.settings.subheading }}</div>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- elsif block.settings.heading != blank or block.settings.subheading != blank -%}
+            <div class="title-wrapper leading-none grid gap-2">
+              {%- if block.settings.heading != blank -%}
+                <h3 class="heading text-2xl lg:text-3xl leading-none tracking-tight">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.subheading != blank -%}
+                <div class="rte text-opacity leading-normal">{{ block.settings.subheading }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
 
-            <div class="compact-product-bundle flex flex-col gap-6 lg:gap-8">
+          <div class="compact-product-bundle flex flex-col gap-6 lg:gap-8">
             <motion-list class="product-grid card-grid card-grid--{{ cols }} mobile:card-grid--1 grid">
               {%- assign rendered = 0 -%}
               {%- for n in (1..6) -%}
-                {%- liquid
-                  assign prod = block.settings['product_' | append: n]
-                -%}
+                {%- assign prod = block.settings['product_' | append: n] -%}
                 {%- if prod != blank -%}
                   {%- liquid
                     assign qty = block.settings['qty_' | append: n] | default: 1
@@ -191,44 +194,6 @@
                       show_save_amount: settings.product_save_amount,
                       save_type: settings.product_save_type
                     -%}
-
-                    {%- if request.design_mode -%}
-                      <div class="mega-bundle__id-helper">
-                        <p class="mega-bundle__selected">
-                          <strong>Selected:</strong> {{ chosen.title }}
-                          &middot; ID <code>{{ chosen.id }}</code>
-                          {%- if chosen.sku != blank %} &middot; SKU <code>{{ chosen.sku }}</code>{% endif -%}
-                          &middot;
-                          {%- if chosen.available -%}
-                            {% if chosen.inventory_management != blank %}{{ chosen.inventory_quantity }} in stock{% else %}available{% endif %}
-                          {%- else -%}
-                            <span class="oos">unavailable</span>
-                          {%- endif -%}
-                        </p>
-                        <details>
-                          <summary>All variants &amp; stock &mdash; copy an ID</summary>
-                          <table class="mega-bundle__id-table">
-                            <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
-                            {%- for v in prod.variants -%}
-                              <tr class="{% if v.id == chosen.id %}is-active{% endif %}">
-                                <td>{{ v.title }}</td>
-                                <td>{{ v.sku | default: '&mdash;' }}</td>
-                                <td><code>{{ v.id }}</code></td>
-                                <td class="{% unless v.available %}oos{% endunless %}">
-                                  {%- if v.inventory_management != blank -%}
-                                    {{ v.inventory_quantity }}
-                                  {%- elsif v.available -%}
-                                    avail.
-                                  {%- else -%}
-                                    n/a
-                                  {%- endif -%}
-                                </td>
-                              </tr>
-                            {%- endfor -%}
-                          </table>
-                        </details>
-                      </div>
-                    {%- endif -%}
                   </div>
                   {%- assign rendered = rendered | plus: 1 -%}
                 {%- endif -%}
@@ -242,7 +207,7 @@
                   {%- if pct > 0 and saving > 0 and section.settings.show_regular_total -%}
                     <s class="text-opacity text-base">{{ regular_total | money }}</s>
                   {%- endif -%}
-                  <span class="heading text-xl md:text-2xl font-bold leading-none">{{ bundle_total | money }}</span>
+                  <span class="heading text-xl lg:text-2xl font-bold leading-none">{{ bundle_total | money }}</span>
                 </div>
                 {%- if pct > 0 and saving > 0 -%}
                   <span class="mega-bundle__saving badge inline-flex items-center rounded-full px-3 py-1d5 text-sm font-semibold">
@@ -255,14 +220,7 @@
                 {%- endif -%}
               </div>
 
-              <button
-                type="button"
-                class="button button--primary w-full"
-                is="hover-button"
-                data-mega-bundle-add
-                aria-label="{{ block.settings.button_label | default: 'Add bundle to cart' | escape }}"
-                {% if item_count < 1 or any_unavailable %}disabled{% endif %}
-              >
+              <button type="button" class="button button--primary w-full" is="hover-button" data-mega-bundle-add aria-label="{{ block.settings.button_label | default: 'Add bundle to cart' | escape }}"{% if item_count < 1 or any_unavailable %} disabled{% endif %}>
                 <span class="btn-fill" data-fill></span>
                 <span class="btn-text">
                   {%- if any_unavailable -%}
@@ -276,24 +234,81 @@
               <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight text-center" role="alert" hidden></div>
             </div>
           </div>
-          </div>
-        </mega-bundle>
-      {%- else -%}
+        </div>
+
         {%- if request.design_mode -%}
-          <p class="text-center text-opacity">Add a bundle block to get started.</p>
+          <div class="mega-bundle__editor">
+            <h4>Theme editor · variant IDs &amp; stock</h4>
+            {%- for n in (1..6) -%}
+              {%- assign prod = block.settings['product_' | append: n] -%}
+              {%- if prod != blank -%}
+                {%- liquid
+                  assign vid_str = block.settings['variant_' | append: n] | strip
+                  assign chosen = blank
+                  if vid_str != blank
+                    assign vid_num = vid_str | plus: 0
+                    for v in prod.variants
+                      if v.id == vid_num
+                        assign chosen = v
+                        break
+                      endif
+                    endfor
+                  endif
+                  if chosen == blank
+                    assign chosen = prod.selected_or_first_available_variant
+                  endif
+                -%}
+                <details>
+                  <summary>
+                    <strong>Item {{ n }}:</strong> {{ prod.title }} &mdash;
+                    selected <code>{{ chosen.id }}</code>{% if chosen.sku != blank %} (SKU {{ chosen.sku }}){% endif %}
+                    &middot;
+                    {%- if chosen.available -%}
+                      {% if chosen.inventory_management != blank %}{{ chosen.inventory_quantity }} in stock{% else %}available{% endif %}
+                    {%- else -%}
+                      <span class="oos">unavailable</span>
+                    {%- endif -%}
+                  </summary>
+                  <div class="scroll">
+                    <table class="mega-bundle__id-table">
+                      <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
+                      {%- for v in prod.variants -%}
+                        <tr class="{% if v.id == chosen.id %}is-active{% endif %}">
+                          <td>{{ v.title }}</td>
+                          <td>{{ v.sku | default: '&mdash;' }}</td>
+                          <td><code>{{ v.id }}</code></td>
+                          <td class="{% unless v.available %}oos{% endunless %}">
+                            {%- if v.inventory_management != blank -%}
+                              {{ v.inventory_quantity }}
+                            {%- elsif v.available -%}
+                              avail.
+                            {%- else -%}
+                              n/a
+                            {%- endif -%}
+                          </td>
+                        </tr>
+                      {%- endfor -%}
+                    </table>
+                  </div>
+                </details>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
         {%- endif -%}
-      {%- endfor -%}
-    </div>
+      </mega-bundle>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <p class="text-center text-opacity">Add a bundle block to get started.</p>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 </div>
-
-<script src="{{ 'mega-bundle.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {
   "name": "Mega Bundle",
   "tag": "section",
-  "class": "section-mega-bundle",
+  "class": "section-mega-bundle compact-product-bundle-section",
   "settings": [
     {
       "type": "header",
@@ -505,7 +520,7 @@
         {
           "type": "header",
           "content": "Item 1",
-          "info": "Leave Variant ID blank to use the first available variant. In the theme editor, each item lists its variant IDs to copy."
+          "info": "Leave Variant ID blank to use the first available variant. The panel below each bundle (theme editor only) lists each product's variant IDs + stock to copy."
         },
         { "type": "product", "id": "product_1", "label": "Product 1" },
         { "type": "text", "id": "variant_1", "label": "Variant ID 1 (optional)" },
