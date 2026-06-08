@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "mega_bundle": {
@@ -8,16 +17,27 @@
           "settings": {
             "heading": "Hot Tub Bundle",
             "subheading": "<p>Everything you need to get started — buy together and save.</p>",
-            "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
-            "image_position": "right",
             "discount_percent": 10,
+            "savings_label": "",
             "button_label": "Add bundle to cart",
             "product_1": "pacific-hot-tub",
+            "variant_1": "",
             "qty_1": 1,
             "product_2": "energy-save-thermal-cover",
+            "variant_2": "",
             "qty_2": 1,
             "product_3": "insulating-floor-mat",
-            "qty_3": 1
+            "variant_3": "",
+            "qty_3": 1,
+            "product_4": "",
+            "variant_4": "",
+            "qty_4": 1,
+            "product_5": "",
+            "variant_5": "",
+            "qty_5": 1,
+            "product_6": "",
+            "variant_6": "",
+            "qty_6": 1
           }
         },
         "bundle_b1g1": {
@@ -25,15 +45,27 @@
           "settings": {
             "heading": "Buy 1 Get 1 Bundle",
             "subheading": "<p>Grab a pair and save.</p>",
-            "image": "shopify://shop_images/Untitled-2.jpg",
-            "image_position": "left",
             "discount_percent": 50,
             "savings_label": "2nd item 50% off",
             "button_label": "Add bundle to cart",
             "product_1": "luxury-comfort-pack-3",
+            "variant_1": "",
             "qty_1": 1,
             "product_2": "luxury-comfort-pack-3",
-            "qty_2": 1
+            "variant_2": "",
+            "qty_2": 1,
+            "product_3": "",
+            "variant_3": "",
+            "qty_3": 1,
+            "product_4": "",
+            "variant_4": "",
+            "qty_4": 1,
+            "product_5": "",
+            "variant_5": "",
+            "qty_5": 1,
+            "product_6": "",
+            "variant_6": "",
+            "qty_6": 1
           }
         },
         "bundle_accessories": {
@@ -41,35 +73,65 @@
           "settings": {
             "heading": "Essential Accessories",
             "subheading": "<p>Save when buying all 3 items together.</p>",
-            "image": "shopify://shop_images/HEader_03.jpg",
-            "image_position": "right",
             "discount_percent": 10,
+            "savings_label": "",
             "button_label": "Add bundle to cart",
             "product_1": "handheld-wifi-controller-ukca",
+            "variant_1": "",
             "qty_1": 1,
             "product_2": "screw-on-filter",
+            "variant_2": "",
             "qty_2": 1,
             "product_3": "luxury-head-rest",
-            "qty_3": 1
+            "variant_3": "",
+            "qty_3": 1,
+            "product_4": "",
+            "variant_4": "",
+            "qty_4": 1,
+            "product_5": "",
+            "variant_5": "",
+            "qty_5": 1,
+            "product_6": "",
+            "variant_6": "",
+            "qty_6": 1
           }
         }
       },
-      "block_order": ["bundle_hot_tubs", "bundle_b1g1", "bundle_accessories"],
+      "block_order": [
+        "bundle_hot_tubs",
+        "bundle_b1g1",
+        "bundle_accessories"
+      ],
       "settings": {
         "heading": "Mega Bundles",
         "subheading": "",
+        "description": "",
         "heading_size": "lg:text-4xl text-2xl",
         "heading_alignment": "text-center",
         "heading_tag": "h1",
         "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "columns": 3,
         "columns_mobile": "1",
         "show_regular_total": true,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "padding_top": 72,
         "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
         "rounded": true
       }
     }
   },
-  "order": ["mega_bundle"]
+  "order": [
+    "mega_bundle"
+  ]
 }
