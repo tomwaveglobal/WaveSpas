@@ -76,6 +76,43 @@
         "parallax_direction": "vertical"
       }
     },
+    "rich_text_rrgLRX": {
+      "type": "rich-text",
+      "custom_css": [
+        "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "Buy 2 and <em>save 10%</em>",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "large",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "<p>The choice is yours. With our bundle builder, you can select any combination from our range of products. The easiest way to keep everyone happy.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 28,
+        "divider": false,
+        "narrow": false,
+        "rounded": true
+      }
+    },
     "rich-text": {
       "type": "rich-text",
       "custom_css": [
@@ -331,43 +368,6 @@
         "parallax_direction": "vertical"
       }
     },
-    "rich_text_rrgLRX": {
-      "type": "rich-text",
-      "custom_css": [
-        "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
-      ],
-      "settings": {
-        "text_alignment": "left",
-        "text_alignment_mobile": "left",
-        "heading": "Buy 2 and <em>save 10%</em>",
-        "heading_size": "title-sm",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_width": "large",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "<p>The choice is yours. With our bundle builder, you can select any combination from our range of products. The easiest way to keep everyone happy.</p>",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 52,
-        "padding_bottom": 28,
-        "divider": false,
-        "narrow": false,
-        "rounded": true
-      }
-    },
     "product_bundle_M3rftG": {
       "type": "product-bundle",
       "name": "t:sections.product-bundle.name",
@@ -429,11 +429,11 @@
   "order": [
     "main-page",
     "image-with-text-overlay",
-    "rich-text",
-    "product-bundle",
+    "rich_text_rrgLRX",
+    "product_bundle_M3rftG",
     "floating-product-bundle",
     "compact-product-bundle",
-    "rich_text_rrgLRX",
-    "product_bundle_M3rftG"
+    "rich-text",
+    "product-bundle"
   ]
 }
