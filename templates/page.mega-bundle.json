@@ -8,6 +8,8 @@
           "settings": {
             "heading": "Hot Tub Bundle",
             "subheading": "<p>Everything you need to get started — buy together and save.</p>",
+            "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
+            "image_position": "right",
             "discount_percent": 10,
             "button_label": "Add bundle to cart",
             "product_1": "pacific-hot-tub",
@@ -23,6 +25,8 @@
           "settings": {
             "heading": "Buy 1 Get 1 Bundle",
             "subheading": "<p>Grab a pair and save.</p>",
+            "image": "shopify://shop_images/Untitled-2.jpg",
+            "image_position": "left",
             "discount_percent": 50,
             "savings_label": "2nd item 50% off",
             "button_label": "Add bundle to cart",
@@ -37,6 +41,8 @@
           "settings": {
             "heading": "Essential Accessories",
             "subheading": "<p>Save when buying all 3 items together.</p>",
+            "image": "shopify://shop_images/HEader_03.jpg",
+            "image_position": "right",
             "discount_percent": 10,
             "button_label": "Add bundle to cart",
             "product_1": "handheld-wifi-controller-ukca",

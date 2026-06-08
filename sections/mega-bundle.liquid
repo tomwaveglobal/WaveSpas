@@ -36,6 +36,9 @@
   }
   /* In-editor variant ID + stock helper */
   #shopify-section-{{ section.id }} .mega-bundle__id-helper { font-size: 0.72rem; margin-top: 0.5rem; }
+  #shopify-section-{{ section.id }} .mega-bundle__selected { margin: 0.5rem 0 0.25rem; line-height: 1.5; }
+  #shopify-section-{{ section.id }} .mega-bundle__selected code { user-select: all; font-weight: 600; }
+  #shopify-section-{{ section.id }} .mega-bundle__selected .oos { color: #b3261e; font-weight: 600; }
   #shopify-section-{{ section.id }} .mega-bundle__id-helper summary { cursor: pointer; font-weight: 600; }
   #shopify-section-{{ section.id }} .mega-bundle__id-table { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
   #shopify-section-{{ section.id }} .mega-bundle__id-table th,
@@ -116,18 +119,39 @@
           id="MegaBundle-{{ section.id }}-{{ block.id }}"
           {{ block.shopify_attributes }}
         >
-          {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
-            <div class="title-wrapper leading-none grid gap-2 mb-6">
-              {%- if block.settings.heading != blank -%}
-                <h3 class="heading text-2xl md:text-3xl leading-none tracking-tight">{{ block.settings.heading | escape }}</h3>
-              {%- endif -%}
-              {%- if block.settings.subheading != blank -%}
-                <div class="rte text-opacity leading-normal">{{ block.settings.subheading }}</div>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
+          <div class="{% if block.settings.image != blank %}compact-product-bundle-wrapper flex flex-col gap-6 lg:grid lg:gap-10{% unless block.settings.image_position == 'left' %} lg:grid-row-reverse{% endunless %}{% endif %}">
+            {%- if block.settings.image != blank -%}
+              {%- comment -%} Promo image card on the side — mirrors compact-product-bundle {%- endcomment -%}
+              <div class="card product-card product-card--promo block leading-none relative overflow-hidden">
+                <div class="product-card__media mobile:media--300px relative top-0 left-0 w-full h-full">
+                  <div class="media media--height block w-full h-full relative overflow-hidden">
+                    {{ block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', widths: '300,500,700,900,1200,1600', sizes: '(max-width: 1023px) 100vw, 45vw', is: 'lazy-image' }}
+                    <span class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 60%);"></span>
+                  </div>
+                </div>
+                {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
+                  <div class="product-card__content z-1 absolute top-0 left-0 w-full h-full flex flex-col justify-end" style="color:#fff;">
+                    {%- if block.settings.heading != blank -%}
+                      <h3 class="banner__title heading leading-none text-3xl md:text-4xl">{{ block.settings.heading | escape }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.subheading != blank -%}
+                      <div class="rte leading-normal mt-2">{{ block.settings.subheading }}</div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- elsif block.settings.heading != blank or block.settings.subheading != blank -%}
+              <div class="title-wrapper leading-none grid gap-2 mb-6">
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="heading text-2xl md:text-3xl leading-none tracking-tight">{{ block.settings.heading | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.subheading != blank -%}
+                  <div class="rte text-opacity leading-normal">{{ block.settings.subheading }}</div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
 
-          <div class="compact-product-bundle flex flex-col gap-6 lg:gap-8">
+            <div class="compact-product-bundle flex flex-col gap-6 lg:gap-8">
             <motion-list class="product-grid card-grid card-grid--{{ cols }} mobile:card-grid--1 grid">
               {%- assign rendered = 0 -%}
               {%- for n in (1..6) -%}
@@ -169,27 +193,41 @@
                     -%}
 
                     {%- if request.design_mode -%}
-                      <details class="mega-bundle__id-helper" open>
-                        <summary>Variants &amp; stock &mdash; copy an ID</summary>
-                        <table class="mega-bundle__id-table">
-                          <tr><th>Variant</th><th>ID</th><th>Stock</th></tr>
-                          {%- for v in prod.variants -%}
-                            <tr class="{% if v.id == chosen.id %}is-active{% endif %}">
-                              <td>{{ v.title }}</td>
-                              <td><code>{{ v.id }}</code></td>
-                              <td class="{% unless v.available %}oos{% endunless %}">
-                                {%- if v.inventory_management != blank -%}
-                                  {{ v.inventory_quantity }} in stock
-                                {%- elsif v.available -%}
-                                  available
-                                {%- else -%}
-                                  unavailable
-                                {%- endif -%}
-                              </td>
-                            </tr>
-                          {%- endfor -%}
-                        </table>
-                      </details>
+                      <div class="mega-bundle__id-helper">
+                        <p class="mega-bundle__selected">
+                          <strong>Selected:</strong> {{ chosen.title }}
+                          &middot; ID <code>{{ chosen.id }}</code>
+                          {%- if chosen.sku != blank %} &middot; SKU <code>{{ chosen.sku }}</code>{% endif -%}
+                          &middot;
+                          {%- if chosen.available -%}
+                            {% if chosen.inventory_management != blank %}{{ chosen.inventory_quantity }} in stock{% else %}available{% endif %}
+                          {%- else -%}
+                            <span class="oos">unavailable</span>
+                          {%- endif -%}
+                        </p>
+                        <details>
+                          <summary>All variants &amp; stock &mdash; copy an ID</summary>
+                          <table class="mega-bundle__id-table">
+                            <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
+                            {%- for v in prod.variants -%}
+                              <tr class="{% if v.id == chosen.id %}is-active{% endif %}">
+                                <td>{{ v.title }}</td>
+                                <td>{{ v.sku | default: '&mdash;' }}</td>
+                                <td><code>{{ v.id }}</code></td>
+                                <td class="{% unless v.available %}oos{% endunless %}">
+                                  {%- if v.inventory_management != blank -%}
+                                    {{ v.inventory_quantity }}
+                                  {%- elsif v.available -%}
+                                    avail.
+                                  {%- else -%}
+                                    n/a
+                                  {%- endif -%}
+                                </td>
+                              </tr>
+                            {%- endfor -%}
+                          </table>
+                        </details>
+                      </div>
                     {%- endif -%}
                   </div>
                   {%- assign rendered = rendered | plus: 1 -%}
@@ -237,6 +275,7 @@
               <p class="text-xs text-opacity text-center">{{ 'sections.product_bundle.discounts_at_checkout' | t | default: 'Discounts applied at checkout' }}</p>
               <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight text-center" role="alert" hidden></div>
             </div>
+          </div>
           </div>
         </mega-bundle>
       {%- else -%}
@@ -427,7 +466,18 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Bundle image (optional)"
+          "label": "Bundle image (optional)",
+          "info": "Shown as a promo panel beside the products, with the bundle name/description overlaid."
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "options": [
+            { "value": "right", "label": "Right" },
+            { "value": "left", "label": "Left" }
+          ],
+          "default": "right",
+          "label": "Image position (desktop)"
         },
         {
           "type": "range",
