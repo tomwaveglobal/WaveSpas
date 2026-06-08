@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "mega_bundle": {
+      "type": "mega-bundle",
+      "blocks": {
+        "bundle_hot_tubs": {
+          "type": "bundle",
+          "settings": {
+            "heading": "Hot Tub Bundle",
+            "subheading": "<p>Everything you need to get started — buy together and save.</p>",
+            "discount_percent": 10,
+            "button_label": "Add bundle to cart",
+            "product_1": "pacific-hot-tub",
+            "qty_1": 1,
+            "product_2": "energy-save-thermal-cover",
+            "qty_2": 1,
+            "product_3": "insulating-floor-mat",
+            "qty_3": 1
+          }
+        },
+        "bundle_b1g1": {
+          "type": "bundle",
+          "settings": {
+            "heading": "Buy 1 Get 1 Bundle",
+            "subheading": "<p>Grab a pair and save.</p>",
+            "discount_percent": 50,
+            "savings_label": "2nd item 50% off",
+            "button_label": "Add bundle to cart",
+            "product_1": "luxury-comfort-pack-3",
+            "qty_1": 1,
+            "product_2": "luxury-comfort-pack-3",
+            "qty_2": 1
+          }
+        },
+        "bundle_accessories": {
+          "type": "bundle",
+          "settings": {
+            "heading": "Accessories Bundle",
+            "subheading": "<p>Top up on the essentials.</p>",
+            "discount_percent": 15,
+            "button_label": "Add bundle to cart",
+            "product_1": "solar-floating-pool-lights",
+            "qty_1": 1,
+            "product_2": "hot-tub-vacuum",
+            "qty_2": 1,
+            "product_3": "premium-all-weather-hot-tub-cover",
+            "qty_3": 1
+          }
+        }
+      },
+      "block_order": ["bundle_hot_tubs", "bundle_b1g1", "bundle_accessories"],
+      "settings": {
+        "heading": "Mega Bundles",
+        "subheading": "",
+        "heading_size": "lg:text-4xl text-2xl",
+        "heading_alignment": "text-center",
+        "heading_tag": "h1",
+        "highlighted_text": "none",
+        "columns": 3,
+        "columns_mobile": "1",
+        "show_regular_total": true,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "rounded": true
+      }
+    }
+  },
+  "order": ["mega_bundle"]
+}

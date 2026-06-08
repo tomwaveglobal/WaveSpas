@@ -1,0 +1,525 @@
+{%- comment -%}
+  Mega Bundle
+  ───────────────────────────────────────────────────────────────
+  A section with repeatable "bundle" blocks. Each block is one
+  complete, merchant-curated bundle (e.g. "Hot Tub Bundle",
+  "Buy 1 Get 1", "Accessories Bundle"). Reorder bundles by
+  reordering the blocks in the theme editor.
+
+  Per bundle:
+   • Up to 6 items, each = product picker + optional Variant ID
+     (leave blank → first available variant) + quantity.
+   • Variant-level: paste a specific variant ID to lock a
+     colour / size / model. In the theme editor each item shows a
+     copy-paste list of that product's variants + IDs.
+   • Savings are DISPLAY-ONLY (regular total, bundle price, £/% saved)
+     driven by a per-bundle discount %. Configure a matching Shopify
+     automatic discount so the saving actually applies at checkout.
+   • Single click adds every item to the cart in one /cart/add.js call
+     (see assets/mega-bundle.js), then opens the cart drawer.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__items {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns }}, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__media {
+    aspect-ratio: 1 / 1;
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__id-helper {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    opacity: 0.85;
+  }
+  #shopify-section-{{ section.id }} .mega-bundle__id-helper code {
+    user-select: all;
+    font-weight: 600;
+  }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mega-bundle__items {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
+  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank or section.settings.description != blank -%}
+      <div class="title-wrapper leading-none grid gap-3 {{ section.settings.heading_alignment }} relative z-1 mb-10">
+        {%- if section.settings.subheading != blank -%}
+          <p class="heading normal-case subtitle-sm leading-none tracking-none">{{ section.settings.subheading | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          {%- liquid
+            assign with_gradient = false
+            if section.settings.gradient_highlight != blank and section.settings.gradient_highlight != 'rgba(0,0,0,0)'
+              assign with_gradient = true
+            endif
+          -%}
+          <{{ section.settings.heading_tag }} class="heading {{ section.settings.heading_size }} leading-none tracking-tight">
+            {%- render 'heading-content', content: section.settings.heading, style: section.settings.highlighted_text, scribble: section.settings.highlighted_scribble, reveal: section.settings.highlighted_reveal, gradient: with_gradient -%}
+          </{{ section.settings.heading_tag }}>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="rte leading-normal">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mega-bundle-list grid gap-10">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign regular_total = 0
+          assign item_count = 0
+          assign any_unavailable = false
+        -%}
+        <mega-bundle
+          class="mega-bundle card block relative {% if section.settings.rounded %}rounded-2xl{% endif %} overflow-hidden"
+          id="MegaBundle-{{ section.id }}-{{ block.id }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="mega-bundle__inner p-6 md:p-8 grid gap-6 md:flex md:gap-10 md:items-stretch">
+            {%- if block.settings.image != blank -%}
+              <div class="mega-bundle__hero shrink-0 md:w-1/3">
+                <div class="media media--square aspect-square relative overflow-hidden rounded-xl h-full">
+                  {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300,600,800', sizes: '(min-width: 750px) 33vw, 100vw', class: 'w-full h-full', style: 'object-fit:cover;' }}
+                </div>
+              </div>
+            {%- endif -%}
+
+            <div class="mega-bundle__content grow flex flex-col gap-5">
+              <div class="grid gap-2">
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="heading text-2xl md:text-3xl leading-none tracking-tight">{{ block.settings.heading | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.subheading != blank -%}
+                  <div class="rte text-opacity leading-normal">{{ block.settings.subheading }}</div>
+                {%- endif -%}
+              </div>
+
+              <div class="mega-bundle__items">
+                {%- for n in (1..6) -%}
+                  {%- liquid
+                    assign p_key = 'product_' | append: n
+                    assign v_key = 'variant_' | append: n
+                    assign q_key = 'qty_' | append: n
+                    assign prod = block.settings[p_key]
+                  -%}
+                  {%- if prod != blank -%}
+                    {%- liquid
+                      assign qty = block.settings[q_key] | default: 1
+                      assign vid_str = block.settings[v_key] | strip
+                      assign chosen = blank
+                      if vid_str != blank
+                        assign vid_num = vid_str | plus: 0
+                        for v in prod.variants
+                          if v.id == vid_num
+                            assign chosen = v
+                            break
+                          endif
+                        endfor
+                      endif
+                      if chosen == blank
+                        assign chosen = prod.selected_or_first_available_variant
+                      endif
+                      assign line_price = chosen.price | times: qty
+                      assign regular_total = regular_total | plus: line_price
+                      assign item_count = item_count | plus: 1
+                      unless chosen.available
+                        assign any_unavailable = true
+                      endunless
+                      assign item_image = chosen.featured_image | default: prod.featured_image
+                    -%}
+                    <div
+                      class="mega-bundle__card card {% unless chosen.available %}is-unavailable{% endunless %}"
+                      data-mega-bundle-item
+                      data-variant-id="{{ chosen.id }}"
+                      data-qty="{{ qty }}"
+                    >
+                      <a href="{{ prod.url }}" class="mega-bundle__media media media--contain relative overflow-hidden rounded-lg block" aria-hidden="true" tabindex="-1">
+                        {%- if item_image != blank -%}
+                          {{ item_image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '160,240,320', sizes: '160px', alt: prod.title }}
+                        {%- endif -%}
+                      </a>
+                      <div class="grid gap-1d5">
+                        <a href="{{ prod.url }}" class="reversed-link font-medium text-base leading-tight">{{ prod.title | escape }}</a>
+                        {%- unless prod.has_only_default_variant -%}
+                          <span class="text-xs text-opacity leading-tight">{{ chosen.title }}</span>
+                        {%- endunless -%}
+                        {%- if qty > 1 -%}
+                          <span class="text-xs text-opacity leading-tight">Qty: {{ qty }}</span>
+                        {%- endif -%}
+                        <span class="price text-sm font-medium">
+                          {%- if qty > 1 -%}{{ qty }} &times; {% endif -%}{{ chosen.price | money }}
+                        </span>
+                        {%- unless chosen.available -%}
+                          <span class="text-xs font-medium" style="color:#b3261e;">{{ 'products.product.sold_out' | t | default: 'Sold out' }}</span>
+                        {%- endunless -%}
+                      </div>
+
+                      {%- if request.design_mode -%}
+                        <details class="mega-bundle__id-helper">
+                          <summary>Variant IDs &mdash; {{ prod.title | escape }}</summary>
+                          <ul class="grid gap-1 mt-1">
+                            {%- for v in prod.variants -%}
+                              <li>{{ v.title }} &mdash; <code>{{ v.id }}</code>{% unless v.available %} (sold out){% endunless %}</li>
+                            {%- endfor -%}
+                          </ul>
+                        </details>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              {%- liquid
+                assign pct = block.settings.discount_percent | default: 0
+                assign saving = regular_total | times: pct | divided_by: 100
+                assign bundle_total = regular_total | minus: saving
+              -%}
+              <div class="mega-bundle__summary mt-auto grid gap-3 pt-4 border-t border-color">
+                <div class="flex items-end justify-between gap-4 flex-wrap">
+                  <div class="grid gap-1">
+                    {%- if pct > 0 and section.settings.show_regular_total -%}
+                      <span class="text-sm text-opacity">
+                        {{ 'sections.product_bundle.total' | t | default: 'Total' }}:
+                        <s>{{ regular_total | money }}</s>
+                      </span>
+                    {%- endif -%}
+                    <span class="heading text-xl md:text-2xl font-bold leading-none">
+                      {{ bundle_total | money }}
+                    </span>
+                  </div>
+                  {%- if pct > 0 and saving > 0 -%}
+                    <span class="mega-bundle__saving badge inline-flex items-center rounded-full px-3 py-1d5 text-sm font-semibold" style="background:var(--color-highlight, #e0a580); color:#171717;">
+                      {%- if block.settings.savings_label != blank -%}
+                        {{ block.settings.savings_label | escape }}
+                      {%- else -%}
+                        Save {{ saving | money }} ({{ pct }}%)
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
+                </div>
+
+                <button
+                  type="button"
+                  class="button button--primary w-full"
+                  is="hover-button"
+                  data-mega-bundle-add
+                  aria-label="{{ block.settings.button_label | default: 'Add bundle to cart' | escape }}"
+                  {% if item_count < 1 or any_unavailable %}disabled{% endif %}
+                >
+                  <span class="btn-fill" data-fill></span>
+                  <span class="btn-text">
+                    {%- if any_unavailable -%}
+                      {{ 'products.product.sold_out' | t | default: 'Sold out' }}
+                    {%- else -%}
+                      {{ block.settings.button_label | default: 'Add bundle to cart' }}
+                    {%- endif -%}
+                  </span>
+                </button>
+                <p class="text-xs text-opacity text-center">{{ 'sections.product_bundle.discounts_at_checkout' | t | default: 'Discounts applied at checkout' }}</p>
+                <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight text-center" role="alert" hidden></div>
+              </div>
+            </div>
+          </div>
+        </mega-bundle>
+      {%- else -%}
+        {%- if request.design_mode -%}
+          <p class="text-center text-opacity">{{ 'Add a bundle block to get started.' }}</p>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'mega-bundle.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Mega Bundle",
+  "tag": "section",
+  "class": "section-mega-bundle",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Mega Bundles"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "lg:text-2xl text-2xl", "label": "Small" },
+        { "value": "lg:text-3xl text-2xl", "label": "Medium" },
+        { "value": "lg:text-4xl text-2xl", "label": "Large" },
+        { "value": "lg:text-5xl text-2xl", "label": "Extra large" }
+      ],
+      "default": "lg:text-4xl text-2xl",
+      "label": "Heading size"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-right", "label": "Right" }
+      ],
+      "default": "text-center"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2",
+      "label": "Heading tag"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "scribble", "label": "Scribble" },
+        { "value": "underline", "label": "Underline" },
+        { "value": "marker", "label": "Marker" }
+      ],
+      "default": "none",
+      "label": "Highlight style"
+    },
+    {
+      "visible_if": "{{ section.settings.highlighted_text == 'scribble' }}",
+      "type": "select",
+      "id": "highlighted_scribble",
+      "options": [
+        { "value": "circle", "label": "Circle" },
+        { "value": "basic-underline", "label": "Basic underline" },
+        { "value": "sketch-underline", "label": "Sketch underline" },
+        { "value": "squiggle-underline", "label": "Squiggle underline" }
+      ],
+      "default": "circle",
+      "label": "Scribble style"
+    },
+    {
+      "visible_if": "{{ section.settings.highlighted_text != 'none' }}",
+      "type": "checkbox",
+      "id": "highlighted_reveal",
+      "label": "Reveal on scroll",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Items per row (desktop)"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ],
+      "default": "1",
+      "label": "Items per row (mobile)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_regular_total",
+      "default": true,
+      "label": "Show regular (struck-through) total"
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Leave blank to inherit theme defaults."
+    },
+    { "type": "color", "id": "color_text", "label": "Text" },
+    { "type": "color", "id": "color_background", "label": "Background" },
+    { "type": "color_background", "id": "gradient_background", "label": "Background gradient" },
+    { "type": "color", "id": "color_highlight", "label": "Saving badge" },
+    { "type": "color_background", "id": "gradient_highlight", "label": "Highlight gradient" },
+    { "type": "color", "id": "color_button_text", "label": "Button text" },
+    { "type": "color", "id": "color_button_background", "label": "Button background" },
+    { "type": "color_background", "id": "color_button_gradient", "label": "Button gradient" },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 72
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": true,
+      "label": "Rounded corners"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Bundle name",
+          "default": "Hot Tub Bundle"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Bundle description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Bundle image (optional)"
+        },
+        {
+          "type": "range",
+          "id": "discount_percent",
+          "min": 0,
+          "max": 70,
+          "step": 1,
+          "unit": "%",
+          "label": "Discount %",
+          "default": 10,
+          "info": "Display only. Set a matching Shopify automatic discount so the saving applies at checkout."
+        },
+        {
+          "type": "text",
+          "id": "savings_label",
+          "label": "Saving label override",
+          "info": "Optional. Leave blank to auto-show 'Save £X (Y%)'."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add bundle to cart"
+        },
+        {
+          "type": "header",
+          "content": "Item 1",
+          "info": "Leave Variant ID blank to use the first available variant. In the theme editor, each item lists its variant IDs to copy."
+        },
+        { "type": "product", "id": "product_1", "label": "Product 1" },
+        { "type": "text", "id": "variant_1", "label": "Variant ID 1 (optional)" },
+        { "type": "range", "id": "qty_1", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 1" },
+        { "type": "header", "content": "Item 2" },
+        { "type": "product", "id": "product_2", "label": "Product 2" },
+        { "type": "text", "id": "variant_2", "label": "Variant ID 2 (optional)" },
+        { "type": "range", "id": "qty_2", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 2" },
+        { "type": "header", "content": "Item 3" },
+        { "type": "product", "id": "product_3", "label": "Product 3" },
+        { "type": "text", "id": "variant_3", "label": "Variant ID 3 (optional)" },
+        { "type": "range", "id": "qty_3", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 3" },
+        { "type": "header", "content": "Item 4" },
+        { "type": "product", "id": "product_4", "label": "Product 4" },
+        { "type": "text", "id": "variant_4", "label": "Variant ID 4 (optional)" },
+        { "type": "range", "id": "qty_4", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 4" },
+        { "type": "header", "content": "Item 5" },
+        { "type": "product", "id": "product_5", "label": "Product 5" },
+        { "type": "text", "id": "variant_5", "label": "Variant ID 5 (optional)" },
+        { "type": "range", "id": "qty_5", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 5" },
+        { "type": "header", "content": "Item 6" },
+        { "type": "product", "id": "product_6", "label": "Product 6" },
+        { "type": "text", "id": "variant_6", "label": "Variant ID 6 (optional)" },
+        { "type": "range", "id": "qty_6", "min": 1, "max": 10, "step": 1, "default": 1, "label": "Quantity 6" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Mega Bundle",
+      "category": "Products",
+      "blocks": [
+        { "type": "bundle" },
+        { "type": "bundle" },
+        { "type": "bundle" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.overlay"],
+    "templates": ["password"]
+  }
+}
+{% endschema %}
