@@ -1209,10 +1209,22 @@
             assign addon_variant = addon.selected_or_first_available_variant
             assign addon_image = addon.featured_image
             assign addon_id = 'vpa-addon-' | append: vpa_id | append: '-' | append: forloop.index
+            # `selling_plan_groups` includes pre-order / deferred-purchase
+            # groups as well as true subscriptions. Only treat the add-on as
+            # subscribable when at least one plan has recurring deliveries —
+            # otherwise a Pre-Order plan would render under "Subscribe & Save".
             assign has_subs = false
-            if addon.selling_plan_groups.size > 0
-              assign has_subs = true
-            endif
+            for group in addon.selling_plan_groups
+              for plan in group.selling_plans
+                if plan.recurring_deliveries
+                  assign has_subs = true
+                  break
+                endif
+              endfor
+              if has_subs
+                break
+              endif
+            endfor
 
             # Score against pin-to-top keywords. First matching keyword wins;
             # its position becomes the CSS order. Non-matches → order 99.
@@ -1281,7 +1293,9 @@
                 <select class="vpa__addon-plan" aria-label="Delivery frequency for {{ addon.title | escape }}">
                   {%- for group in addon.selling_plan_groups -%}
                     {%- for plan in group.selling_plans -%}
-                      <option value="{{ plan.id }}" data-selling-group="{{ group.id }}">{{ plan.name }}</option>
+                      {%- if plan.recurring_deliveries -%}
+                        <option value="{{ plan.id }}" data-selling-group="{{ group.id }}">{{ plan.name }}</option>
+                      {%- endif -%}
                     {%- endfor -%}
                   {%- endfor -%}
                   <option value="">{{ block.settings.addon_onetime_label | default: 'No, thanks — one-time only' }}</option>
