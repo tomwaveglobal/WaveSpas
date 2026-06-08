@@ -1,75 +1,126 @@
 {
   "sections": {
-    "mega_bundle": {
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Mega Bundles",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-center",
+        "heading_tag": "h1",
+        "description": "<p>Buy together and save.</p>",
+        "padding_top": 52,
+        "padding_bottom": 12,
+        "narrow": false
+      }
+    },
+    "bundle_hot_tubs": {
       "type": "mega-bundle",
       "blocks": {
-        "bundle_hot_tubs": {
-          "type": "bundle",
+        "heading": {
+          "type": "heading",
           "settings": {
             "heading": "Hot Tub Bundle",
-            "subheading": "<p>Everything you need to get started — buy together and save.</p>",
-            "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
-            "image_position": "right",
-            "discount_percent": 10,
-            "button_label": "Add bundle to cart",
-            "product_1": "pacific-hot-tub",
-            "qty_1": 1,
-            "product_2": "energy-save-thermal-cover",
-            "qty_2": 1,
-            "product_3": "insulating-floor-mat",
-            "qty_3": 1
+            "heading_size": "title-md",
+            "heading_tag": "h2"
           }
         },
-        "bundle_b1g1": {
-          "type": "bundle",
+        "text": {
+          "type": "text",
           "settings": {
-            "heading": "Buy 1 Get 1 Bundle",
-            "subheading": "<p>Grab a pair and save.</p>",
-            "image": "shopify://shop_images/Untitled-2.jpg",
-            "image_position": "left",
-            "discount_percent": 50,
-            "savings_label": "2nd item 50% off",
-            "button_label": "Add bundle to cart",
-            "product_1": "luxury-comfort-pack-3",
-            "qty_1": 1,
-            "product_2": "luxury-comfort-pack-3",
-            "qty_2": 1
-          }
-        },
-        "bundle_accessories": {
-          "type": "bundle",
-          "settings": {
-            "heading": "Essential Accessories",
-            "subheading": "<p>Save when buying all 3 items together.</p>",
-            "image": "shopify://shop_images/HEader_03.jpg",
-            "image_position": "right",
-            "discount_percent": 10,
-            "button_label": "Add bundle to cart",
-            "product_1": "handheld-wifi-controller-ukca",
-            "qty_1": 1,
-            "product_2": "screw-on-filter",
-            "qty_2": 1,
-            "product_3": "luxury-head-rest",
-            "qty_3": 1
+            "text": "<p>Everything you need to get started — save 10% when buying all three together.</p>",
+            "text_size": "subtext-md"
           }
         }
       },
-      "block_order": ["bundle_hot_tubs", "bundle_b1g1", "bundle_accessories"],
+      "block_order": ["heading", "text"],
       "settings": {
-        "heading": "Mega Bundles",
-        "subheading": "",
-        "heading_size": "lg:text-4xl text-2xl",
-        "heading_alignment": "text-center",
-        "heading_tag": "h1",
-        "highlighted_text": "none",
-        "columns": 3,
-        "columns_mobile": "1",
-        "show_regular_total": true,
-        "padding_top": 72,
+        "products": ["pacific-hot-tub", "energy-save-thermal-cover", "insulating-floor-mat"],
+        "product_limit": 3,
+        "discount_percent": 10,
+        "savings_label": "Bundle saving",
+        "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "color_text": "#ffffff",
+        "color_overlay": "#000000",
+        "overlay_opacity": 35,
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "rounded": true
+      }
+    },
+    "bundle_accessories": {
+      "type": "mega-bundle",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Essential Accessories",
+            "heading_size": "title-md",
+            "heading_tag": "h2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Save 10% when buying all three accessories together.</p>",
+            "text_size": "subtext-md"
+          }
+        }
+      },
+      "block_order": ["heading", "text"],
+      "settings": {
+        "products": ["handheld-wifi-controller-ukca", "screw-on-filter", "luxury-head-rest"],
+        "product_limit": 3,
+        "discount_percent": 10,
+        "savings_label": "Bundle saving",
+        "image": "shopify://shop_images/Untitled-2.jpg",
+        "layout": "text_first",
+        "text_alignment": "left",
+        "color_text": "#ffffff",
+        "color_overlay": "#000000",
+        "overlay_opacity": 35,
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "rounded": true
+      }
+    },
+    "bundle_b1g1": {
+      "type": "mega-bundle",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Comfort Pair",
+            "heading_size": "title-md",
+            "heading_tag": "h2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair the comfort essentials and save.</p>",
+            "text_size": "subtext-md"
+          }
+        }
+      },
+      "block_order": ["heading", "text"],
+      "settings": {
+        "products": ["luxury-comfort-pack-3", "luxury-head-rest"],
+        "product_limit": 2,
+        "discount_percent": 15,
+        "savings_label": "Bundle saving",
+        "image": "shopify://shop_images/HEader_03.jpg",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "color_text": "#ffffff",
+        "color_overlay": "#000000",
+        "overlay_opacity": 35,
+        "padding_top": 24,
         "padding_bottom": 72,
         "rounded": true
       }
     }
   },
-  "order": ["mega_bundle"]
+  "order": ["intro", "bundle_hot_tubs", "bundle_accessories", "bundle_b1g1"]
 }
