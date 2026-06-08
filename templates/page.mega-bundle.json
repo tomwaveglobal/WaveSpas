@@ -35,15 +35,15 @@
         "bundle_accessories": {
           "type": "bundle",
           "settings": {
-            "heading": "Accessories Bundle",
-            "subheading": "<p>Top up on the essentials.</p>",
-            "discount_percent": 15,
+            "heading": "Essential Accessories",
+            "subheading": "<p>Save when buying all 3 items together.</p>",
+            "discount_percent": 10,
             "button_label": "Add bundle to cart",
-            "product_1": "solar-floating-pool-lights",
+            "product_1": "handheld-wifi-controller-ukca",
             "qty_1": 1,
-            "product_2": "hot-tub-vacuum",
+            "product_2": "screw-on-filter",
             "qty_2": 1,
-            "product_3": "premium-all-weather-hot-tub-cover",
+            "product_3": "luxury-head-rest",
             "qty_3": 1
           }
         }
