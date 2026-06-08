@@ -113,51 +113,25 @@
         "rounded": true
       }
     },
-    "rich-text": {
-      "type": "rich-text",
-      "custom_css": [
-        "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
-      ],
-      "settings": {
-        "text_alignment": "left",
-        "text_alignment_mobile": "left",
-        "heading": "Buy 3 and <em>save 10%</em>",
-        "heading_size": "title-sm",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_width": "large",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "<p>The choice is yours. With our bundle builder, you can select any combination from our range of products. The easiest way to keep everyone happy.</p>",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 100,
-        "padding_bottom": 28,
-        "divider": false,
-        "narrow": false,
-        "rounded": true
-      }
-    },
-    "product-bundle": {
+    "product_bundle_M3rftG": {
       "type": "product-bundle",
-      "custom_css": [
-        "@media screen and (min-width: 1536px) {.product-bundle {flex: 0 0 25%; } .product-bundle__sidebar {width: 100%; }}"
-      ],
+      "name": "t:sections.product-bundle.name",
       "settings": {
-        "collection": "hot-tub-chemicals",
-        "products": [],
+        "collection": "",
+        "products": [
+          "como-hot-tub",
+          "garda-hot-tub",
+          "tahoe-hot-tub",
+          "aegean-hot-tub",
+          "atlantic-hot-tub",
+          "pacific-hot-tub",
+          "energy-save-thermal-cover",
+          "insulating-floor-mat",
+          "premium-all-weather-hot-tub-cover",
+          "solar-floating-pool-lights",
+          "hot-tub-vacuum",
+          "luxury-comfort-pack-3"
+        ],
         "product_limit": 12,
         "columns": 3,
         "columns_mobile": "1",
@@ -189,8 +163,8 @@
         "color_button_text": "",
         "color_button_background": "",
         "color_button_gradient": "",
-        "padding_top": 24,
-        "padding_bottom": 100,
+        "padding_top": 72,
+        "padding_bottom": 72,
         "divider": false,
         "full_width": false,
         "rounded": false
@@ -336,11 +310,11 @@
           "insulating-floor-mat"
         ],
         "product_limit": 3,
-        "image": "shopify://shop_images/Chemicals_726b4553-4a6d-4263-acef-78aaf32ba242.jpg",
+        "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
         "layout": "text_first",
         "content_position": "md:items-start",
         "text_alignment": "right",
-        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_uzwtayuzwtayuzwt.png",
+        "image_mobile": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
         "image_height_mobile": "400px",
         "content_position_mobile": "items-center",
         "text_alignment_mobile": "center",
@@ -368,25 +342,51 @@
         "parallax_direction": "vertical"
       }
     },
-    "product_bundle_M3rftG": {
-      "type": "product-bundle",
-      "name": "t:sections.product-bundle.name",
+    "rich-text": {
+      "type": "rich-text",
+      "custom_css": [
+        "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
+      ],
       "settings": {
-        "collection": "",
-        "products": [
-          "como-hot-tub",
-          "garda-hot-tub",
-          "tahoe-hot-tub",
-          "aegean-hot-tub",
-          "atlantic-hot-tub",
-          "pacific-hot-tub",
-          "energy-save-thermal-cover",
-          "insulating-floor-mat",
-          "premium-all-weather-hot-tub-cover",
-          "solar-floating-pool-lights",
-          "hot-tub-vacuum",
-          "luxury-comfort-pack-3"
-        ],
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "Buy 3 and <em>save 10%</em>",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "large",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "<p>The choice is yours. With our bundle builder, you can select any combination from our range of products. The easiest way to keep everyone happy.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 100,
+        "padding_bottom": 28,
+        "divider": false,
+        "narrow": false,
+        "rounded": true
+      }
+    },
+    "product-bundle": {
+      "type": "product-bundle",
+      "custom_css": [
+        "@media screen and (min-width: 1536px) {.product-bundle {flex: 0 0 25%; } .product-bundle__sidebar {width: 100%; }}"
+      ],
+      "settings": {
+        "collection": "hot-tub-chemicals",
+        "products": [],
         "product_limit": 12,
         "columns": 3,
         "columns_mobile": "1",
@@ -418,8 +418,8 @@
         "color_button_text": "",
         "color_button_background": "",
         "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
+        "padding_top": 24,
+        "padding_bottom": 100,
         "divider": false,
         "full_width": false,
         "rounded": false
