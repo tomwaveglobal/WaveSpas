@@ -7,6 +7,7 @@
   @param {object} variant - the default-selected variant (resolved by the section)
   @param {string} [allowed_variants] - comma-separated variant IDs to allow (blank = all)
   @param {string} [exclude_words] - comma-separated words; variants whose title contains any are hidden
+  @param {boolean} [hide_out_of_stock] - hide sold-out variants from the picker
   @param {number} [qty] - quantity of this item in the bundle
 {%- enddoc -%}
 
@@ -59,6 +60,9 @@
                   break
                 endif
               endfor
+            endif
+            if offer and hide_out_of_stock and v.available == false
+              assign offer = false
             endif
           -%}
           {%- if offer -%}

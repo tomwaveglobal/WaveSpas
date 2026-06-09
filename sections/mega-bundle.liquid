@@ -55,6 +55,7 @@
   assign product_blocks = section.blocks | where: 'type', 'product'
   assign cols = product_blocks.size | at_most: 4 | at_least: 1
   assign pct = section.settings.discount_percent | default: 0
+  assign hide_oos = section.settings.hide_out_of_stock
 -%}
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
   <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
@@ -154,6 +155,9 @@
                       endif
                     endfor
                   endif
+                  if offer and hide_oos and v.available == false
+                    assign offer = false
+                  endif
                   if offer
                     if first_offered == blank
                       assign first_offered = v
@@ -177,7 +181,7 @@
                 {%- if rendered > 0 -%}
                   {%- render 'icon', icon: 'plus-3', size: 'xl', class: 'icon-bundle-plus absolute pointer-events-none' -%}
                 {%- endif -%}
-                {%- render 'mega-bundle-card', product: product, variant: selected, allowed_variants: allowed, exclude_words: exclude_words, qty: qty -%}
+                {%- render 'mega-bundle-card', product: product, variant: selected, allowed_variants: allowed, exclude_words: exclude_words, hide_out_of_stock: hide_oos, qty: qty -%}
               </div>
               {%- assign rendered = rendered | plus: 1 -%}
             {%- endif -%}
@@ -372,6 +376,13 @@
       "id": "savings_label",
       "label": "Total label",
       "default": "Bundle total"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_out_of_stock",
+      "label": "Hide out-of-stock variants",
+      "default": false,
+      "info": "When on, sold-out variants are removed from the picker buttons."
     },
     {
       "type": "header",
