@@ -119,10 +119,16 @@
             {%- if product != blank -%}
               {%- liquid
                 assign allowed = block.settings.allowed_variants
+                assign exclude_words = block.settings.exclude_words
                 assign has_filter = false
                 if allowed != blank
                   assign has_filter = true
                   assign allowed_norm = allowed | remove: ' ' | prepend: ',' | append: ','
+                endif
+                assign has_exclude = false
+                if exclude_words != blank
+                  assign has_exclude = true
+                  assign exclude_list = exclude_words | split: ','
                 endif
                 assign selected = blank
                 assign first_offered = blank
@@ -133,6 +139,16 @@
                     unless allowed_norm contains needle
                       assign offer = false
                     endunless
+                  endif
+                  if offer and has_exclude
+                    assign vtitle = v.title | downcase
+                    for w in exclude_list
+                      assign wt = w | strip | downcase
+                      if wt != blank and vtitle contains wt
+                        assign offer = false
+                        break
+                      endif
+                    endfor
                   endif
                   if offer
                     if first_offered == blank
@@ -157,7 +173,7 @@
                 {%- if rendered > 0 -%}
                   {%- render 'icon', icon: 'plus-3', size: 'xl', class: 'icon-bundle-plus absolute pointer-events-none' -%}
                 {%- endif -%}
-                {%- render 'mega-bundle-card', product: product, variant: selected, allowed_variants: allowed, qty: qty -%}
+                {%- render 'mega-bundle-card', product: product, variant: selected, allowed_variants: allowed, exclude_words: exclude_words, qty: qty -%}
               </div>
               {%- assign rendered = rendered | plus: 1 -%}
             {%- endif -%}
@@ -441,7 +457,13 @@
           "type": "text",
           "id": "allowed_variants",
           "label": "Allowed variant IDs",
-          "info": "Comma-separated variant IDs the customer may pick from. Leave blank to allow all. Copy IDs from the editor panel below the bundle."
+          "info": "Comma-separated variant IDs the customer may pick from. Leave blank to allow all. Copy IDs from the panel shown below the bundle in the preview."
+        },
+        {
+          "type": "text",
+          "id": "exclude_words",
+          "label": "Exclude variants containing",
+          "info": "Comma-separated words. Any variant whose name contains one of these is hidden (e.g. Energy Save). Applied on top of the allowed list."
         },
         {
           "type": "range",
