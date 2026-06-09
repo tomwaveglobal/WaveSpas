@@ -265,13 +265,29 @@
             {%- endfor -%}
           {%- endfor -%}
         </motion-list>
+        {%- liquid
+          assign reg_total = 0
+          for product in products limit: product_limit
+            assign pv = product.selected_or_first_available_variant
+            assign reg_total = reg_total | plus: pv.price
+          endfor
+          assign pct = section.settings.discount_percent | default: 0
+          assign saving = reg_total | times: pct | divided_by: 100
+          assign bundle_total = reg_total | minus: saving
+        -%}
         <div class="flex flex-col gap-4">
-          {%- if section.settings.discount_percent > 0 -%}
-            <div class="flex items-center justify-between gap-3 flex-wrap">
-              <span class="heading text-base font-medium">{{ section.settings.savings_label | default: 'Bundle saving' }}</span>
-              <span class="mega-bundle__saving badge inline-flex items-center rounded-full px-3 py-1d5 text-sm font-semibold">Save {{ section.settings.discount_percent }}%</span>
+          <div class="flex items-end justify-between gap-3 flex-wrap pt-1">
+            <div class="flex items-baseline gap-2 flex-wrap">
+              <span class="heading text-base font-medium">{{ section.settings.savings_label | default: 'Bundle total' }}</span>
+              {%- if pct > 0 and saving > 0 -%}
+                <s class="text-opacity">{{ reg_total | money }}</s>
+              {%- endif -%}
+              <span class="heading text-xl font-bold leading-none">{{ bundle_total | money }}</span>
             </div>
-          {%- endif -%}
+            {%- if pct > 0 and saving > 0 -%}
+              <span class="mega-bundle__saving badge inline-flex items-center rounded-full px-3 py-1d5 text-sm font-semibold">Save {{ saving | money }} ({{ pct }}%)</span>
+            {%- endif -%}
+          </div>
           <button type="button" class="button button--primary w-full" is="hover-button" aria-label="{{ 'products.product.add_to_cart_label' | t: title: product.title | escape }}" data-product-bundle-submit>
             <span class="btn-fill" data-fill></span>
             <span class="btn-text">{{ 'products.product.add_to_cart' | t }}</span>
