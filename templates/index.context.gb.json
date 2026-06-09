@@ -16,6 +16,23 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
+        "image_YL8tbf": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Father_s-Day_Freebies-inflatable-1.jpg",
+            "image_mobile": "shopify://shop_images/Father_s-Day_Freebies-inflatable-2.jpg",
+            "header-64c3bc551414a272caf83abe30c6c0bb": null,
+            "heading": "‎",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Father's Day",
+            "button_link": "shopify://collections/inflatable-hot-tubs",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
+          }
+        },
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
@@ -24,23 +41,6 @@
             "heading": "",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
-          }
-        },
-        "image_YL8tbf": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Freebies-inflatable-1.jpg",
-            "image_mobile": "shopify://shop_images/Freebies-inflatable-2_13582f00-a9db-41f9-a841-3a1c743a0272.jpg",
-            "header-64c3bc551414a272caf83abe30c6c0bb": null,
-            "heading": "‎",
-            "heading_size": "title-sm",
-            "heading_tag": "h2",
-            "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/inflatable-hot-tubs",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": false
           }
         },
         "image_9rd3Vt": {
@@ -61,8 +61,8 @@
         }
       },
       "block_order": [
-        "image_EUEdiE",
         "image_YL8tbf",
+        "image_EUEdiE",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"
