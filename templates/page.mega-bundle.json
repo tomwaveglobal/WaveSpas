@@ -1,80 +1,247 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "intro": {
       "type": "rich-text",
       "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
         "heading": "Mega Bundles",
         "heading_size": "title-sm",
         "heading_alignment": "text-center",
+        "heading_width": "small",
         "heading_tag": "h1",
+        "subheading": "",
         "description": "<p>Buy together and save.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "padding_top": 52,
         "padding_bottom": 12,
-        "narrow": false
+        "divider": false,
+        "narrow": false,
+        "rounded": false
       }
     },
     "bundle_hot_tubs": {
       "type": "mega-bundle",
       "blocks": {
-        "p1": { "type": "product", "settings": { "product": "pacific-hot-tub", "quantity": 1 } },
-        "p2": { "type": "product", "settings": { "product": "energy-save-thermal-cover", "quantity": 1 } },
-        "p3": { "type": "product", "settings": { "product": "insulating-floor-mat", "quantity": 1 } }
+        "p1": {
+          "type": "product",
+          "settings": {
+            "product": "garda-hot-tub",
+            "allowed_variants": "",
+            "exclude_words": "Energy",
+            "quantity": 1
+          }
+        },
+        "p2": {
+          "type": "product",
+          "settings": {
+            "product": "energy-save-thermal-cover",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        },
+        "p3": {
+          "type": "product",
+          "settings": {
+            "product": "insulating-floor-mat",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
       "settings": {
         "heading": "Hot Tub Bundle",
+        "subheading": "",
         "description": "<p>Everything you need to get started — save 10% when buying all three.</p>",
         "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
         "layout": "image_first",
+        "content_position": "md:items-end",
+        "text_alignment": "left",
+        "image_height_mobile": "300px",
+        "content_position_mobile": "items-end",
+        "text_alignment_mobile": "left",
         "discount_percent": 10,
+        "savings_label": "Bundle total",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
         "padding_bottom": 48,
-        "rounded": true
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "bundle_accessories": {
       "type": "mega-bundle",
       "blocks": {
-        "p1": { "type": "product", "settings": { "product": "handheld-wifi-controller-ukca", "quantity": 1 } },
-        "p2": { "type": "product", "settings": { "product": "screw-on-filter", "quantity": 1 } },
-        "p3": { "type": "product", "settings": { "product": "luxury-head-rest", "quantity": 1 } }
+        "p1": {
+          "type": "product",
+          "settings": {
+            "product": "handheld-wifi-controller-ukca",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        },
+        "p2": {
+          "type": "product",
+          "settings": {
+            "product": "screw-on-filter",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        },
+        "p3": {
+          "type": "product",
+          "settings": {
+            "product": "luxury-head-rest",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3"],
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
       "settings": {
         "heading": "Essential Accessories",
+        "subheading": "",
         "description": "<p>Save 10% when buying all three together.</p>",
         "image": "shopify://shop_images/Untitled-2.jpg",
         "layout": "text_first",
+        "content_position": "md:items-end",
+        "text_alignment": "left",
+        "image_height_mobile": "300px",
+        "content_position_mobile": "items-end",
+        "text_alignment_mobile": "left",
         "discount_percent": 10,
+        "savings_label": "Bundle total",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
         "padding_bottom": 48,
-        "rounded": true
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "bundle_comfort": {
       "type": "mega-bundle",
       "blocks": {
-        "p1": { "type": "product", "settings": { "product": "luxury-comfort-pack-3", "quantity": 1 } },
-        "p2": { "type": "product", "settings": { "product": "luxury-head-rest", "quantity": 1 } }
+        "p1": {
+          "type": "product",
+          "settings": {
+            "product": "luxury-comfort-pack-3",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        },
+        "p2": {
+          "type": "product",
+          "settings": {
+            "product": "luxury-head-rest",
+            "allowed_variants": "",
+            "exclude_words": "",
+            "quantity": 1
+          }
+        }
       },
-      "block_order": ["p1", "p2"],
+      "block_order": [
+        "p1",
+        "p2"
+      ],
       "settings": {
         "heading": "Comfort Pair",
+        "subheading": "",
         "description": "<p>Pair the comfort essentials and save.</p>",
         "image": "shopify://shop_images/HEader_03.jpg",
         "layout": "image_first",
+        "content_position": "md:items-end",
+        "text_alignment": "left",
+        "image_height_mobile": "300px",
+        "content_position_mobile": "items-end",
+        "text_alignment_mobile": "left",
         "discount_percent": 15,
+        "savings_label": "Bundle total",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
         "padding_bottom": 72,
-        "rounded": true
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     }
   },
-  "order": ["intro", "bundle_hot_tubs", "bundle_accessories", "bundle_comfort"]
+  "order": [
+    "intro",
+    "bundle_hot_tubs",
+    "bundle_accessories",
+    "bundle_comfort"
+  ]
 }
