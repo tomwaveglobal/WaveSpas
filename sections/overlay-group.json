@@ -152,7 +152,7 @@
         "floating"
       ],
       "settings": {
-        "mode": "enabled",
+        "mode": "testing",
         "only_homepage": true,
         "only_visitor": false,
         "delay": 6,
