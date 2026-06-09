@@ -16,32 +16,17 @@
     "bundle_hot_tubs": {
       "type": "mega-bundle",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Hot Tub Bundle",
-            "heading_size": "title-md",
-            "heading_tag": "h2"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Everything you need to get started — save 10% when buying all three together.</p>",
-            "text_size": "subtext-md"
-          }
-        }
+        "p1": { "type": "product", "settings": { "product": "pacific-hot-tub", "quantity": 1 } },
+        "p2": { "type": "product", "settings": { "product": "energy-save-thermal-cover", "quantity": 1 } },
+        "p3": { "type": "product", "settings": { "product": "insulating-floor-mat", "quantity": 1 } }
       },
-      "block_order": ["heading", "text"],
+      "block_order": ["p1", "p2", "p3"],
       "settings": {
-        "products": ["pacific-hot-tub", "energy-save-thermal-cover", "insulating-floor-mat"],
-        "product_limit": 3,
-        "discount_percent": 10,
-        "savings_label": "Bundle saving",
+        "heading": "Hot Tub Bundle",
+        "description": "<p>Everything you need to get started — save 10% when buying all three.</p>",
         "image": "shopify://shop_images/Pacific-Hero-Family_b461206c-4213-40ff-9ef1-0faabc2253da.jpg",
         "layout": "image_first",
-        "text_alignment": "left",
-        "color_text": "#ffffff",
+        "discount_percent": 10,
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
@@ -52,32 +37,17 @@
     "bundle_accessories": {
       "type": "mega-bundle",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Essential Accessories",
-            "heading_size": "title-md",
-            "heading_tag": "h2"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Save 10% when buying all three accessories together.</p>",
-            "text_size": "subtext-md"
-          }
-        }
+        "p1": { "type": "product", "settings": { "product": "handheld-wifi-controller-ukca", "quantity": 1 } },
+        "p2": { "type": "product", "settings": { "product": "screw-on-filter", "quantity": 1 } },
+        "p3": { "type": "product", "settings": { "product": "luxury-head-rest", "quantity": 1 } }
       },
-      "block_order": ["heading", "text"],
+      "block_order": ["p1", "p2", "p3"],
       "settings": {
-        "products": ["handheld-wifi-controller-ukca", "screw-on-filter", "luxury-head-rest"],
-        "product_limit": 3,
-        "discount_percent": 10,
-        "savings_label": "Bundle saving",
+        "heading": "Essential Accessories",
+        "description": "<p>Save 10% when buying all three together.</p>",
         "image": "shopify://shop_images/Untitled-2.jpg",
         "layout": "text_first",
-        "text_alignment": "left",
-        "color_text": "#ffffff",
+        "discount_percent": 10,
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
@@ -85,35 +55,19 @@
         "rounded": true
       }
     },
-    "bundle_b1g1": {
+    "bundle_comfort": {
       "type": "mega-bundle",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Comfort Pair",
-            "heading_size": "title-md",
-            "heading_tag": "h2"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Pair the comfort essentials and save.</p>",
-            "text_size": "subtext-md"
-          }
-        }
+        "p1": { "type": "product", "settings": { "product": "luxury-comfort-pack-3", "quantity": 1 } },
+        "p2": { "type": "product", "settings": { "product": "luxury-head-rest", "quantity": 1 } }
       },
-      "block_order": ["heading", "text"],
+      "block_order": ["p1", "p2"],
       "settings": {
-        "products": ["luxury-comfort-pack-3", "luxury-head-rest"],
-        "product_limit": 2,
-        "discount_percent": 15,
-        "savings_label": "Bundle saving",
+        "heading": "Comfort Pair",
+        "description": "<p>Pair the comfort essentials and save.</p>",
         "image": "shopify://shop_images/HEader_03.jpg",
         "layout": "image_first",
-        "text_alignment": "left",
-        "color_text": "#ffffff",
+        "discount_percent": 15,
         "color_overlay": "#000000",
         "overlay_opacity": 35,
         "padding_top": 24,
@@ -122,5 +76,5 @@
       }
     }
   },
-  "order": ["intro", "bundle_hot_tubs", "bundle_accessories", "bundle_b1g1"]
+  "order": ["intro", "bundle_hot_tubs", "bundle_accessories", "bundle_comfort"]
 }

@@ -1,0 +1,62 @@
+{%- doc -%}
+  Mega Bundle item card — mirrors the theme product-card look, with a row of
+  pill buttons for ONLY the merchant-allowed variants. Selection + add-to-cart
+  are handled by assets/mega-bundle.js.
+
+  @param {object} product - the item's product
+  @param {object} variant - the default-selected variant (resolved by the section)
+  @param {string} [allowed_variants] - comma-separated variant IDs to allow (blank = all)
+  @param {number} [qty] - quantity of this item in the bundle
+{%- enddoc -%}
+
+{%- liquid
+  assign has_filter = false
+  if allowed_variants != blank
+    assign has_filter = true
+    assign allowed_norm = allowed_variants | remove: ' ' | prepend: ',' | append: ','
+  endif
+  assign sel_image = variant.featured_image | default: product.featured_image
+-%}
+<div class="card product-card product-card--{{ settings.card_style }}{% unless sel_image %} no-media{% endunless %} flex flex-col leading-none relative" data-mega-card data-qty="{{ qty | default: 1 }}">
+  <div class="product-card__media relative h-auto">
+    {%- render 'product-badges', product: product, show_sold_out: true, class: 'z-2 absolute grid gap-3 pointer-events-none' -%}
+    <a class="block relative media media--{{ settings.product_image_ratio }}{% unless settings.product_image_fill %} media--contain{% endunless %} overflow-hidden" href="{{ product.url }}" aria-hidden="true" tabindex="-1">
+      {%- if sel_image != blank -%}
+        <img data-mega-image src="{{ sel_image | image_url: width: 360 }}" srcset="{{ sel_image | image_url: width: 180 }} 180w, {{ sel_image | image_url: width: 360 }} 360w, {{ sel_image | image_url: width: 540 }} 540w" sizes="(min-width: 750px) 25vw, 90vw" alt="{{ product.title | escape }}" loading="lazy" width="360" height="360">
+      {%- endif -%}
+    </a>
+  </div>
+  <div class="product-card__content grow flex flex-col justify-start text-{{ settings.card_text_alignment }}">
+    <div class="product-card__details flex flex-col gap-2 w-full">
+      <p>
+        <a class="product-card__title reversed-link text-base-xl font-medium leading-tight" href="{{ product.url }}">{{ product.title | escape }}</a>
+      </p>
+      <div class="price text-base font-medium" data-mega-price>{{ variant.price | money }}</div>
+    </div>
+    {%- unless product.has_only_default_variant -%}
+      <div class="mega-variants flex flex-wrap gap-2 mt-3" role="group" aria-label="{{ 'products.product.product_variants' | t | default: 'Choose a variant' | escape }}">
+        {%- for v in product.variants -%}
+          {%- liquid
+            assign offer = true
+            if has_filter
+              assign needle = ',' | append: v.id | append: ','
+              unless allowed_norm contains needle
+                assign offer = false
+              endunless
+            endif
+          -%}
+          {%- if offer -%}
+            <button type="button"
+              class="mega-variant-btn{% if v.id == variant.id %} is-active{% endif %}{% unless v.available %} is-unavailable{% endunless %}"
+              data-variant-id="{{ v.id }}"
+              data-price="{{ v.price }}"
+              data-image="{% if v.featured_image %}{{ v.featured_image | image_url: width: 360 }}{% endif %}"
+              data-available="{% if v.available %}1{% else %}0{% endif %}"
+            >{{ v.title }}</button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
+  </div>
+  <input type="hidden" data-mega-variant-id value="{{ variant.id }}">
+</div>
