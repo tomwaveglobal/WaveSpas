@@ -34,7 +34,11 @@
 
   #shopify-section-{{ section.id }} .mega-bundle__editor { margin-top: var(--sp-6, 1.5rem); border: 1px dashed rgb(var(--color-foreground) / 0.3); border-radius: 8px; padding: var(--sp-4, 1rem); font-size: 0.72rem; background: rgb(var(--color-foreground) / 0.03); }
   #shopify-section-{{ section.id }} .mega-bundle__editor h4 { font-weight: 700; margin-bottom: 0.5rem; }
-  #shopify-section-{{ section.id }} .mega-bundle__editor details + details { margin-top: 0.4rem; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor-hint { margin-bottom: 0.6rem; opacity: 0.85; }
+  #shopify-section-{{ section.id }} .mega-bundle__editor-product { padding: 0.6rem 0; border-top: 1px solid rgb(var(--color-foreground) / 0.12); }
+  #shopify-section-{{ section.id }} .mega-bundle__editor-product:first-of-type { border-top: 0; }
+  #shopify-section-{{ section.id }} .mega-bundle__options { display: grid; gap: 0.15rem; margin: 0.3rem 0; }
+  #shopify-section-{{ section.id }} .mega-bundle__options .opt-name { font-weight: 600; margin-right: 0.25rem; }
   #shopify-section-{{ section.id }} .mega-bundle__editor summary { cursor: pointer; }
   #shopify-section-{{ section.id }} .mega-bundle__editor code { user-select: all; font-weight: 600; }
   #shopify-section-{{ section.id }} .mega-bundle__editor .scroll { overflow-x: auto; }
@@ -206,28 +210,43 @@
 
     {%- if request.design_mode -%}
       <div class="mega-bundle__editor">
-        <h4>Theme editor · choose which variants customers can pick (copy the IDs into each item's "Allowed variant IDs")</h4>
+        <h4>Theme editor · choose which variants customers can pick</h4>
+        <p class="mega-bundle__editor-hint">Copy the IDs you want into each item's <strong>Allowed variant IDs</strong>, and/or type option words into <strong>Exclude variants containing</strong> (e.g. <code>EnergySave</code> to drop the EnergySave edition).</p>
         {%- for block in product_blocks -%}
           {%- assign product = block.settings.product -%}
           {%- if product != blank -%}
-            <details>
-              <summary><strong>{{ product.title }}</strong> &mdash; {{ product.variants.size }} variant(s){% if block.settings.allowed_variants != blank %} · allowing: {{ block.settings.allowed_variants }}{% else %} · allowing: all{% endif %}</summary>
-              <div class="scroll">
-                <table class="mega-bundle__id-table">
-                  <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
-                  {%- for v in product.variants -%}
-                    <tr>
-                      <td>{{ v.title }}</td>
-                      <td>{{ v.sku | default: '&mdash;' }}</td>
-                      <td><code>{{ v.id }}</code></td>
-                      <td class="{% unless v.available %}oos{% endunless %}">
-                        {%- if v.inventory_management != blank -%}{{ v.inventory_quantity }}{%- elsif v.available -%}avail.{%- else -%}n/a{%- endif -%}
-                      </td>
-                    </tr>
-                  {%- endfor -%}
-                </table>
+            <div class="mega-bundle__editor-product">
+              <p class="mega-bundle__editor-title">
+                <strong>{{ product.title }}</strong> &mdash; {{ product.variants.size }} variant(s)
+                {%- if block.settings.allowed_variants != blank %} · allowing IDs: {{ block.settings.allowed_variants }}{% else %} · allowing: all{% endif -%}
+                {%- if block.settings.exclude_words != blank %} · excluding: &ldquo;{{ block.settings.exclude_words }}&rdquo;{% endif -%}
+              </p>
+              <div class="mega-bundle__options">
+                {%- for opt in product.options_with_values -%}
+                  <div class="opt"><span class="opt-name">{{ opt.name }}:</span>
+                    {%- for value in opt.values -%}{% unless forloop.first %}, {% endunless %}{{ value.name | default: value }}{%- endfor -%}
+                  </div>
+                {%- endfor -%}
               </div>
-            </details>
+              <details>
+                <summary>Show variant IDs &amp; stock (to copy into Allowed variant IDs)</summary>
+                <div class="scroll">
+                  <table class="mega-bundle__id-table">
+                    <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
+                    {%- for v in product.variants -%}
+                      <tr>
+                        <td>{{ v.title }}</td>
+                        <td>{{ v.sku | default: '&mdash;' }}</td>
+                        <td><code>{{ v.id }}</code></td>
+                        <td class="{% unless v.available %}oos{% endunless %}">
+                          {%- if v.inventory_management != blank -%}{{ v.inventory_quantity }}{%- elsif v.available -%}avail.{%- else -%}n/a{%- endif -%}
+                        </td>
+                      </tr>
+                    {%- endfor -%}
+                  </table>
+                </div>
+              </details>
+            </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
