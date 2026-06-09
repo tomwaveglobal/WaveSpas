@@ -227,9 +227,10 @@
                     {%- for value in opt.values -%}{% unless forloop.first %}, {% endunless %}{{ value.name | default: value }}{%- endfor -%}
                   </div>
                 {%- endfor -%}
+                <div class="opt"><span class="opt-name">All IDs:</span> <code>{% for v in product.variants %}{{ v.id }}{% unless forloop.last %},{% endunless %}{% endfor %}</code></div>
               </div>
-              <details>
-                <summary>Show variant IDs &amp; stock (to copy into Allowed variant IDs)</summary>
+              <details open>
+                <summary>Variant IDs &amp; stock (copy an ID into Allowed variant IDs)</summary>
                 <div class="scroll">
                   <table class="mega-bundle__id-table">
                     <tr><th>Variant</th><th>SKU</th><th>ID</th><th>Stock</th></tr>
