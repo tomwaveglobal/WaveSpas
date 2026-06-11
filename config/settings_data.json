@@ -312,6 +312,13 @@
         "type": "shopify://apps/vex-auto-add-to-cart/blocks/vex-theme-extension/4050c1c7-5b58-4120-af12-e290cb2b28f0",
         "disabled": false,
         "settings": {}
+      },
+      "13951170544780599758": {
+        "type": "shopify://apps/tapita-seo-speed/blocks/app-embed/cd37ca7a-40ad-4fdc-afd3-768701482209",
+        "disabled": false,
+        "settings": {
+          "hide_price": false
+        }
       }
     }
   },
