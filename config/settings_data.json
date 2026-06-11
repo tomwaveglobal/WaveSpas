@@ -87,7 +87,7 @@
     "card_shadow_horizontal_offset": 0,
     "card_shadow_vertical_offset": 0,
     "currency_code_enabled": false,
-    "swatch_config": "Flint Gray:Flint_Gray.png\nFlint Grey:Flint_Gray.png\nPebble White:Pebble_White.png\nCharcoal Black:Charcoal_Black.png\nGraphite Gray:Graphite_Gray.png\nGraphite Grey:Graphite_Gray.png\nGray Rattan:#767676\nGrey Rattan:#767676\nBrown Rattan:Brown_Rattan.jpg\nUmber Brown:#685537\nBlack:#000000\nGrey Wood:#555555\nGrey Stone:#98817B\nWhite Wood:#f4f0ec\nRoyal Blue:#191970\nDark Grey:#464B4E\nDark Gray:#464B4E\nSage:#5E6B4F\nNavy:#213646\nWhite:#FFFFFF\nAqua:#2F98A7\nOrange:#F64F15\nTeal:#279081\nDark Green:#2a312a\nPurple:#6e366a\nGrey Camouflage:#767676\nGray Camouflage:#767676\nBlack & Grey:#000000\nBlack & Gray:#000000\nBlack & Pink:#c51198\nEcru:#cecabf\nLight Grey:#dfdfdf\nLight Gray:#dfdfdf\nSlate Rattan:Slate_Rattan.jpg",
+    "swatch_config": "Flint Gray:Flint_Gray.png\nFlint Grey:Flint_Gray.png\nPebble White:Pebble_White.png\nCharcoal Black:Charcoal_Black.png\nGraphite Gray:Graphite_Gray.png\nGraphite Grey:Graphite_Gray.png\nGray Rattan:Grey_Rattan.jpg\nGrey Rattan:Grey_Rattan.jpg\nBrown Rattan:Brown_Rattan.jpg\nUmber Brown:#685537\nBlack:#000000\nGrey Wood:#555555\nGrey Stone:#98817B\nWhite Wood:#f4f0ec\nRoyal Blue:#191970\nDark Grey:#464B4E\nDark Gray:#464B4E\nSage:#5E6B4F\nNavy:#213646\nWhite:#FFFFFF\nAqua:#2F98A7\nOrange:#F64F15\nTeal:#279081\nDark Green:#2a312a\nPurple:#6e366a\nGrey Camouflage:#767676\nGray Camouflage:#767676\nBlack & Grey:#000000\nBlack & Gray:#000000\nBlack & Pink:#c51198\nEcru:#cecabf\nLight Grey:#dfdfdf\nLight Gray:#dfdfdf\nSlate Rattan:Slate_Rattan.jpg",
     "swatch_image_tooltip": true,
     "product_image_ratio": "square",
     "product_image_fill": false,
