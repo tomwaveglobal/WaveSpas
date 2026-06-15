@@ -98,7 +98,12 @@
     "newsletter": {
       "label": "Melden Sie sich für unseren Newsletter an",
       "success": "Danke für deine Anmeldung",
-      "submit": "Abonnieren"
+      "submit": "Abonnieren",
+      "next": "Fortfahren",
+      "phone_label": "Mobiltelefonnummer",
+      "phone_invalid": "Bitte geben Sie eine gültige Mobiltelefonnummer ein",
+      "sms_consent": "Ich bin damit einverstanden, Marketing-SMS von Wave Spas an die angegebene Nummer zu erhalten. Die Zustimmung ist keine Bedingung für den Kauf. Antworte mit STOP, um dich abzumelden.",
+      "skip": "Überspringen"
     },
     "search": {
       "title": "Suche",
@@ -533,7 +538,8 @@
       "regular_price": "Normaler Preis",
       "sale_price": "Verkaufspreis",
       "unit_price": "Grundpreis",
-      "from_price_html": "<small>Ab</small> {{ price }}"
+      "from_price_html": "<small>Ab</small> {{ price }}",
+      "save_amount_html": "Spare {{ savings }}"
     },
     "media": {
       "open_media": "Medien {{ index }} in Modal öffnen",
@@ -596,6 +602,12 @@
         "send": "Benachrichtigen Sie mich",
         "post_success": "Ihre E-Mail wurde empfangen."
       }
+    },
+    "subscription_tabs": {
+      "one_time": "Einmaliger Kauf",
+      "subscribe": "Abonnieren & Sparen",
+      "select_frequency": "Lieferhäufigkeit",
+      "choose_plan": "Lieferfrequenz auswählen"
     }
   },
   "gift_cards": {
@@ -631,6 +643,5 @@
       "send_on": "JJJJ-MM-TT",
       "send_on_label": "Senden am (optional)"
     }
-  },
-  "date_formats": {}
+  }
 }
