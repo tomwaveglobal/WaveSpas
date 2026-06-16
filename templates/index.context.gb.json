@@ -22,7 +22,7 @@
           "settings": {
             "image": "shopify://shop_images/Father_s-Day_Freebies-inflatable-1.jpg",
             "image_mobile": "shopify://shop_images/Father_s-Day_Freebies-inflatable.jpg",
-            "header-b5c22f7e207127d40515f2a002fa7ba2": null,
+            "header-ddeb0ce44336fbf79e209a1ff70e8179": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -36,8 +36,8 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Price_Freebies-Foam-1.jpg",
-            "image_mobile": "shopify://shop_images/Price_Freebies-Foam-2.jpg",
+            "image": "shopify://shop_images/White-pebble-Freebies-1.jpg",
+            "image_mobile": "shopify://shop_images/White-pebble-Freebies-2.jpg",
             "heading": "",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
