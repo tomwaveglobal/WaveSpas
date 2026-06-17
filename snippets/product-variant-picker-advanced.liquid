@@ -1752,11 +1752,31 @@
     });
   }
 
-  // Sync the host form's hidden id input AND fire variant:change. Only
-  // call this when we have a full, valid variant.
+  // Reflect the resolved variant in the address bar (?variant=<id>), the same
+  // as Shopify's standard picker (ProductInfo.updateURL) — keeps the URL
+  // shareable/deep-linkable and matches the other Wave storefronts. The
+  // advanced picker bypasses ProductInfo, so it has to do this itself. Mirror
+  // the theme's guard: skip when the host product-info opts out via
+  // data-update-url="false" (e.g. quick-view / featured-product embeds), and
+  // skip entirely when there's no product-info wrapper so we never rewrite the
+  // URL from a homepage/quick-view context.
+  function updateUrlForVariant(variantId) {
+    if (!variantId) return;
+    var info = root.closest('product-info');
+    if (!info || info.getAttribute('data-update-url') === 'false') return;
+    try {
+      var url = new URL(window.location.href);
+      if (url.searchParams.get('variant') === String(variantId)) return;
+      url.searchParams.set('variant', variantId);
+      window.history.replaceState({ path: url.toString() }, '', url.toString());
+    } catch (e) { /* URL API unavailable — non-fatal */ }
+  }
+
+  // Sync the host form's hidden id input, the URL, AND fire variant:change.
   function syncFormVariant(variant) {
     if (!variant) return;
     currentMainVariantId = variant.id;
+    updateUrlForVariant(variant.id);
     var form = document.getElementById(formId);
     if (!form) return;
     var idInput = form.querySelector('input[name="id"]');
