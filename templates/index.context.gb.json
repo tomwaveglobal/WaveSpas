@@ -20,9 +20,9 @@
           "type": "image",
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Carousel_Freebies_inflatable-1.jpg",
-            "image_mobile": "shopify://shop_images/Carousel_Freebies_inflatable-2.jpg",
-            "header-572cf48410c22eeeb1479e5f3d0b36cd": null,
+            "image": "shopify://shop_images/Carousel_Freebies_inflatable-1_7892a11d-1012-4036-b169-dd40beaf9a4b.jpg",
+            "image_mobile": "shopify://shop_images/Carousel_Freebies_inflatable-2_aed7a63e-19aa-49e9-8040-914d4b876468.jpg",
+            "header-b96f9235d5971d61d19003ac36f4e602": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -34,7 +34,7 @@
           }
         },
         "image_EUEdiE": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/White-pebble-Freebies-1.jpg",
             "image_mobile": "shopify://shop_images/White-pebble-Freebies-2.jpg",
