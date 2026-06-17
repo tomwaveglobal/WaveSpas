@@ -16,15 +16,6 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_hc4WwT": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/US_10_KickOff.jpg",
-            "image_mobile": "shopify://shop_images/US_10_-Off_Spa-bundle-carousel-2_33e81ef4-46ab-496c-b573-3a8b6ed55426.jpg",
-            "heading": "‎",
-            "button_label": "Final Chance"
-          }
-        },
         "image_rmPQY4": {
           "disabled": false,
           "settings": {}
@@ -32,6 +23,15 @@
         "image_EUEdiE": {
           "disabled": true,
           "settings": {}
+        },
+        "image_hc4WwT": {
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/US_10_KickOff.jpg",
+            "image_mobile": "shopify://shop_images/US_10_-Off_Spa-bundle-carousel-2_33e81ef4-46ab-496c-b573-3a8b6ed55426.jpg",
+            "heading": "‎",
+            "button_label": "Final Chance"
+          }
         }
       },
       "block_order": [
