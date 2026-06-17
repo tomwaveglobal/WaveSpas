@@ -1767,16 +1767,16 @@
     dispatchVariantChange(variant);
   }
 
-  // ═══ Add-to-Cart button state ════════════════════════════════════════
+  // ═══ Add-to-Cart button + pre-order message state ════════════════════
   // The standard theme drives the submit button (disabled state + Sold Out /
-  // Pre-Order / Add to Cart label) through ProductInfo → toggleSubmitButton,
-  // triggered by the *standard* <variant-picker>. This advanced picker
-  // replaces that picker and runs its own section refresh, which deliberately
-  // doesn't re-render the button — so without this the button stays frozen on
-  // the first-available variant's server-rendered state (e.g. an enabled
-  // "Pre-Order"), letting a shopper add a previously-selected colour to cart
-  // after switching to a colour that's actually sold out. We assert the
-  // button state ourselves from the resolved variant's sellability.
+  // Pre-Order / Add to Cart label) and the per-variant "ships …" pre-order
+  // message through ProductInfo, triggered by the *standard* <variant-picker>.
+  // This advanced picker replaces that picker and runs its own section
+  // refresh, which doesn't touch either — so without this the button and the
+  // pre-order message stay frozen on the previously-selected colour. That let
+  // a sold-out colour add the prior colour to cart, and left an out-of-stock
+  // colour showing the wrong (stuck) pre-order message. We assert both here
+  // from the resolved variant.
 
   // The primary Add-to-Cart button(s) bound to the host form. Excludes the
   // dynamic-checkout / payment button (it carries no name="add").
@@ -1794,40 +1794,84 @@
     return els;
   }
 
-  function setBuyButtonState(sellable) {
-    var strings = (window.theme && theme.variantStrings) || {};
-    buyButtonEls().forEach(function (btn) {
-      var textEl = btn.querySelector('.btn-text > span') || btn.querySelector('.btn-text');
-      if (sellable) {
-        btn.disabled = false;
-        btn.removeAttribute('disabled');
-        btn.removeAttribute('aria-disabled');
-        if (textEl) textEl.textContent = btn.hasAttribute('data-pre-order')
-          ? (strings.preOrder || 'Pre-Order')
-          : (strings.addToCart || 'Add to cart');
-      } else {
-        btn.disabled = true;
-        btn.setAttribute('disabled', '');
-        if (textEl) textEl.textContent = strings.soldOut || 'Sold out';
+  // Resolve the variant representing the current (possibly partial) selection.
+  // Prefer a full match; otherwise the first compatible variant, preferring a
+  // sellable one (in stock or pre-orderable) so a colour with one sold-out
+  // size/edition doesn't read as sold-out when another combo is buyable.
+  function resolveActiveVariant() {
+    var full = findVariant();
+    if (full) return full;
+    var fallback = null;
+    for (var k = 0; k < variants.length; k++) {
+      var v = variants[k];
+      var ok = true;
+      for (var i = 1; i <= optionCount; i++) {
+        if (selected[i] && normOpt(selected[i]) !== normOpt(v['option' + i])) { ok = false; break; }
       }
+      if (!ok) continue;
+      if (v.available || preOrderByVariant[v.id]) return v;
+      if (!fallback) fallback = v;
+    }
+    return fallback;
+  }
+
+  // Show only the pre-order "ships …" message block for the given variant id
+  // (matches ProductInfo.updatePreOrderMessagesVisibility, which this picker
+  // bypasses — hence the message stayed stuck on the previously-shown colour).
+  // Pass null to hide them all. Scoped to this product's <product-info>.
+  function setActivePreOrderMessage(variantId) {
+    var scope = root.closest('product-info') || document;
+    var blocks = scope.querySelectorAll('.pre-order-message-block[data-pre-order]');
+    if (!blocks.length) return;
+    var idStr = variantId != null ? String(variantId) : '';
+    blocks.forEach(function (el) {
+      el.classList.toggle('active', el.getAttribute('data-pre-order') === idStr);
     });
   }
 
-  // Re-assert the Add-to-Cart button from the fully-resolved variant. Only
-  // acts once every step has a value — mid-flow we leave the server-rendered
-  // button untouched so a fresh PDP doesn't flash "Sold out" before the
-  // shopper has chosen anything.
+  function setBuyButtonState(state) {
+    // state: 'buy' | 'preorder' | 'soldout'
+    var strings = (window.theme && theme.variantStrings) || {};
+    var soldOut = state === 'soldout';
+    var preorder = state === 'preorder';
+    var label = soldOut ? (strings.soldOut || 'Sold out')
+      : preorder ? (strings.preOrder || 'Pre-Order')
+      : (strings.addToCart || 'Add to cart');
+    buyButtonEls().forEach(function (btn) {
+      var textEl = btn.querySelector('.btn-text > span') || btn.querySelector('.btn-text');
+      // Keep data-pre-order in sync with the resolved variant so the theme's
+      // own label-restore logic (e.g. after an add-to-cart error) doesn't
+      // revert an in-stock variant back to "Pre-Order".
+      btn.toggleAttribute('data-pre-order', preorder);
+      if (soldOut) {
+        btn.disabled = true;
+        btn.setAttribute('disabled', '');
+      } else {
+        btn.disabled = false;
+        btn.removeAttribute('disabled');
+        btn.removeAttribute('aria-disabled');
+      }
+      if (textEl) textEl.textContent = label;
+    });
+  }
+
+  // Re-assert the Add-to-Cart button + pre-order message from the resolved
+  // variant. The standard <variant-picker> does this via ProductInfo; this
+  // picker replaces that, so without it the button label, disabled state and
+  // "ships …" message stay frozen on the previously-selected colour. Rule:
+  //   in stock                 → "Add to cart", no pre-order message
+  //   out of stock + has date  → "Pre-Order"  + ships message
+  //   out of stock + no date   → "Sold out"   + disabled
   function updateBuyButtons() {
-    for (var i = 1; i <= optionCount; i++) {
-      if (!selected[i]) return;
-    }
-    var variant = findVariant();
-    // Same rule the tiles use: a variant is sellable if it's in stock OR has
-    // a pre-order date for the active market. A colour with neither (no
-    // matching variant at all, or one that's sold out with no pre-order
-    // date) is not sellable → Sold Out + disabled.
-    var sellable = variant ? (variant.available || !!preOrderByVariant[variant.id]) : false;
-    setBuyButtonState(sellable);
+    var variant = resolveActiveVariant();
+    var hasDate = variant ? !!preOrderByVariant[variant.id] : false;
+    var available = variant ? variant.available : false;
+    var state = !variant ? 'soldout'
+      : available ? 'buy'
+      : hasDate ? 'preorder'
+      : 'soldout';
+    setBuyButtonState(state);
+    setActivePreOrderMessage(state === 'preorder' ? variant.id : null);
   }
 
   // ═══ Add-on variant matching ═════════════════════════════════════════
