@@ -2152,20 +2152,18 @@
     updateAvailability();
     renumberAndLock();
     updateAllTiles();
-    // Resolve the variant FIRST so the SKU-matcher reads the fresh id when
-    // running add-on matching (otherwise every selection is off-by-one).
-    var fullVariant = findVariant();
-    if (fullVariant) {
-      syncFormVariant(fullVariant);
-    } else {
-      // Partial selection (e.g. user has only picked colour so far). The
-      // form's hidden id stays at the last-committed value, but we still
-      // fire variant:change with a representative variant matching the
-      // current selections — that's what triggers the media gallery to
-      // swap its hero image, the price block to refresh, etc.
-      var representative = findFirstCompatibleVariant();
-      if (representative) dispatchVariantChange(representative);
-    }
+    // Always point the form's hidden id at the best variant for the current
+    // selection — a full match if every step is chosen, otherwise the
+    // representative variant for the chosen colour. syncFormVariant updates
+    // [name="id"], fires its change event and dispatches variant:change, so
+    // the native cart, the media gallery AND third-party apps that read
+    // [name="id"] (e.g. the STOQ pre-order app, which injects its "ships …"
+    // bar from the selected variant) all follow the colour switch. Leaving
+    // the id on the last-committed value was the root cause behind both the
+    // cart adding the previously-selected colour and STOQ's pre-order bar
+    // lingering after switching to a sold-out colour like Pebble White.
+    var activeVariant = resolveActiveVariant();
+    if (activeVariant) syncFormVariant(activeVariant);
     // Sync the Add-to-Cart button to the resolved selection so a sold-out
     // colour (no stock, no pre-order date) disables the button and shows
     // "Sold out" instead of silently adding the previously-selected colour.
