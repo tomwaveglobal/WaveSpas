@@ -39,6 +39,12 @@
             "tab_target_2": "",
             "tab_target_link_2": ""
           }
+        },
+        "mega_menu_tab_RkApqL": {
+          "settings": {
+            "tab_target_2": "Tents",
+            "tab_target_link_2": "shopify://collections/tents"
+          }
         }
       }
     }
