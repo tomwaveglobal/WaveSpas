@@ -1858,17 +1858,22 @@
   // Re-assert the Add-to-Cart button + pre-order message from the resolved
   // variant. The standard <variant-picker> does this via ProductInfo; this
   // picker replaces that, so without it the button label, disabled state and
-  // "ships …" message stay frozen on the previously-selected colour. Rule:
-  //   in stock                 → "Add to cart", no pre-order message
-  //   out of stock + has date  → "Pre-Order"  + ships message
-  //   out of stock + no date   → "Sold out"   + disabled
+  // "ships …" message stay frozen on the previously-selected colour.
+  //
+  // A pre-order date is the merchant's authoritative "this is a pre-order"
+  // signal and MUST win over `available`: pre-order colours use inventory
+  // policy "continue", so Shopify reports them available:true at 0 stock —
+  // checking availability first would mislabel them "Add to cart" and drop
+  // their ships message. Rule, in priority order:
+  //   has pre-order date  → "Pre-Order"  + ships message  (even if available)
+  //   else available      → "Add to cart"                 (genuinely in stock)
+  //   else                → "Sold out"   + disabled        (e.g. Pebble White)
   function updateBuyButtons() {
     var variant = resolveActiveVariant();
     var hasDate = variant ? !!preOrderByVariant[variant.id] : false;
     var available = variant ? variant.available : false;
-    var state = !variant ? 'soldout'
+    var state = hasDate ? 'preorder'
       : available ? 'buy'
-      : hasDate ? 'preorder'
       : 'soldout';
     setBuyButtonState(state);
     setActivePreOrderMessage(state === 'preorder' ? variant.id : null);
