@@ -4,8 +4,10 @@
   Step display order is derived from option name ("colour"/"size"/
   "edition|bundle|version") regardless of Shopify's option positions.
   Numbered badges (1/2/3/4) follow display order. All earlier steps stay
-  interactive — selecting a new colour at any point re-resolves the
-  variant and updates the rest of the picker live.
+  interactive — changing an earlier step (e.g. colour) re-resolves the
+  variant live AND resets the later steps, so a previously-picked size or
+  edition that doesn't exist for the new colour can't leave the picker stuck
+  on an unavailable combination.
 
   Feature summary
   ---------------
@@ -1752,11 +1754,31 @@
     });
   }
 
-  // Sync the host form's hidden id input AND fire variant:change. Only
-  // call this when we have a full, valid variant.
+  // Reflect the resolved variant in the address bar (?variant=<id>), the same
+  // as Shopify's standard picker (ProductInfo.updateURL) — keeps the URL
+  // shareable/deep-linkable and matches the other Wave storefronts. The
+  // advanced picker bypasses ProductInfo, so it has to do this itself. Mirror
+  // the theme's guard: skip when the host product-info opts out via
+  // data-update-url="false" (e.g. quick-view / featured-product embeds), and
+  // skip entirely when there's no product-info wrapper so we never rewrite the
+  // URL from a homepage/quick-view context.
+  function updateUrlForVariant(variantId) {
+    if (!variantId) return;
+    var info = root.closest('product-info');
+    if (!info || info.getAttribute('data-update-url') === 'false') return;
+    try {
+      var url = new URL(window.location.href);
+      if (url.searchParams.get('variant') === String(variantId)) return;
+      url.searchParams.set('variant', variantId);
+      window.history.replaceState({ path: url.toString() }, '', url.toString());
+    } catch (e) { /* URL API unavailable — non-fatal */ }
+  }
+
+  // Sync the host form's hidden id input, the URL, AND fire variant:change.
   function syncFormVariant(variant) {
     if (!variant) return;
     currentMainVariantId = variant.id;
+    updateUrlForVariant(variant.id);
     var form = document.getElementById(formId);
     if (!form) return;
     var idInput = form.querySelector('input[name="id"]');
@@ -2143,12 +2165,37 @@
       });
   }
 
+  // Clear the selections of every step displayed AFTER the one that changed
+  // (by display order / step number). Changing an earlier step — most often
+  // the colour — invalidates the later picks: the previously-chosen size or
+  // edition may not exist for the new colour, which would leave the picker
+  // stuck on an unavailable combination. Resetting the later steps forces the
+  // shopper to re-pick a valid path for the new colour. Earlier steps and the
+  // step that changed are left untouched.
+  function resetLaterSteps(changedPos) {
+    var changedStep = root.querySelector('.vpa__step[data-option-position="' + changedPos + '"]');
+    if (!changedStep) return;
+    var changedNum = +changedStep.dataset.stepNum;
+    root.querySelectorAll('.vpa__step[data-option-position]').forEach(function (step) {
+      if (+step.dataset.stepNum <= changedNum) return;
+      var pos = +step.dataset.optionPosition;
+      if (!selected[pos]) return;
+      delete selected[pos];
+      step.querySelectorAll('input[data-option-position="' + pos + '"]:checked').forEach(function (r) {
+        r.checked = false;
+      });
+    });
+  }
+
   // ═══ Event handlers ══════════════════════════════════════════════════
   root.addEventListener('change', function (e) {
     var input = e.target.closest('input[data-option-position]');
     if (!input) return;
 
     selected[+input.dataset.optionPosition] = input.dataset.value;
+    // Reset later steps so a size/edition that doesn't exist for the newly
+    // chosen colour can't leave the picker stuck on an unavailable variant.
+    resetLaterSteps(+input.dataset.optionPosition);
     updateAvailability();
     renumberAndLock();
     updateAllTiles();
