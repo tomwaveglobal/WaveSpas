@@ -19,7 +19,7 @@
         "image_hc4WwT": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/US_10_-Off_Spa-bundle-carousel-1_1e3f3298-378f-4a8e-80dd-1d5bd423cbce.jpg",
+            "image": "shopify://shop_images/US_10_KickOff.jpg",
             "image_mobile": "shopify://shop_images/US_10_-Off_Spa-bundle-carousel-2_33e81ef4-46ab-496c-b573-3a8b6ed55426.jpg",
             "heading": "‎",
             "button_label": "Final Chance"
@@ -33,7 +33,14 @@
           "disabled": true,
           "settings": {}
         }
-      }
+      },
+      "block_order": [
+        "image_9rd3Vt",
+        "image_JUM7dH",
+        "image_rmPQY4",
+        "image_EUEdiE",
+        "image_hc4WwT"
+      ]
     },
     "featured-product": {
       "settings": {
