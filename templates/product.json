@@ -91,7 +91,7 @@
             "background_color": "#ffffff",
             "border_thickness": 1,
             "border_radius": 0,
-            "product": "{{product}}"
+            "product": ""
           }
         },
         "inventory": {
@@ -326,6 +326,7 @@
         "image_ratio": "adapt_first",
         "image_zoom": "lightbox",
         "hide_variants": false,
+        "hide_first_media": false,
         "enable_video_autoplay": true,
         "enable_video_looping": true,
         "mobile_layout": "full_width",
