@@ -841,7 +841,7 @@
         "sticky_header_type": "always",
         "icons_size": "lg",
         "menu_drawer_icon_label": "",
-        "enable_language_selector_desktop": false,
+        "enable_language_selector_desktop": true,
         "enable_country_selector_desktop": false,
         "show_country_name_dekstop": false,
         "show_country_flag_desktop": true,
