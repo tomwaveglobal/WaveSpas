@@ -14,7 +14,7 @@
   },
   "sections": {
     "newsletter-popup": {
-      "disabled": false,
+      "disabled": true,
       "settings": {},
       "blocks": {
         "heading": {
