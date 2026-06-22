@@ -22,11 +22,11 @@
           "settings": {
             "image": "shopify://shop_images/Carousel_Freebies_inflatable-1_7892a11d-1012-4036-b169-dd40beaf9a4b.jpg",
             "image_mobile": "shopify://shop_images/Carousel_Freebies_inflatable-2_aed7a63e-19aa-49e9-8040-914d4b876468.jpg",
-            "header-b96f9235d5971d61d19003ac36f4e602": null,
+            "header-41a2de2df8b89e19f4ae0961c923faf8": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
-            "button_label": "Shop Father's Day",
+            "button_label": "Shop Now",
             "button_link": "shopify://collections/inflatable-hot-tubs",
             "button_style": "primary",
             "button_external": false,
