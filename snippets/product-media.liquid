@@ -20,6 +20,7 @@
   @param {boolean} [preload] - Preload media resources
   @param {boolean} [autoplay] - Auto-play videos
   @param {boolean} [loop] - Loop video playback
+  @param {object} [contona_anchor] - When truthy, renders the Contona Room Visualiser anchor on the featured media
 
   @example
   {% render 'product-media',
@@ -115,5 +116,7 @@
         {%- render 'icon', icon: 'zoom', size: 'xs', class: 'lg:hidden' -%}
       </button>
     {%- endif -%}
+    {%- comment -%} Contona Room Visualiser anchor — overlays the top-right of the featured (first) image in the slider/grid (below xl). At xl the sticky preview carries it; this duplicate is hidden via CSS. {%- endcomment -%}
+    {%- if contona_anchor and media.id == featured_media.id -%}<div class="contona-visualiser-anchor" data-contona-anchor></div>{%- endif -%}
   </div>
 {%- endif -%}

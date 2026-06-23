@@ -1,0 +1,102 @@
+{%- comment -%}
+  Contona Button Design
+  Emits the Contona Room Visualiser product data feed + button styling/position CSS from
+  the block settings. The button (#__contona-tryon-btn) is injected by Contona into
+  [data-contona-anchor] overlays inside the first product image (snippets/
+  product-media-gallery.liquid + product-media.liquid). Contona runs in inline mode, so
+  the anchor's position controls the button's position. Position = 9-point preset per
+  device + numeric X/Y nudge.
+
+  Accepts: block (the contona_button_design block), product
+{%- endcomment -%}
+{%- liquid
+  assign s = block.settings
+-%}
+<style>
+  .contona-visualiser-anchor {
+    position: absolute !important;
+    z-index: 2;
+    pointer-events: none;
+    {%- render 'contona-anchor-rules', position: s.m_position, offx: s.m_offset_x, offy: s.m_offset_y -%}
+  }
+  @media screen and (min-width: 768px) {
+    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.t_position, offx: s.t_offset_x, offy: s.t_offset_y -%} }
+  }
+  @media screen and (min-width: 1024px) {
+    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.d_position, offx: s.d_offset_x, offy: s.d_offset_y -%} }
+  }
+  #__contona-tryon-btn {
+    pointer-events: auto !important;
+    margin: 0 !important;
+    background-color: {{ s.bg_color }} !important;
+    color: {{ s.text_color }} !important;
+    border: {{ s.border_width | default: 0 }}px solid {{ s.border_color | default: '#000000' }} !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    width: max-content !important;
+    cursor: pointer !important;
+    border-radius: {{ s.radius }}px !important;
+    font-size: {{ s.font_size }}px !important;
+    padding: {{ s.padding_y }}px {{ s.padding_x }}px !important;
+  }
+  {%- comment -%} At xl the big image is the sticky preview; hide the duplicate injected into the slider's featured tile. {%- endcomment -%}
+  @media screen and (min-width: 1280px) {
+    .product__media-list #__contona-tryon-btn { display: none !important; }
+  }
+</style>
+<script type="application/json" data-contona-product>
+  {
+    "id": {{ product.id | json }},
+    "title": {{ product.title | json }},
+    "description": {{ product.description | strip_html | truncate: 500 | json }},
+    "type": {{ product.type | json }},
+    "vendor": {{ product.vendor | json }},
+    "tags": {{ product.tags | json }},
+    "collections": [{%- for c in product.collections -%}"{{ c.handle }}"{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}],
+    "price": "{{ product.price | money_without_currency }}",
+    "url": "{{ product.url }}",
+    "images": [{%- for img in product.images limit:5 -%}{"url":{{ img | image_url: width: 1024 | json }},"label":{{ img.alt | default: 'image' | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}],
+    "variants": [{%- for v in product.variants -%}{"id":{{ v.id | json }},"label":{{ v.title | json }},"image":{{ v.featured_image | default: product.featured_image | image_url: width: 1024 | json }},"price":{{ v.price | money | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
+  }
+</script>
+<script>
+  {%- comment -%}
+    Re-inject the Contona button after the theme re-renders the gallery on variant
+    change. The theme replaces .product__media (swapping the variant image), which
+    deletes Contona's injected button; Contona only injects once on load. We watch
+    the gallery and re-run Contona's embed script (which re-reads its key from the
+    loader tag) whenever an anchor exists but the button has gone.
+  {%- endcomment -%}
+  (function () {
+    if (window.__contonaReinjectInit) return;
+    window.__contonaReinjectInit = true;
+    var BTN = '#__contona-tryon-btn';
+    var ANCHOR = '[data-contona-anchor]';
+    var busy = false, timer = null;
+    function reinject() {
+      var cfg = document.querySelector('script[data-contona-api-key]');
+      if (!cfg) return;
+      var base = (cfg.getAttribute('data-contona-base-url') || 'https://studio.contona.ai').replace(/\/$/, '');
+      document.querySelectorAll('script[data-contona-reinject]').forEach(function (e) { e.remove(); });
+      var s = document.createElement('script');
+      s.src = base + '/js/contona-embed.js';
+      s.async = true;
+      s.setAttribute('data-contona-reinject', '');
+      s.setAttribute('data-contona-api-key', cfg.getAttribute('data-contona-api-key') || '');
+      s.setAttribute('data-contona-base-url', base);
+      document.head.appendChild(s);
+    }
+    function check() {
+      if (busy) return;
+      if (document.querySelector(ANCHOR) && !document.querySelector(BTN)) {
+        busy = true;
+        reinject();
+        setTimeout(function () { busy = false; }, 1500);
+      }
+    }
+    var target = document.querySelector('.product__gallery-container') || document.body;
+    var mo = new MutationObserver(function () { clearTimeout(timer); timer = setTimeout(check, 250); });
+    mo.observe(target, { childList: true, subtree: true });
+  })();
+</script>
