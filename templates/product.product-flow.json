@@ -203,8 +203,8 @@
         "contona_button_design": {
           "type": "contona_button_design",
           "settings": {
-            "bg_color": "#FFFFFF",
-            "text_color": "#000000",
+            "bg_color": "#000000",
+            "text_color": "#FFFFFF",
             "radius": 40,
             "font_size": 14,
             "padding_y": 10,
