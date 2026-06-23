@@ -16,6 +16,16 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
+        "image_9rd3Vt": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/US-5-_GOAL5-1.jpg",
+            "image_mobile": "shopify://shop_images/US-5-_GOAL5-2.jpg",
+            "heading": "",
+            "button_label": "Shop Offer",
+            "button_link": "shopify://collections/inflatable-hot-tubs"
+          }
+        },
         "image_rmPQY4": {
           "disabled": false,
           "settings": {}
@@ -31,16 +41,6 @@
             "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
             "heading": "‎",
             "button_label": "Final Chance"
-          }
-        },
-        "image_9rd3Vt": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/US-10-KickOff-1_4e0f2908-d7e1-4e4a-85e1-2f093c25693b.jpg",
-            "image_mobile": "shopify://shop_images/US-10-KickOff-2_b26ba232-08a0-4389-99be-9a9b10392c02.jpg",
-            "heading": "",
-            "button_label": "Shop Offer",
-            "button_link": "shopify://collections/inflatable-hot-tubs"
           }
         }
       },
