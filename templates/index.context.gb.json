@@ -58,6 +58,11 @@
             "button_label": "Shop Pebble White",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
+        },
+        "image_JUM7dH": {
+          "settings": {
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
+          }
         }
       },
       "block_order": [
