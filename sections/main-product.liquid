@@ -41,6 +41,7 @@
   endif
   assign first_3d_model = product.media | where: 'media_type', 'model' | first
   assign icon_list_block = section.blocks | where: 'type', 'icon_list' | first
+  assign contona_block = section.blocks | where: 'type', 'contona_button_design' | first
 -%}
 
 {%- if first_3d_model -%}
@@ -148,7 +149,8 @@
             enable_video_autoplay: section.settings.enable_video_autoplay,
             enable_video_looping: section.settings.enable_video_looping,
             first_3d_model: first_3d_model,
-            product_form_id: product_form_id
+            product_form_id: product_form_id,
+            contona_anchor: contona_block
           -%}
 
           {%- render 'product-badges', product: product, show_save_amount: true, save_type: 'percentage', class: 'z-2 absolute top-0 left-0 grid gap-3 p-4' -%}
@@ -1607,6 +1609,23 @@
           "unit": "px",
           "label": "Horizontal padding",
           "default": 20
+        },
+        {
+          "type": "range",
+          "id": "border_width",
+          "min": 0,
+          "max": 6,
+          "step": 1,
+          "unit": "px",
+          "label": "Outline width",
+          "info": "Set above 0 for an outline (e.g. white button, black text, black outline).",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Outline colour",
+          "default": "#000000"
         },
         {
           "type": "header",

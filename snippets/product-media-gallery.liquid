@@ -4,6 +4,7 @@
   Displays product images, videos, and 3D models in various responsive layouts. Supports variant-specific media switching, image zoom, video autoplay, and mobile-optimized views. Integrates with Shopify's native media APIs and XR experiences.
 
   @param {object} product - Shopify product object with media collection
+  @param {object} [contona_anchor] - When truthy, renders the Contona Room Visualiser anchor on the first image
   @param {string} product_form_id - Form ID for variant media switching
   @param {string} product_id - Product identifier for component targeting
   @param {string} section_id - Section identifier for namespacing
@@ -182,7 +183,7 @@
             </button>
           {%- endif -%}
           {%- comment -%} Contona Room Visualiser anchor — overlays the top-right of this (the xl sticky preview / first image), mirroring the Free Cleaning Kit badge at top-left. {%- endcomment -%}
-          {%- if template.suffix == 'product-flow' -%}<div class="contona-visualiser-anchor" data-contona-anchor></div>{%- endif -%}
+          {%- if contona_anchor -%}<div class="contona-visualiser-anchor" data-contona-anchor></div>{%- endif -%}
         </div>
       </sticky-element>
     {%- endif -%}
@@ -216,7 +217,8 @@
               preload: true,
               sizes: sizes,
               autoplay: enable_video_autoplay,
-              loop: enable_video_looping
+              loop: enable_video_looping,
+              contona_anchor: contona_anchor
             -%}
           {%- endif -%}
 
