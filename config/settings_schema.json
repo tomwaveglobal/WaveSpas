@@ -1967,5 +1967,291 @@
         "label": "Weight"
       }
     ]
+  },
+  {
+    "name": "Contona Button Design",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Controls the Contona Try-On (\"Visualise in Garden\") button everywhere it appears. Add the \"Contona Button Design\" block to a product template to switch it on for that template; all styling & position is controlled here."
+      },
+      {
+        "type": "header",
+        "content": "Button style"
+      },
+      {
+        "type": "color",
+        "id": "contona_bg_color",
+        "label": "Background colour",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "contona_text_color",
+        "label": "Text colour",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "contona_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "contona_font_size",
+        "min": 10,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "label": "Font size",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "contona_padding_y",
+        "min": 2,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Vertical padding",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "contona_padding_x",
+        "min": 4,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "label": "Horizontal padding",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "contona_border_width",
+        "min": 0,
+        "max": 6,
+        "step": 1,
+        "unit": "px",
+        "label": "Outline width",
+        "info": "Set above 0 for an outline (e.g. white button, black text, black outline).",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "contona_border_color",
+        "label": "Outline colour",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Desktop position (≥1024px)"
+      },
+      {
+        "type": "select",
+        "id": "contona_d_position",
+        "label": "Position",
+        "default": "top-right",
+        "options": [
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top centre"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle centre"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom centre"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "contona_d_offset_x",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Horizontal nudge",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "contona_d_offset_y",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Vertical nudge",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Tablet position (768–1023px)"
+      },
+      {
+        "type": "select",
+        "id": "contona_t_position",
+        "label": "Position",
+        "default": "top-right",
+        "options": [
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top centre"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle centre"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom centre"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "contona_t_offset_x",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Horizontal nudge",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "contona_t_offset_y",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Vertical nudge",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Mobile position (<768px)"
+      },
+      {
+        "type": "select",
+        "id": "contona_m_position",
+        "label": "Position",
+        "default": "bottom-center",
+        "options": [
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "top-center",
+            "label": "Top centre"
+          },
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "middle-left",
+            "label": "Middle left"
+          },
+          {
+            "value": "middle-center",
+            "label": "Middle centre"
+          },
+          {
+            "value": "middle-right",
+            "label": "Middle right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "bottom-center",
+            "label": "Bottom centre"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "contona_m_offset_x",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Horizontal nudge",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "contona_m_offset_y",
+        "min": -100,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Vertical nudge",
+        "default": 16
+      }
+    ]
   }
 ]

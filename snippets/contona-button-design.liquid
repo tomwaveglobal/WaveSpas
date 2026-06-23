@@ -9,36 +9,37 @@
 
   Accepts: block (the contona_button_design block), product
 {%- endcomment -%}
+{%- comment -%} All design + position settings are theme-level: Theme settings → Contona Button Design. {%- endcomment -%}
 {%- liquid
-  assign s = block.settings
+  assign s = settings
 -%}
 <style>
   .contona-visualiser-anchor {
     position: absolute !important;
     z-index: 2;
     pointer-events: none;
-    {%- render 'contona-anchor-rules', position: s.m_position, offx: s.m_offset_x, offy: s.m_offset_y -%}
+    {%- render 'contona-anchor-rules', position: s.contona_m_position, offx: s.contona_m_offset_x, offy: s.contona_m_offset_y -%}
   }
   @media screen and (min-width: 768px) {
-    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.t_position, offx: s.t_offset_x, offy: s.t_offset_y -%} }
+    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.contona_t_position, offx: s.contona_t_offset_x, offy: s.contona_t_offset_y -%} }
   }
   @media screen and (min-width: 1024px) {
-    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.d_position, offx: s.d_offset_x, offy: s.d_offset_y -%} }
+    .contona-visualiser-anchor { {%- render 'contona-anchor-rules', position: s.contona_d_position, offx: s.contona_d_offset_x, offy: s.contona_d_offset_y -%} }
   }
   #__contona-tryon-btn {
     pointer-events: auto !important;
     margin: 0 !important;
-    background-color: {{ s.bg_color }} !important;
-    color: {{ s.text_color }} !important;
-    border: {{ s.border_width | default: 0 }}px solid {{ s.border_color | default: '#000000' }} !important;
+    background-color: {{ s.contona_bg_color }} !important;
+    color: {{ s.contona_text_color }} !important;
+    border: {{ s.contona_border_width | default: 0 }}px solid {{ s.contona_border_color | default: '#000000' }} !important;
     box-shadow: none !important;
     font-weight: 500 !important;
     line-height: 1 !important;
     width: max-content !important;
     cursor: pointer !important;
-    border-radius: {{ s.radius }}px !important;
-    font-size: {{ s.font_size }}px !important;
-    padding: {{ s.padding_y }}px {{ s.padding_x }}px !important;
+    border-radius: {{ s.contona_radius }}px !important;
+    font-size: {{ s.contona_font_size }}px !important;
+    padding: {{ s.contona_padding_y }}px {{ s.contona_padding_x }}px !important;
   }
   {%- comment -%} At xl the big image is the sticky preview; hide the duplicate injected into the slider's featured tile. {%- endcomment -%}
   @media screen and (min-width: 1280px) {
