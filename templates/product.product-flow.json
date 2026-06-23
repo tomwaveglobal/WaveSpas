@@ -203,12 +203,14 @@
         "contona_button_design": {
           "type": "contona_button_design",
           "settings": {
-            "bg_color": "#000000",
-            "text_color": "#FFFFFF",
+            "bg_color": "#FFFFFF",
+            "text_color": "#000000",
             "radius": 40,
             "font_size": 14,
             "padding_y": 10,
             "padding_x": 20,
+            "border_width": 1,
+            "border_color": "#000000",
             "d_position": "top-right",
             "d_offset_x": 16,
             "d_offset_y": 16,
