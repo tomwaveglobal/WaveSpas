@@ -1,0 +1,30 @@
+{%- comment -%}
+  Contona anchor position rules — outputs CSS declarations for .contona-visualiser-anchor
+  for one breakpoint, from a 9-point position preset + numeric X/Y nudge.
+
+  Accepts:
+    position - "{vertical}-{horizontal}", vertical ∈ top|middle|bottom, horizontal ∈ left|center|right
+    offx     - horizontal offset in px (distance from left/right edge, or nudge from centre)
+    offy     - vertical offset in px (distance from top/bottom edge, or nudge from middle)
+{%- endcomment -%}
+{%- liquid
+  assign pos = position | default: 'top-right'
+  assign ox = offx | default: 16
+  assign oy = offy | default: 16
+  assign parts = pos | split: '-'
+  assign v = parts[0]
+  assign h = parts[1]
+-%}
+{%- if h == 'left' -%} left: {{ ox }}px; right: auto;
+{%- elsif h == 'right' -%} right: {{ ox }}px; left: auto;
+{%- else -%} left: 50%; right: auto;
+{%- endif -%}
+{%- if v == 'top' -%} top: {{ oy }}px; bottom: auto;
+{%- elsif v == 'bottom' -%} bottom: {{ oy }}px; top: auto;
+{%- else -%} top: 50%; bottom: auto;
+{%- endif -%}
+{%- if h == 'center' and v == 'middle' -%} transform: translate(calc(-50% + {{ ox }}px), calc(-50% + {{ oy }}px));
+{%- elsif h == 'center' -%} transform: translateX(calc(-50% + {{ ox }}px));
+{%- elsif v == 'middle' -%} transform: translateY(calc(-50% + {{ oy }}px));
+{%- else -%} transform: none;
+{%- endif -%}

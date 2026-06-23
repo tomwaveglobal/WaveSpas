@@ -153,6 +153,7 @@
 
           {%- render 'product-badges', product: product, show_save_amount: true, save_type: 'percentage', class: 'z-2 absolute top-0 left-0 grid gap-3 p-4' -%}
 
+
           {%- liquid
             if icon_list_block and icon_list_block.settings.show_below_media
               echo icon_list_render
@@ -736,6 +737,9 @@
                   {{- block.settings.liquid -}}
                 </div>
               {%- endif -%}
+
+            {%- when 'contona_button_design' -%}
+              {%- render 'contona-button-design', block: block, product: product -%}
 
             {%- when 'collapsible_tab' -%}
               {% if block.settings.content != blank or block.settings.page.content  != blank or block.settings.liquid != blank %}
@@ -1538,6 +1542,196 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "contona_button_design",
+      "name": "Contona Button Design",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Adds the Contona Room Visualiser data feed and the 'Visualise in Garden' button onto the first product image. Style and position the button per device below."
+        },
+        {
+          "type": "header",
+          "content": "Button style"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background colour",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text colour",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "radius",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Corner radius",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "padding_y",
+          "min": 2,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Vertical padding",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "padding_x",
+          "min": 4,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "label": "Horizontal padding",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Desktop position (≥1024px)"
+        },
+        {
+          "type": "select",
+          "id": "d_position",
+          "label": "Position",
+          "default": "top-right",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top centre" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle centre" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom centre" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "d_offset_x",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Horizontal nudge",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "d_offset_y",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Vertical nudge",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Tablet position (768–1023px)"
+        },
+        {
+          "type": "select",
+          "id": "t_position",
+          "label": "Position",
+          "default": "top-right",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top centre" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle centre" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom centre" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "t_offset_x",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Horizontal nudge",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "t_offset_y",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Vertical nudge",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Mobile position (<768px)"
+        },
+        {
+          "type": "select",
+          "id": "m_position",
+          "label": "Position",
+          "default": "bottom-center",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top centre" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle centre" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom centre" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "m_offset_x",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Horizontal nudge",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "m_offset_y",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Vertical nudge",
+          "default": 16
+        }
+      ]
     },
     {
       "type": "breadcrumb",
