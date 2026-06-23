@@ -115,5 +115,7 @@
         {%- render 'icon', icon: 'zoom', size: 'xs', class: 'lg:hidden' -%}
       </button>
     {%- endif -%}
+    {%- comment -%} Contona Room Visualiser anchor — overlays the top-right of the featured (first) image in the slider/grid (below xl). At xl the sticky preview carries it; this duplicate is hidden via CSS. {%- endcomment -%}
+    {%- if media.id == featured_media.id and template.suffix == 'product-flow' -%}<div class="contona-visualiser-anchor" data-contona-anchor></div>{%- endif -%}
   </div>
 {%- endif -%}
