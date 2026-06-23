@@ -16,23 +16,13 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_EUEdiE": {
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Price_Freebies-Foam-1.jpg",
-            "image_mobile": "shopify://shop_images/Price_Freebies-Foam-2.jpg",
-            "heading": "",
-            "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/foam-hot-tubs"
-          }
-        },
         "image_YL8tbf": {
           "type": "image",
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Freebies_inflatable_Updated-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies_inflatable_Updated-2.jpg",
-            "header-7694edb211baaadb36e2b2ba91243be7": null,
+            "header-17844c744d8bbebc24566e9dda029c69": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -43,8 +33,18 @@
             "button_icon": false
           }
         },
+        "image_EUEdiE": {
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Price_Freebies-Foam-1.jpg",
+            "image_mobile": "shopify://shop_images/Price_Freebies-Foam-2.jpg",
+            "heading": "",
+            "button_label": "Shop Whilst Stocks Last",
+            "button_link": "shopify://collections/foam-hot-tubs"
+          }
+        },
         "image_9rd3Vt": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
           }
