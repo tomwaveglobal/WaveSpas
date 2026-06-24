@@ -22,7 +22,7 @@
           "settings": {
             "image": "shopify://shop_images/Freebies_inflatable_Updated-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies_inflatable_Updated-2.jpg",
-            "header-17844c744d8bbebc24566e9dda029c69": null,
+            "header-a63f1ffedb15561dacdfbd7148697d98": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -34,11 +34,11 @@
           }
         },
         "image_EUEdiE": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Price_Freebies-Foam-1.jpg",
-            "image_mobile": "shopify://shop_images/Price_Freebies-Foam-2.jpg",
-            "heading": "",
+            "image": "shopify://shop_images/Floating-light_Freebies-Foam-1.jpg",
+            "image_mobile": "shopify://shop_images/Floating-light_Freebies-Foam-2.jpg",
+            "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
@@ -49,6 +49,11 @@
             "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
           }
         },
+        "image_JUM7dH": {
+          "settings": {
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
+          }
+        },
         "image_rmPQY4": {
           "disabled": true,
           "settings": {
@@ -57,11 +62,6 @@
             "heading": "‎",
             "button_label": "Shop Pebble White",
             "button_link": "shopify://collections/foam-hot-tubs"
-          }
-        },
-        "image_JUM7dH": {
-          "settings": {
-            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
           }
         }
       },
