@@ -35,7 +35,7 @@
           "settings": {}
         },
         "image_hc4WwT": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/US-10-KickOff-1.jpg",
             "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
