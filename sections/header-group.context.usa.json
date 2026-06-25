@@ -21,12 +21,12 @@
           "disabled": false,
           "settings": {
             "icon": "rocket",
-            "text": "<em><strong>GOAL5 - 5% off  </strong></em>Inflatable Hot Tubs",
+            "text": "<em><strong>Extra 5% off </strong></em> all Hot Tubs with GOAL5",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-1d30fa73d9e5d09c82b900ac5de6129e": null,
+            "header-3bfe3993fa16e646517e2126449da6e0": null,
             "hide_icon_mobile": true,
-            "text_mobile": "<em><strong>5% off  </strong></em>Inflatable Hot Tubs",
-            "header-6e5fea658198eec4e9ab1008dc6276e4": null,
+            "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
+            "header-e844b9f229fe002db69878d1b86732f1": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
