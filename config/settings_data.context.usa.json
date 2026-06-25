@@ -12,6 +12,7 @@
     "market": "usa"
   },
   "current": {
-    "advanced_badge_mode_collection": "image"
+    "advanced_badge_mode_collection": "image",
+    "advanced_badge_image_desktop": "150"
   }
 }
