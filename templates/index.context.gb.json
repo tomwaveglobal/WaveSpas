@@ -22,7 +22,7 @@
           "settings": {
             "image": "shopify://shop_images/Freebies_inflatable_Updated-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies_inflatable_Updated-2.jpg",
-            "header-a63f1ffedb15561dacdfbd7148697d98": null,
+            "header-b4199d28d521a2998a023ac2c19c8068": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -66,8 +66,8 @@
         }
       },
       "block_order": [
-        "image_YL8tbf",
         "image_EUEdiE",
+        "image_YL8tbf",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"
