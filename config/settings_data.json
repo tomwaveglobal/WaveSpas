@@ -327,6 +327,14 @@
         "type": "shopify://apps/seolab-seo-optimizer/blocks/app_embed/faf700f6-3b71-45c3-86d4-83ea9f7d9216",
         "disabled": false,
         "settings": {}
+      },
+      "18409793183067274168": {
+        "type": "shopify://apps/contona-studio/blocks/app-embed/019daa9c-2a92-7703-a13d-b81ee42c4c65",
+        "disabled": false,
+        "settings": {
+          "image_selector": ".product__media img, .product-single__photo img, [data-product-media] img, .product-gallery img",
+          "base_url": "https://api.contona.ai"
+        }
       }
     }
   },
