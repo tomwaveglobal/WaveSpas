@@ -157,7 +157,7 @@
               assign forloop_first = true
               assign forloop_index = 0
             -%}
-            {%- for i in (1..10) -%}
+            {%- for i in (1..12) -%}
               {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
               {%- if block.settings[tab_target_link] != blank -%}
                 {%- liquid
@@ -208,7 +208,7 @@
             assign forloop_first = true
             assign forloop_index = 0
           -%}
-          {%- for i in (1..10) -%}
+          {%- for i in (1..12) -%}
             {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
             {%- if block.settings[tab_target_link] != blank and block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
               {%- liquid
