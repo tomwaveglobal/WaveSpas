@@ -55,7 +55,7 @@
     {%- else -%}
       <ul id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full">
         {%- if block.type == 'mega_menu_tab' -%}
-          {%- for i in (1..10) -%}
+          {%- for i in (1..12) -%}
             {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
             {%- if block.settings[tab_target_link] != blank -%}
               <li class="drawer__menu-group">
