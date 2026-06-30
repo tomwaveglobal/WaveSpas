@@ -21,12 +21,12 @@
           "disabled": false,
           "settings": {
             "icon": "rocket",
-            "text": "<em><strong>Extra 5% off </strong></em> all Hot Tubs with GOAL5",
+            "text": "<em><strong>10% off </strong></em> and free Wifi Upgrade",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-3bfe3993fa16e646517e2126449da6e0": null,
+            "header-280f3978c0848a2b060397c8cb6dbd39": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-e844b9f229fe002db69878d1b86732f1": null,
+            "header-76314ba3e582d0fa0e65f858c7374cbf": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
