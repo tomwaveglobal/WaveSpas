@@ -85,7 +85,9 @@ class StagedProductBundle extends HTMLElement {
 
     const li = this.buildSelection(card, variant, stage.index);
     this.selectionList?.appendChild(li);
-    stage.selections.push({ variantId: variant.id, price: parseInt(variant.price, 10) || 0, card, li });
+    const price = parseInt(variant.price, 10) || 0;
+    const compareAt = parseInt(variant.compare_at_price, 10) || 0;
+    stage.selections.push({ variantId: variant.id, price, compareAt, card, li });
 
     // Lock the chosen card so it can't be added twice.
     card.setAttribute('locked', '');
@@ -93,6 +95,23 @@ class StagedProductBundle extends HTMLElement {
     if (stage.selections.length >= stage.maxPicks) stageEl.setAttribute('locked', '');
 
     this.refresh();
+    this.maybeAutoAdvance(stage);
+  }
+
+  // Once a stage is filled to its pick limit, move the customer straight to the
+  // next step (or, on the final stage, bring the summary into view). Keeps the
+  // mobile flow moving without an extra tap on "Next".
+  maybeAutoAdvance(stage) {
+    if (stage.index !== this.current) return;
+    if (stage.selections.length < stage.maxPicks) return;
+
+    if (this.current < this.lastStageIndex && this.canAdvanceFrom(this.current)) {
+      setTimeout(() => this.goTo(this.current + 1), 350);
+    } else if (this.current >= this.lastStageIndex) {
+      setTimeout(() => {
+        this.querySelector('[data-staged-bundle-selections]')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 350);
+    }
   }
 
   onRemove(event) {
@@ -246,6 +265,20 @@ class StagedProductBundle extends HTMLElement {
     const subtotal = this.allSelections.reduce((sum, sel) => sum + sel.price, 0);
     const el = this.querySelector('[data-staged-bundle-total]');
     if (el) el.innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyWithCurrencyFormat);
+
+    // Savings = sum of (compare-at − price) across picks that are marked down.
+    const savings = this.allSelections.reduce(
+      (sum, sel) => sum + Math.max((sel.compareAt || 0) - sel.price, 0),
+      0
+    );
+    const savingsRow = this.querySelector('[data-staged-bundle-savings]');
+    const savingsAmount = this.querySelector('[data-staged-bundle-savings-amount]');
+    if (savingsRow && savingsAmount) {
+      savingsRow.hidden = savings <= 0;
+      if (savings > 0) {
+        savingsAmount.innerHTML = theme.Currency.formatMoney(savings, theme.settings.moneyWithCurrencyFormat);
+      }
+    }
   }
 
   /* ---- errors ---- */

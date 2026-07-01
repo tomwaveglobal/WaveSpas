@@ -139,9 +139,15 @@
             <p class="staged-bundle__empty text-sm text-opacity" data-staged-bundle-empty>{{ 'Your selections will appear here as you build your bundle.' }}</p>
 
             <div class="staged-bundle__footer grid gap-3 pt-1">
-              <div class="flex items-center justify-between gap-4">
-                <span class="heading text-lg shrink-0">{{ 'sections.product_bundle.total' | t }}</span>
-                <span class="heading text-lg grow font-bold text-right" data-staged-bundle-total>{{ 0 | money_with_currency }}</span>
+              <div class="staged-bundle__totals grid gap-1">
+                <div class="flex items-center justify-between gap-4">
+                  <span class="heading text-lg shrink-0">{{ 'sections.product_bundle.total' | t }}</span>
+                  <span class="heading text-lg grow font-bold text-right" data-staged-bundle-total>{{ 0 | money_with_currency }}</span>
+                </div>
+                <div class="staged-bundle__savings flex items-center justify-between gap-4 text-sm leading-tight" data-staged-bundle-savings hidden>
+                  <span class="text-opacity shrink-0">{{ 'You save' }}</span>
+                  <span class="font-medium text-right" data-staged-bundle-savings-amount></span>
+                </div>
               </div>
 
               <div class="staged-bundle__nav flex items-center gap-3">
