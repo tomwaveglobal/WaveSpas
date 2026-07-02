@@ -120,6 +120,9 @@
     "advanced_badge_map_3_text": "Extra 5% Off‎",
     "advanced_badge_map_3_image": "shopify://shop_images/Extra_5__Off0.png",
     "advanced_badge_map_3_show_text": false,
+    "advanced_badge_map_4_text": "10% Off + Free Controller",
+    "advanced_badge_map_4_image": "shopify://shop_images/Inflatable_WiFi_10offf.png",
+    "advanced_badge_map_4_show_text": false,
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
@@ -322,11 +325,6 @@
         "settings": {
           "hide_price": false
         }
-      },
-      "8419966592507824873": {
-        "type": "shopify://apps/seolab-seo-optimizer/blocks/app_embed/faf700f6-3b71-45c3-86d4-83ea9f7d9216",
-        "disabled": false,
-        "settings": {}
       },
       "18409793183067274168": {
         "type": "shopify://apps/contona-studio/blocks/app-embed/019daa9c-2a92-7703-a13d-b81ee42c4c65",
