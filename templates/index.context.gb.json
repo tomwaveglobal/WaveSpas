@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "image_EUEdiE": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/10Off_Floating-light_Freebies-Foam-1_aefee458-0e0a-460d-8bca-b2ab9d401a55.jpg",
             "image_mobile": "shopify://shop_images/10Off_Floating-light_Freebies-Foam-2.jpg",
@@ -28,11 +28,11 @@
         },
         "image_YL8tbf": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Freebies_inflatable_Updated-1.jpg",
             "image_mobile": "shopify://shop_images/Freebies_inflatable_Updated-2.jpg",
-            "header-47187852478e4432cd6dd0f5c1e894bc": null,
+            "header-87b907d84363143527df438dbfa90bfe": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
