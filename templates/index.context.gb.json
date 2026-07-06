@@ -16,16 +16,6 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_EUEdiE": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
-            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
-            "heading": "‎",
-            "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/hot-tub-full-range"
-          }
-        },
         "image_YL8tbf": {
           "type": "image",
           "disabled": false,
@@ -41,6 +31,16 @@
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
+          }
+        },
+        "image_EUEdiE": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
+            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
+            "heading": "‎",
+            "button_label": "Shop Whilst Stocks Last",
+            "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
         "image_9rd3Vt": {
