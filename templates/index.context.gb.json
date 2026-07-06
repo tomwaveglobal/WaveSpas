@@ -17,13 +17,13 @@
       "settings": {},
       "blocks": {
         "image_EUEdiE": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/10Off_Floating-light_Freebies-Foam-1_aefee458-0e0a-460d-8bca-b2ab9d401a55.jpg",
-            "image_mobile": "shopify://shop_images/10Off_Floating-light_Freebies-Foam-2.jpg",
+            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
+            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
             "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/foam-hot-tubs"
+            "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
         "image_YL8tbf": {
