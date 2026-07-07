@@ -162,7 +162,7 @@
     "zendesk-chat": {
       "type": "zendesk-chat",
       "settings": {
-        "hide_launcher": true,
+        "hide_launcher": false,
         "chat_inline_min_height": 640,
         "chat_open_delay": 400,
         "chat_button_label": "Start chat",

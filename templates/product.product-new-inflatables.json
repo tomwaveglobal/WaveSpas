@@ -14,25 +14,7 @@
       "blocks": {
         "contona_button_design_Pnnc69": {
           "type": "contona_button_design",
-          "settings": {
-            "bg_color": "#ffffff",
-            "text_color": "#000000",
-            "radius": 40,
-            "font_size": 14,
-            "padding_y": 10,
-            "padding_x": 20,
-            "border_width": 0,
-            "border_color": "#000000",
-            "d_position": "top-right",
-            "d_offset_x": 16,
-            "d_offset_y": 16,
-            "t_position": "top-right",
-            "t_offset_x": 16,
-            "t_offset_y": 16,
-            "m_position": "bottom-center",
-            "m_offset_x": 0,
-            "m_offset_y": 16
-          }
+          "settings": {}
         },
         "breadcrumb_rcrAce": {
           "type": "breadcrumb",
