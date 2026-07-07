@@ -1,11 +1,16 @@
 {%- doc -%}
-  Renders the Zendesk messaging widget INLINE in the page using Zendesk's
-  official embedded mode:
+  Renders the Zendesk messaging widget INLINE in the page (desktop and mobile)
+  using Zendesk's official embedded mode:
     zE('messenger', 'render', { mode: 'embedded', widget: { targetElement: '#...' } })
 
   Floating auto-render is disabled on the contact template in layout/theme.liquid
   (window.zEMessenger.autoRender = false), which must load before the Zendesk
   snippet. This snippet then renders the widget into the in-page container.
+
+  Mobile note: the embedded chat is sized to the viewport so it fits the phone
+  screen, and a small CSS rule keeps the page scrollable — Zendesk's mobile view
+  locks page scroll with position:fixed on <body>; we neutralise only that,
+  declaratively (no JS), so scrolling doesn't jump.
 
   Requires Zendesk *messaging* (embedded mode is not supported by Web Widget
   Classic). Only one mode (embedded OR floating) should be used per page.
@@ -52,6 +57,31 @@
   #zdChat-{{ section.id }}.zd-chat--rendered .zd-chat__status {
     display: none;
   }
+
+  /* --- Mobile ----------------------------------------------------------- */
+  @media (max-width: 767px) {
+    /* Fit the phone screen. The fixed desktop height leaves dead space at the
+       top and can crowd the composer; size the frame to the viewport instead
+       so the messenger renders the full conversation cleanly. */
+    #zdChat-{{ section.id }} .zd-chat__frame {
+      min-height: 0;
+      height: 80vh;
+      height: 80dvh;
+    }
+
+    /* Keep the page scrollable while the embedded chat is on screen. Zendesk's
+       mobile view locks page scroll with position:fixed on <body> (the usual
+       iOS technique), which also caused the scroll "jump". Neutralise ONLY that,
+       declaratively (CSS, no JS observer) — so there is no jump, and the theme's
+       own overflow-based menu lock is left untouched. */
+    html,
+    body {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+    }
+  }
 </style>
 
 <div id="zdChat-{{ section.id }}" class="zd-chat" data-zd-chat>
@@ -85,38 +115,6 @@
 
     log('Embedded-mode section running. zE present now?', typeof window.zE, '| autoRender =',
       (window.zEMessenger && window.zEMessenger.autoRender));
-
-    // --- Keep the page scrollable on mobile ------------------------------
-    // In embedded mode the chat lives INSIDE the page, so the host page must
-    // stay scrollable. Zendesk's messenger still tries to lock page scroll on
-    // mobile by setting INLINE overflow/position on <html>/<body> (its normal
-    // full-screen behaviour). That freezes the whole page. Strip only those
-    // inline locks — the theme locks scroll via CSS classes (mobile menu /
-    // modals), so leaving classes alone keeps those working.
-    function unlockPageScroll() {
-      [document.documentElement, document.body].forEach(function (el) {
-        if (!el || !el.style) return;
-        var s = el.style;
-        if (s.overflow === 'hidden') s.removeProperty('overflow');
-        if (s.overflowY === 'hidden') s.removeProperty('overflow-y');
-        if (s.position === 'fixed') {
-          s.removeProperty('position');
-          s.removeProperty('top');
-          s.removeProperty('left');
-          s.removeProperty('right');
-          s.removeProperty('width');
-          s.removeProperty('height');
-        }
-      });
-    }
-    try {
-      var scrollGuard = new MutationObserver(unlockPageScroll);
-      [document.documentElement, document.body].forEach(function (el) {
-        if (el) scrollGuard.observe(el, { attributes: true, attributeFilter: ['style'] });
-      });
-      unlockPageScroll();
-      log('Mobile scroll guard active (stripping inline scroll-locks only).');
-    } catch (e) { log('scroll guard failed:', e && e.message); }
 
     function z() {
       if (typeof window.zE !== 'function') return false;
