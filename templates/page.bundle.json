@@ -84,7 +84,7 @@
       "settings": {
         "text_alignment": "left",
         "text_alignment_mobile": "left",
-        "heading": "Buy 2 and <em>save 10%</em>",
+        "heading": "Get a Spa and save <em>15% off</em> Accessories",
         "heading_size": "title-sm",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "large",
@@ -96,7 +96,7 @@
         "button_external": false,
         "button_icon": true,
         "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
+        "highlighted_scribble": "squiggle-underline",
         "highlighted_reveal": false,
         "color_text": "",
         "color_background": "",
@@ -115,6 +115,7 @@
     },
     "product_bundle_M3rftG": {
       "type": "product-bundle",
+      "disabled": true,
       "name": "t:sections.product-bundle.name",
       "settings": {
         "collection": "",
@@ -216,6 +217,7 @@
         "heading",
         "text"
       ],
+      "disabled": true,
       "settings": {
         "collection": "",
         "products": [
@@ -302,6 +304,7 @@
         "heading",
         "text"
       ],
+      "disabled": true,
       "settings": {
         "collection": "",
         "products": [
@@ -344,6 +347,7 @@
     },
     "rich-text": {
       "type": "rich-text",
+      "disabled": true,
       "custom_css": [
         "@media screen and (min-width: 1536px) {.collage, .collage .title-wrapper {padding-inline: 0; }}"
       ],
@@ -381,6 +385,7 @@
     },
     "product-bundle": {
       "type": "product-bundle",
+      "disabled": true,
       "custom_css": [
         "@media screen and (min-width: 1536px) {.product-bundle {flex: 0 0 25%; } .product-bundle__sidebar {width: 100%; }}"
       ],
