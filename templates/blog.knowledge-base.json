@@ -450,6 +450,7 @@
         },
         "button_Ane9Rz": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_label": "Speak Now",
             "button_link": "shopify://pages/contact-us",
@@ -531,8 +532,8 @@
     "multicolumn_Hja3AQ",
     "17726329719e1087e3",
     "1772549226876255a5",
-    "zendesk_chat_WChjtA",
     "main-blog",
-    "rich_text_c8pR63"
+    "rich_text_c8pR63",
+    "zendesk_chat_WChjtA"
   ]
 }
