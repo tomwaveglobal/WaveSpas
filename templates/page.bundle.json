@@ -113,6 +113,85 @@
         "rounded": true
       }
     },
+    "staged_product_bundle_7GVH3a": {
+      "type": "staged-product-bundle",
+      "blocks": {
+        "stage_TwR9bj": {
+          "type": "stage",
+          "settings": {
+            "title": "Choose a Spa",
+            "description": "",
+            "required": true,
+            "max_picks": 1,
+            "collection": "",
+            "products": [
+              "como-hot-tub",
+              "garda-hot-tub",
+              "tahoe-hot-tub",
+              "aegean-hot-tub",
+              "atlantic-hot-tub",
+              "pacific-hot-tub",
+              "ontario-hot-tub",
+              "adriatic-hot-tub"
+            ],
+            "product_limit": 24,
+            "columns": 3
+          }
+        },
+        "stage_xK3CQN": {
+          "type": "stage",
+          "settings": {
+            "title": "Choose Your Accessories",
+            "description": "",
+            "required": true,
+            "max_picks": 1,
+            "collection": "",
+            "products": [
+              "aromatherapy-scent-crystals",
+              "chlorine-tablets-5kg",
+              "aromatherapy-scent-crystals-etl",
+              "3-in-1-test-strips-50-pack-etl",
+              "chlorine-granules-5kg",
+              "chlorine-tablets-1kg",
+              "ph-increaser-1l",
+              "hot-tub-algaecide-1l",
+              "sparkle-clarifier-1l",
+              "chlorine-granules-1kg-etl",
+              "multifunctional-chlorine-tablets-5-kg-ukca",
+              "ph-reducer-1kg",
+              "hot-tub-no-foam-1l",
+              "no-foam-pool-and-spa-foam-remover-etl"
+            ],
+            "product_limit": 24,
+            "columns": 3
+          }
+        }
+      },
+      "block_order": [
+        "stage_TwR9bj",
+        "stage_xK3CQN"
+      ],
+      "name": "Staged bundle",
+      "settings": {
+        "heading": "Build your bundle",
+        "heading_size": "lg:text-4xl text-2xl",
+        "heading_tag": "h2",
+        "heading_alignment": "text-left",
+        "subheading": "",
+        "description": "",
+        "summary_title": "Your bundle",
+        "columns_mobile": "2",
+        "show_variant_labels": false,
+        "picker_type": "button",
+        "enable_color_swatches": true,
+        "color_swatch_type": "color",
+        "padding_top": 20,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
     "product_bundle_M3rftG": {
       "type": "product-bundle",
       "disabled": true,
@@ -435,6 +514,7 @@
     "main-page",
     "image-with-text-overlay",
     "rich_text_rrgLRX",
+    "staged_product_bundle_7GVH3a",
     "product_bundle_M3rftG",
     "floating-product-bundle",
     "compact-product-bundle",
