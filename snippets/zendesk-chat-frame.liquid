@@ -1,7 +1,8 @@
 {%- doc -%}
-  Embeds the Zendesk chat bot into the page: opens the widget, then moves its
-  window iframe into the in-page frame and forces it to fill that frame, so the
-  chat sits in the content (in the middle of the page) rather than floating.
+  Embeds the Zendesk chat bot into the page: opens the widget, then pins its
+  floating panel over the in-page block (via CSS position overrides, without
+  moving it in the DOM) so the chat sits in the content rather than in the
+  corner. Stays aligned to the block on scroll/resize.
 
   Works across both Zendesk generations (modern Messaging + classic Web Widget).
   Embedding a third-party widget relies on Zendesk's markup, so treat as
@@ -35,31 +36,6 @@
     position: absolute;
     inset: 0;
     padding: 2rem;
-  }
-
-  /* Force Zendesk's own iframe to fill the frame once it's moved in.
-     Stylesheet !important beats Zendesk's inline (non-important) positioning. */
-  #zdChat-{{ section.id }}.zd-chat--inlined .zd-chat__frame > iframe {
-    position: static !important;
-    inset: auto !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 0 !important;
-    min-height: {{ section.settings.chat_inline_min_height }}px !important;
-    max-width: none !important;
-    max-height: none !important;
-    margin: 0 !important;
-    border: 0 !important;
-    border-radius: inherit !important;
-    box-shadow: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
   }
 
   {%- if section.settings.hide_launcher -%}
@@ -144,16 +120,39 @@
       return null;
     }
 
-    // Move Zendesk's window iframe into our frame so it sits in the page content.
+    // Pin Zendesk's floating panel over our in-page block, without moving it in
+    // the DOM (so it never reloads / blanks). We override its fixed position to
+    // match the block's on-screen box and keep it aligned on scroll/resize.
+    var pinned = null;
+    function applyPin() {
+      if (!pinned || !document.contains(pinned)) return;
+      var r = frame.getBoundingClientRect();
+      var s = pinned.style;
+      s.setProperty('position', 'fixed', 'important');
+      s.setProperty('top', Math.round(r.top) + 'px', 'important');
+      s.setProperty('left', Math.round(r.left) + 'px', 'important');
+      s.setProperty('width', Math.round(r.width) + 'px', 'important');
+      s.setProperty('height', Math.round(r.height) + 'px', 'important');
+      s.setProperty('right', 'auto', 'important');
+      s.setProperty('bottom', 'auto', 'important');
+      s.setProperty('inset', 'auto', 'important');
+      s.setProperty('max-width', 'none', 'important');
+      s.setProperty('max-height', 'none', 'important');
+      s.setProperty('min-width', '0', 'important');
+      s.setProperty('min-height', '0', 'important');
+      s.setProperty('margin', '0', 'important');
+      s.setProperty('border-radius', '0.75rem', 'important');
+      s.setProperty('z-index', '5', 'important');
+    }
+
     function embed() {
       var el = windowFrame();
       if (!el) return false;
-      if (el.parentNode !== frame) {
-        frame.appendChild(el);
-        log('Embedded Zendesk iframe into the page frame:', el.title || el.id);
-      }
+      pinned = el;
       root.classList.add('zd-chat--inlined');
       if (statusEl) statusEl.style.display = 'none';
+      applyPin();
+      log('Pinned Zendesk panel over the in-page block:', el.title || el.id);
       return true;
     }
 
@@ -172,23 +171,20 @@
       setTimeout(openChat, OPEN_DELAY);
       setTimeout(function () { dumpFrames('2s after open'); }, 2000);
 
-      // Poll for the widget iframe, then embed it.
+      // Poll for the widget iframe, then pin it over the block.
       var n = 0;
       var iv = setInterval(function () {
         if (embed() || n++ > 60) {
           clearInterval(iv);
-          if (n > 60) log('Could not find the Zendesk window iframe to embed. Run [...document.querySelectorAll("iframe")].map(f=>({title:f.title,id:f.id})) and share the result.');
+          if (n > 60) log('Could not find the Zendesk window iframe to pin — check the "iframes" logs above for its title/id.');
         }
       }, 300);
 
-      // If Zendesk re-creates/moves its iframe back out, re-embed it.
-      if (window.MutationObserver) {
-        var mo = new MutationObserver(function () {
-          var el = windowFrame();
-          if (el && el.parentNode !== frame) embed();
-        });
-        mo.observe(document.body, { childList: true, subtree: true });
-      }
+      // Keep the panel aligned to the block as the page scrolls/resizes, and
+      // re-assert over Zendesk's own styling.
+      window.addEventListener('scroll', applyPin, { passive: true, capture: true });
+      window.addEventListener('resize', applyPin, { passive: true });
+      setInterval(applyPin, 250);
     });
 
     if (openBtn) {
