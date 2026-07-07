@@ -86,6 +86,38 @@
     log('Embedded-mode section running. zE present now?', typeof window.zE, '| autoRender =',
       (window.zEMessenger && window.zEMessenger.autoRender));
 
+    // --- Keep the page scrollable on mobile ------------------------------
+    // In embedded mode the chat lives INSIDE the page, so the host page must
+    // stay scrollable. Zendesk's messenger still tries to lock page scroll on
+    // mobile by setting INLINE overflow/position on <html>/<body> (its normal
+    // full-screen behaviour). That freezes the whole page. Strip only those
+    // inline locks — the theme locks scroll via CSS classes (mobile menu /
+    // modals), so leaving classes alone keeps those working.
+    function unlockPageScroll() {
+      [document.documentElement, document.body].forEach(function (el) {
+        if (!el || !el.style) return;
+        var s = el.style;
+        if (s.overflow === 'hidden') s.removeProperty('overflow');
+        if (s.overflowY === 'hidden') s.removeProperty('overflow-y');
+        if (s.position === 'fixed') {
+          s.removeProperty('position');
+          s.removeProperty('top');
+          s.removeProperty('left');
+          s.removeProperty('right');
+          s.removeProperty('width');
+          s.removeProperty('height');
+        }
+      });
+    }
+    try {
+      var scrollGuard = new MutationObserver(unlockPageScroll);
+      [document.documentElement, document.body].forEach(function (el) {
+        if (el) scrollGuard.observe(el, { attributes: true, attributeFilter: ['style'] });
+      });
+      unlockPageScroll();
+      log('Mobile scroll guard active (stripping inline scroll-locks only).');
+    } catch (e) { log('scroll guard failed:', e && e.message); }
+
     function z() {
       if (typeof window.zE !== 'function') return false;
       try { window.zE.apply(null, arguments); return true; }
