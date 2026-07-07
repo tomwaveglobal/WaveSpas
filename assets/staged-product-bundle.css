@@ -175,3 +175,64 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* Mobile refinements ---------------------------------------------------- */
+
+/* Tighten the gap between variant option groups (colour / size) so more of
+   each product card fits on screen without scrolling. */
+@media screen and (max-width: 749px) {
+  .staged-bundle .variant-picker {
+    gap: 0.75rem;
+  }
+  .staged-bundle .product-form {
+    gap: 0.5rem;
+  }
+  .staged-bundle .variant-picker .form__label {
+    margin-bottom: 0.375rem;
+  }
+}
+
+/* Sticky bundle summary: keep the total, savings and Add-to-basket button
+   pinned to the bottom of the screen on mobile/tablet (the summary is in-flow
+   below the stages until the desktop sidebar layout kicks in at 1024px). */
+@media screen and (max-width: 1023px) {
+  .staged-bundle__footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    margin: 0;
+    padding: 0.875rem 1rem calc(0.875rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.5rem;
+    background: rgb(var(--color-background));
+    border-top: 1px solid rgba(var(--color-foreground), 0.12);
+    box-shadow: 0 -6px 24px rgba(var(--color-foreground), 0.1);
+  }
+
+  /* Reserve space so the fixed bar never covers the last of the content. */
+  .staged-bundle {
+    padding-bottom: 10rem;
+  }
+
+  /* The "discounts at checkout" caption stays on the product/summary area but
+     is redundant inside the compact bottom bar. */
+  .staged-bundle__footer > p {
+    display: none;
+  }
+
+  /* Full-width, easy-to-reach primary action; Back drops below as a link. */
+  .staged-bundle__nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .staged-bundle__nav .button {
+    width: 100%;
+    min-height: 3rem;
+  }
+  .staged-bundle__back {
+    order: 2;
+    align-self: center;
+  }
+}

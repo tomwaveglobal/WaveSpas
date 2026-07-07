@@ -28,6 +28,20 @@ class StagedProductBundle extends HTMLElement {
     this.addEventListener('bundle:added', this.onAdd.bind(this));
     this.addEventListener('bundle:removed', this.onRemove.bind(this));
 
+    // Edit-after-adding: when a customer changes the options on a card that's
+    // already in the bundle, update its line in place instead of forcing a
+    // remove + re-add. ProductInfo publishes `variantChange` once the async
+    // option swap has resolved, carrying the resolved variant.
+    this.onCardVariantChange = this.onCardVariantChange.bind(this);
+    this.variantChangeUnsubscriber = theme.pubsub.subscribe(
+      theme.pubsub.PUB_SUB_EVENTS.variantChange,
+      this.onCardVariantChange
+    );
+
+    // Tapping the already-selected colour on an added card removes just that
+    // pick (switching to a different colour is handled by the change above).
+    this.addEventListener('click', this.onPickerClick.bind(this));
+
     this.nextButton?.addEventListener('click', () => this.goTo(this.current + 1));
     this.prevButton?.addEventListener('click', () => this.goTo(this.current - 1));
     this.submitButton?.addEventListener('click', this.onSubmit.bind(this));
@@ -85,7 +99,9 @@ class StagedProductBundle extends HTMLElement {
 
     const li = this.buildSelection(card, variant, stage.index);
     this.selectionList?.appendChild(li);
-    stage.selections.push({ variantId: variant.id, price: parseInt(variant.price, 10) || 0, card, li });
+    const price = parseInt(variant.price, 10) || 0;
+    const compareAt = parseInt(variant.compare_at_price, 10) || 0;
+    stage.selections.push({ variantId: variant.id, price, compareAt, variant, card, li });
 
     // Lock the chosen card so it can't be added twice.
     card.setAttribute('locked', '');
@@ -93,12 +109,32 @@ class StagedProductBundle extends HTMLElement {
     if (stage.selections.length >= stage.maxPicks) stageEl.setAttribute('locked', '');
 
     this.refresh();
+    this.maybeAutoAdvance(stage);
+  }
+
+  // Once a stage is filled to its pick limit, move the customer straight to the
+  // next step (or, on the final stage, bring the summary into view). Keeps the
+  // mobile flow moving without an extra tap on "Next".
+  maybeAutoAdvance(stage) {
+    if (stage.index !== this.current) return;
+    if (stage.selections.length < stage.maxPicks) return;
+
+    if (this.current < this.lastStageIndex && this.canAdvanceFrom(this.current)) {
+      setTimeout(() => this.goTo(this.current + 1), 350);
+    } else if (this.current >= this.lastStageIndex) {
+      setTimeout(() => {
+        this.querySelector('[data-staged-bundle-selections]')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 350);
+    }
   }
 
   onRemove(event) {
     const li = event.detail.variant;
     if (!li || !li.hasAttribute('data-staged-selection')) return;
+    this.removeSelection(li);
+  }
 
+  removeSelection(li) {
     const stage = this.stages[parseInt(li.getAttribute('data-stage'), 10)];
     if (stage) {
       const idx = stage.selections.findIndex((sel) => sel.li === li);
@@ -110,6 +146,71 @@ class StagedProductBundle extends HTMLElement {
     }
     li.remove();
     this.refresh();
+  }
+
+  findSelectionByCard(card) {
+    for (const stage of this.stages) {
+      const sel = stage.selections.find((s) => s.card === card);
+      if (sel) return { stage, sel };
+    }
+    return null;
+  }
+
+  // A card already in the bundle had its options changed → refresh its line
+  // (price, options, image) in place. `variant` is the resolved variant from
+  // ProductInfo's `variantChange` event.
+  onCardVariantChange(payload) {
+    const variant = payload?.data?.variant;
+    const productId = payload?.data?.productId;
+    if (!variant || variant.id == null) return;
+
+    for (const stage of this.stages) {
+      for (const sel of stage.selections) {
+        // Match the changed product's card; skip if this pick already matches.
+        if (productId != null && !sel.card.querySelector(`[data-product-id="${productId}"]`)) continue;
+        if (sel.variantId === variant.id) continue;
+
+        sel.variantId = variant.id;
+        sel.price = parseInt(variant.price, 10) || 0;
+        sel.compareAt = parseInt(variant.compare_at_price, 10) || 0;
+        sel.variant = variant;
+
+        const newLi = this.buildSelection(sel.card, variant, stage.index);
+        sel.li.replaceWith(newLi);
+        sel.li = newLi;
+      }
+    }
+    this.refresh();
+  }
+
+  // Re-tapping the already-selected colour swatch on an added card removes that
+  // pick. Switching to a different colour falls through to onCardVariantChange.
+  onPickerClick(event) {
+    const input = event.target.closest('input[type="radio"]');
+    if (!input) return;
+
+    const card = input.closest('.product-card');
+    if (!card) return;
+
+    const match = this.findSelectionByCard(card);
+    if (!match) return; // only cards already in the bundle
+
+    const slug = input.closest('[data-option-slug]')?.getAttribute('data-option-slug') || '';
+    if (!(slug.includes('color') || slug.includes('colour'))) return;
+
+    // The option position this swatch belongs to (1-based).
+    const position = parseInt(input.getAttribute('data-option-index'), 10);
+    const currentValue = match.sel.variant?.options?.[position - 1];
+    const clickedValue = input.getAttribute('data-option-value');
+
+    // Only a re-tap of the currently-selected colour removes the pick.
+    if (currentValue != null && clickedValue === currentValue) {
+      this.removeSelection(match.sel.li);
+    }
+  }
+
+  disconnectedCallback() {
+    this.variantChangeUnsubscriber?.();
   }
 
   buildSelection(card, variant, stageIndex) {
@@ -246,6 +347,20 @@ class StagedProductBundle extends HTMLElement {
     const subtotal = this.allSelections.reduce((sum, sel) => sum + sel.price, 0);
     const el = this.querySelector('[data-staged-bundle-total]');
     if (el) el.innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyWithCurrencyFormat);
+
+    // Savings = sum of (compare-at − price) across picks that are marked down.
+    const savings = this.allSelections.reduce(
+      (sum, sel) => sum + Math.max((sel.compareAt || 0) - sel.price, 0),
+      0
+    );
+    const savingsRow = this.querySelector('[data-staged-bundle-savings]');
+    const savingsAmount = this.querySelector('[data-staged-bundle-savings-amount]');
+    if (savingsRow && savingsAmount) {
+      savingsRow.hidden = savings <= 0;
+      if (savings > 0) {
+        savingsAmount.innerHTML = theme.Currency.formatMoney(savings, theme.settings.moneyWithCurrencyFormat);
+      }
+    }
   }
 
   /* ---- errors ---- */
