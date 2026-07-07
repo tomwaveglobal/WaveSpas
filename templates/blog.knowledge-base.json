@@ -497,6 +497,32 @@
         "narrow": true,
         "rounded": false
       }
+    },
+    "zendesk_chat_WChjtA": {
+      "type": "zendesk-chat",
+      "name": "Zendesk Chat Bot",
+      "settings": {
+        "chat_inline_min_height": 640,
+        "chat_button_label": "Start chat",
+        "chat_loading_text": "Connecting you to our team…",
+        "heading": "Chat with our team",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -505,6 +531,7 @@
     "multicolumn_Hja3AQ",
     "17726329719e1087e3",
     "1772549226876255a5",
+    "zendesk_chat_WChjtA",
     "main-blog",
     "rich_text_c8pR63"
   ]
