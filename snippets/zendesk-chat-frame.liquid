@@ -1,20 +1,19 @@
 {%- doc -%}
-  Renders the Zendesk messaging chat.
-
-  Desktop (>= 768px): renders INLINE in the page using Zendesk's embedded mode
+  Renders the Zendesk messaging widget INLINE in the page (desktop and mobile)
+  using Zendesk's official embedded mode:
     zE('messenger', 'render', { mode: 'embedded', widget: { targetElement: '#...' } })
-  Mobile (< 768px): embedded mode does not fit an inline box and fights the
-    page for scroll (Zendesk locks page scroll for its full-screen view), so we
-    use Zendesk's native FLOATING chat instead — it is fully responsive and
-    handles its own full-screen behaviour. The in-page card becomes a compact
-    "Start chat" prompt that opens the floating messenger.
 
-  Floating auto-render is disabled on the contact template ONLY on desktop
-  (layout/theme.liquid sets window.zEMessenger.autoRender = false there); on
-  mobile the floating widget is left on so the chat is available.
+  Floating auto-render is disabled on the contact template in layout/theme.liquid
+  (window.zEMessenger.autoRender = false), which must load before the Zendesk
+  snippet. This snippet then renders the widget into the in-page container.
+
+  Mobile note: the embedded chat is sized to the viewport so it fits the phone
+  screen, and a small CSS rule keeps the page scrollable — Zendesk's mobile view
+  locks page scroll with position:fixed on <body>; we neutralise only that,
+  declaratively (no JS), so scrolling doesn't jump.
 
   Requires Zendesk *messaging* (embedded mode is not supported by Web Widget
-  Classic).
+  Classic). Only one mode (embedded OR floating) should be used per page.
 
   @param {object} section - The section, using these settings:
     chat_inline_min_height, chat_button_label, chat_loading_text
@@ -59,23 +58,28 @@
     display: none;
   }
 
-  /* Mobile: no inline embed — show a compact prompt card that opens the
-     native floating chat. Collapse the tall desktop frame and let the
-     prompt flow normally instead of being absolutely positioned. */
+  /* --- Mobile ----------------------------------------------------------- */
   @media (max-width: 767px) {
+    /* Fit the phone screen. The fixed desktop height leaves dead space at the
+       top and can crowd the composer; size the frame to the viewport instead
+       so the messenger renders the full conversation cleanly. */
     #zdChat-{{ section.id }} .zd-chat__frame {
       min-height: 0;
+      height: 80vh;
+      height: 80dvh;
     }
 
-    #zdChat-{{ section.id }} .zd-chat__target {
-      display: none;
-    }
-
-    #zdChat-{{ section.id }} .zd-chat__status {
-      position: static;
-      inset: auto;
-      padding: 2.5rem 1.5rem;
-      pointer-events: auto;
+    /* Keep the page scrollable while the embedded chat is on screen. Zendesk's
+       mobile view locks page scroll with position:fixed on <body> (the usual
+       iOS technique), which also caused the scroll "jump". Neutralise ONLY that,
+       declaratively (CSS, no JS observer) — so there is no jump, and the theme's
+       own overflow-based menu lock is left untouched. */
+    html,
+    body {
+      position: static !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
     }
   }
 </style>
@@ -104,18 +108,12 @@
     var targetEl = document.getElementById('zdTarget-{{ section.id }}');
     var statusEl = root.querySelector('[data-zd-status]');
     var openBtn = root.querySelector('[data-zd-open]');
-    var statusTextEl = root.querySelector('.zd-chat__status-text');
-
-    // Inline embed is a desktop layout. On mobile use Zendesk's native
-    // floating chat (responsive + handles its own full-screen view).
-    var isDesktop = !window.matchMedia || window.matchMedia('(min-width: 768px)').matches;
 
     function log() {
       try { console.log.apply(console, ['[ZendeskChat]'].concat([].slice.call(arguments))); } catch (e) {}
     }
 
-    log('Section running. mode =', isDesktop ? 'embedded (desktop)' : 'floating (mobile)',
-      '| zE present now?', typeof window.zE, '| autoRender =',
+    log('Embedded-mode section running. zE present now?', typeof window.zE, '| autoRender =',
       (window.zEMessenger && window.zEMessenger.autoRender));
 
     function z() {
@@ -124,7 +122,7 @@
       catch (e) { log('zE call errored:', e && e.message); return false; }
     }
 
-    // Ask Zendesk to render the messaging widget inside our container (desktop).
+    // Ask Zendesk to render the messaging widget inside our container.
     function renderEmbedded() {
       return z('messenger', 'render', {
         mode: 'embedded',
@@ -137,22 +135,10 @@
       return targetEl && targetEl.querySelector('iframe, [id^="webWidget"], div');
     }
 
-    // Run once zE is available, then hand off to `onReady`.
-    function whenReady(onReady) {
-      var tries = 0;
-      (function poll() {
-        if (typeof window.zE === 'function') { onReady(); return; }
-        if (tries++ > 160) {
-          log('zE never became available — the Zendesk snippet is not loading. Most likely cookie consent has not been accepted on this page.');
-          return;
-        }
-        setTimeout(poll, 150);
-      })();
-    }
-
-    if (isDesktop) {
-      // Desktop: render the messenger inline, retrying until the container fills.
-      whenReady(function () {
+    // Wait for the Zendesk API, then render — retrying until the container fills.
+    var readyTries = 0;
+    (function whenReady() {
+      if (typeof window.zE === 'function') {
         log('zE ready — rendering embedded messenger into', TARGET);
         renderEmbedded();
         var n = 0;
@@ -169,16 +155,19 @@
             renderEmbedded();
           }
         }, 300);
-      });
-    } else {
-      // Mobile: rely on the native floating chat (left enabled in theme.liquid).
-      log('Mobile — using native floating chat; the button opens the messenger.');
-    }
+        return;
+      }
+      if (readyTries++ > 160) {
+        log('zE never became available — the Zendesk snippet is not loading. Most likely cookie consent has not been accepted on this page.');
+        return;
+      }
+      setTimeout(whenReady, 150);
+    })();
 
     if (openBtn) {
       openBtn.addEventListener('click', function () {
-        if (isDesktop) renderEmbedded();
-        whenReady(function () { z('messenger', 'open'); });
+        renderEmbedded();
+        z('messenger', 'open');
       });
     }
   })();
