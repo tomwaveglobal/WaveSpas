@@ -1,0 +1,173 @@
+{%- doc -%}
+  Renders the Zendesk chat bot in place of the standard contact form.
+
+  Two display modes:
+  - auto:   opens Zendesk's own chat panel on load (reliable, supported).
+  - inline: experimentally reparents the Zendesk window iframe into the
+            in-page frame (unsupported by Zendesk; may break on their updates).
+
+  @param {object} section - The contact-form section, using these settings:
+    chat_display, hide_launcher, chat_open_delay, chat_inline_min_height,
+    chat_button_label, chat_loading_text
+
+  @example
+  {% render 'zendesk-chat-frame', section: section %}
+{%- enddoc -%}
+
+<style>
+  #zdChat-{{ section.id }} {
+    flex-grow: 1;
+  }
+
+  #zdChat-{{ section.id }} .zd-chat__frame {
+    position: relative;
+    min-height: {% if section.settings.chat_display == 'inline' %}{{ section.settings.chat_inline_min_height }}{% else %}280{% endif %}px;
+    border: 1px solid rgb(var(--color-foreground, 23 23 23) / 0.12);
+    border-radius: 0.75rem;
+    background: rgb(var(--color-foreground, 23 23 23) / 0.02);
+    overflow: hidden;
+  }
+
+  #zdChat-{{ section.id }} .zd-chat__status {
+    position: absolute;
+    inset: 0;
+    padding: 2rem;
+  }
+
+  {%- if section.settings.chat_display == 'inline' -%}
+  /* Experimental: force the reparented Zendesk iframe to fill the in-page frame */
+  #zdChat-{{ section.id }}.zd-chat--inlined .zd-chat__frame iframe {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: {{ section.settings.chat_inline_min_height }}px !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  {%- endif -%}
+
+  {%- if section.settings.hide_launcher -%}
+  /* Hide the floating Zendesk bubble on this page only (this CSS ships with the section) */
+  iframe[title="Button to launch messaging window"],
+  iframe[title="Number of unread messages"],
+  iframe#launcher {
+    display: none !important;
+  }
+  {%- endif -%}
+</style>
+
+<div
+  id="zdChat-{{ section.id }}"
+  class="zd-chat"
+  data-zd-chat
+  data-mode="{{ section.settings.chat_display }}"
+  data-hide-launcher="{{ section.settings.hide_launcher }}"
+  data-open-delay="{{ section.settings.chat_open_delay }}"
+>
+  <div class="zd-chat__frame" data-zd-frame>
+    <div class="zd-chat__status flex flex-col items-center justify-center gap-5 text-center" data-zd-status>
+      <p class="zd-chat__status-text rte leading-normal">{{ section.settings.chat_loading_text | escape }}</p>
+      <button type="button" class="button button--primary" is="hover-button" data-zd-open>
+        <span class="btn-fill" data-fill></span>
+        <span class="btn-text">{{ section.settings.chat_button_label | escape }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('zdChat-{{ section.id }}');
+    if (!root) return;
+
+    var MODE = root.dataset.mode;
+    var HIDE_LAUNCHER = root.dataset.hideLauncher === 'true';
+    var OPEN_DELAY = parseInt(root.dataset.openDelay, 10) || 0;
+
+    var frame = root.querySelector('[data-zd-frame]');
+    var statusEl = root.querySelector('[data-zd-status]');
+    var openBtn = root.querySelector('[data-zd-open]');
+
+    // Selectors covering both Zendesk generations: modern Messaging + classic Web Widget.
+    var WINDOW_SELECTORS = ['iframe[title="Messaging window"]', 'iframe#webWidget'];
+
+    function log() {
+      try { console.log.apply(console, ['[ZendeskChat]'].concat([].slice.call(arguments))); } catch (e) {}
+    }
+
+    // Fire a zE command, swallowing errors from the wrong-generation API so we can safely try both.
+    function z() {
+      if (typeof window.zE !== 'function') return false;
+      try { window.zE.apply(null, arguments); return true; }
+      catch (e) { return false; }
+    }
+
+    function showWidget() { z('messenger', 'show'); z('webWidget', 'show'); }
+    function openWidget() { z('messenger', 'open'); z('webWidget', 'open'); }
+
+    function firstMatch(selectors) {
+      for (var i = 0; i < selectors.length; i++) {
+        var el = document.querySelector(selectors[i]);
+        if (el) return el;
+      }
+      return null;
+    }
+
+    // Experimental: relocate Zendesk's own window iframe into our in-page frame.
+    function tryInline() {
+      var el = firstMatch(WINDOW_SELECTORS);
+      if (!el) return false;
+      if (!frame.contains(el)) frame.appendChild(el);
+      root.classList.add('zd-chat--inlined');
+      if (statusEl) statusEl.style.display = 'none';
+      log('Inlined widget iframe:', el.title || el.id);
+      return true;
+    }
+
+    // Wait for the Zendesk API to load before issuing commands.
+    var readyTries = 0;
+    function whenReady(cb) {
+      if (typeof window.zE === 'function') { cb(); return; }
+      if (readyTries++ > 120) { log('zE never became available — is the Zendesk app embed enabled?'); return; }
+      setTimeout(function () { whenReady(cb); }, 150);
+    }
+
+    whenReady(function () {
+      log('zE ready. mode =', MODE, '| hideLauncher =', HIDE_LAUNCHER);
+
+      if (MODE === 'inline') {
+        showWidget();
+        openWidget();
+        var n = 0;
+        var iv = setInterval(function () {
+          if (tryInline() || n++ > 50) {
+            clearInterval(iv);
+            if (n > 50) log('Could not find the widget iframe to inline; leaving as auto-open panel.');
+          }
+        }, 400);
+      } else {
+        setTimeout(function () { showWidget(); openWidget(); }, OPEN_DELAY);
+      }
+    });
+
+    // In-page control: reopen the chat (also the reopen affordance when the bubble is hidden).
+    if (openBtn) {
+      openBtn.addEventListener('click', function () {
+        showWidget();
+        openWidget();
+        if (MODE === 'inline') tryInline();
+      });
+    }
+  })();
+</script>
