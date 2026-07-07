@@ -109,6 +109,19 @@
       try { console.log.apply(console, ['[ZendeskChat]'].concat([].slice.call(arguments))); } catch (e) {}
     }
 
+    // Diagnostic: list every iframe on the page so we can see what Zendesk creates.
+    function dumpFrames(when) {
+      try {
+        var list = [].slice.call(document.querySelectorAll('iframe')).map(function (f) {
+          return { title: f.title || null, id: f.id || null, cls: f.className || null };
+        });
+        log('iframes ' + when + ':', JSON.stringify(list));
+      } catch (e) {}
+    }
+
+    log('Section script running. zE present now?', typeof window.zE);
+    dumpFrames('at start');
+
     // Fire a zE command, swallowing errors from the wrong-generation API so we can safely try both.
     function z() {
       if (typeof window.zE !== 'function') return false;
@@ -157,6 +170,7 @@
       log('zE ready — opening and embedding chat.');
       openChat();
       setTimeout(openChat, OPEN_DELAY);
+      setTimeout(function () { dumpFrames('2s after open'); }, 2000);
 
       // Poll for the widget iframe, then embed it.
       var n = 0;
