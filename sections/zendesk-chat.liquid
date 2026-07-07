@@ -22,18 +22,11 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Embeds the Zendesk chat bot into the page: it opens on load and sits in the frame here in the content, rather than floating in the corner. The bot handles the conversation and can raise a support ticket when needed."
+      "content": "Renders the Zendesk messaging chat bot inline in the page (Zendesk embedded mode), so it sits in the frame here rather than floating in the corner. Needs Zendesk messaging with app embed enabled; the contact template disables the floating bubble automatically. The bot handles the conversation and can raise a support ticket when needed."
     },
     {
       "type": "header",
       "content": "Chat behaviour"
-    },
-    {
-      "type": "checkbox",
-      "id": "hide_launcher",
-      "label": "Hide floating chat bubble on this page",
-      "default": true,
-      "info": "Hides the bottom-corner Zendesk bubble on this page only, since the chat is embedded here instead."
     },
     {
       "type": "range",
@@ -46,21 +39,10 @@
       "default": 640
     },
     {
-      "type": "range",
-      "id": "chat_open_delay",
-      "min": 0,
-      "max": 3000,
-      "step": 100,
-      "unit": "ms",
-      "label": "Open delay",
-      "default": 400,
-      "info": "Small delay gives the Zendesk widget time to load before opening."
-    },
-    {
       "type": "text",
       "id": "chat_button_label",
       "label": "Chat button label",
-      "info": "Optional in-page button that reopens the chat. Leave blank to hide it.",
+      "info": "Optional button shown while the chat loads. Leave blank to hide it.",
       "default": "Start chat"
     },
     {

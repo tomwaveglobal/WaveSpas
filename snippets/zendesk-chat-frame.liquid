@@ -1,17 +1,17 @@
 {%- doc -%}
-  Embeds the Zendesk chat bot into the page: opens the widget, then pins its
-  floating panel over the in-page block (via CSS position overrides, without
-  moving it in the DOM) so the chat sits in the content rather than in the
-  corner. Stays aligned to the block on scroll/resize.
+  Renders the Zendesk messaging widget INLINE in the page using Zendesk's
+  official embedded mode:
+    zE('messenger', 'render', { mode: 'embedded', widget: { targetElement: '#...' } })
 
-  Works across both Zendesk generations (modern Messaging + classic Web Widget).
-  Embedding a third-party widget relies on Zendesk's markup, so treat as
-  best-effort: if a Zendesk update changes things, the widget still opens and
-  the in-page "Start chat" button reopens it.
+  Floating auto-render is disabled on the contact template in layout/theme.liquid
+  (window.zEMessenger.autoRender = false), which must load before the Zendesk
+  snippet. This snippet then renders the widget into the in-page container.
+
+  Requires Zendesk *messaging* (embedded mode is not supported by Web Widget
+  Classic). Only one mode (embedded OR floating) should be used per page.
 
   @param {object} section - The section, using these settings:
-    hide_launcher, chat_inline_min_height, chat_open_delay,
-    chat_button_label, chat_loading_text
+    chat_inline_min_height, chat_button_label, chat_loading_text
 
   @example
   {% render 'zendesk-chat-frame', section: section %}
@@ -32,30 +32,31 @@
     overflow: hidden;
   }
 
+  /* Zendesk fills the target element; make sure it can actually use the height. */
+  #zdChat-{{ section.id }} .zd-chat__target {
+    position: absolute;
+    inset: 0;
+  }
+
   #zdChat-{{ section.id }} .zd-chat__status {
     position: absolute;
     inset: 0;
     padding: 2rem;
+    pointer-events: none;
   }
 
-  {%- if section.settings.hide_launcher -%}
-  /* Hide the floating Zendesk bubble on this page only */
-  iframe[title="Button to launch messaging window"],
-  iframe[title="Number of unread messages"],
-  iframe#launcher {
-    display: none !important;
+  #zdChat-{{ section.id }} .zd-chat__status [data-zd-open] {
+    pointer-events: auto;
   }
-  {%- endif -%}
+
+  #zdChat-{{ section.id }}.zd-chat--rendered .zd-chat__status {
+    display: none;
+  }
 </style>
 
-<div
-  id="zdChat-{{ section.id }}"
-  class="zd-chat"
-  data-zd-chat
-  data-hide-launcher="{{ section.settings.hide_launcher }}"
-  data-open-delay="{{ section.settings.chat_open_delay }}"
->
-  <div class="zd-chat__frame" data-zd-frame>
+<div id="zdChat-{{ section.id }}" class="zd-chat" data-zd-chat>
+  <div class="zd-chat__frame">
+    <div id="zdTarget-{{ section.id }}" class="zd-chat__target" data-zd-target></div>
     <div class="zd-chat__status flex flex-col items-center justify-center gap-5 text-center" data-zd-status>
       <p class="zd-chat__status-text rte leading-normal">{{ section.settings.chat_loading_text | escape }}</p>
       {%- if section.settings.chat_button_label != blank -%}
@@ -73,124 +74,70 @@
     var root = document.getElementById('zdChat-{{ section.id }}');
     if (!root) return;
 
-    var OPEN_DELAY = parseInt(root.dataset.openDelay, 10) || 0;
-    var frame = root.querySelector('[data-zd-frame]');
+    var TARGET = '#zdTarget-{{ section.id }}';
+    var targetEl = document.getElementById('zdTarget-{{ section.id }}');
     var statusEl = root.querySelector('[data-zd-status]');
     var openBtn = root.querySelector('[data-zd-open]');
-
-    // Selectors covering both Zendesk generations: modern Messaging + classic Web Widget.
-    var WINDOW_SELECTORS = ['iframe[title="Messaging window"]', 'iframe#webWidget'];
 
     function log() {
       try { console.log.apply(console, ['[ZendeskChat]'].concat([].slice.call(arguments))); } catch (e) {}
     }
 
-    // Diagnostic: list every iframe on the page so we can see what Zendesk creates.
-    function dumpFrames(when) {
-      try {
-        var list = [].slice.call(document.querySelectorAll('iframe')).map(function (f) {
-          return { title: f.title || null, id: f.id || null, cls: f.className || null };
-        });
-        log('iframes ' + when + ':', JSON.stringify(list));
-      } catch (e) {}
-    }
+    log('Embedded-mode section running. zE present now?', typeof window.zE, '| autoRender =',
+      (window.zEMessenger && window.zEMessenger.autoRender));
 
-    log('Section script running. zE present now?', typeof window.zE);
-    dumpFrames('at start');
-
-    // Fire a zE command, swallowing errors from the wrong-generation API so we can safely try both.
     function z() {
       if (typeof window.zE !== 'function') return false;
       try { window.zE.apply(null, arguments); return true; }
-      catch (e) { return false; }
+      catch (e) { log('zE call errored:', e && e.message); return false; }
     }
 
-    function openChat() {
-      z('messenger', 'show');
-      z('webWidget', 'show');
-      z('messenger', 'open');
-      z('webWidget', 'open');
+    // Ask Zendesk to render the messaging widget inside our container.
+    function renderEmbedded() {
+      return z('messenger', 'render', {
+        mode: 'embedded',
+        widget: { targetElement: TARGET }
+      });
     }
 
-    function windowFrame() {
-      for (var i = 0; i < WINDOW_SELECTORS.length; i++) {
-        var el = document.querySelector(WINDOW_SELECTORS[i]);
-        if (el) return el;
+    function rendered() {
+      // Zendesk injects an iframe (or its own markup) into the target once rendered.
+      return targetEl && targetEl.querySelector('iframe, [id^="webWidget"], div');
+    }
+
+    // Wait for the Zendesk API, then render — retrying until the container fills.
+    var readyTries = 0;
+    (function whenReady() {
+      if (typeof window.zE === 'function') {
+        log('zE ready — rendering embedded messenger into', TARGET);
+        renderEmbedded();
+        var n = 0;
+        var iv = setInterval(function () {
+          if (rendered()) {
+            root.classList.add('zd-chat--rendered');
+            if (statusEl) statusEl.style.display = 'none';
+            clearInterval(iv);
+            log('Embedded messenger rendered into the page.');
+          } else if (n++ > 40) {
+            clearInterval(iv);
+            log('Embedded render did not fill the container. If nothing shows, this store may be on Web Widget Classic (embedded mode needs Zendesk messaging), or cookie consent has not been accepted.');
+          } else {
+            renderEmbedded();
+          }
+        }, 300);
+        return;
       }
-      return null;
-    }
-
-    // Pin Zendesk's floating panel over our in-page block, without moving it in
-    // the DOM (so it never reloads / blanks). We override its fixed position to
-    // match the block's on-screen box and keep it aligned on scroll/resize.
-    var pinned = null;
-    function applyPin() {
-      if (!pinned || !document.contains(pinned)) return;
-      var r = frame.getBoundingClientRect();
-      var s = pinned.style;
-      s.setProperty('position', 'fixed', 'important');
-      s.setProperty('top', Math.round(r.top) + 'px', 'important');
-      s.setProperty('left', Math.round(r.left) + 'px', 'important');
-      s.setProperty('width', Math.round(r.width) + 'px', 'important');
-      s.setProperty('height', Math.round(r.height) + 'px', 'important');
-      s.setProperty('right', 'auto', 'important');
-      s.setProperty('bottom', 'auto', 'important');
-      s.setProperty('inset', 'auto', 'important');
-      s.setProperty('max-width', 'none', 'important');
-      s.setProperty('max-height', 'none', 'important');
-      s.setProperty('min-width', '0', 'important');
-      s.setProperty('min-height', '0', 'important');
-      s.setProperty('margin', '0', 'important');
-      s.setProperty('border-radius', '0.75rem', 'important');
-      s.setProperty('z-index', '5', 'important');
-    }
-
-    function embed() {
-      var el = windowFrame();
-      if (!el) return false;
-      pinned = el;
-      root.classList.add('zd-chat--inlined');
-      if (statusEl) statusEl.style.display = 'none';
-      applyPin();
-      log('Pinned Zendesk panel over the in-page block:', el.title || el.id);
-      return true;
-    }
-
-    function whenReady(cb) {
-      var tries = 0;
-      (function poll() {
-        if (typeof window.zE === 'function') { cb(); return; }
-        if (tries++ > 120) { log('zE never became available — is the Zendesk app embed enabled?'); return; }
-        setTimeout(poll, 150);
-      })();
-    }
-
-    whenReady(function () {
-      log('zE ready — opening and embedding chat.');
-      openChat();
-      setTimeout(openChat, OPEN_DELAY);
-      setTimeout(function () { dumpFrames('2s after open'); }, 2000);
-
-      // Poll for the widget iframe, then pin it over the block.
-      var n = 0;
-      var iv = setInterval(function () {
-        if (embed() || n++ > 60) {
-          clearInterval(iv);
-          if (n > 60) log('Could not find the Zendesk window iframe to pin — check the "iframes" logs above for its title/id.');
-        }
-      }, 300);
-
-      // Keep the panel aligned to the block as the page scrolls/resizes, and
-      // re-assert over Zendesk's own styling.
-      window.addEventListener('scroll', applyPin, { passive: true, capture: true });
-      window.addEventListener('resize', applyPin, { passive: true });
-      setInterval(applyPin, 250);
-    });
+      if (readyTries++ > 160) {
+        log('zE never became available — the Zendesk snippet is not loading. Most likely cookie consent has not been accepted on this page.');
+        return;
+      }
+      setTimeout(whenReady, 150);
+    })();
 
     if (openBtn) {
       openBtn.addEventListener('click', function () {
-        openChat();
-        embed();
+        renderEmbedded();
+        z('messenger', 'open');
       });
     }
   })();
