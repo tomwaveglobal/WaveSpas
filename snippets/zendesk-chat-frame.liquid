@@ -1,16 +1,15 @@
 {%- doc -%}
-  Renders the Zendesk chat bot in place of the standard contact form.
+  Embeds the Zendesk chat bot into the page: opens the widget, then moves its
+  window iframe into the in-page frame and forces it to fill that frame, so the
+  chat sits in the content (in the middle of the page) rather than floating.
 
-  Two display modes:
-  - auto:   opens Zendesk's own chat panel on load (reliable, supported).
-  - inline: pins the live Zendesk panel over the in-page frame, tracking its
-            position on scroll/resize. This does NOT move the iframe in the DOM
-            (which would reload/reset the chat) — it overlays it. Still relies on
-            Zendesk's internal markup, so treat as best-effort: it may need
-            re-tuning if Zendesk changes their widget.
+  Works across both Zendesk generations (modern Messaging + classic Web Widget).
+  Embedding a third-party widget relies on Zendesk's markup, so treat as
+  best-effort: if a Zendesk update changes things, the widget still opens and
+  the in-page "Start chat" button reopens it.
 
-  @param {object} section - The contact-form section, using these settings:
-    chat_display, hide_launcher, chat_open_delay, chat_inline_min_height,
+  @param {object} section - The section, using these settings:
+    hide_launcher, chat_inline_min_height, chat_open_delay,
     chat_button_label, chat_loading_text
 
   @example
@@ -20,11 +19,12 @@
 <style>
   #zdChat-{{ section.id }} {
     flex-grow: 1;
+    width: 100%;
   }
 
   #zdChat-{{ section.id }} .zd-chat__frame {
     position: relative;
-    min-height: {% if section.settings.chat_display == 'inline' %}{{ section.settings.chat_inline_min_height }}{% else %}280{% endif %}px;
+    min-height: {{ section.settings.chat_inline_min_height }}px;
     border: 1px solid rgb(var(--color-foreground, 23 23 23) / 0.12);
     border-radius: 0.75rem;
     background: rgb(var(--color-foreground, 23 23 23) / 0.02);
@@ -37,8 +37,33 @@
     padding: 2rem;
   }
 
+  /* Force Zendesk's own iframe to fill the frame once it's moved in.
+     Stylesheet !important beats Zendesk's inline (non-important) positioning. */
+  #zdChat-{{ section.id }}.zd-chat--inlined .zd-chat__frame > iframe {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: {{ section.settings.chat_inline_min_height }}px !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+
   {%- if section.settings.hide_launcher -%}
-  /* Hide the floating Zendesk bubble on this page only (this CSS ships with the section) */
+  /* Hide the floating Zendesk bubble on this page only */
   iframe[title="Button to launch messaging window"],
   iframe[title="Number of unread messages"],
   iframe#launcher {
@@ -51,17 +76,18 @@
   id="zdChat-{{ section.id }}"
   class="zd-chat"
   data-zd-chat
-  data-mode="{{ section.settings.chat_display }}"
   data-hide-launcher="{{ section.settings.hide_launcher }}"
   data-open-delay="{{ section.settings.chat_open_delay }}"
 >
   <div class="zd-chat__frame" data-zd-frame>
     <div class="zd-chat__status flex flex-col items-center justify-center gap-5 text-center" data-zd-status>
       <p class="zd-chat__status-text rte leading-normal">{{ section.settings.chat_loading_text | escape }}</p>
-      <button type="button" class="button button--primary" is="hover-button" data-zd-open>
-        <span class="btn-fill" data-fill></span>
-        <span class="btn-text">{{ section.settings.chat_button_label | escape }}</span>
-      </button>
+      {%- if section.settings.chat_button_label != blank -%}
+        <button type="button" class="button button--primary" is="hover-button" data-zd-open>
+          <span class="btn-fill" data-fill></span>
+          <span class="btn-text">{{ section.settings.chat_button_label | escape }}</span>
+        </button>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -71,10 +97,7 @@
     var root = document.getElementById('zdChat-{{ section.id }}');
     if (!root) return;
 
-    var MODE = root.dataset.mode;
-    var HIDE_LAUNCHER = root.dataset.hideLauncher === 'true';
     var OPEN_DELAY = parseInt(root.dataset.openDelay, 10) || 0;
-
     var frame = root.querySelector('[data-zd-frame]');
     var statusEl = root.querySelector('[data-zd-status]');
     var openBtn = root.querySelector('[data-zd-open]');
@@ -93,8 +116,12 @@
       catch (e) { return false; }
     }
 
-    function showWidget() { z('messenger', 'show'); z('webWidget', 'show'); }
-    function openWidget() { z('messenger', 'open'); z('webWidget', 'open'); }
+    function openChat() {
+      z('messenger', 'show');
+      z('webWidget', 'show');
+      z('messenger', 'open');
+      z('webWidget', 'open');
+    }
 
     function windowFrame() {
       for (var i = 0; i < WINDOW_SELECTORS.length; i++) {
@@ -104,76 +131,56 @@
       return null;
     }
 
-    // Pin the live Zendesk panel over our in-page frame using its on-screen box.
-    // We override the iframe's own fixed positioning instead of reparenting it,
-    // so the chat session is never reloaded.
-    var pinnedEl = null;
-    function applyPin() {
-      if (!pinnedEl || !document.contains(pinnedEl)) return;
-      var r = frame.getBoundingClientRect();
-      var s = pinnedEl.style;
-      s.setProperty('position', 'fixed', 'important');
-      s.setProperty('top', Math.round(r.top) + 'px', 'important');
-      s.setProperty('left', Math.round(r.left) + 'px', 'important');
-      s.setProperty('width', Math.round(r.width) + 'px', 'important');
-      s.setProperty('height', Math.round(r.height) + 'px', 'important');
-      s.setProperty('inset', 'auto', 'important');
-      s.setProperty('right', 'auto', 'important');
-      s.setProperty('bottom', 'auto', 'important');
-      s.setProperty('max-width', 'none', 'important');
-      s.setProperty('max-height', 'none', 'important');
-      s.setProperty('min-width', '0', 'important');
-      s.setProperty('min-height', '0', 'important');
-      s.setProperty('margin', '0', 'important');
-      s.setProperty('border-radius', '0.75rem', 'important');
-      s.setProperty('z-index', '3', 'important');
-    }
-
-    function startPinning() {
+    // Move Zendesk's window iframe into our frame so it sits in the page content.
+    function embed() {
       var el = windowFrame();
       if (!el) return false;
-      pinnedEl = el;
+      if (el.parentNode !== frame) {
+        frame.appendChild(el);
+        log('Embedded Zendesk iframe into the page frame:', el.title || el.id);
+      }
       root.classList.add('zd-chat--inlined');
       if (statusEl) statusEl.style.display = 'none';
-      applyPin();
-      // Track the frame's position and keep re-asserting over Zendesk's own styling.
-      window.addEventListener('scroll', applyPin, { passive: true, capture: true });
-      window.addEventListener('resize', applyPin, { passive: true });
-      setInterval(applyPin, 250);
-      log('Pinned Zendesk panel into the page frame:', el.title || el.id);
       return true;
     }
 
-    // Wait for the Zendesk API to load before issuing commands.
-    var readyTries = 0;
     function whenReady(cb) {
-      if (typeof window.zE === 'function') { cb(); return; }
-      if (readyTries++ > 120) { log('zE never became available — is the Zendesk app embed enabled?'); return; }
-      setTimeout(function () { whenReady(cb); }, 150);
+      var tries = 0;
+      (function poll() {
+        if (typeof window.zE === 'function') { cb(); return; }
+        if (tries++ > 120) { log('zE never became available — is the Zendesk app embed enabled?'); return; }
+        setTimeout(poll, 150);
+      })();
     }
 
     whenReady(function () {
-      log('zE ready. mode =', MODE, '| hideLauncher =', HIDE_LAUNCHER);
-      showWidget();
-      setTimeout(openWidget, OPEN_DELAY);
+      log('zE ready — opening and embedding chat.');
+      openChat();
+      setTimeout(openChat, OPEN_DELAY);
 
-      if (MODE === 'inline') {
-        var n = 0;
-        var iv = setInterval(function () {
-          if (startPinning() || n++ > 60) {
-            clearInterval(iv);
-            if (n > 60) log('Could not find the Zendesk window iframe to pin. Run window.zE and inspect iframe titles; leaving as auto-open panel.');
-          }
-        }, 300);
+      // Poll for the widget iframe, then embed it.
+      var n = 0;
+      var iv = setInterval(function () {
+        if (embed() || n++ > 60) {
+          clearInterval(iv);
+          if (n > 60) log('Could not find the Zendesk window iframe to embed. Run [...document.querySelectorAll("iframe")].map(f=>({title:f.title,id:f.id})) and share the result.');
+        }
+      }, 300);
+
+      // If Zendesk re-creates/moves its iframe back out, re-embed it.
+      if (window.MutationObserver) {
+        var mo = new MutationObserver(function () {
+          var el = windowFrame();
+          if (el && el.parentNode !== frame) embed();
+        });
+        mo.observe(document.body, { childList: true, subtree: true });
       }
     });
 
-    // In-page control: reopen the chat (also the reopen affordance when the bubble is hidden).
     if (openBtn) {
       openBtn.addEventListener('click', function () {
-        showWidget();
-        openWidget();
-        if (MODE === 'inline') { startPinning(); applyPin(); }
+        openChat();
+        embed();
       });
     }
   })();

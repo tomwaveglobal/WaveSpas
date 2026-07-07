@@ -22,35 +22,18 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows the Zendesk chat bot on the page. The bot handles the conversation and can raise a support ticket when needed."
+      "content": "Embeds the Zendesk chat bot into the page: it opens on load and sits in the frame here in the content, rather than floating in the corner. The bot handles the conversation and can raise a support ticket when needed."
     },
     {
       "type": "header",
       "content": "Chat behaviour"
     },
     {
-      "type": "select",
-      "id": "chat_display",
-      "label": "Chat display",
-      "options": [
-        {
-          "value": "inline",
-          "label": "Show in page (default)"
-        },
-        {
-          "value": "auto",
-          "label": "Auto-open floating panel"
-        }
-      ],
-      "default": "inline",
-      "info": "Show in page pins the live Zendesk chat into the frame below. Auto-open leaves it as Zendesk's floating panel. If the in-page version ever misbehaves after a Zendesk update, switch to Auto-open."
-    },
-    {
       "type": "checkbox",
       "id": "hide_launcher",
       "label": "Hide floating chat bubble on this page",
       "default": true,
-      "info": "Hides the bottom-corner Zendesk bubble on this page only. Visitors reopen the chat with the button in the frame."
+      "info": "Hides the bottom-corner Zendesk bubble on this page only, since the chat is embedded here instead."
     },
     {
       "type": "range",
@@ -77,12 +60,14 @@
       "type": "text",
       "id": "chat_button_label",
       "label": "Chat button label",
+      "info": "Optional in-page button that reopens the chat. Leave blank to hide it.",
       "default": "Start chat"
     },
     {
       "type": "text",
       "id": "chat_loading_text",
       "label": "Frame message",
+      "info": "Shown in the frame while the chat loads.",
       "default": "Connecting you to our team…"
     },
     {

@@ -162,7 +162,6 @@
     "zendesk-chat": {
       "type": "zendesk-chat",
       "settings": {
-        "chat_display": "inline",
         "hide_launcher": true,
         "chat_inline_min_height": 640,
         "chat_open_delay": 400,
