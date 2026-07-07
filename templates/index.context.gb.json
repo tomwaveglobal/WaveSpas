@@ -20,33 +20,38 @@
           "type": "image",
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Freebies_inflatable_Updated-1.jpg",
-            "image_mobile": "shopify://shop_images/Freebies_inflatable_Updated-2.jpg",
-            "header-17844c744d8bbebc24566e9dda029c69": null,
+            "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
+            "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
+            "header-87b907d84363143527df438dbfa90bfe": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/inflatable-hot-tubs",
+            "button_link": "shopify://collections/foam-hot-tubs",
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
           }
         },
         "image_EUEdiE": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Price_Freebies-Foam-1.jpg",
-            "image_mobile": "shopify://shop_images/Price_Freebies-Foam-2.jpg",
-            "heading": "",
+            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
+            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
+            "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/foam-hot-tubs"
+            "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
         "image_9rd3Vt": {
           "disabled": true,
           "settings": {
             "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
+          }
+        },
+        "image_JUM7dH": {
+          "settings": {
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
           }
         },
         "image_rmPQY4": {
@@ -58,16 +63,11 @@
             "button_label": "Shop Pebble White",
             "button_link": "shopify://collections/foam-hot-tubs"
           }
-        },
-        "image_JUM7dH": {
-          "settings": {
-            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
-          }
         }
       },
       "block_order": [
-        "image_YL8tbf",
         "image_EUEdiE",
+        "image_YL8tbf",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"

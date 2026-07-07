@@ -19,11 +19,11 @@
         "image_9rd3Vt": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/US-5-_GOAL5-1.jpg",
-            "image_mobile": "shopify://shop_images/US-5-_GOAL5-2.jpg",
+            "image": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-1.jpg",
+            "image_mobile": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-2.jpg",
             "heading": "",
             "button_label": "Shop Offer",
-            "button_link": "shopify://collections/inflatable-hot-tubs"
+            "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
         "image_rmPQY4": {
@@ -35,9 +35,9 @@
           "settings": {}
         },
         "image_hc4WwT": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/US-10-KickOff-1.jpg",
+            "image": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-1.jpg",
             "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
             "heading": "‎",
             "button_label": "Final Chance"

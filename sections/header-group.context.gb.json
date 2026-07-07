@@ -19,9 +19,9 @@
         "announcement-2": {
           "disabled": false,
           "settings": {
-            "text": "<em><strong>Free Gift</strong></em> with all Hot Tubs",
-            "link": "shopify://collections/hot-tub-full-range",
-            "text_mobile": "<em><strong>Free Gift</strong></em> with all Hot Tubs",
+            "text": "<em><strong>Flash Sale</strong></em> 10% off Foam Hot Tubs",
+            "link": "shopify://collections/foam-hot-tubs",
+            "text_mobile": "<em><strong>Flash Sale</strong></em> 10% off Foam Hot Tubs",
             "highlighted_text": "text"
           }
         },
@@ -34,19 +34,25 @@
     "header": {
       "settings": {},
       "blocks": {
-        "mega_menu_tab_MyVeNJ": {
+        "mega_menu_tab_RkApqL": {
           "settings": {
             "tab_target_2": "",
             "tab_target_link_2": ""
           }
         },
-        "mega_menu_tab_RkApqL": {
+        "mega_menu_tab_MyVeNJ": {
           "settings": {
-            "tab_target_2": "Tents",
-            "tab_target_link_2": "shopify://collections/tents"
+            "tab_target_2": "",
+            "tab_target_link_2": ""
           }
         }
-      }
+      },
+      "block_order": [
+        "mega_menu_tab_zgiwaa",
+        "mega_menu_tab_aePWta",
+        "mega_menu_tab_RkApqL",
+        "mega_menu_tab_MyVeNJ"
+      ]
     }
   }
 }

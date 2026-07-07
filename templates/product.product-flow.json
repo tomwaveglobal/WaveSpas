@@ -203,12 +203,14 @@
         "contona_button_design": {
           "type": "contona_button_design",
           "settings": {
-            "bg_color": "#000000",
-            "text_color": "#FFFFFF",
+            "bg_color": "#ffffff",
+            "text_color": "#000000",
             "radius": 40,
             "font_size": 14,
             "padding_y": 10,
             "padding_x": 20,
+            "border_width": 1,
+            "border_color": "#000000",
             "d_position": "top-right",
             "d_offset_x": 16,
             "d_offset_y": 16,
@@ -1503,6 +1505,7 @@
         },
         "contact": {
           "type": "contact",
+          "disabled": true,
           "settings": {
             "heading": "Didn’t find your answer?",
             "text": "<p>Don't hestitate to contact us</p>",
@@ -1528,7 +1531,7 @@
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
         "subheading": "",
-        "description": "<p>Please read our <a href=\"/pages/faqs\" title=\"Frequently Asked Questions\">FAQs</a> page to find out more.</p>",
+        "description": "<p>Didn't find your answer? You can also check out the <a href=\"/blogs/knowledge-base\" title=\"Knowledge Base\">Support Centre.</a><br/>Or chat to us directly using the chat pop up in the bottom left corner.<br/></p>",
         "button_label": "",
         "button_link": "",
         "button_external": false,

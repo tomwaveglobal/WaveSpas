@@ -127,6 +127,7 @@
         },
         "button": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_label": "Button label",
             "button_link": "",
@@ -266,20 +267,16 @@
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "highlighted_reveal": false
+            "highlighted_scribble": "circle"
           }
         },
         "text_jkiYzC": {
           "type": "text",
           "settings": {
             "text": "<p>Many of our customers are first timers, couples looking for time to connect or families looking for some quality time. Most are doing it on a normal budget, on a normal weekend, in a normal garden. None of them needed a contractor.</p>",
-            "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
+            "text_font": "body",
             "secondary_color": false,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
@@ -305,8 +302,6 @@
         "content_position_mobile": "items-end justify-start",
         "text_alignment_mobile": "left",
         "color_text": "#ffffff",
-        "color_background": "",
-        "gradient_background": "",
         "color_highlight": "#e0a580",
         "gradient_highlight": "",
         "color_button_text": "#171717",
