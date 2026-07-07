@@ -3,8 +3,11 @@
 
   Two display modes:
   - auto:   opens Zendesk's own chat panel on load (reliable, supported).
-  - inline: experimentally reparents the Zendesk window iframe into the
-            in-page frame (unsupported by Zendesk; may break on their updates).
+  - inline: pins the live Zendesk panel over the in-page frame, tracking its
+            position on scroll/resize. This does NOT move the iframe in the DOM
+            (which would reload/reset the chat) — it overlays it. Still relies on
+            Zendesk's internal markup, so treat as best-effort: it may need
+            re-tuning if Zendesk changes their widget.
 
   @param {object} section - The contact-form section, using these settings:
     chat_display, hide_launcher, chat_open_delay, chat_inline_min_height,
@@ -33,29 +36,6 @@
     inset: 0;
     padding: 2rem;
   }
-
-  {%- if section.settings.chat_display == 'inline' -%}
-  /* Experimental: force the reparented Zendesk iframe to fill the in-page frame */
-  #zdChat-{{ section.id }}.zd-chat--inlined .zd-chat__frame iframe {
-    position: static !important;
-    inset: auto !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: {{ section.settings.chat_inline_min_height }}px !important;
-    max-width: none !important;
-    max-height: none !important;
-    margin: 0 !important;
-    border: 0 !important;
-    border-radius: inherit !important;
-    box-shadow: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  {%- endif -%}
 
   {%- if section.settings.hide_launcher -%}
   /* Hide the floating Zendesk bubble on this page only (this CSS ships with the section) */
@@ -116,22 +96,51 @@
     function showWidget() { z('messenger', 'show'); z('webWidget', 'show'); }
     function openWidget() { z('messenger', 'open'); z('webWidget', 'open'); }
 
-    function firstMatch(selectors) {
-      for (var i = 0; i < selectors.length; i++) {
-        var el = document.querySelector(selectors[i]);
+    function windowFrame() {
+      for (var i = 0; i < WINDOW_SELECTORS.length; i++) {
+        var el = document.querySelector(WINDOW_SELECTORS[i]);
         if (el) return el;
       }
       return null;
     }
 
-    // Experimental: relocate Zendesk's own window iframe into our in-page frame.
-    function tryInline() {
-      var el = firstMatch(WINDOW_SELECTORS);
+    // Pin the live Zendesk panel over our in-page frame using its on-screen box.
+    // We override the iframe's own fixed positioning instead of reparenting it,
+    // so the chat session is never reloaded.
+    var pinnedEl = null;
+    function applyPin() {
+      if (!pinnedEl || !document.contains(pinnedEl)) return;
+      var r = frame.getBoundingClientRect();
+      var s = pinnedEl.style;
+      s.setProperty('position', 'fixed', 'important');
+      s.setProperty('top', Math.round(r.top) + 'px', 'important');
+      s.setProperty('left', Math.round(r.left) + 'px', 'important');
+      s.setProperty('width', Math.round(r.width) + 'px', 'important');
+      s.setProperty('height', Math.round(r.height) + 'px', 'important');
+      s.setProperty('inset', 'auto', 'important');
+      s.setProperty('right', 'auto', 'important');
+      s.setProperty('bottom', 'auto', 'important');
+      s.setProperty('max-width', 'none', 'important');
+      s.setProperty('max-height', 'none', 'important');
+      s.setProperty('min-width', '0', 'important');
+      s.setProperty('min-height', '0', 'important');
+      s.setProperty('margin', '0', 'important');
+      s.setProperty('border-radius', '0.75rem', 'important');
+      s.setProperty('z-index', '3', 'important');
+    }
+
+    function startPinning() {
+      var el = windowFrame();
       if (!el) return false;
-      if (!frame.contains(el)) frame.appendChild(el);
+      pinnedEl = el;
       root.classList.add('zd-chat--inlined');
       if (statusEl) statusEl.style.display = 'none';
-      log('Inlined widget iframe:', el.title || el.id);
+      applyPin();
+      // Track the frame's position and keep re-asserting over Zendesk's own styling.
+      window.addEventListener('scroll', applyPin, { passive: true, capture: true });
+      window.addEventListener('resize', applyPin, { passive: true });
+      setInterval(applyPin, 250);
+      log('Pinned Zendesk panel into the page frame:', el.title || el.id);
       return true;
     }
 
@@ -145,19 +154,17 @@
 
     whenReady(function () {
       log('zE ready. mode =', MODE, '| hideLauncher =', HIDE_LAUNCHER);
+      showWidget();
+      setTimeout(openWidget, OPEN_DELAY);
 
       if (MODE === 'inline') {
-        showWidget();
-        openWidget();
         var n = 0;
         var iv = setInterval(function () {
-          if (tryInline() || n++ > 50) {
+          if (startPinning() || n++ > 60) {
             clearInterval(iv);
-            if (n > 50) log('Could not find the widget iframe to inline; leaving as auto-open panel.');
+            if (n > 60) log('Could not find the Zendesk window iframe to pin. Run window.zE and inspect iframe titles; leaving as auto-open panel.');
           }
-        }, 400);
-      } else {
-        setTimeout(function () { showWidget(); openWidget(); }, OPEN_DELAY);
+        }, 300);
       }
     });
 
@@ -166,7 +173,7 @@
       openBtn.addEventListener('click', function () {
         showWidget();
         openWidget();
-        if (MODE === 'inline') tryInline();
+        if (MODE === 'inline') { startPinning(); applyPin(); }
       });
     }
   })();

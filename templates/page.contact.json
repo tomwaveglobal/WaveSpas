@@ -159,33 +159,13 @@
         "rounded": false
       }
     },
-    "contact-form": {
-      "type": "contact-form",
-      "blocks": {
-        "contact-2": {
-          "type": "contact",
-          "settings": {
-            "heading": "Email",
-            "text": "<p><a href=\"mailto:support@wavespas.com\" title=\"mailto:support@wavespas.com\">support@wavespas.com</a></p>"
-          }
-        },
-        "media": {
-          "type": "media",
-          "settings": {
-            "heading": "Follow us"
-          }
-        }
-      },
-      "block_order": [
-        "contact-2",
-        "media"
-      ],
+    "zendesk-chat": {
+      "type": "zendesk-chat",
       "settings": {
-        "contact_mode": "chat",
-        "chat_display": "auto",
+        "chat_display": "inline",
         "hide_launcher": true,
+        "chat_inline_min_height": 640,
         "chat_open_delay": 400,
-        "chat_inline_min_height": 560,
         "chat_button_label": "Start chat",
         "chat_loading_text": "Connecting you to our team…",
         "heading": "Contact Us",
@@ -193,22 +173,13 @@
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
         "subheading": "",
-        "description": "<p>We'd love to hear from you. Our team is here to help. <br/>The best way to contact us to is to use our automated chat, which you can find in the bottom corner of every page on this site.<br/><br/></p>",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
+        "description": "<p>We'd love to hear from you. Our team is here to help. <br/>The best way to contact us is to use our automated chat below — the bot can answer most questions and raise a support ticket if needed.</p>",
         "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
         "color_text": "#171717",
         "color_background": "#fafafa",
         "gradient_background": "",
         "color_highlight": "rgba(0,0,0,0)",
         "gradient_highlight": "",
-        "color_button_text": "#171717",
-        "color_button_background": "#ffffff",
-        "color_button_gradient": "",
         "padding_top": 52,
         "padding_bottom": 52,
         "divider": false,
@@ -322,7 +293,7 @@
     "image_with_text_overlay_TX7a8X",
     "empty_space_JDcX4K",
     "rich-text",
-    "contact-form",
+    "zendesk-chat",
     "multicolumn_PUdCbp"
   ]
 }

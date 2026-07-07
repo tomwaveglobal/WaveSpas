@@ -15,9 +15,6 @@
         assign custom_fields = section.blocks | where: "type", "custom_field"
         assign form_id = 'ContactForm-' | append: section.id
       -%}
-      {%- if section.settings.contact_mode == 'chat' -%}
-      {%- render 'zendesk-chat-frame', section: section -%}
-      {%- else -%}
       {%- form 'contact', id: form_id, class: 'grow' -%}
         <div class="contact__fields flex flex-wrap gap-4d5 md:gap-6">
           {%- if form.errors -%}
@@ -191,7 +188,6 @@
           </div>
         </div>
       {%- endform -%}
-      {%- endif -%}
 
       {%- if section.blocks.size > custom_fields.size -%}
         <div class="grow-0">
@@ -225,90 +221,6 @@
     {
       "type": "paragraph",
       "content": "t:sections.contact-form.settings.paragraph.content"
-    },
-    {
-      "type": "header",
-      "content": "Contact mode"
-    },
-    {
-      "type": "select",
-      "id": "contact_mode",
-      "label": "Show",
-      "options": [
-        {
-          "value": "form",
-          "label": "Email form"
-        },
-        {
-          "value": "chat",
-          "label": "Zendesk chat bot"
-        }
-      ],
-      "default": "form",
-      "info": "Email form sends submissions to your store email. Zendesk chat replaces the form with the live chat bot (which can raise a support ticket)."
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' }}",
-      "type": "select",
-      "id": "chat_display",
-      "label": "Chat display",
-      "options": [
-        {
-          "value": "auto",
-          "label": "Auto-open panel (recommended)"
-        },
-        {
-          "value": "inline",
-          "label": "Embed in page (experimental)"
-        }
-      ],
-      "default": "auto",
-      "info": "Auto-open launches Zendesk's own chat panel on load (reliable). Embed tries to place the chat window inside the frame — unsupported by Zendesk, so it may break after their updates."
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' }}",
-      "type": "checkbox",
-      "id": "hide_launcher",
-      "label": "Hide floating chat bubble on this page",
-      "default": true,
-      "info": "Hides the bottom-corner Zendesk bubble on this page only. Visitors reopen the chat with the button in the frame."
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' }}",
-      "type": "range",
-      "id": "chat_open_delay",
-      "min": 0,
-      "max": 3000,
-      "step": 100,
-      "unit": "ms",
-      "label": "Auto-open delay",
-      "default": 400,
-      "info": "Small delay gives the Zendesk widget time to load before opening."
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' and section.settings.chat_display == 'inline' }}",
-      "type": "range",
-      "id": "chat_inline_min_height",
-      "min": 300,
-      "max": 900,
-      "step": 20,
-      "unit": "px",
-      "label": "Embedded frame height",
-      "default": 560
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' }}",
-      "type": "text",
-      "id": "chat_button_label",
-      "label": "Chat button label",
-      "default": "Start chat"
-    },
-    {
-      "visible_if": "{{ section.settings.contact_mode == 'chat' }}",
-      "type": "text",
-      "id": "chat_loading_text",
-      "label": "Frame message",
-      "default": "Connecting you to our team…"
     },
     {
       "type": "header",
