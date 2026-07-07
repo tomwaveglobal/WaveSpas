@@ -1,14 +1,20 @@
 {%- doc -%}
-  Renders the Zendesk messaging widget INLINE in the page using Zendesk's
-  official embedded mode:
-    zE('messenger', 'render', { mode: 'embedded', widget: { targetElement: '#...' } })
+  Renders the Zendesk messaging chat.
 
-  Floating auto-render is disabled on the contact template in layout/theme.liquid
-  (window.zEMessenger.autoRender = false), which must load before the Zendesk
-  snippet. This snippet then renders the widget into the in-page container.
+  Desktop (>= 768px): renders INLINE in the page using Zendesk's embedded mode
+    zE('messenger', 'render', { mode: 'embedded', widget: { targetElement: '#...' } })
+  Mobile (< 768px): embedded mode does not fit an inline box and fights the
+    page for scroll (Zendesk locks page scroll for its full-screen view), so we
+    use Zendesk's native FLOATING chat instead — it is fully responsive and
+    handles its own full-screen behaviour. The in-page card becomes a compact
+    "Start chat" prompt that opens the floating messenger.
+
+  Floating auto-render is disabled on the contact template ONLY on desktop
+  (layout/theme.liquid sets window.zEMessenger.autoRender = false there); on
+  mobile the floating widget is left on so the chat is available.
 
   Requires Zendesk *messaging* (embedded mode is not supported by Web Widget
-  Classic). Only one mode (embedded OR floating) should be used per page.
+  Classic).
 
   @param {object} section - The section, using these settings:
     chat_inline_min_height, chat_button_label, chat_loading_text
@@ -52,6 +58,26 @@
   #zdChat-{{ section.id }}.zd-chat--rendered .zd-chat__status {
     display: none;
   }
+
+  /* Mobile: no inline embed — show a compact prompt card that opens the
+     native floating chat. Collapse the tall desktop frame and let the
+     prompt flow normally instead of being absolutely positioned. */
+  @media (max-width: 767px) {
+    #zdChat-{{ section.id }} .zd-chat__frame {
+      min-height: 0;
+    }
+
+    #zdChat-{{ section.id }} .zd-chat__target {
+      display: none;
+    }
+
+    #zdChat-{{ section.id }} .zd-chat__status {
+      position: static;
+      inset: auto;
+      padding: 2.5rem 1.5rem;
+      pointer-events: auto;
+    }
+  }
 </style>
 
 <div id="zdChat-{{ section.id }}" class="zd-chat" data-zd-chat>
@@ -78,45 +104,19 @@
     var targetEl = document.getElementById('zdTarget-{{ section.id }}');
     var statusEl = root.querySelector('[data-zd-status]');
     var openBtn = root.querySelector('[data-zd-open]');
+    var statusTextEl = root.querySelector('.zd-chat__status-text');
+
+    // Inline embed is a desktop layout. On mobile use Zendesk's native
+    // floating chat (responsive + handles its own full-screen view).
+    var isDesktop = !window.matchMedia || window.matchMedia('(min-width: 768px)').matches;
 
     function log() {
       try { console.log.apply(console, ['[ZendeskChat]'].concat([].slice.call(arguments))); } catch (e) {}
     }
 
-    log('Embedded-mode section running. zE present now?', typeof window.zE, '| autoRender =',
+    log('Section running. mode =', isDesktop ? 'embedded (desktop)' : 'floating (mobile)',
+      '| zE present now?', typeof window.zE, '| autoRender =',
       (window.zEMessenger && window.zEMessenger.autoRender));
-
-    // --- Keep the page scrollable on mobile ------------------------------
-    // In embedded mode the chat lives INSIDE the page, so the host page must
-    // stay scrollable. Zendesk's messenger still tries to lock page scroll on
-    // mobile by setting INLINE overflow/position on <html>/<body> (its normal
-    // full-screen behaviour). That freezes the whole page. Strip only those
-    // inline locks — the theme locks scroll via CSS classes (mobile menu /
-    // modals), so leaving classes alone keeps those working.
-    function unlockPageScroll() {
-      [document.documentElement, document.body].forEach(function (el) {
-        if (!el || !el.style) return;
-        var s = el.style;
-        if (s.overflow === 'hidden') s.removeProperty('overflow');
-        if (s.overflowY === 'hidden') s.removeProperty('overflow-y');
-        if (s.position === 'fixed') {
-          s.removeProperty('position');
-          s.removeProperty('top');
-          s.removeProperty('left');
-          s.removeProperty('right');
-          s.removeProperty('width');
-          s.removeProperty('height');
-        }
-      });
-    }
-    try {
-      var scrollGuard = new MutationObserver(unlockPageScroll);
-      [document.documentElement, document.body].forEach(function (el) {
-        if (el) scrollGuard.observe(el, { attributes: true, attributeFilter: ['style'] });
-      });
-      unlockPageScroll();
-      log('Mobile scroll guard active (stripping inline scroll-locks only).');
-    } catch (e) { log('scroll guard failed:', e && e.message); }
 
     function z() {
       if (typeof window.zE !== 'function') return false;
@@ -124,7 +124,7 @@
       catch (e) { log('zE call errored:', e && e.message); return false; }
     }
 
-    // Ask Zendesk to render the messaging widget inside our container.
+    // Ask Zendesk to render the messaging widget inside our container (desktop).
     function renderEmbedded() {
       return z('messenger', 'render', {
         mode: 'embedded',
@@ -137,10 +137,22 @@
       return targetEl && targetEl.querySelector('iframe, [id^="webWidget"], div');
     }
 
-    // Wait for the Zendesk API, then render — retrying until the container fills.
-    var readyTries = 0;
-    (function whenReady() {
-      if (typeof window.zE === 'function') {
+    // Run once zE is available, then hand off to `onReady`.
+    function whenReady(onReady) {
+      var tries = 0;
+      (function poll() {
+        if (typeof window.zE === 'function') { onReady(); return; }
+        if (tries++ > 160) {
+          log('zE never became available — the Zendesk snippet is not loading. Most likely cookie consent has not been accepted on this page.');
+          return;
+        }
+        setTimeout(poll, 150);
+      })();
+    }
+
+    if (isDesktop) {
+      // Desktop: render the messenger inline, retrying until the container fills.
+      whenReady(function () {
         log('zE ready — rendering embedded messenger into', TARGET);
         renderEmbedded();
         var n = 0;
@@ -157,19 +169,16 @@
             renderEmbedded();
           }
         }, 300);
-        return;
-      }
-      if (readyTries++ > 160) {
-        log('zE never became available — the Zendesk snippet is not loading. Most likely cookie consent has not been accepted on this page.');
-        return;
-      }
-      setTimeout(whenReady, 150);
-    })();
+      });
+    } else {
+      // Mobile: rely on the native floating chat (left enabled in theme.liquid).
+      log('Mobile — using native floating chat; the button opens the messenger.');
+    }
 
     if (openBtn) {
       openBtn.addEventListener('click', function () {
-        renderEmbedded();
-        z('messenger', 'open');
+        if (isDesktop) renderEmbedded();
+        whenReady(function () { z('messenger', 'open'); });
       });
     }
   })();

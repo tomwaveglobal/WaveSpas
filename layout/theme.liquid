@@ -66,9 +66,14 @@
     {%- endcomment -%}
     {%- if template.suffix == 'contact' -%}
       <script>
-        window.zEMessenger = window.zEMessenger || {};
-        window.zEMessenger.autoRender = false;
-        window.zEMessenger.autorender = false;
+        // Disable the floating bubble ONLY on desktop, where the chat is
+        // embedded inline. On mobile we keep the native floating chat (the
+        // inline embed neither fits nor scrolls well on phones).
+        if (!window.matchMedia || window.matchMedia('(min-width: 768px)').matches) {
+          window.zEMessenger = window.zEMessenger || {};
+          window.zEMessenger.autoRender = false;
+          window.zEMessenger.autorender = false;
+        }
       </script>
     {%- endif -%}
 
