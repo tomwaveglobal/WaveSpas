@@ -16,23 +16,6 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_YL8tbf": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
-            "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-87b907d84363143527df438dbfa90bfe": null,
-            "heading": "‎",
-            "heading_size": "title-sm",
-            "heading_tag": "h2",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": false
-          }
-        },
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
@@ -41,6 +24,23 @@
             "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/hot-tub-full-range"
+          }
+        },
+        "image_YL8tbf": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
+            "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
+            "header-436f7bc8b3bf51d723bf43d1e6b895f9": null,
+            "heading": "‎",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/foam-hot-tubs",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": false
           }
         },
         "image_9rd3Vt": {
@@ -66,8 +66,8 @@
         }
       },
       "block_order": [
-        "image_EUEdiE",
         "image_YL8tbf",
+        "image_EUEdiE",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"
