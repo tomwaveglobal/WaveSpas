@@ -18,7 +18,7 @@
       "blocks": {
         "image_YL8tbf": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
             "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
