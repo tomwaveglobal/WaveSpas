@@ -19,11 +19,16 @@
         "image_9rd3Vt": {
           "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-1.jpg",
-            "image_mobile": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-2.jpg",
+            "image": "shopify://shop_images/Inflatable_WiFi_-1.jpg",
+            "image_mobile": "shopify://shop_images/Inflatable_WiFi_-2.jpg",
             "heading": "",
             "button_label": "Shop Offer",
             "button_link": "shopify://collections/hot-tub-full-range"
+          }
+        },
+        "image_JUM7dH": {
+          "settings": {
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Summer Sale </span> now on!"
           }
         },
         "image_rmPQY4": {
@@ -41,11 +46,6 @@
             "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
             "heading": "‎",
             "button_label": "Final Chance"
-          }
-        },
-        "image_JUM7dH": {
-          "settings": {
-            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Summer Sale </span> now on!"
           }
         }
       },
