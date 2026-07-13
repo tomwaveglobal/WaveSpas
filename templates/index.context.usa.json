@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "image_9rd3Vt": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-1.jpg",
             "image_mobile": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-2.jpg",
@@ -41,6 +41,11 @@
             "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
             "heading": "‎",
             "button_label": "Final Chance"
+          }
+        },
+        "image_JUM7dH": {
+          "settings": {
+            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Summer Sale </span> now on!"
           }
         }
       },
