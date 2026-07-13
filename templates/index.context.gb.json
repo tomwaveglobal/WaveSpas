@@ -16,23 +16,13 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_EUEdiE": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
-            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
-            "heading": "‎",
-            "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/hot-tub-full-range"
-          }
-        },
         "image_YL8tbf": {
           "type": "image",
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
             "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-436f7bc8b3bf51d723bf43d1e6b895f9": null,
+            "header-b0d1bfede00a6f5cbf921b28dd5b79c0": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -41,6 +31,16 @@
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
+          }
+        },
+        "image_EUEdiE": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Spa-bundle-carousel_V2-1_9843c155-2afe-4783-892a-545fc953b5dd.jpg",
+            "image_mobile": "shopify://shop_images/Spa-bundle-carousel_V2-2_799fcd6f-82f7-4991-b5bc-59347bb4c09e.jpg",
+            "heading": "‎",
+            "button_label": "Shop Whilst Stocks Last",
+            "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
         "image_9rd3Vt": {
@@ -75,7 +75,7 @@
     },
     "featured-product": {
       "settings": {
-        "product": "garda-hot-tub"
+        "product": "como-hot-tub"
       },
       "blocks": {}
     },
