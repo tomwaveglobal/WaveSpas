@@ -467,7 +467,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "The Garda",
+            "heading": "The Como",
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "none",
@@ -494,7 +494,7 @@
           "type": "button",
           "settings": {
             "button_label": "Shop Now",
-            "button_link": "shopify://products/garda-hot-tub",
+            "button_link": "shopify://products/como-hot-tub",
             "button_style": "primary",
             "button_size": "md",
             "button_external": false,
@@ -509,7 +509,7 @@
       ],
       "settings": {
         "transparent_header": false,
-        "video": "shopify://files/videos/Garda.mp4",
+        "video": "shopify://files/videos/Como.mp4",
         "video_url": "",
         "description": "",
         "enable_video_autoplay": true,
@@ -667,7 +667,7 @@
         "spinning_text"
       ],
       "settings": {
-        "product": "garda-hot-tub-ce",
+        "product": "como-hot-tub",
         "enable_sticky_info": true,
         "media_size": 64,
         "gallery_layout": "thumbnail",
