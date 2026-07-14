@@ -180,6 +180,7 @@
         },
         "inventory": {
           "type": "inventory",
+          "disabled": true,
           "settings": {
             "inventory_threshold": 10,
             "show_inventory_transfer": false,
