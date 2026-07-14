@@ -31,19 +31,29 @@
     {%- if badge_fg != blank -%}--badge-foreground: {{ badge_fg }};{%- endif -%}
   {%- endcapture -%}
 
-  {%- comment -%} Delimited, downcased index of every variant barcode + SKU for fast matching. {%- endcomment -%}
+  {%- comment -%}
+    Build a delimited, downcased index of variant barcodes + SKUs to match against.
+    When use_variant is set (product page / quick view), match only the SELECTED variant so the
+    badge refreshes as the shopper changes variants. Otherwise (cards) match any variant.
+  {%- endcomment -%}
   {%- assign variant_code_index = '' -%}
-  {%- for variant in product.variants -%}
-    {%- assign variant_code_index = variant_code_index | append: '|' | append: variant.barcode | append: '|' | append: variant.sku -%}
-  {%- endfor -%}
-  {%- assign variant_code_index = variant_code_index | append: '|' | downcase -%}
+  {%- if use_variant -%}
+    {%- assign selected_variant = product.selected_or_first_available_variant -%}
+    {%- assign variant_code_index = '|' | append: selected_variant.barcode | append: '|' | append: selected_variant.sku | append: '|' -%}
+  {%- else -%}
+    {%- for variant in product.variants -%}
+      {%- assign variant_code_index = variant_code_index | append: '|' | append: variant.barcode | append: '|' | append: variant.sku -%}
+    {%- endfor -%}
+    {%- assign variant_code_index = variant_code_index | append: '|' -%}
+  {%- endif -%}
+  {%- assign variant_code_index = variant_code_index | downcase -%}
 
   {%- comment -%} Track which modules have rendered so a product never shows the same module twice. {%- endcomment -%}
   {%- assign rendered_modules = '' -%}
 
   {%- comment -%}
     1. Metafield-driven badges (product.metafields.theme.label). When a matched module's Variant Focus
-    also matches this product, the module swaps to its Override badge (image/text) instead of the base.
+    also matches, the module shows its Override badge instead of (or, if "show both" is on, alongside) the base.
   {%- endcomment -%}
   {%- assign label_value = product.metafields.theme.label.value -%}
   {%- if label_value != blank -%}
@@ -76,12 +86,7 @@
       {%- endif -%}
 
       {%- if show_label and label_text != blank -%}
-        {%- comment -%} Defaults for a custom (non-module) label entry: a plain text pill. {%- endcomment -%}
         {%- assign matched_module = 0 -%}
-        {%- assign badge_text = label_text -%}
-        {%- assign badge_image = blank -%}
-        {%- assign badge_show_text = true -%}
-
         {%- if settings.advanced_badge_map_1_text != blank and settings.advanced_badge_map_1_text == label_text -%}
           {%- assign matched_module = 1 -%}
         {%- elsif settings.advanced_badge_map_2_text != blank and settings.advanced_badge_map_2_text == label_text -%}
@@ -111,6 +116,7 @@
           {%- assign ov_text_key = 'advanced_badge_map_' | append: matched_module | append: '_override_text' -%}
           {%- assign ov_image_key = 'advanced_badge_map_' | append: matched_module | append: '_override_image' -%}
           {%- assign ov_show_key = 'advanced_badge_map_' | append: matched_module | append: '_override_show_text' -%}
+          {%- assign ov_both_key = 'advanced_badge_map_' | append: matched_module | append: '_override_show_both' -%}
 
           {%- assign focus_value = settings[focus_key] -%}
           {%- assign ov_text = settings[ov_text_key] -%}
@@ -130,26 +136,27 @@
           {%- endif -%}
 
           {%- if variant_match and has_override -%}
-            {%- assign badge_text = ov_text | default: label_text -%}
-            {%- assign badge_image = ov_image -%}
-            {%- assign badge_show_text = settings[ov_show_key] -%}
+            {%- if settings[ov_both_key] -%}
+              {%- render 'product-badge-item', badge_mode: badge_mode, label_text: label_text, badge_image: settings[base_image_key], badge_show_text: settings[base_show_key], styles: styles -%}
+            {%- endif -%}
+            {%- assign ov_label = ov_text | default: label_text -%}
+            {%- render 'product-badge-item', badge_mode: badge_mode, label_text: ov_label, badge_image: ov_image, badge_show_text: settings[ov_show_key], styles: styles -%}
           {%- else -%}
-            {%- assign badge_text = label_text -%}
-            {%- assign badge_image = settings[base_image_key] -%}
-            {%- assign badge_show_text = settings[base_show_key] -%}
+            {%- render 'product-badge-item', badge_mode: badge_mode, label_text: label_text, badge_image: settings[base_image_key], badge_show_text: settings[base_show_key], styles: styles -%}
           {%- endif -%}
 
           {%- assign rendered_modules = rendered_modules | append: '|' | append: matched_module | append: '|' -%}
+        {%- else -%}
+          {%- comment -%} Custom label text that maps to no module: a plain text pill. {%- endcomment -%}
+          {%- render 'product-badge-item', badge_mode: badge_mode, label_text: label_text, badge_image: blank, badge_show_text: true, styles: styles -%}
         {%- endif -%}
-
-        {%- render 'product-badge-item', badge_mode: badge_mode, label_text: badge_text, badge_image: badge_image, badge_show_text: badge_show_text, styles: styles -%}
       {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
 
   {%- comment -%}
     2. Variant-focus badges for modules not already shown above. A matching variant shows the module's
-    Override badge if one is set, otherwise its base badge — no metafield label required.
+    Override badge (replacing, or alongside if "show both") — or its base badge if no override is set.
   {%- endcomment -%}
   {%- for i in (1..10) -%}
     {%- assign module_needle = '|' | append: i | append: '|' -%}
@@ -174,9 +181,11 @@
     {%- assign ov_text_key = 'advanced_badge_map_' | append: i | append: '_override_text' -%}
     {%- assign ov_image_key = 'advanced_badge_map_' | append: i | append: '_override_image' -%}
     {%- assign ov_show_key = 'advanced_badge_map_' | append: i | append: '_override_show_text' -%}
+    {%- assign ov_both_key = 'advanced_badge_map_' | append: i | append: '_override_show_both' -%}
+
+    {%- assign base_text = settings[base_text_key] -%}
     {%- assign ov_text = settings[ov_text_key] -%}
     {%- assign ov_image = settings[ov_image_key] -%}
-    {%- assign ov_show = settings[ov_show_key] -%}
 
     {%- assign has_override = false -%}
     {%- if ov_text != blank or ov_image != blank -%}
@@ -184,16 +193,15 @@
     {%- endif -%}
 
     {%- if has_override -%}
-      {%- assign focus_text = ov_text | default: settings[base_text_key] -%}
-      {%- assign focus_image = ov_image -%}
-      {%- assign focus_show_text = ov_show -%}
+      {%- if settings[ov_both_key] -%}
+        {%- render 'product-badge-item', badge_mode: badge_mode, label_text: base_text, badge_image: settings[base_image_key], badge_show_text: settings[base_show_key], styles: styles -%}
+      {%- endif -%}
+      {%- assign ov_label = ov_text | default: base_text -%}
+      {%- render 'product-badge-item', badge_mode: badge_mode, label_text: ov_label, badge_image: ov_image, badge_show_text: settings[ov_show_key], styles: styles -%}
     {%- else -%}
-      {%- assign focus_text = settings[base_text_key] -%}
-      {%- assign focus_image = settings[base_image_key] -%}
-      {%- assign focus_show_text = settings[base_show_key] -%}
+      {%- render 'product-badge-item', badge_mode: badge_mode, label_text: base_text, badge_image: settings[base_image_key], badge_show_text: settings[base_show_key], styles: styles -%}
     {%- endif -%}
 
-    {%- render 'product-badge-item', badge_mode: badge_mode, label_text: focus_text, badge_image: focus_image, badge_show_text: focus_show_text, styles: styles -%}
     {%- assign rendered_modules = rendered_modules | append: '|' | append: i | append: '|' -%}
   {%- endfor -%}
 </div>
