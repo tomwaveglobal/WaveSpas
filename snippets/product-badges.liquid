@@ -22,15 +22,21 @@
 -%}
 {%- if badge_mode != 'hidden' -%}
 <div class="badges{% if class != blank %} {{ class }}{% endif %} pointer-events-none">
+  {%- liquid
+    assign badge_bg = product.metafields.theme.label_color.value | default: settings.product_badge_bg_color
+    assign badge_fg = settings.product_badge_text_color | default: '#ffffff'
+  -%}
+  {%- capture styles -%}
+    {%- if badge_bg != blank -%}--badge-background: {{ badge_bg }};{%- endif -%}
+    {%- if badge_fg != blank -%}--badge-foreground: {{ badge_fg }};{%- endif -%}
+  {%- endcapture -%}
+
+  {%- comment -%} Track badge text already rendered so a product never shows the same badge twice. {%- endcomment -%}
+  {%- assign rendered_texts = '' -%}
+
+  {%- comment -%} 1. Metafield-driven badges: product.metafields.theme.label (semicolon-separated, optional country prefixes). {%- endcomment -%}
   {%- assign label_value = product.metafields.theme.label.value -%}
   {%- if label_value != blank -%}
-    {%- assign badge_bg = product.metafields.theme.label_color.value | default: settings.product_badge_bg_color -%}
-    {%- assign badge_fg = settings.product_badge_text_color | default: '#ffffff' -%}
-    {%- capture styles -%}
-      {%- if badge_bg != blank -%}--badge-background: {{ badge_bg }};{%- endif -%}
-      {%- if badge_fg != blank -%}--badge-foreground: {{ badge_fg }};{%- endif -%}
-    {%- endcapture -%}
-
     {%- assign label_entries = label_value | split: ';' -%}
     {%- for entry in label_entries -%}
       {%- assign entry_trimmed = entry | strip -%}
@@ -94,33 +100,64 @@
           {%- assign badge_show_text = settings.advanced_badge_map_10_show_text -%}
         {%- endif -%}
 
-        {%- case badge_mode -%}
-          {%- when 'text' -%}
-            <span class="badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
-              {{- label_text | escape -}}
-            </span>
-          {%- when 'image' -%}
-            {%- if badge_image != blank -%}
-              {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
-            {%- endif -%}
-          {%- when 'both' -%}
-            {%- if badge_image != blank and badge_show_text -%}
-              <div class="badge-image-wrap relative inline-block">
-                {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
-                <span class="badge badge-on-image flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
-                  {{- label_text | escape -}}
-                </span>
-              </div>
-            {%- elsif badge_image != blank -%}
-              {{ badge_image | image_url: width: 800 | image_tag: alt: label_text, class: 'badge-image', loading: 'lazy' }}
-            {%- elsif badge_show_text -%}
-              <span class="badge flex items-center gap-1d5 font-medium leading-none rounded-full"{% if styles != blank %} style="{{ styles }}"{% endif %}>
-                {{- label_text | escape -}}
-              </span>
-            {%- endif -%}
-        {%- endcase -%}
+        {%- render 'product-badge-item', badge_mode: badge_mode, label_text: label_text, badge_image: badge_image, badge_show_text: badge_show_text, styles: styles -%}
+        {%- assign rendered_texts = rendered_texts | append: '|' | append: label_text | append: '|' -%}
       {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
+
+  {%- comment -%}
+    2. Variant-focus badges: fire a badge module when the product has a variant whose barcode OR SKU
+    matches that module's "Variant Focus" setting. No metafield needed.
+  {%- endcomment -%}
+  {%- assign variant_code_index = '' -%}
+  {%- for variant in product.variants -%}
+    {%- assign variant_code_index = variant_code_index | append: '|' | append: variant.barcode | append: '|' | append: variant.sku -%}
+  {%- endfor -%}
+  {%- assign variant_code_index = variant_code_index | append: '|' | downcase -%}
+
+  {%- for i in (1..10) -%}
+    {%- assign focus_key = 'advanced_badge_map_' | append: i | append: '_variant_focus' -%}
+    {%- assign focus_value = settings[focus_key] -%}
+    {%- if focus_value == blank -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- assign focus_matched = false -%}
+    {%- assign focus_codes = focus_value | split: ',' -%}
+    {%- for code in focus_codes -%}
+      {%- assign code_needle = code | strip | downcase -%}
+      {%- if code_needle == blank -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign code_needle = '|' | append: code_needle | append: '|' -%}
+      {%- if variant_code_index contains code_needle -%}
+        {%- assign focus_matched = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if focus_matched -%}
+      {%- assign text_key = 'advanced_badge_map_' | append: i | append: '_text' -%}
+      {%- assign image_key = 'advanced_badge_map_' | append: i | append: '_image' -%}
+      {%- assign show_text_key = 'advanced_badge_map_' | append: i | append: '_show_text' -%}
+      {%- assign focus_text = settings[text_key] -%}
+      {%- assign focus_image = settings[image_key] -%}
+      {%- assign focus_show_text = settings[show_text_key] -%}
+
+      {%- assign skip_focus = false -%}
+      {%- if focus_text != blank -%}
+        {%- assign text_needle = '|' | append: focus_text | append: '|' -%}
+        {%- if rendered_texts contains text_needle -%}
+          {%- assign skip_focus = true -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- unless skip_focus -%}
+        {%- render 'product-badge-item', badge_mode: badge_mode, label_text: focus_text, badge_image: focus_image, badge_show_text: focus_show_text, styles: styles -%}
+        {%- assign rendered_texts = rendered_texts | append: '|' | append: focus_text | append: '|' -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
 </div>
 {%- endif -%}
