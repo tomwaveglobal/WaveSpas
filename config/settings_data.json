@@ -119,6 +119,7 @@
     "advanced_badge_map_1_override_text": "10% Off + Free Controller",
     "advanced_badge_map_1_override_image": "shopify://shop_images/Inflatable_WiFi_10offf.png",
     "advanced_badge_map_1_override_show_text": false,
+    "advanced_badge_map_1_override_show_both": true,
     "advanced_badge_map_2_text": "",
     "advanced_badge_map_3_text": "10% Off",
     "advanced_badge_map_3_image": "shopify://shop_images/Extra_5__Off0_fe67293d-7237-4a5e-95b6-c25ceeab0fb9.png",
