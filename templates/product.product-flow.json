@@ -180,6 +180,7 @@
         },
         "inventory": {
           "type": "inventory",
+          "disabled": true,
           "settings": {
             "inventory_threshold": 10,
             "show_inventory_transfer": false,
@@ -464,6 +465,10 @@
         "full_width": true,
         "rounded": true
       }
+    },
+    "17840224521f0f53e5": {
+      "type": "_blocks",
+      "settings": {}
     },
     "ss_product_videos_4_BQjpxE": {
       "type": "ss-product-videos-4",
@@ -1710,6 +1715,7 @@
   },
   "order": [
     "main-product",
+    "17840224521f0f53e5",
     "ss_product_videos_4_BQjpxE",
     "help-drawer",
     "scroll_spy_aPhVjp",
