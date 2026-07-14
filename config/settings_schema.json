@@ -1233,7 +1233,24 @@
         "type": "text",
         "id": "advanced_badge_map_1_variant_focus",
         "label": "Variant Focus 1 (Barcode or SKU)",
-        "info": "Optional. Show this badge on any product that has a variant whose barcode OR SKU matches — no metafield label needed. Separate multiple codes with commas."
+        "info": "Optional. When a product has a variant whose barcode OR SKU matches, this module shows its Override badge (below) instead of the base badge. If no override is set, the base badge shows. Separate multiple codes with commas."
+      },
+      {
+        "type": "text",
+        "id": "advanced_badge_map_1_override_text",
+        "label": "Override badge text 1",
+        "info": "Optional. Replaces the base \"Badge text 1\" / \"Image for badge 1\" on tiles for products matching Variant Focus 1."
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_1_override_image",
+        "label": "Override image for badge 1"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_1_override_show_text",
+        "label": "Show text on top of override image (badge 1)",
+        "default": true
       },
       {
         "type": "text",
@@ -1258,6 +1275,22 @@
       },
       {
         "type": "text",
+        "id": "advanced_badge_map_2_override_text",
+        "label": "Override badge text 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_2_override_image",
+        "label": "Override image for badge 2"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_2_override_show_text",
+        "label": "Show text on top of override image (badge 2)",
+        "default": true
+      },
+      {
+        "type": "text",
         "id": "advanced_badge_map_3_text",
         "label": "Badge text 3"
       },
@@ -1276,6 +1309,22 @@
         "type": "text",
         "id": "advanced_badge_map_3_variant_focus",
         "label": "Variant Focus 3 (Barcode or SKU)"
+      },
+      {
+        "type": "text",
+        "id": "advanced_badge_map_3_override_text",
+        "label": "Override badge text 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_3_override_image",
+        "label": "Override image for badge 3"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_3_override_show_text",
+        "label": "Show text on top of override image (badge 3)",
+        "default": true
       },
       {
         "type": "text",
@@ -1300,6 +1349,22 @@
       },
       {
         "type": "text",
+        "id": "advanced_badge_map_4_override_text",
+        "label": "Override badge text 4"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_4_override_image",
+        "label": "Override image for badge 4"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_4_override_show_text",
+        "label": "Show text on top of override image (badge 4)",
+        "default": true
+      },
+      {
+        "type": "text",
         "id": "advanced_badge_map_5_text",
         "label": "Badge text 5"
       },
@@ -1318,6 +1383,22 @@
         "type": "text",
         "id": "advanced_badge_map_5_variant_focus",
         "label": "Variant Focus 5 (Barcode or SKU)"
+      },
+      {
+        "type": "text",
+        "id": "advanced_badge_map_5_override_text",
+        "label": "Override badge text 5"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_5_override_image",
+        "label": "Override image for badge 5"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_5_override_show_text",
+        "label": "Show text on top of override image (badge 5)",
+        "default": true
       },
       {
         "type": "text",
@@ -1342,6 +1423,22 @@
       },
       {
         "type": "text",
+        "id": "advanced_badge_map_6_override_text",
+        "label": "Override badge text 6"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_6_override_image",
+        "label": "Override image for badge 6"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_6_override_show_text",
+        "label": "Show text on top of override image (badge 6)",
+        "default": true
+      },
+      {
+        "type": "text",
         "id": "advanced_badge_map_7_text",
         "label": "Badge text 7"
       },
@@ -1360,6 +1457,22 @@
         "type": "text",
         "id": "advanced_badge_map_7_variant_focus",
         "label": "Variant Focus 7 (Barcode or SKU)"
+      },
+      {
+        "type": "text",
+        "id": "advanced_badge_map_7_override_text",
+        "label": "Override badge text 7"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_7_override_image",
+        "label": "Override image for badge 7"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_7_override_show_text",
+        "label": "Show text on top of override image (badge 7)",
+        "default": true
       },
       {
         "type": "text",
@@ -1384,6 +1497,22 @@
       },
       {
         "type": "text",
+        "id": "advanced_badge_map_8_override_text",
+        "label": "Override badge text 8"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_8_override_image",
+        "label": "Override image for badge 8"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_8_override_show_text",
+        "label": "Show text on top of override image (badge 8)",
+        "default": true
+      },
+      {
+        "type": "text",
         "id": "advanced_badge_map_9_text",
         "label": "Badge text 9"
       },
@@ -1405,6 +1534,22 @@
       },
       {
         "type": "text",
+        "id": "advanced_badge_map_9_override_text",
+        "label": "Override badge text 9"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_9_override_image",
+        "label": "Override image for badge 9"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_9_override_show_text",
+        "label": "Show text on top of override image (badge 9)",
+        "default": true
+      },
+      {
+        "type": "text",
         "id": "advanced_badge_map_10_text",
         "label": "Badge text 10"
       },
@@ -1423,6 +1568,22 @@
         "type": "text",
         "id": "advanced_badge_map_10_variant_focus",
         "label": "Variant Focus 10 (Barcode or SKU)"
+      },
+      {
+        "type": "text",
+        "id": "advanced_badge_map_10_override_text",
+        "label": "Override badge text 10"
+      },
+      {
+        "type": "image_picker",
+        "id": "advanced_badge_map_10_override_image",
+        "label": "Override image for badge 10"
+      },
+      {
+        "type": "checkbox",
+        "id": "advanced_badge_map_10_override_show_text",
+        "label": "Show text on top of override image (badge 10)",
+        "default": true
       },
       {
         "type": "header",
