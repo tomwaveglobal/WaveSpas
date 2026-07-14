@@ -2145,7 +2145,7 @@
         // Liquid-rendered (Markets / B2B-catalog-aware) values flow into
         // the page. Without this the main top price stayed on the
         // initial Charcoal Black render no matter what was selected.
-        ['Price', 'BuyButtonPrice', 'StickyPrice', 'Sku', 'Badges', 'Inventory', 'Volume', 'PricePerItem', 'BackInStock', 'ProductBundle', 'VolumeNote'].forEach(function (prefix) {
+        ['Price', 'BuyButtonPrice', 'StickyPrice', 'Sku', 'Badges', 'BadgesOverlay', 'Inventory', 'Volume', 'PricePerItem', 'BackInStock', 'ProductBundle', 'VolumeNote'].forEach(function (prefix) {
           document.querySelectorAll('[id^="' + prefix + '-"]').forEach(function (destEl) {
             var srcEl = doc.getElementById(destEl.id);
             if (!srcEl) return;
