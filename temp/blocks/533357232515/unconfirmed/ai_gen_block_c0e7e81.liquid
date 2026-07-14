@@ -1,6 +1,362 @@
+{% doc %}
+  @prompt
+    create an inventory status block that sits above the buy button and displays 'Hurry, only x items left in stock!' the x being the current stock level for that item. Only have this display when stock is below 10 units
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% if product.selected_or_first_available_variant.inventory_quantity < block.settings.stock_threshold and product.selected_or_first_available_variant.inventory_quantity > 0 %}
+  {% style %}
+    .ai-inventory-status-{{ ai_gen_id }} {
+      display: block;
+      width: {{ block.settings.desktop_width_percent }}%;
+      max-width: 100%;
+      margin-bottom: {{ block.settings.spacing_bottom }}px;
+    }
+
+    .ai-inventory-status-wrapper-{{ ai_gen_id }} {
+      display: flex;
+      align-items: center;
+      gap: {{ block.settings.icon_spacing }}px;
+      padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+      background-color: {{ block.settings.background_color }};
+      border-radius: {{ block.settings.border_radius }}px;
+      border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    }
+
+    .ai-inventory-status-icon-{{ ai_gen_id }} {
+      flex-shrink: 0;
+      width: {{ block.settings.icon_size }}px;
+      height: {{ block.settings.icon_size }}px;
+      color: {{ block.settings.icon_color }};
+    }
+
+    .ai-inventory-status-text-{{ ai_gen_id }} {
+      color: {{ block.settings.text_color }};
+      font-size: {{ block.settings.text_size }}px;
+      font-weight: {{ block.settings.text_weight }};
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .ai-inventory-status-count-{{ ai_gen_id }} {
+      font-weight: {{ block.settings.count_weight }};
+      color: {{ block.settings.count_color }};
+    }
+
+    @media screen and (max-width: 749px) {
+      .ai-inventory-status-{{ ai_gen_id }} {
+        width: 100%;
+      }
+
+      .ai-inventory-status-text-{{ ai_gen_id }} {
+        font-size: {{ block.settings.text_size | times: 0.9 }}px;
+      }
+
+      .ai-inventory-status-icon-{{ ai_gen_id }} {
+        width: {{ block.settings.icon_size | times: 0.9 }}px;
+        height: {{ block.settings.icon_size | times: 0.9 }}px;
+      }
+    }
+  {% endstyle %}
+
+  <inventory-status-{{ ai_gen_id }}
+    class="ai-inventory-status-{{ ai_gen_id }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="ai-inventory-status-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.show_icon %}
+        <div class="ai-inventory-status-icon-{{ ai_gen_id }}">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+      {% endif %}
+
+      <p class="ai-inventory-status-text-{{ ai_gen_id }}">
+        {{ block.settings.message_prefix }}
+        <span class="ai-inventory-status-count-{{ ai_gen_id }}">
+          {{ product.selected_or_first_available_variant.inventory_quantity }}
+        </span>
+        {{ block.settings.message_suffix }}
+      </p>
+    </div>
+  </inventory-status-{{ ai_gen_id }}>
+
+  <script>
+    (function() {
+      class InventoryStatus{{ ai_gen_id }} extends HTMLElement {
+        constructor() {
+          super();
+        }
+
+        connectedCallback() {
+          this.setupVariantListener();
+        }
+
+        setupVariantListener() {
+          const productForm = document.querySelector('product-form');
+          if (!productForm) return;
+
+          productForm.addEventListener('variant-change', (event) => {
+            this.updateInventoryDisplay(event.detail.variant);
+          });
+        }
+
+        updateInventoryDisplay(variant) {
+          if (!variant) return;
+
+          const threshold = {{ block.settings.stock_threshold }};
+          const inventory = variant.inventory_quantity;
+
+          if (inventory < threshold && inventory > 0) {
+            this.style.display = 'block';
+            const countElement = this.querySelector('.ai-inventory-status-count-{{ ai_gen_id }}');
+            if (countElement) {
+              countElement.textContent = inventory;
+            }
+          } else {
+            this.style.display = 'none';
+          }
+        }
+      }
+
+      customElements.define('inventory-status-{{ ai_gen_id }}', InventoryStatus{{ ai_gen_id }});
+    })();
+  </script>
+{% endif %}
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Inventory status",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Message"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "message_prefix",
+      "label": "Message before count",
+      "default": "Hurry, only"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "message_suffix",
+      "label": "Message after count",
+      "default": "items left in stock!"
+    },
+    {
+      "type": "range",
+      "id": "stock_threshold",
+      "label": "Stock threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "info": "Only show when stock is below this number"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Icon spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "select",
+      "id": "count_weight",
+      "label": "Count weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#fffbeb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#b45309"
+    },
+    {
+      "type": "color",
+      "id": "count_color",
+      "label": "Count",
+      "default": "#b45309"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#b45309"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#fde68a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16,
+      "info": "Space below the block"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inventory status"
+    }
+  ]
+}
 {% endschema %}
