@@ -17,7 +17,18 @@
       "settings": {
         "newsletter_text": ""
       },
-      "blocks": {}
+      "blocks": {
+        "link_list_GQyK37": {
+          "settings": {
+            "menu": "footer-help-uk"
+          }
+        },
+        "link_list_JPFmdY": {
+          "settings": {
+            "menu": "footer-about-uk"
+          }
+        }
+      }
     }
   }
 }
