@@ -12,5 +12,21 @@
     "market": "usa"
   },
   "parent": "footer-group.json",
-  "sections": {}
+  "sections": {
+    "footer": {
+      "settings": {},
+      "blocks": {
+        "link_list_GQyK37": {
+          "settings": {
+            "menu": "footer-help-usa"
+          }
+        },
+        "link_list_JPFmdY": {
+          "settings": {
+            "menu": "footer-about-usa"
+          }
+        }
+      }
+    }
+  }
 }
