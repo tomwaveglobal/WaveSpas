@@ -18,10 +18,16 @@
       "blocks": {
         "text_qY6My9": {
           "settings": {
-            "text": "{{ metaobjects.shipping[\"us-shipping-policy\"].description | metafield_tag }}"
+            "text": "<p>{{ metaobjects.shipping[\"us-shipping-policy\"].description | metafield_tag }}</p>"
           }
         }
       }
+    },
+    "image_with_text_overlay_JQLCUH": {
+      "settings": {
+        "image": "shopify://shop_images/Carousel_Home_page_fb318754-4d78-4cf7-b157-b1c4ceee3588.jpg"
+      },
+      "blocks": {}
     }
   }
 }
