@@ -1,0 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "gb"
+  },
+  "parent": "page.shipping-returns.json",
+  "sections": {
+    "image_with_text_overlay_JQLCUH": {
+      "settings": {
+        "image": "shopify://shop_images/Carousel_Home_page_fb318754-4d78-4cf7-b157-b1c4ceee3588.jpg"
+      },
+      "blocks": {}
+    }
+  }
+}
