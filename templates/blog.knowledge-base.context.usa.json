@@ -12,5 +12,24 @@
     "market": "usa"
   },
   "parent": "blog.knowledge-base.json",
-  "sections": {}
+  "sections": {
+    "1772549226876255a5": {
+      "settings": {},
+      "blocks": {
+        "ai_gen_block_41310e1_9k6H6q": {
+          "settings": {
+            "url_1": "shopify://pages/knowledge-base-faqs",
+            "title_2": "Set Up Guides",
+            "url_2": "shopify://pages/knowledge-base-hot-tub-spa-how-to-guide",
+            "url_4": "https://wavespas.com/en-us/blogs/knowledge-base/tagged/error-codes",
+            "url_3": "https://wavespas.com/en-us/blogs/knowledge-base/tagged/how-tos",
+            "url_5": "shopify://pages/knowledge-base-shipping-and-returns",
+            "url_6": "https://wavespas.com/en-us/pages/spa-comparison-guide",
+            "url_7": "https://wavespas.com/en-us/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
+            "url_8": "https://wavespas.com/en-us/pages/ambassador-program"
+          }
+        }
+      }
+    }
+  }
 }
