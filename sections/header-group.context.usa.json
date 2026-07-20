@@ -18,15 +18,15 @@
       "blocks": {
         "announcement_qLAXY": {
           "type": "announcement",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-4007871441f78f4875aa554743efd93c": null,
+            "header-64065593944a161dad2a3177b55e3e2b": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-7b01668eb5d726394da0c2eb676abc02": null,
+            "header-18ed1e81ea999968cb522259358b30f4": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }

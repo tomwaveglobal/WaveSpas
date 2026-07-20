@@ -16,8 +16,18 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_9rd3Vt": {
+        "image_EUEdiE": {
           "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/US_FlashSale-1.jpg",
+            "image_mobile": "shopify://shop_images/US_FlashSale-2.jpg",
+            "heading": "‎",
+            "button_label": "Shop Foam Hot Tubs",
+            "button_link": "shopify://collections/foam-hot-tubs"
+          }
+        },
+        "image_9rd3Vt": {
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Inflatable_WiFi_-1.jpg",
             "image_mobile": "shopify://shop_images/Inflatable_WiFi_-2.jpg",
@@ -34,16 +44,6 @@
         "image_rmPQY4": {
           "disabled": false,
           "settings": {}
-        },
-        "image_EUEdiE": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/US_FlashSale-1.jpg",
-            "heading": "‎",
-            "button_label": "Shop Foam Hot Tubs",
-            "button_link": "shopify://collections/foam-hot-tubs",
-            "image_mobile": "shopify://shop_images/US_FlashSale-2.jpg"
-          }
         },
         "image_hc4WwT": {
           "disabled": true,
