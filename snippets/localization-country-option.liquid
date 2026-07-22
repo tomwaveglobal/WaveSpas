@@ -7,13 +7,22 @@
   elsif country.market.metafields.country.code == 'UK'
     assign link_override = uk_override
   endif
+
+  comment
+    Short term: only the US market uses Shopify's lowercase locale slug (/en-us).
+    Other markets keep their existing uppercase link until we roll the change out fully.
+  endcomment
+  assign country_slug = country.iso_code
+  if country.iso_code == 'US'
+    assign country_slug = 'us'
+  endif
 -%}
 <li class="opacity-0">
   <p>
     <a
       class="reversed-link"
       {% unless country.market.metafields.default.market == true %}
-        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country.iso_code }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
+        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country_slug }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
       {% else %}
         href="{{ shop.url }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
       {% endunless %}
