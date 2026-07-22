@@ -13,7 +13,7 @@
     <a
       class="reversed-link"
       {% unless country.market.metafields.default.market == true %}
-        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country.iso_code }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
+        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country.iso_code | downcase }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
       {% else %}
         href="{{ shop.url }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
       {% endunless %}
