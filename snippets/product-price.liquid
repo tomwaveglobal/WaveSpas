@@ -3,6 +3,11 @@
 
   Displays comprehensive pricing information including regular prices, sale prices, price ranges for products with variants, and unit pricing. Automatically detects sales, formats currencies, and handles various pricing scenarios with proper accessibility support.
 
+  When "Hide Out-of-Stock Variants" is active for the product (see snippets/oos-visibility.liquid),
+  the product-range price ("From £X" / single price / compare / savings) is computed from AVAILABLE
+  variants only, so a sold-out cheaper variant never sets the advertised price. The per-variant path
+  (use_variant) is unchanged — it shows the selected variant, which the picker keeps available.
+
   @param {object} [product] - Shopify product object for pricing
   @param {object} [variant] - Specific variant for single price display
   @param {boolean} [use_variant] - Show variant price vs product range
@@ -21,6 +26,11 @@
 {%- enddoc -%}
 
 {%- liquid
+  capture hide_oos_raw
+    render 'oos-visibility', product: product
+  endcapture
+  assign hide_oos = hide_oos_raw | strip
+
   if use_variant
     assign target = variant | default: product.selected_or_first_available_variant
   elsif placeholder
@@ -31,6 +41,40 @@
 
   assign compare_at_price = target.compare_at_price
   assign price = target.price | default: 1999
+  assign price_varies = false
+  if target == product
+    assign price_varies = product.price_varies
+  endif
+
+  comment
+    Product-range case (collection cards etc.): recompute min price / varies / compare from
+    available variants only when OOS variants are being hidden for this product.
+  endcomment
+  if hide_oos == 'true' and target == product
+    assign avail_min = null
+    assign avail_max = null
+    assign rep_variant = null
+    for v in product.variants
+      unless v.available
+        continue
+      endunless
+      if avail_min == null or v.price < avail_min
+        assign avail_min = v.price
+        assign rep_variant = v
+      endif
+      if avail_max == null or v.price > avail_max
+        assign avail_max = v.price
+      endif
+    endfor
+    if avail_min != null
+      assign price = avail_min
+      assign compare_at_price = rep_variant.compare_at_price
+      assign price_varies = false
+      if avail_max != avail_min
+        assign price_varies = true
+      endif
+    endif
+  endif
 
   assign on_sale = false
   unless hide_sale_price
@@ -51,13 +95,13 @@
   <span class="price__regular whitespace-nowrap">
     {%- liquid
       if product.quantity_price_breaks_configured? != true or skip_to_price
-        if target == product and product.price_varies
+        if target == product and price_varies
           if settings.currency_code_enabled
-            assign price_min = product.price_min | money_with_currency
+            assign price_from = price | money_with_currency
           else
-            assign price_min = product.price_min | money
+            assign price_from = price | money
           endif
-          echo 'products.price.from_price_html' | t: price: price_min
+          echo 'products.price.from_price_html' | t: price: price_from
         else
           if settings.currency_code_enabled
             echo price | money_with_currency
@@ -67,11 +111,11 @@
         endif
       else
         if settings.currency_code_enabled
-          assign price_min = product.price_min | money_with_currency
+          assign price_from = price | money_with_currency
         else
-          assign price_min = product.price_min | money
+          assign price_from = price | money
         endif
-        echo 'products.price.from_price_html' | t: price: price_min
+        echo 'products.price.from_price_html' | t: price: price_from
       endif
     -%}
   </span>

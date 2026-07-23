@@ -38,7 +38,23 @@
   %}
 {%- enddoc -%}
 
-{%- if product != blank -%}
+{%- liquid
+  comment
+    Hide the whole card when "Hide Out-of-Stock Variants" is active for this product and every
+    variant is unavailable (product.available is false only when no variant is available).
+    Centralised here so it applies to every card surface: collections, search, recommendations,
+    recently viewed, featured collections and mega-menu products.
+  endcomment
+  capture card_hide_oos
+    render 'oos-visibility', product: product
+  endcapture
+  assign card_hide_oos = card_hide_oos | strip
+  assign card_all_oos = false
+  if card_hide_oos == 'true' and product != blank and product.available == false
+    assign card_all_oos = true
+  endif
+-%}
+{%- if product != blank and card_all_oos == false -%}
   {%- liquid
     assign featured_media = product.featured_media
     assign product_media = product.media

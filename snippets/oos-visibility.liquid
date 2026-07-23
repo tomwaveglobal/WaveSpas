@@ -1,0 +1,27 @@
+{%- doc -%}
+  Resolves whether out-of-stock variants should be HIDDEN for a given product.
+
+  Single source of truth for the "Hide Out-of-Stock Variants" feature. Combines the global theme
+  setting (settings.hide_oos_variants) with the per-product override metafield
+  (custom.oos_variant_visibility: "Use global setting" | "Hide Out-of-Stock Variants" |
+  "Show Out-of-Stock Variants"). The product override always wins; otherwise the global setting applies.
+
+  Outputs the string "true" or "false" — capture it and compare:
+    {%- capture hide_oos -%}{%- render 'oos-visibility', product: product -%}{%- endcapture -%}
+    {%- assign hide_oos = hide_oos | strip -%}
+    {%- if hide_oos == 'true' -%} assign vlist = product.variants | where: 'available', true {%- endif -%}
+
+  @param {object} product - the product to evaluate
+{%- enddoc -%}
+{%- liquid
+  assign override = product.metafields.custom.oos_variant_visibility.value | default: '' | downcase
+  if override contains 'hide'
+    echo 'true'
+  elsif override contains 'show'
+    echo 'false'
+  elsif settings.hide_oos_variants
+    echo 'true'
+  else
+    echo 'false'
+  endif
+-%}

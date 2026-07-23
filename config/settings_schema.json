@@ -1693,6 +1693,18 @@
     ]
   },
   {
+    "name": "Product Availability",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "hide_oos_variants",
+        "label": "Hide Out-of-Stock Variants",
+        "default": false,
+        "info": "When on, out-of-stock variants are hidden across the storefront: product-page options, pricing, and collection cards use only available variants. A product stays visible while at least one variant is available, and is hidden from collection grids once every variant is out of stock. Override per product with the custom.oos_variant_visibility metafield (Use global / Hide / Show)."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.cart.name",
     "settings": [
       {
