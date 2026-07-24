@@ -426,6 +426,7 @@
         "content-3": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_3shm723shm723shm.png",
             "subheading": "2023",
             "heading": "Heat Integrated Technology arrives (HIT).",
             "heading_tag": "h2",
@@ -443,6 +444,7 @@
         "content-4": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/filter_v2_2.png",
             "subheading": "2024",
             "heading": "WaveFlow launches.",
             "heading_tag": "h2",
@@ -460,6 +462,7 @@
         "content-5": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/1080x1080.jpg",
             "subheading": "2025",
             "heading": "A second Product of the Year.",
             "heading_tag": "h2",
@@ -477,6 +480,7 @@
         "content_cNAUzV": {
           "type": "content",
           "settings": {
+            "image": "shopify://shop_images/Trustpilot_logo_0246374a-44ef-45a8-acea-90b1a756e7e5_1.png",
             "subheading": "2026",
             "heading": "Highest rated, by some distance.",
             "heading_tag": "h2",
