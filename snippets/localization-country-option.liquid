@@ -39,9 +39,23 @@
   else
     assign current_path = request.path
     assign market_root = routes.root_url
-    if market_root != '/'
-      assign current_path = current_path | remove_first: market_root
+
+    comment
+      Strip the market root case-insensitively. routes.root_url is the canonical
+      lowercase form (/en-de) but the visitor may be on the uppercase variant
+      (/en-DE), which this selector still generates for every market except the
+      US. A case-sensitive strip leaves the old root in place and stacks the new
+      one on top, producing /en-us/en-DE/products/...
+    endcomment
+    if market_root != blank and market_root != '/'
+      assign root_size = market_root | size
+      assign root_lower = market_root | downcase
+      assign path_head = current_path | slice: 0, root_size | downcase
+      if path_head == root_lower
+        assign current_path = current_path | slice: root_size, 2000
+      endif
     endif
+
     unless current_path == '/' or current_path == blank
       assign target_path = current_path
     endunless
