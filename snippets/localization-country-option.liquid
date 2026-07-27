@@ -9,13 +9,11 @@
   endif
 
   comment
-    Short term: only the US market uses Shopify's lowercase locale slug (/en-us).
-    Other markets keep their existing uppercase link until we roll the change out fully.
+    Every market uses Shopify's lowercase locale slug (/en-us, /en-de), which is
+    the canonical form and the one the hreflang tags advertise. Uppercase URLs
+    still resolve, so older links keep working.
   endcomment
-  assign country_slug = country.iso_code
-  if country.iso_code == 'US'
-    assign country_slug = 'us'
-  endif
+  assign country_slug = country.iso_code | downcase
 
   comment
     Keep the visitor on the page they are viewing when they switch market.
@@ -42,10 +40,10 @@
 
     comment
       Strip the market root case-insensitively. routes.root_url is the canonical
-      lowercase form (/en-de) but the visitor may be on the uppercase variant
-      (/en-DE), which this selector still generates for every market except the
-      US. A case-sensitive strip leaves the old root in place and stacks the new
-      one on top, producing /en-us/en-DE/products/...
+      lowercase form (/en-de), but visitors still arrive on the uppercase
+      variant (/en-DE) from links, bookmarks and search results created before
+      this selector was lowercased. A case-sensitive strip leaves the old root
+      in place and stacks the new one on top: /en-us/en-DE/products/...
     endcomment
     if market_root != blank and market_root != '/'
       assign root_size = market_root | size
