@@ -19,17 +19,24 @@
 
   comment
     Keep the visitor on the page they are viewing when they switch market.
-    Without this every market link points at that market's homepage.
+    Without this every market link points at that market's homepage, so
+    switching country from a product, collection, page or blog lost the page.
 
-    Product pages are deliberately excluded: a product that is not in the target
-    market's catalog does not 404, it bounces to the PRIMARY market's homepage —
-    so the visitor would end up back in GBP. Products rely on the override
-    metafields above, and fall back to the target market's homepage instead.
+    Order of preference:
+      1. the market's override metafield, for products listed separately per
+         region (e.g. garda-hot-tub -> garda-hot-tub-etl)
+      2. the current path, which resolves for any product or page published to
+         the target market
+      3. the market root, if we are already at the root
+
+    Products carrying a region-specific listing rely on (1), or on a URL
+    redirect from the shared handle to the regional one. Without one of those a
+    product that is missing from the target market's catalog will bounce.
   endcomment
   assign target_path = ''
   if link_override != blank
     assign target_path = '/' | append: link_override
-  elsif template.name != 'product'
+  else
     assign current_path = request.path
     assign market_root = routes.root_url
     if market_root != '/'
