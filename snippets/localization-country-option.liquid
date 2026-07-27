@@ -16,15 +16,38 @@
   if country.iso_code == 'US'
     assign country_slug = 'us'
   endif
+
+  comment
+    Keep the visitor on the page they are viewing when they switch market.
+    Without this every market link points at that market's homepage.
+
+    Product pages are deliberately excluded: a product that is not in the target
+    market's catalog does not 404, it bounces to the PRIMARY market's homepage —
+    so the visitor would end up back in GBP. Products rely on the override
+    metafields above, and fall back to the target market's homepage instead.
+  endcomment
+  assign target_path = ''
+  if link_override != blank
+    assign target_path = '/' | append: link_override
+  elsif template.name != 'product'
+    assign current_path = request.path
+    assign market_root = routes.root_url
+    if market_root != '/'
+      assign current_path = current_path | remove_first: market_root
+    endif
+    unless current_path == '/' or current_path == blank
+      assign target_path = current_path
+    endunless
+  endif
 -%}
 <li class="opacity-0">
   <p>
     <a
       class="reversed-link"
       {% unless country.market.metafields.default.market == true %}
-        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country_slug }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
+        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country_slug }}{{ target_path }}"
       {% else %}
-        href="{{ shop.url }}{%- if link_override != blank -%}/{{- link_override -}}{%- endif -%}"
+        href="{{ shop.url }}{{ target_path }}"
       {% endunless %}
       title="{{ country.name | escape }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})"
       data-no-instant
