@@ -1714,7 +1714,7 @@
         "max": 80,
         "step": 5,
         "unit": "%",
-        "default": 18,
+        "default": 0,
         "label": "Video overlay opacity",
         "info": "Darkens the video poster image so the centred play button stands out. Set to 0 for no overlay. Clears as soon as the video starts playing."
       },

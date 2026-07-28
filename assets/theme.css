@@ -12746,14 +12746,18 @@ video-media .play-button .icon {
 }
 
 /* Scrim over the poster so the button reads against light or busy artwork.
-   0% disables it. Gated on :not([loaded]) so it clears the moment playback
-   begins. */
-video-media:not([loaded])::after {
+   Defaults to 0% (off) — enable it in Theme settings > Product Media.
+
+   Sits on .deferred-poster rather than video-media: video-media is absolutely
+   positioned with height calc(100% + 16px) in hero contexts, so a scrim on it
+   overflows and bleeds over the section below. .deferred-poster is inset 0/0
+   within the media box, so it matches the poster exactly. */
+video-media:not([loaded]) .deferred-poster::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-color: rgb(0 0 0 / var(--product-video-overlay-opacity, 18%));
+  background-color: rgb(0 0 0 / var(--product-video-overlay-opacity, 0%));
   pointer-events: none;
   transition: var(--animation-short);
   transition-property: opacity;
@@ -12776,7 +12780,7 @@ video-media:not([loaded])::after {
   height: var(--sp-3);
 }
 
-.product-card__media video-media:not([loaded])::after {
+.product-card__media video-media:not([loaded]) .deferred-poster::after {
   content: none;
 }
 
@@ -14008,18 +14012,23 @@ video-media:not([playing]) .deferred-poster .play-button .icon:last-child:not(:o
   display: none;
 }
 
+/* These three previously pinned the hero play button to the bottom-right corner.
+   The button is now centred (see `video-media .play-button` earlier in this
+   file); because these rules come later and are more specific, they have to be
+   neutralised here or they win. */
 .video-hero video-media .play-button {
-  inset-block-start: auto;
-  inset-block-end: var(--sp-5);
-  inset-inline-end: var(--sp-5);
+  inset-block-start: 50%;
+  inset-block-end: auto;
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
 }
 
 .js .section:not(.section--next-rounded) .video-hero video-media .play-button {
-  inset-block-end: calc(var(--sp-5) + var(--border-radius));
+  inset-block-end: auto;
 }
 
 .js .section:not(.section--next-rounded) .page-width .video-hero video-media .play-button {
-  inset-block-end: var(--sp-5);
+  inset-block-end: auto;
 }
 
 .video-hero__content {
