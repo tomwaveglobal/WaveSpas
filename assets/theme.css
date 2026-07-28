@@ -11914,14 +11914,16 @@ noscript .product-form__input {
 }
 
 @media screen and (min-width: 1280px) {
+  /* Respect the configurable size rather than hardcoding it, so
+     Theme settings > Product Media > Play button size applies here too. */
   .product--scroll .product__preview .play-button {
-    width: var(--sp-14);
-    height: var(--sp-14);
+    width: var(--product-video-play-button-size, var(--sp-14));
+    height: var(--product-video-play-button-size, var(--sp-14));
   }
 
   .product--scroll .product__preview .play-button .icon {
-    width: var(--sp-5);
-    height: var(--sp-5);
+    width: var(--sp-6);
+    height: var(--sp-6);
   }
 }
 
@@ -12713,11 +12715,34 @@ video-media[suspended]~* {
   height: var(--sp-3);
 }
 
+/* Centred play button on product media. Size is theme-configurable
+   (Theme settings > Product Media > Play button size). Sits above the scrim
+   below. Uses `translate` rather than `transform` so the hover `beat` animation
+   on the inner svg is unaffected. */
 :is(.product__preview, .product__media-list) .play-button {
-  width: var(--sp-10);
-  height: var(--sp-10);
-  inset-inline-end: var(--sp-4);
-  inset-block-start: var(--sp-4);
+  width: var(--product-video-play-button-size, var(--sp-14));
+  height: var(--product-video-play-button-size, var(--sp-14));
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
+}
+
+/* Scrim over the poster so the button reads against light or busy artwork.
+   Opacity is theme-configurable (Theme settings > Product Media > Video overlay
+   opacity); 0% disables it. Tied to :not([loaded]) so it clears the moment the
+   video starts. */
+:is(.product__preview, .product__media-list) video-media:not([loaded])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgb(0 0 0 / var(--product-video-overlay-opacity, 18%));
+  pointer-events: none;
+  transition: var(--animation-short);
+  transition-property: opacity;
 }
 
 :is(.product__preview, .product__media-list) .play-button[hidden] {
@@ -12725,8 +12750,8 @@ video-media[suspended]~* {
 }
 
 :is(.product__preview, .product__media-list) .play-button .icon {
-  width: var(--sp-4);
-  height: var(--sp-4);
+  width: var(--sp-6);
+  height: var(--sp-6);
 }
 
 :is(.product__preview, .product__media-list) .shopify-model-viewer-ui .shopify-model-viewer-ui__button--control,
