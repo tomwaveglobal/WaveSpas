@@ -9352,8 +9352,11 @@ details.active .drawer__promotions .mega-menu__item,
   height: 100%;
 }
 
+/* Previously pinned the button to the bottom edge of a full-bleed hero. The
+   button is now centred (see `video-media .play-button`), so this override is
+   neutralised rather than removed, to keep the selector documented. */
 [role=main] .shopify-section:last-child .video-hero video-media .play-button {
-  inset-block-end: var(--sp-5);
+  inset-block-end: auto;
 }
 
 .js .section--rounded :is(.banner__map, .banner__media, .banner__overlay, .video-hero) {
@@ -11914,14 +11917,16 @@ noscript .product-form__input {
 }
 
 @media screen and (min-width: 1280px) {
+  /* Respect the configurable size rather than hardcoding it, so
+     Theme settings > Product Media > Play button size applies here too. */
   .product--scroll .product__preview .play-button {
-    width: var(--sp-14);
-    height: var(--sp-14);
+    width: var(--product-video-play-button-size, var(--sp-14));
+    height: var(--product-video-play-button-size, var(--sp-14));
   }
 
   .product--scroll .product__preview .play-button .icon {
-    width: var(--sp-5);
-    height: var(--sp-5);
+    width: var(--sp-6);
+    height: var(--sp-6);
   }
 }
 
@@ -12713,11 +12718,70 @@ video-media[suspended]~* {
   height: var(--sp-3);
 }
 
-:is(.product__preview, .product__media-list) .play-button {
-  width: var(--sp-10);
-  height: var(--sp-10);
-  inset-inline-end: var(--sp-4);
-  inset-block-start: var(--sp-4);
+/* Centred play button for any video media in page content — video hero,
+   image-with-text, product gallery. Product cards are excluded further down and
+   keep their small corner button.
+
+   Size and scrim opacity are theme-configurable:
+   Theme settings > Product Media.
+
+   Uses `translate` rather than `transform` so the hover `beat` animation on the
+   inner svg is unaffected. inset-block-end is reset because some sections pin
+   the button to the bottom edge. */
+video-media .play-button {
+  width: var(--product-video-play-button-size, var(--sp-14));
+  height: var(--product-video-play-button-size, var(--sp-14));
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
+  inset-block-start: 50%;
+  inset-block-end: auto;
+  translate: -50% -50%;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
+}
+
+video-media .play-button .icon {
+  width: var(--sp-6);
+  height: var(--sp-6);
+}
+
+/* Scrim over the poster so the button reads against light or busy artwork.
+   Defaults to 0% (off) — enable it in Theme settings > Product Media.
+
+   Sits on .deferred-poster rather than video-media: video-media is absolutely
+   positioned with height calc(100% + 16px) in hero contexts, so a scrim on it
+   overflows and bleeds over the section below. .deferred-poster is inset 0/0
+   within the media box, so it matches the poster exactly. */
+video-media:not([loaded]) .deferred-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgb(0 0 0 / var(--product-video-overlay-opacity, 0%));
+  pointer-events: none;
+  transition: var(--animation-short);
+  transition-property: opacity;
+}
+
+/* Product cards keep the original small corner button and no scrim — a centred
+   overlay would fight the card hover treatment. */
+.product-card__media video-media .play-button {
+  width: var(--sp-7);
+  height: var(--sp-7);
+  inset-inline-start: auto;
+  inset-inline-end: var(--sp-2);
+  inset-block-start: var(--sp-2);
+  translate: none;
+  box-shadow: none;
+}
+
+.product-card__media video-media .play-button .icon {
+  width: var(--sp-3);
+  height: var(--sp-3);
+}
+
+.product-card__media video-media:not([loaded]) .deferred-poster::after {
+  content: none;
 }
 
 :is(.product__preview, .product__media-list) .play-button[hidden] {
@@ -12725,8 +12789,8 @@ video-media[suspended]~* {
 }
 
 :is(.product__preview, .product__media-list) .play-button .icon {
-  width: var(--sp-4);
-  height: var(--sp-4);
+  width: var(--sp-6);
+  height: var(--sp-6);
 }
 
 :is(.product__preview, .product__media-list) .shopify-model-viewer-ui .shopify-model-viewer-ui__button--control,
@@ -13948,18 +14012,23 @@ video-media:not([playing]) .deferred-poster .play-button .icon:last-child:not(:o
   display: none;
 }
 
+/* These three previously pinned the hero play button to the bottom-right corner.
+   The button is now centred (see `video-media .play-button` earlier in this
+   file); because these rules come later and are more specific, they have to be
+   neutralised here or they win. */
 .video-hero video-media .play-button {
-  inset-block-start: auto;
-  inset-block-end: var(--sp-5);
-  inset-inline-end: var(--sp-5);
+  inset-block-start: 50%;
+  inset-block-end: auto;
+  inset-inline-start: 50%;
+  inset-inline-end: auto;
 }
 
 .js .section:not(.section--next-rounded) .video-hero video-media .play-button {
-  inset-block-end: calc(var(--sp-5) + var(--border-radius));
+  inset-block-end: auto;
 }
 
 .js .section:not(.section--next-rounded) .page-width .video-hero video-media .play-button {
-  inset-block-end: var(--sp-5);
+  inset-block-end: auto;
 }
 
 .video-hero__content {
