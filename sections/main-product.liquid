@@ -2,8 +2,6 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    --product-video-overlay-opacity: {{ section.settings.video_overlay_opacity | default: 0 }}%;
-    --product-video-play-button-size: {{ section.settings.video_play_button_size | default: 56 }}px;
   }
 
   @media screen and (min-width: 1024px) {
@@ -1443,28 +1441,6 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
-    },
-    {
-      "type": "range",
-      "id": "video_play_button_size",
-      "min": 32,
-      "max": 96,
-      "step": 4,
-      "unit": "px",
-      "default": 56,
-      "label": "Play button size",
-      "info": "Diameter of the centred play button shown over video media."
-    },
-    {
-      "type": "range",
-      "id": "video_overlay_opacity",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "%",
-      "default": 0,
-      "label": "Video overlay opacity",
-      "info": "Darkens the video poster so the play button stands out. 0% means no overlay. Clears as soon as the video plays."
     },
     {
       "type": "header",
