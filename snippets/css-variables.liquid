@@ -69,7 +69,11 @@
     --color-error-background: {{ settings.color_error_background.rgb }};
     --color-info-text: {{ settings.color_info_text.rgb }};
     --color-info-background: {{ settings.color_info_background.rgb }};
-    
+
+    /*! Product media */
+    --product-video-overlay-opacity: {{ settings.product_video_overlay_opacity | default: 0 }}%;
+    --product-video-play-button-size: {{ settings.product_video_play_button_size | default: 56 }}px;
+
     /*! Menu and drawers */
     --color-drawer-text: {{ settings.color_drawer_text.rgb }};
     --color-drawer-background: {{ settings.color_drawer_background.rgb }};

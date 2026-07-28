@@ -1693,6 +1693,33 @@
     ]
   },
   {
+    "name": "Product Media",
+    "settings": [
+      {
+        "type": "range",
+        "id": "product_video_overlay_opacity",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "unit": "%",
+        "default": 0,
+        "label": "Video overlay opacity",
+        "info": "Darkens the video poster image so the centred play button stands out. Set to 0 for no overlay. Clears as soon as the video starts playing."
+      },
+      {
+        "type": "range",
+        "id": "product_video_play_button_size",
+        "min": 32,
+        "max": 96,
+        "step": 4,
+        "unit": "px",
+        "default": 56,
+        "label": "Play button size",
+        "info": "Diameter of the centred play button on product video media."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.cart.name",
     "settings": [
       {
