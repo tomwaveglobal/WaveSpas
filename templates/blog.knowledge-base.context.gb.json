@@ -8,26 +8,23 @@
  * ------------------------------------------------------------
  */
 {
-  "parent": "page.shipping-returns.json",
   "context": {
-    "market": "usa"
+    "market": "gb"
   },
+  "parent": "blog.knowledge-base.json",
   "sections": {
-    "rich_text_bFEn9J": {
+    "1772549226876255a5": {
       "settings": {},
       "blocks": {
-        "text_qY6My9": {
+        "ai_gen_block_41310e1_9k6H6q": {
           "settings": {
-            "text": "<p>{{ metaobjects.shipping[\"us-shipping-policy\"].description | metafield_tag }}</p>"
+            "url_1": "shopify://pages/knowledge-base-faqs",
+            "title_2": "Set Up Guides",
+            "url_2": "shopify://pages/knowledge-base-hot-tub-spa-how-to-guide",
+            "url_5": "shopify://pages/knowledge-base-shipping-and-returns"
           }
         }
       }
-    },
-    "image_with_text_overlay_JQLCUH": {
-      "settings": {
-        "image": "shopify://shop_images/Carousel_Home_page_fb318754-4d78-4cf7-b157-b1c4ceee3588.jpg"
-      },
-      "blocks": {}
     }
   }
 }

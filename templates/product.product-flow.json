@@ -151,16 +151,6 @@
             "color_background": "#1f1f1f"
           }
         },
-        "inventory": {
-          "type": "inventory",
-          "disabled": true,
-          "settings": {
-            "inventory_threshold": 20,
-            "show_inventory_transfer": true,
-            "show_inventory_quantity": "low",
-            "color_scheme": "accent-1"
-          }
-        },
         "countdown": {
           "type": "countdown",
           "settings": {
@@ -188,6 +178,16 @@
             "border_radius": 0
           }
         },
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 10,
+            "show_inventory_transfer": false,
+            "show_inventory_quantity": "low",
+            "color_scheme": "accent-1"
+          }
+        },
         "buy_buttons_nBMjqf": {
           "type": "buy_buttons",
           "settings": {
@@ -208,7 +208,7 @@
           "type": "share",
           "settings": {
             "share_label": "Share",
-            "show_help_desk": true,
+            "show_help_desk": false,
             "help_label": "Need help?",
             "help_type": "drawer",
             "help_page": "contact",
@@ -407,9 +407,9 @@
         "variant_picker_advanced_Vyc9TT",
         "variant_picker",
         "variant_pre_order_hC7D4E",
-        "inventory",
         "countdown",
         "text_nncjDG",
+        "inventory",
         "buy_buttons_nBMjqf",
         "contona_button_design",
         "share",
@@ -447,6 +447,10 @@
         "full_width": true,
         "rounded": true
       }
+    },
+    "17840224521f0f53e5": {
+      "type": "_blocks",
+      "settings": {}
     },
     "ss_product_videos_4_BQjpxE": {
       "type": "ss-product-videos-4",
@@ -1693,6 +1697,7 @@
   },
   "order": [
     "main-product",
+    "17840224521f0f53e5",
     "ss_product_videos_4_BQjpxE",
     "help-drawer",
     "scroll_spy_aPhVjp",

@@ -8,26 +8,25 @@
  * ------------------------------------------------------------
  */
 {
-  "parent": "page.shipping-returns.json",
   "context": {
     "market": "usa"
   },
+  "parent": "footer-group.json",
   "sections": {
-    "rich_text_bFEn9J": {
+    "footer": {
       "settings": {},
       "blocks": {
-        "text_qY6My9": {
+        "link_list_GQyK37": {
           "settings": {
-            "text": "<p>{{ metaobjects.shipping[\"us-shipping-policy\"].description | metafield_tag }}</p>"
+            "menu": "footer-help-usa"
+          }
+        },
+        "link_list_JPFmdY": {
+          "settings": {
+            "menu": "footer-about-usa"
           }
         }
       }
-    },
-    "image_with_text_overlay_JQLCUH": {
-      "settings": {
-        "image": "shopify://shop_images/Carousel_Home_page_fb318754-4d78-4cf7-b157-b1c4ceee3588.jpg"
-      },
-      "blocks": {}
     }
   }
 }

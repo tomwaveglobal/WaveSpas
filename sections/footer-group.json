@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "type": "footer",
   "name": "t:sections.footer-group.name",
   "sections": {
@@ -81,6 +81,7 @@
         "button_icon": true,
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
         "color_text": "",
         "color_background": "rgba(0,0,0,0)",
         "gradient_background": "",
@@ -112,7 +113,7 @@
           "type": "link_list",
           "settings": {
             "heading": "Help Centre",
-            "menu": "footer-help",
+            "menu": "",
             "container_width": 30,
             "opened": false
           }
@@ -121,7 +122,7 @@
           "type": "link_list",
           "settings": {
             "heading": "About Wave",
-            "menu": "footer-about",
+            "menu": "footer-about-uk",
             "container_width": 30,
             "opened": false
           }

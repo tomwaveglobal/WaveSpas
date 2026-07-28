@@ -18,11 +18,11 @@
       "blocks": {
         "image_YL8tbf": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
             "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-87b907d84363143527df438dbfa90bfe": null,
+            "header-b0d1bfede00a6f5cbf921b28dd5b79c0": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -66,8 +66,8 @@
         }
       },
       "block_order": [
-        "image_EUEdiE",
         "image_YL8tbf",
+        "image_EUEdiE",
         "image_9rd3Vt",
         "image_JUM7dH",
         "image_rmPQY4"
@@ -75,7 +75,7 @@
     },
     "featured-product": {
       "settings": {
-        "product": "garda-hot-tub"
+        "product": "como-hot-tub"
       },
       "blocks": {}
     },
