@@ -9352,8 +9352,11 @@ details.active .drawer__promotions .mega-menu__item,
   height: 100%;
 }
 
+/* Previously pinned the button to the bottom edge of a full-bleed hero. The
+   button is now centred (see `video-media .play-button`), so this override is
+   neutralised rather than removed, to keep the selector documented. */
 [role=main] .shopify-section:last-child .video-hero video-media .play-button {
-  inset-block-end: var(--sp-5);
+  inset-block-end: auto;
 }
 
 .js .section--rounded :is(.banner__map, .banner__media, .banner__overlay, .video-hero) {
@@ -12715,26 +12718,37 @@ video-media[suspended]~* {
   height: var(--sp-3);
 }
 
-/* Centred play button on product media. Size is theme-configurable
-   (Theme settings > Product Media > Play button size). Sits above the scrim
-   below. Uses `translate` rather than `transform` so the hover `beat` animation
-   on the inner svg is unaffected. */
-:is(.product__preview, .product__media-list) .play-button {
+/* Centred play button for any video media in page content — video hero,
+   image-with-text, product gallery. Product cards are excluded further down and
+   keep their small corner button.
+
+   Size and scrim opacity are theme-configurable:
+   Theme settings > Product Media.
+
+   Uses `translate` rather than `transform` so the hover `beat` animation on the
+   inner svg is unaffected. inset-block-end is reset because some sections pin
+   the button to the bottom edge. */
+video-media .play-button {
   width: var(--product-video-play-button-size, var(--sp-14));
   height: var(--product-video-play-button-size, var(--sp-14));
   inset-inline-start: 50%;
   inset-inline-end: auto;
   inset-block-start: 50%;
+  inset-block-end: auto;
   translate: -50% -50%;
   z-index: 2;
   box-shadow: 0 4px 20px rgb(0 0 0 / 25%);
 }
 
+video-media .play-button .icon {
+  width: var(--sp-6);
+  height: var(--sp-6);
+}
+
 /* Scrim over the poster so the button reads against light or busy artwork.
-   Opacity is theme-configurable (Theme settings > Product Media > Video overlay
-   opacity); 0% disables it. Tied to :not([loaded]) so it clears the moment the
-   video starts. */
-:is(.product__preview, .product__media-list) video-media:not([loaded])::after {
+   0% disables it. Gated on :not([loaded]) so it clears the moment playback
+   begins. */
+video-media:not([loaded])::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -12743,6 +12757,27 @@ video-media[suspended]~* {
   pointer-events: none;
   transition: var(--animation-short);
   transition-property: opacity;
+}
+
+/* Product cards keep the original small corner button and no scrim — a centred
+   overlay would fight the card hover treatment. */
+.product-card__media video-media .play-button {
+  width: var(--sp-7);
+  height: var(--sp-7);
+  inset-inline-start: auto;
+  inset-inline-end: var(--sp-2);
+  inset-block-start: var(--sp-2);
+  translate: none;
+  box-shadow: none;
+}
+
+.product-card__media video-media .play-button .icon {
+  width: var(--sp-3);
+  height: var(--sp-3);
+}
+
+.product-card__media video-media:not([loaded])::after {
+  content: none;
 }
 
 :is(.product__preview, .product__media-list) .play-button[hidden] {
