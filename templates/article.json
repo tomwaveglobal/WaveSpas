@@ -53,7 +53,7 @@
         "divider": false,
         "full_width": true,
         "rounded": true,
-        "enable_parallax": false,
+        "enable_parallax": true,
         "parallax_direction": "vertical"
       }
     },
