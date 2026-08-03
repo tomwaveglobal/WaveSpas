@@ -12,5 +12,26 @@
     "market": "austria"
   },
   "parent": "index.json",
-  "sections": {}
+  "sections": {
+    "slideshow_aYCGKX": {
+      "settings": {},
+      "blocks": {
+        "image_9rd3Vt": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
+            "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
+            "heading": "‎"
+          }
+        }
+      },
+      "block_order": [
+        "image_9rd3Vt",
+        "image_hc4WwT",
+        "image_JUM7dH",
+        "image_rmPQY4",
+        "image_EUEdiE"
+      ]
+    }
+  }
 }
