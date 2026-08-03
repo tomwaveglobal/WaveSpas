@@ -13,7 +13,8 @@
   ---------------
   • Variant-level Most Popular pill — gated on the resolved variant's
     inventory > most_popular_min_stock.
-  • Sold Out treatment on the Size step only.
+  • Sold Out treatment on every step. Mutually exclusive with the % OFF
+    pill — a tile never advertises a discount on something unbuyable.
   • Per-tile pre-order chip from variant.metafields.custom.
     pre_order_date_{uk|eu|usa}, market-aware.
   • Auto-shown Energy-Saving Bundle blurb when the value name contains
@@ -1014,9 +1015,10 @@
               endif
             endif
 
-            # Sold-out treatment only on Size step
+            # Sold-out treatment applies to every step, so an unavailable
+            # colour or edition reads the same as an unavailable size.
             assign show_sold_out_treatment = false
-            if is_size and value_unavailable
+            if value_unavailable
               assign show_sold_out_treatment = true
             endif
           -%}
@@ -1091,7 +1093,12 @@
               data-tile-is-size="{% if is_size %}true{% else %}false{% endif %}"
               data-tile-is-first="{% if forloop.first %}true{% else %}false{% endif %}"
             >
-              {%- if is_size and block.settings.sold_out_label != blank -%}
+              {%- comment -%}
+                Emitted on every step, not just Size, so JS has something to
+                show when a colour or edition becomes unavailable. Hidden
+                until it applies.
+              {%- endcomment -%}
+              {%- if block.settings.sold_out_label != blank -%}
                 <span class="vpa__tag vpa__tag--sold-out" data-sold-out{% unless show_sold_out_treatment %} hidden{% endunless %}>{{ block.settings.sold_out_label }}</span>
               {%- endif -%}
               {%- if forloop.first and block.settings.most_popular_label != blank and option.values.size > 1 -%}
@@ -1431,6 +1438,25 @@
     {%- endfor -%}
   };
 
+  // variant id → discount percentage off compare-at price.
+  // Needed because the % OFF pill was previously only refreshed by the
+  // Section Rendering fetch, which is skipped for already-seen variants and
+  // aborted when the shopper clicks quickly — leaving a stale percentage on
+  // the tile. Emitting it here lets updateTilePills() keep the pill correct
+  // immediately, with the fetch still overwriting it authoritatively when it
+  // lands (Markets / B2B catalogs can change the price server-side).
+  // Rounding matches the Liquid at the tile render so the two agree.
+  var discountByVariant = {
+    {%- assign _emit = false -%}
+    {%- for v in product.variants -%}
+      {%- assign _pct = 0 -%}
+      {%- if v.compare_at_price > v.price -%}
+        {%- assign _pct = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round -%}
+      {%- endif -%}
+      {%- if _pct > 0 -%}{%- if _emit %},{% endif -%}"{{ v.id }}": {{ _pct }}{%- assign _emit = true -%}{%- endif -%}
+    {%- endfor -%}
+  };
+
   // variant id → SKU (for add-on SKU-prefix matching)
   var spaVariantSku = {
     {%- assign _emit = false -%}
@@ -1642,7 +1668,8 @@
       chipText:   label.querySelector('[data-pre-order-chip-text]'),
       img:        label.querySelector('.vpa__tile-media img'),
       soldOutTag: label.querySelector('[data-sold-out]'),
-      mostPopTag: label.querySelector('[data-most-popular]')
+      mostPopTag: label.querySelector('[data-most-popular]'),
+      discount:   label.querySelector('[data-tile-discount]')
     };
   }
 
@@ -1683,14 +1710,29 @@
     var sellable = variant ? (variant.available || hasPreOrder) : false;
     var soldOut = !sellable;
 
-    // Sold-out treatment is Size-step only.
-    if (refs.soldOutTag) refs.soldOutTag.hidden = !(opts.isSize && soldOut);
-    label.classList.toggle('vpa__tile--sold-out', opts.isSize && soldOut);
+    // Sold-out treatment applies to every step, so an unavailable colour or
+    // edition reads the same as an unavailable size.
+    if (refs.soldOutTag) refs.soldOutTag.hidden = !soldOut;
+    label.classList.toggle('vpa__tile--sold-out', soldOut);
+
+    // % OFF. Previously only the Section Rendering fetch updated this, so it
+    // went stale whenever that fetch was skipped or aborted. Kept mutually
+    // exclusive with Sold Out — a tile should never advertise a discount on
+    // something that cannot be bought.
+    if (refs.discount) {
+      var pct = variant ? (discountByVariant[variant.id] || 0) : 0;
+      if (pct > 0 && !soldOut) {
+        refs.discount.textContent = pct + '% OFF';
+        refs.discount.hidden = false;
+      } else {
+        refs.discount.hidden = true;
+      }
+    }
 
     // Most Popular: first-of-its-option, sellable, inventory > threshold, not sold out.
     if (refs.mostPopTag) {
       var qty = variant ? (inventoryByVariant[variant.id] || 0) : 0;
-      var show = opts.isFirst && sellable && qty > mostPopularMinStock && !(opts.isSize && soldOut);
+      var show = opts.isFirst && sellable && qty > mostPopularMinStock && !soldOut;
       refs.mostPopTag.hidden = !show;
     }
   }
