@@ -16,13 +16,13 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
-        "image_LBFRtg": {
+        "image_7eUegz": {
           "type": "image",
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-e5b4afe9c2ad32b2e8d51b30b210a6b8": null,
+            "header-9fd53feaca52726ad1a3b6b38289a3a8": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -35,8 +35,7 @@
         }
       },
       "block_order": [
-        "image_LBFRtg",
-        "image_hc4WwT",
+        "image_7eUegz",
         "image_JUM7dH",
         "image_rmPQY4",
         "image_EUEdiE"
