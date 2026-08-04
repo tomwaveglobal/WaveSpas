@@ -13,7 +13,13 @@
   ---------------
   • Variant-level Most Popular pill — gated on the resolved variant's
     inventory > most_popular_min_stock.
-  • Sold Out treatment on the Size step only.
+  • Sold Out treatment on every tile step, evaluated at the variant the tile
+    resolves to under the current selection (so a size that's sold out in the
+    chosen colour is badged even when another colour still has it). Colours
+    are struck through only when every one of their variants is unsellable,
+    and stay clickable so availability keeps cascading.
+  • Edition tiles prefixed with the resolved size ("6 Person Standard"),
+    everything after the first "|" stripped. Toggle in admin.
   • Per-tile pre-order chip from variant.metafields.custom.
     pre_order_date_{uk|eu|usa}, market-aware.
   • Auto-shown Energy-Saving Bundle blurb when the value name contains
@@ -56,6 +62,21 @@
   endif
   assign size_chart = block.settings.size_chart
   assign most_popular_min_stock = block.settings.most_popular_min_stock | default: 0
+  assign prefix_edition_with_size = block.settings.prefix_edition_with_size
+
+  # ─── Size option position ──────────────────────────────────────────
+  # Resolved up front because the Edition step renders BEFORE Size in
+  # Shopify's option order on some products (Pacific is Colour / Edition /
+  # Size), so the step loop can't discover it lazily. 0 = product has no
+  # size option, in which case edition tiles keep their bare names.
+  assign size_option_pos = 0
+  for _opt in product.options_with_values
+    assign _opt_name = _opt.name | downcase
+    if _opt_name contains 'size'
+      assign size_option_pos = forloop.index
+      break
+    endif
+  endfor
 
   # ─── Per-element font-size scale mappings ──────────────────────────
   # Theme-level settings (config/settings_schema.json → "Variant picker
@@ -222,6 +243,7 @@
   }
   .vpa__swatch-fill {
     display: block;
+    position: relative;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -240,6 +262,24 @@
   .vpa__swatch input:focus-visible + .vpa__swatch-fill { outline: 2px solid var(--vpa-accent); outline-offset: 3px; }
   .vpa__swatch-label { font-size: var(--text-xs); text-align: center; line-height: 1.2; color: var(--vpa-text-muted); word-wrap: break-word; }
 
+  /* ═══ Fully sold-out colour ═══════════════════════════════════════ */
+  /* Applied only when EVERY variant of that colour is unsellable (no stock
+     and no pre-order date) — a colour with one sold-out size is not sold
+     out. Marked but never disabled: availability still cascades through the
+     size + edition steps, so the shopper can open the colour and see which
+     combinations are gone. The strike lives on .vpa__swatch-fill's own
+     ::after so it tracks the fill at every data-vpa-size (24px → 46px)
+     instead of hardcoding one diameter. */
+  .vpa__choice--sold-out .vpa__swatch-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, transparent calc(50% - 1px), rgb(var(--color-foreground) / 0.65) 50%, transparent calc(50% + 1px));
+    pointer-events: none;
+  }
+  .vpa__choice--sold-out .vpa__swatch-label { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.45); }
+
   /* ═══ Colour text buttons (when swatches disabled) ════════════════ */
   .vpa__choices--text { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
   .vpa__text-btn {
@@ -257,6 +297,11 @@
     .vpa__text-btn:hover { border-color: var(--vpa-text-muted); }
   }
   .vpa__text-btn:has(input:checked) { border-color: var(--vpa-border-selected); background: var(--vpa-surface-selected); }
+  .vpa__text-btn.vpa__choice--sold-out {
+    color: var(--vpa-text-muted);
+    text-decoration: line-through;
+    text-decoration-color: rgb(var(--color-foreground) / 0.45);
+  }
 
   /* ═══ Tile cards (size / edition / etc.) ══════════════════════════ */
   /* CSS Grid implicitly stretches all tiles in the same row to equal
@@ -292,7 +337,11 @@
     background: rgb(var(--color-background));
   }
   .vpa__tile:has(input:focus-visible) { outline: 2px solid var(--vpa-accent); outline-offset: 2px; }
-  .vpa__tile--sold-out { opacity: 0.7; }
+  /* Dim the tile CONTENT, never the label. `opacity` on the label creates a
+     group the corner pills can't escape: stacked with the 0.35 from
+     .vpa__choice--unavailable it composited the Sold Out pill down to ~16%
+     alpha, so the one tile that needed the badge was the tile that hid it. */
+  .vpa__tile--sold-out > .vpa__tile-body { opacity: 0.7; }
   .vpa__tile--sold-out .vpa__tile-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
   .vpa__tile-body { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--sp-2d5); align-items: start; }
   /* When the variant has no dedicated image, drop the media column entirely
@@ -326,7 +375,10 @@
      top-right position — it never co-occurs with MOST POPULAR. */
   .vpa__tag, .vpa__discount { right: var(--sp-2d5); left: auto; }
   .vpa__tag { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
-  .vpa__tag--sold-out { background: rgb(var(--color-foreground) / 0.45); }
+  /* 0.45 was only ever legible because nothing else dimmed it; now that the
+     pill sits at full opacity on a dimmed tile it needs real contrast —
+     white text on a 45% wash fails WCAG at this 9.5px uppercase size. */
+  .vpa__tag--sold-out { background: rgb(var(--color-foreground) / 0.8); }
   .vpa__discount { background: var(--vpa-sale); color: var(--vpa-sale-text); }
   .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag {
     top: calc(var(--sp-2) + 20px);
@@ -375,7 +427,12 @@
   .vpa__tile-info strong { font-weight: var(--vpa-bold); }
 
   /* ═══ Dynamic-options "unavailable" treatment ═════════════════════ */
-  .vpa__choice--unavailable { opacity: 0.35; pointer-events: none; position: relative; }
+  /* Content-only dimming, same reason as .vpa__tile--sold-out above: the
+     corner pills must stay readable on exactly these tiles. */
+  .vpa__choice--unavailable { pointer-events: none; position: relative; }
+  .vpa__choice--unavailable > .vpa__tile-body,
+  .vpa__choice--unavailable > .vpa__discount,
+  .vpa__choice--unavailable > [data-most-popular] { opacity: 0.35; }
   .vpa__choice--unavailable::after {
     content: '';
     position: absolute;
@@ -856,6 +913,7 @@
       assign name_lower = option.name | downcase
       assign is_color = false
       assign is_size = false
+      assign is_edition = false
 
       if name_lower contains 'color' or name_lower contains 'colour'
         assign display_order = 1
@@ -867,6 +925,7 @@
         assign step_label = block.settings.step2_label | default: 'Pick your size'
       elsif name_lower contains 'edition' or name_lower contains 'bundle' or name_lower contains 'version'
         assign display_order = 3
+        assign is_edition = true
         assign step_label = block.settings.step3_label | default: 'Pick your edition'
       else
         assign display_order = option_pos | plus: 10
@@ -1006,18 +1065,73 @@
               assign value_unavailable = true
             endunless
 
+            # ─── Sold-out state ───────────────────────────────────────
+            # Evaluated at rep_variant — the variant this tile resolves to
+            # under the CURRENT selection — NOT `value_unavailable`, which
+            # asks the much weaker question "is this value available in ANY
+            # colour". That weaker test is why "4 Person" rendered
+            # un-badged on a Navy landing: Navy/4 Person is sold out in both
+            # editions, but Dark Grey/4 Person is in stock, so the value
+            # counted as available. It also poisoned the colour-switch path,
+            # because refreshSectionFromServer copies this server verdict
+            # back over whatever the client had already worked out.
+            # Pre-order dates count as sellable (pre-order colours use
+            # inventory policy "continue" and read available:true at 0 stock,
+            # but a pre-orderable variant is genuinely buyable).
+            assign rep_sellable = false
+            if rep_variant.available
+              assign rep_sellable = true
+            elsif rep_variant.metafields.custom[pre_order_key] != blank
+              assign rep_sellable = true
+            endif
+            assign show_sold_out_treatment = false
+            if rep_variant != nil and rep_sellable == false
+              assign show_sold_out_treatment = true
+            endif
+
             # Most Popular pill: server-side initial state; JS refines per-variant.
             assign show_most_popular = false
-            if forloop.first and value_unavailable == false and block.settings.most_popular_label != blank and option.values.size > 1
+            if forloop.first and rep_sellable and block.settings.most_popular_label != blank and option.values.size > 1
               if rep_qty > most_popular_min_stock
                 assign show_most_popular = true
               endif
             endif
 
-            # Sold-out treatment only on Size step
-            assign show_sold_out_treatment = false
-            if is_size and value_unavailable
-              assign show_sold_out_treatment = true
+            # ─── Edition tile name prefix ─────────────────────────────
+            # Edition tiles read "6 Person Standard" rather than a bare
+            # "Standard". The size comes off rep_variant — the variant this
+            # tile resolves to under the current selection — with everything
+            # from the first "|" onward dropped ("6 Person | 185x65cm" →
+            # "6 Person"), since the dimensions already live on the Size
+            # tile and repeating them here just crowds the row.
+            assign size_prefix = ''
+            if is_edition and prefix_edition_with_size and size_option_pos > 0
+              assign rep_size_raw = ''
+              case size_option_pos
+                when 1
+                  assign rep_size_raw = rep_variant.option1
+                when 2
+                  assign rep_size_raw = rep_variant.option2
+                when 3
+                  assign rep_size_raw = rep_variant.option3
+              endcase
+              if rep_size_raw != blank
+                assign size_prefix = rep_size_raw | split: '|' | first | strip
+              endif
+            endif
+            assign tile_display_name = value_string
+            if size_prefix != ''
+              assign tile_display_name = size_prefix | append: ' ' | append: value_string
+            endif
+
+            # Discount pill on a sold-out tile: stacked below Sold Out by
+            # default, or suppressed entirely when the merchant would rather
+            # the tile say only "Sold Out" (block setting).
+            assign hide_discount = false
+            if rep_discount_pct == 0
+              assign hide_discount = true
+            elsif show_sold_out_treatment and block.settings.sold_out_hide_discount
+              assign hide_discount = true
             endif
           -%}
 
@@ -1062,16 +1176,22 @@
                 assign sw_bg = ''
               endif
             -%}
-            {%- comment -%} Colour swatches are always clickable — stock/availability cascades through the size + edition steps. {%- endcomment -%}
-            <label class="vpa__swatch" for="{{ input_id }}" title="{{ value_string | escape }}">
+            {%- comment -%}
+              Colour swatches are always clickable — stock/availability
+              cascades through the size + edition steps. A colour whose
+              every variant is unsellable still gets marked (struck through)
+              so a fully sold-out colour never reads as buyable;
+              `value_unavailable` is exactly that test at option level.
+            {%- endcomment -%}
+            <label class="vpa__swatch{% if value_unavailable %} vpa__choice--sold-out{% endif %}" for="{{ input_id }}" title="{{ value_string | escape }}">
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}">
               <span class="vpa__swatch-fill" style="{% if sw_image_url != '' %}background-image: url('{{ sw_image_url }}');{% endif %}{% if sw_bg != '' %}background-color: {{ sw_bg }};{% else %}background-color: rgb(var(--color-foreground)/0.06);{% endif %}"></span>
               <span class="vpa__swatch-label">{{ value_string }}</span>
             </label>
 
           {%- elsif is_color -%}
-            {%- comment -%} Colour text-button (when image swatches disabled) — always clickable too. {%- endcomment -%}
-            <label class="vpa__text-btn" for="{{ input_id }}">
+            {%- comment -%} Colour text-button (when image swatches disabled) — always clickable too, marked when fully sold out. {%- endcomment -%}
+            <label class="vpa__text-btn{% if value_unavailable %} vpa__choice--sold-out{% endif %}" for="{{ input_id }}">
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}">
               {{ value_string }}
             </label>
@@ -1090,8 +1210,21 @@
               data-tile-value="{{ value_string | escape }}"
               data-tile-is-size="{% if is_size %}true{% else %}false{% endif %}"
               data-tile-is-first="{% if forloop.first %}true{% else %}false{% endif %}"
+              {%- comment -%}
+                Tells the JS to re-derive the "<size> <edition>" name whenever
+                the size selection changes. data-tile-value stays the RAW
+                option value ("Standard") — it's the variant-matching key, so
+                the prefix must never be baked into it.
+              {%- endcomment -%}
+              data-tile-prefix-size="{% if is_edition and prefix_edition_with_size and size_option_pos > 0 %}true{% else %}false{% endif %}"
             >
-              {%- if is_size and block.settings.sold_out_label != blank -%}
+              {%- comment -%}
+                Emitted on EVERY tile step, not just Size. Gating the markup
+                on `is_size` meant the Edition tiles had no [data-sold-out]
+                element at all, so no amount of client-side work could ever
+                badge an unbuyable edition.
+              {%- endcomment -%}
+              {%- if block.settings.sold_out_label != blank -%}
                 <span class="vpa__tag vpa__tag--sold-out" data-sold-out{% unless show_sold_out_treatment %} hidden{% endunless %}>{{ block.settings.sold_out_label }}</span>
               {%- endif -%}
               {%- if forloop.first and block.settings.most_popular_label != blank and option.values.size > 1 -%}
@@ -1103,7 +1236,7 @@
                 across by [data-tile-discount] selector — different
                 colours can have different discount %.
               {%- endcomment -%}
-              <span class="vpa__discount" data-tile-discount{% if rep_discount_pct == 0 or show_sold_out_treatment %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
+              <span class="vpa__discount" data-tile-discount data-has-discount="{% if rep_discount_pct > 0 %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}
@@ -1119,7 +1252,7 @@
                   </div>
                 {%- endif -%}
                 <div class="vpa__tile-text">
-                  <div class="vpa__tile-name">{{ value_string }}</div>
+                  <div class="vpa__tile-name">{{ tile_display_name }}</div>
                   {%- if rep_variant -%}
                     {%- comment -%}
                       Tile prices are pure Liquid — Markets / B2B-catalog
@@ -1385,6 +1518,9 @@
   var skuPrefixLength = {{ block.settings.addon_match_sku_prefix_length | default: 4 }};
   var skuMatchingEnabled = {{ block.settings.addon_match_by_sku_prefix | default: true }};
   var mostPopularMinStock = {{ most_popular_min_stock | default: 0 }};
+  // When true, a sold-out tile shows only the Sold Out pill; when false
+  // (default) the % OFF pill stays and Sold Out stacks below it.
+  var soldOutHideDiscount = {% if block.settings.sold_out_hide_discount %}true{% else %}false{% endif %};
 
   // Spa model token, auto-derived from product title (first word).
   // Used as a required keyword for add-ons with model-prefixed variants
@@ -1590,6 +1726,25 @@
     });
   }
 
+  // A colour counts as sold out only when EVERY variant of that colour is
+  // unsellable — no stock and no pre-order date. Marked, never disabled: the
+  // colour stays clickable so availability keeps cascading through the size
+  // + edition steps and the shopper can see which combinations are gone.
+  // Selection-independent, so this doesn't belong in updateAllTiles; it's
+  // re-run when the live pre-order map lands, since a pre-order date is
+  // what can flip a colour back to sellable.
+  function markSoldOutColours() {
+    root.querySelectorAll('.vpa__step[data-is-color="true"] input[data-option-position]').forEach(function (input) {
+      var pos = +input.dataset.optionPosition;
+      var value = normOpt(input.dataset.value);
+      var anySellable = variants.some(function (v) {
+        return normOpt(v['option' + pos]) === value && (v.available || preOrderByVariant[v.id]);
+      });
+      var label = input.closest('label');
+      if (label) label.classList.toggle('vpa__choice--sold-out', !anySellable);
+    });
+  }
+
   // Lock later steps until earlier steps have a value; renumber badges in
   // display order; reveal/hide the Add-Ons step.
   function renumberAndLock() {
@@ -1642,7 +1797,9 @@
       chipText:   label.querySelector('[data-pre-order-chip-text]'),
       img:        label.querySelector('.vpa__tile-media img'),
       soldOutTag: label.querySelector('[data-sold-out]'),
-      mostPopTag: label.querySelector('[data-most-popular]')
+      mostPopTag: label.querySelector('[data-most-popular]'),
+      discount:   label.querySelector('[data-tile-discount]'),
+      name:       label.querySelector('.vpa__tile-name')
     };
   }
 
@@ -1665,6 +1822,23 @@
     }
   }
 
+  // Edition tiles read "<size> <edition>" — e.g. "6 Person Standard". The
+  // size is taken off the variant the tile resolves to (not the raw
+  // selection, so it stays right during a partial selection) with everything
+  // from the first "|" onward dropped: "6 Person | 185x65cm" → "6 Person".
+  // Re-derived on every pass so switching size relabels the edition tiles.
+  // Mirrors the Liquid path exactly — refreshSectionFromServer merges
+  // server-rendered tiles into this DOM, so the two must agree.
+  function updateTileName(label, variant) {
+    if (label.dataset.tilePrefixSize !== 'true') return;
+    var nameEl = tileRefs(label).name;
+    if (!nameEl) return;
+    var base = label.dataset.tileValue || '';
+    var raw = (variant && sizeOptionPos) ? variant['option' + sizeOptionPos] : null;
+    var prefix = raw ? String(raw).split('|')[0].trim() : '';
+    nameEl.textContent = prefix ? prefix + ' ' + base : base;
+  }
+
   function updateTileMedia(label, variant) {
     if (!variant) return;
     var img = tileRefs(label).img;
@@ -1683,15 +1857,23 @@
     var sellable = variant ? (variant.available || hasPreOrder) : false;
     var soldOut = !sellable;
 
-    // Sold-out treatment is Size-step only.
-    if (refs.soldOutTag) refs.soldOutTag.hidden = !(opts.isSize && soldOut);
-    label.classList.toggle('vpa__tile--sold-out', opts.isSize && soldOut);
+    // Sold Out applies to every tile step — Size, Edition, and any other
+    // option. The old `opts.isSize &&` gate left an unbuyable edition
+    // looking perfectly buyable.
+    if (refs.soldOutTag) refs.soldOutTag.hidden = !soldOut;
+    label.classList.toggle('vpa__tile--sold-out', soldOut);
 
-    // Most Popular: first-of-its-option, sellable, inventory > threshold, not sold out.
+    // Discount pill. Only ever un-hide a tile that actually has a discount
+    // to show (data-has-discount) — otherwise we'd reveal an empty pill.
+    if (refs.discount && refs.discount.dataset.hasDiscount === 'true') {
+      refs.discount.hidden = soldOut && soldOutHideDiscount;
+    }
+
+    // Most Popular: first-of-its-option, sellable, inventory > threshold.
+    // `sellable` already excludes sold-out, so no separate soldOut term.
     if (refs.mostPopTag) {
       var qty = variant ? (inventoryByVariant[variant.id] || 0) : 0;
-      var show = opts.isFirst && sellable && qty > mostPopularMinStock && !(opts.isSize && soldOut);
-      refs.mostPopTag.hidden = !show;
+      refs.mostPopTag.hidden = !(opts.isFirst && sellable && qty > mostPopularMinStock);
     }
   }
 
@@ -1701,9 +1883,9 @@
       var value = label.dataset.tileValue;
       var variant = variantForTile(pos, value);
       updateTilePreOrderChip(label, variant);
+      updateTileName(label, variant);
       updateTileMedia(label, variant);
       updateTilePills(label, variant, {
-        isSize:  label.dataset.tileIsSize === 'true',
         isFirst: label.dataset.tileIsFirst === 'true'
       });
     });
@@ -2126,6 +2308,10 @@
             var destDiscount = dl.querySelector('[data-tile-discount]');
             if (srcDiscount && destDiscount) {
               destDiscount.textContent = srcDiscount.textContent;
+              // Carry data-has-discount across too — different colours have
+              // different discounts, and updateTilePills reads this flag to
+              // decide whether the pill is safe to un-hide.
+              destDiscount.dataset.hasDiscount = srcDiscount.dataset.hasDiscount || 'false';
               destDiscount.hidden = srcDiscount.hasAttribute('hidden');
             }
             var srcSoldOut = sl.querySelector('[data-sold-out]');
@@ -2421,8 +2607,10 @@
         Object.keys(preOrderByVariant).forEach(function (k) { delete preOrderByVariant[k]; });
         Object.keys(fresh).forEach(function (k) { preOrderByVariant[k] = fresh[k]; });
         updateAllTiles();
-        // Pre-order dates feed sellability, so re-assert the button once the
-        // live map lands (a variant could flip sellable/sold-out vs render).
+        // Pre-order dates feed sellability, so re-assert the button and the
+        // colour marks once the live map lands (a variant could flip
+        // sellable/sold-out vs render).
+        markSoldOutColours();
         updateBuyButtons();
       })
       .catch(function () { /* network failure → keep server-rendered values */ });
@@ -2439,6 +2627,7 @@
   root.querySelectorAll('.vpa__step[data-is-color="true"] input[disabled]').forEach(function (i) {
     i.disabled = false;
   });
+  markSoldOutColours();
 
   // Hydrate `selected` and tick the matching radios — but ONLY when the
   // URL explicitly points at a variant (?variant=… or ?option_values=…).
