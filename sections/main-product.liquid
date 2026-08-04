@@ -2727,6 +2727,40 @@
           "label": "Optional badge text"
         },
         {
+          "type": "header",
+          "content": "Add-On visibility"
+        },
+        {
+          "type": "paragraph",
+          "content": "Which add-ons appear, by stock state. An add-on counts as pre-order when its variant has a pre-order date metafield for the shopper's market — that wins over Shopify's stock status, since pre-order variants report as available at zero stock."
+        },
+        {
+          "type": "checkbox",
+          "id": "addons_show_in_stock",
+          "default": true,
+          "label": "Show in-stock add-ons"
+        },
+        {
+          "type": "checkbox",
+          "id": "addons_show_pre_order",
+          "default": true,
+          "label": "Show pre-order add-ons",
+          "info": "Shows the same \"ships DD/MM/YY\" chip the size tiles use, so shoppers know the add-on will delay the whole order."
+        },
+        {
+          "type": "checkbox",
+          "id": "addons_show_out_of_stock",
+          "default": false,
+          "label": "Show out-of-stock add-ons",
+          "info": "Off by default. When on, the row appears struck through and cannot be ticked — add-ons are added to the cart individually, so an out-of-stock one would fail the add."
+        },
+        {
+          "type": "text",
+          "id": "addon_sold_out_label",
+          "default": "Sold out",
+          "label": "Out-of-stock add-on tag (blank to hide)"
+        },
+        {
           "type": "select",
           "id": "addon_text_size",
           "label": "Add-on text size",

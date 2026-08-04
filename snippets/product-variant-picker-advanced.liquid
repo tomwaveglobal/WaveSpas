@@ -27,7 +27,11 @@
   • Step 4 (Add-Ons) hidden until all earlier steps are picked, then
     fades in. Reads product.metafields.custom.popular_upgrades.
   • Add-on variant resolution: explicit SKU map → SKU-prefix match →
-    keyword/title match fallback. Out-of-stock matches hide the row.
+    keyword/title match fallback.
+  • Add-on visibility is per stock state (in-stock / pre-order / out-of-stock),
+    each an admin checkbox. Pre-order is detected from the market-aware
+    metafield, which wins over `available`. A revealed out-of-stock row is
+    struck through and unselectable.
   • Subscriptions: per-row delivery-frequency selector when the add-on
     has selling_plan_groups. Subscription pre-selected by default.
   • Cart submit: capture-phase click intercept on the host form, routes
@@ -513,6 +517,39 @@
   .vpa__addon-variant { font-size: 11px; color: var(--vpa-text-muted); font-weight: var(--font-medium); line-height: 1.2; }
   .vpa__addon-variant::before { content: 'Variant: '; opacity: 0.7; }
   .vpa__addon-price { font-weight: var(--vpa-bold); font-size: var(--text-sm); white-space: nowrap; }
+
+  /* ═══ Add-on stock markers ════════════════════════════════════════ */
+  /* Shown when the merchant opts to reveal out-of-stock or pre-order rows.
+     Dim the row's content, not the label — an out-of-stock row that's been
+     deliberately revealed still has to be readable. */
+  .vpa__addon-status[hidden], .vpa__addon-chip[hidden] { display: none; }
+  .vpa__addon-status {
+    align-self: flex-start;
+    margin-block-start: 2px;
+    padding: 2px 6px;
+    border-radius: var(--rounded-full, 999px);
+    background: rgb(var(--color-foreground) / 0.8);
+    color: rgb(var(--color-background));
+    font-size: 9.5px;
+    font-weight: var(--vpa-tag-w);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .vpa__addon-chip {
+    align-self: flex-start;
+    margin-block-start: 3px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: var(--vpa-info-bg);
+    color: rgb(var(--color-foreground));
+    font-size: 10px;
+    font-weight: var(--font-medium);
+    line-height: 1.3;
+  }
+  .vpa__addon--sold-out .vpa__addon-media,
+  .vpa__addon--sold-out .vpa__addon-price { opacity: 0.45; }
+  .vpa__addon--sold-out .vpa__addon-name { text-decoration: line-through; text-decoration-color: rgb(var(--color-foreground) / 0.4); }
 
   /* ═══ Add-on text-size presets (block setting `addon_text_size`) ═══ */
   /* `m` is the default ruleset above; presets nudge the three text
@@ -1402,6 +1439,13 @@
               {%- if addon.variants.size > 1 -%}
                 <span class="vpa__addon-variant" data-addon-variant-label>{{ addon_variant.title }}</span>
               {%- endif -%}
+              {%- comment -%}
+                Both markers are always emitted (hidden by default) so the JS can
+                fill them in by selector as the resolved variant changes — the
+                add-on row's variant is re-matched on every spa selection.
+              {%- endcomment -%}
+              <span class="vpa__addon-status" data-addon-status hidden></span>
+              <span class="vpa__addon-chip" data-addon-chip hidden></span>
             </div>
             <span class="vpa__addon-price" data-addon-price-display>{{ addon_variant.price | money }}</span>
 
@@ -1521,6 +1565,12 @@
   // When true, a sold-out tile shows only the Sold Out pill; when false
   // (default) the % OFF pill stays and Sold Out stacks below it.
   var soldOutHideDiscount = {% if block.settings.sold_out_hide_discount %}true{% else %}false{% endif %};
+  // Add-on row visibility, one flag per stock state. Defaults reproduce the
+  // previous hardcoded behaviour: out-of-stock hidden, everything else shown.
+  var addonsShowInStock  = {% if block.settings.addons_show_in_stock == false %}false{% else %}true{% endif %};
+  var addonsShowPreOrder = {% if block.settings.addons_show_pre_order == false %}false{% else %}true{% endif %};
+  var addonsShowOOS      = {% if block.settings.addons_show_out_of_stock %}true{% else %}false{% endif %};
+  var addonSoldOutLabel  = {{ block.settings.addon_sold_out_label | default: 'Sold out' | json }};
 
   // Spa model token, auto-derived from product title (first word).
   // Used as a required keyword for add-ons with model-prefixed variants
@@ -1608,6 +1658,12 @@
             "sku": {{ v.sku | default: '' | json }},
             "price": {{ v.price }},
             "available": {{ v.available }},
+            {%- comment -%}
+              Market-aware pre-order date, same key the size tiles read. Without
+              it a pre-orderable add-on is indistinguishable from an in-stock
+              one: policy "continue" reports available:true at zero stock.
+            {%- endcomment -%}
+            "preOrder": {{ v.metafields.custom[pre_order_key] | default: '' | strip | json }},
             "image": {% if v.featured_image %}{{ v.featured_image | image_url: width: 96 | json }}{% else %}null{% endif %}
           }
           {%- assign _emit_v = true -%}
@@ -2175,6 +2231,20 @@
   // Runs for every add-on row regardless of whether a better variant match
   // was found, so single-variant and unmatched add-ons also get hidden when
   // their currently-assigned variant is out of stock.
+  // Stock state for an add-on variant: 'preorder' | 'instock' | 'oos'.
+  // The pre-order metafield MUST win over `available` — pre-order variants use
+  // inventory policy "continue" and so report available:true at zero stock,
+  // which is why `available` alone can't separate the two. Same precedence the
+  // buy-button and tile logic use.
+  function addonStockState(v) {
+    if (!v) return 'oos';
+    // Pre-order requires the metafield to actually hold a value. Guard against
+    // a whitespace-only entry, which would otherwise read as truthy and badge
+    // the row as pre-order with an empty ships date.
+    if (v.preOrder && String(v.preOrder).trim()) return 'preorder';
+    return v.available ? 'instock' : 'oos';
+  }
+
   function applyAddonMatch(addonEl) {
     var handle = addonEl.dataset.addonHandle;
     if (!handle) return;
@@ -2219,7 +2289,7 @@
     }
 
     // Look up the variant the row is currently pointing at (matched or
-    // server-rendered default) and hide the row if it's out of stock.
+    // server-rendered default) and decide visibility from its stock state.
     var currentId = check ? parseInt(check.dataset.addonVariantId, 10) : null;
     var current = null;
     for (var i = 0; i < list.length; i++) {
@@ -2227,11 +2297,40 @@
     }
     if (!current) current = list[0];
 
-    var isSoldOut = !current.available;
-    addonEl.hidden = isSoldOut;
+    var state = addonStockState(current);
+    var visible = state === 'preorder' ? addonsShowPreOrder
+                : state === 'instock'  ? addonsShowInStock
+                : addonsShowOOS;
+    addonEl.hidden = !visible;
+    addonEl.classList.toggle('vpa__addon--sold-out', state === 'oos');
+
+    // A shown out-of-stock row stays informational: add-ons are submitted
+    // sequentially through /cart/add.js, so an unavailable line item would
+    // fail the cart add and could break the whole submit chain.
     if (check) {
-      check.disabled = isSoldOut;
-      if (isSoldOut) check.checked = false;
+      check.disabled = state === 'oos';
+      if (check.disabled) check.checked = false;
+    }
+
+    // "Sold out" label — only on an OOS row, and only if the merchant kept a label.
+    var statusEl = addonEl.querySelector('[data-addon-status]');
+    if (statusEl) {
+      var showStatus = state === 'oos' && !!addonSoldOutLabel;
+      statusEl.textContent = showStatus ? addonSoldOutLabel : '';
+      statusEl.hidden = !showStatus;
+    }
+
+    // Pre-order chip, formatted through the same helper as the size tiles so
+    // the prefix and trim patterns stay consistent across the picker.
+    var chipEl = addonEl.querySelector('[data-addon-chip]');
+    if (chipEl) {
+      if (state === 'preorder') {
+        chipEl.textContent = (chipPrefix ? chipPrefix + ' ' : '') + cleanPreOrderText(current.preOrder);
+        chipEl.hidden = false;
+      } else {
+        chipEl.textContent = '';
+        chipEl.hidden = true;
+      }
     }
   }
 
