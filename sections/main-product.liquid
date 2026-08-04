@@ -2798,7 +2798,21 @@
           "id": "sold_out_label",
           "default": "Sold Out",
           "label": "Sold-out tag (blank to hide)",
-          "info": "Only shown on tiles in the Size step (per spec). Other steps just disable the input."
+          "info": "Shown on any option tile whose variant has no stock and no pre-order date, in every step. Colours that are sold out in every size are struck through instead."
+        },
+        {
+          "type": "checkbox",
+          "id": "sold_out_hide_discount",
+          "default": false,
+          "label": "Hide the % OFF tag on sold-out options",
+          "info": "Off: a sold-out option shows its discount tag with Sold Out stacked underneath. On: the discount tag is hidden so the tile shows only Sold Out."
+        },
+        {
+          "type": "checkbox",
+          "id": "prefix_edition_with_size",
+          "default": true,
+          "label": "Prefix edition tiles with the size",
+          "info": "Edition tiles read \"6 Person Standard\" instead of \"Standard\", taking the size from the selected variant and dropping anything after the \"|\" (so \"6 Person | 185x65cm\" becomes \"6 Person\")."
         },
         {
           "type": "header",
