@@ -396,13 +396,13 @@
      below the % OFF pill. Sold Out (a vpa__tag variant) keeps the same
      top-right position — it never co-occurs with MOST POPULAR. */
   .vpa__tag, .vpa__discount { right: var(--sp-2d5); left: auto; }
-  /* Badge colours are merchant-controllable via theme settings. Each falls
-     back to the value it had before the setting existed, so a blank setting
-     keeps the theme-adaptive default. Best Seller is the exception: it now
-     defaults to orange rather than solid foreground. */
+  /* Badge colours are merchant-controllable via theme settings. Every one
+     falls back to the value it had before the setting existed, so an
+     untouched setting keeps the theme-adaptive default and adding these
+     controls changes nothing on its own. */
   .vpa__tag {
-    background: var(--vpa-badge-bs-bg, #f59e0b);
-    color: var(--vpa-badge-bs-text, #ffffff);
+    background: var(--vpa-badge-bs-bg, rgb(var(--color-foreground)));
+    color: var(--vpa-badge-bs-text, rgb(var(--color-background)));
   }
   /* 0.45 was only ever legible because nothing else dimmed it; now that the
      pill sits at full opacity on a dimmed tile it needs real contrast —

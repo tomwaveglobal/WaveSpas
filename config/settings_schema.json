@@ -2394,19 +2394,17 @@
       },
       {
         "type": "paragraph",
-        "content": "Leave a colour blank to keep the theme's current default for that badge. The Best Seller badge defaults to orange."
+        "content": "Leave a colour blank to keep the theme's current default for that badge. Every colour here starts blank, so these settings change nothing until you pick one."
       },
       {
         "type": "color",
         "id": "vpa_badge_bs_bg",
-        "label": "Best Seller background",
-        "default": "#f59e0b"
+        "label": "Best Seller background"
       },
       {
         "type": "color",
         "id": "vpa_badge_bs_text",
-        "label": "Best Seller text",
-        "default": "#ffffff"
+        "label": "Best Seller text"
       },
       {
         "type": "color",
