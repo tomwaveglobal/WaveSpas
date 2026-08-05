@@ -1192,11 +1192,22 @@
               assign tile_display_name = size_prefix | append: ' ' | append: value_string
             endif
 
+            # ─── Discount badge wording ───────────────────────────────
+            # Merchant-authored format string; {n} is the discount
+            # percentage. No `default:` filter here on purpose — Shopify
+            # already supplies the schema default when the key is absent, so
+            # omitting it lets a deliberately-blank setting mean "hide",
+            # consistent with the other badge labels.
+            assign discount_text = ''
+            if rep_discount_pct > 0 and block.settings.discount_label != blank
+              assign discount_text = block.settings.discount_label | replace: '{n}', rep_discount_pct
+            endif
+
             # Discount pill on a sold-out tile: stacked below Sold Out by
             # default, or suppressed entirely when the merchant would rather
             # the tile say only "Sold Out" (block setting).
             assign hide_discount = false
-            if rep_discount_pct == 0
+            if discount_text == ''
               assign hide_discount = true
             elsif show_sold_out_treatment and block.settings.sold_out_hide_discount
               assign hide_discount = true
@@ -1304,7 +1315,7 @@
                 across by [data-tile-discount] selector — different
                 colours can have different discount %.
               {%- endcomment -%}
-              <span class="vpa__discount" data-tile-discount data-has-discount="{% if rep_discount_pct > 0 %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
+              <span class="vpa__discount" data-tile-discount data-has-discount="{% if discount_text != '' %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{{ discount_text }}</span>
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}
