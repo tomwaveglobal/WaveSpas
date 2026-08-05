@@ -2811,21 +2811,32 @@
         },
         {
           "type": "header",
-          "content": "Tags"
+          "content": "Badges (Best Seller / Sold Out / % OFF)"
+        },
+        {
+          "type": "paragraph",
+          "content": "Badge colours live in Theme settings \u2192 Variant picker (advanced) \u2192 Tags & pills, so they stay consistent across every product template."
         },
         {
           "type": "text",
           "id": "most_popular_label",
           "default": "Most Popular",
-          "label": "Most Popular tag (blank to hide)",
+          "label": "Best Seller tag text (blank to hide)",
           "info": "Shown on the first tile of an option, only when its variant is available AND inventory exceeds the threshold below."
         },
         {
           "type": "number",
           "id": "most_popular_min_stock",
           "default": 0,
-          "label": "Most Popular min stock",
-          "info": "Tile must have more than this many units in stock to qualify for the Most Popular pill. 0 = always show (subject to availability)."
+          "label": "Best Seller min stock",
+          "info": "Tile must have more than this many units in stock to qualify for the Best Seller badge. 0 = always show (subject to availability)."
+        },
+        {
+          "type": "text",
+          "id": "discount_label",
+          "default": "{n}% OFF",
+          "label": "% OFF badge text (blank to hide)",
+          "info": "Use {n} where the discount percentage should appear \u2014 e.g. \"{n}% OFF\", \"SAVE {n}%\" or \"-{n}%\". Leave blank to hide the badge on every tile."
         },
         {
           "type": "text",

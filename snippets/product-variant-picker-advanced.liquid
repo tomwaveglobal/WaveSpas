@@ -68,6 +68,24 @@
   assign most_popular_min_stock = block.settings.most_popular_min_stock | default: 0
   assign prefix_edition_with_size = block.settings.prefix_edition_with_size
 
+  # ─── Badge colours (theme settings) ────────────────────────────────
+  # Emitted as custom properties on the picker root ONLY when the merchant
+  # actually picked a colour. A blank setting emits nothing, so the CSS
+  # fallback — the value the badge had before these settings existed —
+  # applies and stays adaptive to the section colour scheme. Shopify
+  # renders an unset colour as blank or as the fully-transparent
+  # rgba(0,0,0,0), so both are treated as "not set".
+  assign vpa_badge_css = ''
+  assign badge_ids = 'bs_bg,bs_text,so_bg,so_text,disc_bg,disc_text,chip_bg,chip_text' | split: ','
+  for badge_id in badge_ids
+    assign setting_key = 'vpa_badge_' | append: badge_id
+    assign badge_value = settings[setting_key] | default: '' | append: ''
+    if badge_value != '' and badge_value != 'rgba(0,0,0,0)'
+      assign css_name = badge_id | replace: '_', '-'
+      assign vpa_badge_css = vpa_badge_css | append: '--vpa-badge-' | append: css_name | append: ': ' | append: badge_value | append: '; '
+    endif
+  endfor
+
   # ─── Size option position ──────────────────────────────────────────
   # Resolved up front because the Edition step renders BEFORE Size in
   # Shopify's option order on some products (Pacific is Colour / Edition /
@@ -378,12 +396,25 @@
      below the % OFF pill. Sold Out (a vpa__tag variant) keeps the same
      top-right position — it never co-occurs with MOST POPULAR. */
   .vpa__tag, .vpa__discount { right: var(--sp-2d5); left: auto; }
-  .vpa__tag { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
+  /* Badge colours are merchant-controllable via theme settings. Every one
+     falls back to the value it had before the setting existed, so an
+     untouched setting keeps the theme-adaptive default and adding these
+     controls changes nothing on its own. */
+  .vpa__tag {
+    background: var(--vpa-badge-bs-bg, rgb(var(--color-foreground)));
+    color: var(--vpa-badge-bs-text, rgb(var(--color-background)));
+  }
   /* 0.45 was only ever legible because nothing else dimmed it; now that the
      pill sits at full opacity on a dimmed tile it needs real contrast —
      white text on a 45% wash fails WCAG at this 9.5px uppercase size. */
-  .vpa__tag--sold-out { background: rgb(var(--color-foreground) / 0.8); }
-  .vpa__discount { background: var(--vpa-sale); color: var(--vpa-sale-text); }
+  .vpa__tag--sold-out {
+    background: var(--vpa-badge-so-bg, rgb(var(--color-foreground) / 0.8));
+    color: var(--vpa-badge-so-text, rgb(var(--color-background)));
+  }
+  .vpa__discount {
+    background: var(--vpa-badge-disc-bg, var(--vpa-sale));
+    color: var(--vpa-badge-disc-text, var(--vpa-sale-text));
+  }
   .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag {
     top: calc(var(--sp-2) + 20px);
   }
@@ -411,8 +442,8 @@
   }
   .vpa__chip[hidden], .vpa__tile-info[hidden] { display: none; }
   .vpa__chip {
-    background: var(--vpa-info-bg);
-    color: rgb(var(--color-foreground));
+    background: var(--vpa-badge-chip-bg, var(--vpa-info-bg));
+    color: var(--vpa-badge-chip-text, rgb(var(--color-foreground)));
     font-weight: var(--font-medium);
     display: inline-flex;
     align-items: flex-start;
@@ -427,7 +458,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .vpa__tile-info { background: var(--vpa-info-bg); color: rgb(var(--color-foreground)); }
+  .vpa__tile-info { background: var(--vpa-badge-chip-bg, var(--vpa-info-bg)); color: var(--vpa-badge-chip-text, rgb(var(--color-foreground))); }
   .vpa__tile-info strong { font-weight: var(--vpa-bold); }
 
   /* ═══ Dynamic-options "unavailable" treatment ═════════════════════ */
@@ -528,8 +559,8 @@
     margin-block-start: 2px;
     padding: 2px 6px;
     border-radius: var(--rounded-full, 999px);
-    background: rgb(var(--color-foreground) / 0.8);
-    color: rgb(var(--color-background));
+    background: var(--vpa-badge-so-bg, rgb(var(--color-foreground) / 0.8));
+    color: var(--vpa-badge-so-text, rgb(var(--color-background)));
     font-size: 9.5px;
     font-weight: var(--vpa-tag-w);
     letter-spacing: 0.04em;
@@ -541,8 +572,8 @@
     margin-block-start: 3px;
     padding: 3px 7px;
     border-radius: 6px;
-    background: var(--vpa-info-bg);
-    color: rgb(var(--color-foreground));
+    background: var(--vpa-badge-chip-bg, var(--vpa-info-bg));
+    color: var(--vpa-badge-chip-text, rgb(var(--color-foreground)));
     font-size: 10px;
     font-weight: var(--font-medium);
     line-height: 1.3;
@@ -929,7 +960,7 @@
   data-vpa-selected-bg="{% if settings.vpa_selected_bg == false %}off{% else %}on{% endif %}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
-  style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }}; padding-block-end: {{ settings.vpa_bottom_padding | default: 0 }}px;"
+  style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }}; padding-block-end: {{ settings.vpa_bottom_padding | default: 0 }}px; {{ vpa_badge_css }}"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
@@ -1161,11 +1192,22 @@
               assign tile_display_name = size_prefix | append: ' ' | append: value_string
             endif
 
+            # ─── Discount badge wording ───────────────────────────────
+            # Merchant-authored format string; {n} is the discount
+            # percentage. No `default:` filter here on purpose — Shopify
+            # already supplies the schema default when the key is absent, so
+            # omitting it lets a deliberately-blank setting mean "hide",
+            # consistent with the other badge labels.
+            assign discount_text = ''
+            if rep_discount_pct > 0 and block.settings.discount_label != blank
+              assign discount_text = block.settings.discount_label | replace: '{n}', rep_discount_pct
+            endif
+
             # Discount pill on a sold-out tile: stacked below Sold Out by
             # default, or suppressed entirely when the merchant would rather
             # the tile say only "Sold Out" (block setting).
             assign hide_discount = false
-            if rep_discount_pct == 0
+            if discount_text == ''
               assign hide_discount = true
             elsif show_sold_out_treatment and block.settings.sold_out_hide_discount
               assign hide_discount = true
@@ -1273,7 +1315,7 @@
                 across by [data-tile-discount] selector — different
                 colours can have different discount %.
               {%- endcomment -%}
-              <span class="vpa__discount" data-tile-discount data-has-discount="{% if rep_discount_pct > 0 %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{% if rep_discount_pct > 0 %}{{ rep_discount_pct }}% OFF{% endif %}</span>
+              <span class="vpa__discount" data-tile-discount data-has-discount="{% if discount_text != '' %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{{ discount_text }}</span>
               <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}

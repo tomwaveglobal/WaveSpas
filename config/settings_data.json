@@ -115,6 +115,11 @@
     "advanced_badge_image_desktop": "180",
     "advanced_badge_map_1_text": "Free Starter Kit",
     "advanced_badge_map_1_image": "shopify://shop_images/kit_filter_1.png",
+    "advanced_badge_map_1_variant_focus": "GAR4CHARATUK, GAR4FLRATUK, GAR4GRARATUK, GAR4PEBRATUK",
+    "advanced_badge_map_1_override_text": "10% Off + Free Controller",
+    "advanced_badge_map_1_override_image": "shopify://shop_images/Inflatable_WiFi_10offf.png",
+    "advanced_badge_map_1_override_show_text": false,
+    "advanced_badge_map_1_override_show_both": false,
     "advanced_badge_map_2_text": "",
     "advanced_badge_map_3_text": "10% Off",
     "advanced_badge_map_3_image": "shopify://shop_images/Extra_5__Off0_fe67293d-7237-4a5e-95b6-c25ceeab0fb9.png",
@@ -122,6 +127,7 @@
     "advanced_badge_map_4_text": "Free Wifi Controller",
     "advanced_badge_map_4_image": "shopify://shop_images/Inflatable_WiFi.png",
     "advanced_badge_map_4_show_text": false,
+    "advanced_badge_map_4_variant_focus": "",
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
@@ -170,6 +176,7 @@
     "vpa_price_size": "xs",
     "vpa_price_weight": "500",
     "vpa_tag_weight": "700",
+    "vpa_badge_bs_bg": "#F59E0B",
     "advanced_badge_show_on_product": true,
     "advanced_badge_show_on_collection": true,
     "product_image_background": "#f8f8f8",
@@ -231,11 +238,6 @@
       },
       "2153490007123654574": {
         "type": "shopify://apps/consentmo-gdpr/blocks/gdpr_cookie_consent/4fbe573f-a377-4fea-9801-3ee0858cae41",
-        "disabled": false,
-        "settings": {}
-      },
-      "2567389343055140935": {
-        "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
         "disabled": false,
         "settings": {}
       },
