@@ -2394,50 +2394,58 @@
       },
       {
         "type": "paragraph",
-        "content": "Leave a colour blank to keep the theme's current default for that badge. Every colour here starts blank, so these settings change nothing until you pick one."
+        "content": "These are pre-set to the badge colours the theme already uses, so changing one only affects that badge. Clear a colour to hand that badge back to the theme's colour scheme."
       },
       {
         "type": "color",
         "id": "vpa_badge_bs_bg",
-        "label": "Best Seller background"
+        "label": "Best Seller background",
+        "default": "#000000"
       },
       {
         "type": "color",
         "id": "vpa_badge_bs_text",
-        "label": "Best Seller text"
+        "label": "Best Seller text",
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "vpa_badge_so_bg",
         "label": "Sold Out background",
-        "info": "Blank = 80% of the theme foreground colour, as now."
+        "default": "#333333",
+        "info": "Pre-set to the theme's current Sold Out grey."
       },
       {
         "type": "color",
         "id": "vpa_badge_so_text",
-        "label": "Sold Out text"
+        "label": "Sold Out text",
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "vpa_badge_disc_bg",
         "label": "% OFF background",
-        "info": "Blank = the theme's Sale tag colour, as now."
+        "default": "#f59e0b",
+        "info": "Pre-set to the theme's Sale tag colour."
       },
       {
         "type": "color",
         "id": "vpa_badge_disc_text",
-        "label": "% OFF text"
+        "label": "% OFF text",
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "vpa_badge_chip_bg",
         "label": "Pre-order chip background",
+        "default": "#f5f5f5",
         "info": "Also used by the add-on pre-order chip and the tile info blurb."
       },
       {
         "type": "color",
         "id": "vpa_badge_chip_text",
-        "label": "Pre-order chip text"
+        "label": "Pre-order chip text",
+        "default": "#000000"
       }
     ]
   }
