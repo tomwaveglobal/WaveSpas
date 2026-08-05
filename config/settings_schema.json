@@ -2086,12 +2086,30 @@
         "type": "select",
         "id": "vpa_style",
         "options": [
-          { "value": "card",                "label": "1 — Card (default)" },
-          { "value": "card-soft",           "label": "2 — Card · Soft pills" },
-          { "value": "card-outline-pills",  "label": "3 — Card · Outlined pills" },
-          { "value": "card-inline",         "label": "4 — Card · Inline tags (no corner pills)" },
-          { "value": "card-quiet-chip",     "label": "5 — Card · Quiet pre-order chip" },
-          { "value": "card-stripped",       "label": "6 — Card · Stripped (most minimal)" }
+          {
+            "value": "card",
+            "label": "1 — Card (default)"
+          },
+          {
+            "value": "card-soft",
+            "label": "2 — Card · Soft pills"
+          },
+          {
+            "value": "card-outline-pills",
+            "label": "3 — Card · Outlined pills"
+          },
+          {
+            "value": "card-inline",
+            "label": "4 — Card · Inline tags (no corner pills)"
+          },
+          {
+            "value": "card-quiet-chip",
+            "label": "5 — Card · Quiet pre-order chip"
+          },
+          {
+            "value": "card-stripped",
+            "label": "6 — Card · Stripped (most minimal)"
+          }
         ],
         "default": "card",
         "label": "Style"
@@ -2100,12 +2118,30 @@
         "type": "select",
         "id": "vpa_size",
         "options": [
-          { "value": "xxxs", "label": "XXXS — Micro" },
-          { "value": "xxs",  "label": "XXS — Very tight" },
-          { "value": "xs",   "label": "XS — Ultra compact" },
-          { "value": "s",    "label": "S — Compact (default)" },
-          { "value": "m",    "label": "M — Medium" },
-          { "value": "l",    "label": "L — Large" }
+          {
+            "value": "xxxs",
+            "label": "XXXS — Micro"
+          },
+          {
+            "value": "xxs",
+            "label": "XXS — Very tight"
+          },
+          {
+            "value": "xs",
+            "label": "XS — Ultra compact"
+          },
+          {
+            "value": "s",
+            "label": "S — Compact (default)"
+          },
+          {
+            "value": "m",
+            "label": "M — Medium"
+          },
+          {
+            "value": "l",
+            "label": "L — Large"
+          }
         ],
         "default": "s",
         "label": "Size"
@@ -2136,11 +2172,26 @@
         "type": "select",
         "id": "vpa_step_size",
         "options": [
-          { "value": "xs", "label": "XS" },
-          { "value": "s",  "label": "S" },
-          { "value": "m",  "label": "M (default)" },
-          { "value": "l",  "label": "L" },
-          { "value": "xl", "label": "XL" }
+          {
+            "value": "xs",
+            "label": "XS"
+          },
+          {
+            "value": "s",
+            "label": "S"
+          },
+          {
+            "value": "m",
+            "label": "M (default)"
+          },
+          {
+            "value": "l",
+            "label": "L"
+          },
+          {
+            "value": "xl",
+            "label": "XL"
+          }
         ],
         "default": "m",
         "label": "Size"
@@ -2149,12 +2200,30 @@
         "type": "select",
         "id": "vpa_step_weight",
         "options": [
-          { "value": "400", "label": "XXS — Regular" },
-          { "value": "500", "label": "XS — Medium" },
-          { "value": "600", "label": "S — SemiBold" },
-          { "value": "700", "label": "M — Bold (default)" },
-          { "value": "800", "label": "L — ExtraBold" },
-          { "value": "900", "label": "XL — Black" }
+          {
+            "value": "400",
+            "label": "XXS — Regular"
+          },
+          {
+            "value": "500",
+            "label": "XS — Medium"
+          },
+          {
+            "value": "600",
+            "label": "S — SemiBold"
+          },
+          {
+            "value": "700",
+            "label": "M — Bold (default)"
+          },
+          {
+            "value": "800",
+            "label": "L — ExtraBold"
+          },
+          {
+            "value": "900",
+            "label": "XL — Black"
+          }
         ],
         "default": "700",
         "label": "Weight"
@@ -2167,11 +2236,26 @@
         "type": "select",
         "id": "vpa_name_size",
         "options": [
-          { "value": "xs", "label": "XS" },
-          { "value": "s",  "label": "S" },
-          { "value": "m",  "label": "M (default)" },
-          { "value": "l",  "label": "L" },
-          { "value": "xl", "label": "XL" }
+          {
+            "value": "xs",
+            "label": "XS"
+          },
+          {
+            "value": "s",
+            "label": "S"
+          },
+          {
+            "value": "m",
+            "label": "M (default)"
+          },
+          {
+            "value": "l",
+            "label": "L"
+          },
+          {
+            "value": "xl",
+            "label": "XL"
+          }
         ],
         "default": "m",
         "label": "Size"
@@ -2180,12 +2264,30 @@
         "type": "select",
         "id": "vpa_name_weight",
         "options": [
-          { "value": "400", "label": "XXS — Regular" },
-          { "value": "500", "label": "XS — Medium" },
-          { "value": "600", "label": "S — SemiBold" },
-          { "value": "700", "label": "M — Bold (default)" },
-          { "value": "800", "label": "L — ExtraBold" },
-          { "value": "900", "label": "XL — Black" }
+          {
+            "value": "400",
+            "label": "XXS — Regular"
+          },
+          {
+            "value": "500",
+            "label": "XS — Medium"
+          },
+          {
+            "value": "600",
+            "label": "S — SemiBold"
+          },
+          {
+            "value": "700",
+            "label": "M — Bold (default)"
+          },
+          {
+            "value": "800",
+            "label": "L — ExtraBold"
+          },
+          {
+            "value": "900",
+            "label": "XL — Black"
+          }
         ],
         "default": "700",
         "label": "Weight"
@@ -2198,11 +2300,26 @@
         "type": "select",
         "id": "vpa_price_size",
         "options": [
-          { "value": "xs", "label": "XS" },
-          { "value": "s",  "label": "S" },
-          { "value": "m",  "label": "M (default)" },
-          { "value": "l",  "label": "L" },
-          { "value": "xl", "label": "XL" }
+          {
+            "value": "xs",
+            "label": "XS"
+          },
+          {
+            "value": "s",
+            "label": "S"
+          },
+          {
+            "value": "m",
+            "label": "M (default)"
+          },
+          {
+            "value": "l",
+            "label": "L"
+          },
+          {
+            "value": "xl",
+            "label": "XL"
+          }
         ],
         "default": "m",
         "label": "Size"
@@ -2211,12 +2328,30 @@
         "type": "select",
         "id": "vpa_price_weight",
         "options": [
-          { "value": "400", "label": "XXS — Regular" },
-          { "value": "500", "label": "XS — Medium" },
-          { "value": "600", "label": "S — SemiBold" },
-          { "value": "700", "label": "M — Bold (default)" },
-          { "value": "800", "label": "L — ExtraBold" },
-          { "value": "900", "label": "XL — Black" }
+          {
+            "value": "400",
+            "label": "XXS — Regular"
+          },
+          {
+            "value": "500",
+            "label": "XS — Medium"
+          },
+          {
+            "value": "600",
+            "label": "S — SemiBold"
+          },
+          {
+            "value": "700",
+            "label": "M — Bold (default)"
+          },
+          {
+            "value": "800",
+            "label": "L — ExtraBold"
+          },
+          {
+            "value": "900",
+            "label": "XL — Black"
+          }
         ],
         "default": "700",
         "label": "Weight"
@@ -2229,15 +2364,82 @@
         "type": "select",
         "id": "vpa_tag_weight",
         "options": [
-          { "value": "400", "label": "XXS — Regular" },
-          { "value": "500", "label": "XS — Medium" },
-          { "value": "600", "label": "S — SemiBold" },
-          { "value": "700", "label": "M — Bold (default)" },
-          { "value": "800", "label": "L — ExtraBold" },
-          { "value": "900", "label": "XL — Black" }
+          {
+            "value": "400",
+            "label": "XXS — Regular"
+          },
+          {
+            "value": "500",
+            "label": "XS — Medium"
+          },
+          {
+            "value": "600",
+            "label": "S — SemiBold"
+          },
+          {
+            "value": "700",
+            "label": "M — Bold (default)"
+          },
+          {
+            "value": "800",
+            "label": "L — ExtraBold"
+          },
+          {
+            "value": "900",
+            "label": "XL — Black"
+          }
         ],
         "default": "700",
         "label": "Weight"
+      },
+      {
+        "type": "paragraph",
+        "content": "Leave a colour blank to keep the theme's current default for that badge. The Best Seller badge defaults to orange."
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_bs_bg",
+        "label": "Best Seller background",
+        "default": "#f59e0b"
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_bs_text",
+        "label": "Best Seller text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_so_bg",
+        "label": "Sold Out background",
+        "info": "Blank = 80% of the theme foreground colour, as now."
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_so_text",
+        "label": "Sold Out text"
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_disc_bg",
+        "label": "% OFF background",
+        "info": "Blank = the theme's Sale tag colour, as now."
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_disc_text",
+        "label": "% OFF text"
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_chip_bg",
+        "label": "Pre-order chip background",
+        "info": "Also used by the add-on pre-order chip and the tile info blurb."
+      },
+      {
+        "type": "color",
+        "id": "vpa_badge_chip_text",
+        "label": "Pre-order chip text"
       }
     ]
   }
