@@ -657,7 +657,7 @@
             "allocations_mismatch": "Your discount code has changed. Review your bag and try again"
           }
         },
-        "pay_now_button_label": "Pay Now | Card | Paypal | Klarna "
+        "pay_now_button_label": "Pay Now"
       },
       "stock": {
         "removed_from_cart_notice": "Removed from bag",
