@@ -22,7 +22,7 @@
           "settings": {
             "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
             "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-ee20ccc78f0a1c64e33216701de1bb0e": null,
+            "header-143de7f29c8c342f441de5631834693a": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -36,8 +36,8 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/UK_Chemicals_Aug26-1_d5442253-81ae-4495-9c53-3bab97ecaa7a.jpg",
-            "image_mobile": "shopify://shop_images/UK_Chemicals_Aug26-2_b994a8e4-b21c-40df-afeb-3de28f9d24da.jpg",
+            "image": "shopify://shop_images/UK_Chemicals_Aug26-2_65dd0d56-29c8-4065-8172-ae5973891942.jpg",
+            "image_mobile": "shopify://shop_images/UK_Chemicals_Aug26-2Mobile.jpg",
             "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
             "button_link": "shopify://collections/hot-tub-full-range"
