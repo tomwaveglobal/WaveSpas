@@ -23,10 +23,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-ef8b2cb309bbee45cdfd4955e06425c3": null,
+            "header-12bfd04619c142646814987d594f56e6": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-52a2a79d40a8bd1d7e54ccae7ccf7628": null,
+            "header-51b9c52b7e278cfbab4097137b9170ad": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -70,21 +70,10 @@
         },
         "mega_menu_tab_aePWta": {
           "settings": {
-            "tab_products_1": [
-              "cruiser-sup",
-              "tourer-sup",
-              "pro-sup",
-              "recon-sup",
-              "woody-sup",
-              "wildcat-surf-sup",
-              "wildcat-kids-sup"
-            ],
-            "tab_products_3": [
-              "wave-3-in-1-robe",
-              "lightweight-carbon-paddle",
-              "kayak-conversion-seat",
-              "fleece-lined-changing-robe"
-            ]
+            "tab_products_1": [],
+            "tab_products_3": [],
+            "tab_target_11": "",
+            "tab_target_link_11": ""
           }
         },
         "mega_menu_tab_63jewV": {
