@@ -128,6 +128,8 @@
     "advanced_badge_map_4_image": "shopify://shop_images/Inflatable_WiFi.png",
     "advanced_badge_map_4_show_text": false,
     "advanced_badge_map_4_variant_focus": "",
+    "advanced_badge_map_5_text": "Free 16pk Filters",
+    "advanced_badge_map_5_image": "shopify://shop_images/Free_Filters.png",
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
