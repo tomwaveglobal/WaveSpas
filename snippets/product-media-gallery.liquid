@@ -19,6 +19,7 @@
   @param {boolean} [hide_variants] - Hide variant-attached images
   @param {boolean} [enable_video_autoplay] - Auto-play videos
   @param {boolean} [enable_video_looping] - Loop video playback
+  @param {boolean} [preload] - Eager-load the first media at high priority. Defaults to true, which is right on the product page where that image is the LCP element. Pass false wherever the gallery is not the first thing on the page (homepage featured product, modals) so it stops competing with the real LCP image for bandwidth.
   @param {boolean} [first_3d_model] - Enable AR/3D viewer
   @param {object} [spinning_block] - Spinning text overlay config
 
@@ -32,6 +33,14 @@
 {%- enddoc -%}
 
 {%- liquid
+  comment
+    Only one image per page should be eager + fetchpriority high. Callers that
+    render this gallery below the fold pass preload: false.
+  endcomment
+  unless preload == false
+    assign preload = true
+  endunless
+
   assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
 
   assign media_count = product.media.size
@@ -175,7 +184,7 @@
           {%- if gang_exist == true %} data-gang-option="{{ gang_option_name }}" data-gang-connect="{{ gang_connect }}"{% if gang_media_active == false %} hidden{% endif %}{% else %} data-gang-default{% endif -%}
         >
           {%- assign media_alt = featured_media.alt | default: product.title -%}
-          {%- render 'media', section_id: section_id, product_id: product_id, media: featured_media, sizes: featured_media_sizes, preload: true, autoplay: enable_video_autoplay, loop: enable_video_looping, media_alt: media_alt -%}
+          {%- render 'media', section_id: section_id, product_id: product_id, media: featured_media, sizes: featured_media_sizes, preload: preload, autoplay: enable_video_autoplay, loop: enable_video_looping, media_alt: media_alt -%}
 
           {%- if image_zoom != 'none' and featured_media.media_type == 'image' -%}
             <button type="button" class="absolute top-0 left-0 w-full h-full flex items-center justify-center" is="media-{{ image_zoom }}-button" aria-label="{{ 'products.media.open_media' | t: index: featured_media.position | escape }}" tabindex="-1">
@@ -214,7 +223,7 @@
               image_fill: image_fill,
               image_ratio: image_ratio,
               image_ratio_mobile: image_ratio_mobile,
-              preload: true,
+              preload: preload,
               sizes: sizes,
               autoplay: enable_video_autoplay,
               loop: enable_video_looping,
