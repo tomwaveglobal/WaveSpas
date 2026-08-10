@@ -507,6 +507,7 @@
         "text",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "transparent_header": false,
         "video": "shopify://files/videos/Como.mp4",
