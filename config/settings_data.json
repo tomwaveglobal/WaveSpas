@@ -673,8 +673,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      "/* Zendesk widget iframe */iframe#launcher,iframe.zEWidgetLauncher {right: auto !important; left: 20px !important; bottom: 100px !important;}"
-    ]
+    "custom_css": []
   }
 }
