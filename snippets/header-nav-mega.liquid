@@ -152,23 +152,56 @@
           {%- if block.settings.heading_1 != blank -%}
             <p class="text-base xl:text-lg font-medium">{{ block.settings.heading_1 | escape }}</p>
           {%- endif -%}
-          <tabs-element class="mega-menu__nav mega-menu__nav--tabs grid gap-1d5">
+          {%- liquid
+            assign tab_icon_size = block.settings.tab_icon_size | default: 42
+            assign tab_columns_label_size = block.settings.tab_columns_label_size | default: 16
+            assign tab_swatch_size = block.settings.tab_swatch_size | default: 28
+          -%}
+          <tabs-element class="mega-menu__nav mega-menu__nav--tabs grid gap-1d5" style="--nav-tab-icon-size: {{ tab_icon_size }}px;--nav-tab-swatch-size: {{ tab_swatch_size }}px;--nav-tab-2col-size: {{ tab_columns_label_size }}px;">
             {%- liquid
               assign forloop_first = true
               assign forloop_index = 0
+              assign group_columns = '1'
+              assign group_hidden = false
+              assign group_heading_hidden = false
             -%}
-            {%- for i in (1..12) -%}
+            {%- for i in (1..16) -%}
               {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
               {%- if block.settings[tab_target_link] != blank -%}
                 {%- liquid
                   assign tab_target = 'tab_target_' | append: i
                   assign tab_target_heading = block.settings[tab_target] | default: block.settings[tab_target_link].object.title
                   assign tab_icon = 'tab_icon_' | append: i
-                  assign tab_icon_width = 'tab_icon_width_' | append: i
+                  assign tab_swatch = 'tab_swatch_' | append: i
+                  assign tab_swatch_name = 'tab_swatch_name_' | append: i
+                  assign tab_group = 'tab_group_' | append: i
+                  assign tab_group_columns = 'tab_group_columns_' | append: i
+                  assign tab_group_hidden = 'tab_group_hidden_' | append: i
+                  assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
+
+                  # A group heading starts a new group, so it also sets the
+                  # column count and hidden state for every tab after it until
+                  # the next heading.
+                  if block.settings[tab_group] != blank
+                    assign group_columns = block.settings[tab_group_columns] | default: '1'
+                    assign group_hidden = block.settings[tab_group_hidden]
+                    assign group_heading_hidden = block.settings[tab_group_heading_hidden]
+                  endif
+
+                  assign item_class = ''
+                  unless group_columns == '1'
+                    assign item_class = ' mega-menu__nav-item--split mega-menu__nav-item--of-' | append: group_columns
+                  endunless
                 -%}
+                {%- if group_hidden -%}{%- continue -%}{%- endif -%}
+                {%- if block.settings[tab_group] != blank and group_heading_hidden != true -%}
+                  <p class="mega-menu__nav-group subtitle text-xs uppercase tracking-widest text-opacity">{{ block.settings[tab_group] | escape }}</p>
+                {%- endif -%}
                 {%- capture tab_heading -%}
-                  {%- if block.settings[tab_icon] != blank -%}
-                    {%- assign icon_width = block.settings[tab_icon_width] -%}
+                  {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
+                    {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
+                  {%- elsif block.settings[tab_icon] != blank -%}
+                    {%- assign icon_width = tab_icon_size -%}
                     {%- assign max_width = block.settings[tab_icon].width -%}
                     <figure class="media media--transparent relative inline-block shrink-0">
                       {%- capture sizes -%}{{ icon_width }}px{%- endcapture -%}
@@ -179,7 +212,7 @@
                   <span class="heading link-text text-xl-3xl tracking-tighter leading-tight">{{ tab_target_heading | escape }}</span>
                 {%- endcapture -%}
                 {%- if block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
-                  <button type="button" class="mega-menu__nav-item flex gap-2 items-center opacity-0 link icon-with-text text-left" role="tab" aria-controls="TabPanel-{{ block.id }}-{{ forloop_index }}" data-index="{{ forloop_index }}"{% if forloop_first %} disabled{% endif %}>
+                  <button type="button" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" role="tab" aria-controls="TabPanel-{{ block.id }}-{{ forloop_index }}" data-index="{{ forloop_index }}"{% if forloop_first %} disabled{% endif %}>
                     {{- tab_heading -}}
                   </button>
                   {%- liquid
@@ -187,7 +220,11 @@
                     assign forloop_index = forloop_index | plus: 1
                   -%}
                 {%- else -%}
-                  <a href="{{ block.settings[tab_target_link].url }}" class="mega-menu__nav-item flex gap-2 items-center opacity-0 link icon-with-text text-left">
+                  {%- comment -%}
+                    A plain URL (e.g. a Search & Discovery filter link) is a string,
+                    not a link drop, so .url is nil — fall back to the raw value.
+                  {%- endcomment -%}
+                  <a href="{{ block.settings[tab_target_link].url | default: block.settings[tab_target_link] }}" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left">
                     {{- tab_heading -}}
                   </a>
                 {%- endif -%}
@@ -207,9 +244,18 @@
           {%- liquid
             assign forloop_first = true
             assign forloop_index = 0
+            assign group_hidden = false
           -%}
-          {%- for i in (1..12) -%}
+          {%- for i in (1..16) -%}
             {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
+            {%- liquid
+              assign tab_group = 'tab_group_' | append: i
+              assign tab_group_hidden = 'tab_group_hidden_' | append: i
+              if block.settings[tab_group] != blank
+                assign group_hidden = block.settings[tab_group_hidden]
+              endif
+            -%}
+            {%- if group_hidden -%}{%- continue -%}{%- endif -%}
             {%- if block.settings[tab_target_link] != blank and block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
               {%- liquid
                 assign promo_image = 'promo_image_' | append: i

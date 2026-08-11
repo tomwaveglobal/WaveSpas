@@ -1,0 +1,59 @@
+{%- doc -%}
+  Renders a colour swatch for a mega menu tab.
+
+  Resolves the colour through the same `settings.swatch_config` mapping the
+  product pages use, so a nav swatch is the identical texture or colour a
+  customer sees on the PDP. Falls back to the tab's own colour picker when the
+  name is blank or unmapped.
+
+  Reuses the theme's `.color-swatch` styling (`--swatch-background`,
+  `--swatch-background-image`); only the size and radius are overridden, via
+  `.mega-menu__nav-swatch`.
+
+  @param {string} [name] - Colour name to look up, e.g. "Charcoal Black"
+  @param {string} [fallback] - Colour value used when name is blank or unmapped
+
+  @example
+  {% render 'nav-swatch', name: 'Charcoal Black', fallback: '#1c1c1c' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign swatch_background = fallback | default: 'transparent'
+  assign swatch_image = blank
+
+  if name != blank
+    assign file_name = name | handle | append: '.png'
+    assign swatch_background = name | split: ' ' | last | handle
+
+    if settings.swatch_config != blank
+      assign name_downcase = name | downcase | strip
+      assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+      for swatch_line in swatch_config
+        assign swatch_parts = swatch_line | strip | split: ':'
+        assign swatch_name = swatch_parts.first | downcase | strip
+        if swatch_name == name_downcase
+          assign swatch_value = swatch_parts.last | strip
+          if swatch_value contains '#'
+            assign swatch_background = swatch_value
+          else
+            assign file_name = swatch_value
+          endif
+          break
+        endif
+      endfor
+    endif
+
+    if images[file_name] != blank
+      assign swatch_image = images[file_name] | image_url: width: 128
+    elsif file_name contains '//cdn.shopify.com/'
+      assign swatch_image = file_name
+    endif
+  endif
+-%}
+
+{%- comment -%}
+  `relative` matters: .color-swatch's ::before/::after are absolutely
+  positioned, so without it they resolve against the nav item and smear a ring
+  across the whole row.
+{%- endcomment -%}
+<span class="mega-menu__nav-swatch color-swatch{% if swatch_image != blank %} with-image{% endif %} block relative shrink-0" style="--swatch-background: {{ swatch_background }};{% if swatch_image != blank %}--swatch-background-image: url({{ swatch_image }});{% endif %}"></span>

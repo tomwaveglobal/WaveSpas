@@ -948,6 +948,60 @@
         },
         {
           "type": "header",
+          "content": "Tab layout"
+        },
+        {
+          "type": "range",
+          "id": "tab_icon_size",
+          "min": 20,
+          "max": 64,
+          "step": 2,
+          "unit": "px",
+          "label": "Icon size for all tabs",
+          "info": "Sets every tab icon in this menu to the same size, so they stay consistent.",
+          "default": 42
+        },
+        {
+          "type": "range",
+          "id": "tab_swatch_size",
+          "min": 14,
+          "max": 48,
+          "step": 2,
+          "unit": "px",
+          "label": "Colour swatch size",
+          "info": "Swatches are usually smaller than the icon images, so they fit more columns across.",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "tab_columns_label_size",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Multi-column label size (desktop)",
+          "info": "Only affects groups set to two or more columns. One-column groups keep the theme size.",
+          "default": 16
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_columns_mobile",
+          "label": "Use the same column layout in the mobile drawer",
+          "info": "Applies the same group layout on mobile. An opened tab expands to full width.",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "tab_columns_label_size_mobile",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Multi-column label size (mobile)",
+          "default": 16
+        },
+        {
+          "type": "header",
           "content": "t:sections.global.settings.header__mobile.content"
         },
         {
@@ -965,6 +1019,39 @@
         {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu_tab.settings.header__tab_1.content"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_1",
+          "label": "Group heading above tab 1",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_1",
+          "label": "Hide group 1 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_1",
+          "label": "Hide group 1",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_1",
+          "label": "Group 1 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -1005,6 +1092,18 @@
           "max": 120,
           "step": 2,
           "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_1",
+          "label": "Swatch colour name for tab 1",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_1",
+          "label": "Colour swatch for tab 1",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
         },
         {
           "type": "header",
@@ -1107,6 +1206,39 @@
         },
         {
           "type": "text",
+          "id": "tab_group_2",
+          "label": "Group heading above tab 2",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_2",
+          "label": "Hide group 2 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_2",
+          "label": "Hide group 2",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_2",
+          "label": "Group 2 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
           "id": "tab_target_2",
           "default": "Tab heading",
           "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
@@ -1144,6 +1276,18 @@
           "max": 120,
           "step": 2,
           "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_2",
+          "label": "Swatch colour name for tab 2",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_2",
+          "label": "Colour swatch for tab 2",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
         },
         {
           "type": "header",
@@ -1246,6 +1390,39 @@
         },
         {
           "type": "text",
+          "id": "tab_group_3",
+          "label": "Group heading above tab 3",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_3",
+          "label": "Hide group 3 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_3",
+          "label": "Hide group 3",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_3",
+          "label": "Group 3 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
           "id": "tab_target_3",
           "default": "Tab heading",
           "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
@@ -1283,6 +1460,18 @@
           "max": 120,
           "step": 2,
           "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_3",
+          "label": "Swatch colour name for tab 3",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_3",
+          "label": "Colour swatch for tab 3",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
         },
         {
           "type": "header",
@@ -1385,6 +1574,39 @@
         },
         {
           "type": "text",
+          "id": "tab_group_4",
+          "label": "Group heading above tab 4",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_4",
+          "label": "Hide group 4 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_4",
+          "label": "Hide group 4",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_4",
+          "label": "Group 4 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
           "id": "tab_target_4",
           "default": "Tab heading",
           "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
@@ -1422,6 +1644,18 @@
           "max": 120,
           "step": 2,
           "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_4",
+          "label": "Swatch colour name for tab 4",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_4",
+          "label": "Colour swatch for tab 4",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
         },
         {
           "type": "header",
@@ -1524,6 +1758,39 @@
         },
         {
           "type": "text",
+          "id": "tab_group_5",
+          "label": "Group heading above tab 5",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_5",
+          "label": "Hide group 5 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_5",
+          "label": "Hide group 5",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_5",
+          "label": "Group 5 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
           "id": "tab_target_5",
           "default": "Tab heading",
           "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
@@ -1561,6 +1828,18 @@
           "max": 120,
           "step": 2,
           "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_5",
+          "label": "Swatch colour name for tab 5",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_5",
+          "label": "Colour swatch for tab 5",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
         },
         {
           "type": "header",
@@ -1663,6 +1942,39 @@
         },
         {
           "type": "text",
+          "id": "tab_group_6",
+          "label": "Group heading above tab 6",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_6",
+          "label": "Hide group 6 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_6",
+          "label": "Hide group 6",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_6",
+          "label": "Group 6 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
           "id": "tab_target_6",
           "default": "Tab heading",
           "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
@@ -1693,6 +2005,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_6",
+          "label": "Swatch colour name for tab 6",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_6",
+          "label": "Colour swatch for tab 6",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -1702,7 +2026,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          
           "type": "select",
           "id": "promo_image_ratio_6",
           "options": [
@@ -1732,52 +2055,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-          
           "type": "text",
           "id": "promo_heading_6",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-          
           "type": "inline_richtext",
           "id": "promo_subtext_6",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          
           "type": "checkbox",
           "id": "promo_overlay_content_6",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          
           "type": "url",
           "id": "promo_link_6",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-          
           "type": "text",
           "id": "promo_tag_6",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          
           "type": "color",
           "id": "promo_color_text_6",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          
           "type": "color",
           "id": "promo_color_overlay_6",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          
           "type": "range",
           "id": "promo_overlay_opacity_6",
           "min": 0,
@@ -1787,10 +2102,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 7"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_7",
+          "label": "Group heading above tab 7",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_7",
+          "label": "Hide group 7 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_7",
+          "label": "Hide group 7",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_7",
+          "label": "Group 7 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -1824,6 +2171,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_7",
+          "label": "Swatch colour name for tab 7",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_7",
+          "label": "Colour swatch for tab 7",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -1833,7 +2192,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          
           "type": "select",
           "id": "promo_image_ratio_7",
           "options": [
@@ -1863,52 +2221,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-          
           "type": "text",
           "id": "promo_heading_7",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-          
           "type": "inline_richtext",
           "id": "promo_subtext_7",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          
           "type": "checkbox",
           "id": "promo_overlay_content_7",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          
           "type": "url",
           "id": "promo_link_7",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-          
           "type": "text",
           "id": "promo_tag_7",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          
           "type": "color",
           "id": "promo_color_text_7",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          
           "type": "color",
           "id": "promo_color_overlay_7",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          
           "type": "range",
           "id": "promo_overlay_opacity_7",
           "min": 0,
@@ -1918,10 +2268,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 8"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_8",
+          "label": "Group heading above tab 8",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_8",
+          "label": "Hide group 8 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_8",
+          "label": "Hide group 8",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_8",
+          "label": "Group 8 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -1955,6 +2337,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_8",
+          "label": "Swatch colour name for tab 8",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_8",
+          "label": "Colour swatch for tab 8",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -1964,7 +2358,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          
           "type": "select",
           "id": "promo_image_ratio_8",
           "options": [
@@ -1994,52 +2387,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-          
           "type": "text",
           "id": "promo_heading_8",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-          
           "type": "inline_richtext",
           "id": "promo_subtext_8",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          
           "type": "checkbox",
           "id": "promo_overlay_content_8",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          
           "type": "url",
           "id": "promo_link_8",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-          
           "type": "text",
           "id": "promo_tag_8",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          
           "type": "color",
           "id": "promo_color_text_8",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          
           "type": "color",
           "id": "promo_color_overlay_8",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          
           "type": "range",
           "id": "promo_overlay_opacity_8",
           "min": 0,
@@ -2049,10 +2434,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 9"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_9",
+          "label": "Group heading above tab 9",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_9",
+          "label": "Hide group 9 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_9",
+          "label": "Hide group 9",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_9",
+          "label": "Group 9 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -2086,6 +2503,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_9",
+          "label": "Swatch colour name for tab 9",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_9",
+          "label": "Colour swatch for tab 9",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -2095,7 +2524,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          
           "type": "select",
           "id": "promo_image_ratio_9",
           "options": [
@@ -2125,52 +2553,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-          
           "type": "text",
           "id": "promo_heading_9",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-          
           "type": "inline_richtext",
           "id": "promo_subtext_9",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          
           "type": "checkbox",
           "id": "promo_overlay_content_9",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          
           "type": "url",
           "id": "promo_link_9",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-          
           "type": "text",
           "id": "promo_tag_9",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          
           "type": "color",
           "id": "promo_color_text_9",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          
           "type": "color",
           "id": "promo_color_overlay_9",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          
           "type": "range",
           "id": "promo_overlay_opacity_9",
           "min": 0,
@@ -2180,10 +2600,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 10"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_10",
+          "label": "Group heading above tab 10",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_10",
+          "label": "Hide group 10 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_10",
+          "label": "Hide group 10",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_10",
+          "label": "Group 10 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -2217,6 +2669,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_10",
+          "label": "Swatch colour name for tab 10",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_10",
+          "label": "Colour swatch for tab 10",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -2226,7 +2690,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          
           "type": "select",
           "id": "promo_image_ratio_10",
           "options": [
@@ -2256,52 +2719,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-          
           "type": "text",
           "id": "promo_heading_10",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-          
           "type": "inline_richtext",
           "id": "promo_subtext_10",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          
           "type": "checkbox",
           "id": "promo_overlay_content_10",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          
           "type": "url",
           "id": "promo_link_10",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-          
           "type": "text",
           "id": "promo_tag_10",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          
           "type": "color",
           "id": "promo_color_text_10",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          
           "type": "color",
           "id": "promo_color_overlay_10",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          
           "type": "range",
           "id": "promo_overlay_opacity_10",
           "min": 0,
@@ -2311,10 +2766,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 11"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_11",
+          "label": "Group heading above tab 11",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_11",
+          "label": "Hide group 11 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_11",
+          "label": "Hide group 11",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_11",
+          "label": "Group 11 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -2348,6 +2835,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_11",
+          "label": "Swatch colour name for tab 11",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_11",
+          "label": "Colour swatch for tab 11",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -2357,7 +2856,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-
           "type": "select",
           "id": "promo_image_ratio_11",
           "options": [
@@ -2387,52 +2885,44 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-
           "type": "text",
           "id": "promo_heading_11",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-
           "type": "inline_richtext",
           "id": "promo_subtext_11",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-
           "type": "checkbox",
           "id": "promo_overlay_content_11",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-
           "type": "url",
           "id": "promo_link_11",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-
           "type": "text",
           "id": "promo_tag_11",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-
           "type": "color",
           "id": "promo_color_text_11",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-
           "type": "color",
           "id": "promo_color_overlay_11",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-
           "type": "range",
           "id": "promo_overlay_opacity_11",
           "min": 0,
@@ -2442,10 +2932,42 @@
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
         },
-
         {
           "type": "header",
           "content": "Tab 12"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_12",
+          "label": "Group heading above tab 12",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_12",
+          "label": "Hide group 12 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_12",
+          "label": "Hide group 12",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_12",
+          "label": "Group 12 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
         },
         {
           "type": "text",
@@ -2479,6 +3001,18 @@
           "unit": "px"
         },
         {
+          "type": "text",
+          "id": "tab_swatch_name_12",
+          "label": "Swatch colour name for tab 12",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_12",
+          "label": "Colour swatch for tab 12",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
           "type": "header",
           "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
         },
@@ -2488,7 +3022,6 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-
           "type": "select",
           "id": "promo_image_ratio_12",
           "options": [
@@ -2518,54 +3051,710 @@
           "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
         },
         {
-
           "type": "text",
           "id": "promo_heading_12",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
-
           "type": "inline_richtext",
           "id": "promo_subtext_12",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-
           "type": "checkbox",
           "id": "promo_overlay_content_12",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-
           "type": "url",
           "id": "promo_link_12",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         },
         {
-
           "type": "text",
           "id": "promo_tag_12",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-
           "type": "color",
           "id": "promo_color_text_12",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-
           "type": "color",
           "id": "promo_color_overlay_12",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-
           "type": "range",
           "id": "promo_overlay_opacity_12",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.global.settings.overlay_opacity.label",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Tab 13"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_13",
+          "label": "Group heading above tab 12",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_13",
+          "label": "Hide group 13 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_13",
+          "label": "Hide group 13",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_13",
+          "label": "Group 12 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "tab_target_13",
+          "default": "Tab heading",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
+        },
+        {
+          "type": "url",
+          "id": "tab_target_link_13",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target_link.label"
+        },
+        {
+          "type": "product_list",
+          "id": "tab_products_13",
+          "label": "t:sections.global.settings.products.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_icon_13",
+          "label": "t:sections.global.settings.icon_image.label"
+        },
+        {
+          "type": "range",
+          "id": "tab_icon_width_13",
+          "label": "t:sections.global.settings.icon_width.label",
+          "default": 42,
+          "min": 10,
+          "max": 120,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_13",
+          "label": "Swatch colour name for tab 13",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_13",
+          "label": "Colour swatch for tab 13",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image_13",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
+        },
+        {
+          "type": "select",
+          "id": "promo_image_ratio_13",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.global.settings.image_ratio.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.global.settings.image_ratio.options__2.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.global.settings.image_ratio.options__3.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.global.settings.image_ratio.options__4.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.global.settings.image_ratio.options__5.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.global.settings.image_ratio.label",
+          "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading_13",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "promo_subtext_13",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "promo_overlay_content_13",
+          "default": true,
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
+        },
+        {
+          "type": "url",
+          "id": "promo_link_13",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
+        },
+        {
+          "type": "text",
+          "id": "promo_tag_13",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_text_13",
+          "label": "t:sections.global.settings.color_text.label",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_overlay_13",
+          "label": "t:sections.global.settings.color_overlay.label",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "promo_overlay_opacity_13",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.global.settings.overlay_opacity.label",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Tab 14"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_14",
+          "label": "Group heading above tab 12",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_14",
+          "label": "Hide group 14 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_14",
+          "label": "Hide group 14",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_14",
+          "label": "Group 12 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "tab_target_14",
+          "default": "Tab heading",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
+        },
+        {
+          "type": "url",
+          "id": "tab_target_link_14",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target_link.label"
+        },
+        {
+          "type": "product_list",
+          "id": "tab_products_14",
+          "label": "t:sections.global.settings.products.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_icon_14",
+          "label": "t:sections.global.settings.icon_image.label"
+        },
+        {
+          "type": "range",
+          "id": "tab_icon_width_14",
+          "label": "t:sections.global.settings.icon_width.label",
+          "default": 42,
+          "min": 10,
+          "max": 120,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_14",
+          "label": "Swatch colour name for tab 14",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_14",
+          "label": "Colour swatch for tab 14",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image_14",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
+        },
+        {
+          "type": "select",
+          "id": "promo_image_ratio_14",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.global.settings.image_ratio.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.global.settings.image_ratio.options__2.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.global.settings.image_ratio.options__3.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.global.settings.image_ratio.options__4.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.global.settings.image_ratio.options__5.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.global.settings.image_ratio.label",
+          "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading_14",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "promo_subtext_14",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "promo_overlay_content_14",
+          "default": true,
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
+        },
+        {
+          "type": "url",
+          "id": "promo_link_14",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
+        },
+        {
+          "type": "text",
+          "id": "promo_tag_14",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_text_14",
+          "label": "t:sections.global.settings.color_text.label",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_overlay_14",
+          "label": "t:sections.global.settings.color_overlay.label",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "promo_overlay_opacity_14",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.global.settings.overlay_opacity.label",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Tab 15"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_15",
+          "label": "Group heading above tab 12",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_15",
+          "label": "Hide group 15 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_15",
+          "label": "Hide group 15",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_15",
+          "label": "Group 12 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "tab_target_15",
+          "default": "Tab heading",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
+        },
+        {
+          "type": "url",
+          "id": "tab_target_link_15",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target_link.label"
+        },
+        {
+          "type": "product_list",
+          "id": "tab_products_15",
+          "label": "t:sections.global.settings.products.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_icon_15",
+          "label": "t:sections.global.settings.icon_image.label"
+        },
+        {
+          "type": "range",
+          "id": "tab_icon_width_15",
+          "label": "t:sections.global.settings.icon_width.label",
+          "default": 42,
+          "min": 10,
+          "max": 120,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_15",
+          "label": "Swatch colour name for tab 15",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_15",
+          "label": "Colour swatch for tab 15",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image_15",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
+        },
+        {
+          "type": "select",
+          "id": "promo_image_ratio_15",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.global.settings.image_ratio.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.global.settings.image_ratio.options__2.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.global.settings.image_ratio.options__3.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.global.settings.image_ratio.options__4.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.global.settings.image_ratio.options__5.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.global.settings.image_ratio.label",
+          "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading_15",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "promo_subtext_15",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "promo_overlay_content_15",
+          "default": true,
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
+        },
+        {
+          "type": "url",
+          "id": "promo_link_15",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
+        },
+        {
+          "type": "text",
+          "id": "promo_tag_15",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_text_15",
+          "label": "t:sections.global.settings.color_text.label",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_overlay_15",
+          "label": "t:sections.global.settings.color_overlay.label",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "promo_overlay_opacity_15",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.global.settings.overlay_opacity.label",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Tab 16"
+        },
+        {
+          "type": "text",
+          "id": "tab_group_16",
+          "label": "Group heading above tab 12",
+          "info": "Optional. Starts a new labelled group, e.g. Shop by Size"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_heading_hidden_16",
+          "label": "Hide group 16 heading only",
+          "info": "Keeps the group and its tabs, but does not draw the small label above them.",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_group_hidden_16",
+          "label": "Hide group 16",
+          "info": "Hides this group's heading and every tab in it, up to the next group heading. The tabs and their settings are kept.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "tab_group_columns_16",
+          "label": "Group 12 layout",
+          "info": "Only applies when a group heading is set above. Multi-column groups use the smaller label size set above.",
+          "options": [
+            { "value": "1", "label": "One column" },
+            { "value": "2", "label": "Two columns" },
+            { "value": "3", "label": "Three columns" },
+            { "value": "4", "label": "Four columns" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "tab_target_16",
+          "default": "Tab heading",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target.label"
+        },
+        {
+          "type": "url",
+          "id": "tab_target_link_16",
+          "label": "t:sections.header.blocks.mega_menu_tab.settings.target_link.label"
+        },
+        {
+          "type": "product_list",
+          "id": "tab_products_16",
+          "label": "t:sections.global.settings.products.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_icon_16",
+          "label": "t:sections.global.settings.icon_image.label"
+        },
+        {
+          "type": "range",
+          "id": "tab_icon_width_16",
+          "label": "t:sections.global.settings.icon_width.label",
+          "default": 42,
+          "min": 10,
+          "max": 120,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "tab_swatch_name_16",
+          "label": "Swatch colour name for tab 16",
+          "info": "Looks the colour up in Theme settings > Swatches, so it matches the product pages. e.g. Charcoal Black. Overrides the colour below."
+        },
+        {
+          "type": "color",
+          "id": "tab_swatch_16",
+          "label": "Colour swatch for tab 16",
+          "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.header__promo_5.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image_16",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
+        },
+        {
+          "type": "select",
+          "id": "promo_image_ratio_16",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.global.settings.image_ratio.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.global.settings.image_ratio.options__2.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.global.settings.image_ratio.options__3.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.global.settings.image_ratio.options__4.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.global.settings.image_ratio.options__5.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.global.settings.image_ratio.label",
+          "info": "t:sections.header.blocks.mega_menu_tab.settings.promo_image_ratio.info"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading_16",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "promo_subtext_16",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "promo_overlay_content_16",
+          "default": true,
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
+        },
+        {
+          "type": "url",
+          "id": "promo_link_16",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
+        },
+        {
+          "type": "text",
+          "id": "promo_tag_16",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_text_16",
+          "label": "t:sections.global.settings.color_text.label",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "promo_color_overlay_16",
+          "label": "t:sections.global.settings.color_overlay.label",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "promo_overlay_opacity_16",
           "min": 0,
           "max": 100,
           "step": 1,
