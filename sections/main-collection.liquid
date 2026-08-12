@@ -56,7 +56,13 @@
     endfor
   endif
 
-  echo '<!--DBG tags=[' | append: collection.current_tags | join: ',' | append: '] active=' | append: active_color | append: ' labels=' | append: color_labels | append: ' handle=' | append: collection.handle | append: '-->'
+  echo '<!--DBG2 n=' | append: collection.current_tags.size | append: ' all=' | append: collection.all_tags.size | append: ' prods=' | append: collection.products.size | append: ' tags='
+  for t in collection.current_tags
+    echo t
+    echo ';'
+  endfor
+  echo ' mo=' | append: shop.metaobjects['shopify--color-pattern'].values.size | append: '-->'
+
   comment
     Variant option this collection is about, so a card can link straight to it —
     landing on "4 Person" already selected rather than the product default.
