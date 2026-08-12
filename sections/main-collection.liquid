@@ -56,6 +56,7 @@
     endfor
   endif
 
+  echo '<!--DBG tags=[' | append: collection.current_tags | join: ',' | append: '] active=' | append: active_color | append: ' labels=' | append: color_labels | append: ' handle=' | append: collection.handle | append: '-->'
   comment
     Variant option this collection is about, so a card can link straight to it —
     landing on "4 Person" already selected rather than the product default.
