@@ -164,11 +164,19 @@
               assign group_columns = '1'
               assign group_hidden = false
               assign group_heading_hidden = false
+              assign group_no_icons = false
               assign reveal_index = 0
             -%}
             {%- for i in (1..16) -%}
-              {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
-              {%- if block.settings[tab_target_link] != blank -%}
+              {%- liquid
+                assign tab_target_link = 'tab_target_link_' | append: i
+                assign tab_group_colors_from = 'tab_group_colors_from_' | append: i
+              -%}
+              {%- comment -%}
+                A group that pulls its colours from a collection filter has no tab
+                link of its own, so it has to be allowed through on the source alone.
+              {%- endcomment -%}
+              {%- if block.settings[tab_target_link] != blank or block.settings[tab_group_colors_from] != blank -%}
                 {%- liquid
                   assign tab_target = 'tab_target_' | append: i
                   assign tab_target_heading = block.settings[tab_target] | default: block.settings[tab_target_link].object.title
@@ -179,6 +187,7 @@
                   assign tab_group_columns = 'tab_group_columns_' | append: i
                   assign tab_group_hidden = 'tab_group_hidden_' | append: i
                   assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
+                  assign tab_group_no_icons = 'tab_group_no_icons_' | append: i
 
                   # A group heading starts a new group, so it also sets the
                   # column count and hidden state for every tab after it until
@@ -187,6 +196,7 @@
                     assign group_columns = block.settings[tab_group_columns] | default: '1'
                     assign group_hidden = block.settings[tab_group_hidden]
                     assign group_heading_hidden = block.settings[tab_group_heading_hidden]
+                    assign group_no_icons = block.settings[tab_group_no_icons]
                   endif
 
                   assign item_class = ''
@@ -199,10 +209,35 @@
                   <p class="mega-menu__nav-group subtitle text-xs uppercase tracking-widest text-opacity" style="--reveal-index: {{ reveal_index }};">{{ block.settings[tab_group] | escape }}</p>
                   {%- assign reveal_index = reveal_index | plus: 1 -%}
                 {%- endif -%}
+                {%- if block.settings[tab_group_colors_from] != blank -%}
+                  {%- liquid
+                    assign colors_collection = block.settings[tab_group_colors_from]
+                    assign color_filter = blank
+                    for collection_filter in colors_collection.filters
+                      if collection_filter.param_name contains 'color'
+                        assign color_filter = collection_filter
+                        break
+                      endif
+                    endfor
+                  -%}
+                  {%- for filter_value in color_filter.values -%}
+                    {%- comment -%}
+                      Built from the collection URL rather than `url_to_add`, which
+                      resolves against whatever page the customer is on — the header
+                      renders everywhere, not just on the collection template.
+                    {%- endcomment -%}
+                    <a href="{{ colors_collection.url }}?{{ filter_value.param_name }}={{ filter_value.value | url_encode }}" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" style="--reveal-index: {{ reveal_index }};">
+                      {%- render 'nav-swatch', swatch: filter_value.swatch, name: filter_value.label -%}
+                      <span class="heading link-text text-xl-3xl tracking-tighter leading-tight">{{ filter_value.label | escape }}</span>
+                    </a>
+                    {%- assign reveal_index = reveal_index | plus: 1 -%}
+                  {%- endfor -%}
+                {%- endif -%}
+                {%- if block.settings[tab_target_link] == blank -%}{%- continue -%}{%- endif -%}
                 {%- capture tab_heading -%}
                   {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
                     {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
-                  {%- elsif block.settings[tab_icon] != blank -%}
+                  {%- elsif block.settings[tab_icon] != blank and group_no_icons != true -%}
                     {%- assign icon_width = tab_icon_size -%}
                     {%- assign max_width = block.settings[tab_icon].width -%}
                     <figure class="media media--transparent relative inline-block shrink-0">

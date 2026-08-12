@@ -67,18 +67,24 @@
           {%- assign group_columns = '1' -%}
           {%- assign group_hidden = false -%}
           {%- assign group_heading_hidden = false -%}
+          {%- assign group_no_icons = false -%}
           {%- for i in (1..16) -%}
-            {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
-            {%- if block.settings[tab_target_link] != blank -%}
+            {%- liquid
+              assign tab_target_link = 'tab_target_link_' | append: i
+              assign tab_group_colors_from = 'tab_group_colors_from_' | append: i
+            -%}
+            {%- if block.settings[tab_target_link] != blank or block.settings[tab_group_colors_from] != blank -%}
               {%- liquid
                 assign tab_group = 'tab_group_' | append: i
                 assign tab_group_columns = 'tab_group_columns_' | append: i
                 assign tab_group_hidden = 'tab_group_hidden_' | append: i
                 assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
+                assign tab_group_no_icons = 'tab_group_no_icons_' | append: i
                 if block.settings[tab_group] != blank
                   assign group_columns = block.settings[tab_group_columns] | default: '1'
                   assign group_hidden = block.settings[tab_group_hidden]
                   assign group_heading_hidden = block.settings[tab_group_heading_hidden]
+                  assign group_no_icons = block.settings[tab_group_no_icons]
                 endif
 
                 assign item_class = ''
@@ -90,6 +96,29 @@
               {%- if block.settings[tab_group] != blank and group_heading_hidden != true -%}
                 <li class="mega-menu__nav-group subtitle text-xs uppercase tracking-widest text-opacity">{{ block.settings[tab_group] | escape }}</li>
               {%- endif -%}
+              {%- if block.settings[tab_group_colors_from] != blank -%}
+                {%- liquid
+                  assign colors_collection = block.settings[tab_group_colors_from]
+                  assign color_filter = blank
+                  for collection_filter in colors_collection.filters
+                    if collection_filter.param_name contains 'color'
+                      assign color_filter = collection_filter
+                      break
+                    endif
+                  endfor
+                -%}
+                {%- for filter_value in color_filter.values -%}
+                  <li class="drawer__menu-group{{ item_class }}">
+                    <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ colors_collection.url }}?{{ filter_value.param_name }}={{ filter_value.value | url_encode }}">
+                      <div class="flex items-center gap-2">
+                        {%- render 'nav-swatch', swatch: filter_value.swatch, name: filter_value.label -%}
+                        <span>{{ filter_value.label | escape }}</span>
+                      </div>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if block.settings[tab_target_link] == blank -%}{%- continue -%}{%- endif -%}
               <li class="drawer__menu-group{{ item_class }}">
                 {%- liquid
                   assign tab_target = 'tab_target_' | append: i
@@ -107,7 +136,7 @@
                       <div class="flex items-center gap-2">
                         {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
                           {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
-                        {%- elsif block.settings[tab_icon] != blank -%}
+                        {%- elsif block.settings[tab_icon] != blank and group_no_icons != true -%}
                           <figure class="media media--transparent relative inline-block">
                             {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
                             {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
@@ -173,7 +202,7 @@
                     <div class="flex items-center gap-2">
                       {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
                         {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
-                      {%- elsif block.settings[tab_icon] != blank -%}
+                      {%- elsif block.settings[tab_icon] != blank and group_no_icons != true -%}
                         <figure class="media media--transparent relative inline-block">
                           {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
                           {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}

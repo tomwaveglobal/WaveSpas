@@ -1,27 +1,36 @@
 {%- doc -%}
   Renders a colour swatch for a mega menu tab.
 
-  Resolves the colour through the same `settings.swatch_config` mapping the
-  product pages use, so a nav swatch is the identical texture or colour a
-  customer sees on the PDP. Falls back to the tab's own colour picker when the
-  name is blank or unmapped.
+  Prefers Shopify's own swatch (the one Search & Discovery and the PDP draw from)
+  when the merchant has populated it, and otherwise resolves the colour through
+  the same `settings.swatch_config` mapping the product pages use, so a nav swatch
+  is the identical texture or colour a customer sees on the PDP. Falls back to the
+  tab's own colour picker when the name is blank or unmapped.
 
   Reuses the theme's `.color-swatch` styling (`--swatch-background`,
   `--swatch-background-image`); only the size and radius are overridden, via
   `.mega-menu__nav-swatch`.
 
+  @param {object} [swatch] - A native Shopify swatch, e.g. `filter_value.swatch`. Wins over `name`.
   @param {string} [name] - Colour name to look up, e.g. "Charcoal Black"
   @param {string} [fallback] - Colour value used when name is blank or unmapped
 
   @example
   {% render 'nav-swatch', name: 'Charcoal Black', fallback: '#1c1c1c' %}
+  {% render 'nav-swatch', swatch: filter_value.swatch, name: filter_value.label %}
 {%- enddoc -%}
 
 {%- liquid
   assign swatch_background = fallback | default: 'transparent'
   assign swatch_image = blank
 
-  if name != blank
+  # A native swatch is authoritative: it is what the storefront filter and the
+  # PDP already show for this colour, so matching it needs no name lookup.
+  if swatch.image != blank
+    assign swatch_image = swatch.image | image_url: width: 128
+  elsif swatch.color != blank
+    assign swatch_background = swatch.color
+  elsif name != blank
     assign file_name = name | handle | append: '.png'
     assign swatch_background = name | split: ' ' | last | handle
 
