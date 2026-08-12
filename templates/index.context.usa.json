@@ -23,7 +23,8 @@
             "image_mobile": "shopify://shop_images/US_Ontario_Aug26-2.jpg",
             "heading": "",
             "button_label": "Shop Inflatable Hot Tubs",
-            "button_link": "shopify://collections/inflatable-hot-tubs"
+            "button_link": "shopify://collections/inflatable-hot-tubs",
+            "image_tablet": "shopify://shop_images/tablet_US_Ontario_Aug26.jpg"
           }
         },
         "image_9rd3Vt": {
