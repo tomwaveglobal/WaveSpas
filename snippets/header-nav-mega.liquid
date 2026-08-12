@@ -220,7 +220,7 @@
                       endif
                     endfor
                   -%}
-                  <!--PROBE filters_size={{ colors_collection.filters.size }} handle={{ colors_collection.handle }} allprods={{ colors_collection.all_products_count }} mo_dash={{ shop.metaobjects['shopify--color-pattern'].values.size }} mo_us={{ shop.metaobjects.shopify_color_pattern.values.size }} mo_plain={{ shop.metaobjects.color_pattern.values.size }} mo_keys={{ shop.metaobjects | json | slice: 0, 400 }}-->
+                  {%- for mo in shop.metaobjects['shopify--color-pattern'].values -%}<!--MO id={{ mo.system.id }} label={{ mo.label }} color={{ mo.color }} fields={{ mo.system.type }}|{{ mo.swatch }}-->{%- endfor -%}
                   {%- for filter_value in color_filter.values -%}
                     {%- comment -%}
                       Built from the collection URL rather than `url_to_add`, which
