@@ -20,6 +20,36 @@
     endif
   endfor
 
+  comment
+    Colour the customer is filtering by, so each card can lead with that
+    variant instead of the product's default image.
+  endcomment
+  assign active_color = ''
+  for filter in collection.filters
+    if filter.param_name contains 'color' or filter.param_name contains 'colour'
+      if filter.active_values.size > 0
+        assign active_color = filter.active_values.first.label
+      endif
+    endif
+  endfor
+
+  comment
+    Variant option this collection is about, so a card can link straight to it —
+    landing on "4 Person" already selected rather than the product default.
+    Prefers a collection metafield; otherwise reads an "N Person" handle, which
+    is what the size collections use today.
+  endcomment
+  assign active_option = collection.metafields.custom.preselect_variant.value | default: ''
+  if active_option == blank
+    assign person_sizes = '2,4,6,8' | split: ','
+    for person_size in person_sizes
+      assign size_token = person_size | append: '-person'
+      if collection.handle contains size_token
+        assign active_option = person_size | append: ' person'
+      endif
+    endfor
+  endif
+
   assign description = section.blocks | where: "type", "description" | first
   assign subcollections = section.blocks | where: "type", "subcollections" | first
 
@@ -241,6 +271,8 @@
                   assign carousel_enabled = settings.enable_image_carousel
                 -%}
                 {%- render 'product-card',
+                  active_color: active_color,
+                  active_option: active_option,
                   product: product,
                   product_id: product.id,
                   section_id: section.id,

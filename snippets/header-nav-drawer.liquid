@@ -53,12 +53,44 @@
     {%- unless section_rendering_api -%}
       <div id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full"></div>
     {%- else -%}
-      <ul id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full">
+      {%- liquid
+        assign drawer_two_col = false
+        if block.type == 'mega_menu_tab' and block.settings.tab_columns_mobile
+          assign drawer_two_col = true
+        endif
+        assign tab_icon_size = block.settings.tab_icon_size | default: 42
+        assign drawer_label_size = block.settings.tab_columns_label_size_mobile | default: 16
+        assign tab_swatch_size = block.settings.tab_swatch_size | default: 28
+      -%}
+      <ul id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full{% if drawer_two_col %} drawer__scrollable--two-col{% endif %}" style="--nav-tab-icon-size: {{ tab_icon_size }}px;--nav-tab-swatch-size: {{ tab_swatch_size }}px;{% if drawer_two_col %}--nav-tab-2col-size: {{ drawer_label_size }}px;{% endif %}">
         {%- if block.type == 'mega_menu_tab' -%}
-          {%- for i in (1..12) -%}
+          {%- assign group_columns = '1' -%}
+          {%- assign group_hidden = false -%}
+          {%- assign group_heading_hidden = false -%}
+          {%- for i in (1..16) -%}
             {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
             {%- if block.settings[tab_target_link] != blank -%}
-              <li class="drawer__menu-group">
+              {%- liquid
+                assign tab_group = 'tab_group_' | append: i
+                assign tab_group_columns = 'tab_group_columns_' | append: i
+                assign tab_group_hidden = 'tab_group_hidden_' | append: i
+                assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
+                if block.settings[tab_group] != blank
+                  assign group_columns = block.settings[tab_group_columns] | default: '1'
+                  assign group_hidden = block.settings[tab_group_hidden]
+                  assign group_heading_hidden = block.settings[tab_group_heading_hidden]
+                endif
+
+                assign item_class = ''
+                if drawer_two_col and group_columns != '1'
+                  assign item_class = ' drawer__menu-group--split drawer__menu-group--of-' | append: group_columns
+                endif
+              -%}
+              {%- if group_hidden -%}{%- continue -%}{%- endif -%}
+              {%- if block.settings[tab_group] != blank and group_heading_hidden != true -%}
+                <li class="mega-menu__nav-group subtitle text-xs uppercase tracking-widest text-opacity">{{ block.settings[tab_group] | escape }}</li>
+              {%- endif -%}
+              <li class="drawer__menu-group{{ item_class }}">
                 {%- liquid
                   assign tab_target = 'tab_target_' | append: i
                   assign tab_target_heading = block.settings[tab_target] | default: block.settings[tab_target_link].object.title
@@ -66,16 +98,19 @@
                   assign tab_products = 'tab_products_' | append: i
                   assign products = block.settings[tab_products] | default: block.settings[tab_target_link].object.products
                   assign tab_icon = 'tab_icon_' | append: i
-                  assign tab_icon_width = 'tab_icon_width_' | append: i
+                  assign tab_swatch = 'tab_swatch_' | append: i
+                  assign tab_swatch_name = 'tab_swatch_name_' | append: i
                 -%}
                 {%- if block.settings[tab_target_link].type == 'collection_link' and products.count > 0 -%}
                   <details is="{% if enable_accordion_menu %}accordion-details{% else %}menu-details{% endif %}">
                     <summary class="drawer__menu-item block heading text-2xl leading-none tracking-tight cursor-pointer relative" aria-expanded="false">
                       <div class="flex items-center gap-2">
-                        {%- if block.settings[tab_icon] != blank -%}
+                        {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
+                          {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
+                        {%- elsif block.settings[tab_icon] != blank -%}
                           <figure class="media media--transparent relative inline-block">
-                            {%- capture sizes -%}{{ block.settings[tab_icon_width] | default: 24 }}px{%- endcapture -%}
-                            {%- capture widths -%}{{ block.settings[tab_icon_width] | default: 24 }}, {{ block.settings[tab_icon_width] | default: 24 | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
+                            {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
+                            {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
                             {{- block.settings[tab_icon] | image_url: width: block.settings[tab_icon].width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'image-fit' -}}
                           </figure>
                         {%- endif -%}
@@ -136,10 +171,12 @@
                 {%- else -%}
                   <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ block.settings[tab_target_link] }}">
                     <div class="flex items-center gap-2">
-                      {%- if block.settings[tab_icon] != blank -%}
+                      {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
+                        {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
+                      {%- elsif block.settings[tab_icon] != blank -%}
                         <figure class="media media--transparent relative inline-block">
-                          {%- capture sizes -%}{{ block.settings[tab_icon_width] | default: 24 }}px{%- endcapture -%}
-                          {%- capture widths -%}{{ block.settings[tab_icon_width] | default: 24 }}, {{ block.settings[tab_icon_width] | default: 24 | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
+                          {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
+                          {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
                           {{- block.settings[tab_icon] | image_url: width: block.settings[tab_icon].width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'image-fit' -}}
                         </figure>
                       {%- endif -%}
