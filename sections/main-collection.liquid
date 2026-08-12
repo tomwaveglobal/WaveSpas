@@ -35,33 +35,31 @@
 
   comment
     A tag URL (/collections/<handle>/<tag>, which the mega menu's colour swatches
-    use) carries no filter values at all, so fall back to the current tag.
+    use) carries no filter values, so the block above finds nothing.
 
-    Gated on the colour taxonomy rather than taking any tag: the card matches by
-    looking for the colour inside a variant title, and an ungated tag like
-    "6 Person" appears in every variant title here, which would swap the image
-    on a size tag as readily as a colour one.
+    The tag is read off the path rather than from `collection.current_tags`,
+    which is nil on this store — verified on the Development theme, where a tag
+    URL returned current_tags nil and all_tags 0 while still filtering the
+    products down to 3. Shopify still serves the legacy tag URL but no longer
+    populates the legacy Liquid objects for it.
+
+    Matched against the colour taxonomy rather than trusted as-is: the card looks
+    for the colour inside a variant title, and an ungated segment like "6-person"
+    appears in every variant title here, which would swap the image on a size tag
+    as readily as a colour one.
   endcomment
-  if active_color == blank and collection.current_tags.size > 0
-    assign color_labels = ''
-    for color_value in shop.metaobjects['shopify--color-pattern'].values
-      assign color_labels = color_labels | append: '|' | append: color_value.label | downcase | append: '|'
-    endfor
-    for current_tag in collection.current_tags
-      assign tag_token = '|' | append: current_tag | downcase | append: '|'
-      if color_labels contains tag_token
-        assign active_color = current_tag
-        break
-      endif
-    endfor
+  if active_color == blank
+    assign path_tail = request.path | split: '/' | last
+    if path_tail != blank and path_tail != collection.handle
+      for color_value in shop.metaobjects['shopify--color-pattern'].values
+        assign color_handle = color_value.label | handle
+        if color_handle == path_tail
+          assign active_color = color_value.label
+          break
+        endif
+      endfor
+    endif
   endif
-
-  echo '<!--DBG2 n=' | append: collection.current_tags.size | append: ' all=' | append: collection.all_tags.size | append: ' prods=' | append: collection.products.size | append: ' tags='
-  for t in collection.current_tags
-    echo t
-    echo ';'
-  endfor
-  echo ' mo=' | append: shop.metaobjects['shopify--color-pattern'].values.size | append: '-->'
 
   comment
     Variant option this collection is about, so a card can link straight to it —
