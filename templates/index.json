@@ -104,6 +104,7 @@
         "show_navigation": true,
         "image_height": "700px",
         "content_width": "small",
+        "image_height_tablet": "inherit",
         "image_height_mobile": "500px",
         "accessibility_info": "Slideshow about our brand",
         "color_text": "#ffffff",
@@ -200,6 +201,7 @@
         "show_navigation": true,
         "image_height": "700px",
         "content_width": "small",
+        "image_height_tablet": "inherit",
         "image_height_mobile": "500px",
         "accessibility_info": "Slideshow about our brand",
         "color_text": "#ffffff",
@@ -1103,6 +1105,7 @@
       "blocks": {
         "image_ztMhdQ": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Trustpilot_Spas.png",
             "image_width": "custom",
