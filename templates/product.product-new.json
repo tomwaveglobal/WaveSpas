@@ -1311,6 +1311,7 @@
       "blocks": {
         "image_wUQMKR": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Trustpilot_Spas_fdf5fb6e-353f-4372-af45-25da5b1bb1bc.png",
             "image_width": "custom",
