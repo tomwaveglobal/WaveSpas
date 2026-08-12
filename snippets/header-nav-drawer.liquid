@@ -68,6 +68,7 @@
           {%- assign group_hidden = false -%}
           {%- assign group_heading_hidden = false -%}
           {%- assign group_no_icons = false -%}
+          {%- assign group_direct_links = false -%}
           {%- for i in (1..16) -%}
             {%- liquid
               assign tab_target_link = 'tab_target_link_' | append: i
@@ -80,11 +81,13 @@
                 assign tab_group_hidden = 'tab_group_hidden_' | append: i
                 assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
                 assign tab_group_no_icons = 'tab_group_no_icons_' | append: i
+                assign tab_group_direct_links = 'tab_group_direct_links_' | append: i
                 if block.settings[tab_group] != blank
                   assign group_columns = block.settings[tab_group_columns] | default: '1'
                   assign group_hidden = block.settings[tab_group_hidden]
                   assign group_heading_hidden = block.settings[tab_group_heading_hidden]
                   assign group_no_icons = block.settings[tab_group_no_icons]
+                  assign group_direct_links = block.settings[tab_group_direct_links]
                 endif
 
                 assign item_class = ''
@@ -137,7 +140,7 @@
                   assign tab_swatch = 'tab_swatch_' | append: i
                   assign tab_swatch_name = 'tab_swatch_name_' | append: i
                 -%}
-                {%- if block.settings[tab_target_link].type == 'collection_link' and products.count > 0 -%}
+                {%- if group_direct_links != true and block.settings[tab_target_link].type == 'collection_link' and products.count > 0 -%}
                   <details is="{% if enable_accordion_menu %}accordion-details{% else %}menu-details{% endif %}">
                     <summary class="drawer__menu-item block heading text-2xl leading-none tracking-tight cursor-pointer relative" aria-expanded="false">
                       <div class="flex items-center gap-2">

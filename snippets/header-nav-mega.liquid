@@ -165,6 +165,7 @@
               assign group_hidden = false
               assign group_heading_hidden = false
               assign group_no_icons = false
+              assign group_direct_links = false
               assign reveal_index = 0
             -%}
             {%- for i in (1..16) -%}
@@ -188,6 +189,7 @@
                   assign tab_group_hidden = 'tab_group_hidden_' | append: i
                   assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
                   assign tab_group_no_icons = 'tab_group_no_icons_' | append: i
+                  assign tab_group_direct_links = 'tab_group_direct_links_' | append: i
 
                   # A group heading starts a new group, so it also sets the
                   # column count and hidden state for every tab after it until
@@ -197,6 +199,7 @@
                     assign group_hidden = block.settings[tab_group_hidden]
                     assign group_heading_hidden = block.settings[tab_group_heading_hidden]
                     assign group_no_icons = block.settings[tab_group_no_icons]
+                    assign group_direct_links = block.settings[tab_group_direct_links]
                   endif
 
                   assign item_class = ''
@@ -260,7 +263,13 @@
                   {%- endif -%}
                   <span class="heading link-text text-xl-3xl tracking-tighter leading-tight">{{ tab_target_heading | escape }}</span>
                 {%- endcapture -%}
-                {%- if block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
+                {%- comment -%}
+                  A direct-links group has no product panel, so its items are
+                  plain links — one click goes to the collection instead of
+                  loading products into the menu first. The panels loop below
+                  skips the same groups, or the tab indices stop matching.
+                {%- endcomment -%}
+                {%- if group_direct_links != true and block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
                   <button type="button" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" data-href="{{ block.settings[tab_target_link].object.url | default: block.settings[tab_target_link] }}" style="--reveal-index: {{ reveal_index }};" role="tab" aria-controls="TabPanel-{{ block.id }}-{{ forloop_index }}" data-index="{{ forloop_index }}"{% if forloop_first %} disabled{% endif %}>
                     {{- tab_heading -}}
                   </button>
@@ -295,18 +304,26 @@
             assign forloop_first = true
             assign forloop_index = 0
             assign group_hidden = false
+            assign group_direct_links = false
           -%}
           {%- for i in (1..16) -%}
             {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
             {%- liquid
               assign tab_group = 'tab_group_' | append: i
               assign tab_group_hidden = 'tab_group_hidden_' | append: i
+              assign tab_group_direct_links = 'tab_group_direct_links_' | append: i
               if block.settings[tab_group] != blank
                 assign group_hidden = block.settings[tab_group_hidden]
+                assign group_direct_links = block.settings[tab_group_direct_links]
               endif
             -%}
             {%- if group_hidden -%}{%- continue -%}{%- endif -%}
-            {%- if block.settings[tab_target_link] != blank and block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
+            {%- comment -%}
+              Must mirror the rail's condition exactly — a group that renders as
+              links up there contributes no tab, so it must contribute no panel
+              here either, or every later panel is off by one.
+            {%- endcomment -%}
+            {%- if group_direct_links != true and block.settings[tab_target_link] != blank and block.settings[tab_target_link].type == 'collection_link' or block.settings[tab_target_link].type == 'catalog_link' -%}
               {%- liquid
                 assign promo_image = 'promo_image_' | append: i
                 assign tab_target = 'tab_target_' | append: i
