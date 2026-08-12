@@ -94,9 +94,36 @@ metaobjects; only the 8 present in the collection render. Blue, Gray, Multicolor
 and Orange live on accessories and would have produced empty result pages —
 the exact failure this change exists to remove.
 
-The filter parameter (`filter.v.t.shopify.color-pattern`) is now hardcoded rather
-than read off the filter object. A colour filter built on a product option rather
-than the taxonomy would need a different param.
+### Link format: tag URLs, not filter parameters
+
+Links use Shopify's built-in `/collections/<handle>/<tag>` URL rather than a
+filter parameter. Measured 2026-08-12: all eight return 200 with the right
+products, need no Search & Discovery configuration, and **self-canonicalise** —
+each is an indexable page, where a filter URL canonicalises back to the bare
+collection.
+
+A missing tag fails silently, which is why membership comes from the tags that
+are actually on the products and is never derived from a label:
+
+- `/collections/hot-tub-full-range/grey` → 200 with **0** products
+- `/collections/hot-tub-full-range/greys` → 200 with **all 9**
+
+So the metaobjects supply the canonical name and swatch, and the product tags
+decide which of them render. Neither list lives in the theme: tagging a product
+adds or removes a colour, with no theme edit.
+
+Consequence: tags are literal where the taxonomy normalises. "Black" returns 1
+product by tag versus 3 by taxonomy, which folded Charcoal Black into Black.
+Seven colours render — `Grey` is excluded because its tag is `dark grey`, and it
+appears if that tag is tidied.
+
+Rejected: the `Color` **option** filter, which looked like the readable-URL fix
+but is not. Across the 16 products the raw option values carry UK/US spelling
+duplicates from the ETL products (Flint Grey *and* Flint Gray, Graphite, Dark,
+Rattan likewise), add finishes that are not nav colours (Brown Rattan, Slate
+Rattan, Black Wood), and lack Black, Grey and White entirely — those exist only
+as taxonomy normalisations. Grouping the values to fix that reintroduces GIDs
+(`gid://shopify/FilterSettingGroup/...`), as the existing size filter shows.
 
 `collection.products` is unpaginated here and so returns the first 50 products.
 Point the setting at a curated collection, not the full catalog.
