@@ -53,12 +53,82 @@
     {%- unless section_rendering_api -%}
       <div id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full"></div>
     {%- else -%}
-      <ul id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full">
+      {%- liquid
+        assign drawer_two_col = false
+        if block.type == 'mega_menu_tab' and block.settings.tab_columns_mobile
+          assign drawer_two_col = true
+        endif
+        assign tab_icon_size = block.settings.tab_icon_size | default: 42
+        assign drawer_label_size = block.settings.tab_columns_label_size_mobile | default: 16
+        assign tab_swatch_size = block.settings.tab_swatch_size | default: 28
+      -%}
+      <ul id="DrawerSubMenu-{{ section.id }}-{{ position }}" class="drawer__scrollable flex flex-col h-full{% if drawer_two_col %} drawer__scrollable--two-col{% endif %}" style="--nav-tab-icon-size: {{ tab_icon_size }}px;--nav-tab-swatch-size: {{ tab_swatch_size }}px;{% if drawer_two_col %}--nav-tab-2col-size: {{ drawer_label_size }}px;{% endif %}">
         {%- if block.type == 'mega_menu_tab' -%}
-          {%- for i in (1..12) -%}
-            {%- assign tab_target_link = 'tab_target_link_' | append: i -%}
-            {%- if block.settings[tab_target_link] != blank -%}
-              <li class="drawer__menu-group">
+          {%- assign group_columns = '1' -%}
+          {%- assign group_hidden = false -%}
+          {%- assign group_heading_hidden = false -%}
+          {%- assign group_no_icons = false -%}
+          {%- assign group_direct_links = false -%}
+          {%- for i in (1..16) -%}
+            {%- liquid
+              assign tab_target_link = 'tab_target_link_' | append: i
+              assign tab_group_colors_from = 'tab_group_colors_from_' | append: i
+            -%}
+            {%- if block.settings[tab_target_link] != blank or block.settings[tab_group_colors_from] != blank -%}
+              {%- liquid
+                assign tab_group = 'tab_group_' | append: i
+                assign tab_group_columns = 'tab_group_columns_' | append: i
+                assign tab_group_hidden = 'tab_group_hidden_' | append: i
+                assign tab_group_heading_hidden = 'tab_group_heading_hidden_' | append: i
+                assign tab_group_no_icons = 'tab_group_no_icons_' | append: i
+                assign tab_group_direct_links = 'tab_group_direct_links_' | append: i
+                if block.settings[tab_group] != blank
+                  assign group_columns = block.settings[tab_group_columns] | default: '1'
+                  assign group_hidden = block.settings[tab_group_hidden]
+                  assign group_heading_hidden = block.settings[tab_group_heading_hidden]
+                  assign group_no_icons = block.settings[tab_group_no_icons]
+                  assign group_direct_links = block.settings[tab_group_direct_links]
+                endif
+
+                assign item_class = ''
+                if drawer_two_col and group_columns != '1'
+                  assign item_class = ' drawer__menu-group--split drawer__menu-group--of-' | append: group_columns
+                endif
+              -%}
+              {%- if group_hidden -%}{%- continue -%}{%- endif -%}
+              {%- if block.settings[tab_group] != blank and group_heading_hidden != true -%}
+                <li class="mega-menu__nav-group subtitle text-xs uppercase tracking-widest text-opacity">{{ block.settings[tab_group] | escape }}</li>
+              {%- endif -%}
+              {%- if block.settings[tab_group_colors_from] != blank -%}
+                {%- liquid
+                  # Mirrors the desktop rail — see header-nav-mega for why the
+                  # colours come from the products rather than the storefront filter.
+                  assign colors_collection = block.settings[tab_group_colors_from]
+                  assign tags_present = ''
+                  for colors_product in colors_collection.products
+                    for product_tag in colors_product.tags
+                      assign tag_token = '|' | append: product_tag | downcase | append: '|'
+                      unless tags_present contains tag_token
+                        assign tags_present = tags_present | append: tag_token
+                      endunless
+                    endfor
+                  endfor
+                -%}
+                {%- for color_value in shop.metaobjects['shopify--color-pattern'].values -%}
+                  {%- assign tag_token = '|' | append: color_value.label | downcase | append: '|' -%}
+                  {%- unless tags_present contains tag_token -%}{%- continue -%}{%- endunless -%}
+                  <li class="drawer__menu-group{{ item_class }}">
+                    <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ colors_collection.url }}/{{ color_value.label | handle }}">
+                      <div class="flex items-center gap-2">
+                        {%- render 'nav-swatch', swatch: color_value, name: color_value.label -%}
+                        <span>{{ color_value.label | escape }}</span>
+                      </div>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if block.settings[tab_target_link] == blank -%}{%- continue -%}{%- endif -%}
+              <li class="drawer__menu-group{{ item_class }}">
                 {%- liquid
                   assign tab_target = 'tab_target_' | append: i
                   assign tab_target_heading = block.settings[tab_target] | default: block.settings[tab_target_link].object.title
@@ -66,16 +136,19 @@
                   assign tab_products = 'tab_products_' | append: i
                   assign products = block.settings[tab_products] | default: block.settings[tab_target_link].object.products
                   assign tab_icon = 'tab_icon_' | append: i
-                  assign tab_icon_width = 'tab_icon_width_' | append: i
+                  assign tab_swatch = 'tab_swatch_' | append: i
+                  assign tab_swatch_name = 'tab_swatch_name_' | append: i
                 -%}
-                {%- if block.settings[tab_target_link].type == 'collection_link' and products.count > 0 -%}
+                {%- if group_direct_links != true and block.settings[tab_target_link].type == 'collection_link' and products.count > 0 -%}
                   <details is="{% if enable_accordion_menu %}accordion-details{% else %}menu-details{% endif %}">
                     <summary class="drawer__menu-item block heading text-2xl leading-none tracking-tight cursor-pointer relative" aria-expanded="false">
                       <div class="flex items-center gap-2">
-                        {%- if block.settings[tab_icon] != blank -%}
+                        {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
+                          {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
+                        {%- elsif block.settings[tab_icon] != blank and group_no_icons != true -%}
                           <figure class="media media--transparent relative inline-block">
-                            {%- capture sizes -%}{{ block.settings[tab_icon_width] | default: 24 }}px{%- endcapture -%}
-                            {%- capture widths -%}{{ block.settings[tab_icon_width] | default: 24 }}, {{ block.settings[tab_icon_width] | default: 24 | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
+                            {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
+                            {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
                             {{- block.settings[tab_icon] | image_url: width: block.settings[tab_icon].width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'image-fit' -}}
                           </figure>
                         {%- endif -%}
@@ -136,10 +209,12 @@
                 {%- else -%}
                   <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ block.settings[tab_target_link] }}">
                     <div class="flex items-center gap-2">
-                      {%- if block.settings[tab_icon] != blank -%}
+                      {%- if block.settings[tab_swatch_name] != blank or block.settings[tab_swatch] != blank -%}
+                        {%- render 'nav-swatch', name: block.settings[tab_swatch_name], fallback: block.settings[tab_swatch] -%}
+                      {%- elsif block.settings[tab_icon] != blank and group_no_icons != true -%}
                         <figure class="media media--transparent relative inline-block">
-                          {%- capture sizes -%}{{ block.settings[tab_icon_width] | default: 24 }}px{%- endcapture -%}
-                          {%- capture widths -%}{{ block.settings[tab_icon_width] | default: 24 }}, {{ block.settings[tab_icon_width] | default: 24 | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
+                          {%- capture sizes -%}{{ tab_icon_size }}px{%- endcapture -%}
+                          {%- capture widths -%}{{ tab_icon_size }}, {{ tab_icon_size | times: 2 | at_most: block.settings[tab_icon].width }}{%- endcapture -%}
                           {{- block.settings[tab_icon] | image_url: width: block.settings[tab_icon].width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'image-fit' -}}
                         </figure>
                       {%- endif -%}

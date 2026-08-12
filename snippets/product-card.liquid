@@ -28,6 +28,8 @@
   @param {boolean} [mobile_quick_add] - Add mobile-specific quick add button
   @param {string} [display_mode] - Rating display mode ('count' or value)
   @param {boolean} [show_on_model] - Show on model image
+  @param {string} [active_color] - Colour being filtered on; the card leads with the matching variant's image
+  @param {string} [active_option] - Variant option this collection is about (e.g. "4 Person"); the card links straight to that variant
 
   @example
   {% render 'product-card',
@@ -41,12 +43,79 @@
 {%- if product != blank -%}
   {%- liquid
     assign featured_media = product.featured_media
+
+    # Lead with the variant in the colour being filtered on. The filter value is
+    # a Shopify taxonomy bucket ("White") while the variant carries the product's
+    # own name ("Pebble White"), so match on the bucket word appearing in the
+    # variant title, normalising the US/UK spelling of grey.
+    assign color_variant_matched = false
+    if active_color != blank
+      assign wanted_color = active_color | downcase | replace: 'gray', 'grey'
+      for variant in product.variants
+        assign candidate = variant.title | downcase | replace: 'gray', 'grey'
+        if candidate contains wanted_color
+          assign variant_media = variant.featured_media | default: variant.image
+          if variant_media != blank
+            assign featured_media = variant_media
+            assign color_variant_matched = true
+            break
+          endif
+        endif
+      endfor
+    endif
+
     assign product_media = product.media
     assign media_count = product_media.size
+
+    # Link straight to the variant this collection or filter is about, so the
+    # product page opens with it selected rather than on the product default.
+    # Matches on colour and option together when both are in play.
+    assign preselect_variant = blank
+    assign preselect_fallback = blank
+    if active_color != blank or active_option != blank
+      for variant in product.variants
+        assign candidate = variant.title | downcase | replace: 'gray', 'grey'
+        assign variant_matches = true
+        if active_color != blank
+          assign wanted_color = active_color | downcase | replace: 'gray', 'grey'
+          unless candidate contains wanted_color
+            assign variant_matches = false
+          endunless
+        endif
+        if active_option != blank
+          assign wanted_option = active_option | downcase
+          unless candidate contains wanted_option
+            assign variant_matches = false
+          endunless
+        endif
+        if variant_matches
+          if preselect_fallback == blank
+            assign preselect_fallback = variant
+          endif
+          if variant.available
+            assign preselect_variant = variant
+            break
+          endif
+        endif
+      endfor
+      # Prefer an in-stock match, but still preselect the right one otherwise:
+      # pre-order lines report available=false yet are perfectly buyable, and
+      # landing on the size the visitor asked for beats the product default.
+      if preselect_variant == blank
+        assign preselect_variant = preselect_fallback
+      endif
+    endif
 
     assign product_url = product.url | within: collection
     if settings.product_disable_collection_portion
       assign product_url = product.url
+    endif
+    if preselect_variant != blank
+      if product_url contains '?'
+        assign product_url = product_url | append: '&variant=' | append: preselect_variant.id
+      else
+        assign product_url = product_url | append: '?variant=' | append: preselect_variant.id
+      endif
     endif
 
     unless lazy_load == false
@@ -135,7 +204,18 @@
           {%- unless featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}
             {%- if show_secondary_image and media_count > 1 -%}
               <template>
+                {%- comment -%}
+                  This carousel is cloned over the main image, so when a colour
+                  is being filtered on it has to lead with the same variant or
+                  it covers it with the product's default colour.
+                {%- endcomment -%}
+                {%- if color_variant_matched -%}
+                  <div class="media media--height{% unless image_fill %} media--contain{% endunless %} w-full h-full overflow-hidden">
+                    {{- featured_media | image_url: width: featured_media.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080', is: 'lazy-image' -}}
+                  </div>
+                {%- endif -%}
                 {%- for media in product_media limit: 4 -%}
+                  {%- if color_variant_matched and media.id == featured_media.id -%}{%- continue -%}{%- endif -%}
                   <div class="media media--height{% unless image_fill %} media--contain{% endunless %} w-full h-full overflow-hidden">
                     {{- media | image_url: width: media.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080', is: 'lazy-image' -}}
                   </div>

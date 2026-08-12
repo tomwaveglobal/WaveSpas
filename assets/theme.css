@@ -16680,3 +16680,144 @@ shopify-account::part(dialog) .account__heading {
 .shopify-section-group-header-group {
   z-index: 20 !important;
 }
+/* Mega menu tab group headings */
+.mega-menu__nav-group{
+  margin-block:.625rem .125rem;
+  font-size:.6875rem;
+  line-height:1.2;
+  opacity:.55;
+}
+.mega-menu__nav-group:first-child{margin-block-start:0}
+
+/* Grouped tab rail ----------------------------------------------------------
+   The rail is always a two-column grid. Items in a one-column group span both
+   tracks, so they render exactly as they did before this existed; only groups
+   set to "Two columns" in the customiser take a single track. Group headings
+   always span, which is what pushes each new group onto a fresh row.
+   --nav-tab-icon-size / --nav-tab-2col-size come from the block settings. */
+.mega-menu__nav--tabs.grid{
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  align-content:start;
+  min-block-size:0;
+  /* No scrolling here. A sub-pixel rounding difference between scrollHeight
+     and clientHeight was enough to raise both scrollbars, and the rail does
+     not need to scroll now that groups can be hidden or set multi-column.
+     .mega-menu__list already clips, so this matches the original behaviour. */
+  overflow:visible;
+}
+.mega-menu__item--tabs{min-block-size:0}
+/* 12 tracks divide evenly by 2, 3 and 4, so a group's column count is just a
+   span. One-column items span the lot, which is the original rendering. */
+.mega-menu__nav--tabs>*{grid-column:1 / -1}
+.mega-menu__nav--tabs>.mega-menu__nav-item--of-2{grid-column:span 6}
+.mega-menu__nav--tabs>.mega-menu__nav-item--of-3{grid-column:span 4}
+.mega-menu__nav--tabs>.mega-menu__nav-item--of-4{grid-column:span 3}
+.mega-menu__nav--tabs .mega-menu__nav-item--split .heading{
+  font-size:var(--nav-tab-2col-size,1rem);
+  line-height:1.2;
+}
+/* Three and four across leave far less room per label than two, so step the
+   type down from the configured size rather than letting words break. */
+.mega-menu__nav--tabs .mega-menu__nav-item--of-3 .heading{font-size:calc(var(--nav-tab-2col-size,1rem) * .9)}
+.mega-menu__nav--tabs .mega-menu__nav-item--of-4 .heading{font-size:calc(var(--nav-tab-2col-size,1rem) * .8)}
+.mega-menu__nav--tabs .mega-menu__nav-item--split{min-inline-size:0}
+.mega-menu__nav--tabs .mega-menu__nav-item--split .heading{min-inline-size:0;overflow-wrap:normal}
+/* The hover underline is a background gradient pinned at min(100%, 1.35em) from
+   the top of the label. On one line that lands on the bottom edge, but a label
+   that wraps — "Charcoal Black", "Pebble White" — is taller than 1.35em, so the
+   line falls between the two rows and reads as a strikethrough. Anchor it to the
+   bottom so it always sits under the last line. */
+.mega-menu__nav--tabs .mega-menu__nav-item--split .link-text{--reversed-link-gap:100%}
+
+/* Below 1536px the rail drops from 320px to 230px, which is not enough for the
+   configured column counts — three and four across break every label onto two
+   lines, and even two across wraps "6 Person". Cap at two columns there and
+   trim the icon and label *within multi-column groups only*, so one-column
+   groups keep their full-size type and 42px icons at every width. */
+@media screen and (max-width: 1535px) {
+  .mega-menu__nav--tabs>.mega-menu__nav-item--of-3,
+  .mega-menu__nav--tabs>.mega-menu__nav-item--of-4{grid-column:span 6}
+
+  .mega-menu__nav--tabs .mega-menu__nav-item--split .heading,
+  .mega-menu__nav--tabs .mega-menu__nav-item--of-3 .heading,
+  .mega-menu__nav--tabs .mega-menu__nav-item--of-4 .heading{
+    font-size:calc(var(--nav-tab-2col-size,1rem) * .85);
+  }
+
+  .mega-menu__nav--tabs .mega-menu__nav-item--split{gap:var(--sp-1d5)}
+  .mega-menu__nav--tabs .mega-menu__nav-item--split .media{inline-size:28px}
+  .mega-menu__nav--tabs .mega-menu__nav-item--split .mega-menu__nav-swatch.color-swatch{
+    --swatch-size:min(var(--nav-tab-swatch-size,28px),20px);
+  }
+}
+.mega-menu__nav--tabs .media{inline-size:var(--nav-tab-icon-size,42px)}
+
+/* Colour swatch, drawn instead of an icon image when a tab has one set — for a
+   "Shop by colour" group. Reuses the theme's .color-swatch appearance so a nav
+   swatch is the same texture/colour as the product pages; only the size (off
+   the tab icon-size setting, so it lines up with the icon groups above) and
+   the radius differ. */
+.mega-menu__nav-swatch.color-swatch{
+  --swatch-size:var(--nav-tab-swatch-size,28px);
+  --swatch-radius:50%;
+  display:inline-block;
+}
+
+/* With "second click opens the collection" on, the active tab is no longer
+   `disabled` — that would swallow the second click — so mirror the active look
+   on .is-tab-active and keep the tab clickable. */
+.mega-menu__nav--tabs[data-tab-navigate] .mega-menu__nav-item.is-tab-active{
+  pointer-events:auto;
+  cursor:pointer;
+}
+.mega-menu__nav--tabs[data-tab-navigate] .mega-menu__nav-item.is-tab-active :is(.media,.heading){opacity:1}
+
+/* Mobile drawer, opt-in per menu via "Two columns in the mobile drawer too". */
+.drawer__scrollable--two-col{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  align-content:start;
+  column-gap:var(--sp-4);
+}
+.drawer__scrollable--two-col>*{grid-column:1 / -1}
+.drawer__scrollable--two-col>.drawer__menu-group--of-2{grid-column:span 6}
+.drawer__scrollable--two-col>.drawer__menu-group--of-3{grid-column:span 4}
+.drawer__scrollable--two-col>.drawer__menu-group--of-4{grid-column:span 3}
+/* An open tab reveals a product grid, so hand it the full width back rather
+   than leaving dead space in the neighbouring columns. */
+.drawer__scrollable--two-col>.drawer__menu-group--split:has(details[open]){grid-column:1 / -1}
+.drawer__scrollable--two-col .drawer__menu-group--split .drawer__menu-item{
+  font-size:var(--nav-tab-2col-size,1rem);
+  line-height:1.2;
+}
+/* Inside the menu drawer the scroller itself has no inline padding
+   (`.menu-drawer .drawer__scrollable{padding-inline:0}`), so a row's own
+   --sp-5 is the whole indent. Indenting per row costs a split item that much
+   of a narrow track, so move it to the grid container — matching the two-class
+   specificity that zeroes it, or it never lands. Rows then line up with an
+   ungrouped menu like Accessories and each track keeps its full width. */
+.menu-drawer .drawer__scrollable--two-col{padding-inline-start:var(--sp-5)}
+.drawer__menu .drawer__scrollable--two-col>.drawer__menu-group{padding-inline-start:0}
+/* Same step-down as the desktop rail: three and four across cannot carry the
+   full label size. Four across at 390px was breaking "Black" and "White". */
+.drawer__scrollable--two-col .drawer__menu-group--of-3 .drawer__menu-item{font-size:calc(var(--nav-tab-2col-size,1rem) * .9)}
+.drawer__scrollable--two-col .drawer__menu-group--of-4 .drawer__menu-item{font-size:calc(var(--nav-tab-2col-size,1rem) * .8)}
+
+/* Reveal the rail in true top-to-bottom order.
+   The theme staggers by :nth-child, but group headings are children too, so
+   they consume positions and the tabs fall onto catch-all rules that step in
+   clumps — which is why a grouped menu did not flow like an ungrouped one.
+   --reveal-index is set per rendered row in header-nav-mega, counting headings
+   and tabs alike, so the cascade matches what is actually on screen whatever is
+   grouped, hidden or multi-column. The attribute keeps specificity level with
+   the theme's :nth-child rules; being later in the file, this wins. */
+.mega-menu[open] .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-item,
+.mega-menu[open] .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{
+  transition-delay:calc(.5s + (var(--reveal-index,0) * .03s));
+}
+.mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{
+  opacity:0;
+  transition:opacity var(--animation-primary,.3s ease);
+}
+.mega-menu[open] .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{opacity:.55}
+.no-js .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{opacity:.55}
