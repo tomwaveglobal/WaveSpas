@@ -72,11 +72,34 @@ New per-group setting `tab_group_colors_from_N` (collection picker). When set, t
 group renders one nav item per value of that collection's `color-pattern` filter —
 label, URL and swatch all from Shopify.
 
-`collection.filters` is documented on the collection object with no stated
-template restriction, but it has not been observed working from a header section.
-**This is verified on the Development theme before anything is built on top of it.**
-If it returns nil outside collection/search templates, the auto-pull needs a
-different source and the design is revisited.
+**`collection.filters` does not work here.** Verified on the Development theme
+2026-08-12: the same header section rendered from the homepage reported
+`filters.size = 0`, and from the collection URL reported the full 8 values. The
+docs state no template restriction, but in practice `filters` is only populated
+on the collection and search templates. Rendering the group from it would have
+left the heading with nothing under it on every page except the collection.
+
+The colours therefore come from the products' `shopify--color-pattern` taxonomy
+metafield, which resolves from anywhere:
+
+1. Walk `collection.products` and union each product's colour metaobject ids.
+2. Walk `shop.metaobjects['shopify--color-pattern'].values` and render only the
+   ids in that union.
+
+Pass 2 exists for ordering: shop order is alphabetical and stable, whereas
+product order depends on which product happens to be listed first.
+
+Membership still matches the storefront filter exactly. The shop holds 12 colour
+metaobjects; only the 8 present in the collection render. Blue, Gray, Multicolor
+and Orange live on accessories and would have produced empty result pages —
+the exact failure this change exists to remove.
+
+The filter parameter (`filter.v.t.shopify.color-pattern`) is now hardcoded rather
+than read off the filter object. A colour filter built on a product option rather
+than the taxonomy would need a different param.
+
+`collection.products` is unpaginated here and so returns the first 50 products.
+Point the setting at a curated collection, not the full catalog.
 
 One structural change: the tab loop currently renders nothing unless
 `tab_target_link_N` is set. A group heading with an auto-source must be allowed to
@@ -85,16 +108,32 @@ the stagger animation stays in sequence.
 
 ### 5. Swatch resolution
 
-`nav-swatch.liquid` gains a `swatch` parameter that takes priority over the
-existing lookup. Resolution order becomes:
+`nav-swatch.liquid` gains a `swatch` parameter. Resolution order, most specific
+first:
 
-1. `swatch.image` (native Shopify metaobject swatch image)
-2. `swatch.color` (native swatch colour)
-3. `settings.swatch_config` name lookup (existing behaviour)
-4. the tab's own colour picker (existing fallback)
+1. a texture mapped in Theme settings > Swatches for that colour name
+2. `swatch.image` (native Shopify swatch image)
+3. that mapping's hex, if it set one
+4. `swatch.color` (native swatch colour)
+5. a guess from the last word of the name (existing fallback behaviour)
 
-This is the "use the swatches where they're populated" requirement — native wins,
-the theme mapping catches anything Shopify has not populated.
+An explicit theme mapping outranks the flat taxonomy colour because it is a
+deliberate choice and because the taxonomy flattens distinct finishes: Flint Grey,
+Graphite Grey and Grey all sit on `#808080`. Charcoal Black, Flint Grey, Graphite
+Grey and Pebble White carry mapped textures, so they stay visually distinct.
+
+## Verification
+
+Rendered from the homepage via the Section Rendering API on the Development theme:
+
+- Range group — 1 column, icons present
+- Shop by size — 3 columns, no icons, 2 / 4 / 6 Person
+- Shop by shape — 3 columns, no icons, Square / Round / Octagonal
+- Shop by colour — 4 columns, 8 swatches, correct metaobject GIDs
+- Mobile drawer — all three groups and all 8 swatches present
+
+Four sampled colour links return 3, 2, 1 and 2 products. The `TaxonomyValue`
+links they replace returned 0.
 
 ## Files
 
