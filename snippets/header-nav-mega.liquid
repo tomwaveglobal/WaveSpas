@@ -220,7 +220,7 @@
                       endif
                     endfor
                   -%}
-                  {%- for mo in shop.metaobjects['shopify--color-pattern'].values -%}<!--MO id={{ mo.system.id }} label={{ mo.label }} color={{ mo.color }} fields={{ mo.system.type }}|{{ mo.swatch }}-->{%- endfor -%}
+                  <!--PC size={{ colors_collection.products.size }}-->{%- for pr in colors_collection.products -%}<!--PR h={{ pr.handle }} v={{ pr.variants.size }} prod_mf={{ pr.metafields.shopify['color-pattern'].value.size }} var_mf={{ pr.variants.first.metafields.shopify['color-pattern'].value.size }} first={{ pr.variants.first.metafields.shopify['color-pattern'].value.first.label }}-->{%- endfor -%}
                   {%- for filter_value in color_filter.values -%}
                     {%- comment -%}
                       Built from the collection URL rather than `url_to_add`, which
