@@ -34,6 +34,29 @@
   endfor
 
   comment
+    A tag URL (/collections/<handle>/<tag>, which the mega menu's colour swatches
+    use) carries no filter values at all, so fall back to the current tag.
+
+    Gated on the colour taxonomy rather than taking any tag: the card matches by
+    looking for the colour inside a variant title, and an ungated tag like
+    "6 Person" appears in every variant title here, which would swap the image
+    on a size tag as readily as a colour one.
+  endcomment
+  if active_color == blank and collection.current_tags.size > 0
+    assign color_labels = ''
+    for color_value in shop.metaobjects['shopify--color-pattern'].values
+      assign color_labels = color_labels | append: '|' | append: color_value.label | downcase | append: '|'
+    endfor
+    for current_tag in collection.current_tags
+      assign tag_token = '|' | append: current_tag | downcase | append: '|'
+      if color_labels contains tag_token
+        assign active_color = current_tag
+        break
+      endif
+    endfor
+  endif
+
+  comment
     Variant option this collection is about, so a card can link straight to it —
     landing on "4 Person" already selected rather than the product default.
     Prefers a collection metafield; otherwise reads an "N Person" handle, which
