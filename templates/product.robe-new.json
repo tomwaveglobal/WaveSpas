@@ -374,9 +374,9 @@
         "buttons_border_thickness": 0,
         "card_bg_color": "#ffffff",
         "card_bg_gradient": "",
-        "card_border_color": "#1F1F1F",
+        "card_border_color": "#1f1f1f",
         "video_overlay_color": "#000000",
-        "card_animation_color": "#1F1F1F",
+        "card_animation_color": "#1f1f1f",
         "play_button_color": "#ffffff",
         "title_color": "#000000",
         "arrow_color": "#ffffff",
@@ -1169,6 +1169,7 @@
       "blocks": {
         "image_4tEg3C": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Trustpilot_Spas_fdf5fb6e-353f-4372-af45-25da5b1bb1bc.png",
             "image_width": "custom",
