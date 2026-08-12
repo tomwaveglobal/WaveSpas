@@ -150,6 +150,10 @@
             "addons_enabled": true,
             "addons_heading": "Popular Add-Ons",
             "addons_optional_label": "Optional",
+            "addons_show_in_stock": true,
+            "addons_show_pre_order": true,
+            "addons_show_out_of_stock": false,
+            "addon_sold_out_label": "Sold out",
             "addon_text_size": "m",
             "addon_priority_keywords": "filter,chemical,cover",
             "addon_match_by_sku_prefix": true,
@@ -158,7 +162,10 @@
             "addon_variant_match_map": "4 Person | 160x70cm: 4 Person, 160\n6 Person | 180x70cm: 6 Person, 180\n8 Person | 200x70cm: 8 Person, 200\n4 Person | 160x60cm: 4 Person, 160\n6 Person | 180x65cm: 6 Person, 180\n4 Person | 180x180cm: 4 Person\n6 Person | 200x200cm: 6 Person\n4 Person: 4 Person\n6 Person: 6 Person\n8 Person: 8 Person",
             "most_popular_label": "Best Seller",
             "most_popular_min_stock": 0,
+            "discount_label": "{n}% OFF",
             "sold_out_label": "Sold Out",
+            "sold_out_hide_discount": false,
+            "prefix_edition_with_size": true,
             "subscribe_savings_label": "Subscribe & Save",
             "subscribe_description": "<p>Get this delivered regularly and save on every order. Cancel anytime.</p>",
             "addon_onetime_label": "No, thanks — one-time only"
@@ -1783,6 +1790,7 @@
       "blocks": {
         "image_JpaexC": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Trustpilot_Spas_fdf5fb6e-353f-4372-af45-25da5b1bb1bc.png",
             "image_width": "custom",
