@@ -216,32 +216,42 @@
                   {%- liquid
                     assign colors_collection = block.settings[tab_group_colors_from]
 
-                    # `collection.filters` is only populated on the collection and
-                    # search templates — verified empty from the header — so the
-                    # storefront filter cannot be read directly here. Reading the
-                    # products' taxonomy metafield gives the same set of colours
-                    # from any page. Note that an unpaginated `collection.products`
-                    # returns the first 50, so point this at a curated collection.
-                    assign colors_present = ''
+                    # Links use Shopify's built-in collection/tag URL rather than a
+                    # filter parameter: /collections/<handle>/<tag> needs no Search
+                    # & Discovery config, is readable, and self-canonicalises into
+                    # an indexable page instead of parameter noise.
+                    #
+                    # A tag that does not exist fails silently — Shopify answers 200
+                    # with either zero products or the whole collection — so the tags
+                    # actually present on the products are collected first and
+                    # nothing is ever guessed from a label.
+                    #
+                    # `collection.filters` cannot be read here at all: it is only
+                    # populated on the collection and search templates.
+                    # An unpaginated `collection.products` returns the first 50, so
+                    # point this at a curated collection.
+                    assign tags_present = ''
                     for colors_product in colors_collection.products
-                      for color_value in colors_product.metafields.shopify['color-pattern'].value
-                        assign color_token = '|' | append: color_value.system.id | append: '|'
-                        unless colors_present contains color_token
-                          assign colors_present = colors_present | append: color_token
+                      for product_tag in colors_product.tags
+                        assign tag_token = '|' | append: product_tag | downcase | append: '|'
+                        unless tags_present contains tag_token
+                          assign tags_present = tags_present | append: tag_token
                         endunless
                       endfor
                     endfor
                   -%}
                   {%- comment -%}
-                    Walked in shop order rather than product order so the swatches
-                    come out alphabetical and stable instead of following whichever
-                    product happened to be listed first.
+                    Walked in shop order so the swatches come out alphabetical and
+                    stable rather than following whichever product is listed first.
+                    The metaobjects supply the canonical name and swatch; the tags
+                    decide which of them the collection actually has. Neither is a
+                    list held in the theme, so tagging a product is all it takes to
+                    add or remove a colour.
                   {%- endcomment -%}
                   {%- for color_value in shop.metaobjects['shopify--color-pattern'].values -%}
-                    {%- assign color_token = '|' | append: color_value.system.id | append: '|' -%}
-                    {%- unless colors_present contains color_token -%}{%- continue -%}{%- endunless -%}
-                    {%- capture color_gid -%}gid://shopify/Metaobject/{{ color_value.system.id }}{%- endcapture -%}
-                    <a href="{{ colors_collection.url }}?filter.v.t.shopify.color-pattern={{ color_gid | url_encode }}" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" style="--reveal-index: {{ reveal_index }};">
+                    {%- assign tag_token = '|' | append: color_value.label | downcase | append: '|' -%}
+                    {%- unless tags_present contains tag_token -%}{%- continue -%}{%- endunless -%}
+                    <a href="{{ colors_collection.url }}/{{ color_value.label | handle }}" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" style="--reveal-index: {{ reveal_index }};">
                       {%- render 'nav-swatch', swatch: color_value, name: color_value.label -%}
                       <span class="heading link-text text-xl-3xl tracking-tighter leading-tight">{{ color_value.label | escape }}</span>
                     </a>
