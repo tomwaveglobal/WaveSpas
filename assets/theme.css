@@ -16722,6 +16722,12 @@ shopify-account::part(dialog) .account__heading {
 .mega-menu__nav--tabs .mega-menu__nav-item--of-4 .heading{font-size:calc(var(--nav-tab-2col-size,1rem) * .8)}
 .mega-menu__nav--tabs .mega-menu__nav-item--split{min-inline-size:0}
 .mega-menu__nav--tabs .mega-menu__nav-item--split .heading{min-inline-size:0;overflow-wrap:normal}
+/* The hover underline is a background gradient pinned at min(100%, 1.35em) from
+   the top of the label. On one line that lands on the bottom edge, but a label
+   that wraps — "Charcoal Black", "Pebble White" — is taller than 1.35em, so the
+   line falls between the two rows and reads as a strikethrough. Anchor it to the
+   bottom so it always sits under the last line. */
+.mega-menu__nav--tabs .mega-menu__nav-item--split .link-text{--reversed-link-gap:100%}
 
 /* Below 1536px the rail drops from 320px to 230px, which is not enough for the
    configured column counts — three and four across break every label onto two
