@@ -98,21 +98,28 @@
               {%- endif -%}
               {%- if block.settings[tab_group_colors_from] != blank -%}
                 {%- liquid
+                  # Mirrors the desktop rail — see header-nav-mega for why the
+                  # colours come from the products rather than the storefront filter.
                   assign colors_collection = block.settings[tab_group_colors_from]
-                  assign color_filter = blank
-                  for collection_filter in colors_collection.filters
-                    if collection_filter.param_name contains 'color'
-                      assign color_filter = collection_filter
-                      break
-                    endif
+                  assign colors_present = ''
+                  for colors_product in colors_collection.products
+                    for color_value in colors_product.metafields.shopify['color-pattern'].value
+                      assign color_token = '|' | append: color_value.system.id | append: '|'
+                      unless colors_present contains color_token
+                        assign colors_present = colors_present | append: color_token
+                      endunless
+                    endfor
                   endfor
                 -%}
-                {%- for filter_value in color_filter.values -%}
+                {%- for color_value in shop.metaobjects['shopify--color-pattern'].values -%}
+                  {%- assign color_token = '|' | append: color_value.system.id | append: '|' -%}
+                  {%- unless colors_present contains color_token -%}{%- continue -%}{%- endunless -%}
+                  {%- capture color_gid -%}gid://shopify/Metaobject/{{ color_value.system.id }}{%- endcapture -%}
                   <li class="drawer__menu-group{{ item_class }}">
-                    <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ colors_collection.url }}?{{ filter_value.param_name }}={{ filter_value.value | url_encode }}">
+                    <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ colors_collection.url }}?filter.v.t.shopify.color-pattern={{ color_gid | url_encode }}">
                       <div class="flex items-center gap-2">
-                        {%- render 'nav-swatch', swatch: filter_value.swatch, name: filter_value.label -%}
-                        <span>{{ filter_value.label | escape }}</span>
+                        {%- render 'nav-swatch', swatch: color_value, name: color_value.label -%}
+                        <span>{{ color_value.label | escape }}</span>
                       </div>
                     </a>
                   </li>

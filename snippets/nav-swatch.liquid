@@ -23,16 +23,16 @@
 {%- liquid
   assign swatch_background = fallback | default: 'transparent'
   assign swatch_image = blank
+  assign mapped_image = blank
+  assign mapped_color = blank
 
-  # A native swatch is authoritative: it is what the storefront filter and the
-  # PDP already show for this colour, so matching it needs no name lookup.
-  if swatch.image != blank
-    assign swatch_image = swatch.image | image_url: width: 128
-  elsif swatch.color != blank
-    assign swatch_background = swatch.color
-  elsif name != blank
+  # Resolution order, most specific first: a texture the merchant mapped in
+  # Theme settings > Swatches, then that mapping's colour, then whatever Shopify
+  # holds on the swatch itself, then a guess from the last word of the name.
+  # An explicit theme mapping is a deliberate choice, so it outranks the flat
+  # taxonomy colour — three greys all sitting on #808080 is a real case here.
+  if name != blank
     assign file_name = name | handle | append: '.png'
-    assign swatch_background = name | split: ' ' | last | handle
 
     if settings.swatch_config != blank
       assign name_downcase = name | downcase | strip
@@ -43,7 +43,7 @@
         if swatch_name == name_downcase
           assign swatch_value = swatch_parts.last | strip
           if swatch_value contains '#'
-            assign swatch_background = swatch_value
+            assign mapped_color = swatch_value
           else
             assign file_name = swatch_value
           endif
@@ -53,9 +53,25 @@
     endif
 
     if images[file_name] != blank
-      assign swatch_image = images[file_name] | image_url: width: 128
+      assign mapped_image = images[file_name] | image_url: width: 128
     elsif file_name contains '//cdn.shopify.com/'
-      assign swatch_image = file_name
+      assign mapped_image = file_name
+    endif
+  endif
+
+  if mapped_image != blank
+    assign swatch_image = mapped_image
+  elsif swatch.image != blank
+    assign swatch_image = swatch.image | image_url: width: 128
+  endif
+
+  if swatch_image == blank
+    if mapped_color != blank
+      assign swatch_background = mapped_color
+    elsif swatch.color != blank
+      assign swatch_background = swatch.color
+    elsif name != blank
+      assign swatch_background = name | split: ' ' | last | handle
     endif
   endif
 -%}
