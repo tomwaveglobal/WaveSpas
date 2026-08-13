@@ -21,8 +21,9 @@
           "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
+            "image_tablet": null,
             "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-56e8e4dac94a37d55c85b0c86a97f0f5": null,
+            "header-07c15d85563cb88cf372f2a24307c459": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -36,11 +37,12 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/UK_Chemicals_Aug26-1_81724277-91e9-41bf-8b98-2a2a690387df.jpg",
-            "image_mobile": "shopify://shop_images/UK_Chemicals_Aug26-2_72166e05-9a90-4128-9e7e-0706b5c14ba7.jpg",
+            "image": "shopify://shop_images/Desktop_UK_Chemicals_Aug26-1.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_UK_Chemicals_Aug26-3.jpg",
             "heading": "‎",
             "button_label": "Shop Whilst Stocks Last",
-            "button_link": "shopify://collections/hot-tub-full-range"
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "image_tablet": "shopify://shop_images/Tablet_UK_Chemicals_Aug26-2.jpg"
           }
         },
         "image_9rd3Vt": {
