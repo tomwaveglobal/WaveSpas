@@ -1,0 +1,810 @@
+{%- comment -%}
+  ============================================================================
+  PRE-ORDER RESOLUTION — single pass, two sources
+  ----------------------------------------------------------------------------
+  SOURCE 1 (preferred): the STOQ / Restock Rocket line item property.
+    STOQ writes a VISIBLE property on each pre-order line where the property
+    NAME is the sentence and the VALUE is the date, e.g.
+      "This item is on pre-order with an expected shipping date of" => "31/08/26"
+      "This item is on pre-order with an expected delivery date of" => "28/9/2026"
+    Both wordings are in use, so match on the name CONTAINING "pre-order".
+    STOQ wins when present: it is what the customer was shown at purchase.
+
+  SOURCE 2 (fallback): the variant metafields, when STOQ wrote nothing.
+    custom.pre_order_date_{uk,usa,eu}  e.g. "Pre-order | Ships 28/09/26"
+    Gated on custom.pre_order_control_{uk,us,eu}: a populated date alone is NOT
+    enough. Some variants carry a date while the control flag says "In Stock" or
+    "Out of Stock" (all four populated dates on WaveSupBoards are like this,
+    including a "Test Pre Order Date 4th July" value). Showing those would tell
+    a customer an in-stock item is a pre-order, so they are excluded. A BLANK
+    control flag is allowed through — the EU dates are maintained that way.
+
+  Market is chosen from the shipping country, since notification templates have
+  no `localization` object. No shipping address (e.g. digital-only) => UK.
+
+  Dates are printed VERBATIM. Both sources mix d/m/y and m/d/y across markets
+  ("28/9/2026" UK, "07/27/26" and "09/25/2026" US), so reformatting them would
+  misstate the date.
+
+  Misconfigured STOQ variants emit the literal text "{{ date }}"; those fall
+  through to the metafield, and show an undated notice if that is empty too.
+
+  If notification Liquid cannot read variant metafields, every metafield lookup
+  is simply nil and the template degrades to STOQ-only behaviour — no breakage.
+  ============================================================================
+{%- endcomment -%}
+
+{%- assign brace = '{' -%}
+{%- assign stoq_placeholder = brace | append: brace -%}
+
+{%- assign ship_country = shipping_address.country_code | upcase -%}
+{%- assign uk_codes = "GB,GG,IM,JE" | split: "," -%}
+{%- assign eu_codes = "AT,BE,BG,HR,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,NL,NO,PL,PT,RO,SK,SI,ES,SE,CH" | split: "," -%}
+
+{%- assign preorder_date_key = 'pre_order_date_uk' -%}
+{%- assign preorder_control_key = 'pre_order_control_uk' -%}
+{%- if eu_codes contains ship_country -%}
+  {%- assign preorder_date_key = 'pre_order_date_eu' -%}
+  {%- assign preorder_control_key = 'pre_order_control_eu' -%}
+{%- elsif uk_codes contains ship_country -%}
+  {%- comment -%} keep the UK default {%- endcomment -%}
+{%- elsif ship_country != blank -%}
+  {%- assign preorder_date_key = 'pre_order_date_usa' -%}
+  {%- assign preorder_control_key = 'pre_order_control_us' -%}
+{%- endif -%}
+
+{%- assign preorder_count = 0 -%}
+{%- assign preorder_dated_count = 0 -%}
+{%- assign preorder_from_metafield = 0 -%}
+{%- assign preorder_entries = '' -%}
+
+{%- for line in subtotal_line_items -%}
+  {%- assign po_label = '' -%}
+  {%- assign po_date = '' -%}
+  {%- assign po_found = false -%}
+
+  {%- comment -%} 1. STOQ line item property {%- endcomment -%}
+  {%- for property in line.properties -%}
+    {%- assign property_name = property.first | downcase -%}
+    {%- if property_name contains 'pre-order' -%}
+      {%- assign po_found = true -%}
+      {%- assign po_label = property.first -%}
+      {%- assign property_value = property.last | strip -%}
+      {%- unless property_value contains stoq_placeholder -%}
+        {%- assign po_date = property_value -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%} 2. Variant metafield fallback {%- endcomment -%}
+  {%- if po_date == blank -%}
+    {%- assign mf_date = line.variant.metafields.custom[preorder_date_key] | strip -%}
+    {%- assign mf_control = line.variant.metafields.custom[preorder_control_key] | strip | downcase | replace: '-', '' | replace: ' ', '' -%}
+    {%- if mf_date != blank and mf_control != 'instock' and mf_control != 'outofstock' -%}
+      {%- assign mf_clean = mf_date | split: '|' | last | strip -%}
+      {%- assign mf_clean = mf_clean | remove_first: 'Ships' | remove_first: 'ships' | strip -%}
+      {%- if mf_clean != blank -%}
+        {%- assign po_date = mf_clean -%}
+        {%- unless po_found -%}
+          {%- assign preorder_from_metafield = preorder_from_metafield | plus: 1 -%}
+        {%- endunless -%}
+        {%- assign po_found = true -%}
+        {%- if po_label == blank -%}
+          {%- assign po_label = 'This item is on pre-order with an expected shipping date of' -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- comment -%} 3. Record the result for this line, keyed by loop position {%- endcomment -%}
+  {%- if po_found -%}
+    {%- assign preorder_count = preorder_count | plus: 1 -%}
+    {%- if po_date != blank -%}
+      {%- assign preorder_dated_count = preorder_dated_count | plus: 1 -%}
+    {%- endif -%}
+    {%- assign preorder_entries = preorder_entries | append: po_label | append: '::' | append: po_date | append: '~|~' -%}
+  {%- else -%}
+    {%- assign preorder_entries = preorder_entries | append: 'NOPO' | append: '~|~' -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign preorder_entries = preorder_entries | split: '~|~' -%}
+
+{% capture email_title %}Thank you for your purchase! {% endcapture %}
+{% capture email_body %}
+  {% if requires_shipping %}
+  {% case delivery_method %}
+      {% when 'pick-up' %}
+        You'll receive an email when your order is ready for pickup.
+      {% when 'local' %}
+        Hi {{ customer.first_name }}, we're getting your order ready for delivery.
+      {% else %}
+        Hi {{ customer.first_name }}, we're getting your order ready to be shipped. We will notify you when it has been sent. Some items are shipped with different carriers therefore packages may arrive separately.
+    {% endcase %}
+      {% if delivery_instructions != blank  %}
+        <p><b>Delivery information:</b> {{ delivery_instructions }}</p>
+      {% endif %}
+     {% if consolidated_estimated_delivery_time %}
+       <p>
+         Estimated delivery <b>{{ consolidated_estimated_delivery_time }}</b>
+       </p>
+     {% endif %}
+  {% endif %}
+{% endcapture %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <title>{{ email_title }}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <style>
+    .button__cell { background: {{ shop.email_accent_color }}; }
+    a, a:hover, a:active, a:visited { color: {{ shop.email_accent_color }}; }
+  </style>
+</head>
+
+  <body>
+    <table class="body">
+      <tr>
+        <td>
+          <table class="header row">
+  <tr>
+    <td class="header__cell">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td>
+
+              <table class="row">
+                <tr>
+                  <td class="shop-name__cell">
+                    {%- if shop.email_logo_url %}
+                      <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+                    {%- else %}
+                      <h1 class="shop-name__text">
+                        <a href="{{shop.url}}">{{ shop.name }}</a>
+                      </h1>
+                    {%- endif %}
+                  </td>
+
+                    <td class="order-number__cell">
+                      <span class="order-number__text">
+                        Order {{ order_name }}
+                      </span>
+                    </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row content">
+  <tr>
+    <td class="content__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+
+            <h2>{{ email_title }}</h2>
+            <p>{{ email_body }}</p>
+
+            {%- comment -%} ---- STOQ pre-order callout ---- {%- endcomment -%}
+            {% if preorder_count > 0 %}
+              <table style="width:100%; border-collapse:collapse; margin:0 0 18px 0;">
+                <tr>
+                  <td style="padding:16px 18px; background-color:#fbf6ea; border:1px solid #e3d4ae; border-radius:4px; font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height:1.5; color:#3c3c3c;">
+
+                    <strong style="font-size:15px;">
+                      {% if preorder_count == 1 %}
+                        Your order contains a pre-order item
+                      {% else %}
+                        Your order contains pre-order items
+                      {% endif %}
+                    </strong>
+
+                    <table style="width:100%; border-collapse:collapse; margin:10px 0 0 0;">
+                      {% for line in subtotal_line_items %}
+                        {% assign entry = preorder_entries[forloop.index0] %}
+                        {% unless entry == 'NOPO' or entry == blank %}
+                          {% assign entry_parts = entry | split: '::' %}
+                          {% assign po_label = entry_parts[0] %}
+                          {% assign po_date = entry_parts[1] %}
+
+                          {% if line.product.title %}
+                            {% assign preorder_title = line.product.title %}
+                          {% else %}
+                            {% assign preorder_title = line.title %}
+                          {% endif %}
+
+                          <tr>
+                            <td style="padding:4px 0; font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height:1.5; color:#3c3c3c;">
+                              <strong>{{ preorder_title }}</strong>{% if line.variant.title != 'Default Title' and line.variant.title != blank %} &mdash; {{ line.variant.title }}{% endif %}<br>
+                              {% if po_date != blank %}
+                                {{ po_label }} <strong style="white-space:nowrap;">{{ po_date }}</strong>
+                              {% else %}
+                                This item is on pre-order. We'll email you as soon as we can confirm the expected date.
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endunless %}
+                      {% endfor %}
+                    </table>
+
+                    <p style="margin:12px 0 0 0; font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height:1.5; color:#3c3c3c;">
+                      {% if preorder_dated_count > 0 %}
+                        {% if preorder_count == 1 %}
+                          This item will not be dispatched before the date shown above.
+                        {% else %}
+                          These items will not be dispatched before the dates shown above.
+                        {% endif %}
+                      {% endif %}
+                      {% if preorder_count < subtotal_line_items.size %}
+                        Any other items in your order will be dispatched as normal and may arrive separately.
+                      {% endif %}
+                    </p>
+
+                  </td>
+                </tr>
+              </table>
+            {% endif %}
+            {%- comment -%} ---- /STOQ pre-order callout ---- {%- endcomment -%}
+
+            {% assign transaction_count = transactions | size %}
+  {% if transaction_count > 0 %}
+    {% for transaction in transactions %}
+      {% if transaction.show_buyer_pending_payment_instructions? %}
+        <p> {{transaction.buyer_pending_payment_notice}} </p>
+        <p>
+        <table class="row">
+          <tr>
+            {% for instruction in transaction.buyer_pending_payment_instructions %}
+              <td>{{ instruction.header }}</td>
+            {% endfor %}
+            <td>Amount</td>
+          </tr>
+          <tr>
+            {% for instruction in transaction.buyer_pending_payment_instructions %}
+              <td>{{ instruction.value }}</td>
+            {% endfor %}
+            <td>{{transaction.amount | money}}</td>
+          </tr>
+        </table>
+        </p>
+      {% endif %}
+    {% endfor%}
+  {% endif %}
+
+            {% if order_status_url %}
+              <table class="row actions">
+  <tr>
+    <td class="empty-line">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="actions__cell">
+      <table class="button main-action-cell">
+        <tr>
+          <td class="button__cell"><a href="{{ order_status_url }}" class="button__text">View your order</a></td>
+        </tr>
+      </table>
+      {% if shop.url %}
+    <table class="link secondary-action-cell">
+      <tr>
+        <td class="link__cell">or <a href="{{ shop.url }}">Visit our store</a></td>
+      </tr>
+    </table>
+{% endif %}
+
+    </td>
+  </tr>
+</table>
+
+            {% else %}
+              {% if shop.url %}
+    <table class="row actions">
+      <tr>
+        <td class="actions__cell">
+          <table class="button main-action-cell">
+            <tr>
+              <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+{% endif %}
+
+            {% endif %}
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+          {% assign gift_card_line_item = line_items | where: "gift_card" %}
+          {% if gift_card_line_item.first %}
+            <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Gift card</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+
+              <p> You'll receive separate emails for any gift cards.</p>
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+          {% endif %}
+
+          <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Order summary</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+
+
+<table class="row">
+  {%- comment -%} ship_country / uk_codes / eu_codes are assigned at the top of this template {%- endcomment -%}
+  {% for line in subtotal_line_items %}
+  <tr class="order-list__item">
+    <td class="order-list__item__cell">
+      <table>
+        <td>
+          {% if line.image %}
+            <img src="{{ line | img_url: 'compact_cropped' }}" align="left" width="60" height="60" class="order-list__product-image"/>
+          {% endif %}
+        </td>
+        <td class="order-list__product-description-cell">
+          {% if line.product.title %}
+            {% assign line_title = line.product.title %}
+          {% else %}
+            {% assign line_title = line.title %}
+          {% endif %}
+
+          {% if line.quantity < line.quantity %}
+            {% capture line_display %} {{ line.quantity }} of {{ line.quantity }} {% endcapture %}
+          {% else %}
+            {% assign line_display = line.quantity  %}
+          {% endif %}
+
+          <span class="order-list__item-title">{{ line_title }}&nbsp;&times;&nbsp;{{ line_display }}</span><br/>
+
+          {% if line.variant.title != 'Default Title' %}
+            <span class="order-list__item-variant">{{ line.variant.title }}</span><br/>
+          {% endif %}
+
+          {%- comment -%} ---- pre-order date, per line (resolved at the top) ---- {%- endcomment -%}
+          {%- assign entry = preorder_entries[forloop.index0] -%}
+          {%- unless entry == 'NOPO' or entry == blank -%}
+            {%- assign entry_parts = entry | split: '::' -%}
+            <span class="order-list__item-variant" style="color:#8a6d1f;">
+              {% if entry_parts[1] != blank %}
+                {{ entry_parts[0] }} <strong style="white-space:nowrap;">{{ entry_parts[1] }}</strong>
+              {% else %}
+                This item is on pre-order
+              {% endif %}
+            </span><br/>
+          {%- endunless -%}
+          {%- comment -%} ---- /pre-order date, per line ---- {%- endcomment -%}
+
+          {% if line.selling_plan_allocation %}
+            <span class="order-list__item-variant">{{ line.selling_plan_allocation.selling_plan.name }}</span><br/>
+          {% endif %}
+
+          {% if line.refunded_quantity > 0 %}
+            <span class="order-list__item-refunded">Refunded</span>
+          {% endif %}
+
+          {% if line.discount_allocations %}
+            {% for discount_allocation in line.discount_allocations %}
+              {% if discount_allocation.discount_application.target_selection != 'all' %}
+                <span class="order-list__item-discount-allocation">
+                  <img src="{{ 'notifications/discounttag.png' | shopify_asset_url }}" width="18" height="18" class="discount-tag-icon" />
+                  <span>
+                    {{ discount_allocation.discount_application.title | upcase }}
+                    (-{{ discount_allocation.amount | money }})
+                  </span>
+                </span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </td>
+          <td class="order-list__price-cell">
+            {% if line.original_line_price != line.final_line_price %}
+              <del class="order-list__item-original-price">{{ line.original_line_price | money }}</del>
+            {% endif %}
+            <p class="order-list__item-price">
+              {% if line.final_line_price > 0 %}
+                {{ line.final_line_price | money }}
+              {% else %}
+                Free
+              {% endif %}
+            </p>
+          </td>
+      </table>
+    </td>
+  </tr>{% endfor %}
+</table>
+
+            <table class="row subtotal-lines">
+  <tr>
+    <td class="subtotal-spacer"></td>
+    <td>
+      <table class="row subtotal-table">
+        {% for discount_application in discount_applications %}
+          {% if discount_application.target_selection == 'all' %}
+            {% capture discount_title %}
+              {% if discount_application.title %}
+                {{ discount_application.title | upcase }}
+              {% else %}
+                Discount
+              {% endif %}
+            {% endcapture %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Discount</span>
+        <span class="subtotal-line__discount">
+          <img src="{{ 'notifications/discounttag.png' | shopify_asset_url }}" width="18" height="18" class="discount-tag-icon" />
+          <span class="subtotal-line__discount-title">{{ discount_title }}</span>
+        </span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>-{{ discount_application.total_allocated_amount | money }}</strong>
+  </td>
+</tr>
+
+          {% endif %}
+        {% endfor %}
+
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Subtotal</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ subtotal_price | money }}</strong>
+  </td>
+</tr>
+
+        {% if delivery_method == 'pick-up' %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Pickup</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ shipping_price | money }}</strong>
+  </td>
+</tr>
+
+        {% else %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Shipping</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ shipping_price | money }}</strong>
+  </td>
+</tr>
+
+        {% endif %}
+
+        {% if total_duties %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Duties</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ total_duties | money }}</strong>
+  </td>
+</tr>
+
+        {% endif %}
+
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Taxes</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ tax_price | money }}</strong>
+  </td>
+</tr>
+
+
+        {% if total_tip and total_tip > 0 %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Tip</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ total_tip | money }}</strong>
+  </td>
+</tr>
+
+        {% endif %}
+      </table>
+      {% assign transaction_size = 0 %}
+      {% assign transaction_amount = 0 %}
+      {% for transaction in transactions %}
+        {% if transaction.status == "success" %}
+        {% unless transaction.kind == "authorization" or transaction.kind == "void" %}
+          {% assign transaction_size = transaction_size | plus: 1 %}
+          {% assign transaction_amount = transaction_amount | plus: transaction.amount %}
+        {% endunless %}
+        {% endif %}
+      {% endfor %}
+      <table class="row subtotal-table subtotal-table--total">
+      {% if payment_terms %}
+        {% assign due_at_date = payment_terms.next_payment.due_at | date: "%b %d, %Y" %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Total paid today</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ transaction_amount | money_with_currency }}</strong>
+  </td>
+</tr>
+
+        <div class="payment-terms">
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Total due {{ due_at_date }}</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ payment_terms.next_payment.amount_due | money_with_currency }}</strong>
+  </td>
+</tr>
+
+        </div>
+      {% else %}
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Total</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ total_price | money_with_currency }}</strong>
+  </td>
+</tr>
+
+      {% endif %}
+      </table>
+
+      {% if total_discounts > 0 %}
+        <p class="total-discount">
+          You saved <span class="total-discount--amount">{{ total_discounts | money }}</span>
+        </p>
+      {% endif %}
+
+      {% unless payment_terms %}
+      {% if transaction_size > 1 or transaction_amount < total_price %}
+        <table class="row subtotal-table">
+          <tr><td colspan="2" class="subtotal-table__line"></td></tr>
+          <tr><td colspan="2" class="subtotal-table__small-space"></td></tr>
+
+          {% for transaction in transactions %}
+            {% if transaction.status == "success" and transaction.kind == "capture" or transaction.kind == "sale" %}
+              {% if transaction.payment_details.credit_card_company %}
+                {% capture transaction_name %}{{ transaction.payment_details.credit_card_company }} (ending in {{ transaction.payment_details.credit_card_last_four_digits }}){% endcapture %}
+              {% else %}
+                {% capture transaction_name %}{{ transaction.gateway_display_name }}{% endcapture %}
+              {% endif %}
+
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>{{transaction_name}}</span>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>{{ transaction.amount | money }}</strong>
+  </td>
+</tr>
+
+            {% endif %}
+            {% if transaction.kind == 'refund' %}
+              {% if transaction.payment_details.credit_card_company %}
+                {% assign refund_method_title = transaction.payment_details.credit_card_company %}
+              {% else %}
+                {% assign refund_method_title = transaction.gateway %}
+              {% endif %}
+
+
+<tr class="subtotal-line">
+  <td class="subtotal-line__title">
+    <p>
+      <span>Refund</span>
+        <br>
+        <small>{{ refund_method_title | capitalize }}</small>
+    </p>
+  </td>
+  <td class="subtotal-line__value">
+    <strong>- {{ transaction.amount | money }}</strong>
+  </td>
+</tr>
+
+            {% endif %}
+          {% endfor %}
+        </table>
+      {% endif %}
+      {% endunless %}
+    </td>
+  </tr>
+</table>
+
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row section">
+  <tr>
+    <td class="section__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <h3>Customer information</h3>
+            </td>
+          </tr>
+        </table>
+        <table class="container">
+          <tr>
+            <td>
+
+            <table class="row">
+              <tr>
+                {% if requires_shipping and shipping_address %}
+                <td class="customer-info__item">
+                  <h4>Shipping address</h4>
+                  {{ shipping_address | format_address }}
+                </td>
+                {% endif %}
+                {% if billing_address %}
+                <td class="customer-info__item">
+                  <h4>Billing address</h4>
+                  {{ billing_address | format_address }}
+                </td>
+                {% endif %}
+              </tr>
+            </table>
+            <table class="row">
+              <tr>
+                {% if requires_shipping and shipping_address %}
+                <td class="customer-info__item">
+                  <h4>Shipping method</h4>
+                  <p>{{ shipping_method.title }}</p>
+                </td>
+                {% endif %}
+                {% if transaction_size > 0 %}
+                <td class="customer-info__item">
+                  <h4>Payment method</h4>
+                  {% for transaction in transactions %}
+                    {% if transaction.status == "success" or transaction.status == "pending" %}
+                      {% if transaction.kind == "capture" or transaction.kind == "sale" %}
+                        {% if transaction.payment_details.credit_card_company %}
+                            <p class="customer-info__item-content">
+                              <img src="{{ transaction.payment_details.credit_card_company | payment_icon_png_url  }}" class="customer-info__item-credit" height="24" alt="{{ transaction.payment_details.credit_card_company }}">
+                              <span>ending with {{ transaction.payment_details.credit_card_last_four_digits }}</span>
+                            </p>
+                          {% elsif transaction.gateway_display_name == "Gift card" %}
+                          <p class="customer-info__item-content">
+                            <img src="{{ transaction.gateway_display_name | downcase | replace: ' ', '-'  | payment_type_img_url }}" class="customer-info__item-credit" height="24">
+                          ending with {{ transaction.payment_details.gift_card.last_four_characters | upcase }}<br />
+                            &emsp;&emsp;&emsp;&nbsp;Gift card balance - <b>{{ transaction.payment_details.gift_card.balance |  money }}</b>
+                          </p>
+                          {% elsif transaction.gateway_display_name != "Shop Cash" %}
+                              <p class="customer-info__item-content">
+                              {{ transaction.gateway_display_name }}
+                              </p>
+                          {% endif %}
+                      {% elsif transaction.kind == "authorization" and transaction.gateway_display_name == "Shop Cash" %}
+                        <p class="customer-info__item-content">
+                          <span>Shop Cash - <b>{{ transaction.amount | money }}</b></span>
+                        </p>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+                {% endif %}
+              </tr>
+            </table>
+
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+          <table class="row footer">
+  <tr>
+    <td class="footer__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+
+              <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+
+<img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
