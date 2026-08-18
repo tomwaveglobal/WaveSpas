@@ -21,12 +21,12 @@
           "disabled": false,
           "settings": {
             "icon": "none",
-            "text": "10% off Inflatables <em><strong>+ 16pk filters</strong></em>",
+            "text": "15% off Inflatables <em><strong>+ 16pk filters</strong></em>",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-556800aefb49f3d5b3fa62f0352775d4": null,
+            "header-1131ceeace249f785b5ef81a7d695abb": null,
             "hide_icon_mobile": true,
             "text_mobile": "",
-            "header-9c6998bdb28d904338b5af8cb85dfe58": null,
+            "header-1d0968d8630d015f7d61584f677faa5c": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -38,10 +38,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-800a0b053acc3447919b2a00bc469a11": null,
+            "header-5865b46b0398c5e0c9e1113215752873": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-055f93ea3db4733717358a48eae93703": null,
+            "header-32098a6fc7f82afa996d0daf9110e0d7": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }

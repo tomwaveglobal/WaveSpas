@@ -19,12 +19,12 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/US_Ontario_Aug26-1.jpg",
-            "image_mobile": "shopify://shop_images/US_Ontario_Aug26-2.jpg",
+            "image": "shopify://shop_images/US_Ontario_Aug26_V2-1_7b024127-9e59-4cb0-81cc-477150ce87d7.jpg",
+            "image_tablet": "shopify://shop_images/US_Ontario_Aug26_V2-2_044ed87f-8d6d-424c-adff-095400978b87.jpg",
+            "image_mobile": "shopify://shop_images/US_Ontario_Aug26_V2-3.jpg",
             "heading": "",
             "button_label": "Shop Inflatable Hot Tubs",
-            "button_link": "shopify://collections/inflatable-hot-tubs",
-            "image_tablet": "shopify://shop_images/tablet_US_Ontario_Aug26.jpg"
+            "button_link": "shopify://collections/inflatable-hot-tubs"
           }
         },
         "image_9rd3Vt": {
