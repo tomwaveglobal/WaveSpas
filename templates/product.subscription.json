@@ -1220,13 +1220,31 @@
         "rounded": false
       }
     },
+    "custom_liquid_8tDizM": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.name",
+      "settings": {
+        "liquid": "<a href=\"https://www.reviews.co.uk/company-reviews/store/wave-spas\" target=\"_blank\">\n  <picture>\n    <source type=\"image/png\" srcset=\"https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2.png 1x, https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2@2x.png 2x\">\n    <img src=\"https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2.png\">\n  </picture>\n</a>",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 12,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
     "17465374297840d9d1": {
       "type": "apps",
       "blocks": {
         "reviews_io_reviewsio_polaris_xQckyy": {
           "type": "shopify://apps/reviews-io/blocks/reviewsio-polaris/92a082e5-b297-4e88-b428-ac96cbc505f9",
           "settings": {
-            "star": "#00b67b",
+            "star": "#FFAE00",
             "review_type": "product_review",
             "per_page": 8,
             "primary_btn_bg_color": "#171717",
@@ -1389,6 +1407,7 @@
     "product-details",
     "faq",
     "rich_text_4dFGek",
+    "custom_liquid_8tDizM",
     "17465374297840d9d1",
     "product-recommendations",
     "recently-viewed",
