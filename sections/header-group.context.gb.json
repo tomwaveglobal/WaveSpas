@@ -19,11 +19,11 @@
         "announcement-2": {
           "disabled": false,
           "settings": {
+            "icon": "sale",
             "text": "<em><strong>10% off Eco Foams </strong></em>+ Free Starter Kit",
             "link": "shopify://collections/foam-hot-tubs",
             "text_mobile": "<em><strong>Free Starter Kit </strong></em> with all Hot Tubs",
-            "highlighted_text": "text",
-            "icon": "sale"
+            "highlighted_text": "text"
           }
         },
         "announcement_mnCMPh": {
@@ -43,8 +43,8 @@
         },
         "mega_menu_tab_MyVeNJ": {
           "settings": {
-            "tab_target_2": "",
-            "tab_target_link_2": ""
+            "tab_target_link_3": "",
+            "tab_target_3": ""
           }
         }
       },
