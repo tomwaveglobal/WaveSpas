@@ -19,10 +19,11 @@
         "announcement-2": {
           "disabled": false,
           "settings": {
-            "text": "<em><strong>Free Starter Kit </strong></em> with all Hot Tubs",
-            "link": "shopify://collections/hot-tub-full-range",
+            "text": "<em><strong>10% off Eco Foams </strong></em>+ Free Starter Kit",
+            "link": "shopify://collections/foam-hot-tubs",
             "text_mobile": "<em><strong>Free Starter Kit </strong></em> with all Hot Tubs",
-            "highlighted_text": "text"
+            "highlighted_text": "text",
+            "icon": "sale"
           }
         },
         "announcement_mnCMPh": {
