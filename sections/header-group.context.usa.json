@@ -23,10 +23,10 @@
             "icon": "none",
             "text": "20% off Inflatables <em><strong>+ 16pk filters</strong></em>",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-ee4e297e156df21fc132d3c5905284eb": null,
+            "header-77b6afd7d44b159083a7248dee7a56c4": null,
             "hide_icon_mobile": true,
             "text_mobile": "",
-            "header-85b64994a0d20045ec0245a90d33faf7": null,
+            "header-80518f83bc0c612daaf55ff0b8ab047b": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -38,10 +38,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-8a9cbafd330cb908107bb2af691ff525": null,
+            "header-68d6ee2d9dc84fd9099c6d201965c8d4": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-d256e769e80d8e43d1c4d69cbbba371b": null,
+            "header-c2fe30a3c86cbb769d2cd3ed487f7b16": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -99,7 +99,10 @@
         "mega_menu_tab_MyVeNJ": {
           "settings": {
             "tab_target_2": "",
-            "tab_target_link_2": ""
+            "tab_target_link_2": "",
+            "button_link": "shopify://collections/labour-day-sale",
+            "tab_target_link_1": "shopify://collections/labour-day-sale",
+            "tab_target_link_3": "shopify://collections/clearance-usa"
           }
         }
       },
