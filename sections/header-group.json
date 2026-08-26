@@ -615,7 +615,7 @@
         "show_social": true,
         "enable_language_selector": true,
         "enable_country_selector": true,
-        "header_country_selector_style": "code",
+        "enable_country_selector_header_mobile": false,
         "transparent_color_text": "#ffffff",
         "color_text": "#171717",
         "color_background": "#ffffff",
