@@ -74,9 +74,14 @@
       `.header .dropdown { padding-block-start: var(--header-height) }` drops it
       flush under the header, exactly like the desktop nav dropdowns, and the
       `.header-scrolled` offset follows automatically.
+
+      That padding box spans the whole header, so it would sit over the trigger,
+      the menu button and the logo and swallow their clicks. `pointer-events-none`
+      here (with the container re-enabling it in CSS) keeps only the visible panel
+      clickable — the same idiom the theme's own header dropdowns use.
     {%- endcomment -%}
     <dropdown-localization
-      class="dropdown opacity-0 invisible z-30 absolute top-0"
+      class="dropdown opacity-0 invisible z-30 absolute top-0 pointer-events-none"
       id="HeaderCountryLocalization-{{ section.id }}"
     >
       <div class="dropdown__container">

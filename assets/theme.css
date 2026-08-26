@@ -5365,6 +5365,18 @@ ol {
     display: none;
   }
 
+  /* The panel's padding box covers the whole header (see the snippet), so only
+     the visible container may take pointer events. `[open]` is needed to beat
+     `.dropdown[open] { pointer-events: auto }`, which is defined later. */
+  .header__country .dropdown,
+  .header__country .dropdown[open] {
+    pointer-events: none;
+  }
+
+  .header__country .dropdown__container {
+    pointer-events: auto;
+  }
+
   .header__country .dropdown {
     inset-inline-start: var(--page-padding);
     margin-inline-start: 0;
