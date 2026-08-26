@@ -10,7 +10,8 @@
   theme-wide `settings.country_selector_order` and the per-product regional URL
   overrides are honoured.
 
-  @param {object} section - Section object, used for the dropdown id
+  @param {object} section - Section object, used for the dropdown id and for
+    `header_country_selector_style` / `header_country_selector_show_currency`
 
   @example
   {% render 'header-country-select', section: section %}
@@ -18,6 +19,18 @@
 
 {%- if localization.available_countries.size > 1 -%}
   {%- liquid
+    comment
+      `flag` shows the country's flag image, `code` shows the ISO code (GB, US).
+      Default to `flag` so the setting can ship without a section JSON value —
+      Shopify drops a section-JSON value whose schema setting is new in the same
+      commit.
+    endcomment
+    assign selector_style = section.settings.header_country_selector_style | default: 'flag'
+    assign show_currency = true
+    if section.settings.header_country_selector_show_currency == false
+      assign show_currency = false
+    endif
+
     assign uk_override = ''
     assign eu_override = ''
     assign us_override = ''
@@ -38,12 +51,20 @@
       aria-haspopup="true"
       aria-label="{{ 'localization.country_label' | t | escape }}"
     >
-      <span class="country-flag shrink-0 media media--rounded relative overflow-hidden">
-        {{- localization.country | image_url: width: 60, format: 'jpg' | image_tag: loading: 'lazy', class: 'rounded-full', is: 'lazy-image' -}}
-      </span>
-      <span class="header__country-currency whitespace-nowrap leading-tight text-sm">
-        {{- localization.country.currency.iso_code }} {{ localization.country.currency.symbol -}}
-      </span>
+      {%- if selector_style == 'code' -%}
+        <span class="header__country-code whitespace-nowrap leading-tight text-sm font-medium">
+          {{- localization.country.iso_code -}}
+        </span>
+      {%- else -%}
+        <span class="country-flag shrink-0 media media--rounded relative overflow-hidden">
+          {{- localization.country | image_url: width: 60, format: 'jpg' | image_tag: loading: 'lazy', class: 'rounded-full', is: 'lazy-image' -}}
+        </span>
+      {%- endif -%}
+      {%- if show_currency -%}
+        <span class="header__country-currency whitespace-nowrap leading-tight text-sm">
+          {{- localization.country.currency.iso_code }} {{ localization.country.currency.symbol -}}
+        </span>
+      {%- endif -%}
       {%- render 'icon', icon: 'chevron-down', size: 'xs', class: 'shrink-0' -%}
     </button>
 

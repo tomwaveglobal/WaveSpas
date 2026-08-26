@@ -5353,6 +5353,12 @@ ol {
     padding-inline: var(--sp-1);
   }
 
+  /* "Country code" style — stands in for the flag, so it is never hidden. */
+  .header__country-code {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
   /* Only room for the flag + chevron on the narrowest phones: the tools grid
      column leaves ~49px clear of the burger at 360px wide. */
   .header__country-currency {
