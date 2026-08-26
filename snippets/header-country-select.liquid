@@ -97,4 +97,37 @@
       </div>
     </dropdown-localization>
   </div>
+
+  {%- comment -%}
+    Switching market is a real navigation (new URL, currency, prices and catalog
+    are all server-rendered), so there is a pause between the tap and the browser
+    starting the new page. Mark the tapped row immediately so the wait reads as
+    "working" rather than "nothing happened". Deliberately not the theme's
+    `loading-bar`, which is a full-screen curtain and is disabled under reduced
+    motion.
+  {%- endcomment -%}
+  <script>
+    (() => {
+      const nav = document.querySelector('#HeaderCountryLocalization-{{ section.id }} .dropdown__nav');
+      if (!nav) return;
+
+      const clear = () => {
+        nav.classList.remove('is-selecting');
+        nav.querySelectorAll('.is-selected').forEach((el) => el.classList.remove('is-selected'));
+      };
+
+      nav.addEventListener('click', (event) => {
+        const link = event.target.closest('a');
+        if (!link || !nav.contains(link)) return;
+        if (link.classList.contains('active')) return;
+        nav.classList.add('is-selecting');
+        link.classList.add('is-selected');
+      });
+
+      // Restoring from bfcache would otherwise leave the panel stuck dimmed.
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted) clear();
+      });
+    })();
+  </script>
 {%- endif -%}
