@@ -1,0 +1,67 @@
+{%- doc -%}
+  Renders the compact country/region selector that sits between the menu drawer
+  button and the logo on mobile and tablet (< 1024px).
+
+  Desktop keeps the announcement bar selector, so this snippet hides itself at
+  1024px and above via `lg:hidden`.
+
+  Uses the same market-link rules as the announcement bar and the menu drawer:
+  `localization-countries-ordered` with `render_as: 'market_links'`, so the
+  theme-wide `settings.country_selector_order` and the per-product regional URL
+  overrides are honoured.
+
+  @param {object} section - Section object, used for the dropdown id
+
+  @example
+  {% render 'header-country-select', section: section %}
+{%- enddoc -%}
+
+{%- if localization.available_countries.size > 1 -%}
+  {%- liquid
+    assign uk_override = ''
+    assign eu_override = ''
+    assign us_override = ''
+
+    if product.metafields.custom.uk_override_url != blank or product.metafields.custom.eu_override_url != blank or product.metafields.custom.us_override_url != blank
+      assign uk_override = product.metafields.custom.uk_override_url
+      assign eu_override = product.metafields.custom.eu_override_url
+      assign us_override = product.metafields.custom.us_override_url
+    endif
+  -%}
+
+  <div class="header__country localization flex lg:hidden items-center relative">
+    <button
+      type="button"
+      class="localization__item header__country-button flex items-center gap-2 z-2 relative cursor-pointer"
+      aria-controls="HeaderCountryLocalization-{{ section.id }}"
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label="{{ 'localization.country_label' | t | escape }}"
+    >
+      <span class="country-flag shrink-0 media media--rounded relative overflow-hidden">
+        {{- localization.country | image_url: width: 60, format: 'jpg' | image_tag: loading: 'lazy', class: 'rounded-full', is: 'lazy-image' -}}
+      </span>
+      <span class="header__country-currency whitespace-nowrap leading-tight text-sm">
+        {{- localization.country.currency.iso_code }} {{ localization.country.currency.symbol -}}
+      </span>
+      {%- render 'icon', icon: 'chevron-down', size: 'xs', class: 'shrink-0' -%}
+    </button>
+
+    <dropdown-localization
+      class="dropdown opacity-0 invisible z-30 absolute top-100 left-0"
+      id="HeaderCountryLocalization-{{ section.id }}"
+    >
+      <div class="dropdown__container">
+        {%- render 'corner', dir: 'top', prefix: 'dropdown' -%}
+        <ul class="dropdown__nav flex flex-col gap-1d5 xl:gap-2" role="list">
+          {%- render 'localization-countries-ordered',
+            render_as: 'market_links',
+            eu_override: eu_override,
+            us_override: us_override,
+            uk_override: uk_override
+          -%}
+        </ul>
+      </div>
+    </dropdown-localization>
+  </div>
+{%- endif -%}
