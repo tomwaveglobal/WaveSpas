@@ -5360,8 +5360,9 @@ ol {
   }
 
   .header__country .dropdown {
-    margin-inline-start: calc(var(--sp-5) * -1);
-    max-width: calc(100vw - var(--sp-12) - var(--scrollbar-width));
+    inset-inline-start: var(--page-padding);
+    margin-inline-start: 0;
+    max-width: calc(100vw - var(--page-padding) * 2 - var(--scrollbar-width));
   }
 
   .header__country .dropdown__nav {

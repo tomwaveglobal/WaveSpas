@@ -29,7 +29,7 @@
     endif
   -%}
 
-  <div class="header__country localization flex lg:hidden items-center relative">
+  <div class="header__country localization flex lg:hidden items-center">
     <button
       type="button"
       class="localization__item header__country-button flex items-center gap-2 z-2 relative cursor-pointer"
@@ -47,8 +47,15 @@
       {%- render 'icon', icon: 'chevron-down', size: 'xs', class: 'shrink-0' -%}
     </button>
 
+    {%- comment -%}
+      Positioned against `.header` (the nearest positioned ancestor — this
+      wrapper deliberately is not `relative`), so the theme's own
+      `.header .dropdown { padding-block-start: var(--header-height) }` drops it
+      flush under the header, exactly like the desktop nav dropdowns, and the
+      `.header-scrolled` offset follows automatically.
+    {%- endcomment -%}
     <dropdown-localization
-      class="dropdown opacity-0 invisible z-30 absolute top-100 left-0"
+      class="dropdown opacity-0 invisible z-30 absolute top-0"
       id="HeaderCountryLocalization-{{ section.id }}"
     >
       <div class="dropdown__container">
