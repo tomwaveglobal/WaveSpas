@@ -5345,6 +5345,45 @@ ol {
   height: var(--sp-6);
 }
 
+/*! header country selector — mobile + tablet only, sits between the menu
+    drawer button and the logo. Desktop keeps the announcement bar selector. */
+@media screen and (max-width: 1023px) {
+  .header__country-button {
+    min-height: 2.75rem;
+    padding-inline: var(--sp-1);
+  }
+
+  /* Only room for the flag + chevron on the narrowest phones: the tools grid
+     column leaves ~49px clear of the burger at 360px wide. */
+  .header__country-currency {
+    display: none;
+  }
+
+  .header__country .dropdown {
+    margin-inline-start: calc(var(--sp-5) * -1);
+    max-width: calc(100vw - var(--sp-12) - var(--scrollbar-width));
+  }
+
+  .header__country .dropdown__nav {
+    max-width: none;
+  }
+
+  .header__country .dropdown__nav li > p {
+    padding-inline: var(--sp-5);
+  }
+
+  .header__country .dropdown__container {
+    padding-block-start: var(--sp-5);
+    padding-block-end: var(--sp-6);
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 1023px) {
+  .header__country-currency {
+    display: inline-block;
+  }
+}
+
 .header__menu>ul {
   column-gap: var(--header-nav-gap)
 }
