@@ -297,23 +297,6 @@
         "disabled": false,
         "settings": {}
       },
-      "15316669992541710076": {
-        "type": "shopify://apps/reviews-io/blocks/reviewsio-rating-snippet/92a082e5-b297-4e88-b428-ac96cbc505f9",
-        "disabled": false,
-        "settings": {
-          "star": "#00b77f",
-          "text_color": "#333333",
-          "snippet_mode": "default",
-          "text": "Reviews",
-          "line_break": false,
-          "listen_for_changes": true,
-          "rating_without_brackets": true,
-          "format_review_count": true,
-          "show_popup": false,
-          "anchor_to_reviews_widget": true,
-          "show_empty_stars": true
-        }
-      },
       "11945366711752539959": {
         "type": "shopify://apps/zendesk/blocks/zendesk_web_widget/c0b417b1-b90b-4754-baaf-f55627e6acd4",
         "disabled": false,
@@ -342,6 +325,23 @@
         "settings": {
           "image_selector": ".product__media img, .product-single__photo img, [data-product-media] img, .product-gallery img",
           "base_url": "https://api.contona.ai"
+        }
+      },
+      "15316669992541710076": {
+        "type": "shopify://apps/reviews-io/blocks/reviewsio-rating-snippet/92a082e5-b297-4e88-b428-ac96cbc505f9",
+        "disabled": false,
+        "settings": {
+          "star": "#FFAE00",
+          "text_color": "#333333",
+          "snippet_mode": "default",
+          "text": "Reviews",
+          "line_break": false,
+          "listen_for_changes": true,
+          "rating_without_brackets": true,
+          "format_review_count": true,
+          "show_popup": false,
+          "anchor_to_reviews_widget": true,
+          "show_empty_stars": true
         }
       }
     }
