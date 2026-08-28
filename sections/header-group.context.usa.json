@@ -21,12 +21,12 @@
           "disabled": false,
           "settings": {
             "icon": "none",
-            "text": "<em><strong>Labour Day Sale  </strong></em>Shop Now",
+            "text": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
             "link": "shopify://collections/labour-day-sale",
-            "header-0dbfc8985ce623a29ad92947affa3f02": null,
+            "header-5d978d14d2368493908b51676302c5e5": null,
             "hide_icon_mobile": true,
-            "text_mobile": "<em><strong>Labour Day Sale  </strong></em>Shop Now",
-            "header-a1e33d49966ff79b15d0dab4bdd726ea": null,
+            "text_mobile": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
+            "header-6228da8b697e6300fe68c1992cb89d89": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -38,10 +38,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-56bb7e0960447b1c9c7d2af534d17577": null,
+            "header-d45dd5336b487b7b324d3cfcb0f9bc46": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-a863f20111d4378241628f4d21fb59f9": null,
+            "header-e00b2d0a85d37fe8af90fe2c51a18792": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
