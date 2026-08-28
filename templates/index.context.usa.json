@@ -39,7 +39,12 @@
         },
         "image_JUM7dH": {
           "settings": {
-            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Summer Sale </span> now on!"
+            "heading": "",
+            "image_tablet": "shopify://shop_images/3f91285f-3caa-4c7c-a364-409d087e6148.jpg",
+            "image": "shopify://shop_images/5f39fb70-b7d2-4fd0-b453-b20f441c204f.jpg",
+            "image_mobile": "shopify://shop_images/0190d621-a2c3-4987-9b99-ecbbe025a826.jpg",
+            "button_link": "shopify://collections/labour-day-sale",
+            "button_label": "Shop Labour Day Sale"
           }
         },
         "image_rmPQY4": {
