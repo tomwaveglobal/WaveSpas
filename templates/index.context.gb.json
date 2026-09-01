@@ -18,17 +18,17 @@
       "blocks": {
         "image_YL8tbf": {
           "type": "image",
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_7q2mh37q2mh37q2m.png",
-            "image_tablet": null,
-            "image_mobile": "shopify://shop_images/Gemini_Generated_Image_g647krg647krg647.png",
-            "header-2850ec3fbe0c3b39f7d98fbf7a36255f": null,
+            "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
+            "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
+            "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
+            "header-b8f2e38990eb51e0ce4e5e8fd935c7c3": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs",
+            "button_link": "shopify://products/adriatic-hot-tub",
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
@@ -77,7 +77,7 @@
     },
     "featured-product": {
       "settings": {
-        "product": "garda-hot-tub"
+        "product": "adriatic-hot-tub"
       },
       "blocks": {}
     },
