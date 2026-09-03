@@ -16,6 +16,19 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
+        "image_EUEdiE": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/UK-Foams-10_-off_Aug26-1.jpg",
+            "image_tablet": "shopify://shop_images/UK-Foams-10_-off_Aug26-2.jpg",
+            "image_mobile": "shopify://shop_images/UK-Foams-10_-off_Aug26-3.jpg",
+            "heading": "<div style=\"text-align:left; color:#ffffff;\">\n<h2 style=\"font-size:clamp(36px, 8vw, 64px); font-weight:700; line-height:1.1; margin:0 0 16px;\">\n<span style=\"color:#F59E0B;\">Save 10%</span> on Eco Foams\n</h2>\n<p style=\"font-size:clamp(18px, 3vw, 24px); line-height:1.5; letter-spacing:0em; margin:0;\">\n    Offer ends soon! Don't miss out.\n</p>\n</div>",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/foam-hot-tubs",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h1"
+          }
+        },
         "image_YL8tbf": {
           "type": "image",
           "disabled": false,
@@ -23,7 +36,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-5741cf5ef00bf4ef19e86d6325fb38f4": null,
+            "header-3627714e45e1784c96e7e1d431a8d644": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -32,17 +45,6 @@
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
-          }
-        },
-        "image_EUEdiE": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Desktop_UK-Foams-10_-off_Aug26-1.jpg",
-            "image_tablet": "shopify://shop_images/Tablet_UK-Foams-10_-off_Aug26-2.jpg",
-            "image_mobile": "shopify://shop_images/Mobile_UK-Foams-10_-off_Aug26-3.jpg",
-            "heading": "",
-            "button_label": "Shop Eco Foam Hot Tubs",
-            "button_link": "shopify://collections/foam-hot-tubs"
           }
         },
         "image_9rd3Vt": {
