@@ -23,10 +23,10 @@
             "image_tablet": "shopify://shop_images/UK-Foams-10_-off_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/UK-Foams-10_-off_Aug26-3.jpg",
             "heading": "<div style=\"text-align:left; color:#ffffff;\">\n<h2 style=\"font-size:clamp(36px, 8vw, 64px); font-weight:700; line-height:1.1; margin:0 0 16px;\">\n<span style=\"color:#F59E0B;\">Save 10%</span> on Eco Foams\n</h2>\n<p style=\"font-size:clamp(18px, 3vw, 24px); line-height:1.5; letter-spacing:0em; margin:0;\">\n    Offer ends soon! Don't miss out.\n</p>\n</div>",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs",
             "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h1"
+            "heading_tag": "h1",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/foam-hot-tubs"
           }
         },
         "image_YL8tbf": {
@@ -54,6 +54,7 @@
           }
         },
         "image_JUM7dH": {
+          "disabled": true,
           "settings": {
             "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
           }
