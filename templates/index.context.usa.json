@@ -16,6 +16,16 @@
     "slideshow_aYCGKX": {
       "settings": {},
       "blocks": {
+        "image_JUM7dH": {
+          "settings": {
+            "image": "shopify://shop_images/US_20_-labor-day.jpg",
+            "image_tablet": "shopify://shop_images/Tablet_US_20_-labor-day.jpg",
+            "image_mobile": "shopify://shop_images/Mobile_Tablet_US_20_-labor-day.jpg",
+            "heading": "",
+            "button_label": "Shop Labour Day Sale",
+            "button_link": "shopify://collections/labour-day-sale"
+          }
+        },
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
@@ -35,16 +45,6 @@
             "heading": "",
             "button_label": "Shop Offer",
             "button_link": "shopify://collections/hot-tub-full-range"
-          }
-        },
-        "image_JUM7dH": {
-          "settings": {
-            "image": "shopify://shop_images/5f39fb70-b7d2-4fd0-b453-b20f441c204f.jpg",
-            "image_tablet": "shopify://shop_images/3f91285f-3caa-4c7c-a364-409d087e6148.jpg",
-            "image_mobile": "shopify://shop_images/0190d621-a2c3-4987-9b99-ecbbe025a826.jpg",
-            "heading": "",
-            "button_label": "Shop Labour Day Sale",
-            "button_link": "shopify://collections/labour-day-sale"
           }
         },
         "image_rmPQY4": {
