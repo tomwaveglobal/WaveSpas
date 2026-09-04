@@ -123,9 +123,16 @@
               <details is="details-dropdown" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top">
                 <summary data-link="">
                   <magnet-element class="menu__item text-sm-lg flex items-center font-medium z-2 relative cursor-pointer" data-magnet="0">
-                    {%- unless section_rendering_api -%}
-                      <api-button class="api-only" data-id="header_localization_country_form_{{ context }}" data-section-id="{{ section.id }}"></api-button>
-                    {%- endunless -%}
+                    {%- comment -%}
+                      No `api-button` here. APIButton fetches
+                      `routes.root_url?section_id=...` — the market root, never the
+                      current page — and caches the response for the whole site, so
+                      a page-specific market URL can never be resolved through it.
+                      The country entries are rendered inline instead, in page
+                      context, where `request.path` and `product` are correct. The
+                      announcement bar already renders the same list inline, so this
+                      costs nothing we were not already paying.
+                    {%- endcomment -%}
                     {%- capture localization_country -%}
                       {%- if show_country_flag -%}
                         <span class="country-flag shrink-0 media media--rounded relative overflow-hidden">
@@ -151,10 +158,9 @@
                   </magnet-element>
                 </summary>
                 <div class="dropdown opacity-0 invisible absolute top-0 max-w-full pointer-events-none">
-                  {%- unless section_rendering_api -%}
-                    <div id="header_localization_country_form_{{ context }}" class="dropdown__container relative"></div>
-                  {%- else -%}
-                    {%- assign form_id = 'header_localization_country_form_' | append: context -%}
+                  {%- liquid
+                    assign form_id = 'header_localization_country_form_' | append: context
+                  -%}
                     {%- liquid
                       assign uk_override = ''
                       assign eu_override = ''
@@ -191,7 +197,6 @@
                       <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" />
                       <input type="hidden" name="return_to" value="{{ request.path }}" />
                     {%- endform -%}
-                  {%- endunless -%}
                 </div>
               </details>
             </li>

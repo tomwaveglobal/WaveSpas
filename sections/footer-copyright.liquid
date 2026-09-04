@@ -112,28 +112,25 @@
               </label>
               {%- render 'icon', icon: 'currency', size: 'xs', class: 'stroke-1 absolute pointer-events-none' -%}
               <button type="button" class="localization__item cursor-pointer leading-tight w-full">
-                {%- unless section_rendering_api -%}
-                  <api-button class="api-only" data-id="FooterLocalizationCountryList" data-section-id="{{ section.id }}"></api-button>
-                {%- endunless -%}
                 {{- localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
               </button>
-              {%- unless section_rendering_api -%}
-                <select class="localization__item cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" name="country_code" id="FooterLocalizationCountryList">
-                  <option value="{{ localization.country.iso_code }}" selected>
-                    {{- localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
-                  </option>
-                </select>
-              {%- else -%}
-                <select class="localization__item cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" name="country_code" id="FooterLocalizationCountryList">
-                  {%- render 'localization-countries-ordered',
-                    render_as: 'select_options',
-                    current_country_iso: localization.country.iso_code,
-                    eu_override: eu_override,
-                    us_override: us_override,
-                    uk_override: uk_override
-                  -%}
-                </select>
-              {%- endunless -%}
+              {%- comment -%}
+                Rendered inline rather than through `api-button`. APIButton fetches
+                `routes.root_url?section_id=...` — the market root, never the current
+                page — and caches that response for the whole site, so the options it
+                returned always pointed at market roots (/, /en-de) instead of the
+                page you were on. Inline, `request.path` and `product` are correct,
+                so each option carries the same target as every other selector.
+              {%- endcomment -%}
+              <select class="localization__item cursor-pointer absolute top-0 left-0 w-full h-full opacity-0" name="country_code" id="FooterLocalizationCountryList">
+                {%- render 'localization-countries-ordered',
+                  render_as: 'select_options',
+                  current_country_iso: localization.country.iso_code,
+                  eu_override: eu_override,
+                  us_override: us_override,
+                  uk_override: uk_override
+                -%}
+              </select>
               {%- render 'icon', icon: 'chevron-down', size: 'xs', class: 'absolute pointer-events-none' -%}
             {%- endform -%}
 
