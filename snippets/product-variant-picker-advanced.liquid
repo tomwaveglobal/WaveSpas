@@ -1582,6 +1582,17 @@
   var sectionId      = root.dataset.sectionId;
   var productId      = '{{ product.id }}';
   var galleryElId    = 'ProductGallery-' + sectionId + '-' + productId;
+  // Market/locale prefix for Section Rendering fetches. routes.root_url is
+  // '/' on the primary market but '/en-us' (etc.) on every other one. Without
+  // it the fetch goes to /products/<handle>, which does not resolve outside
+  // the primary market: Shopify 301s it to a collection page, the parsed
+  // document has no ProductGallery element, and the gallery swap silently
+  // no-ops — the colour changes but the images never do.
+  var rootUrl        = {{ routes.root_url | json }};
+  function sectionUrl(params) {
+    var base = (rootUrl === '/' ? '' : rootUrl.replace(/\/$/, ''));
+    return base + '/products/' + productHandle + '?' + params;
+  }
   var chipPrefix     = {{ block.settings.pre_order_chip_prefix | default: 'Pre-order · ships' | json }};
   // Same trim patterns the Liquid uses, applied identically in JS so the
   // chip text doesn't suddenly diverge when the JS re-renders it on
@@ -2411,7 +2422,7 @@
     if (fullV.id === lastSectionFetch) return;
     lastSectionFetch = fullV.id;
 
-    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&variant=' + fullV.id;
+    var url = sectionUrl('section_id=' + encodeURIComponent(sectionId) + '&variant=' + fullV.id);
     if (sectionAbort) sectionAbort.abort();
     sectionAbort = new AbortController();
     fetch(url, { credentials: 'same-origin', signal: sectionAbort.signal })
@@ -2736,7 +2747,7 @@
 
   function refreshPreOrderFromServer() {
     if (!sectionId || !productHandle) return;
-    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&_=' + Date.now();
+    var url = sectionUrl('section_id=' + encodeURIComponent(sectionId) + '&_=' + Date.now());
     fetch(url, { credentials: 'same-origin' })
       .then(function (r) { return r.ok ? r.text() : null; })
       .then(function (html) {
