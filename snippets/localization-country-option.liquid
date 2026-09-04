@@ -51,8 +51,16 @@
     {%- endcomment -%}
     <li class="opacity-0">
       <p>
+        {%- comment -%}
+          `aria-current` only. The current country deliberately stays a working
+          link: marking it `pointer-events-none` (as the old form_anchors mode
+          did, where the href was just "#") turns the entry for the market you
+          are already in into a dead tap — you press "United Kingdom" while on
+          the UK site and nothing happens at all, which reads as a broken
+          selector. Main let it navigate; so do we.
+        {%- endcomment -%}
         <a
-          class="reversed-link{% if is_current %} active pointer-events-none{% endif %}"
+          class="reversed-link"
           href="{{ market_url }}"
           {%- if is_current %} aria-current="true"{% endif %}
           data-value="{{ country.iso_code }}"
