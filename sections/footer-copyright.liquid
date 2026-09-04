@@ -87,7 +87,26 @@
         {%- endif -%}
         {%- if enable_country_selector -%}
           <div class="grid gap-2">
-            {%- form 'localization', id: 'footer_localization_country_form', class: 'localization__form flex items-center relative', is: 'localization-form' -%}
+            {%- liquid
+              assign uk_override = ''
+              assign eu_override = ''
+              assign us_override = ''
+              if product.metafields.custom.uk_override_url != blank or product.metafields.custom.eu_override_url != blank or product.metafields.custom.us_override_url != blank
+                assign uk_override = product.metafields.custom.uk_override_url
+                assign eu_override = product.metafields.custom.eu_override_url
+                assign us_override = product.metafields.custom.us_override_url
+              endif
+            -%}
+            {%- comment -%}
+              Deliberately no `is: 'localization-form'`. That component submitted
+              the form on change, and Shopify then returned the visitor to the
+              Liquid-rendered `return_to` — the path of the market being *left*.
+              Switching country from /en-us/products/<x>-etl therefore asked for a
+              US-only URL as a UK shopper and landed on the homepage. Each option
+              now carries the resolved market URL in `data-url` (same resolver as
+              every other country selector) and the script below navigates to it.
+            {%- endcomment -%}
+            {%- form 'localization', id: 'footer_localization_country_form', class: 'localization__form flex items-center relative' -%}
               <label class="sr-only" for="FooterLocalizationCountryList">
                 {{- 'localization.country_label' | t -}}
               </label>
@@ -109,14 +128,40 @@
                   {%- render 'localization-countries-ordered',
                     render_as: 'select_options',
                     current_country_iso: localization.country.iso_code,
-                    eu_override: '',
-                    us_override: '',
-                    uk_override: ''
+                    eu_override: eu_override,
+                    us_override: us_override,
+                    uk_override: uk_override
                   -%}
                 </select>
               {%- endunless -%}
               {%- render 'icon', icon: 'chevron-down', size: 'xs', class: 'absolute pointer-events-none' -%}
             {%- endform -%}
+
+            {%- comment -%}
+              The options are injected later by the Section Rendering API
+              (`api-button` above), so bind on the document rather than the
+              select, and guard against the section being re-rendered more than
+              once. Falls back to submitting the form if an option somehow has no
+              resolved URL, so the control is never a dead end.
+            {%- endcomment -%}
+            <script>
+              (() => {
+                if (window.__waveFooterCountryNav) return;
+                window.__waveFooterCountryNav = true;
+                document.addEventListener('change', (event) => {
+                  const select = event.target;
+                  if (!select || select.id !== 'FooterLocalizationCountryList') return;
+                  const option = select.options[select.selectedIndex];
+                  const url = option && option.dataset ? option.dataset.url : '';
+                  if (url) {
+                    window.location.href = url;
+                    return;
+                  }
+                  const form = select.closest('form');
+                  if (form) form.submit();
+                });
+              })();
+            </script>
           </div>
         {%- endif -%}
       </div>

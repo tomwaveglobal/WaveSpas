@@ -1,77 +1,67 @@
+{%- doc -%}
+  Renders one country as a market-switcher entry, in whichever shape the host
+  control needs.
+
+  Every country selector in the theme routes through here — the announcement
+  bar, the mobile header selector, the menu drawer, the header icons dropdown
+  and the footer — so they all resolve the same target via
+  `localization-market-url` and honour the same per-product regional overrides.
+  Previously each mode built its own destination, and the two form-based ones
+  (footer, header icons) posted the *current* market's path as `return_to`,
+  which bounced the visitor to the homepage.
+
+  @param {object} country - Entry from `localization.available_countries`
+  @param {string} [render_as] - `market_links` (default) | `form_anchors` | `select_options`
+  @param {string} [current_iso] - Selected country ISO, for active/selected state
+  @param {string} [eu_override] - Product URL path override for the EU market
+  @param {string} [us_override] - Product URL path override for the US market
+  @param {string} [uk_override] - Product URL path override for the UK market
+{%- enddoc -%}
+
+{%- capture market_url -%}
+  {%- render 'localization-market-url',
+    country: country,
+    eu_override: eu_override,
+    us_override: us_override,
+    uk_override: uk_override
+  -%}
+{%- endcapture -%}
 {%- liquid
-  assign link_override = ''
-  if country.market.metafields.country.code == 'EU'
-    assign link_override = eu_override
-  elsif country.market.metafields.country.code == 'US'
-    assign link_override = us_override
-  elsif country.market.metafields.country.code == 'UK'
-    assign link_override = uk_override
+  assign market_url = market_url | strip
+  assign entry_mode = render_as | default: 'market_links'
+  assign is_current = false
+  if current_iso != blank and country.iso_code == current_iso
+    assign is_current = true
   endif
-
-  comment
-    Every market uses Shopify's lowercase locale slug (/en-us, /en-de), which is
-    the canonical form and the one the hreflang tags advertise. Uppercase URLs
-    still resolve, so older links keep working.
-  endcomment
-  assign country_slug = country.iso_code | downcase
-
-  comment
-    Keep the visitor on the page they are viewing when they switch market.
-    Without this every market link points at that market's homepage, so
-    switching country from a product, collection, page or blog lost the page.
-
-    Order of preference:
-      1. the market's override metafield, for products listed separately per
-         region (e.g. garda-hot-tub -> garda-hot-tub-etl)
-      2. the current path, which resolves for any product or page published to
-         the target market
-      3. the market root, if we are already at the root
-
-    Products carrying a region-specific listing rely on (1), or on a URL
-    redirect from the shared handle to the regional one. Without one of those a
-    product that is missing from the target market's catalog will bounce.
-  endcomment
-  assign target_path = ''
-  if link_override != blank
-    assign target_path = '/' | append: link_override
-  else
-    assign current_path = request.path
-    assign market_root = routes.root_url
-
-    comment
-      Strip the market root case-insensitively. routes.root_url is the canonical
-      lowercase form (/en-de), but visitors still arrive on the uppercase
-      variant (/en-DE) from links, bookmarks and search results created before
-      this selector was lowercased. A case-sensitive strip leaves the old root
-      in place and stacks the new one on top: /en-us/en-DE/products/...
-    endcomment
-    if market_root != blank and market_root != '/'
-      assign root_size = market_root | size
-      assign root_lower = market_root | downcase
-      assign path_head = current_path | slice: 0, root_size | downcase
-      if path_head == root_lower
-        assign current_path = current_path | slice: root_size, 2000
-      endif
-    endif
-
-    unless current_path == '/' or current_path == blank
-      assign target_path = current_path
-    endunless
-  endif
+  assign entry_label = country.name | append: ' (' | append: country.currency.iso_code | append: ' ' | append: country.currency.symbol | append: ')'
 -%}
-<li class="opacity-0">
-  <p>
-    <a
-      class="reversed-link"
-      {% unless country.market.metafields.default.market == true %}
-        href="{{ shop.url }}/{{ localization.language.iso_code }}-{{ country_slug }}{{ target_path }}"
-      {% else %}
-        href="{{ shop.url }}{{ target_path }}"
-      {% endunless %}
-      title="{{ country.name | escape }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})"
-      data-no-instant
-    >
-      {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-    </a>
-  </p>
-</li>
+
+{%- case entry_mode -%}
+  {%- when 'select_options' -%}
+    <option value="{{ country.iso_code }}" data-url="{{ market_url }}"{% if is_current %} selected{% endif %}>
+      {{- entry_label -}}
+    </option>
+
+  {%- else -%}
+    {%- comment -%}
+      `market_links` and `form_anchors` render the same thing now: a plain link
+      to the resolved market URL. `data-value` is kept so any host still wiring
+      up Shopify's localization form can read the ISO code, but the href is a
+      real destination rather than "#", so the link works without JavaScript.
+    {%- endcomment -%}
+    <li class="opacity-0">
+      <p>
+        <a
+          class="reversed-link{% if is_current %} active pointer-events-none{% endif %}"
+          href="{{ market_url }}"
+          {%- if is_current %} aria-current="true"{% endif %}
+          data-value="{{ country.iso_code }}"
+          data-url="{{ market_url }}"
+          title="{{ entry_label | escape }}"
+          data-no-instant
+        >
+          {{- entry_label -}}
+        </a>
+      </p>
+    </li>
+{%- endcase -%}

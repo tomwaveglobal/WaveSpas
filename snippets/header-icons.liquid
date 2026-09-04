@@ -155,15 +155,37 @@
                     <div id="header_localization_country_form_{{ context }}" class="dropdown__container relative"></div>
                   {%- else -%}
                     {%- assign form_id = 'header_localization_country_form_' | append: context -%}
-                    {%- form 'localization', id: form_id, class: 'dropdown__container relative', is: 'localization-listbox' -%}
+                    {%- liquid
+                      assign uk_override = ''
+                      assign eu_override = ''
+                      assign us_override = ''
+                      if product.metafields.custom.uk_override_url != blank or product.metafields.custom.eu_override_url != blank or product.metafields.custom.us_override_url != blank
+                        assign uk_override = product.metafields.custom.uk_override_url
+                        assign eu_override = product.metafields.custom.eu_override_url
+                        assign us_override = product.metafields.custom.us_override_url
+                      endif
+                    -%}
+                    {%- comment -%}
+                      Deliberately no `is: 'localization-listbox'`. That component
+                      hijacked the clicks and posted `return_to =
+                      window.location.pathname` — the path of the market being
+                      *left* — so switching country from /en-us/products/<x>-etl
+                      asked Shopify to return a UK shopper to a US-only URL and
+                      dropped them on the homepage. The entries now carry real
+                      market URLs (same resolver as the announcement bar and the
+                      mobile header selector), so they navigate natively and work
+                      with JavaScript disabled. The hidden inputs below are left
+                      in place so the markup stays a valid localization form.
+                    {%- endcomment -%}
+                    {%- form 'localization', id: form_id, class: 'dropdown__container relative' -%}
                       {%- render 'corner', dir: 'top', prefix: 'dropdown' -%}
                       <ul class="dropdown__nav flex flex-col gap-1d5 xl:gap-2" role="list">
                         {%- render 'localization-countries-ordered',
                           render_as: 'form_anchors',
                           current_country_iso: localization.country.iso_code,
-                          eu_override: '',
-                          us_override: '',
-                          uk_override: ''
+                          eu_override: eu_override,
+                          us_override: us_override,
+                          uk_override: uk_override
                         -%}
                       </ul>
                       <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" />
