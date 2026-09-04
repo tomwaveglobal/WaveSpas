@@ -1,8 +1,12 @@
 {%- doc -%}
   Outputs countries using optional theme order (`settings.country_selector_order`).
 
+  Every entry is rendered by `localization-country-option`, whatever the mode,
+  so all five country selectors in the theme resolve identical targets and
+  honour the same per-product regional overrides.
+
   @param {string} render_as - `market_links` | `form_anchors` | `select_options`
-  @param {string} [current_country_iso] - For active/selected state (form modes)
+  @param {string} [current_country_iso] - For active/selected state
   @param {string} [eu_override] - Product URL path override for EU market
   @param {string} [us_override]
   @param {string} [uk_override]
@@ -14,36 +18,14 @@
 -%}
 {%- if country_order_raw == blank -%}
   {%- for country in localization.available_countries -%}
-    {%- case render_as -%}
-      {%- when 'market_links' -%}
-        {%- render 'localization-country-option',
-          country: country,
-          eu_override: eu_override,
-          us_override: us_override,
-          uk_override: uk_override
-        -%}
-      {%- when 'form_anchors' -%}
-        <li class="opacity-0">
-          <p>
-            <a
-              class="reversed-link{% if country.iso_code == current_iso %} active pointer-events-none{% endif %}"
-              href="#"
-              {% if country.iso_code == current_iso %}
-                aria-current="true"
-              {% endif %}
-              data-value="{{ country.iso_code }}"
-              title="{{ country.name | escape }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})"
-              data-no-instant
-            >
-              {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-            </a>
-          </p>
-        </li>
-      {%- when 'select_options' -%}
-        <option value="{{ country.iso_code }}"{% if country.iso_code == current_iso %} selected{% endif %}>
-          {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-        </option>
-    {%- endcase -%}
+    {%- render 'localization-country-option',
+      country: country,
+      render_as: render_as,
+      current_iso: current_iso,
+      eu_override: eu_override,
+      us_override: us_override,
+      uk_override: uk_override
+    -%}
   {%- endfor -%}
 {%- else -%}
   {%- assign ordered_rendered = '|' -%}
@@ -66,36 +48,14 @@
         {%- if order_matches -%}
           {%- assign ordered_marker = '|' | append: country.iso_code | append: '|' -%}
           {%- unless ordered_rendered contains ordered_marker -%}
-            {%- case render_as -%}
-              {%- when 'market_links' -%}
-                {%- render 'localization-country-option',
-                  country: country,
-                  eu_override: eu_override,
-                  us_override: us_override,
-                  uk_override: uk_override
-                -%}
-              {%- when 'form_anchors' -%}
-                <li class="opacity-0">
-                  <p>
-                    <a
-                      class="reversed-link{% if country.iso_code == current_iso %} active pointer-events-none{% endif %}"
-                      href="#"
-                      {% if country.iso_code == current_iso %}
-                        aria-current="true"
-                      {% endif %}
-                      data-value="{{ country.iso_code }}"
-                      title="{{ country.name | escape }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})"
-                      data-no-instant
-                    >
-                      {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-                    </a>
-                  </p>
-                </li>
-              {%- when 'select_options' -%}
-                <option value="{{ country.iso_code }}"{% if country.iso_code == current_iso %} selected{% endif %}>
-                  {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-                </option>
-            {%- endcase -%}
+            {%- render 'localization-country-option',
+              country: country,
+              render_as: render_as,
+              current_iso: current_iso,
+              eu_override: eu_override,
+              us_override: us_override,
+              uk_override: uk_override
+            -%}
             {%- assign ordered_rendered = ordered_rendered | append: country.iso_code | append: '|' -%}
           {%- endunless -%}
         {%- endif -%}
@@ -105,36 +65,14 @@
   {%- for country in localization.available_countries -%}
     {%- assign ordered_marker = '|' | append: country.iso_code | append: '|' -%}
     {%- unless ordered_rendered contains ordered_marker -%}
-      {%- case render_as -%}
-        {%- when 'market_links' -%}
-          {%- render 'localization-country-option',
-            country: country,
-            eu_override: eu_override,
-            us_override: us_override,
-            uk_override: uk_override
-          -%}
-        {%- when 'form_anchors' -%}
-          <li class="opacity-0">
-            <p>
-              <a
-                class="reversed-link{% if country.iso_code == current_iso %} active pointer-events-none{% endif %}"
-                href="#"
-                {% if country.iso_code == current_iso %}
-                  aria-current="true"
-                {% endif %}
-                data-value="{{ country.iso_code }}"
-                title="{{ country.name | escape }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})"
-                data-no-instant
-              >
-                {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-              </a>
-            </p>
-          </li>
-        {%- when 'select_options' -%}
-          <option value="{{ country.iso_code }}"{% if country.iso_code == current_iso %} selected{% endif %}>
-            {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-          </option>
-      {%- endcase -%}
+      {%- render 'localization-country-option',
+        country: country,
+        render_as: render_as,
+        current_iso: current_iso,
+        eu_override: eu_override,
+        us_override: us_override,
+        uk_override: uk_override
+      -%}
       {%- assign ordered_rendered = ordered_rendered | append: country.iso_code | append: '|' -%}
     {%- endunless -%}
   {%- endfor -%}

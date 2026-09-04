@@ -965,6 +965,7 @@
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
   data-product-title="{{ product.title | escape }}"
   data-product-handle="{{ product.handle }}"
+  data-product-url="{{ product.url }}"
   data-section-id="{{ section_id }}"
   {{ block.shopify_attributes }}
 >
@@ -1582,6 +1583,18 @@
   var sectionId      = root.dataset.sectionId;
   var productId      = '{{ product.id }}';
   var galleryElId    = 'ProductGallery-' + sectionId + '-' + productId;
+  // Section Rendering fetches must go to the *market-local* product URL.
+  // '/products/<handle>' only resolves on the primary market: on /en-us the
+  // -etl handles carry a Shopify URL redirect, so Shopify 301s the fetch to
+  // /collections/hot-tub-full-range, the parsed document has no
+  // ProductGallery element, and every server-driven update below silently
+  // no-ops — colour changes, images/prices don't. product.url is what the
+  // rest of the theme uses and is already prefixed ('/en-us/products/...'),
+  // so it is correct on every market without any string surgery here.
+  var productUrl     = (root.dataset.productUrl || ('/products/' + productHandle)).split('?')[0];
+  function sectionUrl(params) {
+    return productUrl + '?' + params;
+  }
   var chipPrefix     = {{ block.settings.pre_order_chip_prefix | default: 'Pre-order · ships' | json }};
   // Same trim patterns the Liquid uses, applied identically in JS so the
   // chip text doesn't suddenly diverge when the JS re-renders it on
@@ -2411,7 +2424,7 @@
     if (fullV.id === lastSectionFetch) return;
     lastSectionFetch = fullV.id;
 
-    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&variant=' + fullV.id;
+    var url = sectionUrl('section_id=' + encodeURIComponent(sectionId) + '&variant=' + fullV.id);
     if (sectionAbort) sectionAbort.abort();
     sectionAbort = new AbortController();
     fetch(url, { credentials: 'same-origin', signal: sectionAbort.signal })
@@ -2736,7 +2749,7 @@
 
   function refreshPreOrderFromServer() {
     if (!sectionId || !productHandle) return;
-    var url = '/products/' + productHandle + '?section_id=' + encodeURIComponent(sectionId) + '&_=' + Date.now();
+    var url = sectionUrl('section_id=' + encodeURIComponent(sectionId) + '&_=' + Date.now());
     fetch(url, { credentials: 'same-origin' })
       .then(function (r) { return r.ok ? r.text() : null; })
       .then(function (html) {
