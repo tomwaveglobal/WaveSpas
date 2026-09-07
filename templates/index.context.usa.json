@@ -17,6 +17,7 @@
       "settings": {},
       "blocks": {
         "image_JUM7dH": {
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/US_20_-labor-day.jpg",
             "image_tablet": "shopify://shop_images/Tablet_US_20_-labor-day.jpg",
@@ -27,7 +28,7 @@
           }
         },
         "image_EUEdiE": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/US_Ontario_Aug26_V2-1_b74d7051-34fa-4915-a11e-e90c7905044b.jpg",
             "image_tablet": "shopify://shop_images/US_Ontario_Aug26_V2-2_a634d20b-4d82-4322-9c11-af352b1223f7.jpg",
