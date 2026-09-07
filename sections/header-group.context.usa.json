@@ -23,10 +23,10 @@
             "icon": "none",
             "text": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
             "link": "shopify://collections/labour-day-sale",
-            "header-5d978d14d2368493908b51676302c5e5": null,
+            "header-9a5db4970a8d816307980001e4eaf1cc": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
-            "header-6228da8b697e6300fe68c1992cb89d89": null,
+            "header-16612c3e58d519dfe148e0f8a3e82ed5": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -38,10 +38,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-d45dd5336b487b7b324d3cfcb0f9bc46": null,
+            "header-2323c745fdd88c595c9ba1ed94df0195": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-e00b2d0a85d37fe8af90fe2c51a18792": null,
+            "header-1f867ce27202a639564502c97194c54d": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -98,7 +98,7 @@
         },
         "mega_menu_tab_MyVeNJ": {
           "settings": {
-            "button_link": "shopify://collections/labour-day-sale",
+            "button_link": "shopify://collections/sale-eu",
             "tab_target_link_1": "shopify://collections/labour-day-sale",
             "tab_target_2": "",
             "tab_target_link_2": "",
