@@ -22,7 +22,7 @@
             "image": "shopify://shop_images/UK-Foams-10_-off_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/UK-Foams-10_-off_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/UK-Foams-10_-off_Aug26-3.jpg",
-            "heading": "<div style=\"text-align:left; color:#ffffff;\">\n<h2 style=\"font-size:clamp(36px, 8vw, 64px); font-weight:700; line-height:1.1; margin:0 0 16px;\">\n<span style=\"color:#F59E0B;\">Save 10%</span> on Eco Foams\n</h2>\n<p style=\"font-size:clamp(18px, 3vw, 24px); line-height:1.5; letter-spacing:0em; margin:0;\">\n    Offer ends soon! Don't miss out.\n</p>\n</div>",
+            "heading": "<div style=\"text-align:left;\">\n  <p style=\"margin:0; line-height:1.1; font-weight:700; font-size:0.85em; color:#ffffff;\">\n    Not over yet.\n  </p>\n  <p style=\"margin:0; line-height:1.1; font-weight:700; font-size:0.78em; color:#ffffff;\">\n    <span style=\"color:#f59e0b;\">10% Off</span> Eco Foam Spas.\n  </p>\n  <p style=\"margin:5px 0 0 0; font-weight:400; font-size:0.26em; color:#ffffff; letter-spacing:normal; font-stretch:normal;\">\n    Sale now including Frame spas and selected Inflatables. Ends soon.\n  </p>\n</div>",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
             "button_label": "Shop Now",
@@ -36,7 +36,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-3627714e45e1784c96e7e1d431a8d644": null,
+            "header-97c6fee54e0a40b42e94218130e95c1a": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -50,7 +50,7 @@
         "image_9rd3Vt": {
           "disabled": true,
           "settings": {
-            "heading": "The heatwave's gone. Summer <span style=\"color: #F59E0B;\">isn't.</span>"
+            "heading": ""
           }
         },
         "image_JUM7dH": {
