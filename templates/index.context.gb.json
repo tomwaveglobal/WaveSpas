@@ -22,7 +22,7 @@
             "image": "shopify://shop_images/UK_Not-Over-yet_Sept26-1.jpg",
             "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26-2.jpg",
             "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26-3.jpg",
-            "heading": "<div style=\"text-align:left;\">\n  <p style=\"margin:0; line-height:1.1; font-weight:700; font-size:0.85em; color:#ffffff;\">\n    Not over yet.\n  </p>\n  <p style=\"margin:0; line-height:1.1; font-weight:700; font-size:0.78em; color:#ffffff;\">\n    <span style=\"color:#f59e0b;\">10% Off</span> Eco Foam Spas.\n  </p>\n  <p style=\"margin:5px 0 0 0; font-weight:400; font-size:0.26em; color:#ffffff; letter-spacing:normal; font-stretch:normal;\">\n    Sale now including Frame spas and selected Inflatables. Ends soon.\n  </p>\n</div>",
+            "heading": "<div style=\"text-align:left; margin:0; padding:0;\">\n  <p style=\"margin:0; padding:0; text-align:left; line-height:1.1; font-weight:700; font-size:0.85em; color:#ffffff;\">\n    Not over yet\n  </p>\n  <p style=\"margin:0; padding:0; text-align:left; line-height:1.1; font-weight:700; font-size:0.78em; color:#ffffff;\">\n    <span style=\"color:#f59e0b;\">10% Off</span> Eco Foam Spas\n  </p>\n  <p style=\"margin:5px 0 0 0; padding:0; text-align:left; font-weight:400; font-size:0.22em; color:#ffffff; letter-spacing:normal; font-stretch:normal;\">\n    Sale now including Frame spas and selected Inflatables. Ends soon.\n  </p>\n</div>",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
             "button_label": "Shop Now",
