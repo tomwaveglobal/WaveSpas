@@ -221,7 +221,7 @@
                     </{{ block.settings.heading_tag }}>
                   {%- endif -%}
                   {%- if block.settings.secondary_heading != blank -%}
-                    <div class="heading leading-none {{ block.settings.secondary_heading_size }}">
+                    <div class="heading leading-none {{ block.settings.secondary_heading_size }} {{ block.settings.secondary_heading_weight }}">
                       <split-words class="split-words js-invisible block" data-animate="fade-up-large" data-animate-delay="400">{{ block.settings.secondary_heading }}</split-words>
                     </div>
                   {%- endif -%}
@@ -717,6 +717,14 @@
           "id": "secondary_heading_size",
           "options": [
             {
+              "value": "title-xxs",
+              "label": "XX-Small"
+            },
+            {
+              "value": "title-xs",
+              "label": "X-Small"
+            },
+            {
               "value": "title-sm",
               "label": "t:sections.global.settings.heading_size.options__1.label"
             },
@@ -735,6 +743,26 @@
           ],
           "default": "title-md",
           "label": "Secondary heading size"
+        },
+        {
+          "type": "select",
+          "id": "secondary_heading_weight",
+          "options": [
+            {
+              "value": "font-normal",
+              "label": "Normal"
+            },
+            {
+              "value": "font-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "font-bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "font-bold",
+          "label": "Secondary heading weight"
         },
         {
           "type": "text",
@@ -935,6 +963,14 @@
           "id": "secondary_heading_size",
           "options": [
             {
+              "value": "title-xxs",
+              "label": "XX-Small"
+            },
+            {
+              "value": "title-xs",
+              "label": "X-Small"
+            },
+            {
               "value": "title-sm",
               "label": "t:sections.global.settings.heading_size.options__1.label"
             },
@@ -953,6 +989,26 @@
           ],
           "default": "title-md",
           "label": "Secondary heading size"
+        },
+        {
+          "type": "select",
+          "id": "secondary_heading_weight",
+          "options": [
+            {
+              "value": "font-normal",
+              "label": "Normal"
+            },
+            {
+              "value": "font-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "font-bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "font-bold",
+          "label": "Secondary heading weight"
         },
         {
           "type": "text",
