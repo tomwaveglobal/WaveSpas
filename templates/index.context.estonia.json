@@ -21,16 +21,32 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
+            "image_tablet": null,
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-76a4233cca44bbc51b57b21be36d1c17": null,
+            "header-eaded3e89c8fb2fd62e2335ed38c360c": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
+            "secondary_heading": "",
+            "secondary_heading_size": "title-md",
+            "secondary_heading_weight": "font-bold",
+            "button_position": "beside",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/hot-tub-full-range",
             "button_style": "primary",
             "button_external": false,
             "button_icon": false
+          }
+        },
+        "image_JUM7dH": {
+          "disabled": true,
+          "settings": {}
+        },
+        "image_hc4WwT": {
+          "settings": {
+            "heading": "Elevate Your \n<br>\nOutdoor Living",
+            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs",
+            "heading_size": "title-lg tracking-heading"
           }
         }
       },
