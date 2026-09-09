@@ -40,8 +40,9 @@
         },
         "image_hc4WwT": {
           "settings": {
+            "heading": "Elevate Your \n<br>\nOutdoor Living",
             "secondary_heading": "Discover Premium Spas &amp; Hot Tubs",
-            "heading": "Elevate Your \n<br>\nOutdoor Living"
+            "heading_size": "title-lg tracking-heading"
           }
         }
       },
