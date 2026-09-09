@@ -212,7 +212,13 @@
       <div class="slideshow-content">
         <nav is="slideshow-words" class="slideshow-words grid items-center" aria-controls="Slider-{{ section.id }}" aria-labelledby="Slider-{{ section.id }}">
           {%- for block in section.blocks -%}
-            <div class="slideshow-word flex flex-col md:flex-row md:items-end justify-between gap-6" data-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
+            {%- liquid
+              assign word_layout = 'md:flex-row md:items-end justify-between'
+              if block.settings.button_position == 'below'
+                assign word_layout = 'md:items-start'
+              endif
+            -%}
+            <div class="slideshow-word flex flex-col {{ word_layout }} gap-6" data-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
               {%- if block.settings.heading != blank or block.settings.secondary_heading != blank -%}
                 <div class="banner__box banner__box--{{ section.settings.content_width }}{% if block.settings.heading != blank and block.settings.secondary_heading != blank %} flex flex-col gap-2{% endif %}">
                   {%- if block.settings.heading != blank -%}
@@ -765,6 +771,23 @@
           "label": "Secondary heading weight"
         },
         {
+          "type": "select",
+          "id": "button_position",
+          "options": [
+            {
+              "value": "beside",
+              "label": "Beside the text"
+            },
+            {
+              "value": "below",
+              "label": "Under the text"
+            }
+          ],
+          "default": "beside",
+          "label": "Button position",
+          "info": "Desktop only. On mobile the button always sits under the text."
+        },
+        {
           "type": "text",
           "id": "button_label",
           "label": "t:sections.global.settings.button_label.label",
@@ -1009,6 +1032,23 @@
           ],
           "default": "font-bold",
           "label": "Secondary heading weight"
+        },
+        {
+          "type": "select",
+          "id": "button_position",
+          "options": [
+            {
+              "value": "beside",
+              "label": "Beside the text"
+            },
+            {
+              "value": "below",
+              "label": "Under the text"
+            }
+          ],
+          "default": "beside",
+          "label": "Button position",
+          "info": "Desktop only. On mobile the button always sits under the text."
         },
         {
           "type": "text",
