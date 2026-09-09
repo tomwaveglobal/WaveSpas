@@ -19,9 +19,9 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/UK_Not-Over-yet_Sept26-1_1.jpg",
-            "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26-2.jpg",
-            "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26-3.jpg",
+            "image": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-1.jpg",
+            "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-2.jpg",
+            "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-3.jpg",
             "heading": "<span style=\"color:#f59e0b;\">10% Off</span> \n<br>\nEco Foam Spas",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
@@ -40,7 +40,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-cbc7dc2bb110f6d6fedc0e016faaf4a3": null,
+            "header-d6b2f915436c870404cef68cdd354167": null,
             "heading": "",
             "heading_size": "title-sm",
             "heading_tag": "h2",
