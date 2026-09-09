@@ -25,12 +25,12 @@
             "heading": "Not over yet\n  <p></p>\n  <p style=\"margin:0; padding:0; text-align:left; line-height:1.1; font-weight:700; font-size:0.78em; color:#ffffff; white-space:nowrap;\">\n    <span style=\"color:#f59e0b;\">10% Off</span> Eco Foam Spas\n  </p>",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs",
             "secondary_heading": "Sale now including Frame spas and selected Inflatables. Ends soon.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-medium",
-            "button_position": "below"
+            "button_position": "below",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/foam-hot-tubs"
           }
         },
         "image_YL8tbf": {
@@ -40,8 +40,8 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-33bd767b3a300c975030849ad62495cb": null,
-            "heading": "‎",
+            "header-cbc7dc2bb110f6d6fedc0e016faaf4a3": null,
+            "heading": "",
             "heading_size": "title-sm",
             "heading_tag": "h2",
             "secondary_heading": "",
