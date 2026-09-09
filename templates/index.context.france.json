@@ -21,11 +21,16 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
+            "image_tablet": null,
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-9e03126df0adf467c0304f627ab93768": null,
+            "header-1bd073d33a6bdfeaf5e12ebc08378fb2": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
+            "secondary_heading": "",
+            "secondary_heading_size": "title-md",
+            "secondary_heading_weight": "font-bold",
+            "button_position": "beside",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/hot-tub-full-range",
             "button_style": "primary",
@@ -37,7 +42,6 @@
       "block_order": [
         "image_XHYB6H",
         "image_hc4WwT",
-        "image_JUM7dH",
         "image_rmPQY4",
         "image_EUEdiE"
       ]
