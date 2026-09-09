@@ -23,6 +23,17 @@
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
             "heading": "‎"
           }
+        },
+        "image_JUM7dH": {
+          "disabled": true,
+          "settings": {}
+        },
+        "image_hc4WwT": {
+          "settings": {
+            "heading": "Elevate Your \n<br>\nOutdoor Living",
+            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs",
+            "heading_size": "title-lg tracking-heading"
+          }
         }
       },
       "block_order": [
