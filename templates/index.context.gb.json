@@ -23,14 +23,14 @@
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3.jpg",
             "heading": "The water’s waiting.",
-            "heading_size": "title-lg tracking-heading",
+            "heading_size": "title-md",
             "heading_tag": "h1",
-            "button_label": "Find Yours",
-            "button_link": "shopify://collections/foam-hot-tubs",
             "secondary_heading": "Cool nights make the heat hit differently. Step into the season hot tubs were made for.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_position": "below",
+            "button_label": "Find Yours",
+            "button_link": "shopify://collections/foam-hot-tubs",
             "button_style": "primary"
           }
         },
