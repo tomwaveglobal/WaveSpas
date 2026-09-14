@@ -22,11 +22,16 @@
             "image": "shopify://shop_images/US_Seasonal-Transition_01-1.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3.jpg",
-            "heading": "<div style=\"text-align:left; color:#ffffff;\">\n<h2 style=\"font-size:clamp(36px, 8vw, 64px); font-weight:700; line-height:1.1; margin:0 0 16px;\">\n<span style=\"color:#F59E0B;\">Save 10%</span> on Eco Foams\n</h2>\n<p style=\"font-size:clamp(18px, 3vw, 24px); line-height:1.5; letter-spacing:0em; margin:0;\">\n    Offer ends soon! Don't miss out.\n</p>\n</div>",
+            "heading": "The water’s waiting.",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs"
+            "button_label": "Find Yours",
+            "button_link": "shopify://collections/foam-hot-tubs",
+            "secondary_heading": "Cool nights make the heat hit differently. Step into the season hot tubs were made for.",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below",
+            "button_style": "primary"
           }
         },
         "image_YL8tbf": {
@@ -36,7 +41,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-72480dd82b9678d18ba86aa6b4b5cf28": null,
+            "header-38f09a1082d2f7cdcc4b83a959a7c0db": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
