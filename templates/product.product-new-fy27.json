@@ -254,7 +254,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
@@ -270,7 +271,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
@@ -286,7 +288,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
@@ -423,6 +426,12 @@
           "settings": {
             "liquid": "{% render 'wave-spec-strip', product: product, show_test_notes: true %}"
           }
+        },
+        "liquid_wave_finance": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
+          }
         }
       },
       "block_order": [
@@ -445,6 +454,7 @@
         "liquid_wave_spec_strip",
         "contona_button_design",
         "share",
+        "liquid_wave_finance",
         "on_site_message_KFREgF",
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
