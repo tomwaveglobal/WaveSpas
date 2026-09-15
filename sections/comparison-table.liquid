@@ -119,7 +119,52 @@
         {%- capture thead_content -%}
           {%- for block in values_blocks -%}
             <div class="comparison-table__column">
-              {%- if block.settings.product != blank -%}
+              {%- if block.settings.collection != blank -%}
+                {%- liquid
+                  assign column_collection = block.settings.collection
+                  assign column_image = block.settings.image | default: column_collection.featured_image
+                  assign column_min_price = blank
+                  for column_product in column_collection.products
+                    if forloop.first or column_product.price_min < column_min_price
+                      assign column_min_price = column_product.price_min
+                    endif
+                  endfor
+                  if column_min_price != blank
+                    assign column_min_price_money = column_min_price | money
+                  endif
+                -%}
+                <div class="horizontal-product flex items-start flex-col gap-4">
+                  <a class="horizontal-product__media media media--{{ settings.product_image_ratio }}{% unless settings.product_image_fill %} media--contain{% endunless %} relative overflow-hidden shrink-0" href="{{ column_collection.url }}" aria-label="{{ column_collection.title | escape }}">
+                    {%- if column_image != blank -%}
+                      {%- capture sizes -%}(max-width: 767px) min(200px, 42vw), 320px{%- endcapture -%}
+                      {{- column_image | image_url: width: 960 | image_tag: loading: 'lazy', widths: '320, 480, 640, 960', sizes: sizes, is: 'lazy-image' -}}
+                    {%- else -%}
+                      {{- 'collection-1' | placeholder_svg_tag -}}
+                    {%- endif -%}
+                  </a>
+                  <div class="horizontal-product__details grow flex flex-col justify-start align-self-center gap-1d5 w-full">
+                    <a href="{{ column_collection.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">
+                      {{- column_collection.title | escape -}}
+                    </a>
+                    {%- if section.settings.show_price and column_min_price != blank -%}
+                      <div class="price flex flex-wrap items-end gap-2 text-sm">
+                        {{- 'products.price.from_price_html' | t: price: column_min_price_money -}}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+                {%- capture tfoot_content -%}
+                  {{- tfoot_content -}}
+                  <div class="comparison-table__column">
+                    <a href="{{ column_collection.url }}" class="button button--primary w-full" is="hover-link" aria-label="{{ block.settings.button_label | default: 'Shop collection' | append: ': ' | append: column_collection.title | escape }}">
+                      <span class="btn-fill" data-fill></span>
+                      <span class="btn-text">
+                        {{- block.settings.button_label | default: 'Shop collection' | escape -}}
+                      </span>
+                    </a>
+                  </div>
+                {%- endcapture -%}
+              {%- elsif block.settings.product != blank -%}
                 {%- liquid
                   assign card_product = block.settings.product
                   assign first_available_variant = blank
@@ -836,6 +881,24 @@
           "type": "product",
           "id": "product",
           "label": "t:sections.global.settings.product.label"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "When set, the column shows this collection instead of the product and links to it."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection image",
+          "info": "Defaults to the collection image."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Collection button label",
+          "default": "Shop collection"
         },
         {
           "type": "richtext",

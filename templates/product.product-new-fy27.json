@@ -1233,6 +1233,9 @@
           "type": "values",
           "settings": {
             "product": "lite-tahoe-hot-tub",
+            "collection": "lite-hot-tubs",
+            "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
+            "button_label": "Shop Collection",
             "value_1": "<p><strong>Wave Lite</strong><br/>Everything you need to get in the water</p>",
             "value_2": "<p>4 Person | 156×69cm<br/>6 Person | 184×69cm</p>",
             "value_3": "<p>Round<br/>Rigid 8cm WaveEco™ foam wall</p>",
@@ -1265,6 +1268,9 @@
           "type": "values",
           "settings": {
             "product": "lush-garda-hot-tub",
+            "collection": "lush-hot-tubs",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
+            "button_label": "Shop Collection",
             "value_1": "<p><strong>Wave Lush</strong><br/>Seated comfort and smart control</p>",
             "value_2": "<p>4 &amp; 6 Person | 190×190×69cm</p>",
             "value_3": "<p>Square<br/>Rigid 15cm WaveEco™ foam wall, Teslin outer</p>",
@@ -1297,6 +1303,9 @@
           "type": "values",
           "settings": {
             "product": "luxe-garda-hot-tub",
+            "collection": "luxe-hot-tubs",
+            "image": "shopify://shop_images/AdriaticZoom.png",
+            "button_label": "Shop Collection",
             "value_1": "<p><strong>Wave Luxe</strong><br/>The full hydro-massage experience</p>",
             "value_2": "<p>4 &amp; 6 Person | 190×190×69cm</p>",
             "value_3": "<p>Square<br/>Rigid 15cm WaveEco™ foam wall, Teslin outer</p>",
