@@ -20,7 +20,7 @@
           "disabled": false,
           "settings": {
             "icon": "sale",
-            "text": "<em><strong>10% off Eco Foams </strong></em>+ Free Starter Kit",
+            "text": "<em><strong>15% off Frame Spas </strong></em>+ Free Starter Kit",
             "link": "shopify://collections/foam-hot-tubs",
             "text_mobile": "<em><strong>10% off Eco Foams </strong></em>+ Free Starter Kit",
             "highlighted_text": "text"
@@ -43,10 +43,10 @@
         },
         "mega_menu_tab_MyVeNJ": {
           "settings": {
-            "tab_target_3": "",
-            "tab_target_link_3": "",
             "tab_target_2": "Clearance",
-            "tab_target_link_2": "shopify://collections/clearance"
+            "tab_target_link_2": "shopify://collections/clearance",
+            "tab_target_3": "",
+            "tab_target_link_3": ""
           }
         }
       },
