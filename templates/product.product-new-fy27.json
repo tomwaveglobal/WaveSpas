@@ -480,10 +480,6 @@
         "rounded": true
       }
     },
-    "17840224521f0f53e5": {
-      "type": "_blocks",
-      "settings": {}
-    },
     "ss_product_videos_4_BQjpxE": {
       "type": "ss-product-videos-4",
       "blocks": {
@@ -1784,7 +1780,6 @@
   },
   "order": [
     "main-product",
-    "17840224521f0f53e5",
     "ss_product_videos_4_BQjpxE",
     "help-drawer",
     "scroll_spy_aPhVjp",
