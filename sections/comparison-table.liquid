@@ -51,6 +51,10 @@
     opacity: 0.45;
     pointer-events: none;
   }
+  /* Cell text is greyed for every descendant; keep swatch tooltips readable */
+  #shopify-section-{{ section.id }} .comparison-table__column .color-swatch .tooltip {
+    color: rgb(var(--color-background));
+  }
 
   {%- unless section.settings.full_width -%}
     /* Same inset as product-details / specifications at xl */
