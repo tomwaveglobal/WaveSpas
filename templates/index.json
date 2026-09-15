@@ -55,8 +55,9 @@
         "image_JUM7dH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Gym_Carousel_1.png",
-            "image_mobile": "shopify://shop_images/Gym_Carousel_mobile.png",
+            "image": "shopify://shop_images/US_Seasonal-transition_2-1_dd84ed0d-de8c-4c02-b87c-cd1e16a1f418.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-transition_2-2_2a7d1236-f2cd-42fc-a41e-b0174a7bd5a7.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-transition_2-3_c6e2cf78-3ca3-483e-9f1f-f98c7a9f0cd3.jpg",
             "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">Spring Sale </span> now on!",
             "heading_size": "title-sm",
             "heading_tag": "h2",
