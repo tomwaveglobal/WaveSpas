@@ -1,0 +1,40 @@
+{%- doc -%}
+  Renders a product's colour option values as linked swatches, for use inside comparison table cells.
+
+  @param {object} product - Product whose colour option is shown
+
+  @example
+  {% render 'comparison-table-swatches', product: block.settings.product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign color_option = blank
+  assign swatch_trigger_list = 'products.general.color_swatch_trigger' | t | downcase | split: ','
+  for option in product.options_with_values
+    assign downcased_option = option.name | downcase
+    for trigger in swatch_trigger_list
+      assign swatch_trigger = trigger | strip
+      if downcased_option contains swatch_trigger
+        assign color_option = option
+      elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+        assign color_option = option
+      endif
+    endfor
+    if color_option != blank
+      break
+    endif
+  endfor
+-%}
+
+{%- if color_option != blank -%}
+  <ul class="swatches swatches--{{ settings.rounded_swatch }} flex flex-wrap items-start gap-2" style="list-style: none; padding: 0; margin: 0;">
+    {%- for value in color_option.values -%}
+      {%- assign color_url = value.variant.url | default: product.url -%}
+      <li style="margin: 0;">
+        {%- render 'swatch', href: color_url, title: value, value: value, value_label: value, swatch: value.swatch, tooltip: value -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- else -%}
+  -
+{%- endif -%}

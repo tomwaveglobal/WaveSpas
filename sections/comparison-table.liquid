@@ -347,7 +347,9 @@
                     assign metafield_content = block.settings[value_key]
                     assign stripped_value = block.settings[value_key] | strip_html | strip | upcase
 
-                    if stripped_value == 'FALSE'
+                    if stripped_value == 'SWATCHES'
+                      render 'comparison-table-swatches', product: block.settings.product
+                    elsif stripped_value == 'FALSE'
                       render 'icon', icon: 'close-circle-filled'
                     elsif stripped_value == 'TRUE'
                       render 'icon', icon: 'check-circle-filled'
