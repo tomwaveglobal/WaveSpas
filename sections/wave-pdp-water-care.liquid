@@ -1,0 +1,315 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+    {%- liquid
+      assign kit = section.settings.starter_kit
+      assign product_label = product.metafields.theme.label.value | downcase
+      assign kit_free = false
+      if product_label contains 'starter kit'
+        assign kit_free = true
+      endif
+    -%}
+    <div class="wpdp-care">
+      <ol class="wpdp-care__routine" role="list">
+        {%- for block in section.blocks -%}
+          <li class="wpdp-care__step" {{ block.shopify_attributes }}>
+            <span class="wpdp-care__when{% if block.settings.when contains 'TBC' %} wpdp-tbc{% endif %}">{{ block.settings.when }}</span>
+            <span class="wpdp-care__task"><strong>{{ block.settings.task }}</strong>{% if block.settings.detail != blank %}<span class="wpdp-muted">{{ block.settings.detail }}</span>{% endif %}</span>
+          </li>
+        {%- endfor -%}
+      </ol>
+      <div class="wpdp-card wpdp-care__kit">
+        {%- if kit != blank -%}
+          {%- if kit_free -%}<span class="wpdp-care__badge">Free with your spa</span>{%- endif -%}
+          <a class="wpdp-care__kit-link" href="{{ kit.url }}">
+            {%- if kit.featured_image != blank -%}
+              {{- kit.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: kit.title -}}
+            {%- endif -%}
+          </a>
+          <h3><a href="{{ kit.url }}">{{ kit.title }}</a></h3>
+          <p class="wpdp-muted">{{ section.settings.kit_text }}</p>
+          {%- unless kit_free -%}<p class="wpdp-value">{{ kit.price | money }}</p>{%- endunless -%}
+        {%- elsif section.settings.show_test_notes -%}
+          <p class="wpdp-note">Choose a starter kit product in the section settings.</p>
+        {%- endif -%}
+        {%- if section.settings.guide_link != blank -%}
+          <a class="link" href="{{ section.settings.guide_link }}">{{ section.settings.guide_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.show_test_notes -%}
+      <p class="wpdp-note">Filter and water change intervals need confirming against Wave's care guidance.</p>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Water care",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Water care made <em>simple</em>"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-md"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "full_text",
+          "label": "Full text"
+        },
+        {
+          "value": "half_text",
+          "label": "Half text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "stencil",
+          "label": "Stencil"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
+        }
+      ],
+      "default": "scribble"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
+        }
+      ],
+      "default": "basic-underline"
+    },
+    {
+      "type": "product",
+      "id": "starter_kit",
+      "label": "Starter kit product"
+    },
+    {
+      "type": "text",
+      "id": "kit_text",
+      "label": "Kit text",
+      "default": "Everything you need for clear, balanced water from your first fill."
+    },
+    {
+      "type": "text",
+      "id": "guide_label",
+      "label": "Guide link label",
+      "default": "Read our water care guides"
+    },
+    {
+      "type": "url",
+      "id": "guide_link",
+      "label": "Guide link"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber notes for anything still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Water care"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Routine step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "when",
+          "label": "How often",
+          "default": "Weekly"
+        },
+        {
+          "type": "text",
+          "id": "task",
+          "label": "Task",
+          "default": "Rinse the filter"
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Detail"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,346 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+    {%- liquid
+      assign size_option = product.options_by_name['Size']
+      assign tbc = '<span class="wpdp-tbc">TBC</span>'
+      assign shape = 'Square'
+      if product.tags contains 'Round'
+        assign shape = 'Round'
+      elsif product.tags contains 'Octagonal'
+        assign shape = 'Octagonal'
+      elsif product.tags contains 'Oval'
+        assign shape = 'Oval'
+      endif
+      assign max_w = 0
+      if size_option
+        for value in size_option.values
+          if value contains '|'
+            assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+            if w > max_w
+              assign max_w = w
+            endif
+          endif
+        endfor
+      endif
+    -%}
+    {%- if size_option and size_option.values.size > 1 -%}
+      <ul class="wpdp-grid wpdp-sizes" role="list" style="--wpdp-min: 260px;">
+        {%- for value in size_option.values -%}
+          {%- liquid
+            assign size_index = size_option.position | minus: 1
+            assign label = value | split: '|' | first | strip
+            assign seats = label | split: ' ' | first | plus: 0
+            assign w = 0
+            if value contains '|'
+              assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+            endif
+            assign min_price = 0
+            assign first_variant = nil
+            for variant in product.variants
+              if variant.options[size_index] == value
+                if first_variant == nil
+                  assign first_variant = variant
+                endif
+                if min_price == 0 or variant.price < min_price
+                  assign min_price = variant.price
+                endif
+              endif
+            endfor
+            assign litres = first_variant.metafields.specs.water_litres.value
+            case seats
+              when 2
+                assign best_for = section.settings.best_for_2
+              when 4
+                assign best_for = section.settings.best_for_4
+              when 6
+                assign best_for = section.settings.best_for_6
+              else
+                assign best_for = ''
+            endcase
+            assign scale = 100
+            if max_w > 0 and w > 0
+              assign scale = w | times: 100 | divided_by: max_w
+            endif
+            assign draw = scale | times: 0.9
+          -%}
+          <li class="wpdp-card wpdp-size">
+            <div class="wpdp-size__head">
+              <div>
+                <h3>{{ label }}</h3>
+                {%- if best_for != blank -%}<p class="wpdp-muted">{{ best_for }}</p>{%- endif -%}
+              </div>
+              <svg class="wpdp-size__drawing" viewBox="0 0 100 100" aria-hidden="true">
+                {%- assign offset = 100 | minus: draw | divided_by: 2 -%}
+                {%- if shape == 'Round' or shape == 'Octagonal' -%}
+                  <circle cx="50" cy="50" r="{{ draw | divided_by: 2 }}"/>
+                {%- elsif shape == 'Oval' -%}
+                  <ellipse cx="50" cy="50" rx="{{ draw | divided_by: 2 }}" ry="{{ draw | divided_by: 3 }}"/>
+                {%- else -%}
+                  <rect x="{{ offset }}" y="{{ offset }}" width="{{ draw }}" height="{{ draw }}" rx="6"/>
+                {%- endif -%}
+              </svg>
+            </div>
+            <dl class="wpdp-size__facts">
+              <div><dt class="wpdp-label">Seats</dt><dd class="wpdp-value">{{ seats }}</dd></div>
+              <div><dt class="wpdp-label">Footprint</dt><dd class="wpdp-value">{% if w > 0 %}{{ w }} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+              <div><dt class="wpdp-label">Water</dt><dd class="wpdp-value">{% if litres != blank %}{{ litres }} L{% else %}{{ tbc }}{% endif %}</dd></div>
+              <div><dt class="wpdp-label">From</dt><dd class="wpdp-value">{{ min_price | money }}</dd></div>
+            </dl>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.footnote != blank -%}<p class="wpdp-muted">{{ section.settings.footnote }}</p>{%- endif -%}
+    {%- elsif section.settings.show_test_notes -%}
+      <p class="wpdp-note">This spa only comes in one size, so the size guide has nothing to compare and stays hidden for shoppers.</p>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Which size",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Which size is <em>right</em> for you?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-md"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "full_text",
+          "label": "Full text"
+        },
+        {
+          "value": "half_text",
+          "label": "Half text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "stencil",
+          "label": "Stencil"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
+        }
+      ],
+      "default": "scribble"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
+        }
+      ],
+      "default": "basic-underline"
+    },
+    {
+      "type": "text",
+      "id": "best_for_2",
+      "label": "2 person: best for",
+      "default": "Couples and smaller gardens"
+    },
+    {
+      "type": "text",
+      "id": "best_for_4",
+      "label": "4 person: best for",
+      "default": "Couples and small families"
+    },
+    {
+      "type": "text",
+      "id": "best_for_6",
+      "label": "6 person: best for",
+      "default": "Families and entertaining friends"
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Drawings show each size to scale against the largest."
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber notes for anything still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Which size"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

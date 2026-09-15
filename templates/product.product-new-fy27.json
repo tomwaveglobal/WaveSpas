@@ -1862,10 +1862,171 @@
         "full_width": false,
         "rounded": true
       }
+    },
+    "wave_why_wave": {
+      "type": "wave-pdp-why-wave",
+      "settings": {
+        "heading": "",
+        "padding_top": 24,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "why_trustpilot": {
+          "type": "proof",
+          "settings": {
+            "icon": "star",
+            "title": "UK's highest-rated hot tub brand",
+            "text": "Rated by Wave owners on Trustpilot"
+          }
+        },
+        "why_delivery": {
+          "type": "proof",
+          "settings": {
+            "icon": "package",
+            "title": "Free next-day delivery",
+            "text": "Tracked by DPD with a one-hour window",
+            "link": "/pages/shipping-and-returns"
+          }
+        },
+        "why_kit": {
+          "type": "proof",
+          "settings": {
+            "icon": "check-circle",
+            "title": "Free starter kit",
+            "text": "Chemicals and filters to get you going",
+            "only_with_label": "Starter Kit"
+          }
+        },
+        "why_support": {
+          "type": "proof",
+          "settings": {
+            "icon": "comment",
+            "title": "UK support team",
+            "text": "Mon–Fri 8:30am–5:30pm, Sat 8am–4pm"
+          }
+        }
+      },
+      "block_order": [
+        "why_trustpilot",
+        "why_delivery",
+        "why_kit",
+        "why_support"
+      ]
+    },
+    "wave_which_size": {
+      "type": "wave-pdp-which-size",
+      "settings": {
+        "heading": "Which size is <em>right</em> for you?"
+      }
+    },
+    "wave_water_care": {
+      "type": "wave-pdp-water-care",
+      "settings": {
+        "heading": "Water care made <em>simple</em>",
+        "starter_kit": "hot-tub-chemical-starter-kit-screw-on-threaded-filters",
+        "guide_link": "/blogs/knowledge-base"
+      },
+      "blocks": {
+        "care_test": {
+          "type": "step",
+          "settings": {
+            "when": "A few times a week",
+            "task": "Test and balance the water",
+            "detail": "Dip a test strip and top up chemicals if needed"
+          }
+        },
+        "care_rinse": {
+          "type": "step",
+          "settings": {
+            "when": "Weekly",
+            "task": "Rinse the filter",
+            "detail": "A quick spray with the garden hose"
+          }
+        },
+        "care_filter": {
+          "type": "step",
+          "settings": {
+            "when": "Every TBC",
+            "task": "Replace the filter",
+            "detail": ""
+          }
+        },
+        "care_water": {
+          "type": "step",
+          "settings": {
+            "when": "Every TBC",
+            "task": "Drain and refill",
+            "detail": "Fresh water keeps chemical use down"
+          }
+        },
+        "care_lid": {
+          "type": "step",
+          "settings": {
+            "when": "Every soak",
+            "task": "Put the lid back on",
+            "detail": "Keeps heat in and leaves and debris out"
+          }
+        }
+      },
+      "block_order": [
+        "care_test",
+        "care_rinse",
+        "care_filter",
+        "care_water",
+        "care_lid"
+      ]
+    },
+    "wave_delivery": {
+      "type": "wave-pdp-delivery",
+      "settings": {
+        "heading": "What happens <em>after you order</em>",
+        "link": "/pages/shipping-and-returns"
+      },
+      "blocks": {
+        "del_order": {
+          "type": "step",
+          "settings": {
+            "label": "Today",
+            "title": "Order by 6:30pm",
+            "text": "We process it and get it out the door the same day."
+          }
+        },
+        "del_dispatch": {
+          "type": "step",
+          "settings": {
+            "label": "When it ships",
+            "title": "One-hour window",
+            "text": "DPD sends you a one-hour delivery window."
+          }
+        },
+        "del_arrive": {
+          "type": "step",
+          "settings": {
+            "label": "Next day",
+            "title": "Free delivery",
+            "text": "Tracked next-day delivery. Saturday delivery is £9.99."
+          }
+        },
+        "del_soak": {
+          "type": "step",
+          "settings": {
+            "label": "First soak",
+            "title": "Set up and fill",
+            "text": "No tools needed. Then fill, heat and relax."
+          }
+        }
+      },
+      "block_order": [
+        "del_order",
+        "del_dispatch",
+        "del_arrive",
+        "del_soak"
+      ]
     }
   },
   "order": [
     "main-product",
+    "wave_why_wave",
     "ss_product_videos_4_BQjpxE",
     "help-drawer",
     "scroll_spy_aPhVjp",
@@ -1874,14 +2035,17 @@
     "wave_soak_timeline",
     "video_with_text_8VEKJe",
     "wave_jet_map",
+    "wave_which_size",
     "product-details",
     "wave_in_the_box",
     "wave_downloads",
     "wave_running_cost",
+    "wave_water_care",
     "wave_garden_ready",
     "wave_see_it",
     "comparison_table_GXKLn7",
     "wave_warranty",
+    "wave_delivery",
     "faq",
     "custom_liquid_YwqJMM",
     "174653922467a5c413",
