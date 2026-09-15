@@ -1866,7 +1866,6 @@
     "wave_why_wave": {
       "type": "wave-pdp-why-wave",
       "settings": {
-        "heading": "",
         "padding_top": 24,
         "padding_bottom": 24
       },
