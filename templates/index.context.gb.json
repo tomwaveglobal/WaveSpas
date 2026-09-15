@@ -66,14 +66,14 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/US_Seasonal-transition-2.jpg",
-            "heading": "The water's waiting.",
-            "heading_size": "title-lg tracking-heading",
-            "button_position": "below",
             "image_tablet": "shopify://shop_images/US_Seasonal-transition-22.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-transition-222.jpg",
+            "heading": "The water's waiting.",
+            "heading_size": "title-md",
             "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season and after season.",
             "secondary_heading_size": "title-xxs",
-            "secondary_heading_weight": "font-normal"
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below"
           }
         },
         "image_rmPQY4": {
