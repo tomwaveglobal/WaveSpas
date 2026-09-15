@@ -51,12 +51,6 @@
     opacity: 0.45;
     pointer-events: none;
   }
-  /* Swatch links sit inside .rte cells; stop the rte link underline replacing the swatch background */
-  #shopify-section-{{ section.id }} .rte a.color-swatch,
-  #shopify-section-{{ section.id }} .rte a.color-swatch:hover {
-    background: var(--swatch-background) var(--swatch-background-image, none) 50% / cover no-repeat;
-    transition: outline-color var(--animation-fast);
-  }
 
   {%- unless section.settings.full_width -%}
     /* Same inset as product-details / specifications at xl */
@@ -360,7 +354,7 @@
                       if swatch_raw contains ':'
                         assign swatch_handles = swatch_raw | split: ':' | last | strip
                       endif
-                      render 'comparison-table-swatches', product: block.settings.product, handles: swatch_handles, fallback_url: block.settings.collection.url
+                      render 'comparison-table-swatches', product: block.settings.product, handles: swatch_handles
                     elsif stripped_value == 'FALSE'
                       render 'icon', icon: 'close-circle-filled'
                     elsif stripped_value == 'TRUE'
