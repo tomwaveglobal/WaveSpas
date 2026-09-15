@@ -41,7 +41,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-38f09a1082d2f7cdcc4b83a959a7c0db": null,
+            "header-1664352570af500086e4340a7d6b8d73": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -63,9 +63,11 @@
           }
         },
         "image_JUM7dH": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "heading": "Stop the soreness. <br>Start the recovery. <br> <span style=\"color: #F59E0B;\">SummerSale </span> now on!"
+            "heading": "Stop the soreness. <br>Start the recovery.",
+            "button_position": "below",
+            "heading_size": "title-md"
           }
         },
         "image_rmPQY4": {
