@@ -1,39 +1,84 @@
 {%- doc -%}
-  Renders a product's colour option values as linked swatches, for use inside comparison table cells.
+  Renders colour swatches inside a comparison table cell.
 
-  @param {object} product - Product whose colour option is shown
+  With `handles`, swatches come straight from shopify--color-pattern metaobjects, so they
+  show even while the product is unpublished. Without it, the product's colour option is used.
+
+  @param {object} [product] - Product whose colour variants the swatches link to
+  @param {string} [handles] - Comma-separated shopify--color-pattern metaobject handles
+  @param {string} [fallback_url] - Link used when a colour has no matching variant
 
   @example
-  {% render 'comparison-table-swatches', product: block.settings.product %}
+  {% render 'comparison-table-swatches', product: block.settings.product, handles: 'charcoal-black, fy27-navy-foam' %}
 {%- enddoc -%}
 
 {%- liquid
   assign color_option = blank
-  assign swatch_trigger_list = 'products.general.color_swatch_trigger' | t | downcase | split: ','
-  for option in product.options_with_values
-    assign downcased_option = option.name | downcase
-    for trigger in swatch_trigger_list
-      assign swatch_trigger = trigger | strip
-      if downcased_option contains swatch_trigger
-        assign color_option = option
-      elsif swatch_trigger == 'color' and downcased_option contains 'colour'
-        assign color_option = option
+  if product != blank
+    assign swatch_trigger_list = 'products.general.color_swatch_trigger' | t | downcase | split: ','
+    for option in product.options_with_values
+      assign downcased_option = option.name | downcase
+      for trigger in swatch_trigger_list
+        assign swatch_trigger = trigger | strip
+        if downcased_option contains swatch_trigger
+          assign color_option = option
+        elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+          assign color_option = option
+        endif
+      endfor
+      if color_option != blank
+        break
       endif
     endfor
-    if color_option != blank
-      break
-    endif
-  endfor
+  endif
+  assign link_fallback = fallback_url | default: product.url
+  assign handle_list = handles | split: ','
 -%}
 
-{%- if color_option != blank -%}
-  <ul class="swatches swatches--{{ settings.rounded_swatch }} flex flex-wrap items-start gap-2" style="list-style: none; padding: 0; margin: 0;">
+{%- capture swatch_items -%}
+  {%- if handles != blank -%}
+    {%- for raw_handle in handle_list -%}
+      {%- liquid
+        assign swatch_handle = raw_handle | strip
+        assign color_pattern = shop.metaobjects['shopify--color-pattern'][swatch_handle]
+        if color_pattern == blank
+          continue
+        endif
+        assign swatch_label = color_pattern.label.value
+        assign swatch_image = blank
+        if color_pattern.image.value != blank
+          assign swatch_image = color_pattern.image.value | image_url: width: 128
+        endif
+        assign swatch_fallback = color_pattern.color.value | default: '#cccccc'
+        assign swatch_url = link_fallback
+        if color_option != blank
+          for option_value in color_option.values
+            if option_value.name == swatch_label and option_value.variant
+              assign swatch_url = option_value.variant.url
+              break
+            endif
+          endfor
+        endif
+      -%}
+      <li style="margin: 0;">
+        <a href="{{ swatch_url | default: '#' }}" class="color-swatch{% if swatch_image != blank %} with-image{% endif %} block relative" title="{{ swatch_label | escape }}" aria-label="{{ swatch_label | escape }}" style="--swatch-background: {{ swatch_fallback }};{% if swatch_image != blank %}--swatch-background-image: url({{ swatch_image }});{% endif %}">
+          <span class="tooltip opacity-0 pointer-events-none text-xs rounded-full z-10">{{ swatch_label | escape }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  {%- elsif color_option != blank -%}
     {%- for value in color_option.values -%}
-      {%- assign color_url = value.variant.url | default: product.url -%}
+      {%- assign color_url = value.variant.url | default: link_fallback -%}
       <li style="margin: 0;">
         {%- render 'swatch', href: color_url, title: value, value: value, value_label: value, swatch: value.swatch, tooltip: value -%}
       </li>
     {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if swatch_items != blank -%}
+  <ul class="swatches swatches--{{ settings.rounded_swatch }} flex flex-wrap items-start gap-2" style="list-style: none; padding: 0; margin: 0;">
+    {{- swatch_items -}}
   </ul>
 {%- else -%}
   -

@@ -347,8 +347,14 @@
                     assign metafield_content = block.settings[value_key]
                     assign stripped_value = block.settings[value_key] | strip_html | strip | upcase
 
-                    if stripped_value == 'SWATCHES'
-                      render 'comparison-table-swatches', product: block.settings.product
+                    assign swatch_marker = stripped_value | slice: 0, 8
+                    if swatch_marker == 'SWATCHES'
+                      assign swatch_handles = ''
+                      assign swatch_raw = block.settings[value_key] | strip_html | strip
+                      if swatch_raw contains ':'
+                        assign swatch_handles = swatch_raw | split: ':' | last | strip
+                      endif
+                      render 'comparison-table-swatches', product: block.settings.product, handles: swatch_handles, fallback_url: block.settings.collection.url
                     elsif stripped_value == 'FALSE'
                       render 'icon', icon: 'close-circle-filled'
                     elsif stripped_value == 'TRUE'
