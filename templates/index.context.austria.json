@@ -24,16 +24,16 @@
             "heading": "‎"
           }
         },
-        "image_JUM7dH": {
-          "disabled": true,
-          "settings": {}
-        },
         "image_hc4WwT": {
           "settings": {
             "heading": "Elevate Your \n<br>\nOutdoor Living",
-            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs",
-            "heading_size": "title-lg tracking-heading"
+            "heading_size": "title-lg tracking-heading",
+            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs"
           }
+        },
+        "image_JUM7dH": {
+          "disabled": true,
+          "settings": {}
         }
       },
       "block_order": [
@@ -43,6 +43,12 @@
         "image_rmPQY4",
         "image_EUEdiE"
       ]
+    },
+    "featured-product": {
+      "settings": {
+        "product": "como-hot-tub-ce"
+      },
+      "blocks": {}
     }
   }
 }
