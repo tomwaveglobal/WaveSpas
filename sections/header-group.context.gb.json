@@ -21,8 +21,8 @@
           "settings": {
             "icon": "sale",
             "text": "<em><strong>15% off Frame Spas </strong></em>+ Free Starter Kit",
-            "link": "shopify://collections/foam-hot-tubs",
-            "text_mobile": "<em><strong>10% off Eco Foams </strong></em>+ Free Starter Kit",
+            "link": "shopify://products/adriatic-hot-tub",
+            "text_mobile": "<em><strong>15% off Frame Spas  </strong></em>+ Free Starter Kit",
             "highlighted_text": "text"
           }
         },
