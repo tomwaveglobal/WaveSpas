@@ -19,9 +19,9 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Carousel_Home_page_V2.jpg",
-            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2.jpg",
-            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3.jpg",
+            "image": "shopify://shop_images/Carousel_Home_page_V2_415ed81d-8943-4d83-896f-9da2517f7b87.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_15489a33-b7de-434a-b4b2-a05885dfd15f.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_81bc53cc-3661-4fdd-b7a5-12c68f24ad96.jpg",
             "heading": "The water’s waiting...",
             "heading_size": "title-md",
             "heading_tag": "h1",
@@ -31,7 +31,7 @@
             "button_position": "below",
             "button_label": "Find Yours",
             "button_link": "shopify://collections/foam-hot-tubs",
-            "button_style": "primary"
+            "button_style": "secondary"
           }
         },
         "image_YL8tbf": {
@@ -65,10 +65,10 @@
         "image_JUM7dH": {
           "disabled": false,
           "settings": {
+            "image": null,
             "heading": "Stop the soreness. <br>Start the recovery.",
             "heading_size": "title-md",
-            "button_position": "below",
-            "image": null
+            "button_position": "below"
           }
         },
         "image_rmPQY4": {
