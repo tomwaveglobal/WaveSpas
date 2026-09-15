@@ -41,46 +41,29 @@
     <div class="wfin__body">
       <ul class="wfin__plans" role="list">
         <li>
-          <p class="wfin__plan-name">Pay in 3 <span class="wfin__chip">Interest-free</span></p>
-          <p class="wfin__amount"><strong data-fin-split="3">{{ pay3 }}</strong><span>× 3 payments</span></p>
-          <ul class="wfin__facts" role="list">
-            <li>With Klarna or PayPal</li>
-            <li>First payment when your order is confirmed, then after 30 and 60 days</li>
-            <li>Klarna's check won't affect your credit score</li>
-          </ul>
-          <a class="wfin__link link" href="/pages/klarna">How Pay in 3 works</a>
+          <span class="wfin__plan-name">Pay in 3 <span class="wfin__chip">Interest-free</span></span>
+          <span class="wfin__amount"><strong data-fin-split="3">{{ pay3 }}</strong> × 3</span>
+          <a class="wfin__link link" href="/pages/klarna">Details</a>
         </li>
         <li data-fin-dividebuy{% unless dividebuy_ok %} hidden{% endunless %}>
-          <p class="wfin__plan-name">12 months with DivideBuy <span class="wfin__chip">0% interest</span></p>
-          <p class="wfin__amount"><strong data-fin-split="12">{{ pay12 }}</strong><span>× 12 months</span></p>
-          <ul class="wfin__facts" role="list">
-            <li>No APR or hidden charges</li>
-            <li>Check your eligibility without affecting your credit score</li>
-            <li>UK residents aged 18 to 75, on orders from £50 to £6,000</li>
-          </ul>
-          <a class="wfin__link link" href="/pages/dividebuy">How DivideBuy works</a>
+          <span class="wfin__plan-name">12 months <span class="wfin__chip">0% interest</span></span>
+          <span class="wfin__amount"><strong data-fin-split="12">{{ pay12 }}</strong> a month</span>
+          <a class="wfin__link link" href="/pages/dividebuy">Details</a>
         </li>
         <li>
           {%- if payl8r_confirmed -%}
-            <p class="wfin__plan-name">24 months with Payl8r <span class="wfin__chip">Interest-free</span></p>
-            <p class="wfin__amount"><strong data-fin-split="24">{{ pay24 }}</strong><span>× 24 months</span></p>
+            <span class="wfin__plan-name">24 months <span class="wfin__chip">Interest-free</span></span>
+            <span class="wfin__amount"><strong data-fin-split="24">{{ pay24 }}</strong> a month</span>
           {%- else -%}
-            <p class="wfin__plan-name">Up to 24 months with Payl8r <span class="wfin__chip wfin__chip--neutral">Flexible</span></p>
-            <p class="wfin__amount"><span>Plans to suit<br>your budget</span></p>
+            <span class="wfin__plan-name">Up to 24 months</span>
+            <span class="wfin__amount wpdp-muted">Plans to suit you</span>
           {%- endif -%}
-          <ul class="wfin__facts" role="list">
-            <li>Short or longer-term plans, with a quick online decision</li>
-            {%- unless payl8r_confirmed -%}<li>Interest-free when available; interest may apply to some plans</li>{%- endunless -%}
-          </ul>
-          <a class="wfin__link link" href="/pages/payl8r-finance-powered-by-dopple" target="_blank" rel="noopener">Get a personalised quote</a>
+          <a class="wfin__link link" href="/pages/payl8r-finance-powered-by-dopple" target="_blank" rel="noopener">Get a quote</a>
         </li>
       </ul>
-
-      <p class="wfin__how">Choose your plan at checkout. You'll see the full terms before you agree to anything.</p>
-      <p class="wfin__legal">Pre-orders: payment is taken when you order, which starts any finance plan straight away.</p>
-      <p class="wfin__legal">Klarna's Pay in 3 and DivideBuy credit agreements are not regulated by the Financial Conduct Authority. Borrowing more than you can afford or paying late may affect your ability to get credit. 18+, UK residents only, subject to status. Late fees may apply. T&amp;Cs apply.</p>
+      <p class="wfin__legal">Choose your plan at checkout. 18+, UK residents only, subject to status. T&amp;Cs apply.</p>
       {%- if show_test_notes and payl8r_confirmed == false -%}
-        <p class="wpdp-note">Payl8r's page only promises interest-free plans "when available", so no 24-month monthly figure is shown. The old rows showed one with 0% APR markup. Confirm the terms, then set payl8r_confirmed to true.</p>
+        <p class="wpdp-note">Payl8r monthly figure hidden until 24-month interest-free terms are confirmed.</p>
       {%- endif -%}
     </div>
   </details>
