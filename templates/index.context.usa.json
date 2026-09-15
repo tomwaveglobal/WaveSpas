@@ -44,7 +44,7 @@
             "image": "shopify://shop_images/Carousel_Home_page_4478ed00-29bc-49be-835f-023c77359b82.jpg",
             "image_mobile": "shopify://shop_images/Mobile_056ad8b5-fc0a-4146-9419-8e27cf8587c0.jpg",
             "heading": "Sale Extended\n  <p></p>\n <p style=\"margin:0; color:#f59e0b;\">Up to 15% Off</p>",
-            "heading_size": "title-md",
+            "heading_size": "title-lg tracking-heading",
             "secondary_heading": "Save on all inflatable and frame spas, plus our accessories range.",
             "secondary_heading_size": "title-xxs",
             "button_label": "Shop Inflatables",
