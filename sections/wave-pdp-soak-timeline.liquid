@@ -140,7 +140,7 @@
           "label": "Large"
         }
       ],
-      "default": "title-lg tracking-heading"
+      "default": "title-md"
     },
     {
       "type": "select",
@@ -182,13 +182,42 @@
       "type": "select",
       "id": "highlighted_text",
       "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
       "options": [
         {
           "value": "none",
           "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "full_text",
+          "label": "Full text"
+        },
+        {
+          "value": "half_text",
+          "label": "Half text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "stencil",
+          "label": "Stencil"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
         }
       ],
-      "default": "none"
+      "default": "scribble"
     },
     {
       "type": "select",
@@ -198,9 +227,25 @@
         {
           "value": "circle",
           "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
         }
       ],
-      "default": "circle"
+      "default": "basic-underline"
     },
     {
       "type": "range",
@@ -270,6 +315,11 @@
       "type": "color",
       "id": "color_background",
       "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
     },
     {
       "type": "range",

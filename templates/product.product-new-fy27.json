@@ -1704,40 +1704,66 @@
     "wave_soak_timeline": {
       "type": "wave-pdp-soak-timeline",
       "settings": {
-        "subheading": "Getting started"
+        "heading": "From box to <em>first soak</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
       }
     },
     "wave_jet_map": {
       "type": "wave-pdp-jet-map",
       "settings": {
-        "subheading": "Seats & massage"
+        "heading": "Where the <em>massage</em> comes from",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
       }
     },
     "wave_in_the_box": {
       "type": "wave-pdp-in-the-box",
-      "settings": {}
+      "settings": {
+        "heading": "What's in the <em>box</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
+      }
     },
     "wave_downloads": {
       "type": "wave-pdp-downloads",
       "settings": {
-        "guide_link": "/pages/hot-tub-spa-how-to-guide"
+        "guide_link": "/pages/hot-tub-spa-how-to-guide",
+        "heading": "Guides &amp; <em>downloads</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
       }
     },
     "wave_running_cost": {
       "type": "wave-pdp-running-cost",
       "settings": {
-        "subheading": "Running costs"
+        "heading": "What it <em>costs</em> to run",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
       }
     },
     "wave_garden_ready": {
       "type": "wave-pdp-garden-ready",
       "settings": {
-        "subheading": "Before you buy"
+        "heading": "Is your garden <em>ready</em>?",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
       }
     },
     "wave_see_it": {
       "type": "wave-pdp-see-it",
-      "settings": {}
+      "settings": {
+        "heading": "See it in your <em>garden</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
+      }
     },
     "wave_warranty": {
       "type": "wave-pdp-warranty",
@@ -1781,11 +1807,21 @@
         "item_cover",
         "item_controller"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Warranty &amp; <em>support</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
+      }
     },
     "wave_owners": {
       "type": "wave-pdp-owners",
-      "settings": {}
+      "settings": {
+        "heading": "Wave owners' <em>gardens</em>",
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline"
+      }
     }
   },
   "order": [

@@ -129,17 +129,17 @@
       </figure>
 
       <ul class="wpdp-legend" role="list">
-        <li><button type="button" data-layer="bubbles" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#3a8fb7"></span><span class="wpdp-legend__title">{{ section.settings.bubbles_title }}</span><span class="wpdp-legend__text">{% if product.tags contains 'Lite' %}{{ section.settings.bubbles_text_lite }}{% else %}{{ section.settings.bubbles_text }}{% endif %}</span></button></li>
+        <li><button type="button" data-layer="bubbles" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-aqua-ink))"></span><span class="wpdp-legend__title">{{ section.settings.bubbles_title }}</span><span class="wpdp-legend__text">{% if product.tags contains 'Lite' %}{{ section.settings.bubbles_text_lite }}{% else %}{{ section.settings.bubbles_text }}{% endif %}</span></button></li>
         {%- if has_seats -%}
-          <li><button type="button" data-layer="seats" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--color-foreground) / .35)"></span><span class="wpdp-legend__title">{{ section.settings.seats_title }}</span><span class="wpdp-legend__text">{{ section.settings.seats_text }}</span></button></li>
+          <li><button type="button" data-layer="seats" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-aqua))"></span><span class="wpdp-legend__title">{{ section.settings.seats_title }}</span><span class="wpdp-legend__text">{{ section.settings.seats_text }}</span></button></li>
         {%- else -%}
           <li><button type="button" aria-pressed="false" disabled><span class="wpdp-legend__swatch" style="background:transparent;border:1px dashed currentColor"></span><span class="wpdp-legend__title">{{ section.settings.open_floor_title }}</span><span class="wpdp-legend__text">{{ section.settings.open_floor_text }}</span></button></li>
         {%- endif -%}
         {%- if has_vertaair -%}
-          <li><button type="button" data-layer="vertaair" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#2bb0a8"></span><span class="wpdp-legend__title">Wave VertaAir™</span><span class="wpdp-legend__text">{{ section.settings.vertaair_text }}</span></button></li>
+          <li><button type="button" data-layer="vertaair" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--color-foreground))"></span><span class="wpdp-legend__title">Wave VertaAir™</span><span class="wpdp-legend__text">{{ section.settings.vertaair_text }}</span></button></li>
         {%- endif -%}
         {%- if has_jets -%}
-          <li><button type="button" data-layer="jets" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#d9822b"></span><span class="wpdp-legend__title">Wave VertaJet™</span><span class="wpdp-legend__text">{{ section.settings.jets_text }}</span></button></li>
+          <li><button type="button" data-layer="jets" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-accent))"></span><span class="wpdp-legend__title">Wave VertaJet™</span><span class="wpdp-legend__text">{{ section.settings.jets_text }}</span></button></li>
         {%- endif -%}
         {%- if section.settings.show_test_notes -%}
           <li><p class="wpdp-note">Layout is illustrative. Seat and jet positions need checking against the supplier drawings in the spec pack.</p></li>
@@ -203,7 +203,7 @@
           "label": "Large"
         }
       ],
-      "default": "title-lg tracking-heading"
+      "default": "title-md"
     },
     {
       "type": "select",
@@ -245,13 +245,42 @@
       "type": "select",
       "id": "highlighted_text",
       "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
       "options": [
         {
           "value": "none",
           "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "full_text",
+          "label": "Full text"
+        },
+        {
+          "value": "half_text",
+          "label": "Half text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "stencil",
+          "label": "Stencil"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
         }
       ],
-      "default": "none"
+      "default": "scribble"
     },
     {
       "type": "select",
@@ -261,9 +290,25 @@
         {
           "value": "circle",
           "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
         }
       ],
-      "default": "circle"
+      "default": "basic-underline"
     },
     {
       "type": "text",
@@ -343,6 +388,11 @@
       "type": "color",
       "id": "color_background",
       "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
     },
     {
       "type": "range",
