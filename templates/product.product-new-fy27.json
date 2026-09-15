@@ -207,6 +207,12 @@
             "show_back_in_stock_phone": false
           }
         },
+        "liquid_wave_spec_strip": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-spec-strip', product: product, show_test_notes: true %}"
+          }
+        },
         "contona_button_design": {
           "type": "contona_button_design",
           "settings": {
@@ -240,8 +246,15 @@
             "help_page_external": false
           }
         },
+        "liquid_wave_finance": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
+          }
+        },
         "on_site_message_KFREgF": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
             "message_icon_width": 100,
@@ -254,11 +267,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/DivideBuy.png",
             "message_icon_width": 100,
@@ -271,11 +284,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Payl8r.png",
             "message_icon_width": 100,
@@ -288,8 +301,7 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
@@ -419,18 +431,6 @@
             "alignment": "left",
             "background_height": 0,
             "border_radius": 0
-          }
-        },
-        "liquid_wave_spec_strip": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "{% render 'wave-spec-strip', product: product, show_test_notes: true %}"
-          }
-        },
-        "liquid_wave_finance": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
           }
         }
       },
@@ -777,27 +777,6 @@
         "full_width": false
       }
     },
-    "video_BqrMRT": {
-      "type": "video",
-      "name": "t:sections.video.presets.name",
-      "settings": {
-        "transparent_header": false,
-        "video": "{{ product.metafields.custom.product_video.value.product_video.value }}",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "enable_video_autoplay": false,
-        "enable_video_looping": true,
-        "image_height": "adapt",
-        "video_mobile": "{{ product.metafields.custom.product_video_mobile.value.product_video_mobile.value }}",
-        "video_url_mobile": "",
-        "image_height_mobile": "adapt",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "divider": false,
-        "full_width": true,
-        "rounded": false
-      }
-    },
     "collage": {
       "type": "collage",
       "blocks": {
@@ -1002,6 +981,32 @@
         "parallax_direction": "vertical"
       }
     },
+    "wave_soak_timeline": {
+      "type": "wave-pdp-soak-timeline",
+      "settings": {
+        "heading": "From box to <em>first soak</em>",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "start_temp": 10,
+        "target_temp": 38,
+        "setup_text": "No tools needed.",
+        "fill_text": "With a garden hose at normal mains pressure.",
+        "soak_text": "Keep the lid on between soaks to hold the heat.",
+        "winter_text": "<p>Heating takes longer in cold weather. FrostFree™ protection switches on automatically below 5 °C to keep the pipes from freezing.</p>",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
     "video_with_text_8VEKJe": {
       "type": "video-with-text",
       "blocks": {
@@ -1093,11 +1098,41 @@
         "parallax_direction": "vertical"
       }
     },
+    "wave_jet_map": {
+      "type": "wave-pdp-jet-map",
+      "settings": {
+        "heading": "Where the <em>massage</em> comes from",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "bubbles_title": "AquaBubble™ floor ring",
+        "bubbles_text": "Air bubbles rise from the floor all the way round, with two speeds.",
+        "bubbles_text_lite": "Air bubbles rise from the floor all the way round, on a single speed.",
+        "seats_title": "Air Foam seats",
+        "seats_text": "Built-in seats so everyone sits at the right height.",
+        "open_floor_title": "Open floor",
+        "open_floor_text": "No moulded seats, so there's room to stretch out.",
+        "vertaair_text": "Vertical bubble jets rise up the spa wall behind you.",
+        "jets_text": "Four hydro-massage jets with two intensities.",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
     "product-details": {
       "type": "product-details",
       "blocks": {
         "specification_g7Fp6A": {
           "type": "specification",
+          "disabled": true,
           "repeater": "{{ product.metafields.custom.in_the_box.value }}",
           "settings": {
             "icon": "{{ block.repeater.icon.value }}",
@@ -1207,6 +1242,126 @@
         "divider": false,
         "full_width": false,
         "rounded": true
+      }
+    },
+    "wave_in_the_box": {
+      "type": "wave-pdp-in-the-box",
+      "settings": {
+        "heading": "What's in the <em>box</em>",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "show_extras": true,
+        "extras_heading": "You'll also want",
+        "extras_count": 3,
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
+    "wave_downloads": {
+      "type": "wave-pdp-downloads",
+      "settings": {
+        "heading": "Guides &amp; <em>downloads</em>",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "video_caption": "Watch the full setup, start to finish.",
+        "guide_label": "More setup guides",
+        "guide_link": "/pages/hot-tub-spa-how-to-guide",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
+    "wave_running_cost": {
+      "type": "wave-pdp-running-cost",
+      "settings": {
+        "heading": "What it <em>costs</em> to run",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "unit_price": "27.69",
+        "example_kwh_summer": "4",
+        "example_kwh_winter": "8",
+        "footnote": "<p>Your cost will depend on your tariff, how often you use the spa, the weather and whether the lid stays on between soaks.</p>",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
+    "wave_garden_ready": {
+      "type": "wave-pdp-garden-ready",
+      "settings": {
+        "heading": "Is your garden <em>ready</em>?",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "space_text": "Leave enough room to walk around the spa and reach the controls and cover.",
+        "surface_text": "Patio slabs, concrete or decking rated for the weight. Avoid soft lawn.",
+        "power_text": "Use a weatherproof outdoor socket with RCD protection. Never use an extension lead.",
+        "access_text": "Check your side gate or doorway before delivery day.",
+        "planning_text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
+    "wave_see_it": {
+      "type": "wave-pdp-see-it",
+      "settings": {
+        "heading": "See it in your <em>garden</em>",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "body": "<p>Use your phone to place a life-size spa in your garden before you buy.</p>",
+        "step_1": "Open this page on your phone and tap the button.",
+        "step_2": "Point your camera at the spot you have in mind.",
+        "step_3": "Walk around it to check the fit.",
+        "button_label": "View in your space",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
       }
     },
     "comparison_table_GXKLn7": {
@@ -1389,6 +1544,71 @@
         "rounded": false
       }
     },
+    "wave_warranty": {
+      "type": "wave-pdp-warranty",
+      "blocks": {
+        "item_pump": {
+          "type": "item",
+          "settings": {
+            "component": "Pump & heater",
+            "duration": "2 years",
+            "note": ""
+          }
+        },
+        "item_liner": {
+          "type": "item",
+          "settings": {
+            "component": "Liner",
+            "duration": "12 months",
+            "note": ""
+          }
+        },
+        "item_cover": {
+          "type": "item",
+          "settings": {
+            "component": "Cover & lid",
+            "duration": "TBC",
+            "note": ""
+          }
+        },
+        "item_controller": {
+          "type": "item",
+          "settings": {
+            "component": "Controller & WiFi",
+            "duration": "TBC",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_pump",
+        "item_liner",
+        "item_cover",
+        "item_controller"
+      ],
+      "settings": {
+        "heading": "Warranty &amp; <em>support</em>",
+        "subheading": "",
+        "description": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "support_heading": "Help when you need it",
+        "support_text": "<p>Our UK customer service team can help with setup, water care and anything else about your spa.</p>",
+        "trust_text": "The UK's highest-rated hot tub brand on Trustpilot",
+        "register_label": "Register your spa",
+        "register_link": "",
+        "show_test_notes": true,
+        "color_text": "",
+        "color_background": "",
+        "color_highlight": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false
+      }
+    },
     "faq": {
       "type": "faq",
       "blocks": {
@@ -1437,6 +1657,51 @@
             "highlighted_scribble": "circle"
           }
         },
+        "question_wave_power": {
+          "type": "question",
+          "settings": {
+            "title": "Does it plug into a normal socket?",
+            "text": "<p>Plug it into a weatherproof outdoor socket with RCD protection, and never use an extension lead. Power supply: <strong>[TBC: confirm 13 A plug]</strong>. Cable length: <strong>[TBC]</strong>.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_wave_base": {
+          "type": "question",
+          "settings": {
+            "title": "What base do I need, and how heavy is it when full?",
+            "text": "<p>Set it on a flat, level, solid surface such as patio slabs, concrete or decking rated for the weight. Avoid soft lawn. Filled weight: <strong>[TBC]</strong> for each size, before anyone gets in.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_wave_planning": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need planning permission?",
+            "text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_wave_noise": {
+          "type": "question",
+          "settings": {
+            "title": "How noisy is it?",
+            "text": "<p>The bubble blower is the loudest part. Measured noise: <strong>[TBC] dB</strong> on low and <strong>[TBC] dB</strong> on high.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_wave_care": {
+          "type": "question",
+          "settings": {
+            "title": "How much looking after does it need?",
+            "text": "<p>A few minutes a few times a week: test and balance the water, rinse the filter, and keep the lid on between soaks. Replace filters every <strong>[TBC]</strong> and change the water every <strong>[TBC]</strong>.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
         "contact": {
           "type": "contact",
           "disabled": true,
@@ -1447,41 +1712,6 @@
             "avatar_height": 60,
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_power": {
-          "type": "question",
-          "settings": {
-            "title": "Does it plug into a normal socket?",
-            "text": "<p>Plug it into a weatherproof outdoor socket with RCD protection, and never use an extension lead. Power supply: <strong>[TBC: confirm 13 A plug]</strong>. Cable length: <strong>[TBC]</strong>.</p>"
-          }
-        },
-        "question_wave_base": {
-          "type": "question",
-          "settings": {
-            "title": "What base do I need, and how heavy is it when full?",
-            "text": "<p>Set it on a flat, level, solid surface such as patio slabs, concrete or decking rated for the weight. Avoid soft lawn. Filled weight: <strong>[TBC]</strong> for each size, before anyone gets in.</p>"
-          }
-        },
-        "question_wave_planning": {
-          "type": "question",
-          "settings": {
-            "title": "Do I need planning permission?",
-            "text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>"
-          }
-        },
-        "question_wave_noise": {
-          "type": "question",
-          "settings": {
-            "title": "How noisy is it?",
-            "text": "<p>The bubble blower is the loudest part. Measured noise: <strong>[TBC] dB</strong> on low and <strong>[TBC] dB</strong> on high.</p>"
-          }
-        },
-        "question_wave_care": {
-          "type": "question",
-          "settings": {
-            "title": "How much looking after does it need?",
-            "text": "<p>A few minutes a few times a week: test and balance the water, rinse the filter, and keep the lid on between soaks. Replace filters every <strong>[TBC]</strong> and change the water every <strong>[TBC]</strong>.</p>"
           }
         }
       },
@@ -1530,56 +1760,6 @@
         "rounded": false
       }
     },
-    "rich_text_XazzCf": {
-      "type": "rich-text",
-      "blocks": {
-        "image_JpaexC": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Trustpilot_Spas_fdf5fb6e-353f-4372-af45-25da5b1bb1bc.png",
-            "image_width": "custom",
-            "image_max_width": 400,
-            "image_max_width_mobile": 300
-          }
-        }
-      },
-      "block_order": [
-        "image_JpaexC"
-      ],
-      "name": "t:sections.rich-text.name",
-      "settings": {
-        "text_alignment": "left",
-        "text_alignment_mobile": "left",
-        "heading": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_width": "small",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 12,
-        "padding_bottom": 0,
-        "divider": false,
-        "narrow": false,
-        "rounded": false
-      }
-    },
     "custom_liquid_YwqJMM": {
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.name",
@@ -1604,7 +1784,7 @@
         "reviews_io_reviewsio_polaris_pbUztm": {
           "type": "shopify://apps/reviews-io/blocks/reviewsio-polaris/92a082e5-b297-4e88-b428-ac96cbc505f9",
           "settings": {
-            "star": "#FFAE00",
+            "star": "#ffae00",
             "review_type": "product_review",
             "per_page": 5,
             "primary_btn_bg_color": "#000000",
@@ -1682,146 +1862,6 @@
         "full_width": false,
         "rounded": true
       }
-    },
-    "custom_liquid_39pV3N": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.name",
-      "settings": {
-        "liquid": "{%- comment -%} Contona Room Visualiser {%- endcomment -%}\n<script type=\"application/json\" data-contona-product>\n  {\n    \"id\": {{ product.id | json }},\n    \"title\": {{ product.title | json }},\n    \"description\": {{ product.description | strip_html | truncate: 500 | json }},\n    \"type\": {{ product.type | json }},\n    \"vendor\": {{ product.vendor | json }},\n    \"tags\": {{ product.tags | json }},\n    \"collections\": [{%- for c in product.collections -%}\"{{ c.handle }}\"{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}],\n    \"price\": \"{{ product.price | money_without_currency }}\",\n    \"url\": \"{{ product.url }}\",\n    \"images\": [{%- for img in product.images limit:5 -%}{\"url\":{{ img | image_url: width: 1024 | json }},\"label\":{{ img.alt | default: 'image' | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}],\n    \"variants\": [{%- for v in product.variants -%}{\"id\":{{ v.id | json }},\"label\":{{ v.title | json }},\"image\":{{ v.featured_image | default: product.featured_image | image_url: width: 1024 | json }},\"price\":{{ v.price | money | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]\n  }\n</script>",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "narrow": false,
-        "rounded": false
-      }
-    },
-    "wave_soak_timeline": {
-      "type": "wave-pdp-soak-timeline",
-      "settings": {
-        "heading": "From box to <em>first soak</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_jet_map": {
-      "type": "wave-pdp-jet-map",
-      "settings": {
-        "heading": "Where the <em>massage</em> comes from",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_in_the_box": {
-      "type": "wave-pdp-in-the-box",
-      "settings": {
-        "heading": "What's in the <em>box</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_downloads": {
-      "type": "wave-pdp-downloads",
-      "settings": {
-        "guide_link": "/pages/hot-tub-spa-how-to-guide",
-        "heading": "Guides &amp; <em>downloads</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_running_cost": {
-      "type": "wave-pdp-running-cost",
-      "settings": {
-        "heading": "What it <em>costs</em> to run",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_garden_ready": {
-      "type": "wave-pdp-garden-ready",
-      "settings": {
-        "heading": "Is your garden <em>ready</em>?",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_see_it": {
-      "type": "wave-pdp-see-it",
-      "settings": {
-        "heading": "See it in your <em>garden</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_warranty": {
-      "type": "wave-pdp-warranty",
-      "blocks": {
-        "item_pump": {
-          "type": "item",
-          "settings": {
-            "component": "Pump & heater",
-            "duration": "2 years",
-            "note": ""
-          }
-        },
-        "item_liner": {
-          "type": "item",
-          "settings": {
-            "component": "Liner",
-            "duration": "12 months",
-            "note": ""
-          }
-        },
-        "item_cover": {
-          "type": "item",
-          "settings": {
-            "component": "Cover & lid",
-            "duration": "TBC",
-            "note": ""
-          }
-        },
-        "item_controller": {
-          "type": "item",
-          "settings": {
-            "component": "Controller & WiFi",
-            "duration": "TBC",
-            "note": ""
-          }
-        }
-      },
-      "block_order": [
-        "item_pump",
-        "item_liner",
-        "item_cover",
-        "item_controller"
-      ],
-      "settings": {
-        "heading": "Warranty &amp; <em>support</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
-    },
-    "wave_owners": {
-      "type": "wave-pdp-owners",
-      "settings": {
-        "heading": "Wave owners' <em>gardens</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline"
-      }
     }
   },
   "order": [
@@ -1829,7 +1869,6 @@
     "ss_product_videos_4_BQjpxE",
     "help-drawer",
     "scroll_spy_aPhVjp",
-    "video_BqrMRT",
     "collage",
     "image-with-text-1",
     "wave_soak_timeline",
@@ -1844,11 +1883,8 @@
     "comparison_table_GXKLn7",
     "wave_warranty",
     "faq",
-    "wave_owners",
-    "rich_text_XazzCf",
     "custom_liquid_YwqJMM",
     "174653922467a5c413",
-    "product-recommendations",
-    "custom_liquid_39pV3N"
+    "product-recommendations"
   ]
 }
