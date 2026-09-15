@@ -1,0 +1,385 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign size_labels = ''
+  assign size_widths = ''
+  assign size_variant_ids = ''
+  assign seen_sizes = '~'
+  if size_option
+    assign size_index = size_option.position | minus: 1
+    for variant in product.variants
+      assign size_value = variant.options[size_index]
+      assign size_key = '~' | append: size_value | append: '~'
+      if seen_sizes contains size_key
+        continue
+      endif
+      assign seen_sizes = seen_sizes | append: size_value | append: '~'
+      assign size_label = size_value | split: '|' | first | strip
+      assign size_labels = size_labels | append: size_label | append: '^'
+      assign size_variant_ids = size_variant_ids | append: forloop.index0 | append: '^'
+      if size_value contains '|'
+        assign size_dims = size_value | split: '|' | last | strip | remove: 'cm'
+        assign size_w = size_dims | split: 'x' | first | strip
+        assign size_widths = size_widths | append: size_w | append: '^'
+      else
+        assign size_widths = size_widths | append: '' | append: '^'
+      endif
+    endfor
+  endif
+  assign size_label_list = size_labels | split: '^'
+  assign size_width_list = size_widths | split: '^'
+  assign size_id_list = size_variant_ids | split: '^'
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+-%}
+    {%- liquid
+      assign seat_list = ''
+      for label in size_label_list
+        assign seat = label | split: ' ' | first
+        assign seat_list = seat_list | append: seat | append: '^'
+      endfor
+      assign seats = seat_list | split: '^' | last | plus: 0
+      assign features_text = product.metafields.custom.key_features | metafield_text
+      assign has_seats = true
+      if product.tags contains 'Lite' or product.tags contains 'Ice Bath'
+        assign has_seats = false
+      endif
+      assign has_vertaair = false
+      if features_text contains 'VertaAir'
+        assign has_vertaair = true
+      endif
+      assign has_jets = false
+      if product.tags contains 'hydro-jets'
+        assign has_jets = true
+      endif
+      assign square = true
+      if shape == 'Round' or shape == 'Octagonal' or shape == 'Oval'
+        assign square = false
+      endif
+    -%}
+    <div class="wpdp-map" data-jet-map>
+      <figure class="wpdp-map__figure">
+        <svg viewBox="0 0 320 320" role="img" aria-label="Illustrative top-down layout of seats and massage features">
+          {%- case shape -%}
+            {%- when 'Round' -%}<circle class="shape" cx="160" cy="160" r="135"/>
+            {%- when 'Octagonal' -%}<polygon class="shape" points="104,25 216,25 295,104 295,216 216,295 104,295 25,216 25,104"/>
+            {%- when 'Oval' -%}<ellipse class="shape" cx="160" cy="160" rx="140" ry="95"/>
+            {%- else -%}<rect class="shape" x="25" y="25" width="270" height="270" rx="14"/>
+          {%- endcase -%}
+
+          <g class="layer layer-bubbles">
+            {%- if square -%}<rect x="52" y="52" width="216" height="216" rx="10"/>{%- elsif shape == 'Oval' -%}<ellipse cx="160" cy="160" rx="115" ry="72"/>{%- else -%}<circle cx="160" cy="160" r="110"/>{%- endif -%}
+          </g>
+
+          {%- if has_seats -%}
+            <g class="layer layer-seats">
+              {%- if square -%}
+                {%- case seats -%}
+                  {%- when 2 -%}<circle cx="160" cy="80" r="20"/><circle cx="160" cy="240" r="20"/>
+                  {%- when 4 -%}<circle cx="115" cy="80" r="20"/><circle cx="205" cy="80" r="20"/><circle cx="115" cy="240" r="20"/><circle cx="205" cy="240" r="20"/>
+                  {%- else -%}<circle cx="100" cy="80" r="20"/><circle cx="160" cy="80" r="20"/><circle cx="220" cy="80" r="20"/><circle cx="100" cy="240" r="20"/><circle cx="160" cy="240" r="20"/><circle cx="220" cy="240" r="20"/>
+                {%- endcase -%}
+              {%- else -%}
+                {%- case seats -%}
+                  {%- when 2 -%}<circle cx="245" cy="160" r="20"/><circle cx="75" cy="160" r="20"/>
+                  {%- when 4 -%}<circle cx="220" cy="100" r="20"/><circle cx="100" cy="100" r="20"/><circle cx="100" cy="220" r="20"/><circle cx="220" cy="220" r="20"/>
+                  {%- else -%}<circle cx="245" cy="160" r="20"/><circle cx="202" cy="234" r="20"/><circle cx="118" cy="234" r="20"/><circle cx="75" cy="160" r="20"/><circle cx="118" cy="86" r="20"/><circle cx="202" cy="86" r="20"/>
+                {%- endcase -%}
+              {%- endif -%}
+            </g>
+          {%- endif -%}
+
+          {%- if has_vertaair -%}
+            <g class="layer layer-vertaair">
+              {%- if square -%}
+                <rect x="36" y="110" width="9" height="100" rx="4.5"/><rect x="275" y="110" width="9" height="100" rx="4.5"/>
+              {%- else -%}
+                <circle cx="160" cy="160" r="124" stroke-dasharray="60 134.8"/>
+              {%- endif -%}
+            </g>
+          {%- endif -%}
+
+          {%- if has_jets -%}
+            <g class="layer layer-jets">
+              {%- if square -%}
+                <circle cx="48" cy="130" r="9"/><circle cx="48" cy="190" r="9"/><circle cx="272" cy="130" r="9"/><circle cx="272" cy="190" r="9"/>
+              {%- else -%}
+                <circle cx="272" cy="119" r="9"/><circle cx="272" cy="201" r="9"/><circle cx="48" cy="119" r="9"/><circle cx="48" cy="201" r="9"/>
+              {%- endif -%}
+            </g>
+          {%- endif -%}
+        </svg>
+        <figcaption class="wpdp-muted text-sm">{{ size_label_list | last }} shown. Illustrative, not to scale.</figcaption>
+      </figure>
+
+      <ul class="wpdp-legend" role="list">
+        <li><button type="button" data-layer="bubbles" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#3a8fb7"></span><span class="wpdp-legend__title">{{ section.settings.bubbles_title }}</span><span class="wpdp-legend__text">{% if product.tags contains 'Lite' %}{{ section.settings.bubbles_text_lite }}{% else %}{{ section.settings.bubbles_text }}{% endif %}</span></button></li>
+        {%- if has_seats -%}
+          <li><button type="button" data-layer="seats" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--color-foreground) / .35)"></span><span class="wpdp-legend__title">{{ section.settings.seats_title }}</span><span class="wpdp-legend__text">{{ section.settings.seats_text }}</span></button></li>
+        {%- else -%}
+          <li><button type="button" aria-pressed="false" disabled><span class="wpdp-legend__swatch" style="background:transparent;border:1px dashed currentColor"></span><span class="wpdp-legend__title">{{ section.settings.open_floor_title }}</span><span class="wpdp-legend__text">{{ section.settings.open_floor_text }}</span></button></li>
+        {%- endif -%}
+        {%- if has_vertaair -%}
+          <li><button type="button" data-layer="vertaair" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#2bb0a8"></span><span class="wpdp-legend__title">Wave VertaAir™</span><span class="wpdp-legend__text">{{ section.settings.vertaair_text }}</span></button></li>
+        {%- endif -%}
+        {%- if has_jets -%}
+          <li><button type="button" data-layer="jets" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:#d9822b"></span><span class="wpdp-legend__title">Wave VertaJet™</span><span class="wpdp-legend__text">{{ section.settings.jets_text }}</span></button></li>
+        {%- endif -%}
+        {%- if section.settings.show_test_notes -%}
+          <li><p class="wpdp-note">Layout is illustrative. Seat and jet positions need checking against the supplier drawings in the spec pack.</p></li>
+        {%- endif -%}
+      </ul>
+    </div>
+    <script>
+      (() => {
+        const root = document.currentScript.previousElementSibling;
+        if (!root || !root.matches('[data-jet-map]')) return;
+        root.querySelectorAll('[data-layer]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const active = button.getAttribute('aria-pressed') === 'true';
+            root.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+            if (active) { root.removeAttribute('data-focus'); return; }
+            button.setAttribute('aria-pressed', 'true');
+            root.setAttribute('data-focus', button.dataset.layer);
+          });
+        });
+      })();
+    </script>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Seat & jet map",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Where the massage comes from"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "text",
+      "id": "bubbles_title",
+      "label": "Bubbles title",
+      "default": "AquaBubble™ floor ring"
+    },
+    {
+      "type": "text",
+      "id": "bubbles_text",
+      "label": "Bubbles text",
+      "default": "Air bubbles rise from the floor all the way round, with two speeds."
+    },
+    {
+      "type": "text",
+      "id": "bubbles_text_lite",
+      "label": "Bubbles text (Lite)",
+      "default": "Air bubbles rise from the floor all the way round, on a single speed."
+    },
+    {
+      "type": "text",
+      "id": "seats_title",
+      "label": "Seats title",
+      "default": "Air Foam seats"
+    },
+    {
+      "type": "text",
+      "id": "seats_text",
+      "label": "Seats text",
+      "default": "Built-in seats so everyone sits at the right height."
+    },
+    {
+      "type": "text",
+      "id": "open_floor_title",
+      "label": "Open floor title",
+      "default": "Open floor"
+    },
+    {
+      "type": "text",
+      "id": "open_floor_text",
+      "label": "Open floor text",
+      "default": "No moulded seats, so there's room to stretch out."
+    },
+    {
+      "type": "text",
+      "id": "vertaair_text",
+      "label": "VertaAir text",
+      "default": "Vertical bubble jets rise up the spa wall behind you."
+    },
+    {
+      "type": "text",
+      "id": "jets_text",
+      "label": "VertaJet text",
+      "default": "Four hydro-massage jets with two intensities."
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Seat & jet map"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

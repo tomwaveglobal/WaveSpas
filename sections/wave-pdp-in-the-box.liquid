@@ -1,0 +1,241 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+    {%- liquid
+      assign box = product.metafields.custom.in_the_box.value
+      assign upgrades = product.metafields.custom.popular_upgrades.value
+    -%}
+    {%- if box != blank -%}
+      <ul class="wpdp-grid wpdp-box__grid" role="list">
+        {%- for item in box -%}
+          <li class="wpdp-box__item">
+            {%- if item.icon.value != blank -%}
+              {{- item.icon.value | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.label.value -}}
+            {%- endif -%}
+            <span>{{ item.label.value }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- elsif section.settings.show_test_notes -%}
+      <p class="wpdp-note">No "In the box" items are set on this product (custom.in_the_box).</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_extras and upgrades != blank -%}
+      <div class="wpdp-stack">
+        <p class="wpdp-label">{{ section.settings.extras_heading }}</p>
+        <ul class="wpdp-grid" role="list" style="--wpdp-min: 240px;">
+          {%- for upgrade in upgrades limit: section.settings.extras_count -%}
+            <li>
+              <a class="wpdp-extra" href="{{ upgrade.url }}">
+                {%- if upgrade.featured_image != blank -%}
+                  {{- upgrade.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: upgrade.title -}}
+                {%- else -%}
+                  <span></span>
+                {%- endif -%}
+                <span>
+                  <span class="wpdp-extra__title">{{ upgrade.title }}</span>
+                  <span class="wpdp-muted">{{ upgrade.price | money }}</span>
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: What's in the box",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What's in the box"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extras",
+      "label": "Show 'you'll also want' products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "extras_heading",
+      "label": "Extras heading",
+      "default": "You'll also want"
+    },
+    {
+      "type": "range",
+      "id": "extras_count",
+      "label": "Extras to show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: What's in the box"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

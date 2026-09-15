@@ -1,0 +1,312 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign size_labels = ''
+  assign size_widths = ''
+  assign size_variant_ids = ''
+  assign seen_sizes = '~'
+  if size_option
+    assign size_index = size_option.position | minus: 1
+    for variant in product.variants
+      assign size_value = variant.options[size_index]
+      assign size_key = '~' | append: size_value | append: '~'
+      if seen_sizes contains size_key
+        continue
+      endif
+      assign seen_sizes = seen_sizes | append: size_value | append: '~'
+      assign size_label = size_value | split: '|' | first | strip
+      assign size_labels = size_labels | append: size_label | append: '^'
+      assign size_variant_ids = size_variant_ids | append: forloop.index0 | append: '^'
+      if size_value contains '|'
+        assign size_dims = size_value | split: '|' | last | strip | remove: 'cm'
+        assign size_w = size_dims | split: 'x' | first | strip
+        assign size_widths = size_widths | append: size_w | append: '^'
+      else
+        assign size_widths = size_widths | append: '' | append: '^'
+      endif
+    endfor
+  endif
+  assign size_label_list = size_labels | split: '^'
+  assign size_width_list = size_widths | split: '^'
+  assign size_id_list = size_variant_ids | split: '^'
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+-%}
+    {%- liquid
+      assign tbc = '<span class="wpdp-tbc">TBC</span>'
+      assign any_tbc = false
+      assign start_temp = section.settings.start_temp | times: 1.0
+      assign target_temp = section.settings.target_temp | times: 1.0
+      assign temp_rise = target_temp | minus: start_temp
+      assign setup = product.metafields.specs.setup_minutes.value
+      if setup == blank
+        assign collage_title = product.metafields.custom.product_collage_image_2_title.value
+        if collage_title contains 'Minute'
+          assign setup = collage_title | split: ' ' | first
+        endif
+      endif
+    -%}
+    <ol class="wpdp-timeline">
+      <li>
+        <span class="wpdp-label">Set up</span>
+        <span class="wpdp-value">{% if setup != blank %}{{ setup }} min{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</span>
+        <p class="wpdp-muted">{{ section.settings.setup_text }}</p>
+      </li>
+      <li>
+        <span class="wpdp-label">Fill</span>
+        {%- for vid in size_id_list -%}
+          {%- assign vid_i = vid | plus: 0 -%}{%- assign v = product.variants[vid_i] -%}
+          {%- assign fill = v.metafields.specs.fill_time_minutes.value -%}
+          <span class="wpdp-value">{% if size_label_list.size > 1 %}<small class="wpdp-muted">{{ size_label_list[forloop.index0] }}</small> {% endif %}{% if fill != blank %}{{ fill }} min{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</span>
+        {%- endfor -%}
+        <p class="wpdp-muted">{{ section.settings.fill_text }}</p>
+      </li>
+      <li>
+        <span class="wpdp-label">Heat to {{ target_temp | round }} °C</span>
+        {%- for vid in size_id_list -%}
+          {%- assign vid_i = vid | plus: 0 -%}{%- assign v = product.variants[vid_i] -%}
+          {%- assign rate = v.metafields.specs.heat_rate_c_per_hour.value -%}
+          <span class="wpdp-value">{% if size_label_list.size > 1 %}<small class="wpdp-muted">{{ size_label_list[forloop.index0] }}</small> {% endif %}{% if rate != blank and rate > 0 %}about {{ temp_rise | divided_by: rate | round: 1 }} hours{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</span>
+        {%- endfor -%}
+        <p class="wpdp-muted">From {{ start_temp | round }} °C tap water with the lid on.</p>
+      </li>
+      <li>
+        <span class="wpdp-label">Soak</span>
+        <span class="wpdp-value">Up to 40 °C</span>
+        <p class="wpdp-muted">{{ section.settings.soak_text }}</p>
+      </li>
+    </ol>
+    {%- if section.settings.winter_text != blank -%}
+      <div class="wpdp-card"><span class="wpdp-label">In winter</span><div class="rte">{{ section.settings.winter_text }}</div></div>
+    {%- endif -%}
+    {%- if section.settings.show_test_notes and any_tbc -%}
+      <p class="wpdp-note">Heat-up times are worked out from each size's measured heat rate (variant metafield: Heat rate °C per hour). Fill time comes from Fill time (minutes).</p>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Box to first soak",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From box to first soak"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "range",
+      "id": "start_temp",
+      "label": "Starting water temperature",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "°C",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "target_temp",
+      "label": "Target temperature",
+      "min": 30,
+      "max": 40,
+      "step": 1,
+      "unit": "°C",
+      "default": 38
+    },
+    {
+      "type": "text",
+      "id": "setup_text",
+      "label": "Setup text",
+      "default": "No tools needed."
+    },
+    {
+      "type": "text",
+      "id": "fill_text",
+      "label": "Fill text",
+      "default": "With a garden hose at normal mains pressure."
+    },
+    {
+      "type": "text",
+      "id": "soak_text",
+      "label": "Soak text",
+      "default": "Keep the lid on between soaks to hold the heat."
+    },
+    {
+      "type": "richtext",
+      "id": "winter_text",
+      "label": "Winter text",
+      "default": "<p>Heating takes longer in cold weather. FrostFree™ protection switches on automatically below 5 °C to keep the pipes from freezing.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Box to first soak"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

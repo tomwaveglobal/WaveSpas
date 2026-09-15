@@ -1,0 +1,341 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign size_labels = ''
+  assign size_widths = ''
+  assign size_variant_ids = ''
+  assign seen_sizes = '~'
+  if size_option
+    assign size_index = size_option.position | minus: 1
+    for variant in product.variants
+      assign size_value = variant.options[size_index]
+      assign size_key = '~' | append: size_value | append: '~'
+      if seen_sizes contains size_key
+        continue
+      endif
+      assign seen_sizes = seen_sizes | append: size_value | append: '~'
+      assign size_label = size_value | split: '|' | first | strip
+      assign size_labels = size_labels | append: size_label | append: '^'
+      assign size_variant_ids = size_variant_ids | append: forloop.index0 | append: '^'
+      if size_value contains '|'
+        assign size_dims = size_value | split: '|' | last | strip | remove: 'cm'
+        assign size_w = size_dims | split: 'x' | first | strip
+        assign size_widths = size_widths | append: size_w | append: '^'
+      else
+        assign size_widths = size_widths | append: '' | append: '^'
+      endif
+    endfor
+  endif
+  assign size_label_list = size_labels | split: '^'
+  assign size_width_list = size_widths | split: '^'
+  assign size_id_list = size_variant_ids | split: '^'
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+-%}
+    {%- liquid
+      assign example_summer = section.settings.example_kwh_summer | times: 1.0
+      assign example_winter = section.settings.example_kwh_winter | times: 1.0
+      assign currency_unit = 'p'
+      if cart.currency.iso_code != 'GBP'
+        assign currency_unit = 'c'
+      endif
+    -%}
+    <wave-running-cost class="wpdp-cost">
+      <script type="application/json" data-cost-data>
+        {
+          "currency": {{ cart.currency.iso_code | json }},
+          "notes": {{ section.settings.show_test_notes | json }},
+          "sizes": [
+            {%- for vid in size_id_list -%}
+              {%- liquid
+                assign vid_i = vid | plus: 0
+                assign v = product.variants[vid_i]
+                assign summer = v.metafields.specs.kwh_per_day_summer.value
+                assign winter = v.metafields.specs.kwh_per_day_winter.value
+                assign measured = true
+                if summer == blank or winter == blank
+                  assign summer = example_summer
+                  assign winter = example_winter
+                  assign measured = false
+                endif
+              -%}
+              {"label": {{ size_label_list[forloop.index0] | json }}, "summer": {{ summer | json }}, "winter": {{ winter | json }}, "measured": {{ measured | json }}}{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+      </script>
+      <div class="wpdp-cost__controls">
+        {%- if size_label_list.size > 1 -%}
+          <fieldset>
+            <legend class="wpdp-label">Size</legend>
+            <div class="wpdp-toggle">
+              {%- for label in size_label_list -%}
+                <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ label }}</button>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endif -%}
+        <fieldset>
+          <legend class="wpdp-label">Season</legend>
+          <div class="wpdp-toggle">
+            <button type="button" data-season="summer" aria-pressed="false">Summer</button>
+            <button type="button" data-season="winter" aria-pressed="true">Winter</button>
+          </div>
+        </fieldset>
+        <div class="wpdp-stack" style="gap:.45rem;">
+          <label class="wpdp-label" for="WaveCostPrice-{{ section.id }}">Your electricity price</label>
+          <div class="wpdp-cost__price">
+            <input id="WaveCostPrice-{{ section.id }}" type="number" inputmode="decimal" min="1" max="200" step="0.01" value="{{ section.settings.unit_price }}">
+            <span>{{ currency_unit }} per kWh</span>
+          </div>
+        </div>
+      </div>
+      <div class="wpdp-stack">
+        <div class="wpdp-cost__results" aria-live="polite">
+          <div class="wpdp-card"><span class="wpdp-label">Per day</span><span class="wpdp-value" data-out="day">—</span></div>
+          <div class="wpdp-card"><span class="wpdp-label">Per week</span><span class="wpdp-value" data-out="week">—</span></div>
+          <div class="wpdp-card"><span class="wpdp-label">Per month</span><span class="wpdp-value" data-out="month">—</span></div>
+        </div>
+        <p class="wpdp-muted" data-cost-basis></p>
+        {%- if section.settings.footnote != blank -%}<div class="rte wpdp-muted text-sm">{{ section.settings.footnote }}</div>{%- endif -%}
+        <p class="wpdp-note" data-cost-example hidden>Example kWh figures for layout only, not measured. Add measured values to each size's variant metafields (Energy use summer / winter).</p>
+      </div>
+    </wave-running-cost>
+    <script>
+      if (!customElements.get('wave-running-cost')) {
+        customElements.define('wave-running-cost', class extends HTMLElement {
+          connectedCallback() {
+            const data = JSON.parse(this.querySelector('[data-cost-data]').textContent);
+            const price = this.querySelector('input[type="number"]');
+            const money = new Intl.NumberFormat(undefined, { style: 'currency', currency: data.currency || 'GBP' });
+            const state = { size: 0, season: 'winter' };
+            const out = (key, value) => { this.querySelector(`[data-out="${key}"]`).textContent = Number.isFinite(value) ? money.format(value) : '—'; };
+            const render = () => {
+              const size = data.sizes[state.size];
+              if (!size) return;
+              const kwh = Number(size[state.season]);
+              const day = kwh * (parseFloat(price.value) / 100);
+              out('day', day); out('week', day * 7); out('month', day * 30.4);
+              this.querySelector('[data-cost-basis]').textContent = `Based on ${kwh} kWh a day in ${state.season} for the ${size.label} model, at 38–40 °C with the lid on.`;
+              this.querySelector('[data-cost-example]').hidden = size.measured || !data.notes;
+              this.querySelectorAll('[data-size]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.size) === state.size)));
+              this.querySelectorAll('[data-season]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.season === state.season)));
+            };
+            this.querySelectorAll('[data-size]').forEach((b) => b.addEventListener('click', () => { state.size = Number(b.dataset.size); render(); }));
+            this.querySelectorAll('[data-season]').forEach((b) => b.addEventListener('click', () => { state.season = b.dataset.season; render(); }));
+            price.addEventListener('input', render);
+            render();
+          }
+        });
+      }
+    </script>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Running cost",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What it costs to run"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "text",
+      "id": "unit_price",
+      "label": "Default electricity price (pence per kWh)",
+      "default": "27.69"
+    },
+    {
+      "type": "text",
+      "id": "example_kwh_summer",
+      "label": "Example kWh per day, summer",
+      "default": "4",
+      "info": "Used only when a size has no measured figure"
+    },
+    {
+      "type": "text",
+      "id": "example_kwh_winter",
+      "label": "Example kWh per day, winter",
+      "default": "8",
+      "info": "Used only when a size has no measured figure"
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "<p>Your cost will depend on your tariff, how often you use the spa, the weather and whether the lid stays on between soaks.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Running cost"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

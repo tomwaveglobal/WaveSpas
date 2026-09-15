@@ -1,0 +1,253 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+    {%- liquid
+      assign manual = product.metafields.specs.owners_manual.value
+      assign quick = product.metafields.specs.quick_start_guide.value
+      assign sheet = product.metafields.specs.spec_sheet.value
+      assign setup_video = product.metafields.custom.setup_video.value
+      assign missing_files = false
+      if manual == blank or quick == blank or sheet == blank
+        assign missing_files = true
+      endif
+    -%}
+    <div class="wpdp-downloads">
+      <div class="wpdp-stack">
+        {%- liquid
+          assign file_titles = "Owner's manual^Quick-start guide^Spec sheet" | split: '^'
+          assign file_notes = 'Full setup, water care and troubleshooting^Get from box to bubbles in minutes^Dimensions, electrics and materials on one page' | split: '^'
+        -%}
+        {%- for title in file_titles -%}
+          {%- liquid
+            case forloop.index
+              when 1
+                assign file = manual
+              when 2
+                assign file = quick
+              else
+                assign file = sheet
+            endcase
+          -%}
+          {%- if file != blank -%}
+            <a class="wpdp-file" href="{{ file.url }}" target="_blank" rel="noopener">
+              <span class="wpdp-file__icon">PDF</span>
+              <span><strong>{{ title }}</strong><br><span class="wpdp-muted">{{ file_notes[forloop.index0] }}</span></span>
+              <span aria-hidden="true">↓</span>
+            </a>
+          {%- else -%}
+            <div class="wpdp-file" aria-disabled="true">
+              <span class="wpdp-file__icon">PDF</span>
+              <span><strong>{{ title }}</strong><br><span class="wpdp-muted">{{ file_notes[forloop.index0] }}</span></span>
+              <span class="wpdp-muted">Coming soon</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if section.settings.guide_link != blank -%}
+          <a class="link" href="{{ section.settings.guide_link }}">{{ section.settings.guide_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.show_test_notes and missing_files -%}
+          <p class="wpdp-note">Upload PDFs to the product's specs metafields (Owner's manual, Quick-start guide, Spec sheet).</p>
+        {%- endif -%}
+      </div>
+      <div class="wpdp-video">
+        {%- if setup_video != blank -%}
+          {{- setup_video | video_tag: controls: true, preload: 'none', playsinline: true, image_size: '1280x' -}}
+          <p class="wpdp-muted">{{ section.settings.video_caption }}</p>
+        {%- elsif section.settings.show_test_notes -%}
+          <p class="wpdp-note">No setup video on this product (custom.setup_video).</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Guides & downloads",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Guides & downloads"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "text",
+      "id": "video_caption",
+      "label": "Video caption",
+      "default": "Watch the full setup, start to finish."
+    },
+    {
+      "type": "text",
+      "id": "guide_label",
+      "label": "Guide link label",
+      "default": "More setup guides"
+    },
+    {
+      "type": "url",
+      "id": "guide_link",
+      "label": "Guide link"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Guides & downloads"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

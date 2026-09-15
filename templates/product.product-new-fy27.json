@@ -417,6 +417,12 @@
             "background_height": 0,
             "border_radius": 0
           }
+        },
+        "liquid_wave_spec_strip": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-spec-strip', product: product, show_test_notes: true %}"
+          }
         }
       },
       "block_order": [
@@ -436,6 +442,7 @@
         "text_nncjDG",
         "inventory",
         "buy_buttons_nBMjqf",
+        "liquid_wave_spec_strip",
         "contona_button_design",
         "share",
         "on_site_message_KFREgF",
@@ -1435,6 +1442,41 @@
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
+        },
+        "question_wave_power": {
+          "type": "question",
+          "settings": {
+            "title": "Does it plug into a normal socket?",
+            "text": "<p>Plug it into a weatherproof outdoor socket with RCD protection, and never use an extension lead. Power supply: <strong>[TBC: confirm 13 A plug]</strong>. Cable length: <strong>[TBC]</strong>.</p>"
+          }
+        },
+        "question_wave_base": {
+          "type": "question",
+          "settings": {
+            "title": "What base do I need, and how heavy is it when full?",
+            "text": "<p>Set it on a flat, level, solid surface such as patio slabs, concrete or decking rated for the weight. Avoid soft lawn. Filled weight: <strong>[TBC]</strong> for each size, before anyone gets in.</p>"
+          }
+        },
+        "question_wave_planning": {
+          "type": "question",
+          "settings": {
+            "title": "Do I need planning permission?",
+            "text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>"
+          }
+        },
+        "question_wave_noise": {
+          "type": "question",
+          "settings": {
+            "title": "How noisy is it?",
+            "text": "<p>The bubble blower is the loudest part. Measured noise: <strong>[TBC] dB</strong> on low and <strong>[TBC] dB</strong> on high.</p>"
+          }
+        },
+        "question_wave_care": {
+          "type": "question",
+          "settings": {
+            "title": "How much looking after does it need?",
+            "text": "<p>A few minutes a few times a week: test and balance the water, rinse the filter, and keep the lid on between soaks. Replace filters every <strong>[TBC]</strong> and change the water every <strong>[TBC]</strong>.</p>"
+          }
         }
       },
       "block_order": [
@@ -1443,6 +1485,11 @@
         "question-3",
         "question-4",
         "question-5",
+        "question_wave_power",
+        "question_wave_base",
+        "question_wave_planning",
+        "question_wave_noise",
+        "question_wave_care",
         "contact"
       ],
       "settings": {
@@ -1647,6 +1694,92 @@
         "narrow": false,
         "rounded": false
       }
+    },
+    "wave_soak_timeline": {
+      "type": "wave-pdp-soak-timeline",
+      "settings": {
+        "subheading": "Getting started"
+      }
+    },
+    "wave_jet_map": {
+      "type": "wave-pdp-jet-map",
+      "settings": {
+        "subheading": "Seats & massage"
+      }
+    },
+    "wave_in_the_box": {
+      "type": "wave-pdp-in-the-box",
+      "settings": {}
+    },
+    "wave_downloads": {
+      "type": "wave-pdp-downloads",
+      "settings": {
+        "guide_link": "/pages/hot-tub-spa-how-to-guide"
+      }
+    },
+    "wave_running_cost": {
+      "type": "wave-pdp-running-cost",
+      "settings": {
+        "subheading": "Running costs"
+      }
+    },
+    "wave_garden_ready": {
+      "type": "wave-pdp-garden-ready",
+      "settings": {
+        "subheading": "Before you buy"
+      }
+    },
+    "wave_see_it": {
+      "type": "wave-pdp-see-it",
+      "settings": {}
+    },
+    "wave_warranty": {
+      "type": "wave-pdp-warranty",
+      "blocks": {
+        "item_pump": {
+          "type": "item",
+          "settings": {
+            "component": "Pump & heater",
+            "duration": "2 years",
+            "note": ""
+          }
+        },
+        "item_liner": {
+          "type": "item",
+          "settings": {
+            "component": "Liner",
+            "duration": "12 months",
+            "note": ""
+          }
+        },
+        "item_cover": {
+          "type": "item",
+          "settings": {
+            "component": "Cover & lid",
+            "duration": "TBC",
+            "note": ""
+          }
+        },
+        "item_controller": {
+          "type": "item",
+          "settings": {
+            "component": "Controller & WiFi",
+            "duration": "TBC",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_pump",
+        "item_liner",
+        "item_cover",
+        "item_controller"
+      ],
+      "settings": {}
+    },
+    "wave_owners": {
+      "type": "wave-pdp-owners",
+      "settings": {}
     }
   },
   "order": [
@@ -1658,10 +1791,19 @@
     "video_BqrMRT",
     "collage",
     "image-with-text-1",
+    "wave_soak_timeline",
     "video_with_text_8VEKJe",
+    "wave_jet_map",
     "product-details",
+    "wave_in_the_box",
+    "wave_downloads",
+    "wave_running_cost",
+    "wave_garden_ready",
+    "wave_see_it",
     "comparison_table_GXKLn7",
+    "wave_warranty",
     "faq",
+    "wave_owners",
     "rich_text_XazzCf",
     "custom_liquid_YwqJMM",
     "174653922467a5c413",

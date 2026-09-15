@@ -1,0 +1,260 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+    <div class="wpdp-warranty">
+      <ul class="wpdp-grid wpdp-warranty__items" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign is_tbc = false -%}
+          {%- if block.settings.duration contains 'TBC' -%}{%- assign is_tbc = true -%}{%- endif -%}
+          <li class="wpdp-card" {{ block.shopify_attributes }}>
+            <span class="wpdp-warranty__duration{% if is_tbc %} wpdp-tbc{% endif %}">{{ block.settings.duration }}</span>
+            <h3>{{ block.settings.component }}</h3>
+            {%- if block.settings.note != blank -%}<p class="wpdp-muted">{{ block.settings.note }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="wpdp-card">
+        <h3>{{ section.settings.support_heading }}</h3>
+        {%- if section.settings.support_text != blank -%}<div class="rte wpdp-muted">{{ section.settings.support_text }}</div>{%- endif -%}
+        {%- if section.settings.trust_text != blank -%}<p><strong>{{ section.settings.trust_text }}</strong></p>{%- endif -%}
+        {%- if section.settings.register_link != blank -%}
+          <a class="button button--secondary" href="{{ section.settings.register_link }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.register_label }}</span></a>
+        {%- elsif section.settings.show_test_notes -%}
+          <p class="wpdp-note">Add a "Register your spa" link in the section settings.</p>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.show_test_notes -%}
+      <p class="wpdp-note">Pump, heater and liner terms come from the current FAQ. Confirm all FY27 terms before launch.</p>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave: Warranty & support",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Warranty & support"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-lg tracking-heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Support heading",
+      "default": "Help when you need it"
+    },
+    {
+      "type": "richtext",
+      "id": "support_text",
+      "label": "Support text",
+      "default": "<p>Our UK customer service team can help with setup, water care and anything else about your spa.</p>"
+    },
+    {
+      "type": "text",
+      "id": "trust_text",
+      "label": "Trust line",
+      "default": "The UK's highest-rated hot tub brand on Trustpilot"
+    },
+    {
+      "type": "text",
+      "id": "register_label",
+      "label": "Register button label",
+      "default": "Register your spa"
+    },
+    {
+      "type": "url",
+      "id": "register_link",
+      "label": "Register link"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "info": "Amber labels for figures that are still waiting on data. Turn off before launch.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave: Warranty & support"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Warranty item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "component",
+          "label": "Part",
+          "default": "Pump & heater"
+        },
+        {
+          "type": "text",
+          "id": "duration",
+          "label": "Cover length",
+          "default": "2 years",
+          "info": "Include 'TBC' to highlight terms still to confirm"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

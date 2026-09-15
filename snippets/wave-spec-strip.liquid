@@ -1,0 +1,166 @@
+{%- doc -%}
+  Renders the FY27 at-a-glance spec tiles under the buy buttons.
+  Figures come from product and variant specs metafields; anything missing shows as TBC.
+
+  @param {object} product - Product being viewed
+  @param {boolean} [show_test_notes] - Show an amber note when figures are still missing
+{%- enddoc -%}
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign size_labels = ''
+  assign size_widths = ''
+  assign size_variant_ids = ''
+  assign seen_sizes = '~'
+  if size_option
+    assign size_index = size_option.position | minus: 1
+    for variant in product.variants
+      assign size_value = variant.options[size_index]
+      assign size_key = '~' | append: size_value | append: '~'
+      if seen_sizes contains size_key
+        continue
+      endif
+      assign seen_sizes = seen_sizes | append: size_value | append: '~'
+      assign size_label = size_value | split: '|' | first | strip
+      assign size_labels = size_labels | append: size_label | append: '^'
+      assign size_variant_ids = size_variant_ids | append: forloop.index0 | append: '^'
+      if size_value contains '|'
+        assign size_dims = size_value | split: '|' | last | strip | remove: 'cm'
+        assign size_w = size_dims | split: 'x' | first | strip
+        assign size_widths = size_widths | append: size_w | append: '^'
+      else
+        assign size_widths = size_widths | append: '' | append: '^'
+      endif
+    endfor
+  endif
+  assign size_label_list = size_labels | split: '^'
+  assign size_width_list = size_widths | split: '^'
+  assign size_id_list = size_variant_ids | split: '^'
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+-%}
+{%- liquid
+  assign has_tbc = false
+  assign tbc = '<span class="wpdp-tbc">TBC</span>'
+  assign seat_list = ''
+  for label in size_label_list
+    assign seat = label | split: ' ' | first
+    assign seat_list = seat_list | append: seat | append: '^'
+  endfor
+  assign seats_text = seat_list | split: '^' | uniq | join: ' or '
+
+  assign widths_text = size_width_list | uniq | join: ' / '
+  case shape
+    when 'Round'
+      assign footprint_text = widths_text | append: ' cm Ø'
+    when 'Octagonal'
+      assign footprint_text = widths_text | append: ' cm across'
+    when 'Oval'
+      assign footprint_text = widths_text | append: ' cm long'
+    else
+      if size_width_list.size == 1
+        assign footprint_text = widths_text | append: ' × ' | append: widths_text | append: ' cm'
+      else
+        assign footprint_text = widths_text | append: ' cm square'
+      endif
+  endcase
+  if widths_text == blank
+    assign footprint_text = tbc
+    assign has_tbc = true
+  endif
+
+  assign water_text = ''
+  assign weight_text = ''
+  assign water_missing = false
+  assign weight_missing = false
+  for vid in size_id_list
+    assign vid_i = vid | plus: 0
+    assign v = product.variants[vid_i]
+    assign litres = v.metafields.specs.water_litres.value
+    assign filled = v.metafields.specs.filled_weight_kg.value
+    if litres == blank
+      assign water_missing = true
+    else
+      assign water_text = water_text | append: litres | append: ' / '
+    endif
+    if filled == blank
+      assign weight_missing = true
+    else
+      assign filled_round = filled | round
+      assign weight_text = weight_text | append: filled_round | append: ' / '
+    endif
+  endfor
+  if water_missing or water_text == blank
+    assign water_text = tbc
+    assign has_tbc = true
+  else
+    assign water_text = water_text | remove_last: ' / ' | append: ' L'
+  endif
+  if weight_missing or weight_text == blank
+    assign weight_text = tbc
+    assign has_tbc = true
+  else
+    assign weight_text = weight_text | remove_last: ' / ' | append: ' kg'
+  endif
+
+  assign setup = product.metafields.specs.setup_minutes.value
+  if setup == blank
+    assign collage_title = product.metafields.custom.product_collage_image_2_title.value
+    if collage_title contains 'Minute'
+      assign setup = collage_title | split: ' ' | first
+    endif
+  endif
+  if setup == blank
+    assign setup_text = tbc
+    assign has_tbc = true
+  else
+    assign setup_text = setup | append: ' min'
+  endif
+
+  assign power = product.metafields.specs.power_supply.value
+  if power == blank
+    assign power = tbc
+    assign has_tbc = true
+  endif
+  assign cable = product.metafields.specs.cable_length_m.value
+  if cable == blank
+    assign cable_text = tbc
+    assign has_tbc = true
+  else
+    assign cable_text = cable | append: ' m'
+  endif
+
+  if product.tags contains 'Ice Bath'
+    assign temp_label = 'Water temp'
+    assign temp_text = tbc
+    assign has_tbc = true
+  else
+    assign temp_label = 'Max temp'
+    assign temp_text = '40 °C'
+  endif
+-%}
+<div class="wpdp wpdp-strip">
+  <span class="wpdp-label">At a glance</span>
+  <div class="wpdp-strip__grid">
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Seats</span><span class="wpdp-value">{{ seats_text | default: '—' }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Footprint</span><span class="wpdp-value">{{ footprint_text }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">{{ temp_label }}</span><span class="wpdp-value">{{ temp_text }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Water</span><span class="wpdp-value">{{ water_text }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Weight full</span><span class="wpdp-value">{{ weight_text }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Setup</span><span class="wpdp-value">{{ setup_text }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Power</span><span class="wpdp-value">{{ power }}</span></div>
+    <div class="wpdp-strip__tile"><span class="wpdp-label">Cable</span><span class="wpdp-value">{{ cable_text }}</span></div>
+    {%- if size_label_list.size > 1 -%}
+      <div class="wpdp-strip__tile"><span class="wpdp-label">Sizes</span><span class="wpdp-value">{{ size_label_list | join: ' / ' }}</span></div>
+    {%- endif -%}
+  </div>
+  {%- if show_test_notes and has_tbc -%}
+    <p class="wpdp-note">TBC figures fill in automatically once added to the product (specs) or its variants (specs).</p>
+  {%- endif -%}
+</div>
