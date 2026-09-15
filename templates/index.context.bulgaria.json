@@ -23,7 +23,7 @@
             "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
             "image_tablet": null,
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-8a245db805fc791ba34ccc3131f4aa3e": null,
+            "header-11da5aef40eb1f5e0c5f4b8af7d5ea8f": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -41,8 +41,8 @@
         "image_hc4WwT": {
           "settings": {
             "heading": "Elevate Your \n<br>\nOutdoor Living",
-            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs",
-            "heading_size": "title-lg tracking-heading"
+            "heading_size": "title-lg tracking-heading",
+            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs"
           }
         }
       },
@@ -53,6 +53,12 @@
         "image_rmPQY4",
         "image_EUEdiE"
       ]
+    },
+    "featured-product": {
+      "settings": {
+        "product": "como-hot-tub-ce"
+      },
+      "blocks": {}
     }
   }
 }
