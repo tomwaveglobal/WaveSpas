@@ -850,6 +850,11 @@
   .vpa[data-vpa-size="l"] .vpa__swatch-fill { width: 46px; height: 46px; }
   .vpa[data-vpa-size="l"] .vpa__swatch-label { font-size: 13px; }
 
+  /* ─── Rounded-square swatches (product-flow + product-new-fy27) ─── */
+  /* Set on the root via template.suffix. Declared after every size
+     preset so it wins at equal specificity, regardless of vpa_size. */
+  .vpa[data-vpa-swatch-shape="rounded-square"] .vpa__swatch-fill { width: 44px; height: 44px; border-radius: 10px; }
+
   /* ═══════════════════════════════════════════════════════════════════
      VISUAL STYLES — Style 1 (Card) is the baseline; styles 2–6 each
      make targeted "noise reduction" tweaks so you can see exactly which
@@ -960,6 +965,7 @@
   data-vpa-selected-bg="{% if settings.vpa_selected_bg == false %}off{% else %}on{% endif %}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
+  {%- if template.suffix == 'product-flow' or template.suffix == 'product-new-fy27' %} data-vpa-swatch-shape="rounded-square"{% endif %}
   style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }}; padding-block-end: {{ settings.vpa_bottom_padding | default: 0 }}px; {{ vpa_badge_css }}"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"
