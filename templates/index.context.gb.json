@@ -19,9 +19,9 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Carousel_Home_page_V2_415ed81d-8943-4d83-896f-9da2517f7b87.jpg",
-            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_15489a33-b7de-434a-b4b2-a05885dfd15f.jpg",
-            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_81bc53cc-3661-4fdd-b7a5-12c68f24ad96.jpg",
+            "image": "shopify://shop_images/UK_Seasonal-transition_01-1.jpg",
+            "image_tablet": "shopify://shop_images/UK_Seasonal-transition_01-2.jpg",
+            "image_mobile": "shopify://shop_images/UK_Seasonal-transition_01-3.jpg",
             "heading": "Made for moments<br> like this.",
             "heading_size": "title-md",
             "heading_tag": "h1",
@@ -65,9 +65,9 @@
         "image_JUM7dH": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/US_Seasonal-transition-2.jpg",
-            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22.jpg",
-            "image_mobile": "shopify://shop_images/US_Seasonal-transition-222.jpg",
+            "image": "shopify://shop_images/UK_Seasonal-transition_02-1.jpg",
+            "image_tablet": "shopify://shop_images/UK_Seasonal-transition_02-2.jpg",
+            "image_mobile": "shopify://shop_images/UK_Seasonal-transition_02-3.jpg",
             "heading": "The water's waiting.",
             "heading_size": "title-md",
             "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season and after season.",
