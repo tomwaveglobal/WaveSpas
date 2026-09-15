@@ -22,21 +22,21 @@
             "image": "shopify://shop_images/Carousel_Home_page_V2_415ed81d-8943-4d83-896f-9da2517f7b87.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_15489a33-b7de-434a-b4b2-a05885dfd15f.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_81bc53cc-3661-4fdd-b7a5-12c68f24ad96.jpg",
-            "heading": "The water’s waiting...",
+            "heading": "Made for moments<br> like this.",
             "heading_size": "title-md",
             "heading_tag": "h1",
-            "secondary_heading": "Cool nights make the heat hit differently. Step into the season hot tubs were made for.",
+            "secondary_heading": "Crisp autumn air, soft light, and nowhere else to be. Step into the season hot tubs were made for.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_position": "below",
-            "button_label": "Find Yours",
+            "button_label": "Explore The Range",
             "button_link": "shopify://collections/foam-hot-tubs",
             "button_style": "secondary"
           }
         },
         "image_YL8tbf": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
@@ -65,10 +65,15 @@
         "image_JUM7dH": {
           "disabled": false,
           "settings": {
-            "image": null,
-            "heading": "Stop the soreness. <br>Start the recovery.",
-            "heading_size": "title-md",
-            "button_position": "below"
+            "image": "shopify://shop_images/US_Seasonal-transition-2.jpg",
+            "heading": "The water's waiting.",
+            "heading_size": "title-lg tracking-heading",
+            "button_position": "below",
+            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-transition-222.jpg",
+            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season and after season.",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal"
           }
         },
         "image_rmPQY4": {
