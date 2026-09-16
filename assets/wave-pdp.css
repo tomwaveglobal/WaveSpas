@@ -92,8 +92,6 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-cs__intro p { margin: 0; }
 .wpdp-cs__title { font-size: clamp(1.9rem, 3.2vw, 2.75rem); line-height: 1.02; }
 .wpdp-cs__bestfor { margin-top: 0.35rem !important; color: rgb(var(--color-foreground) / 0.62); font-size: 1rem; }
-.wpdp-cs__shot { grid-area: shot; width: clamp(120px, 15vw, 190px); }
-.wpdp-cs__shot img { width: 100%; height: auto; display: block; }
 .wpdp-cs__drawing { grid-area: draw; width: 76px; height: 76px; align-self: end; }
 .wpdp-cs__drawing :is(rect, circle, ellipse) { fill: none; stroke: rgb(var(--color-foreground) / 0.45); stroke-width: 3; }
 .wpdp-cs__facts { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 1.25rem 1rem; padding-top: clamp(1.25rem, 2vw, 1.75rem); border-top: 1px solid var(--wpdp-hair); }
@@ -112,8 +110,6 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-cs__price-input input:focus-visible { outline: 2px solid rgb(var(--wpdp-aqua)); outline-offset: 2px; }
 .wpdp-cs__basis { font-size: 0.85rem; margin-top: 1rem; }
 @media (max-width: 900px) { .wpdp-cs__grid { grid-template-columns: 1fr; } .wpdp-cs__panel-head { grid-template-areas: "intro shot" "draw shot"; } }
-@media (max-width: 560px) { .wpdp-cs__shot { width: 104px; } }
-
 /* G · V2 garden & AR */
 .wpdp-gv2 { display: grid; gap: clamp(0.85rem, 1.4vw, 1.5rem); grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: stretch; }
 .wpdp-gv2__plan { margin: 0; padding: clamp(1.5rem, 2.4vw, 2.5rem); border: 1px solid var(--wpdp-hair); border-radius: var(--wpdp-radius); display: grid; gap: 1rem; align-content: center; }
@@ -245,7 +241,6 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 
 /* ---------------- pop pass: depth, glow, drama ---------------- */
 .wpdp-cs__size { box-shadow: 0 28px 70px -48px rgb(0 0 0 / 0.55); }
-.wpdp-cs__shot { width: clamp(150px, 20vw, 260px); filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.22)); }
 .wpdp-cs__title { font-size: clamp(2.1rem, 4vw, 3.4rem); }
 
 .wpdp-cs__cost { position: relative; overflow: hidden; background: linear-gradient(155deg, #12181b 0%, #05090b 58%, #0b1417 100%); color: #fff; box-shadow: 0 34px 80px -46px rgb(0 0 0 / 0.75); }
@@ -325,8 +320,6 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-cs__from { margin: 0; display: flex; align-items: baseline; gap: 0.5rem; }
 .wpdp-cs__from .wpdp-value { font-size: clamp(1.4rem, 2.2vw, 1.9rem); }
 .wpdp-cs__size { position: relative; overflow: hidden; }
-.wpdp-cs__shot { position: absolute; top: clamp(1rem, 2vw, 2rem); right: clamp(-1rem, -1vw, 0rem); width: clamp(160px, 24vw, 320px); filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.25)); pointer-events: none; }
-.wpdp-cs__shot img { width: 100%; height: auto; display: block; }
 .wpdp-cs__panel { padding-right: clamp(90px, 18vw, 240px); }
 .wpdp-cs__bestfor { margin: 0.4rem 0 0; color: rgb(var(--color-foreground) / 0.6); font-size: 1.02rem; max-width: 28ch; }
 .wpdp-cs__glance { list-style: none; margin: clamp(1.25rem, 2vw, 1.75rem) 0 0; padding: clamp(1.25rem, 2vw, 1.75rem) 0 0; border-top: 1px solid var(--wpdp-hair); display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.85rem 1.5rem; }
@@ -335,10 +328,6 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-cs__edition[hidden] { display: none; }
 .wpdp-cs__saving { margin: 0; font-size: 0.85rem; line-height: 1.5; color: rgb(var(--wpdp-aqua)); }
 .wpdp-cs__saving[hidden] { display: none; }
-@media (max-width: 700px) { .wpdp-cs__shot { position: static; width: clamp(150px, 45vw, 230px); margin: 0 auto 1rem; } .wpdp-cs__panel { padding-right: 0; } }
+@media (max-width: 700px) {.wpdp-cs__panel { padding-right: 0; } }
 
 /* Product shot: knock out the white studio background, drop the award badge corner */
-.wpdp-cs__shot img { mix-blend-mode: multiply; filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.18)); transition: opacity 0.28s ease, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
-.wpdp-cs__shot--clip img { clip-path: polygon(0 0, 100% 0, 100% 100%, 34% 100%, 34% 72%, 0 72%); }
-.wpdp-cs__shot img.is-swapping { opacity: 0; transform: scale(0.97); }
-:root[data-theme="dark"] .wpdp-cs__shot img, :root:not([data-theme="light"]) .wpdp-cs__shot img { mix-blend-mode: normal; }
