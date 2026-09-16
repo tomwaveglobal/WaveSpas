@@ -55,17 +55,11 @@
       assign target_temp = section.settings.target_temp | times: 1.0
       assign temp_rise = target_temp | minus: start_temp
       assign setup = product.metafields.specs.setup_minutes.value
-      if setup == blank
-        assign collage_title = product.metafields.custom.product_collage_image_2_title.value
-        if collage_title contains 'Minute'
-          assign setup = collage_title | split: ' ' | first
-        endif
-      endif
     -%}
     <ol class="wpdp-timeline">
       <li>
         <span class="wpdp-label">Set up</span>
-        <span class="wpdp-value">{% if setup != blank %}{{ setup }} min{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</span>
+        <span class="wpdp-value">{% if setup != blank %}{{ setup }} min{% else %}No tools{% endif %}</span>
         <p class="wpdp-muted">{{ section.settings.setup_text }}</p>
       </li>
       <li>
