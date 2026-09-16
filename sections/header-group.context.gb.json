@@ -21,7 +21,7 @@
           "settings": {
             "icon": "sale",
             "text": "<em><strong>15% off all hot tubs </strong></em>+ Free Starter Kit",
-            "link": "shopify://collections/hot-tub-spa-sale",
+            "link": "https://wavespas.com/collections/hot-tub-full-range",
             "text_mobile": "<em><strong>15% off all hot tubs  </strong></em>+ Free Starter Kit",
             "highlighted_text": "text"
           }
