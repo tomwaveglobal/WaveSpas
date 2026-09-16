@@ -38,6 +38,7 @@
       if cart.currency.iso_code != 'GBP'
         assign unit_label = 'c'
       endif
+      assign kwh_day = product.metafields.specs.kwh_per_day.value
     -%}
     <wave-size-costs class="wpdp-cs" data-currency="{{ cart.currency.iso_code }}">
       <script type="application/json" data-sizes>
@@ -47,27 +48,15 @@
               assign size_index = size_option.position | minus: 1
               assign label = value | split: '|' | first | strip
               assign min_price = 0
-              assign first_variant = nil
               for variant in product.variants
                 if variant.options[size_index] == value
-                  if first_variant == nil
-                    assign first_variant = variant
-                  endif
                   if min_price == 0 or variant.price < min_price
                     assign min_price = variant.price
                   endif
                 endif
               endfor
-              assign summer = first_variant.metafields.specs.kwh_per_day_summer.value
-              assign winter = first_variant.metafields.specs.kwh_per_day_winter.value
-              assign measured = true
-              if summer == blank or winter == blank
-                assign summer = example_summer
-                assign winter = example_winter
-                assign measured = false
-              endif
             -%}
-            {"label": {{ label | json }}, "summer": {{ summer | json }}, "winter": {{ winter | json }}, "measured": {{ measured | json }}}{% unless forloop.last %},{% endunless %}
+            {"label": {{ label | json }}, "price": {{ min_price | json }}}{% unless forloop.last %},{% endunless %}
           {%- endfor -%}
         ]
       </script>
@@ -152,58 +141,93 @@
           {%- endfor -%}
         </div>
 
-        <div class="wpdp-cs__cost">
-          <div class="wpdp-cs__cost-head">
+        <div class="wpdp-cs__cost"{% if kwh_day == blank %} hidden{% endif %} data-kwh="{{ kwh_day }}">
+          <div class="wpdp-cs__glow" aria-hidden="true"></div>
+          <div class="wpdp-cs__cost-inner">
             <p class="wpdp-label">{{ section.settings.cost_label }}</p>
-            <div class="wpdp-seg wpdp-seg--dark" role="group" aria-label="Season">
-              <button type="button" data-season="summer" aria-pressed="false">Summer</button>
-              <button type="button" data-season="winter" aria-pressed="true">Winter</button>
+            <p class="wpdp-cs__big"><span data-out="month">—</span></p>
+            <p class="wpdp-cs__big-sub">a month to run</p>
+            <div class="wpdp-seg wpdp-seg--dark wpdp-cs__usage" role="group" aria-label="How often you use it">
+              <button type="button" data-days="6" aria-pressed="false">Occasional</button>
+              <button type="button" data-days="15" aria-pressed="true">Often</button>
+              <button type="button" data-days="30" aria-pressed="false">Every day</button>
             </div>
+            <div class="wpdp-cs__split">
+              <div><span class="wpdp-label">Each soak</span><span class="wpdp-value" data-out="day">—</span></div>
+              <div><span class="wpdp-label">A year</span><span class="wpdp-value" data-out="year">—</span></div>
+            </div>
+            <div class="wpdp-cs__price-input">
+              <label class="wpdp-label" for="WaveUnit-{{ section.id }}">Your electricity price</label>
+              <div><input id="WaveUnit-{{ section.id }}" type="number" inputmode="decimal" min="1" max="200" step="0.01" value="{{ section.settings.unit_price }}"><span class="wpdp-muted">{{ unit_label }} per kWh</span></div>
+            </div>
+            <p class="wpdp-muted wpdp-cs__basis" data-basis></p>
+            {%- if section.settings.calculator_link != blank -%}
+              <a class="wpdp-cs__calc-link" href="{{ section.settings.calculator_link }}">{{ section.settings.calculator_label }}</a>
+            {%- endif -%}
           </div>
-          <p class="wpdp-cs__big" data-out="day">—</p>
-          <p class="wpdp-label">a day to run</p>
-          <div class="wpdp-cs__split">
-            <div><span class="wpdp-label">A week</span><span class="wpdp-value" data-out="week">—</span></div>
-            <div><span class="wpdp-label">A month</span><span class="wpdp-value" data-out="month">—</span></div>
-          </div>
-          <div class="wpdp-cs__price-input">
-            <label class="wpdp-label" for="WaveUnit-{{ section.id }}">Your electricity price</label>
-            <div><input id="WaveUnit-{{ section.id }}" type="number" inputmode="decimal" min="1" max="200" step="0.01" value="{{ section.settings.unit_price }}"><span class="wpdp-muted">{{ unit_label }} per kWh</span></div>
-          </div>
-          <p class="wpdp-muted wpdp-cs__basis" data-basis></p>
         </div>
       </div>
 
       {%- if section.settings.footnote != blank -%}<div class="rte wpdp-muted text-sm">{{ section.settings.footnote }}</div>{%- endif -%}
-      <p class="wpdp-note" data-example hidden>Example energy figures for layout only, not measured. Add measured values to each size's variant metafields.</p>
+      {%- if kwh_day == blank and section.settings.show_test_notes -%}
+        <p class="wpdp-note">No kWh a day set for this spa, so the running cost panel is hidden. Add it in the product metafields (specs).</p>
+      {%- endif -%}
     </wave-size-costs>
     <script>
       if (!customElements.get('wave-size-costs')) {
         customElements.define('wave-size-costs', class extends HTMLElement {
           connectedCallback() {
             this.sizes = JSON.parse(this.querySelector('[data-sizes]').textContent);
-            this.money = new Intl.NumberFormat(undefined, { style: 'currency', currency: this.dataset.currency || 'GBP' });
-            this.state = { size: 0, season: 'winter' };
+            this.money = new Intl.NumberFormat(undefined, { style: 'currency', currency: this.dataset.currency || 'GBP', maximumFractionDigits: 2 });
+            this.cost = this.querySelector('.wpdp-cs__cost');
+            this.kwh = this.cost ? parseFloat(this.cost.dataset.kwh) : NaN;
+            this.state = { size: 0, days: 15 };
             this.price = this.querySelector('input[type="number"]');
             this.querySelectorAll('[data-size]').forEach((b) => b.addEventListener('click', () => { this.state.size = Number(b.dataset.size); this.render(); }));
-            this.querySelectorAll('[data-season]').forEach((b) => b.addEventListener('click', () => { this.state.season = b.dataset.season; this.render(); }));
-            this.price.addEventListener('input', () => this.render());
+            this.querySelectorAll('[data-days]').forEach((b) => b.addEventListener('click', () => { this.state.days = Number(b.dataset.days); this.render(true); }));
+            if (this.price) this.price.addEventListener('input', () => this.render());
             this.render();
+            if (this.cost && 'IntersectionObserver' in window) {
+              const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => { if (entry.isIntersecting) { this.countUp(); io.disconnect(); } });
+              }, { threshold: 0.4 });
+              io.observe(this.cost);
+            }
           }
-          render() {
-            const size = this.sizes[this.state.size];
-            if (!size) return;
-            const kwh = Number(size[this.state.season]);
-            const day = kwh * (parseFloat(this.price.value) / 100);
-            const set = (key, value) => { const el = this.querySelector(`[data-out="${key}"]`); if (el) el.textContent = Number.isFinite(value) ? this.money.format(value) : '—'; };
-            set('day', day); set('week', day * 7); set('month', day * 30.4);
+          monthly() {
+            const rate = parseFloat(this.price && this.price.value) / 100;
+            return this.kwh * this.state.days * rate;
+          }
+          set(key, value) {
+            const el = this.querySelector(`[data-out="${key}"]`);
+            if (el) el.textContent = Number.isFinite(value) ? this.money.format(value) : '—';
+          }
+          render(animate) {
             this.querySelectorAll('[data-size-panel]').forEach((panel) => { panel.hidden = Number(panel.dataset.sizePanel) !== this.state.size; });
             this.querySelectorAll('[data-size]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.size) === this.state.size)));
-            this.querySelectorAll('[data-season]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.season === this.state.season)));
+            this.querySelectorAll('[data-days]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.days) === this.state.days)));
+            if (!this.cost || !Number.isFinite(this.kwh)) return;
+            const month = this.monthly();
+            if (animate) { this.countUp(); } else { this.set('month', month); }
+            this.set('day', this.kwh * (parseFloat(this.price.value) / 100));
+            this.set('year', month * 12);
             const basis = this.querySelector('[data-basis]');
-            if (basis) basis.textContent = `Based on ${kwh} kWh a day in ${this.state.season}, at 38–40 °C with the lid on.`;
-            const note = this.querySelector('[data-example]');
-            if (note) note.hidden = size.measured;
+            if (basis) basis.textContent = `${this.kwh} kWh a day, used ${this.state.days} days a month, at ${this.price.value}p per kWh.`;
+          }
+          countUp() {
+            const target = this.monthly();
+            const out = this.querySelector('[data-out="month"]');
+            if (!out || !Number.isFinite(target)) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { this.set('month', target); return; }
+            const start = performance.now();
+            const duration = 900;
+            const step = (now) => {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              out.textContent = this.money.format(target * eased);
+              if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
           }
         });
       }
@@ -354,12 +378,6 @@
     },
     {
       "type": "text",
-      "id": "cost_label",
-      "label": "Cost label",
-      "default": "Running cost"
-    },
-    {
-      "type": "text",
       "id": "best_for_2",
       "label": "2 person: best for",
       "default": "Couples and smaller gardens"
@@ -378,27 +396,33 @@
     },
     {
       "type": "text",
+      "id": "cost_label",
+      "label": "Cost label",
+      "default": "Running cost"
+    },
+    {
+      "type": "text",
       "id": "unit_price",
-      "label": "Default electricity price",
-      "default": "27.69"
+      "label": "Electricity price (pence per kWh)",
+      "default": "28",
+      "info": "Matches the Wave running cost calculator"
     },
     {
       "type": "text",
-      "id": "example_kwh_summer",
-      "label": "Example kWh per day, summer",
-      "default": "4"
+      "id": "calculator_label",
+      "label": "Calculator link label",
+      "default": "Full running cost calculator"
     },
     {
-      "type": "text",
-      "id": "example_kwh_winter",
-      "label": "Example kWh per day, winter",
-      "default": "8"
+      "type": "url",
+      "id": "calculator_link",
+      "label": "Calculator link"
     },
     {
       "type": "richtext",
       "id": "footnote",
       "label": "Footnote",
-      "default": "<p>Your cost depends on your tariff, how often you use the spa and the weather. Drawings are to scale against the largest size.</p>"
+      "default": "<p>Estimated with the same figures as our running cost calculator. Your cost depends on your tariff, the weather, and keeping the lid on between soaks.</p>"
     },
     {
       "type": "header",

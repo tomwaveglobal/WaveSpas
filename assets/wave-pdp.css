@@ -241,3 +241,48 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 }
 
 @media (prefers-reduced-motion: reduce) { .wpdp *, .wfin * { transition: none !important; } }
+
+/* ---------------- pop pass: depth, glow, drama ---------------- */
+.wpdp-cs__size { box-shadow: 0 28px 70px -48px rgb(0 0 0 / 0.55); }
+.wpdp-cs__shot { width: clamp(150px, 20vw, 260px); filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.22)); }
+.wpdp-cs__title { font-size: clamp(2.1rem, 4vw, 3.4rem); }
+
+.wpdp-cs__cost { position: relative; overflow: hidden; background: linear-gradient(155deg, #12181b 0%, #05090b 58%, #0b1417 100%); color: #fff; box-shadow: 0 34px 80px -46px rgb(0 0 0 / 0.75); }
+.wpdp-cs__cost[hidden] { display: none; }
+.wpdp-cs__glow { position: absolute; inset: -30% -10% auto -25%; height: 78%; background: radial-gradient(60% 60% at 30% 25%, rgb(var(--wpdp-aqua) / 0.5), transparent 70%); filter: blur(12px); pointer-events: none; }
+.wpdp-cs__cost-inner { position: relative; display: grid; gap: 0.35rem; }
+.wpdp-cs__cost .wpdp-label, .wpdp-cs__cost .wpdp-muted { color: rgb(255 255 255 / 0.6); }
+.wpdp-cs__big { margin: 0.35rem 0 0; font-size: clamp(3.6rem, 8.5vw, 6rem); line-height: 0.88; background: linear-gradient(180deg, #ffffff 25%, rgb(var(--wpdp-aqua)) 140%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wpdp-cs__big-sub { margin: 0.35rem 0 1.5rem; font-size: 1.05rem; color: rgb(255 255 255 / 0.72); }
+.wpdp-cs__usage { margin-bottom: 1.5rem; }
+.wpdp-cs__split { border-top-color: rgb(255 255 255 / 0.14); }
+.wpdp-cs__calc-link { justify-self: start; margin-top: 1.25rem; font-size: 0.9rem; color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.wpdp-cs__calc-link:hover { color: rgb(var(--wpdp-aqua)); }
+.wpdp-cs__price-input input { border-color: rgb(255 255 255 / 0.25); color: #fff; }
+
+/* Seat & jet map — dark stage */
+.wpdp-map__figure { background: radial-gradient(120% 90% at 50% 10%, #16202a 0%, #080d11 70%); color: #fff; box-shadow: 0 34px 80px -50px rgb(0 0 0 / 0.8); padding: clamp(1.75rem, 3.5vw, 3.5rem); }
+.wpdp-map__figure figcaption { color: rgb(255 255 255 / 0.55); }
+.wpdp-map .shape { fill: rgb(255 255 255 / 0.04); stroke: rgb(255 255 255 / 0.75); stroke-width: 2; }
+.wpdp-map .layer-bubbles { stroke: rgb(var(--wpdp-aqua)); filter: drop-shadow(0 0 7px rgb(var(--wpdp-aqua) / 0.85)); }
+.wpdp-map .layer-seats circle { fill: rgb(255 255 255 / 0.1); stroke: rgb(255 255 255 / 0.55); }
+.wpdp-map .layer-vertaair { stroke: rgb(var(--wpdp-aqua)); filter: drop-shadow(0 0 9px rgb(var(--wpdp-aqua) / 0.8)); }
+.wpdp-map .layer-vertaair rect { fill: rgb(var(--wpdp-aqua)); }
+.wpdp-map .layer-jets circle { fill: rgb(var(--wpdp-accent)); stroke: none; filter: drop-shadow(0 0 10px rgb(var(--wpdp-accent) / 0.9)); }
+.wpdp-map[data-focus] .layer { opacity: 0.16; }
+
+/* Garden + AR — deeper image treatment */
+.wpdp-gv2__ar { box-shadow: 0 34px 80px -50px rgb(0 0 0 / 0.7); }
+.wpdp-gv2__ar img { transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+.wpdp-gv2__ar:hover img { transform: scale(1.04); }
+.wpdp-gv2__copy { background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.45) 45%, rgb(0 0 0 / 0.05) 100%); }
+.wpdp-gv2__copy h3 { font-size: clamp(1.75rem, 3.4vw, 2.75rem); text-shadow: 0 2px 20px rgb(0 0 0 / 0.4); }
+.wpdp-gv2__plan { background: linear-gradient(170deg, rgb(var(--wpdp-aqua) / 0.22), rgb(var(--color-foreground) / 0.02)); border-color: transparent; box-shadow: 0 24px 60px -48px rgb(0 0 0 / 0.5); }
+
+/* Cards lift off the page */
+.wpdp-card, .wpdp-box__item, .wpdp-owners__tile { box-shadow: 0 20px 48px -40px rgb(0 0 0 / 0.5); }
+.wpdp-box__item { background: rgb(var(--wpdp-paper)); border: 1px solid var(--wpdp-hair); transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease; }
+.wpdp-box__item:hover { transform: translateY(-3px); box-shadow: 0 26px 50px -34px rgb(0 0 0 / 0.45); }
+.wpdp-warranty__duration { background: linear-gradient(180deg, rgb(var(--color-foreground)) 40%, rgb(var(--wpdp-aqua-ink)) 130%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wpdp-checks__num { box-shadow: 0 6px 16px -8px rgb(var(--wpdp-aqua-ink) / 0.8); }
+@media (prefers-reduced-motion: reduce) { .wpdp-gv2__ar:hover img, .wpdp-box__item:hover { transform: none; } }

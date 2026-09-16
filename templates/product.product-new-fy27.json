@@ -1104,7 +1104,7 @@
         "heading": "Where the <em>massage</em> comes from",
         "subheading": "",
         "description": "",
-        "heading_size": "title-md",
+        "heading_size": "title-lg tracking-heading",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
         "highlighted_text": "scribble",
@@ -1899,14 +1899,17 @@
       "type": "wave-pdp-size-costs-v2",
       "settings": {
         "heading": "Pick your size, see what it <em>costs</em>",
-        "subheading": "Sizes & running costs"
+        "subheading": "Sizes & running costs",
+        "calculator_link": "/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
+        "heading_size": "title-lg tracking-heading"
       }
     },
     "wave_garden_v2": {
       "type": "wave-pdp-garden-v2",
       "settings": {
         "heading": "Is your garden <em>ready</em>?",
-        "subheading": "Before it arrives"
+        "subheading": "Before it arrives",
+        "heading_size": "title-lg tracking-heading"
       }
     },
     "delivery_steps_v2": {
