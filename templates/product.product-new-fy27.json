@@ -1290,80 +1290,6 @@
         "divider": false
       }
     },
-    "wave_running_cost": {
-      "type": "wave-pdp-running-cost",
-      "settings": {
-        "heading": "What it <em>costs</em> to run",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "unit_price": "27.69",
-        "example_kwh_summer": "4",
-        "example_kwh_winter": "8",
-        "footnote": "<p>Your cost will depend on your tariff, how often you use the spa, the weather and whether the lid stays on between soaks.</p>",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
-      }
-    },
-    "wave_garden_ready": {
-      "type": "wave-pdp-garden-ready",
-      "settings": {
-        "heading": "Is your garden <em>ready</em>?",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "space_text": "Leave enough room to walk around the spa and reach the controls and cover.",
-        "surface_text": "Patio slabs, concrete or decking rated for the weight. Avoid soft lawn.",
-        "power_text": "Use a weatherproof outdoor socket with RCD protection. Never use an extension lead.",
-        "access_text": "Check your side gate or doorway before delivery day.",
-        "planning_text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
-      }
-    },
-    "wave_see_it": {
-      "type": "wave-pdp-see-it",
-      "settings": {
-        "heading": "See it in your <em>garden</em>",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "body": "<p>Use your phone to place a life-size spa in your garden before you buy.</p>",
-        "step_1": "Open this page on your phone and tap the button.",
-        "step_2": "Point your camera at the spot you have in mind.",
-        "step_3": "Walk around it to check the fit.",
-        "button_label": "View in your space",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
-      }
-    },
     "comparison_table_GXKLn7": {
       "type": "comparison-table",
       "blocks": {
@@ -1912,12 +1838,6 @@
         "why_support"
       ]
     },
-    "wave_which_size": {
-      "type": "wave-pdp-which-size",
-      "settings": {
-        "heading": "Which size is <em>right</em> for you?"
-      }
-    },
     "wave_water_care": {
       "type": "wave-pdp-water-care",
       "settings": {
@@ -1975,51 +1895,70 @@
         "care_lid"
       ]
     },
-    "wave_delivery": {
-      "type": "wave-pdp-delivery",
+    "wave_size_costs_v2": {
+      "type": "wave-pdp-size-costs-v2",
       "settings": {
+        "heading": "Pick your size, see what it <em>costs</em>",
+        "subheading": "Sizes & running costs"
+      }
+    },
+    "wave_garden_v2": {
+      "type": "wave-pdp-garden-v2",
+      "settings": {
+        "heading": "Is your garden <em>ready</em>?",
+        "subheading": "Before it arrives"
+      }
+    },
+    "delivery_steps_v2": {
+      "type": "multicolumn-with-icons",
+      "settings": {
+        "style": "with-background",
+        "columns": 4,
         "heading": "What happens <em>after you order</em>",
-        "link": "/pages/shipping-and-returns"
+        "heading_size": "title-md",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "basic-underline",
+        "subheading": "Delivery"
       },
       "blocks": {
-        "del_order": {
-          "type": "step",
+        "step_order": {
+          "type": "column",
           "settings": {
-            "label": "Today",
-            "title": "Order by 6:30pm",
-            "text": "We process it and get it out the door the same day."
+            "icon": "time",
+            "heading": "Order by 6:30pm",
+            "text": "<p>We process it and get it out the door the same day.</p>"
           }
         },
-        "del_dispatch": {
-          "type": "step",
+        "step_window": {
+          "type": "column",
           "settings": {
-            "label": "When it ships",
-            "title": "One-hour window",
-            "text": "DPD sends you a one-hour delivery window."
+            "icon": "truck",
+            "heading": "One-hour window",
+            "text": "<p>DPD send you a one-hour delivery window on the day.</p>"
           }
         },
-        "del_arrive": {
-          "type": "step",
+        "step_free": {
+          "type": "column",
           "settings": {
-            "label": "Next day",
-            "title": "Free delivery",
-            "text": "Tracked next-day delivery. Saturday delivery is £9.99."
+            "icon": "box",
+            "heading": "Free next day",
+            "text": "<p>Tracked next-day delivery on every spa. Saturday delivery is £9.99.</p>"
           }
         },
-        "del_soak": {
-          "type": "step",
+        "step_setup": {
+          "type": "column",
           "settings": {
-            "label": "First soak",
-            "title": "Set up and fill",
-            "text": "No tools needed. Then fill, heat and relax."
+            "icon": "shield",
+            "heading": "Set up and fill",
+            "text": "<p>No tools needed. Fill it, heat it, and you're in.</p>"
           }
         }
       },
       "block_order": [
-        "del_order",
-        "del_dispatch",
-        "del_arrive",
-        "del_soak"
+        "step_order",
+        "step_window",
+        "step_free",
+        "step_setup"
       ]
     }
   },
@@ -2034,17 +1973,15 @@
     "wave_soak_timeline",
     "video_with_text_8VEKJe",
     "wave_jet_map",
-    "wave_which_size",
     "product-details",
     "wave_in_the_box",
     "wave_downloads",
-    "wave_running_cost",
     "wave_water_care",
-    "wave_garden_ready",
-    "wave_see_it",
+    "wave_size_costs_v2",
+    "wave_garden_v2",
     "comparison_table_GXKLn7",
     "wave_warranty",
-    "wave_delivery",
+    "delivery_steps_v2",
     "faq",
     "custom_liquid_YwqJMM",
     "174653922467a5c413",

@@ -1,0 +1,401 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+  assign max_w = 0
+  if size_option
+    for value in size_option.values
+      if value contains '|'
+        assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+        if w > max_w
+          assign max_w = w
+        endif
+      endif
+    endfor
+  endif
+-%}    {%- liquid
+      assign tbc = '<span class="wpdp-tbc">TBC</span>'
+      assign any_tbc = false
+      assign power = product.metafields.specs.power_supply.value
+      assign cable = product.metafields.specs.cable_length_m.value
+      assign model = product.media | where: 'media_type', 'model' | first
+      assign largest = size_option.values | last
+      assign largest_w = 0
+      if largest contains '|'
+        assign largest_w = largest | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+      endif
+    -%}
+    <div class="wpdp-gv2">
+      <figure class="wpdp-gv2__plan">
+        <svg viewBox="0 0 320 340" role="img" aria-label="Top-down footprint of the {{ product.title | escape }}">
+          {%- case shape -%}
+            {%- when 'Round' -%}
+              <circle class="wpdp-svg-clear" cx="160" cy="160" r="140"/>
+              <circle class="wpdp-svg-shape" cx="160" cy="160" r="100"/>
+            {%- when 'Octagonal' -%}
+              <circle class="wpdp-svg-clear" cx="160" cy="160" r="145"/>
+              <polygon class="wpdp-svg-shape" points="118.6,60 201.4,60 260,118.6 260,201.4 201.4,260 118.6,260 60,201.4 60,118.6"/>
+            {%- when 'Oval' -%}
+              <ellipse class="wpdp-svg-clear" cx="160" cy="160" rx="150" ry="110"/>
+              <ellipse class="wpdp-svg-shape" cx="160" cy="160" rx="110" ry="70"/>
+            {%- else -%}
+              <rect class="wpdp-svg-clear" x="20" y="20" width="280" height="280" rx="18"/>
+              <rect class="wpdp-svg-shape" x="60" y="60" width="200" height="200" rx="12"/>
+          {%- endcase -%}
+          <path class="wpdp-svg-dim" d="M60 318 H260 M60 312 V324 M260 312 V324"/>
+          <text class="wpdp-svg-text" x="160" y="310" text-anchor="middle">{% if largest_w > 0 %}{{ largest_w }} cm{% else %}TBC{% endif %}</text>
+        </svg>
+        <figcaption class="wpdp-muted text-sm">{{ largest | split: '|' | first | strip }} shown. The dashed line is room to walk round and reach the controls.</figcaption>
+      </figure>
+
+      <div class="wpdp-gv2__ar wpdp-card">
+        <div class="wpdp-gv2__media">
+          {%- if model != blank -%}
+            {{- model | model_viewer_tag: image_size: '1024x', reveal: 'interaction', toggleable: true -}}
+          {%- elsif product.featured_image != blank -%}
+            {{- product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title -}}
+          {%- endif -%}
+        </div>
+        <h3>{{ section.settings.ar_heading }}</h3>
+        <div class="rte wpdp-muted">{{ section.settings.ar_text }}</div>
+        {%- if model != blank -%}
+          <button type="button" class="button button--primary" data-shopify-xr data-shopify-model3d-id="{{ model.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>
+            <span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.ar_button }}</span>
+          </button>
+        {%- else -%}
+          <button type="button" class="button button--primary" disabled><span class="btn-text">{{ section.settings.ar_button }}</span></button>
+          {%- if section.settings.show_test_notes -%}<p class="wpdp-note">Add a 3D model (GLB) to the product media to switch this on.</p>{%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <ul class="wpdp-grid wpdp-gv2__checks" role="list">
+      <li class="wpdp-card">
+        <span class="wpdp-gv2__step">1</span>
+        <h3>Space</h3>
+        {%- for value in size_option.values -%}
+          {%- liquid
+            assign label = value | split: '|' | first | strip
+            assign w = 0
+            if value contains '|'
+              assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+            endif
+          -%}
+          <p><strong>{{ label }}:</strong> {% if w > 0 %}{{ w }} cm{% case shape %}{% when 'Round' %} across{% when 'Octagonal' %} across{% when 'Oval' %} long{% else %} × {{ w }} cm{% endcase %}{% else %}{{ tbc }}{% endif %}</p>
+        {%- endfor -%}
+        <p class="wpdp-muted">{{ section.settings.space_text }}</p>
+      </li>
+      <li class="wpdp-card">
+        <span class="wpdp-gv2__step">2</span>
+        <h3>Surface</h3>
+        {%- for value in size_option.values -%}
+          {%- liquid
+            assign size_index = size_option.position | minus: 1
+            assign label = value | split: '|' | first | strip
+            assign first_variant = nil
+            for variant in product.variants
+              if variant.options[size_index] == value and first_variant == nil
+                assign first_variant = variant
+              endif
+            endfor
+            assign filled = first_variant.metafields.specs.filled_weight_kg.value
+          -%}
+          <p><strong>{{ label }}:</strong> {% if filled != blank %}{{ filled | round }} kg full{% else %}{{ tbc }} kg full{% assign any_tbc = true %}{% endif %}</p>
+        {%- endfor -%}
+        <p class="wpdp-muted">{{ section.settings.surface_text }}</p>
+      </li>
+      <li class="wpdp-card">
+        <span class="wpdp-gv2__step">3</span>
+        <h3>Power</h3>
+        <p><strong>Supply:</strong> {% if power != blank %}{{ power }}{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</p>
+        <p><strong>Cable:</strong> {% if cable != blank %}{{ cable }} m{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</p>
+        <p class="wpdp-muted">{{ section.settings.power_text }}</p>
+      </li>
+      <li class="wpdp-card">
+        <span class="wpdp-gv2__step">4</span>
+        <h3>Access &amp; planning</h3>
+        {%- for value in size_option.values -%}
+          {%- liquid
+            assign size_index = size_option.position | minus: 1
+            assign label = value | split: '|' | first | strip
+            assign first_variant = nil
+            for variant in product.variants
+              if variant.options[size_index] == value and first_variant == nil
+                assign first_variant = variant
+              endif
+            endfor
+            assign box_dims = first_variant.metafields.specs.carton_dimensions.value
+          -%}
+          <p><strong>{{ label }} box:</strong> {% if box_dims != blank %}{{ box_dims }}{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</p>
+        {%- endfor -%}
+        <p class="wpdp-muted">{{ section.settings.access_text }}</p>
+      </li>
+    </ul>
+    {%- if section.settings.show_test_notes and any_tbc -%}
+      <p class="wpdp-note">TBC figures come from the variant metafields (Filled weight, Box dimensions) and product metafields (Power supply, Cable length).</p>
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave V2: Garden & AR",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Is your garden <em>ready</em>?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Wave"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-md"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
+        }
+      ],
+      "default": "scribble"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
+        }
+      ],
+      "default": "basic-underline"
+    },
+    {
+      "type": "text",
+      "id": "ar_heading",
+      "label": "AR heading",
+      "default": "See it in your garden"
+    },
+    {
+      "type": "richtext",
+      "id": "ar_text",
+      "label": "AR text",
+      "default": "<p>Use your phone to place a life-size spa where you're thinking of putting it, then walk around it to check the fit.</p>"
+    },
+    {
+      "type": "text",
+      "id": "ar_button",
+      "label": "AR button",
+      "default": "View in your space"
+    },
+    {
+      "type": "text",
+      "id": "space_text",
+      "label": "Space text",
+      "default": "Leave room to walk around the spa and reach the controls and cover."
+    },
+    {
+      "type": "text",
+      "id": "surface_text",
+      "label": "Surface text",
+      "default": "Patio slabs, concrete or decking rated for the weight. Avoid soft lawn."
+    },
+    {
+      "type": "text",
+      "id": "power_text",
+      "label": "Power text",
+      "default": "Use a weatherproof outdoor socket with RCD protection. Never use an extension lead."
+    },
+    {
+      "type": "text",
+      "id": "access_text",
+      "label": "Access text",
+      "default": "Check your side gate before delivery. A hot tub on a patio or lawn doesn't usually need planning permission; raised decking over 30 cm can."
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave V2: Garden & AR"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

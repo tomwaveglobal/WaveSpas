@@ -1,0 +1,467 @@
+{{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
+</style>
+<div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
+  <div class="page-width relative grid gap-8 lg:gap-10">
+    {%- render 'section-heading', section: section -%}
+{%- liquid
+  assign size_option = product.options_by_name['Size']
+  assign shape = 'Square'
+  if product.tags contains 'Round'
+    assign shape = 'Round'
+  elsif product.tags contains 'Octagonal'
+    assign shape = 'Octagonal'
+  elsif product.tags contains 'Oval'
+    assign shape = 'Oval'
+  endif
+  assign max_w = 0
+  if size_option
+    for value in size_option.values
+      if value contains '|'
+        assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+        if w > max_w
+          assign max_w = w
+        endif
+      endif
+    endfor
+  endif
+-%}    {%- liquid
+      assign tbc = '<span class="wpdp-tbc">TBC</span>'
+      assign example_summer = section.settings.example_kwh_summer | times: 1.0
+      assign example_winter = section.settings.example_kwh_winter | times: 1.0
+      assign unit_label = 'p'
+      if cart.currency.iso_code != 'GBP'
+        assign unit_label = 'c'
+      endif
+    -%}
+    <wave-size-costs class="wpdp-cs" data-currency="{{ cart.currency.iso_code }}">
+      <script type="application/json" data-sizes>
+        [
+          {%- for value in size_option.values -%}
+            {%- liquid
+              assign size_index = size_option.position | minus: 1
+              assign label = value | split: '|' | first | strip
+              assign min_price = 0
+              assign first_variant = nil
+              for variant in product.variants
+                if variant.options[size_index] == value
+                  if first_variant == nil
+                    assign first_variant = variant
+                  endif
+                  if min_price == 0 or variant.price < min_price
+                    assign min_price = variant.price
+                  endif
+                endif
+              endfor
+              assign summer = first_variant.metafields.specs.kwh_per_day_summer.value
+              assign winter = first_variant.metafields.specs.kwh_per_day_winter.value
+              assign measured = true
+              if summer == blank or winter == blank
+                assign summer = example_summer
+                assign winter = example_winter
+                assign measured = false
+              endif
+            -%}
+            {"label": {{ label | json }}, "summer": {{ summer | json }}, "winter": {{ winter | json }}, "measured": {{ measured | json }}}{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      </script>
+
+      {%- if size_option and size_option.values.size > 1 -%}
+        <div class="wpdp-toggle wpdp-cs__sizes" role="group" aria-label="{{ section.settings.size_label | escape }}">
+          {%- for value in size_option.values -%}
+            <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="wpdp-cs__grid">
+        <div class="wpdp-cs__size">
+          {%- for value in size_option.values -%}
+            {%- liquid
+              assign size_index = size_option.position | minus: 1
+              assign label = value | split: '|' | first | strip
+              assign seats = label | split: ' ' | first | plus: 0
+              assign w = 0
+              if value contains '|'
+                assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+              endif
+              assign min_price = 0
+              assign first_variant = nil
+              for variant in product.variants
+                if variant.options[size_index] == value
+                  if first_variant == nil
+                    assign first_variant = variant
+                  endif
+                  if min_price == 0 or variant.price < min_price
+                    assign min_price = variant.price
+                  endif
+                endif
+              endfor
+              assign litres = first_variant.metafields.specs.water_litres.value
+              assign filled = first_variant.metafields.specs.filled_weight_kg.value
+              case seats
+                when 2
+                  assign best_for = section.settings.best_for_2
+                when 4
+                  assign best_for = section.settings.best_for_4
+                when 6
+                  assign best_for = section.settings.best_for_6
+                else
+                  assign best_for = ''
+              endcase
+              assign draw = 90
+              if max_w > 0 and w > 0
+                assign draw = w | times: 90 | divided_by: max_w
+              endif
+              assign offset = 100 | minus: draw | divided_by: 2
+            -%}
+            <div class="wpdp-cs__panel" data-size-panel="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
+              <div class="wpdp-cs__panel-head">
+                <div>
+                  <p class="wpdp-label">{{ section.settings.size_label }}</p>
+                  <p class="wpdp-cs__title">{{ label }}</p>
+                  {%- if best_for != blank -%}<p class="wpdp-muted">{{ best_for }}</p>{%- endif -%}
+                </div>
+                <svg class="wpdp-cs__drawing" viewBox="0 0 100 100" aria-hidden="true">
+                  {%- if shape == 'Round' or shape == 'Octagonal' -%}
+                    <circle cx="50" cy="50" r="{{ draw | divided_by: 2 }}"/>
+                  {%- elsif shape == 'Oval' -%}
+                    <ellipse cx="50" cy="50" rx="{{ draw | divided_by: 2 }}" ry="{{ draw | divided_by: 3 }}"/>
+                  {%- else -%}
+                    <rect x="{{ offset }}" y="{{ offset }}" width="{{ draw }}" height="{{ draw }}" rx="8"/>
+                  {%- endif -%}
+                </svg>
+              </div>
+              <dl class="wpdp-cs__facts">
+                <div><dt class="wpdp-label">Seats</dt><dd class="wpdp-value">{{ seats }}</dd></div>
+                <div><dt class="wpdp-label">Footprint</dt><dd class="wpdp-value">{% if w > 0 %}{{ w }} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+                <div><dt class="wpdp-label">Water</dt><dd class="wpdp-value">{% if litres != blank %}{{ litres }} L{% else %}{{ tbc }}{% endif %}</dd></div>
+                <div><dt class="wpdp-label">Weight full</dt><dd class="wpdp-value">{% if filled != blank %}{{ filled | round }} kg{% else %}{{ tbc }}{% endif %}</dd></div>
+                <div class="wpdp-cs__price"><dt class="wpdp-label">From</dt><dd class="wpdp-value">{{ min_price | money }}</dd></div>
+              </dl>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="wpdp-cs__cost">
+          <div class="wpdp-cs__cost-head">
+            <p class="wpdp-label">{{ section.settings.cost_label }}</p>
+            <div class="wpdp-toggle wpdp-toggle--sm" role="group" aria-label="Season">
+              <button type="button" data-season="summer" aria-pressed="false">Summer</button>
+              <button type="button" data-season="winter" aria-pressed="true">Winter</button>
+            </div>
+          </div>
+          <p class="wpdp-cs__big" data-out="day">—</p>
+          <p class="wpdp-label">a day to run</p>
+          <div class="wpdp-cs__split">
+            <div><span class="wpdp-label">A week</span><span class="wpdp-value" data-out="week">—</span></div>
+            <div><span class="wpdp-label">A month</span><span class="wpdp-value" data-out="month">—</span></div>
+          </div>
+          <div class="wpdp-cs__price-input">
+            <label class="wpdp-label" for="WaveUnit-{{ section.id }}">Your electricity price</label>
+            <div><input id="WaveUnit-{{ section.id }}" type="number" inputmode="decimal" min="1" max="200" step="0.01" value="{{ section.settings.unit_price }}"><span class="wpdp-muted">{{ unit_label }} per kWh</span></div>
+          </div>
+          <p class="wpdp-muted wpdp-cs__basis" data-basis></p>
+        </div>
+      </div>
+
+      {%- if section.settings.footnote != blank -%}<div class="rte wpdp-muted text-sm">{{ section.settings.footnote }}</div>{%- endif -%}
+      <p class="wpdp-note" data-example hidden>Example energy figures for layout only, not measured. Add measured values to each size's variant metafields.</p>
+    </wave-size-costs>
+    <script>
+      if (!customElements.get('wave-size-costs')) {
+        customElements.define('wave-size-costs', class extends HTMLElement {
+          connectedCallback() {
+            this.sizes = JSON.parse(this.querySelector('[data-sizes]').textContent);
+            this.money = new Intl.NumberFormat(undefined, { style: 'currency', currency: this.dataset.currency || 'GBP' });
+            this.state = { size: 0, season: 'winter' };
+            this.price = this.querySelector('input[type="number"]');
+            this.querySelectorAll('[data-size]').forEach((b) => b.addEventListener('click', () => { this.state.size = Number(b.dataset.size); this.render(); }));
+            this.querySelectorAll('[data-season]').forEach((b) => b.addEventListener('click', () => { this.state.season = b.dataset.season; this.render(); }));
+            this.price.addEventListener('input', () => this.render());
+            this.render();
+          }
+          render() {
+            const size = this.sizes[this.state.size];
+            if (!size) return;
+            const kwh = Number(size[this.state.season]);
+            const day = kwh * (parseFloat(this.price.value) / 100);
+            const set = (key, value) => { const el = this.querySelector(`[data-out="${key}"]`); if (el) el.textContent = Number.isFinite(value) ? this.money.format(value) : '—'; };
+            set('day', day); set('week', day * 7); set('month', day * 30.4);
+            this.querySelectorAll('[data-size-panel]').forEach((panel) => { panel.hidden = Number(panel.dataset.sizePanel) !== this.state.size; });
+            this.querySelectorAll('[data-size]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.size) === this.state.size)));
+            this.querySelectorAll('[data-season]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.season === this.state.season)));
+            const basis = this.querySelector('[data-basis]');
+            if (basis) basis.textContent = `Based on ${kwh} kWh a day in ${this.state.season}, at 38–40 °C with the lid on.`;
+            const note = this.querySelector('[data-example]');
+            if (note) note.hidden = size.measured;
+          }
+        });
+      }
+    </script>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Wave V2: Size & costs",
+  "tag": "section",
+  "class": "wave-pdp-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pick your size, see what it <em>costs</em>"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Wave"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "Small"
+        },
+        {
+          "value": "title-md",
+          "label": "Medium"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "Large"
+        }
+      ],
+      "default": "title-md"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "Left"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "Center"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "p",
+          "label": "Paragraph"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "label": "Highlighted text",
+      "info": "Wrap a word in italics to highlight it",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "marker",
+          "label": "Marker"
+        },
+        {
+          "value": "scribble",
+          "label": "Scribble"
+        }
+      ],
+      "default": "scribble"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "label": "Scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "basic-underline",
+          "label": "Basic underline"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "Sketch underline"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "Squiggle underline"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "Squiggle underline 2"
+        }
+      ],
+      "default": "basic-underline"
+    },
+    {
+      "type": "text",
+      "id": "size_label",
+      "label": "Size label",
+      "default": "Choose your size"
+    },
+    {
+      "type": "text",
+      "id": "cost_label",
+      "label": "Cost label",
+      "default": "Running cost"
+    },
+    {
+      "type": "text",
+      "id": "best_for_2",
+      "label": "2 person: best for",
+      "default": "Couples and smaller gardens"
+    },
+    {
+      "type": "text",
+      "id": "best_for_4",
+      "label": "4 person: best for",
+      "default": "Couples and small families"
+    },
+    {
+      "type": "text",
+      "id": "best_for_6",
+      "label": "6 person: best for",
+      "default": "Families and entertaining friends"
+    },
+    {
+      "type": "text",
+      "id": "unit_price",
+      "label": "Default electricity price",
+      "default": "27.69"
+    },
+    {
+      "type": "text",
+      "id": "example_kwh_summer",
+      "label": "Example kWh per day, summer",
+      "default": "4"
+    },
+    {
+      "type": "text",
+      "id": "example_kwh_winter",
+      "label": "Example kWh per day, winter",
+      "default": "8"
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "<p>Your cost depends on your tariff, how often you use the spa and the weather. Drawings are to scale against the largest size.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Testing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_test_notes",
+      "label": "Show test notes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colours & spacing"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Highlight"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "Show divider",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wave V2: Size & costs"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}
