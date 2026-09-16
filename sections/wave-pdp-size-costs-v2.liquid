@@ -80,8 +80,12 @@
               assign label = value | split: '|' | first | strip
               assign std_price = 0
               assign es_price = 0
+              assign size_variant = nil
               for variant in product.variants
                 if variant.options[size_index] == value
+                  if size_variant == nil
+                    assign size_variant = variant
+                  endif
                   assign edition = variant.options | last
                   if edition contains 'EnergySave'
                     if es_price == 0 or variant.price < es_price
@@ -94,8 +98,9 @@
                   endif
                 endif
               endfor
+              assign size_kwh = size_variant.metafields.specs.kwh_per_day.value | default: kwh_day
             -%}
-            {"label": {{ label | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}}{% unless forloop.last %},{% endunless %}
+            {"label": {{ label | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "kwh": {{ size_kwh | json }}}{% unless forloop.last %},{% endunless %}
           {%- endfor -%}
         ]
       </script>
@@ -230,9 +235,14 @@
               io.observe(this.cost);
             }
           }
+          kwhFor() {
+            const size = this.sizes[this.state.size] || {};
+            const kwh = Number(size.kwh);
+            return Number.isFinite(kwh) && kwh > 0 ? kwh : this.kwh;
+          }
           monthly() {
             const rate = parseFloat(this.price && this.price.value) / 100;
-            const base = this.kwh * this.state.days * rate;
+            const base = this.kwhFor() * this.state.days * rate;
             return this.state.edition === 'es' ? base * (1 - this.saving) : base;
           }
           set(key, value) {
@@ -253,16 +263,17 @@
             if (note) note.hidden = this.state.edition !== 'es';
             const price = this.state.edition === 'es' && hasEs ? size.es : size.price;
             this.set('price', Number(price) / 100);
-            if (!this.cost || !Number.isFinite(this.kwh)) return;
+            const kwh = this.kwhFor();
+            if (!this.cost || !Number.isFinite(kwh)) return;
             const month = this.monthly();
             if (animate) { this.countUp(); } else { this.set('month', month); }
             const rate = parseFloat(this.price.value) / 100;
-            const perDay = this.state.edition === 'es' ? this.kwh * rate * (1 - this.saving) : this.kwh * rate;
+            const perDay = this.state.edition === 'es' ? kwh * rate * (1 - this.saving) : kwh * rate;
             this.set('day', perDay);
             this.set('year', month * 12);
             const basis = this.querySelector('[data-basis]');
             if (basis) {
-              const kwhShown = this.state.edition === 'es' ? (this.kwh * (1 - this.saving)).toFixed(1) : this.kwh;
+              const kwhShown = this.state.edition === 'es' ? (kwh * (1 - this.saving)).toFixed(1) : kwh;
               basis.textContent = `${kwhShown} kWh a day, used ${this.state.days} days a month, at ${this.price.value}p per kWh.`;
             }
           }
