@@ -20,9 +20,9 @@
           "disabled": false,
           "settings": {
             "icon": "sale",
-            "text": "<em><strong>15% off Frame Spas </strong></em>+ Free Starter Kit",
-            "link": "shopify://products/adriatic-hot-tub",
-            "text_mobile": "<em><strong>15% off Frame Spas  </strong></em>+ Free Starter Kit",
+            "text": "<em><strong>15% off all hot tubs </strong></em>+ Free Starter Kit",
+            "link": "shopify://collections/hot-tub-spa-sale",
+            "text_mobile": "<em><strong>15% off all hot tubs  </strong></em>+ Free Starter Kit",
             "highlighted_text": "text"
           }
         },
