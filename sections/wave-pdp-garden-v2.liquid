@@ -65,31 +65,38 @@
         <figcaption class="wpdp-muted text-sm">{{ largest | split: '|' | first | strip }} shown. The dashed line is room to walk round and reach the controls.</figcaption>
       </figure>
 
-      <div class="wpdp-gv2__ar wpdp-card">
+      <div class="wpdp-gv2__ar">
         <div class="wpdp-gv2__media">
+          {%- liquid
+            assign ar_image = product.metafields.custom.product_image_1.value | default: product.featured_image
+          -%}
           {%- if model != blank -%}
             {{- model | model_viewer_tag: image_size: '1024x', reveal: 'interaction', toggleable: true -}}
-          {%- elsif product.featured_image != blank -%}
-            {{- product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title -}}
+          {%- elsif ar_image != blank -%}
+            {{- ar_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: product.title -}}
           {%- endif -%}
         </div>
-        <h3>{{ section.settings.ar_heading }}</h3>
-        <div class="rte wpdp-muted">{{ section.settings.ar_text }}</div>
-        {%- if model != blank -%}
-          <button type="button" class="button button--primary" data-shopify-xr data-shopify-model3d-id="{{ model.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>
-            <span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.ar_button }}</span>
-          </button>
-        {%- else -%}
-          <button type="button" class="button button--primary" disabled><span class="btn-text">{{ section.settings.ar_button }}</span></button>
-          {%- if section.settings.show_test_notes -%}<p class="wpdp-note">Add a 3D model (GLB) to the product media to switch this on.</p>{%- endif -%}
-        {%- endif -%}
+        <div class="wpdp-gv2__copy">
+          <h3>{{ section.settings.ar_heading }}</h3>
+          <div class="rte">{{ section.settings.ar_text }}</div>
+          {%- if model != blank -%}
+            <button type="button" class="button button--primary" data-shopify-xr data-shopify-model3d-id="{{ model.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>
+              <span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.ar_button }}</span>
+            </button>
+          {%- else -%}
+            <button type="button" class="button button--primary" disabled><span class="btn-text">{{ section.settings.ar_button }}</span></button>
+          {%- endif -%}
+        </div>
       </div>
     </div>
 
-    <ul class="wpdp-grid wpdp-gv2__checks" role="list">
-      <li class="wpdp-card">
-        <span class="wpdp-gv2__step">1</span>
-        <h3>Space</h3>
+    {%- if model == blank and section.settings.show_test_notes -%}
+      <p class="wpdp-note">Add a 3D model (GLB) to the product media to switch the "View in your space" button on.</p>
+    {%- endif -%}
+
+    <ol class="wpdp-checks" role="list">
+      <li>
+        <div class="wpdp-checks__head"><span class="wpdp-checks__num">1</span><h3>Space</h3></div>
         {%- for value in size_option.values -%}
           {%- liquid
             assign label = value | split: '|' | first | strip
@@ -102,9 +109,8 @@
         {%- endfor -%}
         <p class="wpdp-muted">{{ section.settings.space_text }}</p>
       </li>
-      <li class="wpdp-card">
-        <span class="wpdp-gv2__step">2</span>
-        <h3>Surface</h3>
+      <li>
+        <div class="wpdp-checks__head"><span class="wpdp-checks__num">2</span><h3>Surface</h3></div>
         {%- for value in size_option.values -%}
           {%- liquid
             assign size_index = size_option.position | minus: 1
@@ -121,16 +127,14 @@
         {%- endfor -%}
         <p class="wpdp-muted">{{ section.settings.surface_text }}</p>
       </li>
-      <li class="wpdp-card">
-        <span class="wpdp-gv2__step">3</span>
-        <h3>Power</h3>
+      <li>
+        <div class="wpdp-checks__head"><span class="wpdp-checks__num">3</span><h3>Power</h3></div>
         <p><strong>Supply:</strong> {% if power != blank %}{{ power }}{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</p>
         <p><strong>Cable:</strong> {% if cable != blank %}{{ cable }} m{% else %}{{ tbc }}{% assign any_tbc = true %}{% endif %}</p>
         <p class="wpdp-muted">{{ section.settings.power_text }}</p>
       </li>
-      <li class="wpdp-card">
-        <span class="wpdp-gv2__step">4</span>
-        <h3>Access &amp; planning</h3>
+      <li>
+        <div class="wpdp-checks__head"><span class="wpdp-checks__num">4</span><h3>Access &amp; planning</h3></div>
         {%- for value in size_option.values -%}
           {%- liquid
             assign size_index = size_option.position | minus: 1
@@ -147,7 +151,7 @@
         {%- endfor -%}
         <p class="wpdp-muted">{{ section.settings.access_text }}</p>
       </li>
-    </ul>
+    </ol>
     {%- if section.settings.show_test_notes and any_tbc -%}
       <p class="wpdp-note">TBC figures come from the variant metafields (Filled weight, Box dimensions) and product metafields (Power supply, Cable length).</p>
     {%- endif -%}

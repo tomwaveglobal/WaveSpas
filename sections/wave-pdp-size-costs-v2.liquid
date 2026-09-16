@@ -73,7 +73,7 @@
       </script>
 
       {%- if size_option and size_option.values.size > 1 -%}
-        <div class="wpdp-toggle wpdp-cs__sizes" role="group" aria-label="{{ section.settings.size_label | escape }}">
+        <div class="wpdp-seg wpdp-cs__sizes" role="group" aria-label="{{ section.settings.size_label | escape }}">
           {%- for value in size_option.values -%}
             <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
           {%- endfor -%}
@@ -123,11 +123,14 @@
             -%}
             <div class="wpdp-cs__panel" data-size-panel="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
               <div class="wpdp-cs__panel-head">
-                <div>
-                  <p class="wpdp-label">{{ section.settings.size_label }}</p>
+                <div class="wpdp-cs__intro">
                   <p class="wpdp-cs__title">{{ label }}</p>
-                  {%- if best_for != blank -%}<p class="wpdp-muted">{{ best_for }}</p>{%- endif -%}
+                  {%- if best_for != blank -%}<p class="wpdp-cs__bestfor">{{ best_for }}</p>{%- endif -%}
                 </div>
+                {%- assign size_image = first_variant.featured_image | default: product.featured_image -%}
+                {%- if size_image != blank -%}
+                  <div class="wpdp-cs__shot">{{ size_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: label }}</div>
+                {%- endif -%}
                 <svg class="wpdp-cs__drawing" viewBox="0 0 100 100" aria-hidden="true">
                   {%- if shape == 'Round' or shape == 'Octagonal' -%}
                     <circle cx="50" cy="50" r="{{ draw | divided_by: 2 }}"/>
@@ -152,7 +155,7 @@
         <div class="wpdp-cs__cost">
           <div class="wpdp-cs__cost-head">
             <p class="wpdp-label">{{ section.settings.cost_label }}</p>
-            <div class="wpdp-toggle wpdp-toggle--sm" role="group" aria-label="Season">
+            <div class="wpdp-seg wpdp-seg--dark" role="group" aria-label="Season">
               <button type="button" data-season="summer" aria-pressed="false">Summer</button>
               <button type="button" data-season="winter" aria-pressed="true">Winter</button>
             </div>
