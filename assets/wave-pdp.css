@@ -176,15 +176,16 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 @media (max-width: 900px) { .wpdp-map { grid-template-columns: 1fr; } }
 
 /* Water care */
-.wpdp-care { display: grid; gap: clamp(1.25rem, 3vw, 3rem); grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; }
+.wpdp-care { display: grid; gap: clamp(1.25rem, 3vw, 3rem); grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: stretch; }
 .wpdp-care__routine { list-style: none; margin: 0; padding: 0; display: grid; }
 .wpdp-care__step { margin: 0; display: grid; grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr); gap: 1.5rem; padding: 1.15rem 0; border-top: 1px solid var(--wpdp-hair); align-items: baseline; }
 .wpdp-care__routine li:last-child { border-bottom: 1px solid var(--wpdp-hair); }
 .wpdp-care__when { font-size: 1rem; color: rgb(var(--color-foreground) / 0.55); }
 .wpdp-care__task { display: grid; gap: 0.25rem; line-height: 1.45; }
 .wpdp-care__task .wpdp-muted { font-size: 0.925rem; }
-.wpdp-care__kit { position: relative; gap: 0.85rem; background: var(--wpdp-wash); border-color: transparent; }
-.wpdp-care__kit img { width: 100%; aspect-ratio: 1; object-fit: contain; mix-blend-mode: multiply; }
+.wpdp-care__kit { position: relative; gap: 0.85rem; background: var(--wpdp-wash); border-color: transparent; align-content: start; grid-template-rows: auto 1fr auto auto auto; }
+.wpdp-care__kit-link { display: block; min-height: 0; }
+.wpdp-care__kit img { width: 100%; height: 100%; max-height: 320px; object-fit: contain; mix-blend-mode: multiply; }
 .wpdp-care__kit h3 a { color: inherit; text-decoration: none; }
 .wpdp-care__badge { justify-self: start; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; padding: 0.35em 0.8em; border-radius: 999px; background: rgb(var(--color-foreground)); color: rgb(var(--wpdp-paper)); }
 @media (max-width: 900px) { .wpdp-care { grid-template-columns: 1fr; } }
@@ -270,6 +271,10 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-map .layer-vertaair rect { fill: rgb(var(--wpdp-aqua)); }
 .wpdp-map .layer-jets circle { fill: rgb(var(--wpdp-accent)); stroke: none; filter: drop-shadow(0 0 10px rgb(var(--wpdp-accent) / 0.9)); }
 .wpdp-map[data-focus] .layer { opacity: 0.16; }
+.wpdp-map[data-focus="seats"] .layer-seats,
+.wpdp-map[data-focus="bubbles"] .layer-bubbles,
+.wpdp-map[data-focus="vertaair"] .layer-vertaair,
+.wpdp-map[data-focus="jets"] .layer-jets { opacity: 1; }
 
 /* Garden + AR — deeper image treatment */
 .wpdp-gv2__ar { box-shadow: 0 34px 80px -50px rgb(0 0 0 / 0.7); }
@@ -331,3 +336,9 @@ a.wpdp-file:hover .wpdp-file__icon { background: rgb(var(--color-foreground)); c
 .wpdp-cs__saving { margin: 0; font-size: 0.85rem; line-height: 1.5; color: rgb(var(--wpdp-aqua)); }
 .wpdp-cs__saving[hidden] { display: none; }
 @media (max-width: 700px) { .wpdp-cs__shot { position: static; width: clamp(150px, 45vw, 230px); margin: 0 auto 1rem; } .wpdp-cs__panel { padding-right: 0; } }
+
+/* Product shot: knock out the white studio background, drop the award badge corner */
+.wpdp-cs__shot img { mix-blend-mode: multiply; filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.18)); transition: opacity 0.28s ease, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+.wpdp-cs__shot--clip img { clip-path: polygon(0 0, 100% 0, 100% 100%, 34% 100%, 34% 72%, 0 72%); }
+.wpdp-cs__shot img.is-swapping { opacity: 0; transform: scale(0.97); }
+:root[data-theme="dark"] .wpdp-cs__shot img, :root:not([data-theme="light"]) .wpdp-cs__shot img { mix-blend-mode: normal; }
