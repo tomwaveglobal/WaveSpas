@@ -29,12 +29,6 @@
         assign shape = 'Oval'
       endif
       assign setup_minutes = product.metafields.specs.setup_minutes.value
-      if setup_minutes == blank
-        assign collage_title = product.metafields.custom.product_collage_image_2_title.value
-        if collage_title contains 'Minute'
-          assign setup_minutes = collage_title | split: ' ' | first
-        endif
-      endif
 
       assign control = 'Wired controller'
       if kf contains 'WiFi'

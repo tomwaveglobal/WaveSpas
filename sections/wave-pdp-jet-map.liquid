@@ -129,7 +129,15 @@
       </figure>
 
       <ul class="wpdp-legend" role="list">
-        <li><button type="button" data-layer="bubbles" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-aqua-ink))"></span><span class="wpdp-legend__title">{{ section.settings.bubbles_title }}</span><span class="wpdp-legend__text">{% if product.tags contains 'Lite' %}{{ section.settings.bubbles_text_lite }}{% else %}{{ section.settings.bubbles_text }}{% endif %}</span></button></li>
+        {%- liquid
+          assign bubbles_title = section.settings.bubbles_title
+          assign bubbles_text = section.settings.bubbles_text
+          if product.tags contains 'Lite'
+            assign bubbles_title = section.settings.bubbles_title_lite
+            assign bubbles_text = section.settings.bubbles_text_lite
+          endif
+        -%}
+        <li><button type="button" data-layer="bubbles" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-aqua-ink))"></span><span class="wpdp-legend__title">{{ bubbles_title }}</span><span class="wpdp-legend__text">{{ bubbles_text }}</span></button></li>
         {%- if has_seats -%}
           <li><button type="button" data-layer="seats" aria-pressed="false"><span class="wpdp-legend__swatch" style="background:rgb(var(--wpdp-aqua))"></span><span class="wpdp-legend__title">{{ section.settings.seats_title }}</span><span class="wpdp-legend__text">{{ section.settings.seats_text }}</span></button></li>
         {%- else -%}
@@ -300,19 +308,19 @@
       "type": "text",
       "id": "bubbles_title",
       "label": "Bubbles title",
-      "default": "AquaBubble™ floor ring"
+      "default": "Two bubble speeds"
     },
     {
       "type": "text",
       "id": "bubbles_text",
       "label": "Bubbles text",
-      "default": "Air bubbles rise from the floor all the way round, with two speeds."
+      "default": "Turn it up for a full bubble massage, or turn it down to VertaCalm™ — the quiet setting."
     },
     {
       "type": "text",
       "id": "bubbles_text_lite",
       "label": "Bubbles text (Lite)",
-      "default": "Air bubbles rise from the floor all the way round, on a single speed."
+      "default": "One speed, rising from the floor all the way round."
     },
     {
       "type": "text",
@@ -324,7 +332,7 @@
       "type": "text",
       "id": "seats_text",
       "label": "Seats text",
-      "default": "Built-in seats so everyone sits at the right height."
+      "default": "Air Foam seats that hold you properly."
     },
     {
       "type": "text",
@@ -336,19 +344,19 @@
       "type": "text",
       "id": "open_floor_text",
       "label": "Open floor text",
-      "default": "No moulded seats, so there's room to stretch out."
+      "default": "Room to stand up, stretch out and move around."
     },
     {
       "type": "text",
       "id": "vertaair_text",
       "label": "VertaAir text",
-      "default": "Vertical bubble jets rise up the spa wall behind you."
+      "default": "Bubbles rise up the spa wall and around you, on both speeds."
     },
     {
       "type": "text",
       "id": "jets_text",
       "label": "VertaJet text",
-      "default": "Four hydro-massage jets with two intensities."
+      "default": "Four jets across two VertaZone™ areas, two intensities, with or without the bubbles."
     },
     {
       "type": "header",
