@@ -146,23 +146,7 @@
         {%- endif -%}
       </ul>
     </wave-jet-map>
-    <script>
-      if (!customElements.get('wave-jet-map')) {
-        customElements.define('wave-jet-map', class extends HTMLElement {
-          connectedCallback() {
-            this.querySelectorAll('[data-layer]').forEach((button) => {
-              button.addEventListener('click', () => {
-                const active = button.getAttribute('aria-pressed') === 'true';
-                this.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
-                if (active) { this.removeAttribute('data-focus'); return; }
-                button.setAttribute('aria-pressed', 'true');
-                this.setAttribute('data-focus', button.dataset.layer);
-              });
-            });
-          }
-        });
-      }
-    </script>
+    <script src="{{ 'wave-pdp.js' | asset_url }}" defer="defer"></script>
   </div>
 </div>
 {% schema %}
