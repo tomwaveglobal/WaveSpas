@@ -207,12 +207,6 @@
             "show_back_in_stock_phone": false
           }
         },
-        "liquid_wave_spec_strip": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "{% render 'wave-spec-strip', product: product, show_test_notes: true %}"
-          }
-        },
         "contona_button_design": {
           "type": "contona_button_design",
           "settings": {
@@ -451,7 +445,6 @@
         "text_nncjDG",
         "inventory",
         "buy_buttons_nBMjqf",
-        "liquid_wave_spec_strip",
         "contona_button_design",
         "share",
         "liquid_wave_finance",
@@ -1007,97 +1000,6 @@
         "divider": false
       }
     },
-    "video_with_text_8VEKJe": {
-      "type": "video-with-text",
-      "blocks": {
-        "image_RxcXtE": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/no_tools_ea5fe47c-e108-4c12-b843-11ab83b9347a_1_1.png",
-            "image_width": "custom",
-            "image_max_width": 60,
-            "image_max_width_mobile": 60
-          }
-        },
-        "heading_XmMekn": {
-          "type": "heading",
-          "settings": {
-            "heading": "Tool-Free Setup",
-            "heading_size": "title-md",
-            "heading_tag": "h2",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "highlighted_reveal": false
-          }
-        },
-        "text_TcKEfE": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Experience a completely hassle free installation as you go from unboxed to fully setup in under 20 minutes with this simple, tool-free guide designed to get you relaxing in your hot tub as quickly as possible.<br/><br/></p>",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "button_qWpann": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style": "primary",
-            "button_size": "md",
-            "button_external": false,
-            "button_icon": true
-          }
-        }
-      },
-      "block_order": [
-        "image_RxcXtE",
-        "heading_XmMekn",
-        "text_TcKEfE",
-        "button_qWpann"
-      ],
-      "name": "t:sections.video-with-text.presets.name",
-      "settings": {
-        "video": "{{ product.metafields.custom.setup_video.value }}",
-        "video_url": "",
-        "description": "",
-        "enable_video_autoplay": false,
-        "enable_video_looping": true,
-        "image_height": "adapt",
-        "video_width": "large",
-        "layout": "text_first",
-        "text_alignment": "left",
-        "content_position": "align-self-center",
-        "video_url_mobile": "",
-        "image_height_mobile": "auto",
-        "text_alignment_mobile": "left",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_background_2": "",
-        "gradient_background_2": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": false,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
-      }
-    },
     "wave_jet_map": {
       "type": "wave-pdp-jet-map",
       "settings": {
@@ -1258,29 +1160,6 @@
         "show_extras": true,
         "extras_heading": "You'll also want",
         "extras_count": 3,
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
-      }
-    },
-    "wave_downloads": {
-      "type": "wave-pdp-downloads",
-      "settings": {
-        "heading": "Guides &amp; <em>downloads</em>",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "video_caption": "Watch the full setup, start to finish.",
-        "guide_label": "More setup guides",
-        "guide_link": "/pages/hot-tub-spa-how-to-guide",
         "show_test_notes": true,
         "color_text": "",
         "color_background": "",
@@ -1468,71 +1347,6 @@
         "divider": false,
         "full_width": false,
         "rounded": false
-      }
-    },
-    "wave_warranty": {
-      "type": "wave-pdp-warranty",
-      "blocks": {
-        "item_pump": {
-          "type": "item",
-          "settings": {
-            "component": "Pump & heater",
-            "duration": "2 years",
-            "note": ""
-          }
-        },
-        "item_liner": {
-          "type": "item",
-          "settings": {
-            "component": "Liner",
-            "duration": "12 months",
-            "note": ""
-          }
-        },
-        "item_cover": {
-          "type": "item",
-          "settings": {
-            "component": "Cover & lid",
-            "duration": "TBC",
-            "note": ""
-          }
-        },
-        "item_controller": {
-          "type": "item",
-          "settings": {
-            "component": "Controller & WiFi",
-            "duration": "TBC",
-            "note": ""
-          }
-        }
-      },
-      "block_order": [
-        "item_pump",
-        "item_liner",
-        "item_cover",
-        "item_controller"
-      ],
-      "settings": {
-        "heading": "Warranty &amp; <em>support</em>",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "support_heading": "Help when you need it",
-        "support_text": "<p>Our UK customer service team can help with setup, water care and anything else about your spa.</p>",
-        "trust_text": "The UK's highest-rated hot tub brand on Trustpilot",
-        "register_label": "Register your spa",
-        "register_link": "",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
       }
     },
     "faq": {
@@ -1843,56 +1657,66 @@
       "settings": {
         "heading": "Water care made <em>simple</em>",
         "starter_kit": "hot-tub-chemical-starter-kit-screw-on-threaded-filters",
-        "guide_link": "/blogs/knowledge-base"
+        "guide_link": "/blogs/knowledge-base/filter-maintenance",
+        "guide_label": "Read the water care guide"
       },
       "blocks": {
-        "care_test": {
+        "c1": {
           "type": "step",
           "settings": {
-            "when": "A few times a week",
-            "task": "Test and balance the water",
-            "detail": "Dip a test strip and top up chemicals if needed"
+            "when": "After every soak",
+            "task": "Rinse the filter",
+            "detail": "A quick blast with the garden hose, and pop the lid back on."
           }
         },
-        "care_rinse": {
+        "c2": {
+          "type": "step",
+          "settings": {
+            "when": "Twice a week",
+            "task": "Test and balance",
+            "detail": "Chlorine 3–5 ppm, pH 7.2–7.6. Test again before you get in."
+          }
+        },
+        "c3": {
+          "type": "step",
+          "settings": {
+            "when": "Each day you use it",
+            "task": "Top up the chlorine",
+            "detail": "About 1.5 g for a 4 person spa, 2 g for a 6 person."
+          }
+        },
+        "c4": {
           "type": "step",
           "settings": {
             "when": "Weekly",
-            "task": "Rinse the filter",
-            "detail": "A quick spray with the garden hose"
+            "task": "Deep clean and shock",
+            "detail": "Soak the filter in filter cleaner for an hour, then add a non-chlorine oxidiser."
           }
         },
-        "care_filter": {
+        "c5": {
           "type": "step",
           "settings": {
-            "when": "Every TBC",
-            "task": "Replace the filter",
-            "detail": ""
+            "when": "Every 2–4 weeks",
+            "task": "Fit a new cartridge",
+            "detail": "Closer to every 2 weeks if you're in most days."
           }
         },
-        "care_water": {
+        "c6": {
           "type": "step",
           "settings": {
-            "when": "Every TBC",
+            "when": "Every 1–3 months",
             "task": "Drain and refill",
-            "detail": "Fresh water keeps chemical use down"
-          }
-        },
-        "care_lid": {
-          "type": "step",
-          "settings": {
-            "when": "Every soak",
-            "task": "Put the lid back on",
-            "detail": "Keeps heat in and leaves and debris out"
+            "detail": "Every 3–4 months if you only use it occasionally."
           }
         }
       },
       "block_order": [
-        "care_test",
-        "care_rinse",
-        "care_filter",
-        "care_water",
-        "care_lid"
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
       ]
     },
     "wave_size_costs_v2": {
@@ -1904,20 +1728,12 @@
         "heading_size": "title-lg tracking-heading"
       }
     },
-    "wave_garden_v2": {
-      "type": "wave-pdp-garden-v2",
-      "settings": {
-        "heading": "Is your garden <em>ready</em>?",
-        "subheading": "Before it arrives",
-        "heading_size": "title-lg tracking-heading"
-      }
-    },
     "delivery_steps_v2": {
       "type": "multicolumn-with-icons",
       "settings": {
         "style": "with-background",
-        "columns": 4,
-        "heading": "What happens <em>after you order</em>",
+        "columns": 3,
+        "heading": "After you order, you're <em>covered</em>",
         "heading_size": "title-md",
         "highlighted_text": "scribble",
         "highlighted_scribble": "basic-underline",
@@ -1955,14 +1771,73 @@
             "heading": "Set up and fill",
             "text": "<p>No tools needed. Fill it, heat it, and you're in.</p>"
           }
+        },
+        "step_warranty": {
+          "type": "column",
+          "settings": {
+            "icon": "shield",
+            "heading": "2 year warranty",
+            "text": "<p>Two years of cover on your spa, handled by our own UK team.</p>"
+          }
+        },
+        "step_support": {
+          "type": "column",
+          "settings": {
+            "icon": "support",
+            "heading": "UK support team",
+            "text": "<p>Mon–Fri 8:30am–5:30pm, Sat 8am–4pm. We reply within 8 working hours.</p>"
+          }
         }
       },
       "block_order": [
         "step_order",
         "step_window",
         "step_free",
-        "step_setup"
+        "step_setup",
+        "step_warranty",
+        "step_support"
       ]
+    },
+    "wave_setup_guide_v2": {
+      "type": "wave-pdp-setup-guide-v2",
+      "settings": {
+        "heading": "Set up in <em>minutes</em>, not afternoons",
+        "subheading": "Setup & guides",
+        "guide_link": "/pages/hot-tub-spa-how-to-guide",
+        "guide_label": "Setup guides & videos"
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "text": "Unroll it on a flat, solid surface"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "text": "Clip the walls together and drop the liner in"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "text": "Connect the heater, fill with a hose and switch on"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "wave_fits_v2": {
+      "type": "wave-pdp-fits-v2",
+      "settings": {
+        "heading": "Will it <em>fit</em>?",
+        "subheading": "Space & power"
+      }
     }
   },
   "order": [
@@ -1974,16 +1849,14 @@
     "collage",
     "image-with-text-1",
     "wave_soak_timeline",
-    "video_with_text_8VEKJe",
+    "wave_setup_guide_v2",
     "wave_jet_map",
     "product-details",
     "wave_in_the_box",
-    "wave_downloads",
     "wave_water_care",
     "wave_size_costs_v2",
-    "wave_garden_v2",
+    "wave_fits_v2",
     "comparison_table_GXKLn7",
-    "wave_warranty",
     "delivery_steps_v2",
     "faq",
     "custom_liquid_YwqJMM",

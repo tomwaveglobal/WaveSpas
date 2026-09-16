@@ -10,38 +10,50 @@
   <div class="page-width relative grid gap-8 lg:gap-10">
     {%- render 'section-heading', section: section -%}
     {%- liquid
-      assign kit = section.settings.starter_kit
-      assign product_label = product.metafields.theme.label.value | downcase
-      assign kit_free = false
-      if product_label contains 'starter kit'
-        assign kit_free = true
+      assign size_option = product.options_by_name['Size']
+      assign tbc = '<span class="wpdp-tbc">TBC</span>'
+      assign shape = 'Square'
+      if product.tags contains 'Round'
+        assign shape = 'Round'
+      elsif product.tags contains 'Octagonal'
+        assign shape = 'Octagonal'
+      elsif product.tags contains 'Oval'
+        assign shape = 'Oval'
       endif
+      assign largest = size_option.values | last
+      assign largest_w = 0
+      if largest contains '|'
+        assign largest_w = largest | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+      endif
+      assign height = 0
+      if largest contains '|'
+        assign height = largest | split: '|' | last | strip | remove: 'cm' | split: 'x' | last | plus: 0
+      endif
+      assign cable = product.metafields.specs.cable_length_m.value
+      assign filled = product.selected_or_first_available_variant.metafields.specs.filled_weight_kg.value
+      assign model = product.media | where: 'media_type', 'model' | first
     -%}
-    <div class="wpdp-care">
-      <ol class="wpdp-care__routine" role="list">
-        {%- for block in section.blocks -%}
-          <li class="wpdp-care__step" {{ block.shopify_attributes }}>
-            <span class="wpdp-care__when{% if block.settings.when contains 'TBC' %} wpdp-tbc{% endif %}">{{ block.settings.when }}</span>
-            <span class="wpdp-care__task"><strong>{{ block.settings.task }}</strong>{% if block.settings.detail != blank %}<span class="wpdp-muted">{{ block.settings.detail }}</span>{% endif %}</span>
-          </li>
-        {%- endfor -%}
-      </ol>
-      <div class="wpdp-card wpdp-care__kit">
-        {%- if kit != blank -%}
-          {%- if kit_free -%}<span class="wpdp-care__badge">Free with your spa</span>{%- endif -%}
-          <a class="wpdp-care__kit-link" href="{{ kit.url }}">
-            {%- if kit.featured_image != blank -%}
-              {{- kit.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: kit.title -}}
-            {%- endif -%}
-          </a>
-          <h3><a href="{{ kit.url }}">{{ kit.title }}</a></h3>
-          <p class="wpdp-muted">{{ section.settings.kit_text }}</p>
-          {%- unless kit_free -%}<p class="wpdp-value">{{ kit.price | money }}</p>{%- endunless -%}
-        {%- elsif section.settings.show_test_notes -%}
-          <p class="wpdp-note">Choose a starter kit product in the section settings.</p>
-        {%- endif -%}
-        {%- if section.settings.guide_link != blank -%}
-          <a class="link" href="{{ section.settings.guide_link }}">{{ section.settings.guide_label }}</a>
+    <div class="wpdp-fits">
+      <svg class="wpdp-fits__plan" viewBox="0 0 120 120" aria-hidden="true">
+        {%- case shape -%}
+          {%- when 'Round' -%}<circle class="wpdp-fits__clear" cx="60" cy="60" r="56"/><circle class="wpdp-fits__shape" cx="60" cy="60" r="40"/>
+          {%- when 'Octagonal' -%}<circle class="wpdp-fits__clear" cx="60" cy="60" r="56"/><polygon class="wpdp-fits__shape" points="45,20 75,20 100,45 100,75 75,100 45,100 20,75 20,45"/>
+          {%- when 'Oval' -%}<ellipse class="wpdp-fits__clear" cx="60" cy="60" rx="58" ry="44"/><ellipse class="wpdp-fits__shape" cx="60" cy="60" rx="44" ry="28"/>
+          {%- else -%}<rect class="wpdp-fits__clear" x="4" y="4" width="112" height="112" rx="10"/><rect class="wpdp-fits__shape" x="20" y="20" width="80" height="80" rx="8"/>
+        {%- endcase -%}
+      </svg>
+      <dl class="wpdp-fits__facts">
+        <div><dt class="wpdp-label">Footprint</dt><dd class="wpdp-value">{% if largest_w > 0 %}{{ largest_w }}{% if shape == 'Square' %} × {{ largest_w }}{% endif %} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+        <div><dt class="wpdp-label">Height</dt><dd class="wpdp-value">{% if height > 0 %}{{ height }} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+        <div><dt class="wpdp-label">Weight full</dt><dd class="wpdp-value">{% if filled != blank %}{{ filled | round }} kg{% else %}{{ tbc }}{% endif %}</dd></div>
+        <div><dt class="wpdp-label">Power</dt><dd class="wpdp-value">{% if cable != blank %}{{ cable }} m cable{% else %}{{ tbc }}{% endif %}</dd></div>
+      </dl>
+      <div class="wpdp-fits__cta">
+        <p class="wpdp-muted">{{ section.settings.note }}</p>
+        {%- if model != blank -%}
+          <button type="button" class="button button--secondary" data-shopify-xr data-shopify-model3d-id="{{ model.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>
+            <span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.ar_button }}</span>
+          </button>
         {%- endif -%}
       </div>
     </div>
@@ -49,7 +61,7 @@
 </div>
 {% schema %}
 {
-  "name": "Wave: Water care",
+  "name": "Wave V2: Will it fit",
   "tag": "section",
   "class": "wave-pdp-section",
   "settings": [
@@ -57,12 +69,13 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Water care made <em>simple</em>"
+      "default": "Will it <em>fit</em>?"
     },
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "Subheading",
+      "default": "Wave"
     },
     {
       "type": "richtext",
@@ -87,7 +100,7 @@
           "label": "Large"
         }
       ],
-      "default": "title-md"
+      "default": "title-lg tracking-heading"
     },
     {
       "type": "select",
@@ -117,10 +130,6 @@
         {
           "value": "h3",
           "label": "H3"
-        },
-        {
-          "value": "p",
-          "label": "Paragraph"
         }
       ],
       "default": "h2"
@@ -129,7 +138,6 @@
       "type": "select",
       "id": "highlighted_text",
       "label": "Highlighted text",
-      "info": "Wrap a word in italics to highlight it",
       "options": [
         {
           "value": "none",
@@ -140,24 +148,12 @@
           "label": "Text"
         },
         {
-          "value": "full_text",
-          "label": "Full text"
-        },
-        {
-          "value": "half_text",
-          "label": "Half text"
-        },
-        {
           "value": "underline",
           "label": "Underline"
         },
         {
           "value": "marker",
           "label": "Marker"
-        },
-        {
-          "value": "stencil",
-          "label": "Stencil"
         },
         {
           "value": "scribble",
@@ -186,35 +182,21 @@
         {
           "value": "squiggle-underline",
           "label": "Squiggle underline"
-        },
-        {
-          "value": "squiggle-underline-2",
-          "label": "Squiggle underline 2"
         }
       ],
       "default": "basic-underline"
     },
     {
-      "type": "product",
-      "id": "starter_kit",
-      "label": "Starter kit product"
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "Set it on a flat, solid surface: patio slabs, concrete or decking rated for the weight. A weatherproof 13 A socket with RCD protection, and no extension leads."
     },
     {
       "type": "text",
-      "id": "kit_text",
-      "label": "Kit text",
-      "default": "Everything you need for clear, balanced water from your first fill."
-    },
-    {
-      "type": "text",
-      "id": "guide_label",
-      "label": "Guide link label",
-      "default": "Read our water care guides"
-    },
-    {
-      "type": "url",
-      "id": "guide_link",
-      "label": "Guide link"
+      "id": "ar_button",
+      "label": "AR button",
+      "default": "View in your space"
     },
     {
       "type": "header",
@@ -224,7 +206,6 @@
       "type": "checkbox",
       "id": "show_test_notes",
       "label": "Show test notes",
-      "info": "Amber notes for anything still waiting on data. Turn off before launch.",
       "default": true
     },
     {
@@ -254,7 +235,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 48
     },
     {
       "type": "range",
@@ -264,7 +245,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 48
     },
     {
       "type": "checkbox",
@@ -275,38 +256,13 @@
   ],
   "presets": [
     {
-      "name": "Wave: Water care"
+      "name": "Wave V2: Will it fit"
     }
   ],
   "enabled_on": {
     "templates": [
       "product"
     ]
-  },
-  "blocks": [
-    {
-      "type": "step",
-      "name": "Routine step",
-      "settings": [
-        {
-          "type": "text",
-          "id": "when",
-          "label": "How often",
-          "default": "Weekly"
-        },
-        {
-          "type": "text",
-          "id": "task",
-          "label": "Task",
-          "default": "Rinse the filter"
-        },
-        {
-          "type": "text",
-          "id": "detail",
-          "label": "Detail"
-        }
-      ]
-    }
-  ]
+  }
 }
 {% endschema %}

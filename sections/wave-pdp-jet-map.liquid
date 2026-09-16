@@ -73,7 +73,7 @@
         assign square = false
       endif
     -%}
-    <div class="wpdp-map" data-jet-map>
+    <wave-jet-map class="wpdp-map" data-jet-map>
       <figure class="wpdp-map__figure">
         <svg viewBox="0 0 320 320" role="img" aria-label="Illustrative top-down layout of seats and massage features">
           {%- case shape -%}
@@ -145,21 +145,23 @@
           <li><p class="wpdp-note">Layout is illustrative. Seat and jet positions need checking against the supplier drawings in the spec pack.</p></li>
         {%- endif -%}
       </ul>
-    </div>
+    </wave-jet-map>
     <script>
-      (() => {
-        const root = document.currentScript.previousElementSibling;
-        if (!root || !root.matches('[data-jet-map]')) return;
-        root.querySelectorAll('[data-layer]').forEach((button) => {
-          button.addEventListener('click', () => {
-            const active = button.getAttribute('aria-pressed') === 'true';
-            root.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
-            if (active) { root.removeAttribute('data-focus'); return; }
-            button.setAttribute('aria-pressed', 'true');
-            root.setAttribute('data-focus', button.dataset.layer);
-          });
+      if (!customElements.get('wave-jet-map')) {
+        customElements.define('wave-jet-map', class extends HTMLElement {
+          connectedCallback() {
+            this.querySelectorAll('[data-layer]').forEach((button) => {
+              button.addEventListener('click', () => {
+                const active = button.getAttribute('aria-pressed') === 'true';
+                this.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+                if (active) { this.removeAttribute('data-focus'); return; }
+                button.setAttribute('aria-pressed', 'true');
+                this.setAttribute('data-focus', button.dataset.layer);
+              });
+            });
+          }
         });
-      })();
+      }
     </script>
   </div>
 </div>

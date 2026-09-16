@@ -10,38 +10,47 @@
   <div class="page-width relative grid gap-8 lg:gap-10">
     {%- render 'section-heading', section: section -%}
     {%- liquid
-      assign kit = section.settings.starter_kit
-      assign product_label = product.metafields.theme.label.value | downcase
-      assign kit_free = false
-      if product_label contains 'starter kit'
-        assign kit_free = true
+      assign setup_video = product.metafields.custom.setup_video.value
+      assign manual = product.metafields.specs.owners_manual.value
+      assign setup_minutes = product.metafields.specs.setup_minutes.value
+      if setup_minutes == blank
+        assign collage_title = product.metafields.custom.product_collage_image_2_title.value
+        if collage_title contains 'Minute'
+          assign setup_minutes = collage_title | split: ' ' | first
+        endif
       endif
     -%}
-    <div class="wpdp-care">
-      <ol class="wpdp-care__routine" role="list">
-        {%- for block in section.blocks -%}
-          <li class="wpdp-care__step" {{ block.shopify_attributes }}>
-            <span class="wpdp-care__when{% if block.settings.when contains 'TBC' %} wpdp-tbc{% endif %}">{{ block.settings.when }}</span>
-            <span class="wpdp-care__task"><strong>{{ block.settings.task }}</strong>{% if block.settings.detail != blank %}<span class="wpdp-muted">{{ block.settings.detail }}</span>{% endif %}</span>
-          </li>
-        {%- endfor -%}
-      </ol>
-      <div class="wpdp-card wpdp-care__kit">
-        {%- if kit != blank -%}
-          {%- if kit_free -%}<span class="wpdp-care__badge">Free with your spa</span>{%- endif -%}
-          <a class="wpdp-care__kit-link" href="{{ kit.url }}">
-            {%- if kit.featured_image != blank -%}
-              {{- kit.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: kit.title -}}
-            {%- endif -%}
-          </a>
-          <h3><a href="{{ kit.url }}">{{ kit.title }}</a></h3>
-          <p class="wpdp-muted">{{ section.settings.kit_text }}</p>
-          {%- unless kit_free -%}<p class="wpdp-value">{{ kit.price | money }}</p>{%- endunless -%}
-        {%- elsif section.settings.show_test_notes -%}
-          <p class="wpdp-note">Choose a starter kit product in the section settings.</p>
+    <div class="wpdp-setup">
+      <div class="wpdp-setup__media">
+        {%- if setup_video != blank -%}
+          {{- setup_video | video_tag: controls: true, preload: 'none', playsinline: true, image_size: '1400x' -}}
+        {%- elsif product.featured_image != blank -%}
+          {{- product.featured_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: product.title -}}
         {%- endif -%}
-        {%- if section.settings.guide_link != blank -%}
-          <a class="link" href="{{ section.settings.guide_link }}">{{ section.settings.guide_label }}</a>
+      </div>
+      <div class="wpdp-setup__copy">
+        {%- if setup_minutes != blank -%}
+          <p class="wpdp-setup__time"><span>{{ setup_minutes }}</span> minutes</p>
+          <p class="wpdp-label">from box to filling, no tools</p>
+        {%- endif -%}
+        <div class="rte">{{ section.settings.body }}</div>
+        <ul class="wpdp-setup__steps" role="list">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}><span class="wpdp-setup__num">{{ forloop.index }}</span><span>{{ block.settings.text }}</span></li>
+          {%- endfor -%}
+        </ul>
+        <div class="wpdp-setup__links">
+          {%- if manual != blank -%}
+            <a class="button button--primary" href="{{ manual.url }}" target="_blank" rel="noopener"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.manual_label }}</span></a>
+          {%- else -%}
+            <span class="wpdp-setup__pending">{{ section.settings.manual_label }} — coming soon</span>
+          {%- endif -%}
+          {%- if section.settings.guide_link != blank -%}
+            <a class="link" href="{{ section.settings.guide_link }}">{{ section.settings.guide_label }}</a>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.show_test_notes and manual == blank -%}
+          <p class="wpdp-note">Upload the owner's manual PDF to the product metafield (specs → Owner's manual) to switch the button on.</p>
         {%- endif -%}
       </div>
     </div>
@@ -49,7 +58,7 @@
 </div>
 {% schema %}
 {
-  "name": "Wave: Water care",
+  "name": "Wave V2: Setup & guide",
   "tag": "section",
   "class": "wave-pdp-section",
   "settings": [
@@ -57,12 +66,13 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Water care made <em>simple</em>"
+      "default": "Set up in <em>minutes</em>, not afternoons"
     },
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "Subheading",
+      "default": "Wave"
     },
     {
       "type": "richtext",
@@ -87,7 +97,7 @@
           "label": "Large"
         }
       ],
-      "default": "title-md"
+      "default": "title-lg tracking-heading"
     },
     {
       "type": "select",
@@ -117,10 +127,6 @@
         {
           "value": "h3",
           "label": "H3"
-        },
-        {
-          "value": "p",
-          "label": "Paragraph"
         }
       ],
       "default": "h2"
@@ -129,7 +135,6 @@
       "type": "select",
       "id": "highlighted_text",
       "label": "Highlighted text",
-      "info": "Wrap a word in italics to highlight it",
       "options": [
         {
           "value": "none",
@@ -140,24 +145,12 @@
           "label": "Text"
         },
         {
-          "value": "full_text",
-          "label": "Full text"
-        },
-        {
-          "value": "half_text",
-          "label": "Half text"
-        },
-        {
           "value": "underline",
           "label": "Underline"
         },
         {
           "value": "marker",
           "label": "Marker"
-        },
-        {
-          "value": "stencil",
-          "label": "Stencil"
         },
         {
           "value": "scribble",
@@ -186,35 +179,32 @@
         {
           "value": "squiggle-underline",
           "label": "Squiggle underline"
-        },
-        {
-          "value": "squiggle-underline-2",
-          "label": "Squiggle underline 2"
         }
       ],
       "default": "basic-underline"
     },
     {
-      "type": "product",
-      "id": "starter_kit",
-      "label": "Starter kit product"
+      "type": "richtext",
+      "id": "body",
+      "label": "Text",
+      "default": "<p>Clip it together, drop in the liner, connect the heater and fill. Most people are done before the kettle's boiled twice.</p>"
     },
     {
       "type": "text",
-      "id": "kit_text",
-      "label": "Kit text",
-      "default": "Everything you need for clear, balanced water from your first fill."
+      "id": "manual_label",
+      "label": "Manual button",
+      "default": "Download the manual"
     },
     {
       "type": "text",
       "id": "guide_label",
-      "label": "Guide link label",
-      "default": "Read our water care guides"
+      "label": "Guide link",
+      "default": "Setup guides & videos"
     },
     {
       "type": "url",
       "id": "guide_link",
-      "label": "Guide link"
+      "label": "Guide link URL"
     },
     {
       "type": "header",
@@ -224,7 +214,6 @@
       "type": "checkbox",
       "id": "show_test_notes",
       "label": "Show test notes",
-      "info": "Amber notes for anything still waiting on data. Turn off before launch.",
       "default": true
     },
     {
@@ -254,7 +243,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 48
     },
     {
       "type": "range",
@@ -264,7 +253,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 48
     },
     {
       "type": "checkbox",
@@ -275,7 +264,7 @@
   ],
   "presets": [
     {
-      "name": "Wave: Water care"
+      "name": "Wave V2: Setup & guide"
     }
   ],
   "enabled_on": {
@@ -286,24 +275,13 @@
   "blocks": [
     {
       "type": "step",
-      "name": "Routine step",
+      "name": "Step",
       "settings": [
         {
           "type": "text",
-          "id": "when",
-          "label": "How often",
-          "default": "Weekly"
-        },
-        {
-          "type": "text",
-          "id": "task",
-          "label": "Task",
-          "default": "Rinse the filter"
-        },
-        {
-          "type": "text",
-          "id": "detail",
-          "label": "Detail"
+          "id": "text",
+          "label": "Step",
+          "default": "Clip the panels together"
         }
       ]
     }

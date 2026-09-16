@@ -9,87 +9,139 @@
 <div class="wpdp section section--padding{% if section.settings.divider %} section--divider{% endif %}">
   <div class="page-width relative grid gap-8 lg:gap-10">
     {%- render 'section-heading', section: section -%}
-{%- liquid
-  assign size_option = product.options_by_name['Size']
-  assign shape = 'Square'
-  if product.tags contains 'Round'
-    assign shape = 'Round'
-  elsif product.tags contains 'Octagonal'
-    assign shape = 'Octagonal'
-  elsif product.tags contains 'Oval'
-    assign shape = 'Oval'
-  endif
-  assign max_w = 0
-  if size_option
-    for value in size_option.values
-      if value contains '|'
-        assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
-        if w > max_w
-          assign max_w = w
-        endif
-      endif
-    endfor
-  endif
--%}    {%- liquid
+    {%- liquid
+      assign size_option = product.options_by_name['Size']
       assign tbc = '<span class="wpdp-tbc">TBC</span>'
-      assign example_summer = section.settings.example_kwh_summer | times: 1.0
-      assign example_winter = section.settings.example_kwh_winter | times: 1.0
+      assign kwh_day = product.metafields.specs.kwh_per_day.value
+      assign cable = product.metafields.specs.cable_length_m.value
+      assign kf = product.metafields.custom.key_features | metafield_text
+      assign ts = product.metafields.custom.tech_specs | metafield_text
       assign unit_label = 'p'
       if cart.currency.iso_code != 'GBP'
         assign unit_label = 'c'
       endif
-      assign kwh_day = product.metafields.specs.kwh_per_day.value
+      assign shape = 'Square'
+      if product.tags contains 'Round'
+        assign shape = 'Round'
+      elsif product.tags contains 'Octagonal'
+        assign shape = 'Octagonal'
+      elsif product.tags contains 'Oval'
+        assign shape = 'Oval'
+      endif
+      assign setup_minutes = product.metafields.specs.setup_minutes.value
+      if setup_minutes == blank
+        assign collage_title = product.metafields.custom.product_collage_image_2_title.value
+        if collage_title contains 'Minute'
+          assign setup_minutes = collage_title | split: ' ' | first
+        endif
+      endif
+
+      assign control = 'Wired controller'
+      if kf contains 'WiFi'
+        assign control = 'WiFi app control'
+      endif
+      assign massage = 'AquaBubble™ bubbles'
+      if kf contains 'VertaAir'
+        assign massage = 'Wave VertaAir™'
+      endif
+      if product.tags contains 'hydro-jets'
+        assign massage = 'VertaJet™ + VertaAir™'
+      endif
+      assign seating = 'Air Foam seats'
+      if product.tags contains 'Lite'
+        assign seating = 'Open floor'
+      endif
+      assign heating = 'Integrated heater'
+      if product.tags contains 'external heater'
+        assign heating = 'External heater'
+      endif
+      assign lighting = 'Spa light ready'
+      if kf contains 'LED strip'
+        assign lighting = 'LED strip compatible'
+      endif
+      assign wall = ''
+      if ts contains '15cm' or kf contains '15cm'
+        assign wall = '15 cm foam wall'
+      elsif ts contains '8cm' or kf contains '8cm'
+        assign wall = '8 cm foam wall'
+      elsif ts contains '20cm' or kf contains '20cm'
+        assign wall = '20 cm I-beam wall'
+      elsif ts contains '6cm' or kf contains '6cm'
+        assign wall = '6 cm insulated wall'
+      endif
+
+      assign hero_png = blank
+      for media_item in product.media
+        if media_item.media_type == 'image' and media_item.preview_image.src contains '.png'
+          assign hero_png = media_item.preview_image
+          break
+        endif
+      endfor
+      if hero_png == blank
+        assign hero_png = product.featured_image
+      endif
     -%}
-    <wave-size-costs class="wpdp-cs" data-currency="{{ cart.currency.iso_code }}">
+    <wave-size-costs class="wpdp-cs" data-currency="{{ cart.currency.iso_code }}" data-saving="{{ section.settings.energysave_saving }}">
       <script type="application/json" data-sizes>
         [
           {%- for value in size_option.values -%}
             {%- liquid
               assign size_index = size_option.position | minus: 1
               assign label = value | split: '|' | first | strip
-              assign min_price = 0
+              assign std_price = 0
+              assign es_price = 0
               for variant in product.variants
                 if variant.options[size_index] == value
-                  if min_price == 0 or variant.price < min_price
-                    assign min_price = variant.price
+                  assign edition = variant.options | last
+                  if edition contains 'EnergySave'
+                    if es_price == 0 or variant.price < es_price
+                      assign es_price = variant.price
+                    endif
+                  else
+                    if std_price == 0 or variant.price < std_price
+                      assign std_price = variant.price
+                    endif
                   endif
                 endif
               endfor
             -%}
-            {"label": {{ label | json }}, "price": {{ min_price | json }}}{% unless forloop.last %},{% endunless %}
+            {"label": {{ label | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}}{% unless forloop.last %},{% endunless %}
           {%- endfor -%}
         ]
       </script>
 
-      {%- if size_option and size_option.values.size > 1 -%}
-        <div class="wpdp-seg wpdp-cs__sizes" role="group" aria-label="{{ section.settings.size_label | escape }}">
-          {%- for value in size_option.values -%}
-            <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+      <div class="wpdp-cs__bar">
+        {%- if size_option.values.size > 1 -%}
+          <div class="wpdp-seg wpdp-cs__sizes" role="group" aria-label="{{ section.settings.size_label | escape }}">
+            {%- for value in size_option.values -%}
+              <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <p class="wpdp-cs__from"><span class="wpdp-label">From</span> <span class="wpdp-value" data-out="price">{{ product.price | money }}</span></p>
+      </div>
 
       <div class="wpdp-cs__grid">
         <div class="wpdp-cs__size">
+          {%- if hero_png != blank -%}
+            <div class="wpdp-cs__shot">{{ hero_png | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}</div>
+          {%- endif -%}
           {%- for value in size_option.values -%}
             {%- liquid
               assign size_index = size_option.position | minus: 1
               assign label = value | split: '|' | first | strip
               assign seats = label | split: ' ' | first | plus: 0
               assign w = 0
+              assign h = 0
               if value contains '|'
-                assign w = value | split: '|' | last | strip | remove: 'cm' | split: 'x' | first | plus: 0
+                assign dims = value | split: '|' | last | strip | remove: 'cm'
+                assign w = dims | split: 'x' | first | plus: 0
+                assign h = dims | split: 'x' | last | plus: 0
               endif
-              assign min_price = 0
               assign first_variant = nil
               for variant in product.variants
-                if variant.options[size_index] == value
-                  if first_variant == nil
-                    assign first_variant = variant
-                  endif
-                  if min_price == 0 or variant.price < min_price
-                    assign min_price = variant.price
-                  endif
+                if variant.options[size_index] == value and first_variant == nil
+                  assign first_variant = variant
                 endif
               endfor
               assign litres = first_variant.metafields.specs.water_litres.value
@@ -104,41 +156,31 @@
                 else
                   assign best_for = ''
               endcase
-              assign draw = 90
-              if max_w > 0 and w > 0
-                assign draw = w | times: 90 | divided_by: max_w
-              endif
-              assign offset = 100 | minus: draw | divided_by: 2
             -%}
             <div class="wpdp-cs__panel" data-size-panel="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
-              <div class="wpdp-cs__panel-head">
-                <div class="wpdp-cs__intro">
-                  <p class="wpdp-cs__title">{{ label }}</p>
-                  {%- if best_for != blank -%}<p class="wpdp-cs__bestfor">{{ best_for }}</p>{%- endif -%}
-                </div>
-                {%- assign size_image = first_variant.featured_image | default: product.featured_image -%}
-                {%- if size_image != blank -%}
-                  <div class="wpdp-cs__shot">{{ size_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: label }}</div>
-                {%- endif -%}
-                <svg class="wpdp-cs__drawing" viewBox="0 0 100 100" aria-hidden="true">
-                  {%- if shape == 'Round' or shape == 'Octagonal' -%}
-                    <circle cx="50" cy="50" r="{{ draw | divided_by: 2 }}"/>
-                  {%- elsif shape == 'Oval' -%}
-                    <ellipse cx="50" cy="50" rx="{{ draw | divided_by: 2 }}" ry="{{ draw | divided_by: 3 }}"/>
-                  {%- else -%}
-                    <rect x="{{ offset }}" y="{{ offset }}" width="{{ draw }}" height="{{ draw }}" rx="8"/>
-                  {%- endif -%}
-                </svg>
-              </div>
+              <p class="wpdp-cs__title">{{ label }}</p>
+              {%- if best_for != blank -%}<p class="wpdp-cs__bestfor">{{ best_for }}</p>{%- endif -%}
               <dl class="wpdp-cs__facts">
                 <div><dt class="wpdp-label">Seats</dt><dd class="wpdp-value">{{ seats }}</dd></div>
-                <div><dt class="wpdp-label">Footprint</dt><dd class="wpdp-value">{% if w > 0 %}{{ w }} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+                <div><dt class="wpdp-label">Footprint</dt><dd class="wpdp-value">{% if w > 0 %}{{ w }}{% if shape == 'Square' %} × {{ w }}{% endif %} cm{% else %}{{ tbc }}{% endif %}</dd></div>
+                <div><dt class="wpdp-label">Height</dt><dd class="wpdp-value">{% if h > 0 %}{{ h }} cm{% else %}{{ tbc }}{% endif %}</dd></div>
                 <div><dt class="wpdp-label">Water</dt><dd class="wpdp-value">{% if litres != blank %}{{ litres }} L{% else %}{{ tbc }}{% endif %}</dd></div>
                 <div><dt class="wpdp-label">Weight full</dt><dd class="wpdp-value">{% if filled != blank %}{{ filled | round }} kg{% else %}{{ tbc }}{% endif %}</dd></div>
-                <div class="wpdp-cs__price"><dt class="wpdp-label">From</dt><dd class="wpdp-value">{{ min_price | money }}</dd></div>
               </dl>
             </div>
           {%- endfor -%}
+
+          <ul class="wpdp-cs__glance" role="list">
+            <li><span class="wpdp-label">Massage</span><span>{{ massage }}</span></li>
+            <li><span class="wpdp-label">Seating</span><span>{{ seating }}</span></li>
+            <li><span class="wpdp-label">Heating</span><span>{{ heating }} · up to 40 °C</span></li>
+            <li><span class="wpdp-label">Controls</span><span>{{ control }}</span></li>
+            <li><span class="wpdp-label">Lighting</span><span>{{ lighting }}</span></li>
+            <li><span class="wpdp-label">Filtration</span><span>WaveFlow™ dual filtration</span></li>
+            {%- if wall != blank -%}<li><span class="wpdp-label">Construction</span><span>{{ wall }}</span></li>{%- endif -%}
+            <li><span class="wpdp-label">Setup</span><span>{% if setup_minutes != blank %}{{ setup_minutes }} minutes, no tools{% else %}{{ tbc }}{% endif %}</span></li>
+            <li><span class="wpdp-label">Power</span><span>{% if cable != blank %}{{ cable }} m cable{% else %}{{ tbc }}{% endif %}</span></li>
+          </ul>
         </div>
 
         <div class="wpdp-cs__cost"{% if kwh_day == blank %} hidden{% endif %} data-kwh="{{ kwh_day }}">
@@ -151,6 +193,13 @@
               <button type="button" data-days="6" aria-pressed="false">Occasional</button>
               <button type="button" data-days="15" aria-pressed="true">Often</button>
               <button type="button" data-days="30" aria-pressed="false">Every day</button>
+            </div>
+            <div class="wpdp-cs__edition" data-edition-wrap hidden>
+              <div class="wpdp-seg wpdp-seg--dark" role="group" aria-label="Edition">
+                <button type="button" data-edition="standard" aria-pressed="true">Standard</button>
+                <button type="button" data-edition="es" aria-pressed="false">{{ section.settings.energysave_label }}</button>
+              </div>
+              <p class="wpdp-cs__saving" data-saving-note hidden>{{ section.settings.energysave_note }}</p>
             </div>
             <div class="wpdp-cs__split">
               <div><span class="wpdp-label">Each soak</span><span class="wpdp-value" data-out="day">—</span></div>
@@ -170,7 +219,7 @@
 
       {%- if section.settings.footnote != blank -%}<div class="rte wpdp-muted text-sm">{{ section.settings.footnote }}</div>{%- endif -%}
       {%- if kwh_day == blank and section.settings.show_test_notes -%}
-        <p class="wpdp-note">No kWh a day set for this spa, so the running cost panel is hidden. Add it in the product metafields (specs).</p>
+        <p class="wpdp-note">No kWh a day set for this spa, so the running cost panel is hidden.</p>
       {%- endif -%}
     </wave-size-costs>
     <script>
@@ -178,41 +227,57 @@
         customElements.define('wave-size-costs', class extends HTMLElement {
           connectedCallback() {
             this.sizes = JSON.parse(this.querySelector('[data-sizes]').textContent);
-            this.money = new Intl.NumberFormat(undefined, { style: 'currency', currency: this.dataset.currency || 'GBP', maximumFractionDigits: 2 });
+            this.money = new Intl.NumberFormat(undefined, { style: 'currency', currency: this.dataset.currency || 'GBP' });
+            this.saving = Number(this.dataset.saving || 30) / 100;
             this.cost = this.querySelector('.wpdp-cs__cost');
             this.kwh = this.cost ? parseFloat(this.cost.dataset.kwh) : NaN;
-            this.state = { size: 0, days: 15 };
             this.price = this.querySelector('input[type="number"]');
+            this.state = { size: 0, days: 15, edition: 'standard' };
             this.querySelectorAll('[data-size]').forEach((b) => b.addEventListener('click', () => { this.state.size = Number(b.dataset.size); this.render(); }));
             this.querySelectorAll('[data-days]').forEach((b) => b.addEventListener('click', () => { this.state.days = Number(b.dataset.days); this.render(true); }));
+            this.querySelectorAll('[data-edition]').forEach((b) => b.addEventListener('click', () => { this.state.edition = b.dataset.edition; this.render(true); }));
             if (this.price) this.price.addEventListener('input', () => this.render());
             this.render();
             if (this.cost && 'IntersectionObserver' in window) {
-              const io = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => { if (entry.isIntersecting) { this.countUp(); io.disconnect(); } });
-              }, { threshold: 0.4 });
+              const io = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { this.countUp(); io.disconnect(); } }); }, { threshold: 0.35 });
               io.observe(this.cost);
             }
           }
           monthly() {
             const rate = parseFloat(this.price && this.price.value) / 100;
-            return this.kwh * this.state.days * rate;
+            const base = this.kwh * this.state.days * rate;
+            return this.state.edition === 'es' ? base * (1 - this.saving) : base;
           }
           set(key, value) {
             const el = this.querySelector(`[data-out="${key}"]`);
             if (el) el.textContent = Number.isFinite(value) ? this.money.format(value) : '—';
           }
           render(animate) {
+            const size = this.sizes[this.state.size] || {};
             this.querySelectorAll('[data-size-panel]').forEach((panel) => { panel.hidden = Number(panel.dataset.sizePanel) !== this.state.size; });
             this.querySelectorAll('[data-size]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.size) === this.state.size)));
             this.querySelectorAll('[data-days]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.days) === this.state.days)));
+            this.querySelectorAll('[data-edition]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.edition === this.state.edition)));
+            const hasEs = Number(size.es) > 0;
+            const wrap = this.querySelector('[data-edition-wrap]');
+            if (wrap) wrap.hidden = !hasEs;
+            if (!hasEs && this.state.edition === 'es') this.state.edition = 'standard';
+            const note = this.querySelector('[data-saving-note]');
+            if (note) note.hidden = this.state.edition !== 'es';
+            const price = this.state.edition === 'es' && hasEs ? size.es : size.price;
+            this.set('price', Number(price) / 100);
             if (!this.cost || !Number.isFinite(this.kwh)) return;
             const month = this.monthly();
             if (animate) { this.countUp(); } else { this.set('month', month); }
-            this.set('day', this.kwh * (parseFloat(this.price.value) / 100));
+            const rate = parseFloat(this.price.value) / 100;
+            const perDay = this.state.edition === 'es' ? this.kwh * rate * (1 - this.saving) : this.kwh * rate;
+            this.set('day', perDay);
             this.set('year', month * 12);
             const basis = this.querySelector('[data-basis]');
-            if (basis) basis.textContent = `${this.kwh} kWh a day, used ${this.state.days} days a month, at ${this.price.value}p per kWh.`;
+            if (basis) {
+              const kwhShown = this.state.edition === 'es' ? (this.kwh * (1 - this.saving)).toFixed(1) : this.kwh;
+              basis.textContent = `${kwhShown} kWh a day, used ${this.state.days} days a month, at ${this.price.value}p per kWh.`;
+            }
           }
           countUp() {
             const target = this.monthly();
@@ -220,11 +285,9 @@
             if (!out || !Number.isFinite(target)) return;
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { this.set('month', target); return; }
             const start = performance.now();
-            const duration = 900;
             const step = (now) => {
-              const progress = Math.min((now - start) / duration, 1);
-              const eased = 1 - Math.pow(1 - progress, 3);
-              out.textContent = this.money.format(target * eased);
+              const progress = Math.min((now - start) / 900, 1);
+              out.textContent = this.money.format(target * (1 - Math.pow(1 - progress, 3)));
               if (progress < 1) requestAnimationFrame(step);
             };
             requestAnimationFrame(step);
@@ -423,6 +486,28 @@
       "id": "footnote",
       "label": "Footnote",
       "default": "<p>Estimated with the same figures as our running cost calculator. Your cost depends on your tariff, the weather, and keeping the lid on between soaks.</p>"
+    },
+    {
+      "type": "text",
+      "id": "energysave_label",
+      "label": "EnergySave label",
+      "default": "EnergySave Bundle"
+    },
+    {
+      "type": "text",
+      "id": "energysave_note",
+      "label": "EnergySave note",
+      "default": "Thermal cover and foam mat included — cuts running costs by about 30%."
+    },
+    {
+      "type": "range",
+      "id": "energysave_saving",
+      "label": "EnergySave saving",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "default": 30
     },
     {
       "type": "header",
