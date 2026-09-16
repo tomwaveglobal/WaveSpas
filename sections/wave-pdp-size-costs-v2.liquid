@@ -80,39 +80,22 @@
               assign label = value | split: '|' | first | strip
               assign std_price = 0
               assign es_price = 0
-              assign std_img = blank
-              assign es_img = blank
               for variant in product.variants
                 if variant.options[size_index] == value
                   assign edition = variant.options | last
-                  assign gang = variant.metafields.theme.gang_media.value
                   if edition contains 'EnergySave'
                     if es_price == 0 or variant.price < es_price
                       assign es_price = variant.price
-                    endif
-                    if es_img == blank and gang != blank
-                      assign es_img = gang.first
                     endif
                   else
                     if std_price == 0 or variant.price < std_price
                       assign std_price = variant.price
                     endif
-                    if std_img == blank and gang != blank
-                      assign std_img = gang.first
-                    endif
                   endif
                 endif
               endfor
-              if std_img == blank
-                assign std_img = product.featured_image
-              endif
-              assign std_src = std_img | image_url: width: 900
-              assign es_src = ''
-              if es_img != blank
-                assign es_src = es_img | image_url: width: 900
-              endif
             -%}
-            {"label": {{ label | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "img": {{ std_src | json }}, "esImg": {{ es_src | json }}}{% unless forloop.last %},{% endunless %}
+            {"label": {{ label | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}}{% unless forloop.last %},{% endunless %}
           {%- endfor -%}
         ]
       </script>
@@ -130,27 +113,6 @@
 
       <div class="wpdp-cs__grid">
         <div class="wpdp-cs__size">
-          {%- liquid
-            assign first_size = size_option.values | first
-            assign size_index = size_option.position | minus: 1
-            assign opening_img = blank
-            for variant in product.variants
-              if variant.options[size_index] == first_size and opening_img == blank
-                assign gang = variant.metafields.theme.gang_media.value
-                if gang != blank
-                  assign opening_img = gang.first
-                endif
-              endif
-            endfor
-            if opening_img == blank
-              assign opening_img = product.featured_image
-            endif
-          -%}
-          {%- if opening_img != blank -%}
-            <div class="wpdp-cs__shot{% if section.settings.hide_badge %} wpdp-cs__shot--clip{% endif %}">
-              <img src="{{ opening_img | image_url: width: 900 }}" alt="{{ product.title | escape }}" width="900" height="900" loading="lazy" data-hero>
-            </div>
-          {%- endif -%}
           {%- for value in size_option.values -%}
             {%- liquid
               assign size_index = size_option.position | minus: 1
@@ -291,15 +253,6 @@
             if (note) note.hidden = this.state.edition !== 'es';
             const price = this.state.edition === 'es' && hasEs ? size.es : size.price;
             this.set('price', Number(price) / 100);
-            const hero = this.querySelector('[data-hero]');
-            if (hero) {
-              const next = this.state.edition === 'es' && size.esImg ? size.esImg : size.img;
-              if (next && hero.getAttribute('src') !== next) {
-                hero.classList.add('is-swapping');
-                const swap = () => { hero.src = next; hero.classList.remove('is-swapping'); };
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { swap(); } else { setTimeout(swap, 140); }
-              }
-            }
             if (!this.cost || !Number.isFinite(this.kwh)) return;
             const month = this.monthly();
             if (animate) { this.countUp(); } else { this.set('month', month); }
@@ -542,13 +495,6 @@
       "step": 5,
       "unit": "%",
       "default": 30
-    },
-    {
-      "type": "checkbox",
-      "id": "hide_badge",
-      "label": "Hide award badge corner",
-      "info": "Crops the bottom-left corner of the product shot",
-      "default": true
     },
     {
       "type": "header",
