@@ -43,18 +43,32 @@
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_4478ed00-29bc-49be-835f-023c77359b82.jpg",
             "image_mobile": "shopify://shop_images/Mobile_056ad8b5-fc0a-4146-9419-8e27cf8587c0.jpg",
-            "heading": "Sale Extended\n  <p></p>\n <p style=\"margin:0; color:#f59e0b;\">Up to 15% Off</p>",
+            "heading": "Sale extended: <br>\n<span style=\"color: #F59E0B;\">Up to 15% off.</span>",
             "heading_size": "title-lg tracking-heading",
             "secondary_heading": "Save on all inflatable and frame spas, plus our accessories range.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_label": "Shop Inflatables",
-            "button_link": "shopify://collections/inflatable-hot-tubs"
+            "button_link": "shopify://collections/inflatable-hot-tubs",
+            "button_position": "below"
           }
         },
         "image_rmPQY4": {
           "disabled": false,
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
+            "heading": "Your evening escape.",
+            "heading_size": "title-lg tracking-heading",
+            "secondary_heading": "Step into the season hot tubs were made for. Crisp autumn air, soft light, and nowhere else to be.",
+            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
+            "button_style": "secondary",
+            "button_position": "below",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal",
+            "button_label": "Find Yours"
+          }
         },
         "image_hc4WwT": {
           "disabled": true,
