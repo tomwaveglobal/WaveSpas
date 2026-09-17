@@ -22,12 +22,12 @@
             "image": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-1.jpg",
             "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-2.jpg",
             "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-3_b3954eed-eadf-49ec-9817-e015aa4fc4ed.jpg",
-            "heading": "<span style=\"color:#f59e0b;\">15% Off</span> \n<br>\nHot Tubs",
+            "heading": "<span style=\"color:#f59e0b;\">15% off</span> \n<br>\nhot tubs",
             "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h1",
-            "secondary_heading": "Enhance your outdoor living for less.",
+            "heading_tag": "h2",
+            "secondary_heading": "Enhance your outdoor living space for less.",
             "secondary_heading_size": "title-xxs",
-            "secondary_heading_weight": "font-medium",
+            "secondary_heading_weight": "font-normal",
             "button_position": "below",
             "button_label": "Shop Now",
             "button_link": "https://wavespas.com/collections/hot-tub-full-range"
@@ -58,18 +58,18 @@
         "image_9rd3Vt": {
           "disabled": false,
           "settings": {
-            "heading": "The water's waiting...",
             "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-transition-222_1c158cad-1812-4556-879a-69f9bc67cc35.jpg",
-            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
+            "heading": "The water's waiting...",
             "heading_size": "title-lg tracking-heading",
+            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_position": "below",
             "button_label": "Explore The Range",
-            "button_style": "secondary",
-            "button_link": "https://wavespas.com/collections/hot-tub-full-range"
+            "button_link": "https://wavespas.com/collections/hot-tub-full-range",
+            "button_style": "secondary"
           }
         },
         "image_JUM7dH": {
@@ -90,9 +90,9 @@
         }
       },
       "block_order": [
-        "image_EUEdiE",
         "image_YL8tbf",
         "image_9rd3Vt",
+        "image_EUEdiE",
         "image_JUM7dH",
         "image_rmPQY4"
       ]
