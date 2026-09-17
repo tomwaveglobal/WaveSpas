@@ -247,10 +247,17 @@
                     decide which of them the collection actually has. Neither is a
                     list held in the theme, so tagging a product is all it takes to
                     add or remove a colour.
+
+                    Several entries can share a label — Navy has separate foam and
+                    inflatable swatches — but they share one tag URL, so each label
+                    renders once and the first in shop order supplies the swatch.
                   {%- endcomment -%}
+                  {%- assign labels_shown = '' -%}
                   {%- for color_value in shop.metaobjects['shopify--color-pattern'].values -%}
                     {%- assign tag_token = '|' | append: color_value.label | downcase | append: '|' -%}
                     {%- unless tags_present contains tag_token -%}{%- continue -%}{%- endunless -%}
+                    {%- if labels_shown contains tag_token -%}{%- continue -%}{%- endif -%}
+                    {%- assign labels_shown = labels_shown | append: tag_token -%}
                     <a href="{{ colors_collection.url }}/{{ color_value.label | handle }}" class="mega-menu__nav-item{{ item_class }} flex gap-2 items-center opacity-0 link icon-with-text text-left" style="--reveal-index: {{ reveal_index }};">
                       {%- render 'nav-swatch', swatch: color_value, name: color_value.label -%}
                       <span class="heading link-text text-xl-3xl tracking-tighter leading-tight">{{ color_value.label | escape }}</span>
