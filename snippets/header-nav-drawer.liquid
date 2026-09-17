@@ -114,9 +114,12 @@
                     endfor
                   endfor
                 -%}
+                {%- assign labels_shown = '' -%}
                 {%- for color_value in shop.metaobjects['shopify--color-pattern'].values -%}
                   {%- assign tag_token = '|' | append: color_value.label | downcase | append: '|' -%}
                   {%- unless tags_present contains tag_token -%}{%- continue -%}{%- endunless -%}
+                  {%- if labels_shown contains tag_token -%}{%- continue -%}{%- endif -%}
+                  {%- assign labels_shown = labels_shown | append: tag_token -%}
                   <li class="drawer__menu-group{{ item_class }}">
                     <a class="drawer__menu-item block heading text-2xl leading-none tracking-tight" href="{{ colors_collection.url }}/{{ color_value.label | handle }}">
                       <div class="flex items-center gap-2">
