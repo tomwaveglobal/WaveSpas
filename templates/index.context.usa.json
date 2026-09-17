@@ -48,9 +48,9 @@
             "secondary_heading": "Save on all inflatable and frame spas, plus our accessories range.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
+            "button_position": "below",
             "button_label": "Shop Inflatables",
-            "button_link": "shopify://collections/inflatable-hot-tubs",
-            "button_position": "below"
+            "button_link": "shopify://collections/inflatable-hot-tubs"
           }
         },
         "image_rmPQY4": {
@@ -62,21 +62,28 @@
             "heading": "Your evening escape.",
             "heading_size": "title-lg tracking-heading",
             "secondary_heading": "Step into the season hot tubs were made for. Crisp autumn air, soft light, and nowhere else to be.",
-            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
-            "button_style": "secondary",
-            "button_position": "below",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
-            "button_label": "Find Yours"
+            "button_position": "below",
+            "button_label": "Find Yours",
+            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
+            "button_style": "secondary"
           }
         },
         "image_hc4WwT": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Inflatable_WiFi_10Off_Jun26-1.jpg",
-            "image_mobile": "shopify://shop_images/US-10-KickOff-2.jpg",
-            "heading": "‎",
-            "button_label": "Final Chance"
+            "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-transition-222_1c158cad-1812-4556-879a-69f9bc67cc35.jpg",
+            "heading": "‎The water’s waiting.",
+            "button_label": "Explore The Range",
+            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
+            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
+            "button_position": "below",
+            "secondary_heading_weight": "font-normal",
+            "heading_size": "title-lg tracking-heading",
+            "button_style": "secondary",
+            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range"
           }
         }
       },
