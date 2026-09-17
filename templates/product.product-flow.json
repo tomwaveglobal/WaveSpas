@@ -460,7 +460,7 @@
         "image_ratio": "square",
         "image_zoom": "lightbox",
         "hide_variants": false,
-        "hide_first_media": true,
+        "hide_first_media": false,
         "enable_video_autoplay": false,
         "enable_video_looping": true,
         "mobile_layout": "full_width",
@@ -1233,6 +1233,8 @@
           "type": "values",
           "settings": {
             "product": "como-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>6 Person | 195×70cm | 77×27″</p>",
             "value_2": "<p>Octagon</p>",
             "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
@@ -1265,6 +1267,8 @@
           "type": "values",
           "settings": {
             "product": "garda-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>4 Person | 160×70cm | 63×27″<br/>6 Person | 180×70cm | 71×27″</p>",
             "value_2": "<p>Square</p>",
             "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
@@ -1297,6 +1301,8 @@
           "type": "values",
           "settings": {
             "product": "tahoe-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>4 Person | 156×70cm | 61×27″<br/>6 Person | 184×70cm | 72×27″</p>",
             "value_2": "<p>Round</p>",
             "value_3": "<p>Woven UV-protected PVC construction<br/>with PU-insulated foam core</p>",
@@ -1329,6 +1335,8 @@
           "type": "values",
           "settings": {
             "product": "aegean-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>6 Person | 195x65cm | 77x25.6\"</p>",
             "value_2": "<p>Octagon</p>",
             "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
@@ -1361,6 +1369,8 @@
           "type": "values",
           "settings": {
             "product": "atlantic-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>4 Person | 180×65cm | 71×25.6″<br/>6 Person | 208×65cm | 82×25.6″</p>",
             "value_2": "<p>Round</p>",
             "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
@@ -1393,6 +1403,8 @@
           "type": "values",
           "settings": {
             "product": "pacific-hot-tub-ce",
+            "collection": "",
+            "button_label": "Shop collection",
             "value_1": "<p>4 Person | 155x65cm | 61x25.6\"<br/>6 Person | 185x65cm | 73x25.6\"</p>",
             "value_2": "<p>Square</p>",
             "value_3": "<p>Ultra Strong TriLaminate PVC</p>",
@@ -1641,7 +1653,7 @@
         "reviews_io_reviewsio_polaris_pbUztm": {
           "type": "shopify://apps/reviews-io/blocks/reviewsio-polaris/92a082e5-b297-4e88-b428-ac96cbc505f9",
           "settings": {
-            "star": "#FFAE00",
+            "star": "#ffae00",
             "review_type": "product_review",
             "per_page": 5,
             "primary_btn_bg_color": "#000000",
