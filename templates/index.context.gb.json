@@ -56,9 +56,20 @@
           }
         },
         "image_9rd3Vt": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "heading": ""
+            "heading": "The water's waiting...",
+            "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-transition-222_1c158cad-1812-4556-879a-69f9bc67cc35.jpg",
+            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
+            "heading_size": "title-lg tracking-heading",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below",
+            "button_label": "Explore The Range",
+            "button_style": "secondary",
+            "button_link": "https://wavespas.com/collections/hot-tub-full-range"
           }
         },
         "image_JUM7dH": {
