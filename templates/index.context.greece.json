@@ -13,51 +13,6 @@
   },
   "parent": "index.json",
   "sections": {
-    "slideshow_aYCGKX": {
-      "settings": {},
-      "blocks": {
-        "image_ALhwEk": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
-            "image_tablet": null,
-            "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-d774cfd89f1246511d9080ec147d41e2": null,
-            "heading": "‎",
-            "heading_size": "title-sm",
-            "heading_tag": "h2",
-            "secondary_heading": "",
-            "secondary_heading_size": "title-md",
-            "secondary_heading_weight": "font-bold",
-            "button_position": "beside",
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/hot-tub-full-range",
-            "button_style": "primary",
-            "button_external": false,
-            "button_icon": false
-          }
-        },
-        "image_hc4WwT": {
-          "settings": {
-            "heading": "Elevate Your \n<br>\nOutdoor Living",
-            "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs"
-          }
-        },
-        "image_JUM7dH": {
-          "disabled": true,
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "image_ALhwEk",
-        "image_hc4WwT",
-        "image_JUM7dH",
-        "image_rmPQY4",
-        "image_EUEdiE"
-      ]
-    },
     "featured-product": {
       "settings": {
         "product": "como-hot-tub-ce"
