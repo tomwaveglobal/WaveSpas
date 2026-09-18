@@ -130,28 +130,8 @@
               <span class="wf-body">{{ section.settings.heater_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
             </span>
           </button>
-          
-          
-          <button type="button" class="wf-xp__hot wf-xp__hot--left" style="left:72.01%;top:64.63%" data-layer="liner" aria-describedby="WfXp-{{ section.id }}-seat">
-            <span class="wf-xp__num">4</span>
-            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-seat" role="tooltip">
-              <span class="wf-h3">{{ section.settings.seat_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
-              <span class="wf-body">{{ section.settings.seat_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
-            </span>
-          </button>
-          
-          {%- if kf contains 'VertaAir' -%}
-          <button type="button" class="wf-xp__hot wf-xp__hot--left" style="left:58.46%;top:58.47%" data-layer="liner" aria-describedby="WfXp-{{ section.id }}-verta">
-            <span class="wf-xp__num">5</span>
-            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-verta" role="tooltip">
-              <span class="wf-h3">{{ section.settings.verta_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
-              <span class="wf-body">{{ section.settings.verta_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
-            </span>
-          </button>
-          {%- endif -%}
-          
           <button type="button" class="wf-xp__hot wf-xp__hot--right" style="left:27.99%;top:93.03%" data-layer="base" aria-describedby="WfXp-{{ section.id }}-base">
-            <span class="wf-xp__num">6</span>
+            <span class="wf-xp__num">4</span>
             <span class="wf-xp__tip" id="WfXp-{{ section.id }}-base" role="tooltip">
               <span class="wf-h3">{{ section.settings.base_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
               <span class="wf-body">{{ section.settings.base_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
