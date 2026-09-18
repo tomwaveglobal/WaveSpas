@@ -1385,9 +1385,9 @@
     "wf_setup",
     "wf_tiers",
     "product-details",
-    "reviews",
     "wf_questions",
     "wf_closer",
+    "reviews",
     "product-recommendations",
     "help-drawer"
   ]
