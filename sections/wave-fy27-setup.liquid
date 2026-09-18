@@ -7,19 +7,19 @@
     assign heading = section.settings.heading_no_time
   endif
 -%}
-<wf-section class="wf wf--sand" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
     <div class="wf-su">
       <div>
-        <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
         <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ heading }}</h2>
         <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
 
         <ol class="wf-su__steps" data-wf-reveal style="--wf-delay: .24s">
           {%- for block in section.blocks -%}
             <li {{ block.shopify_attributes }}>
-              <b>{{ block.settings.title }}</b>
-              <span>{{ block.settings.text }}</span>
+              <h3 class="wf-h3">{{ block.settings.title }}</h3>
+              <p class="wf-body">{{ block.settings.text }}</p>
             </li>
           {%- endfor -%}
         </ol>
@@ -33,7 +33,7 @@
               <circle class="wf-su__ring" cx="100" cy="100" r="92" fill="none" stroke="url(#wfRing-{{ section.id }})" stroke-width="3" stroke-linecap="round" pathLength="1"/>
               <defs>
                 <linearGradient id="wfRing-{{ section.id }}" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#1b7f95"/><stop offset="1" stop-color="#5ec8dc"/>
+                  <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/>
                 </linearGradient>
               </defs>
               {%- for i in (0..59) -%}
@@ -42,17 +42,17 @@
               {%- endfor -%}
             </svg>
             <div class="wf-su__readout">
-              <b data-wf-count="{{ minutes }}">{{ minutes }}</b>
-              <span>{{ section.settings.clock_label }}</span>
+              <span class="wf-fig"><span data-wf-count="{{ minutes }}">{{ minutes }}</span><small>min</small></span>
+              <p class="wf-small">{{ section.settings.clock_label }}</p>
             </div>
           </div>
         {%- endif -%}
 
         <div class="wf-plug" data-wf-reveal style="--wf-delay: .1s">
-          {%- render 'wave-fy27-glyph', name: 'plug' -%}
+          {%- render 'wave-fy27-glyph', name: 'plug', class: 'wf-glyph' -%}
           <div>
-            <b>{{ section.settings.plug_title }}</b>
-            <span>{{ section.settings.plug_text }}</span>
+            <h3 class="wf-h3" style="font-size:16px">{{ section.settings.plug_title }}</h3>
+            <p class="wf-body">{{ section.settings.plug_text }}</p>
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
     { "type": "text", "id": "heading_no_time", "label": "Heading when no time is set", "default": "Out of the box. No tools." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "No tools, no electrician, no groundwork. Everything you need is in the box, and it plugs into a standard outdoor socket." },
     { "type": "number", "id": "setup_minutes", "label": "Setup time (minutes)", "info": "Used when the product has no specs.setup_minutes metafield. 0 hides the clock.", "default": 20 },
-    { "type": "text", "id": "clock_label", "label": "Clock label", "default": "minutes, box to built" },
+    { "type": "text", "id": "clock_label", "label": "Clock label", "default": "box to built" },
     { "type": "text", "id": "plug_title", "label": "Power title", "default": "Standard 13 amp plug" },
     { "type": "textarea", "id": "plug_text", "label": "Power text", "default": "Runs from an RCD-protected outdoor socket. No hard-wiring, no electrician, no extra cost." },
     { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }

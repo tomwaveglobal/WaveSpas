@@ -242,7 +242,6 @@
         },
         "on_site_message_KFREgF": {
           "type": "on_site_message",
-          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
             "message_icon_width": 100,
@@ -255,11 +254,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
-          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/DivideBuy.png",
             "message_icon_width": 100,
@@ -272,11 +271,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
-          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Payl8r.png",
             "message_icon_width": 100,
@@ -289,7 +288,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
@@ -633,6 +633,9 @@
     },
     "wf_overview": {
       "type": "wave-fy27-overview",
+      "settings": {
+        "show_notes": true
+      },
       "blocks": {
         "benefit_1": {
           "type": "benefit",
@@ -692,8 +695,8 @@
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "requires": "WiFi",
             "glyph": "wifi",
+            "requires": "WiFi",
             "title": "Warm when you get home",
             "text": "WiFi app control, so you can check the temperature and turn up the heat from your phone."
           }
@@ -702,8 +705,8 @@
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "requires": "LED strip",
             "glyph": "light",
+            "requires": "LED strip",
             "title": "Set the mood",
             "text": "LED strip compatible and ready for a spa light, for evenings that carry on after dark."
           }
@@ -758,10 +761,7 @@
         "benefit_10",
         "benefit_11",
         "benefit_12"
-      ],
-      "settings": {
-        "show_notes": true
-      }
+      ]
     },
     "wf_ecofoam": {
       "type": "wave-fy27-ecofoam",
@@ -769,7 +769,9 @@
         "scope": "any",
         "old_thickness": 15,
         "inflatable_kwh": 16,
-        "show_notes": true
+        "show_notes": true,
+        "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg",
+        "image_mobile": "shopify://shop_images/Website_Garda_Overhead_Snow_mobile_4f3ec29b-c9ba-484b-be71-ee7922466732.jpg"
       }
     },
     "wf_vertaair": {
@@ -1253,10 +1255,10 @@
       ],
       "settings": {
         "heading": "Tonight could look like this.",
+        "button_label": "Choose yours",
         "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
         "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
-        "overlay": 45,
-        "button_label": "Choose yours"
+        "overlay": 45
       }
     },
     "product-recommendations": {

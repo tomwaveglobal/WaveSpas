@@ -4,7 +4,7 @@
   <div class="wf__inner">
     <div class="wf-qa">
       <div class="wf-qa__intro">
-        <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
         <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
         <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
         {%- if section.settings.contact_text != blank -%}
@@ -18,7 +18,7 @@
       <div class="wf-qa__list" data-wf-reveal style="--wf-delay: .1s">
         {%- for block in section.blocks -%}
           <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
-            <summary>{{ block.settings.question }}<i aria-hidden="true"></i></summary>
+            <summary><span class="wf-h3">{{ block.settings.question }}</span><i aria-hidden="true"></i></summary>
             <div class="wf-qa__a">
               {%- if block.settings.topic != blank -%}<span class="wf-qa__tag">{{ block.settings.topic }}</span>{%- endif -%}
               {{ block.settings.answer }}

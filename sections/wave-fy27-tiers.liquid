@@ -8,7 +8,7 @@
     assign tier = 'luxe'
   endif
 -%}
-<wf-section class="wf wf--sand" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
     <div class="wf-head wf-head--center">
       <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
@@ -33,9 +33,9 @@
           {%- if img != blank -%}
             <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: block.settings.name }}</div>
           {%- endif -%}
-          <h3 class="wf-tier__name">{{ block.settings.name }}</h3>
+          <h3 class="wf-h2">{{ block.settings.name }}</h3>
           <p class="wf-tier__sig">{{ block.settings.signature }}</p>
-          <p class="wf-tier__for">{{ block.settings.for }}</p>
+          <p class="wf-body">{{ block.settings.for }}</p>
           <ul role="list">
             {%- for f in features -%}
               {%- assign f = f | strip -%}
@@ -45,12 +45,12 @@
             {%- endfor -%}
           </ul>
           {%- if col != blank and col.products_count > 0 -%}
-            <p class="wf-small" style="margin:18px 0 0">{{ section.settings.from_label }} <strong style="color:var(--wf-ink)">{{ col.products | map: 'price' | sort | first | money }}</strong></p>
+            <p class="wf-tier__from">{{ section.settings.from_label }} <strong>{{ col.products | map: 'price' | sort | first | money }}</strong></p>
           {%- endif -%}
           {%- if is_current -%}
-            <wf-buy><button type="button" class="wf-btn">{{ section.settings.current_button }}</button></wf-buy>
+            <wf-buy><button type="button" class="button button--primary" is="hover-button"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.current_button }}</span></button></wf-buy>
           {%- else -%}
-            <a class="wf-btn wf-btn--ghost" href="{{ href }}">{{ section.settings.button_prefix }} {{ block.settings.name }}</a>
+            <a class="button button--secondary" href="{{ href }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_prefix }} {{ block.settings.name }}</span></a>
           {%- endif -%}
         </article>
       {%- endfor -%}

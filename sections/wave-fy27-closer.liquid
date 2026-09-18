@@ -28,7 +28,7 @@
         <s data-was{% unless variant.compare_at_price > variant.price %} hidden{% endunless %}>{{ variant.compare_at_price | money }}</s>
       </wf-price>
       <div class="wf-cl__ctas" data-wf-reveal style="--wf-delay: .24s">
-        <wf-buy><button type="button" class="wf-btn">{{ section.settings.button_label }}</button></wf-buy>
+        <wf-buy><button type="button" class="button button--primary" is="hover-button"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_label }}</span></button></wf-buy>
       </div>
     </div>
   </div>
@@ -38,8 +38,8 @@
       <ul class="wf-trust" role="list" data-wf-reveal>
         {%- for block in section.blocks -%}
           <li {{ block.shopify_attributes }}>
-            <b>{{ block.settings.title }}</b>
-            <span>{{ block.settings.text }}</span>
+            <h3 class="wf-h3" style="font-size:16px">{{ block.settings.title }}</h3>
+            <p class="wf-body">{{ block.settings.text }}</p>
           </li>
         {%- endfor -%}
       </ul>

@@ -68,16 +68,16 @@
 
       <ul class="wf-facts" role="list" data-wf-reveal style="--wf-delay: .24s">
         {%- if seats > 0 -%}
-          <li><b data-wf-count="{{ seats }}">{{ seats }}</b><span>{% if tier == 'lite' or seats == 1 %}{{ section.settings.people_label }}{% else %}{{ section.settings.seats_label }}{% endif %}</span></li>
+          <li><span class="wf-fig"><span data-wf-count="{{ seats }}">{{ seats }}</span></span><p class="wf-small">{% if tier == 'lite' or seats == 1 %}{{ section.settings.people_label }}{% else %}{{ section.settings.seats_label }}{% endif %}</p></li>
         {%- endif -%}
         {%- unless is_ice -%}
-          <li><b><span data-wf-count="40">40</span>°C</b><span>{{ section.settings.heat_label }}</span></li>
+          <li><span class="wf-fig"><span data-wf-count="40">40</span><small>°C</small></span><p class="wf-small">{{ section.settings.heat_label }}</p></li>
         {%- endunless -%}
         {%- if month_cost != nil -%}
-          <li><b><span data-wf-count="{{ month_cost }}" data-prefix="{{ cur_symbol }}">{{ cur_symbol }}{{ month_cost }}</span></b><span>{{ section.settings.cost_label }}</span></li>
+          <li><span class="wf-fig"><span data-wf-count="{{ month_cost }}" data-prefix="{{ cur_symbol }}">{{ cur_symbol }}{{ month_cost }}</span><small>/month</small></span><p class="wf-small">{{ section.settings.cost_label }}</p></li>
         {%- endif -%}
         {%- if setup_minutes != blank and setup_minutes > 0 -%}
-          <li><b><span data-wf-count="{{ setup_minutes }}">{{ setup_minutes }}</span> min</b><span>{{ section.settings.setup_label }}</span></li>
+          <li><span class="wf-fig"><span data-wf-count="{{ setup_minutes }}">{{ setup_minutes }}</span><small>min</small></span><p class="wf-small">{{ section.settings.setup_label }}</p></li>
         {%- endif -%}
       </ul>
     </div>
@@ -88,7 +88,7 @@
       </div>
     {%- endif -%}
 
-    <div class="wf-bn">
+    <div class="wf-cols" style="--cols: 4">
       {%- assign shown = 0 -%}
       {%- for block in section.blocks -%}
         {%- liquid
@@ -103,8 +103,8 @@
           assign shown = shown | plus: 1
           assign delay = shown | minus: 1 | modulo: 4 | times: 0.08
         -%}
-        <article class="wf-bn__item" data-wf-reveal style="--wf-delay: {{ delay }}s" {{ block.shopify_attributes }}>
-          {%- render 'wave-fy27-glyph', name: block.settings.glyph, class: 'wf-bn__glyph' -%}
+        <article data-wf-reveal style="--wf-delay: {{ delay }}s" {{ block.shopify_attributes }}>
+          {%- render 'wave-fy27-glyph', name: block.settings.glyph, class: 'wf-glyph' -%}
           <h3 class="wf-h3">{{ block.settings.title }}</h3>
           <p class="wf-body">{{ block.settings.text }}</p>
         </article>
@@ -124,7 +124,7 @@
     { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Overview" },
     { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Leave empty to use the product's featured image." },
     { "type": "checkbox", "id": "contain", "label": "Fit whole image (use for cut-out product shots)", "default": false },
-    { "type": "color", "id": "stage_color", "label": "Stage colour", "default": "#f5f4f0" },
+    { "type": "color", "id": "stage_color", "label": "Stage colour", "default": "#fafafa" },
     { "type": "header", "content": "Lite" },
     { "type": "text", "id": "lite_signature", "label": "Headline", "default": "Light work." },
     { "type": "textarea", "id": "lite_lede", "label": "Intro", "default": "Room to stretch out, water at 40°C and nothing to learn. Lift the lid, step in, and let the evening go." },
@@ -137,8 +137,8 @@
     { "type": "header", "content": "Key facts" },
     { "type": "text", "id": "seats_label", "label": "Seats label", "default": "moulded seats" },
     { "type": "text", "id": "people_label", "label": "People label (Lite, 1-person)", "default": "people, floor free" },
-    { "type": "text", "id": "heat_label", "label": "Heat label", "default": "all year round" },
-    { "type": "text", "id": "cost_label", "label": "Cost label", "default": "a month, used most days" },
+    { "type": "text", "id": "heat_label", "label": "Heat label", "default": "heated, all year round" },
+    { "type": "text", "id": "cost_label", "label": "Cost label", "default": "to run, used most days" },
     { "type": "range", "id": "usage_days", "label": "Days used a month (for the cost fact)", "min": 4, "max": 30, "step": 1, "default": 15 },
     { "type": "number", "id": "rate_gbp", "label": "Electricity price, GBP (pence per kWh)", "default": 28 },
     { "type": "number", "id": "rate_eur", "label": "Electricity price, EUR (cents per kWh)", "default": 30 },

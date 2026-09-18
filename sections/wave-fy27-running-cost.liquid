@@ -29,7 +29,7 @@
 <wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
     <div class="wf-head">
-      <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+      <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
       <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
       <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{% if has_es %}{{ section.settings.lede_es }}{% else %}{{ section.settings.lede }}{% endif %}</p>
     </div>
@@ -132,7 +132,7 @@
         {%- if has_es -%}
           <div class="wf-rc__bundle">
             {%- for block in section.blocks -%}
-              <div {{ block.shopify_attributes }}><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></div>
+              <div {{ block.shopify_attributes }}><h3 class="wf-h3" style="font-size:16px">{{ block.settings.title }}</h3><p class="wf-body">{{ block.settings.text }}</p></div>
             {%- endfor -%}
           </div>
         {%- endif -%}
@@ -141,17 +141,15 @@
       <div class="wf-rc__panel" data-wf-reveal style="--wf-delay: .1s">
         <div class="wf-rc__cols">
           <div class="wf-rc__col">
-            <span class="wf-rc__col-name">{{ section.settings.standard_label }}</span>
-            <span class="wf-rc__big" data-out="std-month">—</span>
-            <span class="wf-rc__per">{{ section.settings.per_month }}</span>
-            <p class="wf-rc__year"><span data-out="std-year">—</span> {{ section.settings.per_year }}</p>
+            <span class="wf-rc__name">{{ section.settings.standard_label }}</span>
+            <span class="wf-fig"><span data-out="std-month">—</span><small>/month</small></span>
+            <p class="wf-small"><span data-out="std-year">—</span> {{ section.settings.per_year }}</p>
           </div>
           {%- if has_es -%}
             <div class="wf-rc__col wf-rc__col--es">
-              <span class="wf-rc__col-name">{{ section.settings.energysave_label }}</span>
-              <span class="wf-rc__big" data-out="es-month">—</span>
-              <span class="wf-rc__per">{{ section.settings.per_month }}</span>
-              <p class="wf-rc__year"><span data-out="es-year">—</span> {{ section.settings.per_year }}</p>
+              <span class="wf-rc__name">{{ section.settings.energysave_label }}</span>
+              <span class="wf-fig wf-fig--accent"><span data-out="es-month">—</span><small>/month</small></span>
+              <p class="wf-small"><span data-out="es-year">—</span> {{ section.settings.per_year }}</p>
             </div>
           {%- endif -%}
         </div>
@@ -164,13 +162,13 @@
           <div class="wf-rc__save">
             <p>
               {{ section.settings.save_prefix }} <strong data-out="save-year">—</strong> {{ section.settings.save_suffix }}
-              <span data-payback hidden><br><span class="wf-rc__per">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
+              <span data-payback hidden><br><span class="wf-small">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
             </p>
-            <button type="button" class="wf-btn" data-add-es>{{ section.settings.cta_label }}</button>
+            <button type="button" class="button button--primary" is="hover-button" data-add-es><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.cta_label }}</span></button>
           </div>
         {%- endif -%}
 
-        <p class="wf-small" style="position:relative;margin:24px 0 0;color:rgba(244,246,247,.55)">
+        <p class="wf-small wf-rc__basis">
           {{ section.settings.basis_prefix }} <span data-out="kwh">{{ kwh_day }}</span> kWh a day × <span data-out="days">15</span> {{ section.settings.basis_middle }} <span data-out="rate">{{ rate }}{{ unit }}</span>.{% if has_es %} {{ section.settings.basis_es | replace: '[pct]', section.settings.energysave_saving }}{% endif %}
           {%- if section.settings.calculator_link != blank %} <a class="wf-link" href="{{ section.settings.calculator_link }}">{{ section.settings.calculator_label }}</a>{% endif %}
         </p>
