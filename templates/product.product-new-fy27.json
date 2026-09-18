@@ -242,6 +242,7 @@
         },
         "on_site_message_KFREgF": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
             "message_icon_width": 100,
@@ -254,11 +255,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/DivideBuy.png",
             "message_icon_width": 100,
@@ -271,11 +272,11 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Payl8r.png",
             "message_icon_width": 100,
@@ -288,8 +289,7 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
@@ -633,21 +633,14 @@
     },
     "wf_overview": {
       "type": "wave-fy27-overview",
-      "settings": {
-        "show_notes": true,
-        "model_match": "Garda",
-        "model_url": "https://cdn.shopify.com/3d/models/o/0ab095981a4ddaa8/Garda.glb",
-        "model_usdz": "https://cdn.shopify.com/3d/models/o/61f4119a150ace04/Garda.usdz",
-        "model_poster": "https://cdn.shopify.com/s/files/1/0058/2284/0889/files/preview_images/Garda.jpg?v=1728636177&width=1600"
-      },
       "blocks": {
         "benefit_1": {
           "type": "benefit",
           "settings": {
             "tier": "lite",
             "glyph": "floor",
-            "title": "Room to move",
-            "text": "An open floor, with space to stand, stretch out and change position whenever you like."
+            "title": "Room to stretch",
+            "text": "An open floor to float, sprawl or sit where you like."
           }
         },
         "benefit_2": {
@@ -655,100 +648,73 @@
           "settings": {
             "tier": "lite",
             "glyph": "bubbles",
-            "title": "Bubbles all the way round",
-            "text": "Bubbles rise from the floor around the whole spa, so there's no bad place to sit."
+            "title": "Bubbles all round",
+            "text": "No bad seat in the house."
           }
         },
         "benefit_3": {
           "type": "benefit",
           "settings": {
             "tier": "lite",
-            "glyph": "heat",
-            "title": "40°C, all year",
-            "text": "A built-in heater holds a steady 40°C, with no bulky kit sitting outside the tub."
+            "glyph": "filter",
+            "title": "Clear water, easily",
+            "text": "WaveFlow™ filtration keeps it fresh."
           }
         },
         "benefit_4": {
           "type": "benefit",
           "settings": {
-            "tier": "lite",
-            "glyph": "filter",
-            "title": "Clear water, easily",
-            "text": "WaveFlow™ filtration keeps the water turning over. Rinse the cartridge after a soak and you're done."
+            "tier": "lush",
+            "glyph": "quiet",
+            "title": "Up, or right down",
+            "text": "A full massage, or VertaCalm™ for a quiet soak."
           }
         },
         "benefit_5": {
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "glyph": "seat",
-            "title": "Seats that hold you",
-            "text": "Moulded Air Foam seats, set face to face, so everyone has somewhere to lean back and talk."
+            "requires": "WiFi",
+            "glyph": "wifi",
+            "title": "Warm on arrival",
+            "text": "Turn up the heat from your phone on the way home."
           }
         },
         "benefit_6": {
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "glyph": "quiet",
-            "title": "Turn it up, or down",
-            "text": "Two bubble speeds: a full massage when you want one, VertaCalm™ when you'd rather hear the garden."
+            "requires": "LED strip",
+            "glyph": "light",
+            "title": "Glow after dark",
+            "text": "LED strip ready for evenings under the stars."
           }
         },
         "benefit_7": {
           "type": "benefit",
           "settings": {
-            "tier": "lush",
-            "glyph": "wifi",
-            "requires": "WiFi",
-            "title": "Warm when you get home",
-            "text": "WiFi app control, so you can check the temperature and turn up the heat from your phone."
+            "tier": "luxe",
+            "glyph": "jets",
+            "title": "Jets on demand",
+            "text": "VertaJet™: four hydro-jets, two intensities."
           }
         },
         "benefit_8": {
           "type": "benefit",
           "settings": {
-            "tier": "lush",
-            "glyph": "light",
-            "requires": "LED strip",
-            "title": "Set the mood",
-            "text": "LED strip compatible and ready for a spa light, for evenings that carry on after dark."
+            "tier": "luxe",
+            "glyph": "zones",
+            "title": "Two jet zones",
+            "text": "VertaZone™: two jet units, two pairs of jets."
           }
         },
         "benefit_9": {
           "type": "benefit",
           "settings": {
             "tier": "luxe",
-            "glyph": "jets",
-            "title": "Jets where you want them",
-            "text": "VertaJet™: four hydro-massage jets with two intensities, aimed at the places you carry the day."
-          }
-        },
-        "benefit_10": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
-            "glyph": "zones",
-            "title": "Two jet zones",
-            "text": "VertaZone™ gives you two jet units, each with its own pair of jets."
-          }
-        },
-        "benefit_11": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
-            "glyph": "bubbles",
-            "title": "Bubbles that climb",
-            "text": "VertaAir™ bubbles rise up the wall behind you, running with the jets or on their own."
-          }
-        },
-        "benefit_12": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
             "glyph": "wifi",
-            "title": "A control for each",
-            "text": "WiFi app control with separate bubble and jet controls, so everyone gets the soak they want."
+            "title": "Your soak, your way",
+            "text": "Separate bubble and jet controls in the app."
           }
         }
       },
@@ -761,21 +727,45 @@
         "benefit_6",
         "benefit_7",
         "benefit_8",
-        "benefit_9",
-        "benefit_10",
-        "benefit_11",
-        "benefit_12"
-      ]
+        "benefit_9"
+      ],
+      "settings": {
+        "model_match": "Garda",
+        "model_url": "https://cdn.shopify.com/3d/models/o/0ab095981a4ddaa8/Garda.glb",
+        "model_usdz": "https://cdn.shopify.com/3d/models/o/61f4119a150ace04/Garda.usdz",
+        "model_poster": "https://cdn.shopify.com/s/files/1/0058/2284/0889/files/preview_images/Garda.jpg?v=1728636177&width=1600",
+        "lite_lede": "Step in, sink down, switch off. Everything you need, nothing you don't.",
+        "lush_lede": "Moulded seats, two bubble speeds and warm water waiting when you get home.",
+        "luxe_lede": "Hydro-jets and climbing bubbles, aimed exactly where you carry the day.",
+        "seats_label": "moulded seats",
+        "people_label": "people",
+        "heat_label": "all year round",
+        "cost_label": "to run, used most days",
+        "setup_label": "to build, no tools",
+        "show_notes": false
+      }
     },
     "wf_ecofoam": {
       "type": "wave-fy27-ecofoam",
       "settings": {
         "scope": "any",
+        "heading": "The warmth stays with you.",
+        "lede": "Eco foam locks the heat in, so it's warm when you are and costs less to run.",
+        "lede_thinner": "Now slimmer, with more room inside.",
+        "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg",
+        "image_mobile": "shopify://shop_images/Website_Garda_Overhead_Snow_mobile_4f3ec29b-c9ba-484b-be71-ee7922466732.jpg",
+        "hint": "Tap a number to explore.",
+        "lid_title": "Sealed-in lid",
+        "lid_text": "Traps heat at the top, where most tries to escape.",
+        "wall_title": "[wall] cm eco foam walls",
+        "wall_text": "Dense foam on every side keeps the warmth in the water.",
+        "heater_title": "Built-in heater",
+        "heater_text": "Holds a steady 40°C. Set it from your phone.",
+        "base_title": "Insulated base",
+        "base_text": "Stops cold ground stealing your heat.",
         "old_thickness": 15,
         "inflatable_kwh": 16,
-        "show_notes": true,
-        "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg",
-        "image_mobile": "shopify://shop_images/Website_Garda_Overhead_Snow_mobile_4f3ec29b-c9ba-484b-be71-ee7922466732.jpg"
+        "show_notes": false
       }
     },
     "wf_vertaair": {
@@ -784,32 +774,24 @@
         "point_1": {
           "type": "point",
           "settings": {
-            "title": "Starts at the seat",
-            "text": "The air chamber begins where you sit, not out on the floor, so the bubbles meet your lower back straight away.",
+            "title": "From the seat, not the floor",
+            "text": "The bubbles meet you where you sit.",
             "jets_only": false
           }
         },
         "point_2": {
           "type": "point",
           "settings": {
-            "title": "Opens out in a V",
-            "text": "Two channels open out behind you and spread across your lower back, where the day tends to settle.",
+            "title": "Made for tired backs",
+            "text": "Aimed at the muscles that feel the day most.",
             "jets_only": false
           }
         },
         "point_3": {
           "type": "point",
           "settings": {
-            "title": "Two speeds",
-            "text": "High for a full massage, low for a quiet soak.",
-            "jets_only": false
-          }
-        },
-        "point_4": {
-          "type": "point",
-          "settings": {
             "title": "Works with the jets",
-            "text": "VertaAir™ runs alongside VertaJet™, or on its own.",
+            "text": "Run VertaAir™ with VertaJet™, or on its own.",
             "jets_only": true
           }
         }
@@ -817,47 +799,27 @@
       "block_order": [
         "point_1",
         "point_2",
-        "point_3",
-        "point_4"
+        "point_3"
       ],
       "settings": {
-        "show_notes": true
+        "heading": "Your lower back will thank you.",
+        "lede": "A V-shaped air chamber rises from the seat and works the bubbles into your lower back.",
+        "show_notes": false
       }
     },
     "wf_running_cost": {
       "type": "wave-fy27-running-cost",
-      "blocks": {
-        "bundle_item_1": {
-          "type": "bundle_item",
-          "settings": {
-            "title": "EnergySave™ cover",
-            "text": "A second insulating layer on top, where most of the heat tries to escape."
-          }
-        },
-        "bundle_item_2": {
-          "type": "bundle_item",
-          "settings": {
-            "title": "Insulated floor mats",
-            "text": "Stop cold ground drawing warmth out through the base."
-          }
-        },
-        "bundle_item_3": {
-          "type": "bundle_item",
-          "settings": {
-            "title": "Worth up to £200",
-            "text": "Included in the bundle price."
-          }
-        }
-      },
-      "block_order": [
-        "bundle_item_1",
-        "bundle_item_2",
-        "bundle_item_3"
-      ],
       "settings": {
+        "heading": "Warm water, sensible bills.",
+        "lede": "See what it costs to run, before you buy.",
+        "lede_es": "See what it costs to run, and what EnergySave™ saves you.",
+        "bundle_line": "EnergySave™ adds a thermal cover and insulated floor mats, worth up to £200.",
         "energysave_saving": 30,
+        "basis_prefix": "Based on",
+        "basis_middle": "days a month at",
+        "basis_es": "EnergySave assumes [pct]% less energy. Your bill depends on weather and use.",
         "calculator_link": "/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
-        "show_notes": true
+        "show_notes": false
       }
     },
     "wf_setup": {
@@ -866,41 +828,37 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "title": "Pick your spot",
-            "text": "Flat, firm and level: a patio, a compact base, or decking rated for the weight."
+            "title": "Pick a flat spot",
+            "text": "Patio, base or decking rated for the weight."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Unbox and build",
-            "text": "Everything you need is in the box. No tools."
+            "title": "Build it",
+            "text": "Everything's in the box."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "title": "Plug in and fill",
-            "text": "Plug into an RCD-protected outdoor socket and fill it with a garden hose."
-          }
-        },
-        "step_4": {
-          "type": "step",
-          "settings": {
-            "title": "Set it and leave it",
-            "text": "Choose 40°C and let the heater get to work. Warming up takes longer than setting up, so fill it today for a soak tomorrow."
+            "title": "Plug in, fill, heat",
+            "text": "Set 40°C. Fill today, soak tomorrow."
           }
         }
       },
       "block_order": [
         "step_1",
         "step_2",
-        "step_3",
-        "step_4"
+        "step_3"
       ],
       "settings": {
+        "heading": "Built in [minutes] minutes.",
+        "lede": "No tools, no electrician, no groundwork.",
         "setup_minutes": 20,
-        "show_notes": true
+        "plug_title": "Standard 13 amp plug",
+        "plug_text": "Plugs into an RCD-protected outdoor socket.",
+        "show_notes": false
       }
     },
     "wf_tiers": {
@@ -915,7 +873,7 @@
             "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
             "signature": "Light work.",
             "for": "For getting in without a second thought.",
-            "features": "Open floor with room to stretch out\nBubbles all the way round\nBuilt-in heater to 40°C\nTool-free setup"
+            "features": "Open floor to stretch out\nBubbles all round\nTool-free setup"
           }
         },
         "tier_2": {
@@ -927,7 +885,7 @@
             "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
             "signature": "Turn it down.",
             "for": "For evenings you want to last.",
-            "features": "Moulded Air Foam seats\nTwo bubble speeds, down to a whisper\nWiFi app control\nLED strip compatible"
+            "features": "Moulded Air Foam seats\nTwo bubble speeds\nWiFi app control"
           }
         },
         "tier_3": {
@@ -939,7 +897,7 @@
             "image": "shopify://shop_images/AdriaticZoom.png",
             "signature": "Where you want it.",
             "for": "For pressure exactly where you need it.",
-            "features": "Four hydro-massage jets, two intensities\nBubbles that rise up the wall behind you\nSeparate bubble and jet controls\nWiFi app control"
+            "features": "Four hydro-massage jets\nBubbles up the wall behind you\nSeparate bubble and jet controls"
           }
         }
       },
@@ -948,7 +906,9 @@
         "tier_2",
         "tier_3"
       ],
-      "settings": {}
+      "settings": {
+        "lede": "Choose how you want it to feel."
+      }
     },
     "product-details": {
       "type": "product-details",
@@ -1125,81 +1085,43 @@
         "question_1": {
           "type": "question",
           "settings": {
-            "topic": "Running costs",
-            "question": "How much does it cost to run?",
-            "answer": "<p>It depends on how often you use it and what you pay for electricity. The calculator above works it out for this spa: pick a size, how often you'll soak and your unit rate. Keep the cover on between soaks, and add the EnergySave™ bundle to bring it down further.</p>"
+            "question": "Will it fit in my garden?",
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
           }
         },
         "question_2": {
           "type": "question",
           "settings": {
-            "topic": "Space",
-            "question": "Will it fit in my garden?",
-            "answer": "<p>Check the footprint in the size options and leave around a metre clear around it, for getting in and out and reaching the filter. It needs somewhere flat, firm and level. Filled with water and people, a spa can weigh a tonne or more, so decking must be rated for that load.</p>"
+            "question": "How much looking after does it need?",
+            "answer": "<p>A few minutes a week. Rinse the filter after a soak, test the water twice a week and refresh it every 1 to 3 months. Our water care guides show you how.</p>"
           }
         },
         "question_3": {
           "type": "question",
           "settings": {
-            "topic": "Power",
-            "question": "What power do I need?",
-            "answer": "<p>A standard 13 amp outdoor socket with RCD protection. There's no hard-wiring and no electrician to book. Plug it straight into the socket rather than using an extension lead.</p>"
+            "question": "Can I use it in winter?",
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
           }
         },
         "question_4": {
           "type": "question",
           "settings": {
-            "topic": "Looking after it",
-            "question": "How much looking after does it need?",
-            "answer": "<p>A few minutes a week. Rinse the filter after a soak and test the water twice a week (chlorine 3 to 5 ppm, pH 7.2 to 7.6). Give the filter a deeper clean weekly, fit a new cartridge every 2 to 4 weeks and refresh the water every 1 to 3 months.</p><p>Our water care guides take you through it step by step.</p>"
+            "question": "Is it noisy?",
+            "answer": "<p>Barely. The heater and pump hum quietly, and the low bubble speed keeps late evenings neighbour-friendly.</p>"
           }
         },
         "question_5": {
           "type": "question",
           "settings": {
-            "topic": "All year",
-            "question": "Can I use it in winter?",
-            "answer": "<p>Yes. It heats to 40°C all year round. Keep the cover on between soaks to hold the heat. On models with automatic frost protection, it switches on by itself when the temperature drops below 5°C.</p>"
+            "question": "Do I need planning permission?",
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
           }
         },
         "question_6": {
           "type": "question",
           "settings": {
-            "topic": "Noise",
-            "question": "Is it noisy?",
-            "answer": "<p>The heater and filter pump make a low hum. The bubbles are the loudest part, and on two-speed models the lower setting is noticeably quieter, which suits late evenings and close neighbours.</p>"
-          }
-        },
-        "question_7": {
-          "type": "question",
-          "settings": {
-            "topic": "Planning",
-            "question": "Do I need planning permission?",
-            "answer": "<p>In most UK gardens, no: a hot tub usually counts as permitted development. Check with your local council if you live in a listed building, a conservation area or a flat, or if you're building decking more than 30cm off the ground.</p>"
-          }
-        },
-        "question_8": {
-          "type": "question",
-          "settings": {
-            "topic": "Delivery",
             "question": "When will it arrive?",
-            "answer": "<p>Order by 6:30pm for free next-day tracked delivery with DPD, who'll send you a one-hour delivery window. Saturday delivery is available for £9.99.</p>"
-          }
-        },
-        "question_9": {
-          "type": "question",
-          "settings": {
-            "topic": "Warranty",
-            "question": "What's the warranty?",
-            "answer": "<p>Every spa comes with a 2-year warranty, backed by our UK support team: Monday to Friday 8:30 to 5:30, and Saturday 8 to 4. We reply to emails within 8 working hours.</p>"
-          }
-        },
-        "question_10": {
-          "type": "question",
-          "settings": {
-            "topic": "Paying",
-            "question": "Can I spread the cost?",
-            "answer": "<p>Yes. Pay in 3 with Klarna, or spread it monthly and interest-free with DivideBuy, subject to eligibility. You'll find the options just under the price.</p>"
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
           }
         }
       },
@@ -1209,13 +1131,13 @@
         "question_3",
         "question_4",
         "question_5",
-        "question_6",
-        "question_7",
-        "question_8",
-        "question_9",
-        "question_10"
+        "question_6"
       ],
       "settings": {
+        "eyebrow": "Questions",
+        "heading": "Before you buy.",
+        "lede": "Quick answers to what people ask most.",
+        "contact_text": "Still deciding? Our UK team is here six days a week.",
         "contact_link": "/pages/contact"
       }
     },
@@ -1226,21 +1148,14 @@
           "type": "trust",
           "settings": {
             "title": "Free next-day delivery",
-            "text": "Order by 6:30pm, with a one-hour DPD window."
+            "text": "Order by 6:30pm."
           }
         },
         "trust_2": {
           "type": "trust",
           "settings": {
             "title": "2-year warranty",
-            "text": "And UK support six days a week."
-          }
-        },
-        "trust_3": {
-          "type": "trust",
-          "settings": {
-            "title": "Plug and play",
-            "text": "A standard 13 amp socket. No electrician."
+            "text": "Backed by our UK team."
           }
         },
         "trust_4": {
@@ -1254,15 +1169,14 @@
       "block_order": [
         "trust_1",
         "trust_2",
-        "trust_3",
         "trust_4"
       ],
       "settings": {
         "heading": "Tonight could look like this.",
-        "button_label": "Choose yours",
         "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
         "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
-        "overlay": 45
+        "overlay": 45,
+        "button_label": "Choose yours"
       }
     },
     "product-recommendations": {

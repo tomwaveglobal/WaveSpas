@@ -35,7 +35,7 @@
 
   {%- if section.blocks.size > 0 -%}
     <div class="wf__inner wf__inner--tight">
-      <ul class="wf-trust" role="list" data-wf-reveal>
+      <ul class="wf-trust" role="list" data-wf-reveal style="--n: {{ section.blocks.size }}">
         {%- for block in section.blocks -%}
           <li {{ block.shopify_attributes }}>
             <h3 class="wf-h3" style="font-size:16px">{{ block.settings.title }}</h3>

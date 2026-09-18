@@ -129,12 +129,8 @@
           </div>
         </div>
 
-        {%- if has_es -%}
-          <div class="wf-rc__bundle">
-            {%- for block in section.blocks -%}
-              <div {{ block.shopify_attributes }}><h3 class="wf-h3" style="font-size:16px">{{ block.settings.title }}</h3><p class="wf-body">{{ block.settings.text }}</p></div>
-            {%- endfor -%}
-          </div>
+        {%- if has_es and section.settings.bundle_line != blank -%}
+          <p class="wf-body wf-rc__bundle-line">{{ section.settings.bundle_line }}</p>
         {%- endif -%}
       </div>
 
@@ -191,6 +187,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Know what it costs before it arrives." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "Tell us how often you'll use it and what you pay for electricity. We'll show you what to expect on the bill." },
     { "type": "textarea", "id": "lede_es", "label": "Intro (EnergySave available)", "default": "Tell us how often you'll use it and what you pay for electricity. Then see how much the EnergySave bundle takes off the bill." },
+    { "type": "textarea", "id": "bundle_line", "label": "EnergySave bundle line", "default": "EnergySave™ adds a thermal cover and insulated floor mats, worth up to £200." },
     { "type": "text", "id": "size_label", "label": "Size label", "default": "Size" },
     { "type": "text", "id": "usage_label", "label": "Usage label", "default": "How often you'll use it" },
     { "type": "text", "id": "usage_1", "label": "6 days a month", "default": "Weekends" },
