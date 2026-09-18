@@ -30,7 +30,7 @@
             "secondary_heading": "",
             "secondary_heading_size": "title-md",
             "secondary_heading_weight": "font-bold",
-            "button_position": "beside",
+            "button_position": "below",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/hot-tub-full-range",
             "button_style": "primary",
