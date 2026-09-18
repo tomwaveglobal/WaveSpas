@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "image_EUEdiE": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/EU_Sale-30_-1_eae1da4e-7bd2-4615-acac-961cff95f83f.jpg",
             "image_tablet": "shopify://shop_images/EU_Sale-30_-2_436ab5bf-f09f-485a-963b-df9e089b4b28.jpg",
@@ -41,7 +41,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-8ffdc5013d6c83c61e9cb64b40770354": null,
+            "header-3d84dcf68fca6feb87f642e9dd46f9f5": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -63,7 +63,7 @@
           }
         },
         "image_JUM7dH": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/UK_Seasonal-transition_02-1.jpg",
             "image_tablet": "shopify://shop_images/UK_Seasonal-transition_02-2.jpg",
