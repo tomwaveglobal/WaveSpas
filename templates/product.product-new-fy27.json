@@ -1377,6 +1377,7 @@
   },
   "order": [
     "main-product",
+    "product-details",
     "ss_product_videos_4_BQjpxE",
     "wf_overview",
     "wf_ecofoam",
@@ -1384,7 +1385,6 @@
     "wf_running_cost",
     "wf_setup",
     "wf_tiers",
-    "product-details",
     "wf_questions",
     "wf_closer",
     "reviews",
