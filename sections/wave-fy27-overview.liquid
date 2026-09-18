@@ -82,7 +82,62 @@
       </ul>
     </div>
 
-    {%- if hero != blank -%}
+    {%- liquid
+      assign glb = blank
+      assign usdz = blank
+      assign poster = blank
+      assign model_media = product.media | where: 'media_type', 'model' | first
+      if model_media
+        for src in model_media.sources
+          if src.format == 'glb'
+            assign glb = src.url
+          elsif src.format == 'usdz'
+            assign usdz = src.url
+          endif
+        endfor
+        assign poster = model_media.preview_image | image_url: width: 1600
+      elsif section.settings.model_url != blank and section.settings.model_match != blank and product.title contains section.settings.model_match
+        assign glb = section.settings.model_url
+        assign usdz = section.settings.model_usdz
+        assign poster = section.settings.model_poster
+      endif
+    -%}
+    {%- if glb != blank -%}
+      <wf-model class="wf-ov__stage wf-ov__stage--model" data-wf-reveal>
+        {%- if poster != blank -%}
+          <img class="wf-model__poster" src="{{ poster }}" alt="{{ name | escape }}" loading="lazy" width="1024" height="1024">
+        {%- endif -%}
+        <div class="wf-model__viewer" data-viewer></div>
+        <template>
+          <model-viewer
+            src="{{ glb }}"
+            {% if usdz != blank %}ios-src="{{ usdz }}"{% endif %}
+            alt="{{ section.settings.model_alt | replace: '[product]', name | escape }}"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="12deg"
+            interaction-prompt="none"
+            disable-zoom
+            shadow-intensity="1"
+            shadow-softness="0.8"
+            exposure="1.05"
+            environment-image="neutral"
+            camera-orbit="35deg 72deg auto"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+          >
+            <button slot="ar-button" class="wf-model__ar">{{ section.settings.ar_label }}</button>
+          </model-viewer>
+        </template>
+        <button type="button" class="wf-model__load" data-load>
+          {%- render 'wave-fy27-glyph', name: 'cube', class: 'wf-model__icon' -%}
+          <span>{{ section.settings.load_label }}</span>
+        </button>
+        <span class="wf-model__spinner" aria-hidden="true"></span>
+        <p class="wf-model__hint">{{ section.settings.drag_label }}</p>
+      </wf-model>
+    {%- elsif hero != blank -%}
       <div class="wf-ov__stage{% if section.settings.contain %} wf-ov__stage--contain{% endif %}" data-wf-reveal>
         {{- hero | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '(min-width: 1280px) 1240px, 100vw', widths: '750, 1100, 1500, 2000, 2400', alt: name -}}
       </div>
@@ -112,7 +167,7 @@
     </div>
 
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: running cost = {{ kwh | default: '—' }} kWh a day × {{ section.settings.usage_days }} days × {{ rate }}{% if cur_symbol == '£' %}p{% else %}c{% endif %}, the same method as the Wave running cost calculator page, for the largest size. Setup minutes come from <code>specs.setup_minutes</code> when set, otherwise the section setting ({{ section.settings.setup_minutes }}). Benefit cards filter by tier tag, and by "Only when the product mentions". Turn these notes off before launch.</p>
+      <p class="wf-note">Test note: running cost = {{ kwh | default: '—' }} kWh a day × {{ section.settings.usage_days }} days × {{ rate }}{% if cur_symbol == '£' %}p{% else %}c{% endif %}, the same method as the Wave running cost calculator page, for the largest size. The 3D model is Garda.glb from Shopify Files (43.7 MB, the FY26 Garda), so swap it for an FY27 model when one exists. Setup minutes come from <code>specs.setup_minutes</code> when set, otherwise the section setting ({{ section.settings.setup_minutes }}). Benefit cards filter by tier tag, and by "Only when the product mentions". Turn these notes off before launch.</p>
     {%- endif -%}
   </div>
 </wf-section>
@@ -124,6 +179,16 @@
     { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Overview" },
     { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Leave empty to use the product's featured image." },
     { "type": "checkbox", "id": "contain", "label": "Fit whole image (use for cut-out product shots)", "default": false },
+    { "type": "header", "content": "3D model" },
+    { "type": "paragraph", "content": "A product's own 3D media is used first. Otherwise the model below shows on products whose title contains the match text. The image above is used when neither applies." },
+    { "type": "text", "id": "model_match", "label": "Show the model when the product title contains", "default": "Garda" },
+    { "type": "text", "id": "model_url", "label": "Model file (.glb URL)" },
+    { "type": "text", "id": "model_usdz", "label": "iPhone AR file (.usdz URL)" },
+    { "type": "text", "id": "model_poster", "label": "Poster image URL", "info": "Shown until the model loads." },
+    { "type": "text", "id": "model_alt", "label": "Model description", "default": "3D model of the [product] hot tub" },
+    { "type": "text", "id": "load_label", "label": "Load button", "default": "View in 3D" },
+    { "type": "text", "id": "drag_label", "label": "Hint", "default": "Drag to turn it around" },
+    { "type": "text", "id": "ar_label", "label": "AR button", "default": "See it in your garden" },
     { "type": "color", "id": "stage_color", "label": "Stage colour", "default": "#fafafa" },
     { "type": "header", "content": "Lite" },
     { "type": "text", "id": "lite_signature", "label": "Headline", "default": "Light work." },

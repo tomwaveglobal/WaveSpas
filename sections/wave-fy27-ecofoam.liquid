@@ -49,68 +49,162 @@
   assign saving_money = saving_month | times: 100 | money_without_trailing_zeros
 -%}
 {%- if show -%}
-<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+{%- liquid
+  assign use_diagram = false
+  if section.settings.diagram_match != blank and product.title contains section.settings.diagram_match
+    assign use_diagram = true
+  endif
+-%}
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
-    <div class="wf-head">
-      <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
-      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
-      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}{% if thinner %} {{ section.settings.lede_thinner }}{% endif %}</p>
-    </div>
-
-    {%- liquid
-      assign img = section.settings.image | default: product.featured_media.preview_image
-      assign img_mobile = section.settings.image_mobile | default: img
-    -%}
-    {%- if img != blank -%}
-      <div class="wf-ef__media" data-wf-reveal>
-        <picture>
-          <source media="(max-width: 749px)" srcset="{{ img_mobile | image_url: width: 900 }} 900w, {{ img_mobile | image_url: width: 1400 }} 1400w" sizes="100vw">
-          {{- img | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '(min-width: 1280px) 1240px, 100vw', widths: '800, 1200, 1800, 2400', alt: section.settings.image_alt -}}
-        </picture>
-        <div class="wf-ef__chips">
-          <span class="wf-chip wf-chip--warm"><b>40°C</b><span>{{ section.settings.inside_label }}</span></span>
-          {%- if section.settings.outside_temp != blank -%}
-            <span class="wf-chip"><b>{{ section.settings.outside_temp }}</b><span>{{ section.settings.outside_label }}</span></span>
-          {%- endif -%}
+    {%- if use_diagram -%}
+      <div class="wf-xp">
+        <div class="wf-xp__intro">
+          <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+          <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}{% if thinner %} {{ section.settings.lede_thinner }}{% endif %}</p>
+          <p class="wf-small wf-xp__hint" data-wf-reveal style="--wf-delay: .24s">{{ section.settings.hint }}</p>
         </div>
+
+        <wf-explode class="wf-xp__stage" data-wf-reveal>
+          <svg viewBox="0 0 700 1000" role="img" aria-label="{{ section.settings.diagram_label | escape }}">
+            <defs>
+              <pattern id="wfFoam-{{ section.id }}" width="7" height="7" patternUnits="userSpaceOnUse">
+                <rect width="7" height="7" fill="#efe6d2"/><circle cx="2" cy="2" r="1.2" fill="#d6c9ac"/><circle cx="5.5" cy="5.5" r="1" fill="#e0d5bd"/>
+              </pattern>
+            </defs>
+          <g class="wf-xp__guides">
+          <line x1="41.9" y1="876.7" x2="41.9" y2="138.9" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
+          <line x1="350.0" y1="973.6" x2="350.0" y2="235.8" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
+          <line x1="658.1" y1="876.7" x2="658.1" y2="138.9" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
+          </g>
+          <g class="wf-xp__layer" data-layer="base">
+          <polygon points="41.9,886.9 350.0,983.8 350.0,973.6 41.9,876.7" fill="#2e2e2e"/>
+          <polygon points="658.1,886.9 350.0,983.8 350.0,973.6 658.1,876.7" fill="#222"/>
+          <polygon points="350.0,779.8 658.1,876.7 350.0,973.6 41.9,876.7" fill="url(#wfFoam-{{ section.id }})"/>
+          </g>
+          <g class="wf-xp__layer" data-layer="liner">
+          <polygon points="350.0,626.8 609.5,708.4 350.0,790.0 90.5,708.4" fill="#d6ebf0"/>
+          <polygon points="350.0,626.8 609.5,708.4 609.5,626.8 350.0,545.2" fill="#b9dbe4"/>
+          <polygon points="350.0,626.8 90.5,708.4 90.5,626.8 350.0,545.2" fill="#a7d0dc"/>
+          <polygon points="325.7,649.8 536.5,716.0 536.5,671.8 325.7,605.5" fill="#9fcad7"/>
+          <polygon points="585.2,700.8 536.5,716.0 536.5,671.8 585.2,656.5" fill="#8fbfcd"/>
+          <polygon points="374.3,590.2 585.2,656.5 536.5,671.8 325.7,605.5" fill="#cfe7ee"/>
+          <line x1="409.2" y1="600.0" x2="388.1" y2="564.5" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <line x1="409.2" y1="600.0" x2="430.3" y2="577.8" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <line x1="482.2" y1="623.0" x2="461.1" y2="587.4" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <line x1="482.2" y1="623.0" x2="503.3" y2="600.7" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <line x1="555.2" y1="645.9" x2="534.1" y2="610.4" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <line x1="555.2" y1="645.9" x2="576.2" y2="623.7" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
+          <polygon points="90.5,708.4 350.0,790.0 350.0,708.4 90.5,626.8" fill="#c7e2ea"/>
+          <polygon points="609.5,708.4 350.0,790.0 350.0,708.4 609.5,626.8" fill="#b3d7e1"/>
+          <polyline points="90.5,626.8 350.0,545.2 609.5,626.8" fill="none" stroke="#8fbfcd" stroke-width="1.5"/>
+          <polyline points="90.5,626.8 350.0,708.4 609.5,626.8" fill="none" stroke="#fff" stroke-width="1.5"/>
+          </g>
+          <g class="wf-xp__layer" data-layer="wall">
+          <polygon points="350.0,359.9 609.5,441.5 609.5,324.2 350.0,242.6" fill="#3b3b3b"/>
+          <polygon points="350.0,359.9 90.5,441.5 90.5,324.2 350.0,242.6" fill="#333"/>
+          <path d="M350.0,227.3 L658.1,324.2 L350.0,421.1 L41.9,324.2 Z M350.0,242.6 L90.5,324.2 L350.0,405.8 L609.5,324.2 Z" fill="url(#wfFoam-{{ section.id }})" fill-rule="evenodd"/>
+          <polygon points="41.9,441.5 350.0,538.4 350.0,421.1 41.9,324.2" fill="#4a4a4a"/>
+          <polygon points="658.1,441.5 350.0,538.4 350.0,421.1 658.1,324.2" fill="#373737"/>
+          <polyline points="41.9,324.2 350.0,421.1 658.1,324.2" fill="none" stroke="#6b6b6b" stroke-width="1.5"/>
+          <polygon points="466.8,477.9 385.7,503.4 385.7,442.2 466.8,416.7" fill="#1e1e1e" stroke="#555" stroke-width="1"/>
+          <circle cx="447.3" cy="443.2" r="3.5" fill="#f59e0b"/>
+          </g>
+          <g class="wf-xp__layer" data-layer="lid">
+          <polygon points="41.9,138.9 350.0,235.8 350.0,215.4 41.9,118.5" fill="#2b2b2b"/>
+          <polygon points="658.1,138.9 350.0,235.8 350.0,215.4 658.1,118.5" fill="#222"/>
+          <polygon points="350.0,21.6 658.1,118.5 350.0,215.4 41.9,118.5" fill="#3a3a3a"/>
+          <line x1="298.1" y1="44.0" x2="586.8" y2="134.8" stroke="#4b4b4b" stroke-width="2"/>
+          <line x1="236.5" y1="63.4" x2="525.2" y2="154.2" stroke="#4b4b4b" stroke-width="2"/>
+          <line x1="174.8" y1="82.8" x2="463.5" y2="173.6" stroke="#4b4b4b" stroke-width="2"/>
+          <line x1="113.2" y1="102.2" x2="401.9" y2="193.0" stroke="#4b4b4b" stroke-width="2"/>
+          </g>
+          </svg>
+          
+          <button type="button" class="wf-xp__hot wf-xp__hot--right" style="left:50.0%;top:11.85%" data-layer="lid" aria-describedby="WfXp-{{ section.id }}-lid">
+            <span class="wf-xp__num">1</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-lid" role="tooltip">
+              <span class="wf-h3">{{ section.settings.lid_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.lid_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          
+          
+          <button type="button" class="wf-xp__hot wf-xp__hot--right" style="left:29.61%;top:27.93%" data-layer="wall" aria-describedby="WfXp-{{ section.id }}-wall">
+            <span class="wf-xp__num">2</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-wall" role="tooltip">
+              <span class="wf-h3">{{ section.settings.wall_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.wall_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          
+          
+          <button type="button" class="wf-xp__hot wf-xp__hot--left" style="left:59.27%;top:46.36%" data-layer="wall" aria-describedby="WfXp-{{ section.id }}-heater">
+            <span class="wf-xp__num">3</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-heater" role="tooltip">
+              <span class="wf-h3">{{ section.settings.heater_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.heater_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          
+          
+          <button type="button" class="wf-xp__hot wf-xp__hot--left" style="left:72.01%;top:64.63%" data-layer="liner" aria-describedby="WfXp-{{ section.id }}-seat">
+            <span class="wf-xp__num">4</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-seat" role="tooltip">
+              <span class="wf-h3">{{ section.settings.seat_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.seat_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          
+          {%- if kf contains 'VertaAir' -%}
+          <button type="button" class="wf-xp__hot wf-xp__hot--left" style="left:58.46%;top:58.47%" data-layer="liner" aria-describedby="WfXp-{{ section.id }}-verta">
+            <span class="wf-xp__num">5</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-verta" role="tooltip">
+              <span class="wf-h3">{{ section.settings.verta_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.verta_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          {%- endif -%}
+          
+          <button type="button" class="wf-xp__hot wf-xp__hot--right" style="left:27.99%;top:93.03%" data-layer="base" aria-describedby="WfXp-{{ section.id }}-base">
+            <span class="wf-xp__num">6</span>
+            <span class="wf-xp__tip" id="WfXp-{{ section.id }}-base" role="tooltip">
+              <span class="wf-h3">{{ section.settings.base_title | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+              <span class="wf-body">{{ section.settings.base_text | replace: '[wall]', wall_t | replace: '[density]', density }}</span>
+            </span>
+          </button>
+          
+        </wf-explode>
       </div>
+    {%- else -%}
+      <div class="wf-head">
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}{% if thinner %} {{ section.settings.lede_thinner }}{% endif %}</p>
+      </div>
+      {%- liquid
+        assign img = section.settings.image | default: product.featured_media.preview_image
+        assign img_mobile = section.settings.image_mobile | default: img
+      -%}
+      {%- if img != blank -%}
+        <div class="wf-ef__media" data-wf-reveal>
+          <picture>
+            <source media="(max-width: 749px)" srcset="{{ img_mobile | image_url: width: 900 }} 900w, {{ img_mobile | image_url: width: 1400 }} 1400w" sizes="100vw">
+            {{- img | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '(min-width: 1280px) 1240px, 100vw', widths: '800, 1200, 1800, 2400', alt: section.settings.image_alt -}}
+          </picture>
+          <div class="wf-ef__chips">
+            <span class="wf-chip wf-chip--warm"><b>40°C</b><span>{{ section.settings.inside_label }}</span></span>
+            {%- if section.settings.outside_temp != blank -%}
+              <span class="wf-chip"><b>{{ section.settings.outside_temp }}</b><span>{{ section.settings.outside_label }}</span></span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
     {%- endif -%}
 
-    <div class="wf-cols" style="--cols: 3">
-      <div data-wf-reveal>
-        {%- render 'wave-fy27-glyph', name: 'heat', class: 'wf-glyph' -%}
-        <h3 class="wf-h3">{{ section.settings.b1_title }}</h3>
-        <p class="wf-body">{{ section.settings.b1_text }}</p>
-      </div>
-      {%- if saving_month > 0 -%}
-        <div data-wf-reveal style="--wf-delay: .08s">
-          <span class="wf-fig wf-fig--accent">{{ saving_money }}<small>/month</small></span>
-          <h3 class="wf-h3">{{ section.settings.b2_title | replace: '[pct]', saving_pct }}</h3>
-          <p class="wf-body">{{ section.settings.b2_text | replace: '[pct]', saving_pct }}</p>
-        </div>
-      {%- endif -%}
-      {%- if thinner and gain > 0 -%}
-        <div data-wf-reveal style="--wf-delay: .16s">
-          <span class="wf-fig wf-fig--accent">+{{ gain }}<small>cm</small></span>
-          <h3 class="wf-h3">{{ section.settings.b3_title }}</h3>
-          <p class="wf-body">{{ section.settings.b3_text }}</p>
-        </div>
-      {%- else -%}
-        <div data-wf-reveal style="--wf-delay: .16s">
-          {%- render 'wave-fy27-glyph', name: 'seat', class: 'wf-glyph' -%}
-          <h3 class="wf-h3">{{ section.settings.b4_title }}</h3>
-          <p class="wf-body">{{ section.settings.b4_text }}</p>
-        </div>
-      {%- endif -%}
-    </div>
-
-    <p class="wf-small wf-ef__foot">
-      {{ wall_t }} cm {{ section.settings.foot_wall }}{% if density > 0 %}, {{ density }} kg/m³{% endif %}.
-      {%- if saving_month > 0 %} {{ section.settings.footnote | replace: '[kwh]', kwh | replace: '[ikwh]', section.settings.inflatable_kwh | replace: '[days]', section.settings.usage_days | replace: '[rate]', rate }}{% endif %}
-    </p>
-
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: the photo is FY26 Garda in the snow, a placeholder until FY27 photography exists. "+{{ gain }} cm more room" only shows on eco foam spas thinner than the {{ old_t }} cm previous-wall setting, so confirm that figure. The monthly saving uses the Wave calculator figures ({{ kwh | default: '—' }} vs {{ section.settings.inflatable_kwh }} kWh a day, {{ section.settings.usage_days }} days, {{ rate }}p). The spec data says "kg/cm³"; the correct unit is kg/m³.</p>
+      <p class="wf-note">Test note: the exploded diagram shows on products whose title contains "{{ section.settings.diagram_match }}", drawn to the FY27 Garda spec (190 × 190 × 69 cm, {{ wall_t }} cm eco foam walls{% if density > 0 %} at {{ density }} kg/m³{% endif %}, integrated lid and cover, liner with face-to-face seats, VertaAir chambers, heater in the wall, foam base pad). Other spas show the photo, which is FY26 Garda in the snow, a placeholder. Confirm the lid, base pad and heater position with product.</p>
     {%- endif -%}
   </div>
 </wf-section>
@@ -136,23 +230,28 @@
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "Eco foam wraps the water on every side, so it's still warm when you lift the lid, the heater has less to do, and the bills stay small." },
     { "type": "textarea", "id": "lede_thinner", "label": "Extra line (slimmer wall)", "default": "And this year's wall is slimmer and denser, so there's more room inside without losing any warmth." },
     { "type": "header", "content": "Picture" },
-    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "A spa holding its heat, ideally steam on a cold day." },
+    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "Shown on spas without an exploded diagram." },
     { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)" },
     { "type": "text", "id": "image_alt", "label": "Image description", "default": "A Wave eco foam hot tub steaming in a snowy garden" },
     { "type": "text", "id": "inside_label", "label": "Water chip label", "default": "in the water" },
     { "type": "text", "id": "outside_temp", "label": "Outside temperature chip", "default": "2°C" },
     { "type": "text", "id": "outside_label", "label": "Outside chip label", "default": "outside" },
-    { "type": "header", "content": "Benefits" },
-    { "type": "text", "id": "b1_title", "label": "Benefit 1 title", "default": "Ready when you are" },
-    { "type": "textarea", "id": "b1_text", "label": "Benefit 1 text", "default": "The water holds its heat between soaks, so there's no long wait before you can get back in." },
-    { "type": "text", "id": "b2_title", "label": "Benefit 2 title", "info": "[pct] becomes the energy saving.", "default": "Less to keep warm" },
-    { "type": "textarea", "id": "b2_text", "label": "Benefit 2 text", "default": "Around [pct]% less energy than an inflatable to keep at temperature, on our running cost estimates." },
-    { "type": "text", "id": "b3_title", "label": "Benefit 3 title (slimmer wall)", "default": "More room inside" },
-    { "type": "textarea", "id": "b3_text", "label": "Benefit 3 text (slimmer wall)", "default": "Slimmer, denser walls give you more water across in the same footprint." },
-    { "type": "text", "id": "b4_title", "label": "Benefit 3 title (other walls)", "default": "Solid to lean on" },
-    { "type": "textarea", "id": "b4_text", "label": "Benefit 3 text (other walls)", "default": "Rigid walls stand up on their own and feel firm when you sit back against them." },
-    { "type": "text", "id": "foot_wall", "label": "Footnote wall text", "default": "rigid eco foam wall" },
-    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Saving compares [kwh] kWh a day with [ikwh] kWh a day for an inflatable, used [days] days a month at [rate]p per kWh." },
+    { "type": "header", "content": "Exploded diagram" },
+    { "type": "text", "id": "diagram_match", "label": "Show the diagram when the product title contains", "default": "Garda" },
+    { "type": "text", "id": "hint", "label": "Hint", "default": "Hover or tap the numbers to see what each layer does." },
+    { "type": "text", "id": "diagram_label", "label": "Diagram description (for screen readers)", "default": "Exploded view of the spa: lid and cover, eco foam walls with built-in heater, liner with seats and VertaAir chambers, and insulated base" },
+    { "type": "text", "id": "lid_title", "label": "1 · Lid title", "default": "Integrated lid and cover" },
+    { "type": "textarea", "id": "lid_text", "label": "1 · Lid text", "default": "An inflatable lid sits inside the cover and seals the top, where most of the heat tries to escape." },
+    { "type": "text", "id": "wall_title", "label": "2 · Wall title", "info": "[wall] and [density] come from the product's key features.", "default": "[wall] cm eco foam walls" },
+    { "type": "textarea", "id": "wall_text", "label": "2 · Wall text", "default": "Dense, closed-cell foam wraps the water on every side, so the warmth stays in the tub, not the garden." },
+    { "type": "text", "id": "heater_title", "label": "3 · Heater title", "default": "Built-in heater" },
+    { "type": "textarea", "id": "heater_text", "label": "3 · Heater text", "default": "Set into the wall and holds a steady 40°C. Adjust it from the controller or your phone." },
+    { "type": "text", "id": "seat_title", "label": "4 · Seats title", "default": "Air Foam seats" },
+    { "type": "textarea", "id": "seat_text", "label": "4 · Seats text", "default": "Moulded seats set face to face, so everyone has somewhere to lean back." },
+    { "type": "text", "id": "verta_title", "label": "5 · VertaAir title", "default": "VertaAir™ chambers" },
+    { "type": "textarea", "id": "verta_text", "label": "5 · VertaAir text", "default": "V-shaped air chambers rise from each seat up the wall behind you, so the bubbles reach your back." },
+    { "type": "text", "id": "base_title", "label": "6 · Base title", "default": "Insulated base" },
+    { "type": "textarea", "id": "base_text", "label": "6 · Base text", "default": "A foam pad under the floor stops cold ground drawing the warmth out of the water." },
     { "type": "header", "content": "Figures" },
     { "type": "number", "id": "old_thickness", "label": "Previous wall thickness (cm)", "default": 15 },
     { "type": "number", "id": "inflatable_kwh", "label": "Inflatable kWh a day (for comparison)", "default": 16 },
