@@ -33,9 +33,9 @@
           {%- comment -%} massage zones {%- endcomment -%}
           <ellipse class="wf-va__zone wf-va__zone--base" cx="300" cy="500" rx="190" ry="50" fill="url(#wfZoneV-{{ section.id }})"/>
           <g class="wf-va__zone wf-va__zone--verta">
-            <ellipse cx="300" cy="405" rx="85" ry="75" fill="url(#wfZoneV-{{ section.id }})"/>
-            <ellipse cx="238" cy="275" rx="95" ry="115" fill="url(#wfZoneV-{{ section.id }})"/>
-            <ellipse cx="362" cy="275" rx="95" ry="115" fill="url(#wfZoneV-{{ section.id }})"/>
+            <ellipse cx="300" cy="420" rx="80" ry="55" fill="url(#wfZoneV-{{ section.id }})"/>
+            <ellipse cx="258" cy="370" rx="70" ry="65" fill="url(#wfZoneV-{{ section.id }})"/>
+            <ellipse cx="342" cy="370" rx="70" ry="65" fill="url(#wfZoneV-{{ section.id }})"/>
           </g>
 
           {%- comment -%} bather, seen from behind: head and neck clear of the water {%- endcomment -%}
@@ -46,22 +46,22 @@
             <path d="M300 186 v270" stroke-dasharray="2 8" stroke="rgba(255,255,255,.3)"/>
           </g>
 
-          {%- comment -%} V chamber: from the seat right up to the shoulders {%- endcomment -%}
+          {%- comment -%} V chamber: from the seat across the lower back {%- endcomment -%}
           <g class="wf-va__chamber" fill="none" stroke="#a8e8e2" stroke-linecap="round">
-            <path d="M300 466 L196 196 M300 466 L404 196" stroke-width="12" stroke-opacity=".22"/>
-            <path d="M300 466 L196 196 M300 466 L404 196" stroke-width="1.5" stroke-dasharray="1 12"/>
+            <path d="M300 466 L232 336 M300 466 L368 336" stroke-width="12" stroke-opacity=".22"/>
+            <path d="M300 466 L232 336 M300 466 L368 336" stroke-width="1.5" stroke-dasharray="1 12"/>
           </g>
 
           {%- comment -%} bubbles rising the full length of each arm {%- endcomment -%}
           <g class="wf-va__bubbles wf-va__bubbles--verta" fill="#e6fbf8">
             {%- for i in (1..18) -%}
               {%- liquid
-                assign t = i | times: 0.17
+                assign t = i | times: 0.12
                 assign r = i | modulo: 3 | plus: 3
                 assign wob = i | modulo: 4 | times: 5 | minus: 7
               -%}
-              <circle cx="{{ 296 | plus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 0 | minus: 104 | plus: wob }}px;--dy:-262px;--t:{{ t }}s;--d:3.1s;transform-box:fill-box;transform-origin:center"/>
-              <circle cx="{{ 304 | minus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 104 | minus: wob }}px;--dy:-262px;--t:{{ t | plus: 0.08 }}s;--d:3.1s;transform-box:fill-box;transform-origin:center"/>
+              <circle cx="{{ 296 | plus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 0 | minus: 66 | plus: wob }}px;--dy:-126px;--t:{{ t }}s;--d:2.2s;transform-box:fill-box;transform-origin:center"/>
+              <circle cx="{{ 304 | minus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 66 | minus: wob }}px;--dy:-126px;--t:{{ t | plus: 0.06 }}s;--d:2.2s;transform-box:fill-box;transform-origin:center"/>
             {%- endfor -%}
           </g>
 
@@ -101,7 +101,7 @@
     </div>
 
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: this section only shows on spas whose key features mention VertaAir (Lush Como, Garda and Adriatic, and every Luxe). The diagram shows the V chamber from the seat to the shoulders, as described in the brief. Luxe Garda's spec says "vertical on the hydro-jet side, Y-chamber opposite", so check the shape with product before launch. Coverage glows are illustrative.</p>
+      <p class="wf-note">Test note: this section only shows on spas whose key features mention VertaAir (Lush Como, Garda and Adriatic, and every Luxe). The diagram shows the V chamber rising from the seat across the lower back. Luxe Garda's spec says "vertical on the hydro-jet side, Y-chamber opposite", so check the shape with product before launch. Coverage glows are illustrative.</p>
     {%- endif -%}
   </div>
 </wf-section>
@@ -115,10 +115,10 @@
     { "type": "checkbox", "id": "always_show", "label": "Show on every product", "info": "Off: only shows when key features mention VertaAir.", "default": false },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Wave VertaAir™" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Bubbles that climb." },
-    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Most spas only bubble from the floor. VertaAir™ runs a V-shaped air chamber up from the seat, so the massage follows your back instead of fizzing around your feet." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Most spas only bubble from the floor. VertaAir™ runs a V-shaped air chamber up from the seat, so the massage works into your lower back instead of fizzing around your feet." },
     { "type": "text", "id": "base_label", "label": "Comparison label", "default": "Floor bubbles" },
     { "type": "text", "id": "verta_label", "label": "VertaAir label", "default": "VertaAir™" },
-    { "type": "text", "id": "diagram_label", "label": "Diagram description (for screen readers)", "default": "A V-shaped air chamber rises from the seat, sending bubbles up across the whole of the bather's back" },
+    { "type": "text", "id": "diagram_label", "label": "Diagram description (for screen readers)", "default": "A V-shaped air chamber rises from the seat, sending bubbles across the bather's lower back" },
     { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
   ],
   "blocks": [

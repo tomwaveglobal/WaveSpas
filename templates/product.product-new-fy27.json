@@ -785,7 +785,7 @@
           "type": "point",
           "settings": {
             "title": "Starts at the seat",
-            "text": "The air chamber begins where you sit, not out on the floor, so the bubbles meet you straight away.",
+            "text": "The air chamber begins where you sit, not out on the floor, so the bubbles meet your lower back straight away.",
             "jets_only": false
           }
         },
@@ -793,7 +793,7 @@
           "type": "point",
           "settings": {
             "title": "Opens out in a V",
-            "text": "Two channels climb the wall behind you and spread towards your shoulders, covering far more of your back.",
+            "text": "Two channels open out behind you and spread across your lower back, where the day tends to settle.",
             "jets_only": false
           }
         },
