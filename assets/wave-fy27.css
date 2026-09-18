@@ -763,3 +763,8 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 749px) { .wf-ov__stage--model { aspect-ratio: 1; } }
+
+/* Buy box picker: the theme's size presets (e.g. data-vpa-size="xs") set a
+   fixed image column that beats its own --no-media rule, so tiles for
+   variants without an image squeeze the name into ~36px. Restore full width. */
+.vpa[data-vpa-size] .vpa__tile-body.vpa__tile-body--no-media { grid-template-columns: minmax(0, 1fr); }
