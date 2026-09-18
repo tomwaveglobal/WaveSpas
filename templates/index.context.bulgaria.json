@@ -39,7 +39,7 @@
           }
         },
         "image_hc4WwT": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
             "heading": "Elevate Your \n<br>\nOutdoor Living",
             "heading_size": "title-lg tracking-heading",
