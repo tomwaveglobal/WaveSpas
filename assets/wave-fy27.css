@@ -489,7 +489,8 @@ wf-explode { display: block; }
   gap: clamp(40px, 6vw, 96px);
 }
 @media (max-width: 989px) { .wf-qa { grid-template-columns: 1fr; } }
-.wf-qa__intro { position: sticky; top: 96px; align-self: start; }
+.wf-qa__intro { align-self: start; }
+@media (min-width: 990px) { .wf-qa__intro { position: sticky; top: 96px; } }
 .wf-qa__intro > .wf-body { margin-top: 28px; }
 .wf-qa__list { border-top: 1px solid var(--wf-line); }
 .wf-qa details { border-bottom: 1px solid var(--wf-line); }
@@ -560,7 +561,7 @@ wf-explode { display: block; }
 .wf-cl__ctas { margin-top: 24px; }
 .wf-trust {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -569,9 +570,8 @@ wf-explode { display: block; }
 .wf-trust li + li { padding-left: 22px; border-left: 1px solid var(--wf-line); }
 .wf-trust .wf-body { margin-top: 6px; font-size: 14px; }
 @media (max-width: 749px) {
-  .wf-trust { grid-template-columns: 1fr 1fr; }
-  .wf-trust li:nth-child(3) { padding-left: 0; border-left: 0; }
-  .wf-trust li:nth-child(n + 3) { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--wf-line); }
+  .wf-trust { grid-template-columns: 1fr; }
+  .wf-trust li + li { padding-left: 0; border-left: 0; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--wf-line); }
 }
 
 /* ==========================================================================
@@ -768,3 +768,5 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
    fixed image column that beats its own --no-media rule, so tiles for
    variants without an image squeeze the name into ~36px. Restore full width. */
 .vpa[data-vpa-size] .vpa__tile-body.vpa__tile-body--no-media { grid-template-columns: minmax(0, 1fr); }
+
+.wf-rc__bundle-line { margin: 0; padding: 16px 18px; border-radius: var(--wf-radius-card); background: var(--wf-soft); font-size: var(--text-sm); }
