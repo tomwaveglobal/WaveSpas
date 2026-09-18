@@ -18,7 +18,7 @@
       "blocks": {
         "image_ji9dzP": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": null,
             "image_tablet": null,
@@ -41,9 +41,10 @@
         "image_hc4WwT": {
           "disabled": false,
           "settings": {
-            "heading": "Elevate Your \n<br>\nOutdoor Living",
+            "heading": "",
             "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs"
+            "secondary_heading": "",
+            "button_position": "below"
           }
         }
       },
