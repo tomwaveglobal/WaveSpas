@@ -18,12 +18,12 @@
       "blocks": {
         "image_7GRQ6R": {
           "type": "image",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
             "image_tablet": null,
             "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-bc5db224c2fd2da2435c81792cc98823": null,
+            "header-122b5bfc7761724695601fd4999f7bbe": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -40,9 +40,13 @@
         },
         "image_hc4WwT": {
           "settings": {
-            "heading": "Elevate Your \n<br>\nOutdoor Living",
+            "heading": "",
             "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Discover Premium Spas &amp; Hot Tubs"
+            "secondary_heading": "",
+            "image": null,
+            "image_tablet": null,
+            "image_mobile": null,
+            "button_position": "below"
           }
         },
         "image_JUM7dH": {
@@ -51,8 +55,8 @@
         }
       },
       "block_order": [
-        "image_7GRQ6R",
         "image_hc4WwT",
+        "image_7GRQ6R",
         "image_JUM7dH",
         "image_rmPQY4",
         "image_EUEdiE"
