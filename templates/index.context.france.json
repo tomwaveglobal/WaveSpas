@@ -29,7 +29,7 @@
             "heading_tag": "h1",
             "secondary_heading": "For limited time, while stock lasts.",
             "secondary_heading_size": "title-xxs",
-            "secondary_heading_weight": "font-bold",
+            "secondary_heading_weight": "font-medium",
             "button_position": "beside",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/hot-tub-full-range",
