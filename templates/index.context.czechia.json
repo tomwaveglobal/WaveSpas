@@ -20,10 +20,10 @@
           "type": "image",
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/EU_FlashSale_Aug26-1.jpg",
+            "image": null,
             "image_tablet": null,
-            "image_mobile": "shopify://shop_images/EU_FlashSale_Aug26-2.jpg",
-            "header-3472e400249c1918c76c2e56caf75c94": null,
+            "image_mobile": null,
+            "header-22e6ab1d9e0852a69855fb789b8e37ff": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -39,6 +39,7 @@
           }
         },
         "image_hc4WwT": {
+          "disabled": true,
           "settings": {
             "heading": "Elevate Your \n<br>\nOutdoor Living",
             "heading_size": "title-lg tracking-heading",
