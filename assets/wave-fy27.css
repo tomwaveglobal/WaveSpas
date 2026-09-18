@@ -345,7 +345,8 @@ wf-explode { display: block; }
 .wf-rc__col { padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.4); }
 .wf-rc__col--es { border-top-color: var(--wf-accent); }
 .wf-rc__name { display: block; margin-bottom: 12px; font-size: 14px; font-weight: 600; }
-.wf-rc__col--es .wf-rc__name { color: var(--wf-accent); }
+.wf-rc__col--es .wf-rc__name,
+.wf-rc__panel .wf-fig--accent { color: var(--wf-accent); }
 .wf-rc__col .wf-fig + .wf-small { margin-top: 10px; }
 .wf-rc__bars { display: grid; gap: 8px; margin-top: 28px; }
 .wf-rc__bar { height: 6px; border-radius: 99px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }

@@ -11,8 +11,8 @@
       return new Intl.NumberFormat(document.documentElement.lang || 'en-GB', {
         style: 'currency',
         currency: currency || 'GBP',
-        maximumFractionDigits: amount >= 100 ? 0 : 2,
-        minimumFractionDigits: amount >= 100 ? 0 : 2
+        maximumFractionDigits: amount >= 10 ? 0 : 2,
+        minimumFractionDigits: amount >= 10 ? 0 : 2
       }).format(amount);
     } catch (e) {
       return amount.toFixed(2);
