@@ -29,24 +29,7 @@
   if wall_t < old_t and product.tags contains 'eco foam'
     assign thinner = true
   endif
-  assign gain = old_t | minus: wall_t | times: 2
 
-  assign rate = section.settings.rate_gbp
-  case cart.currency.iso_code
-    when 'EUR'
-      assign rate = section.settings.rate_eur
-    when 'USD'
-      assign rate = section.settings.rate_usd
-  endcase
-  assign kwh = product.metafields.specs.kwh_per_day.value
-  assign saving_month = 0
-  assign saving_pct = 0
-  if kwh != blank and section.settings.inflatable_kwh > kwh
-    assign saving_month = section.settings.inflatable_kwh | minus: kwh | times: section.settings.usage_days | times: rate | divided_by: 100.0 | round
-    assign saving_pct = kwh | times: 100 | divided_by: section.settings.inflatable_kwh | round
-    assign saving_pct = 100 | minus: saving_pct
-  endif
-  assign saving_money = saving_month | times: 100 | money_without_trailing_zeros
 -%}
 {%- if show -%}
 {%- liquid
