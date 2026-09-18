@@ -242,6 +242,7 @@
         },
         "on_site_message_KFREgF": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
             "message_icon_width": 100,
@@ -258,6 +259,7 @@
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/DivideBuy.png",
             "message_icon_width": 100,
@@ -274,6 +276,7 @@
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
+          "disabled": true,
           "settings": {
             "message_custom_icon": "shopify://shop_images/Payl8r.png",
             "message_icon_width": 100,
@@ -417,6 +420,12 @@
             "background_height": 0,
             "border_radius": 0
           }
+        },
+        "liquid_wave_finance": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
+          }
         }
       },
       "block_order": [
@@ -438,6 +447,7 @@
         "buy_buttons_nBMjqf",
         "contona_button_design",
         "share",
+        "liquid_wave_finance",
         "on_site_message_KFREgF",
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
@@ -621,20 +631,8 @@
         "lazy": true
       }
     },
-    "wf_localnav": {
-      "type": "wave-fy27-localnav",
-      "settings": {
-        "buy_label": "Buy"
-      }
-    },
     "wf_overview": {
       "type": "wave-fy27-overview",
-      "settings": {
-        "show_notes": true
-      }
-    },
-    "wf_benefits": {
-      "type": "wave-fy27-benefits",
       "blocks": {
         "benefit_1": {
           "type": "benefit",
@@ -694,8 +692,8 @@
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "glyph": "wifi",
             "requires": "WiFi",
+            "glyph": "wifi",
             "title": "Warm when you get home",
             "text": "WiFi app control, so you can check the temperature and turn up the heat from your phone."
           }
@@ -704,8 +702,8 @@
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "glyph": "light",
             "requires": "LED strip",
+            "glyph": "light",
             "title": "Set the mood",
             "text": "LED strip compatible and ready for a spa light, for evenings that carry on after dark."
           }
@@ -762,9 +760,7 @@
         "benefit_12"
       ],
       "settings": {
-        "nav_label": "Why [tier]",
-        "eyebrow": "Why [tier]",
-        "heading": "Made for the way you soak."
+        "show_notes": true
       }
     },
     "wf_ecofoam": {
@@ -772,7 +768,6 @@
       "settings": {
         "scope": "any",
         "old_thickness": 15,
-        "old_density": 33,
         "inflatable_kwh": 16,
         "show_notes": true
       }
@@ -1258,8 +1253,10 @@
       ],
       "settings": {
         "heading": "Tonight could look like this.",
-        "button_label": "Choose yours",
-        "dark": false
+        "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
+        "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
+        "overlay": 45,
+        "button_label": "Choose yours"
       }
     },
     "product-recommendations": {
@@ -1375,9 +1372,7 @@
   "order": [
     "main-product",
     "ss_product_videos_4_BQjpxE",
-    "wf_localnav",
     "wf_overview",
-    "wf_benefits",
     "wf_ecofoam",
     "wf_vertaair",
     "wf_running_cost",

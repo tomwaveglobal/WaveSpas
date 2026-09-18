@@ -20,6 +20,7 @@
   endcase
 
   assign name = product.title | split: '|' | first | strip
+  assign kf = product.metafields.custom.key_features | metafield_text
   assign is_ice = false
   if product.tags contains 'Ice Bath' or product.tags contains 'cold plunge'
     assign is_ice = true
@@ -58,10 +59,27 @@
 </style>
 <wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
-    <div class="wf-head">
-      <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ name }}</p>
-      <h2 class="wf-display" data-wf-reveal style="--wf-delay: .08s">{{ signature }}</h2>
-      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ lede }}</p>
+    <div class="wf-ov__top">
+      <div class="wf-head">
+        <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ name }}</p>
+        <h2 class="wf-display" data-wf-reveal style="--wf-delay: .08s">{{ signature }}</h2>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ lede }}</p>
+      </div>
+
+      <ul class="wf-facts" role="list" data-wf-reveal style="--wf-delay: .24s">
+        {%- if seats > 0 -%}
+          <li><b data-wf-count="{{ seats }}">{{ seats }}</b><span>{% if tier == 'lite' or seats == 1 %}{{ section.settings.people_label }}{% else %}{{ section.settings.seats_label }}{% endif %}</span></li>
+        {%- endif -%}
+        {%- unless is_ice -%}
+          <li><b><span data-wf-count="40">40</span>°C</b><span>{{ section.settings.heat_label }}</span></li>
+        {%- endunless -%}
+        {%- if month_cost != nil -%}
+          <li><b><span data-wf-count="{{ month_cost }}" data-prefix="{{ cur_symbol }}">{{ cur_symbol }}{{ month_cost }}</span></b><span>{{ section.settings.cost_label }}</span></li>
+        {%- endif -%}
+        {%- if setup_minutes != blank and setup_minutes > 0 -%}
+          <li><b><span data-wf-count="{{ setup_minutes }}">{{ setup_minutes }}</span> min</b><span>{{ section.settings.setup_label }}</span></li>
+        {%- endif -%}
+      </ul>
     </div>
 
     {%- if hero != blank -%}
@@ -70,35 +88,31 @@
       </div>
     {%- endif -%}
 
-    <ul class="wf-stats" role="list">
-      {%- if seats > 0 -%}
-        <li data-wf-reveal>
-          <span class="wf-stat__value" data-wf-count="{{ seats }}">{{ seats }}</span>
-          <span class="wf-stat__label">{% if tier == 'lite' or seats == 1 %}{{ section.settings.people_label }}{% else %}{{ section.settings.seats_label }}{% endif %}</span>
-        </li>
-      {%- endif -%}
-      {%- unless is_ice -%}
-        <li data-wf-reveal style="--wf-delay: .08s">
-          <span class="wf-stat__value"><span data-wf-count="40">40</span><small>°C</small></span>
-          <span class="wf-stat__label">{{ section.settings.heat_label }}</span>
-        </li>
-      {%- endunless -%}
-      {%- if month_cost != nil -%}
-        <li data-wf-reveal style="--wf-delay: .16s">
-          <span class="wf-stat__value"><span data-wf-count="{{ month_cost }}" data-prefix="{{ cur_symbol }}">{{ cur_symbol }}{{ month_cost }}</span><small> /mo</small></span>
-          <span class="wf-stat__label">{{ section.settings.cost_label }}</span>
-        </li>
-      {%- endif -%}
-      {%- if setup_minutes != blank and setup_minutes > 0 -%}
-        <li data-wf-reveal style="--wf-delay: .24s">
-          <span class="wf-stat__value"><span data-wf-count="{{ setup_minutes }}">{{ setup_minutes }}</span><small> min</small></span>
-          <span class="wf-stat__label">{{ section.settings.setup_label }}</span>
-        </li>
-      {%- endif -%}
-    </ul>
+    <div class="wf-bn">
+      {%- assign shown = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.tier != 'all' and block.settings.tier != tier
+            continue
+          endif
+          if block.settings.requires != blank
+            unless kf contains block.settings.requires or product.tags contains block.settings.requires
+              continue
+            endunless
+          endif
+          assign shown = shown | plus: 1
+          assign delay = shown | minus: 1 | modulo: 4 | times: 0.08
+        -%}
+        <article class="wf-bn__item" data-wf-reveal style="--wf-delay: {{ delay }}s" {{ block.shopify_attributes }}>
+          {%- render 'wave-fy27-glyph', name: block.settings.glyph, class: 'wf-bn__glyph' -%}
+          <h3 class="wf-h3">{{ block.settings.title }}</h3>
+          <p class="wf-body">{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
 
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: running cost = {{ kwh | default: '—' }} kWh a day × {{ section.settings.usage_days }} days × {{ rate }}{% if cur_symbol == '£' %}p{% else %}c{% endif %}, the same method as the Wave running cost calculator page. Setup minutes come from <code>specs.setup_minutes</code> when set, otherwise the section setting ({{ section.settings.setup_minutes }}). Turn these notes off before launch.</p>
+      <p class="wf-note">Test note: running cost = {{ kwh | default: '—' }} kWh a day × {{ section.settings.usage_days }} days × {{ rate }}{% if cur_symbol == '£' %}p{% else %}c{% endif %}, the same method as the Wave running cost calculator page, for the largest size. Setup minutes come from <code>specs.setup_minutes</code> when set, otherwise the section setting ({{ section.settings.setup_minutes }}). Benefit cards filter by tier tag, and by "Only when the product mentions". Turn these notes off before launch.</p>
     {%- endif -%}
   </div>
 </wf-section>
@@ -120,18 +134,60 @@
     { "type": "header", "content": "Luxe" },
     { "type": "text", "id": "luxe_signature", "label": "Headline", "default": "Where you want it." },
     { "type": "textarea", "id": "luxe_lede", "label": "Intro", "default": "Hydro-massage jets aimed where you carry the day, bubbles that climb the wall behind you, and a control for each. Pressure exactly where you want it." },
-    { "type": "header", "content": "Stats" },
-    { "type": "text", "id": "seats_label", "label": "Seats label", "default": "moulded seats, face to face" },
-    { "type": "text", "id": "people_label", "label": "People label (Lite, 1-person)", "default": "people, with the whole floor free" },
-    { "type": "text", "id": "heat_label", "label": "Heat label", "default": "built-in heater, all year round" },
-    { "type": "text", "id": "cost_label", "label": "Cost label", "default": "estimated to run, used most days" },
-    { "type": "range", "id": "usage_days", "label": "Days used a month (for the cost stat)", "min": 4, "max": 30, "step": 1, "default": 15 },
+    { "type": "header", "content": "Key facts" },
+    { "type": "text", "id": "seats_label", "label": "Seats label", "default": "moulded seats" },
+    { "type": "text", "id": "people_label", "label": "People label (Lite, 1-person)", "default": "people, floor free" },
+    { "type": "text", "id": "heat_label", "label": "Heat label", "default": "all year round" },
+    { "type": "text", "id": "cost_label", "label": "Cost label", "default": "a month, used most days" },
+    { "type": "range", "id": "usage_days", "label": "Days used a month (for the cost fact)", "min": 4, "max": 30, "step": 1, "default": 15 },
     { "type": "number", "id": "rate_gbp", "label": "Electricity price, GBP (pence per kWh)", "default": 28 },
     { "type": "number", "id": "rate_eur", "label": "Electricity price, EUR (cents per kWh)", "default": 30 },
     { "type": "number", "id": "rate_usd", "label": "Electricity price, USD (cents per kWh)", "default": 17 },
     { "type": "number", "id": "setup_minutes", "label": "Setup time (minutes)", "info": "Used when the product has no specs.setup_minutes metafield. Set to 0 to hide.", "default": 20 },
-    { "type": "text", "id": "setup_label", "label": "Setup label", "default": "to set up. No tools, no electrician" },
+    { "type": "text", "id": "setup_label", "label": "Setup label", "default": "to set up, no tools" },
     { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Show on",
+          "options": [
+            { "value": "all", "label": "Every tier" },
+            { "value": "lite", "label": "Lite" },
+            { "value": "lush", "label": "Lush" },
+            { "value": "luxe", "label": "Luxe" }
+          ],
+          "default": "all"
+        },
+        { "type": "text", "id": "requires", "label": "Only when the product mentions", "info": "Optional. A word from key features or a tag, e.g. VertaAir, WiFi, LED strip." },
+        {
+          "type": "select",
+          "id": "glyph",
+          "label": "Icon",
+          "options": [
+            { "value": "bubbles", "label": "Bubbles" },
+            { "value": "seat", "label": "Seat" },
+            { "value": "wifi", "label": "WiFi" },
+            { "value": "light", "label": "Light" },
+            { "value": "jets", "label": "Jets" },
+            { "value": "zones", "label": "Two zones" },
+            { "value": "floor", "label": "Open floor" },
+            { "value": "heat", "label": "Heat" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "plug", "label": "Plug" },
+            { "value": "quiet", "label": "Quiet" }
+          ],
+          "default": "bubbles"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Benefit" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What it means for the person in the water." }
+      ]
+    }
   ],
   "enabled_on": { "templates": ["product"] }
 }

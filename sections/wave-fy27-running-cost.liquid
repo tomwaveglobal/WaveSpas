@@ -42,6 +42,22 @@
       data-rate="{{ rate_decimal }}"
       data-unit="{{ unit }}"
     >
+      {%- liquid
+        comment
+          The calculator page gives one kWh a day per spa type, which matches the largest size.
+          Smaller sizes scale by footprint area (the same rule used for the variant kWh metafields),
+          unless the variant has its own specs.kwh_per_day.
+        endcomment
+        assign max_w = 0
+        for value in size_option.values
+          if value contains '|'
+            assign w = value | split: '|' | last | strip | split: 'x' | first | plus: 0
+            if w > max_w
+              assign max_w = w
+            endif
+          endif
+        endfor
+      -%}
       <script type="application/json" data-sizes>
         [
           {%- if size_option -%}
@@ -67,7 +83,16 @@
                     endif
                   endif
                 endfor
-                assign size_kwh = size_variant.metafields.specs.kwh_per_day.value | default: kwh_day
+                assign size_kwh = size_variant.metafields.specs.kwh_per_day.value
+                if size_kwh == blank
+                  assign size_kwh = kwh_day
+                  if value contains '|' and max_w > 0
+                    assign w = value | split: '|' | last | strip | split: 'x' | first | plus: 0
+                    if w > 0 and w < max_w
+                      assign size_kwh = w | times: w | times: kwh_day | divided_by: max_w | divided_by: max_w | round: 1
+                    endif
+                  endif
+                endif
               -%}
               {"label": {{ value | split: '|' | first | strip | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "kwh": {{ size_kwh | json }}}{% unless forloop.last %},{% endunless %}
             {%- endfor -%}
@@ -153,7 +178,7 @@
     </wf-cost>
 
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: this uses the same method as the Wave calculator page (kWh a day × days used × unit rate). kWh comes from <code>specs.kwh_per_day</code> ({{ kwh_day }}). EnergySave saving is the {{ section.settings.energysave_saving }}% setting, from Kate's ~30% figure; it isn't measured. Payback compares the cheapest Standard and EnergySave prices for each size. Confirm what the bundle contains and write the cards to match.</p>
+      <p class="wf-note">Test note: this uses the same method as the Wave calculator page (kWh a day × days used × unit rate). kWh comes from <code>specs.kwh_per_day</code> ({{ kwh_day }} for the largest size); smaller sizes scale by footprint area unless the variant has its own figure. Lush and Luxe Garda 4 and 6 person are the same 190 cm shell in the FY27 spec, so they cost the same. EnergySave saving is the {{ section.settings.energysave_saving }}% setting, from Kate's ~30% figure; it isn't measured. Payback compares the cheapest Standard and EnergySave prices for each size. Confirm what the bundle contains and write the cards to match.</p>
     {%- endif -%}
   </div>
 </wf-section>
