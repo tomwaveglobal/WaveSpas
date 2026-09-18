@@ -684,7 +684,7 @@ wf-explode { display: block; }
     position: fixed;
     top: auto;
     right: 16px;
-    bottom: 16px;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px)); /* clear the theme's mobile dock */
     left: 16px;
     width: auto;
     transform: translateY(8px);
