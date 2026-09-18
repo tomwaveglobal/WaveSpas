@@ -44,7 +44,10 @@
             "heading": "",
             "heading_size": "title-lg tracking-heading",
             "secondary_heading": "",
-            "button_position": "below"
+            "button_position": "below",
+            "image": null,
+            "image_tablet": null,
+            "image_mobile": null
           }
         }
       },
