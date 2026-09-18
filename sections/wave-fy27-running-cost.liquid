@@ -1,0 +1,212 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign kwh_day = product.metafields.specs.kwh_per_day.value
+  assign size_option = product.options_by_name['Size']
+  assign edition_option = product.options_by_name['Edition']
+  assign has_es = false
+  if edition_option
+    for v in edition_option.values
+      if v contains 'EnergySave'
+        assign has_es = true
+      endif
+    endfor
+  endif
+
+  assign rate = section.settings.rate_gbp
+  assign unit = 'p'
+  case cart.currency.iso_code
+    when 'EUR'
+      assign rate = section.settings.rate_eur
+      assign unit = 'c'
+    when 'USD'
+      assign rate = section.settings.rate_usd
+      assign unit = 'c'
+  endcase
+  assign rate_decimal = rate | divided_by: 100.0
+-%}
+{%- if kwh_day != blank -%}
+<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-head">
+      <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{% if has_es %}{{ section.settings.lede_es }}{% else %}{{ section.settings.lede }}{% endif %}</p>
+    </div>
+
+    <wf-cost
+      class="wf-rc{% unless has_es %} wf-rc__single{% endunless %}"
+      data-currency="{{ cart.currency.iso_code }}"
+      data-saving="{% if has_es %}{{ section.settings.energysave_saving }}{% else %}0{% endif %}"
+      data-days="15"
+      data-rate="{{ rate_decimal }}"
+      data-unit="{{ unit }}"
+    >
+      <script type="application/json" data-sizes>
+        [
+          {%- if size_option -%}
+            {%- for value in size_option.values -%}
+              {%- liquid
+                assign size_index = size_option.position | minus: 1
+                assign std_price = 0
+                assign es_price = 0
+                assign size_variant = nil
+                for variant in product.variants
+                  if variant.options[size_index] == value
+                    if size_variant == nil
+                      assign size_variant = variant
+                    endif
+                    if variant.title contains 'EnergySave'
+                      if es_price == 0 or variant.price < es_price
+                        assign es_price = variant.price
+                      endif
+                    else
+                      if std_price == 0 or variant.price < std_price
+                        assign std_price = variant.price
+                      endif
+                    endif
+                  endif
+                endfor
+                assign size_kwh = size_variant.metafields.specs.kwh_per_day.value | default: kwh_day
+              -%}
+              {"label": {{ value | split: '|' | first | strip | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "kwh": {{ size_kwh | json }}}{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          {%- else -%}
+            {"label": "", "price": {{ product.price | json }}, "es": 0, "kwh": {{ kwh_day | json }}}
+          {%- endif -%}
+        ]
+      </script>
+
+      <div class="wf-rc__controls" data-wf-reveal>
+        {%- if size_option.values.size > 1 -%}
+          <div>
+            <span class="wf-rc__label">{{ section.settings.size_label }}</span>
+            <div class="wf-seg" role="group" aria-label="{{ section.settings.size_label | escape }}">
+              {%- for value in size_option.values -%}
+                <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div>
+          <span class="wf-rc__label">{{ section.settings.usage_label }}</span>
+          <div class="wf-seg" role="group" aria-label="{{ section.settings.usage_label | escape }}">
+            <button type="button" data-days="6" aria-pressed="false">{{ section.settings.usage_1 }}</button>
+            <button type="button" data-days="15" aria-pressed="true">{{ section.settings.usage_2 }}</button>
+            <button type="button" data-days="30" aria-pressed="false">{{ section.settings.usage_3 }}</button>
+          </div>
+        </div>
+        <div>
+          <label class="wf-rc__label" for="WfRate-{{ section.id }}">{{ section.settings.rate_label }}</label>
+          <div class="wf-rc__rate">
+            <input id="WfRate-{{ section.id }}" type="range" min="10" max="60" step="1" value="{{ rate }}">
+            <output data-out="rate">{{ rate }}{{ unit }}</output>
+          </div>
+        </div>
+
+        {%- if has_es -%}
+          <div class="wf-rc__bundle">
+            {%- for block in section.blocks -%}
+              <div {{ block.shopify_attributes }}><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="wf-rc__panel" data-wf-reveal style="--wf-delay: .1s">
+        <div class="wf-rc__cols">
+          <div class="wf-rc__col">
+            <span class="wf-rc__col-name">{{ section.settings.standard_label }}</span>
+            <span class="wf-rc__big" data-out="std-month">—</span>
+            <span class="wf-rc__per">{{ section.settings.per_month }}</span>
+            <p class="wf-rc__year"><span data-out="std-year">—</span> {{ section.settings.per_year }}</p>
+          </div>
+          {%- if has_es -%}
+            <div class="wf-rc__col wf-rc__col--es">
+              <span class="wf-rc__col-name">{{ section.settings.energysave_label }}</span>
+              <span class="wf-rc__big" data-out="es-month">—</span>
+              <span class="wf-rc__per">{{ section.settings.per_month }}</span>
+              <p class="wf-rc__year"><span data-out="es-year">—</span> {{ section.settings.per_year }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if has_es -%}
+          <div class="wf-rc__bars" aria-hidden="true">
+            <div class="wf-rc__bar"><i></i></div>
+            <div class="wf-rc__bar wf-rc__bar--es"><i style="transform:scaleX(.7)"></i></div>
+          </div>
+          <div class="wf-rc__save">
+            <p>
+              {{ section.settings.save_prefix }} <strong data-out="save-year">—</strong> {{ section.settings.save_suffix }}
+              <span data-payback hidden><br><span class="wf-rc__per">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
+            </p>
+            <button type="button" class="wf-btn" data-add-es>{{ section.settings.cta_label }}</button>
+          </div>
+        {%- endif -%}
+
+        <p class="wf-small" style="position:relative;margin:24px 0 0;color:rgba(244,246,247,.55)">
+          {{ section.settings.basis_prefix }} <span data-out="kwh">{{ kwh_day }}</span> kWh a day × <span data-out="days">15</span> {{ section.settings.basis_middle }} <span data-out="rate">{{ rate }}{{ unit }}</span>.{% if has_es %} {{ section.settings.basis_es | replace: '[pct]', section.settings.energysave_saving }}{% endif %}
+          {%- if section.settings.calculator_link != blank %} <a class="wf-link" href="{{ section.settings.calculator_link }}">{{ section.settings.calculator_label }}</a>{% endif %}
+        </p>
+      </div>
+    </wf-cost>
+
+    {%- if section.settings.show_notes -%}
+      <p class="wf-note">Test note: this uses the same method as the Wave calculator page (kWh a day × days used × unit rate). kWh comes from <code>specs.kwh_per_day</code> ({{ kwh_day }}). EnergySave saving is the {{ section.settings.energysave_saving }}% setting, from Kate's ~30% figure; it isn't measured. Payback compares the cheapest Standard and EnergySave prices for each size. Confirm what the bundle contains and write the cards to match.</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FY27 running cost",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Running costs" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Running costs" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Know what it costs before it arrives." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Tell us how often you'll use it and what you pay for electricity. We'll show you what to expect on the bill." },
+    { "type": "textarea", "id": "lede_es", "label": "Intro (EnergySave available)", "default": "Tell us how often you'll use it and what you pay for electricity. Then see how much the EnergySave bundle takes off the bill." },
+    { "type": "text", "id": "size_label", "label": "Size label", "default": "Size" },
+    { "type": "text", "id": "usage_label", "label": "Usage label", "default": "How often you'll use it" },
+    { "type": "text", "id": "usage_1", "label": "6 days a month", "default": "Weekends" },
+    { "type": "text", "id": "usage_2", "label": "15 days a month", "default": "Most days" },
+    { "type": "text", "id": "usage_3", "label": "30 days a month", "default": "Every day" },
+    { "type": "text", "id": "rate_label", "label": "Rate label", "default": "Your electricity price, per kWh" },
+    { "type": "number", "id": "rate_gbp", "label": "Default price, GBP (pence)", "default": 28 },
+    { "type": "number", "id": "rate_eur", "label": "Default price, EUR (cents)", "default": 30 },
+    { "type": "number", "id": "rate_usd", "label": "Default price, USD (cents)", "default": 17 },
+    { "type": "header", "content": "Results" },
+    { "type": "text", "id": "standard_label", "label": "Standard label", "default": "Standard" },
+    { "type": "text", "id": "energysave_label", "label": "EnergySave label", "default": "EnergySave™ bundle" },
+    { "type": "range", "id": "energysave_saving", "label": "EnergySave saving", "min": 5, "max": 60, "step": 1, "unit": "%", "default": 30 },
+    { "type": "text", "id": "per_month", "label": "Per month", "default": "a month" },
+    { "type": "text", "id": "per_year", "label": "Per year", "default": "a year" },
+    { "type": "text", "id": "save_prefix", "label": "Saving text before", "default": "Save around" },
+    { "type": "text", "id": "save_suffix", "label": "Saving text after", "default": "a year with EnergySave™." },
+    { "type": "text", "id": "payback_prefix", "label": "Payback text 1", "default": "The bundle adds" },
+    { "type": "text", "id": "payback_middle", "label": "Payback text 2", "default": "and pays for itself in about" },
+    { "type": "text", "id": "payback_suffix", "label": "Payback text 3", "default": "months." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Choose EnergySave™" },
+    { "type": "text", "id": "basis_prefix", "label": "Basis text 1", "default": "Estimate: about" },
+    { "type": "text", "id": "basis_middle", "label": "Basis text 2", "default": "days a month at" },
+    { "type": "text", "id": "basis_es", "label": "Basis (EnergySave)", "default": "EnergySave assumes around [pct]% less energy. Real costs depend on the weather, your settings and how you use the cover." },
+    { "type": "url", "id": "calculator_link", "label": "Calculator page link" },
+    { "type": "text", "id": "calculator_label", "label": "Calculator link label", "default": "Full calculator" },
+    { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_item",
+      "name": "Bundle item",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Bundle item" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What it does for your running costs." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

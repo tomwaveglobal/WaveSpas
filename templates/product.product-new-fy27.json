@@ -1,0 +1,1393 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "breadcrumb_rcrAce": {
+          "type": "breadcrumb",
+          "disabled": true,
+          "settings": {
+            "show_collections_link": false,
+            "show_product_title": true
+          }
+        },
+        "vendor_br9FVx": {
+          "type": "vendor",
+          "settings": {
+            "show_product_vendor": true,
+            "text_size": "text-sm",
+            "text_color": "",
+            "background_color": "",
+            "background_height": 0,
+            "alignment": "left"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-md",
+            "title_size_mobile": "product-title-md",
+            "title_tag": "h2",
+            "show_price": true,
+            "show_rating": true
+          }
+        },
+        "reviews_io_reviewsio_rating_output_L6AWE4": {
+          "type": "shopify://apps/reviews-io/blocks/reviewsio-rating-output/92a082e5-b297-4e88-b428-ac96cbc505f9",
+          "settings": {}
+        },
+        "liquid_3cEkGz": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<div id=\"pl-calculator-light-app\"></div>\n\n<script>\n  document.plCalcPrice = {\n    Price: 0.00\n  };\n\n  /* ✅ Username */\n  document.plCalcUsername = {\n    Username: 'wavedirec152h2hgw5kf'\n  };\n\n  /*\n    ✅ UPDATED selector\n    Targets:\n    <span class=\"money\">£1,678.67</span>\n  */\n  document.plCalcSelector = 'span.money';\n</script>\n\n<script\n  src=\"https://assets.payl8r.com/js/pl-calculator-light-app.js\"\n  id=\"pl-calculator-light-app-script\"\n  data-theme=\"spread\">\n</script>\n\n<script>\n  function payl8rTimed() {\n    if (document.readyState === 'complete') {\n      payl8rCalcPrice();\n    } else {\n      setTimeout(payl8rTimed, 10);\n    }\n  }\n\n  setTimeout(payl8rTimed, 10);\n\n  let payl8rObserverAttached = false;\n\n  function payl8rCalcPrice() {\n    const priceEl = document.querySelector(document.plCalcSelector);\n    if (!priceEl) return;\n\n    /* ✅ Safely parse currency like £1,678.67 */\n    const price = parseFloat(\n      priceEl.textContent.replace(/[^0-9.]/g, '')\n    );\n\n    if (isNaN(price)) return;\n\n    document.plCalcPrice.Price = price;\n    document.plCalcPrice.rerender(price);\n\n    /* ✅ Attach observer once */\n    if (payl8rObserverAttached) return;\n    payl8rObserverAttached = true;\n\n    const MutationObserver =\n      window.MutationObserver ||\n      window.WebKitMutationObserver ||\n      window.MozMutationObserver;\n\n    const observer = new MutationObserver(() => {\n      payl8rCalcPrice();\n    });\n\n    observer.observe(priceEl, {\n      attributes: true,\n      childList: true,\n      characterData: true,\n      subtree: true\n    });\n  }\n</script>"
+          }
+        },
+        "liquid_PrDUTW": {
+          "type": "liquid",
+          "settings": {
+            "liquid": ""
+          }
+        },
+        "text_DDUxag": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 20,
+            "text": "{{ product.metafields.custom.description_snippet.value }}",
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "product_variations_rEWtef": {
+          "type": "product_variations",
+          "disabled": true,
+          "settings": {
+            "option_name": "Colour",
+            "option_value_metafield": "custom.variation_value",
+            "products": "{{ product.metafields.custom.variation_colour.value }}",
+            "enable_color_swatches": true,
+            "color_swatch_type": "variant",
+            "size_chart": ""
+          }
+        },
+        "variant_picker_advanced_Vyc9TT": {
+          "type": "variant_picker_advanced",
+          "settings": {
+            "enable_dynamic_variants": true,
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "show_colour_buttons": true,
+            "enable_color_swatches": true,
+            "color_swatch_type": "color",
+            "colour_layout": "spread",
+            "colour_label": "always",
+            "size_chart": "",
+            "step1_label": "Pick your colour",
+            "step2_label": "Pick your size",
+            "step3_label": "Pick your edition",
+            "show_per_tile_chip": true,
+            "pre_order_chip_prefix": "Expected Delivery",
+            "pre_order_chip_trim": "Pre Order\nPre-Order\nPre-order\nPreorder\nShips\nShip\n|\n·",
+            "energy_saving_text": "<p><strong>Includes:</strong> thermal cover, and foam mat for maximum heat retention and lower energy bills.</p>",
+            "addons_enabled": true,
+            "addons_heading": "Popular Add-Ons",
+            "addons_optional_label": "Optional",
+            "addons_show_in_stock": true,
+            "addons_show_pre_order": true,
+            "addons_show_out_of_stock": false,
+            "addon_sold_out_label": "Sold out",
+            "addon_text_size": "m",
+            "addon_priority_keywords": "filter,chemical,cover",
+            "addon_match_by_sku_prefix": true,
+            "addon_match_sku_prefix_length": 4,
+            "addon_sku_match_map": "GAR4: GAR4EPSCVRWW\nGAR6: GAR6EPSCVRWW\nTAH4: TAH4EPSCVRWW\nTAH6: TAH6EPSCVRWW\nCOM6: COM6EPSCVRWW\nAEG6: AEG6TCVBLKWW\nATL4: ATL4TCVBLKWW\nATL6: ATL6TCVBLKWW\nPAC4: PAC4TCVBLKWW\nPAC6: PAC6TCVBLKWW",
+            "addon_variant_match_map": "4 Person | 160x70cm: 4 Person, 160\n6 Person | 180x70cm: 6 Person, 180\n8 Person | 200x70cm: 8 Person, 200\n4 Person | 160x60cm: 4 Person, 160\n6 Person | 180x65cm: 6 Person, 180\n4 Person | 180x180cm: 4 Person\n6 Person | 200x200cm: 6 Person\n4 Person: 4 Person\n6 Person: 6 Person\n8 Person: 8 Person",
+            "most_popular_label": "Most Popular",
+            "most_popular_min_stock": 60,
+            "discount_label": "{n}% OFF",
+            "sold_out_label": "Sold Out",
+            "sold_out_hide_discount": false,
+            "prefix_edition_with_size": true,
+            "subscribe_savings_label": "Subscribe & Save",
+            "subscribe_description": "<p>Get this delivered regularly and save on every order. Cancel anytime.</p>",
+            "addon_onetime_label": "No, thanks — one-time only"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "disabled": true,
+          "settings": {
+            "enable_dynamic_variants": true,
+            "show_variant_labels": false,
+            "picker_type": "button",
+            "show_colour_buttons": false,
+            "enable_color_swatches": true,
+            "color_swatch_type": "color",
+            "size_chart": ""
+          }
+        },
+        "variant_pre_order_hC7D4E": {
+          "type": "variant_pre_order",
+          "disabled": true,
+          "settings": {
+            "text_size": "text-base lg:text-lg",
+            "color_text": "#ffffff",
+            "color_background": "#1f1f1f"
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "Hurry up!",
+            "subheading": "Sale end in:",
+            "color_text": "#052c31",
+            "color_background": "#fafafa",
+            "gradient_background": ""
+          }
+        },
+        "text_nncjDG": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "sale",
+            "iwidth": "custom",
+            "icon_width": 20,
+            "text": "Free Starter Chemicals & Filters",
+            "text_size": "text-base",
+            "text_color": "#ffffff",
+            "icon_color": "#ffffff",
+            "background_color": "#f59e0b",
+            "alignment": "center",
+            "background_height": 12,
+            "border_radius": 0
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 10,
+            "show_inventory_transfer": false,
+            "show_inventory_quantity": "low",
+            "color_scheme": "accent-1"
+          }
+        },
+        "buy_buttons_nBMjqf": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_price": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true,
+            "enable_back_in_stock": false,
+            "show_back_in_stock_name": false,
+            "show_back_in_stock_phone": false
+          }
+        },
+        "contona_button_design": {
+          "type": "contona_button_design",
+          "settings": {
+            "bg_color": "#ffffff",
+            "text_color": "#000000",
+            "radius": 40,
+            "font_size": 14,
+            "padding_y": 10,
+            "padding_x": 20,
+            "border_width": 1,
+            "border_color": "#000000",
+            "d_position": "top-right",
+            "d_offset_x": 16,
+            "d_offset_y": 16,
+            "t_position": "top-right",
+            "t_offset_x": 16,
+            "t_offset_y": 16,
+            "m_position": "bottom-center",
+            "m_offset_x": 0,
+            "m_offset_y": 16
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share",
+            "show_help_desk": false,
+            "help_label": "Need help?",
+            "help_type": "drawer",
+            "help_page": "contact",
+            "help_page_external": false
+          }
+        },
+        "on_site_message_KFREgF": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message_image_link": "",
+            "message_image_popup_title": "Finance Options",
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "3",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_CFpriq": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/DivideBuy.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message_image_link": "",
+            "message_image_popup_title": "Finance Options",
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "12",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_hKD98d": {
+          "type": "on_site_message",
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/Payl8r.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message_image_link": "https://payl8r.com/retailers/payment-detail?retailer=wavedirec152h2hgw5kf",
+            "message_image_popup_title": "Finance Options",
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "24",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "on_site_message_EFzeYN": {
+          "type": "on_site_message",
+          "disabled": true,
+          "settings": {
+            "message_custom_icon": "shopify://shop_images/shop_buttons.png",
+            "message_icon_width": 100,
+            "message_image_checkbox": true,
+            "message_image_link": "",
+            "message_image_popup_title": "Finance Options",
+            "message": "<p>Starting at #amount* per month</p>",
+            "message_divide_amount": "24",
+            "message_price_range": "100",
+            "message_limit_amount": "100000",
+            "message_background": "#fafafa",
+            "message_text_color": "#00a341"
+          }
+        },
+        "text_7jAC96": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 20,
+            "text": "Klarna's Pay in 3 / Pay in 30 days are unregulated credit agreements. Borrowing more than you can afford or paying late may negatively impact your financial status and ability to obtain credit. 18+, UK residents only. Subject to status. Late fees may apply. <a href=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\" title=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\">Ts&Cs</a> apply.” or, if applicable, the limited one \"18+, T&C apply, Credit subject to status.",
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
+          }
+        },
+        "product_bundle_tWCDMV": {
+          "type": "product_bundle",
+          "disabled": true,
+          "settings": {
+            "opened": true,
+            "clickable": true,
+            "variant_selection": false,
+            "icon": "box",
+            "iwidth": "custom",
+            "icon_width": 30,
+            "heading": "Popular Add Ons",
+            "products": "{{ product.metafields.custom.popular_upgrades.value }}",
+            "metafield": ""
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "disabled": true,
+          "settings": {}
+        },
+        "complementary": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "heading": "Pairs well with",
+            "product_limit": 4,
+            "show_vendor": false,
+            "show_price": true
+          }
+        },
+        "sticky_buy_button": {
+          "type": "sticky_buy_button",
+          "settings": {}
+        },
+        "icon_list_4xTkbm": {
+          "type": "icon_list",
+          "repeater": "{{ product.metafields.custom.product_icons.value }}",
+          "settings": {
+            "heading": "Product Highlights",
+            "enable_carousel": false,
+            "show_below_media": true
+          }
+        },
+        "text_LiCrpH": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "sale",
+            "iwidth": "custom",
+            "icon_width": 30,
+            "text": "<strong>Running Cost - From £2 a day</strong>",
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
+          }
+        },
+        "text_9JnzcB": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "wrench",
+            "icon_image": "shopify://shop_images/CS_key_point.png",
+            "iwidth": "custom",
+            "icon_width": 30,
+            "text": "<strong>UK-based 7-Day Customer Support</strong>",
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
+          }
+        },
+        "text_wxnQw7": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "icon_image": "shopify://shop_images/sale.png",
+            "iwidth": "custom",
+            "icon_width": 30,
+            "text": "<strong>Free Chemical & Filter Starter Kit </strong>",
+            "text_size": "text-sm",
+            "text_color": "#000000",
+            "icon_color": "#000000",
+            "background_color": "rgba(0,0,0,0)",
+            "alignment": "left",
+            "background_height": 0,
+            "border_radius": 0
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumb_rcrAce",
+        "vendor_br9FVx",
+        "title",
+        "reviews_io_reviewsio_rating_output_L6AWE4",
+        "liquid_3cEkGz",
+        "liquid_PrDUTW",
+        "text_DDUxag",
+        "description",
+        "product_variations_rEWtef",
+        "variant_picker_advanced_Vyc9TT",
+        "variant_picker",
+        "variant_pre_order_hC7D4E",
+        "countdown",
+        "text_nncjDG",
+        "inventory",
+        "buy_buttons_nBMjqf",
+        "contona_button_design",
+        "share",
+        "on_site_message_KFREgF",
+        "on_site_message_CFpriq",
+        "on_site_message_hKD98d",
+        "on_site_message_EFzeYN",
+        "text_7jAC96",
+        "product_bundle_tWCDMV",
+        "pickup_availability",
+        "complementary",
+        "sticky_buy_button",
+        "icon_list_4xTkbm",
+        "text_LiCrpH",
+        "text_9JnzcB",
+        "text_wxnQw7"
+      ],
+      "settings": {
+        "enable_sticky_info": false,
+        "media_size": 66,
+        "gallery_layout": "scroll",
+        "thumbnail_position": "below",
+        "image_ratio": "square",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "hide_first_media": true,
+        "enable_video_autoplay": false,
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "square",
+        "mobile_thumbnail": true,
+        "padding_top": 0,
+        "padding_bottom": 32,
+        "divider": false,
+        "full_width": true,
+        "rounded": true
+      }
+    },
+    "ss_product_videos_4_BQjpxE": {
+      "type": "ss-product-videos-4",
+      "blocks": {
+        "video_CXhrnf": {
+          "type": "video",
+          "settings": {
+            "video": "{{ product.metafields.custom.ugc_1.value }}",
+            "title": ""
+          }
+        },
+        "video_VrKtej": {
+          "type": "video",
+          "settings": {
+            "video": "{{ product.metafields.custom.ugc_2.value }}",
+            "title": ""
+          }
+        },
+        "video_bAPp8w": {
+          "type": "video",
+          "settings": {
+            "video": "{{ product.metafields.custom.ugc_3.value }}",
+            "title": ""
+          }
+        },
+        "video_8pUzmC": {
+          "type": "video",
+          "settings": {
+            "video": "{{ product.metafields.custom.ugc_4.value }}",
+            "title": ""
+          }
+        },
+        "video_MMUJfe": {
+          "type": "video",
+          "settings": {
+            "video": "{{ product.metafields.custom.ugc_5.value }}",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_CXhrnf",
+        "video_VrKtej",
+        "video_bAPp8w",
+        "video_8pUzmC",
+        "video_MMUJfe"
+      ],
+      "name": "SS - Product videos #4",
+      "settings": {
+        "videos_position": "below_buy",
+        "heading": "",
+        "heading_custom": false,
+        "heading_font": "system_ui_n4",
+        "heading_size": 15,
+        "heading_size_mobile": 15,
+        "heading_height": 130,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "slider_view": 4.6,
+        "slider_view_mobile": 3.6,
+        "slider_gap": 16,
+        "slider_gap_mobile": 12,
+        "slider_mt": 4,
+        "slider_mt_mobile": 4,
+        "card_padding": 3,
+        "card_radius": 300,
+        "card_border_thickness": 3,
+        "card_hover": true,
+        "card_first_animation": true,
+        "video_ratio": "square",
+        "video_ratio_mobile": "square",
+        "video_overlay": 0,
+        "title_custom": false,
+        "title_font": "josefin_sans_n4",
+        "title_size": 14,
+        "title_size_mobile": 12,
+        "title_height": 130,
+        "title_mt": 10,
+        "title_mt_mobile": 10,
+        "title_align": "center",
+        "title_align_mobile": "center",
+        "arrow_size": 10,
+        "arrow_size_mobile": 10,
+        "arrow_border_thickness": 0,
+        "arrow_show_desktop": true,
+        "arrow_show_mobile": false,
+        "dots_size": 10,
+        "dots_size_mobile": 10,
+        "dots_mt": 0,
+        "dots_mt_mobile": 8,
+        "dots_show_desktop": false,
+        "dots_show_mobile": false,
+        "modal_width": 300,
+        "modal_width_mobile": 260,
+        "modal_padding_vertical": 0,
+        "modal_padding_vertical_mobile": 0,
+        "modal_padding_horizontal": 0,
+        "modal_padding_horizontal_mobile": 0,
+        "modal_radius": 16,
+        "modal_border_thickness": 0,
+        "modal_overlay": 0.3,
+        "modal_video_radius": 0,
+        "modal_video_border_thickness": 0,
+        "modal_video_ratio": "portrait",
+        "modal_video_ratio_mobile": "portrait",
+        "use_progress": true,
+        "action_size": 28,
+        "action_size_mobile": 36,
+        "action_border_thickness": 0,
+        "buttons_size": 32,
+        "buttons_size_mobile": 36,
+        "buttons_border_thickness": 0,
+        "card_bg_color": "#ffffff",
+        "card_bg_gradient": "",
+        "card_border_color": "#1f1f1f",
+        "video_overlay_color": "#000000",
+        "card_animation_color": "#1f1f1f",
+        "play_button_color": "#ffffff",
+        "title_color": "#000000",
+        "arrow_color": "#ffffff",
+        "arrow_hover_color": "#ffffff",
+        "arrow_bg_color": "#000000",
+        "arrow_bg_hover_color": "#555555",
+        "arrow_border_color": "#000000",
+        "arrow_border_hover_color": "#555555",
+        "dots_color": "#000000",
+        "modal_overlay_color": "#242424",
+        "modal_bg_color": "#ffffff",
+        "modal_border_color": "#000000",
+        "modal_video_border_color": "#000000",
+        "action_icon_color": "#ffffff",
+        "action_bg_color": "#000000",
+        "action_border_color": "#000000",
+        "buttons_icon_color": "#000000",
+        "buttons_bg_color": "#ffffff",
+        "buttons_border_color": "#000000",
+        "heading_color": "#000000",
+        "background_color": "#ffffff",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "wf_localnav": {
+      "type": "wave-fy27-localnav",
+      "settings": {
+        "buy_label": "Buy"
+      }
+    },
+    "wf_overview": {
+      "type": "wave-fy27-overview",
+      "settings": {
+        "show_notes": true
+      }
+    },
+    "wf_benefits": {
+      "type": "wave-fy27-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lite",
+            "glyph": "floor",
+            "title": "Room to move",
+            "text": "An open floor, with space to stand, stretch out and change position whenever you like."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lite",
+            "glyph": "bubbles",
+            "title": "Bubbles all the way round",
+            "text": "Bubbles rise from the floor around the whole spa, so there's no bad place to sit."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lite",
+            "glyph": "heat",
+            "title": "40°C, all year",
+            "text": "A built-in heater holds a steady 40°C, with no bulky kit sitting outside the tub."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lite",
+            "glyph": "filter",
+            "title": "Clear water, easily",
+            "text": "WaveFlow™ filtration keeps the water turning over. Rinse the cartridge after a soak and you're done."
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lush",
+            "glyph": "seat",
+            "title": "Seats that hold you",
+            "text": "Moulded Air Foam seats, set face to face, so everyone has somewhere to lean back and talk."
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lush",
+            "glyph": "quiet",
+            "title": "Turn it up, or down",
+            "text": "Two bubble speeds: a full massage when you want one, VertaCalm™ when you'd rather hear the garden."
+          }
+        },
+        "benefit_7": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lush",
+            "glyph": "wifi",
+            "requires": "WiFi",
+            "title": "Warm when you get home",
+            "text": "WiFi app control, so you can check the temperature and turn up the heat from your phone."
+          }
+        },
+        "benefit_8": {
+          "type": "benefit",
+          "settings": {
+            "tier": "lush",
+            "glyph": "light",
+            "requires": "LED strip",
+            "title": "Set the mood",
+            "text": "LED strip compatible and ready for a spa light, for evenings that carry on after dark."
+          }
+        },
+        "benefit_9": {
+          "type": "benefit",
+          "settings": {
+            "tier": "luxe",
+            "glyph": "jets",
+            "title": "Jets where you want them",
+            "text": "VertaJet™: four hydro-massage jets with two intensities, aimed at the places you carry the day."
+          }
+        },
+        "benefit_10": {
+          "type": "benefit",
+          "settings": {
+            "tier": "luxe",
+            "glyph": "zones",
+            "title": "Two jet zones",
+            "text": "VertaZone™ gives you two jet units, each with its own pair of jets."
+          }
+        },
+        "benefit_11": {
+          "type": "benefit",
+          "settings": {
+            "tier": "luxe",
+            "glyph": "bubbles",
+            "title": "Bubbles that climb",
+            "text": "VertaAir™ bubbles rise up the wall behind you, running with the jets or on their own."
+          }
+        },
+        "benefit_12": {
+          "type": "benefit",
+          "settings": {
+            "tier": "luxe",
+            "glyph": "wifi",
+            "title": "A control for each",
+            "text": "WiFi app control with separate bubble and jet controls, so everyone gets the soak they want."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6",
+        "benefit_7",
+        "benefit_8",
+        "benefit_9",
+        "benefit_10",
+        "benefit_11",
+        "benefit_12"
+      ],
+      "settings": {
+        "nav_label": "Why [tier]",
+        "eyebrow": "Why [tier]",
+        "heading": "Made for the way you soak."
+      }
+    },
+    "wf_ecofoam": {
+      "type": "wave-fy27-ecofoam",
+      "settings": {
+        "scope": "any",
+        "old_thickness": 15,
+        "old_density": 33,
+        "inflatable_kwh": 16,
+        "show_notes": true
+      }
+    },
+    "wf_vertaair": {
+      "type": "wave-fy27-vertaair",
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "title": "Starts at the seat",
+            "text": "The air chamber begins where you sit, not out on the floor, so the bubbles meet you straight away.",
+            "jets_only": false
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "title": "Opens out in a V",
+            "text": "Two channels climb the wall behind you and spread towards your shoulders, covering far more of your back.",
+            "jets_only": false
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "title": "Two speeds",
+            "text": "High for a full massage, low for a quiet soak.",
+            "jets_only": false
+          }
+        },
+        "point_4": {
+          "type": "point",
+          "settings": {
+            "title": "Works with the jets",
+            "text": "VertaAir™ runs alongside VertaJet™, or on its own.",
+            "jets_only": true
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3",
+        "point_4"
+      ],
+      "settings": {
+        "show_notes": true
+      }
+    },
+    "wf_running_cost": {
+      "type": "wave-fy27-running-cost",
+      "blocks": {
+        "bundle_item_1": {
+          "type": "bundle_item",
+          "settings": {
+            "title": "EnergySave™ cover",
+            "text": "A second insulating layer on top, where most of the heat tries to escape."
+          }
+        },
+        "bundle_item_2": {
+          "type": "bundle_item",
+          "settings": {
+            "title": "Insulated floor mats",
+            "text": "Stop cold ground drawing warmth out through the base."
+          }
+        },
+        "bundle_item_3": {
+          "type": "bundle_item",
+          "settings": {
+            "title": "Worth up to £200",
+            "text": "Included in the bundle price."
+          }
+        }
+      },
+      "block_order": [
+        "bundle_item_1",
+        "bundle_item_2",
+        "bundle_item_3"
+      ],
+      "settings": {
+        "energysave_saving": 30,
+        "calculator_link": "/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
+        "show_notes": true
+      }
+    },
+    "wf_setup": {
+      "type": "wave-fy27-setup",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Pick your spot",
+            "text": "Flat, firm and level: a patio, a compact base, or decking rated for the weight."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Unbox and build",
+            "text": "Everything you need is in the box. No tools."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Plug in and fill",
+            "text": "Plug into an RCD-protected outdoor socket and fill it with a garden hose."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Set it and leave it",
+            "text": "Choose 40°C and let the heater get to work. Warming up takes longer than setting up, so fill it today for a soak tomorrow."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "setup_minutes": 20,
+        "show_notes": true
+      }
+    },
+    "wf_tiers": {
+      "type": "wave-fy27-tiers",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "tier": "lite",
+            "name": "Lite",
+            "collection_handle": "lite-hot-tubs",
+            "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
+            "signature": "Light work.",
+            "for": "For getting in without a second thought.",
+            "features": "Open floor with room to stretch out\nBubbles all the way round\nBuilt-in heater to 40°C\nTool-free setup"
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "tier": "lush",
+            "name": "Lush",
+            "collection_handle": "lush-hot-tubs",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
+            "signature": "Turn it down.",
+            "for": "For evenings you want to last.",
+            "features": "Moulded Air Foam seats\nTwo bubble speeds, down to a whisper\nWiFi app control\nLED strip compatible"
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "tier": "luxe",
+            "name": "Luxe",
+            "collection_handle": "luxe-hot-tubs",
+            "image": "shopify://shop_images/AdriaticZoom.png",
+            "signature": "Where you want it.",
+            "for": "For pressure exactly where you need it.",
+            "features": "Four hydro-massage jets, two intensities\nBubbles that rise up the wall behind you\nSeparate bubble and jet controls\nWiFi app control"
+          }
+        }
+      },
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ],
+      "settings": {}
+    },
+    "product-details": {
+      "type": "product-details",
+      "blocks": {
+        "specification_g7Fp6A": {
+          "type": "specification",
+          "repeater": "{{ product.metafields.custom.in_the_box.value }}",
+          "settings": {
+            "icon": "{{ block.repeater.icon.value }}",
+            "heading": "{{ block.repeater.label.value }}",
+            "text_size": "text-sm"
+          }
+        },
+        "collapsible_tab_VJ49Qd": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Key Features",
+            "content": "{{ product.metafields.custom.key_features | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Dimensions",
+            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Technical Specs",
+            "content": "{{ product.metafields.custom.tech_specs | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-3": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Collapsible row 3",
+            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-4": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Collapsible row 4",
+            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "specification_g7Fp6A",
+        "collapsible_tab_VJ49Qd",
+        "collapsible_tab-1",
+        "collapsible_tab-2",
+        "collapsible_tab-3",
+        "collapsible_tab-4"
+      ],
+      "custom_css": [],
+      "settings": {
+        "style": "with-border",
+        "open_first_row": true,
+        "specifications_heading": "Included In The Box",
+        "heading": "Product details",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#171717",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "reviews": {
+      "type": "apps",
+      "blocks": {
+        "reviews_io_reviewsio_polaris_pbUztm": {
+          "type": "shopify://apps/reviews-io/blocks/reviewsio-polaris/92a082e5-b297-4e88-b428-ac96cbc505f9",
+          "settings": {
+            "star": "#FFAE00",
+            "review_type": "product_review",
+            "per_page": 5,
+            "primary_btn_bg_color": "#000000",
+            "primary_btn_border_color": "#000000",
+            "primary_btn_text_color": "#ffffff",
+            "secondary_btn_border_color": "#000000",
+            "secondary_btn_text_color": "#000000",
+            "border_color": "#d9d9d9",
+            "heading_text_color": "#000000",
+            "heading_font": "inter_n4",
+            "body_text_color": "#000000",
+            "badge_icon_color": "#000000",
+            "badge_text_color": "#000000",
+            "enable_rich_snippets": true,
+            "show_location": true,
+            "show_tab_selector": false,
+            "show_dates": true,
+            "show_avatar": true,
+            "enable_sentiment_analysis": false,
+            "enable_replies": false,
+            "widget_spacing": 0,
+            "capitalise_headers_and_buttons": false,
+            "show_review_title": true,
+            "default_sort": "date_desc"
+          }
+        }
+      },
+      "block_order": [
+        "reviews_io_reviewsio_polaris_pbUztm"
+      ],
+      "settings": {
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 12,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "wf_questions": {
+      "type": "wave-fy27-questions",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "topic": "Running costs",
+            "question": "How much does it cost to run?",
+            "answer": "<p>It depends on how often you use it and what you pay for electricity. The calculator above works it out for this spa: pick a size, how often you'll soak and your unit rate. Keep the cover on between soaks, and add the EnergySave™ bundle to bring it down further.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "topic": "Space",
+            "question": "Will it fit in my garden?",
+            "answer": "<p>Check the footprint in the size options and leave around a metre clear around it, for getting in and out and reaching the filter. It needs somewhere flat, firm and level. Filled with water and people, a spa can weigh a tonne or more, so decking must be rated for that load.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "topic": "Power",
+            "question": "What power do I need?",
+            "answer": "<p>A standard 13 amp outdoor socket with RCD protection. There's no hard-wiring and no electrician to book. Plug it straight into the socket rather than using an extension lead.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "topic": "Looking after it",
+            "question": "How much looking after does it need?",
+            "answer": "<p>A few minutes a week. Rinse the filter after a soak and test the water twice a week (chlorine 3 to 5 ppm, pH 7.2 to 7.6). Give the filter a deeper clean weekly, fit a new cartridge every 2 to 4 weeks and refresh the water every 1 to 3 months.</p><p>Our water care guides take you through it step by step.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "topic": "All year",
+            "question": "Can I use it in winter?",
+            "answer": "<p>Yes. It heats to 40°C all year round. Keep the cover on between soaks to hold the heat. On models with automatic frost protection, it switches on by itself when the temperature drops below 5°C.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "topic": "Noise",
+            "question": "Is it noisy?",
+            "answer": "<p>The heater and filter pump make a low hum. The bubbles are the loudest part, and on two-speed models the lower setting is noticeably quieter, which suits late evenings and close neighbours.</p>"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "topic": "Planning",
+            "question": "Do I need planning permission?",
+            "answer": "<p>In most UK gardens, no: a hot tub usually counts as permitted development. Check with your local council if you live in a listed building, a conservation area or a flat, or if you're building decking more than 30cm off the ground.</p>"
+          }
+        },
+        "question_8": {
+          "type": "question",
+          "settings": {
+            "topic": "Delivery",
+            "question": "When will it arrive?",
+            "answer": "<p>Order by 6:30pm for free next-day tracked delivery with DPD, who'll send you a one-hour delivery window. Saturday delivery is available for £9.99.</p>"
+          }
+        },
+        "question_9": {
+          "type": "question",
+          "settings": {
+            "topic": "Warranty",
+            "question": "What's the warranty?",
+            "answer": "<p>Every spa comes with a 2-year warranty, backed by our UK support team: Monday to Friday 8:30 to 5:30, and Saturday 8 to 4. We reply to emails within 8 working hours.</p>"
+          }
+        },
+        "question_10": {
+          "type": "question",
+          "settings": {
+            "topic": "Paying",
+            "question": "Can I spread the cost?",
+            "answer": "<p>Yes. Pay in 3 with Klarna, or spread it monthly and interest-free with DivideBuy, subject to eligibility. You'll find the options just under the price.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7",
+        "question_8",
+        "question_9",
+        "question_10"
+      ],
+      "settings": {
+        "contact_link": "/pages/contact"
+      }
+    },
+    "wf_closer": {
+      "type": "wave-fy27-closer",
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "title": "Free next-day delivery",
+            "text": "Order by 6:30pm, with a one-hour DPD window."
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "title": "2-year warranty",
+            "text": "And UK support six days a week."
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "title": "Plug and play",
+            "text": "A standard 13 amp socket. No electrician."
+          }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": {
+            "title": "Spread the cost",
+            "text": "Pay in 3 or monthly, subject to status."
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
+      ],
+      "settings": {
+        "heading": "Tonight could look like this.",
+        "button_label": "Choose yours",
+        "dark": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "product_limit": 10,
+        "columns": 5,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "You may also like",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "help-drawer": {
+      "type": "help-drawer",
+      "blocks": {
+        "content-1": {
+          "type": "content",
+          "settings": {
+            "icon": "truck",
+            "heading": "<em>Shipping Information</em>",
+            "text": "<p>Free next-day tracked delivery for all spas via DPD, with an option for Saturday delivery available for an extra £9.99. Upon dispatch, DPD will provide you with a one-hour tracking window.</p>",
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle",
+            "color_text": "#171717",
+            "color_background": "#f9f9f9",
+            "gradient_background": "",
+            "color_highlight": "#052c31",
+            "gradient_highlight": ""
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "icon": "headphone",
+            "heading": "<em>Customer Support</em>",
+            "text": "<p>Our friendly customer service team is ready to help with your Spa or order questions.</p><p>Email us At: <a href=\"mailto:support@waveglobal.com\" title=\"mailto:support@wavespas.com\">support@wavespas.com</a></p><p><strong>Monday to Friday: 8:30am – 5:30pm</strong></p><p><strong>Saturday: 8:00am – 4:00pm</strong></p><p>We aim to reply within <strong>8 working hours</strong>, so you’ll never be left waiting too long. If you message us outside these hours, no worries - we’ll dive right back in as soon as we’re back online. </p><p>Thanks for your patience and for being part of our community <br/></p>",
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle",
+            "color_text": "#171717",
+            "color_background": "#f9f9f9",
+            "gradient_background": "",
+            "color_highlight": "#052c31",
+            "gradient_highlight": ""
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        }
+      },
+      "block_order": [
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
+      ],
+      "settings": {
+        "heading": "Need help?",
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible.</p>"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "ss_product_videos_4_BQjpxE",
+    "wf_localnav",
+    "wf_overview",
+    "wf_benefits",
+    "wf_ecofoam",
+    "wf_vertaair",
+    "wf_running_cost",
+    "wf_setup",
+    "wf_tiers",
+    "product-details",
+    "reviews",
+    "wf_questions",
+    "wf_closer",
+    "product-recommendations",
+    "help-drawer"
+  ]
+}

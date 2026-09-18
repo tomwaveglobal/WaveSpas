@@ -1,0 +1,102 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign tier = 'lush'
+  if product.tags contains 'Lite'
+    assign tier = 'lite'
+  elsif product.tags contains 'Luxe'
+    assign tier = 'luxe'
+  endif
+-%}
+<wf-section class="wf wf--sand" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-head wf-head--center">
+      <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+    </div>
+
+    <div class="wf-tiers">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign is_current = false
+          if block.settings.tier == tier
+            assign is_current = true
+          endif
+          assign col = collections[block.settings.collection_handle]
+          assign href = routes.collections_url | append: '/' | append: block.settings.collection_handle
+          assign img = block.settings.image | default: col.featured_image
+          assign features = block.settings.features | newline_to_br | split: '<br />'
+        -%}
+        <article class="wf-tier{% if is_current %} is-current{% endif %}" data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+          {%- if is_current -%}<span class="wf-tier__flag">{{ section.settings.current_label }}</span>{%- endif -%}
+          {%- if img != blank -%}
+            <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: block.settings.name }}</div>
+          {%- endif -%}
+          <h3 class="wf-tier__name">{{ block.settings.name }}</h3>
+          <p class="wf-tier__sig">{{ block.settings.signature }}</p>
+          <p class="wf-tier__for">{{ block.settings.for }}</p>
+          <ul role="list">
+            {%- for f in features -%}
+              {%- assign f = f | strip -%}
+              {%- if f != blank -%}
+                <li>{%- render 'wave-fy27-glyph', name: 'check' -%}<span>{{ f }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- if col != blank and col.products_count > 0 -%}
+            <p class="wf-small" style="margin:18px 0 0">{{ section.settings.from_label }} <strong style="color:var(--wf-ink)">{{ col.products | map: 'price' | sort | first | money }}</strong></p>
+          {%- endif -%}
+          {%- if is_current -%}
+            <wf-buy><button type="button" class="wf-btn">{{ section.settings.current_button }}</button></wf-buy>
+          {%- else -%}
+            <a class="wf-btn wf-btn--ghost" href="{{ href }}">{{ section.settings.button_prefix }} {{ block.settings.name }}</a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 range",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Compare" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The FY27 range" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three ways to soak." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Every Wave spa heats to 40°C, plugs into a standard socket and sets up without tools. Choose how you want it to feel." },
+    { "type": "text", "id": "current_label", "label": "Current tier flag", "default": "You're viewing" },
+    { "type": "text", "id": "current_button", "label": "Current tier button", "default": "Choose yours" },
+    { "type": "text", "id": "button_prefix", "label": "Other tier button prefix", "default": "Explore" },
+    { "type": "text", "id": "from_label", "label": "From label", "default": "From" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Tier",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Tier",
+          "options": [
+            { "value": "lite", "label": "Lite" },
+            { "value": "lush", "label": "Lush" },
+            { "value": "luxe", "label": "Luxe" }
+          ],
+          "default": "lush"
+        },
+        { "type": "text", "id": "name", "label": "Name", "default": "Lush" },
+        { "type": "text", "id": "collection_handle", "label": "Collection handle", "info": "The price and image show once the collection is published.", "default": "lush-hot-tubs" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "signature", "label": "Signature line", "default": "Turn it down." },
+        { "type": "text", "id": "for", "label": "Who it's for", "default": "For evenings you want to last." },
+        { "type": "textarea", "id": "features", "label": "Features", "info": "One per line.", "default": "Moulded seats\nTwo bubble speeds\nWiFi app control" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

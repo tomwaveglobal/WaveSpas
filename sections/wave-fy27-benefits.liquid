@@ -1,0 +1,98 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign tier = 'lush'
+  if product.tags contains 'Lite'
+    assign tier = 'lite'
+  elsif product.tags contains 'Luxe'
+    assign tier = 'luxe'
+  endif
+  assign tier_name = tier | capitalize
+  assign kf = product.metafields.custom.key_features | metafield_text
+  assign heading = section.settings.heading | replace: '[tier]', tier_name
+-%}
+<wf-section class="wf wf--sand" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | replace: '[tier]', tier_name | escape }}">
+  <div class="wf__inner">
+    <div class="wf-head">
+      <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow | replace: '[tier]', tier_name }}</p>
+      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ heading }}</h2>
+    </div>
+    <div class="wf-bn">
+      {%- assign shown = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if block.settings.tier != 'all' and block.settings.tier != tier
+            continue
+          endif
+          if block.settings.requires != blank
+            unless kf contains block.settings.requires or product.tags contains block.settings.requires
+              continue
+            endunless
+          endif
+          assign shown = shown | plus: 1
+          assign delay = forloop.index0 | modulo: 4 | times: 0.08
+        -%}
+        <article class="wf-bn__card" data-wf-reveal style="--wf-delay: {{ delay }}s" {{ block.shopify_attributes }}>
+          <span class="wf-bn__num">{% if shown < 10 %}0{% endif %}{{ shown }}</span>
+          {%- render 'wave-fy27-glyph', name: block.settings.glyph, class: 'wf-bn__glyph' -%}
+          <h3 class="wf-h3">{{ block.settings.title }}</h3>
+          <p class="wf-body">{{ block.settings.text }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 benefits",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Why [tier]" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "[tier] becomes Lite, Lush or Luxe.", "default": "Why [tier]" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made for the way you soak." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Show on",
+          "options": [
+            { "value": "all", "label": "Every tier" },
+            { "value": "lite", "label": "Lite" },
+            { "value": "lush", "label": "Lush" },
+            { "value": "luxe", "label": "Luxe" }
+          ],
+          "default": "all"
+        },
+        { "type": "text", "id": "requires", "label": "Only when the product mentions", "info": "Optional. A word from key features or a tag, e.g. VertaAir, WiFi, LED strip." },
+        {
+          "type": "select",
+          "id": "glyph",
+          "label": "Icon",
+          "options": [
+            { "value": "bubbles", "label": "Bubbles" },
+            { "value": "seat", "label": "Seat" },
+            { "value": "wifi", "label": "WiFi" },
+            { "value": "light", "label": "Light" },
+            { "value": "jets", "label": "Jets" },
+            { "value": "zones", "label": "Two zones" },
+            { "value": "floor", "label": "Open floor" },
+            { "value": "heat", "label": "Heat" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "plug", "label": "Plug" },
+            { "value": "quiet", "label": "Quiet" }
+          ],
+          "default": "bubbles"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Benefit" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What it means for the person in the water." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

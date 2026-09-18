@@ -1,0 +1,138 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign tier = 'lush'
+  if product.tags contains 'Lite'
+    assign tier = 'lite'
+  elsif product.tags contains 'Luxe'
+    assign tier = 'luxe'
+  endif
+  case tier
+    when 'lite'
+      assign signature = section.settings.lite_signature
+      assign lede = section.settings.lite_lede
+    when 'luxe'
+      assign signature = section.settings.luxe_signature
+      assign lede = section.settings.luxe_lede
+    else
+      assign signature = section.settings.lush_signature
+      assign lede = section.settings.lush_lede
+  endcase
+
+  assign name = product.title | split: '|' | first | strip
+  assign is_ice = false
+  if product.tags contains 'Ice Bath' or product.tags contains 'cold plunge'
+    assign is_ice = true
+  endif
+
+  assign seats = 0
+  assign size_option = product.options_by_name['Size']
+  for value in size_option.values
+    assign n = value | split: ' ' | first | plus: 0
+    if n > seats
+      assign seats = n
+    endif
+  endfor
+
+  assign rate = section.settings.rate_gbp
+  assign cur_symbol = '£'
+  case cart.currency.iso_code
+    when 'EUR'
+      assign rate = section.settings.rate_eur
+      assign cur_symbol = '€'
+    when 'USD'
+      assign rate = section.settings.rate_usd
+      assign cur_symbol = '$'
+  endcase
+  assign kwh = product.metafields.specs.kwh_per_day.value
+  assign month_cost = nil
+  if kwh != blank
+    assign month_cost = kwh | times: section.settings.usage_days | times: rate | divided_by: 100.0 | round
+  endif
+  assign setup_minutes = product.metafields.specs.setup_minutes.value | default: section.settings.setup_minutes
+
+  assign hero = section.settings.image | default: product.featured_media.preview_image
+-%}
+<style>
+  #shopify-section-{{ section.id }} .wf-ov__stage { background-color: {{ section.settings.stage_color }}; }
+</style>
+<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-head">
+      <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ name }}</p>
+      <h2 class="wf-display" data-wf-reveal style="--wf-delay: .08s">{{ signature }}</h2>
+      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ lede }}</p>
+    </div>
+
+    {%- if hero != blank -%}
+      <div class="wf-ov__stage{% if section.settings.contain %} wf-ov__stage--contain{% endif %}" data-wf-reveal>
+        {{- hero | image_url: width: 2400 | image_tag: loading: 'lazy', sizes: '(min-width: 1280px) 1240px, 100vw', widths: '750, 1100, 1500, 2000, 2400', alt: name -}}
+      </div>
+    {%- endif -%}
+
+    <ul class="wf-stats" role="list">
+      {%- if seats > 0 -%}
+        <li data-wf-reveal>
+          <span class="wf-stat__value" data-wf-count="{{ seats }}">{{ seats }}</span>
+          <span class="wf-stat__label">{% if tier == 'lite' or seats == 1 %}{{ section.settings.people_label }}{% else %}{{ section.settings.seats_label }}{% endif %}</span>
+        </li>
+      {%- endif -%}
+      {%- unless is_ice -%}
+        <li data-wf-reveal style="--wf-delay: .08s">
+          <span class="wf-stat__value"><span data-wf-count="40">40</span><small>°C</small></span>
+          <span class="wf-stat__label">{{ section.settings.heat_label }}</span>
+        </li>
+      {%- endunless -%}
+      {%- if month_cost != nil -%}
+        <li data-wf-reveal style="--wf-delay: .16s">
+          <span class="wf-stat__value"><span data-wf-count="{{ month_cost }}" data-prefix="{{ cur_symbol }}">{{ cur_symbol }}{{ month_cost }}</span><small> /mo</small></span>
+          <span class="wf-stat__label">{{ section.settings.cost_label }}</span>
+        </li>
+      {%- endif -%}
+      {%- if setup_minutes != blank and setup_minutes > 0 -%}
+        <li data-wf-reveal style="--wf-delay: .24s">
+          <span class="wf-stat__value"><span data-wf-count="{{ setup_minutes }}">{{ setup_minutes }}</span><small> min</small></span>
+          <span class="wf-stat__label">{{ section.settings.setup_label }}</span>
+        </li>
+      {%- endif -%}
+    </ul>
+
+    {%- if section.settings.show_notes -%}
+      <p class="wf-note">Test note: running cost = {{ kwh | default: '—' }} kWh a day × {{ section.settings.usage_days }} days × {{ rate }}{% if cur_symbol == '£' %}p{% else %}c{% endif %}, the same method as the Wave running cost calculator page. Setup minutes come from <code>specs.setup_minutes</code> when set, otherwise the section setting ({{ section.settings.setup_minutes }}). Turn these notes off before launch.</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 overview",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Overview" },
+    { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Leave empty to use the product's featured image." },
+    { "type": "checkbox", "id": "contain", "label": "Fit whole image (use for cut-out product shots)", "default": false },
+    { "type": "color", "id": "stage_color", "label": "Stage colour", "default": "#f5f4f0" },
+    { "type": "header", "content": "Lite" },
+    { "type": "text", "id": "lite_signature", "label": "Headline", "default": "Light work." },
+    { "type": "textarea", "id": "lite_lede", "label": "Intro", "default": "Room to stretch out, water at 40°C and nothing to learn. Lift the lid, step in, and let the evening go." },
+    { "type": "header", "content": "Lush" },
+    { "type": "text", "id": "lush_signature", "label": "Headline", "default": "Turn it down." },
+    { "type": "textarea", "id": "lush_lede", "label": "Intro", "default": "Seats that hold you, bubbles with two speeds, and an app that warms it up before you're home. Turn it up for a full massage, or right down and hear the garden again." },
+    { "type": "header", "content": "Luxe" },
+    { "type": "text", "id": "luxe_signature", "label": "Headline", "default": "Where you want it." },
+    { "type": "textarea", "id": "luxe_lede", "label": "Intro", "default": "Hydro-massage jets aimed where you carry the day, bubbles that climb the wall behind you, and a control for each. Pressure exactly where you want it." },
+    { "type": "header", "content": "Stats" },
+    { "type": "text", "id": "seats_label", "label": "Seats label", "default": "moulded seats, face to face" },
+    { "type": "text", "id": "people_label", "label": "People label (Lite, 1-person)", "default": "people, with the whole floor free" },
+    { "type": "text", "id": "heat_label", "label": "Heat label", "default": "built-in heater, all year round" },
+    { "type": "text", "id": "cost_label", "label": "Cost label", "default": "estimated to run, used most days" },
+    { "type": "range", "id": "usage_days", "label": "Days used a month (for the cost stat)", "min": 4, "max": 30, "step": 1, "default": 15 },
+    { "type": "number", "id": "rate_gbp", "label": "Electricity price, GBP (pence per kWh)", "default": 28 },
+    { "type": "number", "id": "rate_eur", "label": "Electricity price, EUR (cents per kWh)", "default": 30 },
+    { "type": "number", "id": "rate_usd", "label": "Electricity price, USD (cents per kWh)", "default": 17 },
+    { "type": "number", "id": "setup_minutes", "label": "Setup time (minutes)", "info": "Used when the product has no specs.setup_minutes metafield. Set to 0 to hide.", "default": 20 },
+    { "type": "text", "id": "setup_label", "label": "Setup label", "default": "to set up. No tools, no electrician" },
+    { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

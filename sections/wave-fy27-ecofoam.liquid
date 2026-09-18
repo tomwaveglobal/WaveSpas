@@ -1,0 +1,189 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign kf = product.metafields.custom.key_features | metafield_text
+  assign ts = product.metafields.custom.tech_specs | metafield_text
+  assign spec_text = kf | append: ' ' | append: ts | newline_to_br | replace: '<br />', ' '
+
+  comment
+    Wall comes from the key features text, e.g. "Rigid 8cm PE foam wall at 40kg/cm³".
+  endcomment
+  assign wall_t = 0
+  assign density = 0
+  if spec_text contains 'cm PE foam wall'
+    assign wall_t = spec_text | split: 'cm PE foam wall' | first | split: ' ' | last | plus: 0
+    if spec_text contains 'foam wall at '
+      assign density = spec_text | split: 'foam wall at ' | last | split: 'kg' | first | strip | plus: 0
+    endif
+  endif
+
+  assign show = false
+  if wall_t > 0
+    if section.settings.scope == 'any' or product.tags contains 'eco foam'
+      assign show = true
+    endif
+  endif
+
+  assign old_t = section.settings.old_thickness
+  assign old_d = section.settings.old_density
+  assign thinner = false
+  if wall_t < old_t and product.tags contains 'eco foam'
+    assign thinner = true
+  endif
+  assign gain = old_t | minus: wall_t | times: 2
+
+  comment
+    SVG geometry: 560 wide, 8px per cm of wall.
+  endcomment
+  assign scale = 8
+  assign shell = 14
+  assign new_px = wall_t | times: scale
+  assign old_px = old_t | times: scale
+  if thinner == false
+    assign old_px = new_px
+  endif
+
+  assign kwh = product.metafields.specs.kwh_per_day.value
+-%}
+{%- if show -%}
+<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-foam">
+      <div>
+        <p class="wf-eyebrow wf-eyebrow--accent" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        {%- if thinner -%}
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading_thinner }}</h2>
+          <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede_thinner }}</p>
+        {%- else -%}
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading_insulation }}</h2>
+          <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede_insulation | replace: '[wall]', wall_t }}</p>
+        {%- endif -%}
+
+        <ul class="wf-specs" role="list" data-wf-reveal style="--wf-delay: .24s">
+          <li><b>{{ wall_t }} cm</b><span>{% if thinner %}wall, slimmed from {{ old_t }} cm{% else %}rigid foam wall on every side{% endif %}</span></li>
+          {%- if density > 0 -%}
+            <li><b>{{ density }} kg/m³</b><span>{% if thinner and density > old_d %}foam density, up from {{ old_d }}{% else %}closed-cell PE foam{% endif %}</span></li>
+          {%- endif -%}
+          {%- if thinner and gain > 0 -%}
+            <li><b>+{{ gain }} cm</b><span>more water across, same footprint</span></li>
+          {%- elsif kwh != blank and section.settings.inflatable_kwh > kwh -%}
+            {%- assign pct = kwh | times: 100 | divided_by: section.settings.inflatable_kwh | round -%}
+            {%- assign less = 100 | minus: pct -%}
+            <li><b>{{ less }}%</b><span>less energy than an inflatable to keep warm*</span></li>
+          {%- endif -%}
+        </ul>
+
+        {%- if thinner and kwh != blank and section.settings.inflatable_kwh > kwh -%}
+          {%- assign pct = kwh | times: 100 | divided_by: section.settings.inflatable_kwh | round -%}
+          {%- assign less = 100 | minus: pct -%}
+          <p class="wf-body" data-wf-reveal>{{ section.settings.energy_line | replace: '[pct]', less }}*</p>
+        {%- endif -%}
+        {%- if kwh != blank and section.settings.inflatable_kwh > kwh -%}
+          <p class="wf-small" style="margin-top:16px">* {{ section.settings.footnote | replace: '[kwh]', kwh | replace: '[ikwh]', section.settings.inflatable_kwh }}</p>
+        {%- endif -%}
+      </div>
+
+      <wf-foam class="wf-foam__viz" data-toggle-root data-state="new" data-wf-reveal>
+        <script type="application/json" data-geo>
+          {"w": 560, "shell": {{ shell }}, "new": {"wall": {{ new_px }}, "pattern": "wfDense-{{ section.id }}", "loss": 0.35}, "old": {"wall": {{ old_px }}, "pattern": "wfSparse-{{ section.id }}", "loss": 1}}
+        </script>
+        <svg viewBox="0 0 560 320" role="img" aria-label="Cross-section of the spa wall: {{ wall_t }} centimetre foam wall around the water">
+          <defs>
+            <pattern id="wfDense-{{ section.id }}" width="7" height="7" patternUnits="userSpaceOnUse">
+              <rect width="7" height="7" fill="#e8e3d6"/><circle cx="2" cy="2" r="1.3" fill="#b9b19b"/><circle cx="5.5" cy="5.5" r="1.1" fill="#c9c1ab"/>
+            </pattern>
+            <pattern id="wfSparse-{{ section.id }}" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill="#efebe1"/><circle cx="4" cy="4" r="2.4" fill="#fff"/><circle cx="11" cy="10" r="3" fill="#fff"/>
+            </pattern>
+            <linearGradient id="wfWater-{{ section.id }}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5ec8dc"/><stop offset="1" stop-color="#0f5566"/>
+            </linearGradient>
+            <radialGradient id="wfHeat-{{ section.id }}" cx=".5" cy=".55" r=".6">
+              <stop offset="0" stop-color="#ff8a4c" stop-opacity=".55"/><stop offset="1" stop-color="#ff8a4c" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <rect x="0" y="40" width="560" height="260" rx="18" fill="none" stroke="rgba(255,255,255,.18)"/>
+          <rect class="wf-foam__water" data-water x="{{ shell | plus: new_px }}" y="70" width="{{ 560 | minus: shell | minus: shell | minus: new_px | minus: new_px }}" height="216" fill="url(#wfWater-{{ section.id }})"/>
+          <ellipse class="wf-foam__heat" cx="280" cy="190" rx="200" ry="110" fill="url(#wfHeat-{{ section.id }})"/>
+          <rect class="wf-foam__wall" data-wall="l" x="{{ shell }}" y="54" width="{{ new_px }}" height="232" rx="4" fill="#d9d2c0"/>
+          <rect class="wf-foam__dots" data-dots="l" x="{{ shell }}" y="54" width="{{ new_px }}" height="232" rx="4" fill="url(#wfDense-{{ section.id }})"/>
+          <rect class="wf-foam__wall" data-wall="r" x="{{ 560 | minus: shell | minus: new_px }}" y="54" width="{{ new_px }}" height="232" rx="4" fill="#d9d2c0"/>
+          <rect class="wf-foam__dots" data-dots="r" x="{{ 560 | minus: shell | minus: new_px }}" y="54" width="{{ new_px }}" height="232" rx="4" fill="url(#wfDense-{{ section.id }})"/>
+
+          <g class="wf-foam__loss" fill="none" stroke="#ff8a4c" stroke-width="2" stroke-linecap="round">
+            <path data-loss d="M4 120c-10 -6 -10 -18 0 -24" transform="translate(0 0)"/>
+            <path data-loss d="M4 190c-10 -6 -10 -18 0 -24"/>
+            <path data-loss d="M4 260c-10 -6 -10 -18 0 -24"/>
+            <path data-loss d="M556 120c10 -6 10 -18 0 -24"/>
+            <path data-loss d="M556 190c10 -6 10 -18 0 -24"/>
+            <path data-loss d="M556 260c10 -6 10 -18 0 -24"/>
+            <path data-loss d="M200 36c-4 -10 4 -16 0 -26M280 36c-4 -10 4 -16 0 -26M360 36c-4 -10 4 -16 0 -26"/>
+          </g>
+
+          <g font-family="inherit" font-size="13" fill="rgba(255,255,255,.85)" text-anchor="middle">
+            <text x="280" y="190" font-size="15" font-weight="600" fill="#fff">40°C</text>
+            <text x="280" y="210" fill="rgba(255,255,255,.7)">stays in the water</text>
+          </g>
+        </svg>
+
+        <div class="wf-foam__controls">
+          {%- if thinner -%}
+            <wf-toggle class="wf-seg" data-attr="state" role="group" aria-label="Compare walls">
+              <button type="button" data-value="old" aria-pressed="false">{{ section.settings.old_label }}</button>
+              <button type="button" data-value="new" aria-pressed="true">{{ section.settings.new_label }}</button>
+            </wf-toggle>
+          {%- endif -%}
+          <div class="wf-foam__legend">
+            <span style="--c:#d9d2c0">Eco foam</span>
+            <span style="--c:#5ec8dc">Water</span>
+            <span style="--c:#ff8a4c">Heat</span>
+          </div>
+        </div>
+        {%- if thinner -%}
+          <p class="wf-small" data-show="old" hidden style="margin:14px 0 0;color:rgba(255,255,255,.6)">{{ old_t }} cm wall at {{ old_d }} kg/m³.</p>
+          <p class="wf-small" data-show="new" style="margin:14px 0 0;color:rgba(255,255,255,.6)">{{ wall_t }} cm wall{% if density > 0 %} at {{ density }} kg/m³{% endif %}. {{ gain }} cm more room across the water.</p>
+        {%- endif -%}
+      </wf-foam>
+    </div>
+
+    {%- if section.settings.show_notes -%}
+      <p class="wf-note">Test note: wall read from key features ({{ wall_t }} cm{% if density > 0 %}, {{ density }}{% endif %}). The spec data says "kg/cm³"; this page shows kg/m³, which is the correct unit for PE foam, so fix the key features copy. Compared with the "previous wall" setting ({{ old_t }} cm at {{ old_d }} kg/m³). Confirm those previous-wall figures with product. Only eco foam walls thinner than that get the "thinner" story; frame spas and thicker walls get the insulation story. The heat-loss arrows are illustrative, not measured. The energy comparison uses the Wave calculator figures ({{ kwh | default: '—' }} vs {{ section.settings.inflatable_kwh }} kWh a day).</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FY27 eco foam",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Eco foam" },
+    {
+      "type": "select",
+      "id": "scope",
+      "label": "Show on",
+      "options": [
+        { "value": "eco", "label": "Eco foam spas only" },
+        { "value": "any", "label": "Any spa with a foam wall (incl. frame)" }
+      ],
+      "default": "any"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Eco foam walls" },
+    { "type": "text", "id": "heading_thinner", "label": "Heading (thinner wall)", "default": "Thinner walls. Warmer water." },
+    { "type": "textarea", "id": "lede_thinner", "label": "Intro (thinner wall)", "default": "This year's eco foam wall is slimmer and denser. Denser foam packs more insulation into every centimetre, so the heat stays in the water while the wall gives the space back to you." },
+    { "type": "text", "id": "heading_insulation", "label": "Heading (other walls)", "default": "Heat stays where you are." },
+    { "type": "textarea", "id": "lede_insulation", "label": "Intro (other walls)", "info": "[wall] becomes the wall thickness.", "default": "A rigid [wall] cm wall of closed-cell eco foam wraps the water on every side, so the heater works less to hold 40°C and the water is still warm when you come back to it." },
+    { "type": "textarea", "id": "energy_line", "label": "Energy line", "info": "[pct] becomes the saving against an inflatable.", "default": "It all adds up: a foam spa uses around [pct]% less energy to keep warm than an inflatable, on our running cost estimates." },
+    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Wave running cost estimates: [kwh] kWh a day for this spa against [ikwh] kWh a day for an inflatable." },
+    { "type": "header", "content": "Previous wall" },
+    { "type": "number", "id": "old_thickness", "label": "Previous wall thickness (cm)", "default": 15 },
+    { "type": "number", "id": "old_density", "label": "Previous foam density (kg/m³)", "default": 33 },
+    { "type": "text", "id": "old_label", "label": "Previous label", "default": "Previous wall" },
+    { "type": "text", "id": "new_label", "label": "New label", "default": "New wall" },
+    { "type": "number", "id": "inflatable_kwh", "label": "Inflatable kWh a day (for comparison)", "default": 16 },
+    { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}
