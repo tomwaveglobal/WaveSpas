@@ -330,6 +330,122 @@
     }
   }
 
+
+  /* <wf-tabbar> — sticky section tabs + add to bag (layout 2) */
+  class WfTabBar extends HTMLElement {
+    connectedCallback() {
+      const list = this.querySelector('[data-links]');
+      const targets = [...document.querySelectorAll('[data-wf-nav]')];
+      if (list) {
+        list.innerHTML = '';
+        targets.forEach((t) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `#${t.id}`;
+          a.textContent = t.dataset.wfNav;
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const y = t.getBoundingClientRect().top + window.scrollY - this.offsetHeight - 8;
+            window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+          });
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+        const links = [...list.querySelectorAll('a')];
+        const spy = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              links.forEach((a) => a.setAttribute('aria-current', a.hash === `#${entry.target.id}` ? 'true' : 'false'));
+            });
+          },
+          { rootMargin: '-40% 0px -55% 0px' }
+        );
+        targets.forEach((t) => spy.observe(t));
+      }
+      const price = this.querySelector('[data-price]');
+      const currency = this.dataset.currency;
+      if (price) onVariant((v) => (price.textContent = money(v.price / 100, currency)));
+      this.querySelector('[data-add]')?.addEventListener('click', () => {
+        const form = productForm();
+        const submit = form?.querySelector('[type="submit"]:not([disabled])');
+        if (submit) submit.click();
+        else scrollToBuy();
+      });
+    }
+  }
+
+  /* <wf-slides> — story / detail slides with arrows and dots */
+  class WfSlides extends HTMLElement {
+    connectedCallback() {
+      this.groups = [...this.querySelectorAll('[data-slides]')].map((g) => [...g.children]);
+      this.count = this.groups[0]?.length || 0;
+      if (this.count < 2) {
+        this.querySelectorAll('[data-prev], [data-next], [data-dots]').forEach((el) => (el.hidden = true));
+        return;
+      }
+      const dots = this.querySelector('[data-dots]');
+      if (dots) {
+        dots.innerHTML = '';
+        for (let i = 0; i < this.count; i++) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', `Slide ${i + 1}`);
+          b.addEventListener('click', () => this.go(i));
+          dots.appendChild(b);
+        }
+      }
+      this.querySelector('[data-prev]')?.addEventListener('click', () => this.go(this.index - 1));
+      this.querySelector('[data-next]')?.addEventListener('click', () => this.go(this.index + 1));
+      this.go(0);
+    }
+    go(i) {
+      this.index = (i + this.count) % this.count;
+      this.groups.forEach((slides) => slides.forEach((s, n) => s.classList.toggle('is-active', n === this.index)));
+      this.querySelectorAll('[data-dots] button').forEach((b, n) => b.setAttribute('aria-current', String(n === this.index)));
+    }
+  }
+
+
+  /* <wf-carousel> — sliding track with arrows, dots and swipe */
+  class WfCarousel extends HTMLElement {
+    connectedCallback() {
+      this.track = this.querySelector('[data-track]');
+      this.slides = this.track ? [...this.track.children] : [];
+      if (this.slides.length < 2) {
+        this.querySelectorAll('[data-prev], [data-next], [data-dots]').forEach((el) => (el.hidden = true));
+        return;
+      }
+      const dots = this.querySelector('[data-dots]');
+      if (dots) {
+        dots.innerHTML = '';
+        this.slides.forEach((_, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', `Slide ${i + 1}`);
+          b.addEventListener('click', () => this.go(i));
+          dots.appendChild(b);
+        });
+      }
+      this.querySelector('[data-prev]')?.addEventListener('click', () => this.go(this.index - 1));
+      this.querySelector('[data-next]')?.addEventListener('click', () => this.go(this.index + 1));
+      let x0 = null;
+      this.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+      this.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) this.go(this.index + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+      this.go(0);
+    }
+    go(i) {
+      this.index = (i + this.slides.length) % this.slides.length;
+      this.track.style.transform = `translateX(-${this.index * 100}%)`;
+      this.querySelectorAll('[data-dots] button').forEach((b, n) => b.setAttribute('aria-current', String(n === this.index)));
+    }
+  }
+
   const define = (name, cls) => customElements.get(name) || customElements.define(name, cls);
   define('wf-section', WfSection);
   define('wf-localnav', WfLocalNav);
@@ -340,6 +456,9 @@
   define('wf-buy', WfBuy);
   define('wf-explode', WfExplode);
   define('wf-model', WfModel);
+  define('wf-tabbar', WfTabBar);
+  define('wf-slides', WfSlides);
+  define('wf-carousel', WfCarousel);
 
   window.WaveFY27 = { money };
 })();

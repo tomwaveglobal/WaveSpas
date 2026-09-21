@@ -111,7 +111,21 @@
   padding: 0;
   list-style: none;
 }
-@media (max-width: 989px) { .wfb-box { --cols: 2 !important; } }
+@media (max-width: 989px) {
+  /* one row on every screen: scroll sideways rather than wrap */
+  .wfb-box {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(150px, 1fr);
+    grid-template-columns: none;
+    margin-inline: calc(var(--page-padding, 20px) * -1);
+    padding-inline: var(--page-padding, 20px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .wfb-box::-webkit-scrollbar { display: none; }
+  .wfb-box li { scroll-snap-align: center; }
+}
 .wfb-box li { text-align: center; }
 .wfb-box__media {
   display: grid;
@@ -125,6 +139,7 @@
 .wfb-box__media img { width: 100%; height: 100%; object-fit: cover; }
 .wfb-box__media img.is-icon { width: 46%; height: 46%; object-fit: contain; mix-blend-mode: multiply; }
 .wfb-box .wf-body { margin-top: 4px; }
+.wfb-box .wf-h3 { font-size: var(--text-base); }
 
 /* Specifications ---------------------------------------------------------- */
 .wfb-specs {
@@ -135,6 +150,8 @@
 }
 .wfb-specs__media { align-self: center; }
 .wfb-specs__media img { width: 100%; height: auto; border-radius: var(--rounded-card, 16px); }
+.wfb-specs__media--diagram svg { display: block; width: 100%; height: auto; }
+.wfb-specs__media--diagram { padding-block: 8px; }
 .wfb-specs__col { display: grid; gap: clamp(28px, 4vw, 48px); }
 .wfb-spec { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; align-items: start; }
 .wfb-spec__ring {
@@ -154,22 +171,40 @@
   .wfb-specs__media { order: -1; max-width: 420px; margin-inline: auto; }
 }
 
-/* Story ------------------------------------------------------------------- */
-.wfb-story { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
-@media (max-width: 989px) { .wfb-story { grid-template-columns: 1fr; } }
-.wfb-story__panel {
+/* Story carousel --------------------------------------------------------- */
+.wfb-car { position: relative; overflow: hidden; }
+.wfb-car__track {
+  display: flex;
+  transition: transform 0.7s var(--wf-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  will-change: transform;
+}
+.wfb-car__slide { flex: 0 0 100%; display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 989px) { .wfb-car__slide { grid-template-columns: 1fr; } }
+.wfb-car__panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(32px, 6vw, 96px);
+  padding: clamp(32px, 6vw, 88px);
   background: #fafafa;
 }
-.wfb-story__media { position: relative; min-height: 420px; background: #f1f1f1; }
-.wfb-story__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.wfb-story__slide { display: none; }
-.wfb-story__slide.is-active { display: block; animation: wfb-fade 0.6s var(--wf-ease, ease); }
-@keyframes wfb-fade { from { opacity: 0; transform: translateY(8px); } }
-.wfb-story__nav { display: flex; align-items: center; gap: 12px; margin-top: clamp(24px, 4vw, 48px); }
+.wfb-car__panel .wf-lede { max-width: 38ch; }
+.wfb-car__media { position: relative; min-height: 380px; background: #f1f1f1; }
+.wfb-car__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wfb-car__nav {
+  position: absolute;
+  left: 0;
+  right: 50%;
+  bottom: clamp(24px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-inline: clamp(32px, 6vw, 88px);
+  pointer-events: none;
+}
+.wfb-car__nav > * { pointer-events: auto; }
+@media (max-width: 989px) {
+  .wfb-car__nav { position: static; padding: 20px var(--page-padding, 20px) 24px; background: #fafafa; }
+}
 .wfb-arrow {
   display: grid;
   place-items: center;
@@ -178,7 +213,7 @@
   border: 0;
   border-radius: 50%;
   color: #000;
-  background: transparent;
+  background: #fff;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
@@ -186,7 +221,7 @@
 .wfb-arrow:hover { color: #fff; background: #000; }
 .wfb-arrow svg { width: 16px; height: 16px; }
 .wfb-dots { display: flex; gap: 8px; margin-left: auto; }
-.wfb-dots button { width: 28px; height: 3px; padding: 0; border: 0; border-radius: 99px; background: rgba(0, 0, 0, 0.16); cursor: pointer; }
+.wfb-dots button { width: 28px; height: 3px; padding: 0; border: 0; border-radius: 99px; background: rgba(0, 0, 0, 0.18); cursor: pointer; }
 .wfb-dots button[aria-current='true'] { background: #f59e0b; }
 
 /* Design details ---------------------------------------------------------- */

@@ -50,60 +50,7 @@
         </div>
 
         <wf-explode class="wf-xp__stage" data-wf-reveal>
-          <svg viewBox="0 0 700 1000" role="img" aria-label="{{ section.settings.diagram_label | escape }}">
-            <defs>
-              <pattern id="wfFoam-{{ section.id }}" width="7" height="7" patternUnits="userSpaceOnUse">
-                <rect width="7" height="7" fill="#efe6d2"/><circle cx="2" cy="2" r="1.2" fill="#d6c9ac"/><circle cx="5.5" cy="5.5" r="1" fill="#e0d5bd"/>
-              </pattern>
-            </defs>
-          <g class="wf-xp__guides">
-          <line x1="41.9" y1="876.7" x2="41.9" y2="138.9" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
-          <line x1="350.0" y1="973.6" x2="350.0" y2="235.8" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
-          <line x1="658.1" y1="876.7" x2="658.1" y2="138.9" stroke="#c9c9c9" stroke-width="1" stroke-dasharray="4 6"/>
-          </g>
-          <g class="wf-xp__layer" data-layer="base">
-          <polygon points="41.9,886.9 350.0,983.8 350.0,973.6 41.9,876.7" fill="#2e2e2e"/>
-          <polygon points="658.1,886.9 350.0,983.8 350.0,973.6 658.1,876.7" fill="#222"/>
-          <polygon points="350.0,779.8 658.1,876.7 350.0,973.6 41.9,876.7" fill="url(#wfFoam-{{ section.id }})"/>
-          </g>
-          <g class="wf-xp__layer" data-layer="liner">
-          <polygon points="350.0,626.8 609.5,708.4 350.0,790.0 90.5,708.4" fill="#d6ebf0"/>
-          <polygon points="350.0,626.8 609.5,708.4 609.5,626.8 350.0,545.2" fill="#b9dbe4"/>
-          <polygon points="350.0,626.8 90.5,708.4 90.5,626.8 350.0,545.2" fill="#a7d0dc"/>
-          <polygon points="325.7,649.8 536.5,716.0 536.5,671.8 325.7,605.5" fill="#9fcad7"/>
-          <polygon points="585.2,700.8 536.5,716.0 536.5,671.8 585.2,656.5" fill="#8fbfcd"/>
-          <polygon points="374.3,590.2 585.2,656.5 536.5,671.8 325.7,605.5" fill="#cfe7ee"/>
-          <line x1="409.2" y1="600.0" x2="388.1" y2="564.5" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <line x1="409.2" y1="600.0" x2="430.3" y2="577.8" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <line x1="482.2" y1="623.0" x2="461.1" y2="587.4" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <line x1="482.2" y1="623.0" x2="503.3" y2="600.7" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <line x1="555.2" y1="645.9" x2="534.1" y2="610.4" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <line x1="555.2" y1="645.9" x2="576.2" y2="623.7" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5"/>
-          <polygon points="90.5,708.4 350.0,790.0 350.0,708.4 90.5,626.8" fill="#c7e2ea"/>
-          <polygon points="609.5,708.4 350.0,790.0 350.0,708.4 609.5,626.8" fill="#b3d7e1"/>
-          <polyline points="90.5,626.8 350.0,545.2 609.5,626.8" fill="none" stroke="#8fbfcd" stroke-width="1.5"/>
-          <polyline points="90.5,626.8 350.0,708.4 609.5,626.8" fill="none" stroke="#fff" stroke-width="1.5"/>
-          </g>
-          <g class="wf-xp__layer" data-layer="wall">
-          <polygon points="350.0,359.9 609.5,441.5 609.5,324.2 350.0,242.6" fill="#3b3b3b"/>
-          <polygon points="350.0,359.9 90.5,441.5 90.5,324.2 350.0,242.6" fill="#333"/>
-          <path d="M350.0,227.3 L658.1,324.2 L350.0,421.1 L41.9,324.2 Z M350.0,242.6 L90.5,324.2 L350.0,405.8 L609.5,324.2 Z" fill="url(#wfFoam-{{ section.id }})" fill-rule="evenodd"/>
-          <polygon points="41.9,441.5 350.0,538.4 350.0,421.1 41.9,324.2" fill="#4a4a4a"/>
-          <polygon points="658.1,441.5 350.0,538.4 350.0,421.1 658.1,324.2" fill="#373737"/>
-          <polyline points="41.9,324.2 350.0,421.1 658.1,324.2" fill="none" stroke="#6b6b6b" stroke-width="1.5"/>
-          <polygon points="466.8,477.9 385.7,503.4 385.7,442.2 466.8,416.7" fill="#1e1e1e" stroke="#555" stroke-width="1"/>
-          <circle cx="447.3" cy="443.2" r="3.5" fill="#f59e0b"/>
-          </g>
-          <g class="wf-xp__layer" data-layer="lid">
-          <polygon points="41.9,138.9 350.0,235.8 350.0,215.4 41.9,118.5" fill="#2b2b2b"/>
-          <polygon points="658.1,138.9 350.0,235.8 350.0,215.4 658.1,118.5" fill="#222"/>
-          <polygon points="350.0,21.6 658.1,118.5 350.0,215.4 41.9,118.5" fill="#3a3a3a"/>
-          <line x1="298.1" y1="44.0" x2="586.8" y2="134.8" stroke="#4b4b4b" stroke-width="2"/>
-          <line x1="236.5" y1="63.4" x2="525.2" y2="154.2" stroke="#4b4b4b" stroke-width="2"/>
-          <line x1="174.8" y1="82.8" x2="463.5" y2="173.6" stroke="#4b4b4b" stroke-width="2"/>
-          <line x1="113.2" y1="102.2" x2="401.9" y2="193.0" stroke="#4b4b4b" stroke-width="2"/>
-          </g>
-          </svg>
+          {%- render 'wave-fy27-explode', uid: section.id, label: section.settings.diagram_label -%}
           
           <button type="button" class="wf-xp__hot wf-xp__hot--right" style="left:50.0%;top:11.85%" data-layer="lid" aria-describedby="WfXp-{{ section.id }}-lid">
             <span class="wf-xp__num">1</span>
