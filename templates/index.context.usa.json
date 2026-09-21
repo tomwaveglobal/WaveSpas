@@ -14,7 +14,6 @@
   "parent": "index.json",
   "sections": {
     "slideshow_aYCGKX": {
-      "settings": {},
       "blocks": {
         "image_JUM7dH": {
           "disabled": true,
@@ -24,7 +23,7 @@
             "image_mobile": "shopify://shop_images/Mobile_Tablet_US_20_-labor-day.jpg",
             "heading": "‎",
             "button_label": "Shop Labor Day Sale",
-            "button_link": "shopify://collections/labour-day-sale"
+            "button_link": "shopify://collections/sale"
           }
         },
         "image_EUEdiE": {
@@ -39,7 +38,6 @@
           }
         },
         "image_9rd3Vt": {
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_4478ed00-29bc-49be-835f-023c77359b82.jpg",
             "image_mobile": "shopify://shop_images/Mobile_056ad8b5-fc0a-4146-9419-8e27cf8587c0.jpg",
@@ -54,7 +52,6 @@
           }
         },
         "image_rmPQY4": {
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
@@ -71,19 +68,18 @@
           }
         },
         "image_hc4WwT": {
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-transition-222_1c158cad-1812-4556-879a-69f9bc67cc35.jpg",
             "heading": "‎The water’s waiting.",
-            "button_label": "Explore The Range",
-            "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
-            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
-            "button_position": "below",
-            "secondary_heading_weight": "font-normal",
             "heading_size": "title-lg tracking-heading",
-            "button_style": "secondary",
-            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range"
+            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below",
+            "button_label": "Explore The Range",
+            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
+            "button_style": "secondary"
           }
         }
       },
@@ -93,19 +89,18 @@
         "image_9rd3Vt",
         "image_rmPQY4",
         "image_hc4WwT"
-      ]
+      ],
+      "settings": {}
     },
     "featured-product": {
       "settings": {
         "product": "ontario-hot-tub-etl"
-      },
-      "blocks": {}
+      }
     },
     "blog-posts-collage": {
       "settings": {
         "blog": "wave-spas-usa"
-      },
-      "blocks": {}
+      }
     }
   }
 }

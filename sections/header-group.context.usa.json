@@ -14,19 +14,15 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {},
       "blocks": {
         "announcement_imVJK": {
           "type": "announcement",
-          "disabled": false,
           "settings": {
             "icon": "none",
             "text": "<em><strong>15% off Inflatables  </strong></em>Shop Now",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-69c5f9dca45dbccbfad4c71a3825cf0d": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
-            "header-3f5d92376ab4cfa2838cfe6fa23abacd": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -38,10 +34,8 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
-            "header-3e2762238b04d8ff284d23a93c8bb6c8": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
-            "header-b2419ff9189f587b5a11a882beff6868": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -67,13 +61,10 @@
         "announcement_qLAXY",
         "announcement-2",
         "announcement-1"
-      ]
+      ],
+      "settings": {}
     },
     "header": {
-      "settings": {
-        "menu": "nav-2026-us",
-        "menu_mobile": "nav-2026-us"
-      },
       "blocks": {
         "mega_menu_tab_zgiwaa": {
           "settings": {
@@ -92,14 +83,10 @@
             "tab_target_link_11": ""
           }
         },
-        "mega_menu_tab_63jewV": {
-          "disabled": false,
-          "settings": {}
-        },
         "mega_menu_tab_MyVeNJ": {
           "settings": {
             "button_link": "shopify://collections/sale-eu",
-            "tab_target_link_1": "shopify://collections/labour-day-sale",
+            "tab_target_link_1": "shopify://collections/sale",
             "tab_target_2": "",
             "tab_target_link_2": "",
             "tab_target_link_3": "shopify://collections/clearance-usa"
@@ -112,7 +99,11 @@
         "mega_menu_tab_63jewV",
         "mega_menu_tab_RkApqL",
         "mega_menu_tab_MyVeNJ"
-      ]
+      ],
+      "settings": {
+        "menu": "nav-2026-us",
+        "menu_mobile": "nav-2026-us"
+      }
     }
   }
 }
