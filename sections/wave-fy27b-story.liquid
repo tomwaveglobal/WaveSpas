@@ -1,0 +1,78 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+{{ 'wave-fy27b.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign name = product.title | split: '|' | first | strip
+  assign tier = 'Lush'
+  if product.tags contains 'Lite'
+    assign tier = 'Lite'
+  elsif product.tags contains 'Luxe'
+    assign tier = 'Luxe'
+  endif
+-%}
+{%- if section.blocks.size > 0 -%}
+<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <wf-slides class="wfb-story">
+    <div class="wfb-story__panel">
+      <div data-slides>
+        {%- for block in section.blocks -%}
+          <div class="wfb-story__slide" {{ block.shopify_attributes }}>
+            <p class="wf-eyebrow">{{ block.settings.eyebrow | default: section.settings.heading | replace: '[tier]', tier }}</p>
+            <h2 class="wf-h2">{{ block.settings.title | replace: '[product]', name | replace: '[tier]', tier }}</h2>
+            <p class="wf-lede">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.blocks.size > 1 -%}
+        <div class="wfb-story__nav">
+          <button type="button" class="wfb-arrow" data-prev aria-label="{{ section.settings.prev_label | escape }}">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg>
+          </button>
+          <button type="button" class="wfb-arrow" data-next aria-label="{{ section.settings.next_label | escape }}">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg>
+          </button>
+          <div class="wfb-dots" data-dots role="group" aria-label="{{ section.settings.nav_label | escape }}"></div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="wfb-story__media">
+      <div data-slides>
+        {%- for block in section.blocks -%}
+          {%- assign img = block.settings.image | default: product.media[forloop.index0].preview_image -%}
+          <div class="wfb-story__slide">
+            {%- if img != blank -%}
+              {{ img | image_url: width: 1800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '700, 1100, 1500, 1800', alt: block.settings.title | default: name }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </wf-slides>
+</wf-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FY27-2 story",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Tab label", "default": "Story" },
+    { "type": "text", "id": "heading", "label": "Default small line", "default": "Story" },
+    { "type": "text", "id": "prev_label", "label": "Previous label", "default": "Previous" },
+    { "type": "text", "id": "next_label", "label": "Next label", "default": "Next" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Small line" },
+        { "type": "text", "id": "title", "label": "Title", "info": "[product] and [tier] are filled in for you.", "default": "[product]" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "The story of this spa." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Falls back to the product's gallery." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

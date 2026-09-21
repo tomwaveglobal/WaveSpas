@@ -1,0 +1,80 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+{{ 'wave-fy27b.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  comment
+    Items come from the product's custom.in_the_box metaobjects (icon + label),
+    the same data the theme's product details tabs use. Blocks override them.
+  endcomment
+  assign items = product.metafields.custom.in_the_box.value
+  assign use_blocks = false
+  if section.blocks.size > 0
+    assign use_blocks = true
+  endif
+  assign count = items.size
+  if use_blocks
+    assign count = section.blocks.size
+  endif
+-%}
+{%- if count > 0 -%}
+<wf-section class="wf{% if section.settings.soft %} wf--soft{% endif %}" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wfb-head">
+      <h2 class="wf-h2" data-wf-reveal>{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}<p class="wf-lede" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.lede }}</p>{%- endif -%}
+    </div>
+
+    <ul class="wfb-box" role="list" style="--cols: {% if count < 4 %}{{ count }}{% else %}4{% endif %}">
+      {%- if use_blocks -%}
+        {%- for block in section.blocks -%}
+          <li data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.06 }}s" {{ block.shopify_attributes }}>
+            <div class="wfb-box__media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 300px, 45vw', widths: '300, 500, 700', alt: block.settings.title }}
+              {%- endif -%}
+            </div>
+            <h3 class="wf-h3">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="wf-body">{{ block.settings.text }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for item in items -%}
+          <li data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.06 }}s">
+            <div class="wfb-box__media">
+              {%- if item.icon != blank -%}
+                {{ item.icon | image_url: width: 400 | image_tag: class: 'is-icon', loading: 'lazy', widths: '200, 300, 400', alt: item.label }}
+              {%- endif -%}
+            </div>
+            <h3 class="wf-h3">{{ item.label }}</h3>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+</wf-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FY27-2 in the box",
+  "settings": [
+    { "type": "paragraph", "content": "Uses the product's In the box metafield. Add blocks to override it with photography." },
+    { "type": "text", "id": "nav_label", "label": "Tab label", "default": "In the box" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "In the box" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Everything you need for your first soak." },
+    { "type": "checkbox", "id": "soft", "label": "Off-white background", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Item" },
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+{{ 'wave-fy27b.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign name = product.title | split: '|' | first | strip
+  assign sub = product.title | split: '|' | last | strip
+  assign variant = product.selected_or_first_available_variant
+-%}
+<style>
+  #shopify-section-{{ section.id }} { position: sticky; top: 0; z-index: 20; }
+</style>
+<div class="wfb-bar">
+  <wf-tabbar class="wfb-bar__inner" data-currency="{{ cart.currency.iso_code }}">
+    <div class="wfb-bar__id">
+      {%- if product.featured_media != blank -%}
+        {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: class: 'wfb-bar__thumb', loading: 'lazy', width: 44, height: 44, alt: name }}
+      {%- endif -%}
+      <div>
+        <p class="wfb-bar__name">{{ name }}</p>
+        {%- if section.settings.show_subtitle and sub != name -%}<p class="wfb-bar__sub">{{ sub | truncate: 34 }}</p>{%- endif -%}
+      </div>
+    </div>
+    <ul class="wfb-bar__links" data-links role="list"></ul>
+    <button type="button" class="wfb-bar__buy" data-add>
+      <span data-price>{{ variant.price | money }}</span>
+      <span aria-hidden="true">|</span>
+      <span>{{ section.settings.button_label }}</span>
+    </button>
+  </wf-tabbar>
+</div>
+
+{% schema %}
+{
+  "name": "FY27-2 tab bar",
+  "settings": [
+    { "type": "paragraph", "content": "Sticky bar under the buy box. The tabs build themselves from the FY27-2 sections on the page." },
+    { "type": "checkbox", "id": "show_subtitle", "label": "Show the product subtitle", "default": true },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to basket" }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

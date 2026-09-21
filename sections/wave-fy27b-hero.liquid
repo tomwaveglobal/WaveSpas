@@ -1,0 +1,43 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+{{ 'wave-fy27b.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign name = product.title | split: '|' | first | strip
+  assign img = section.settings.image | default: product.featured_media.preview_image
+  assign img_mobile = section.settings.image_mobile | default: img
+  assign tier = 'Lush'
+  if product.tags contains 'Lite'
+    assign tier = 'Lite'
+  elsif product.tags contains 'Luxe'
+    assign tier = 'Luxe'
+  endif
+-%}
+<div class="wf wfb-hero">
+  {%- if img != blank -%}
+    <div class="wfb-hero__media">
+      <picture>
+        <source media="(max-width: 749px)" srcset="{{ img_mobile | image_url: width: 900 }} 900w, {{ img_mobile | image_url: width: 1400 }} 1400w" sizes="100vw">
+        {{- img | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '1200, 1800, 2400, 3000', alt: name -}}
+      </picture>
+      <div class="wfb-hero__scrim" aria-hidden="true"></div>
+      <div class="wfb-hero__copy">
+        {%- if section.settings.show_eyebrow -%}<p class="wf-eyebrow">{{ section.settings.eyebrow | replace: '[tier]', tier }}</p>{%- endif -%}
+        <h1 class="wf-display">{{ section.settings.heading | default: name }}</h1>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "FY27-2 hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (desktop)", "info": "A wide lifestyle shot. Falls back to the product's featured image." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)" },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave empty to use the product name." },
+    { "type": "checkbox", "id": "show_eyebrow", "label": "Show the small line above", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Small line", "info": "[tier] becomes Lite, Lush or Luxe.", "default": "[tier] range" }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}
