@@ -3,7 +3,8 @@
 <script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
 {%- liquid
   assign name = product.title | split: '|' | first | strip
-  assign sub = product.title | split: '|' | last | strip
+  assign parts = product.title | split: '|'
+  assign sub = parts[1] | default: '' | strip
   assign variant = product.selected_or_first_available_variant
 -%}
 <style>
@@ -17,7 +18,7 @@
       {%- endif -%}
       <div>
         <p class="wfb-bar__name">{{ name }}</p>
-        {%- if section.settings.show_subtitle and sub != name -%}<p class="wfb-bar__sub">{{ sub | truncate: 34 }}</p>{%- endif -%}
+        {%- if section.settings.show_subtitle and sub != blank and sub != name -%}<p class="wfb-bar__sub">{{ sub | truncate: 34 }}</p>{%- endif -%}
       </div>
     </div>
     <ul class="wfb-bar__links" data-links role="list"></ul>

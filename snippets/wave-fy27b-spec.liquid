@@ -1,0 +1,19 @@
+{%- comment -%}
+  One specification row: {% render 'wave-fy27b-spec', entry: entry, words: 30 %}
+  entry is "icon¦title¦text" as built by sections/wave-fy27b-specs.liquid.
+{%- endcomment -%}
+{%- liquid
+  assign parts = entry | split: '¦'
+  assign icon = parts[0] | strip
+  assign title = parts[1] | strip
+  assign text = parts[2] | strip
+-%}
+{%- if title != blank -%}
+  <div class="wfb-spec" data-wf-reveal>
+    <span class="wfb-spec__ring">{%- render 'wave-fy27-glyph', name: icon -%}</span>
+    <div>
+      <h3 class="wf-h3">{{ title }}</h3>
+      {%- if text != blank -%}<p class="wf-body">{{ text | truncatewords: words, '…' }}</p>{%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
