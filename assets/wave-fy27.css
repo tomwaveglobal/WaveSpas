@@ -591,11 +591,11 @@ wf-explode { display: block; }
 /* layers slide apart as the diagram comes into view */
 .wf-xp__layer,
 .wf-xp__guides { transition: transform 1.4s var(--wf-ease), opacity 0.5s var(--wf-ease); }
-.wf-xp__layer[data-layer='lid'] { transform: translateY(150px); }
-.wf-xp__layer[data-layer='wall'] { transform: translateY(60px); }
-.wf-xp__layer[data-layer='liner'] { transform: translateY(-40px); }
-.wf-xp__layer[data-layer='base'] { transform: translateY(-150px); }
-.wf-xp__guides { opacity: 0; }
+.wf-xp__stage .wf-xp__layer[data-layer='lid'] { transform: translateY(150px); }
+.wf-xp__stage .wf-xp__layer[data-layer='wall'] { transform: translateY(60px); }
+.wf-xp__stage .wf-xp__layer[data-layer='liner'] { transform: translateY(-40px); }
+.wf-xp__stage .wf-xp__layer[data-layer='base'] { transform: translateY(-150px); }
+.wf-xp__stage .wf-xp__guides { opacity: 0; }
 .wf-xp__stage.is-in .wf-xp__layer { transform: none; }
 .wf-xp__stage.is-in .wf-xp__guides { opacity: 1; transition-delay: 0.8s; }
 

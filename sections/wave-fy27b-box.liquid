@@ -24,7 +24,7 @@
       {%- if section.settings.lede != blank -%}<p class="wf-lede" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.lede }}</p>{%- endif -%}
     </div>
 
-    <ul class="wfb-box" role="list" style="--cols: {% if count < 4 %}{{ count }}{% else %}4{% endif %}">
+    <ul class="wfb-box" role="list" style="--cols: {{ count | at_most: 6 }}">
       {%- if use_blocks -%}
         {%- for block in section.blocks -%}
           <li data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.06 }}s" {{ block.shopify_attributes }}>
