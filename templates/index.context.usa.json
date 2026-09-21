@@ -14,7 +14,6 @@
   "parent": "index.json",
   "sections": {
     "slideshow_aYCGKX": {
-      "settings": {},
       "blocks": {
         "image_JUM7dH": {
           "settings": {
@@ -23,11 +22,10 @@
             "image_mobile": "shopify://shop_images/Mobile_Tablet_US_20_-labor-day.jpg",
             "heading": "‎",
             "button_label": "Shop Labor Day Sale",
-            "button_link": "shopify://collections/labour-day-sale"
+            "button_link": "shopify://collections/sale"
           }
         },
         "image_EUEdiE": {
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/US_Ontario_Aug26_V2-1_b74d7051-34fa-4915-a11e-e90c7905044b.jpg",
             "image_tablet": "shopify://shop_images/US_Ontario_Aug26_V2-2_a634d20b-4d82-4322-9c11-af352b1223f7.jpg",
@@ -47,10 +45,6 @@
             "button_link": "shopify://collections/hot-tub-full-range"
           }
         },
-        "image_rmPQY4": {
-          "disabled": false,
-          "settings": {}
-        },
         "image_hc4WwT": {
           "disabled": true,
           "settings": {
@@ -67,19 +61,18 @@
         "image_9rd3Vt",
         "image_rmPQY4",
         "image_hc4WwT"
-      ]
+      ],
+      "settings": {}
     },
     "featured-product": {
       "settings": {
         "product": "ontario-hot-tub-etl"
-      },
-      "blocks": {}
+      }
     },
     "blog-posts-collage": {
       "settings": {
         "blog": "wave-spas-usa"
-      },
-      "blocks": {}
+      }
     }
   }
 }
