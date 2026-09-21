@@ -19,18 +19,18 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/EU_Sale-30_-1_eae1da4e-7bd2-4615-acac-961cff95f83f.jpg",
-            "image_tablet": "shopify://shop_images/EU_Sale-30_-2_436ab5bf-f09f-485a-963b-df9e089b4b28.jpg",
-            "image_mobile": "shopify://shop_images/EU_Sale-30_-3_c12b2ec8-4692-4053-9ddf-795a135dab3e.jpg",
-            "heading": "",
+            "image": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-1_ecd5e904-21a6-4ea8-a9e3-345527ccbf6b.jpg",
+            "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-2_6a80ba6f-f26f-48b3-bbc2-7ba31f4b5b49.jpg",
+            "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-3_13599636-4ef6-4f54-bd34-fc2be84f1f1e.jpg",
+            "heading": "<span style=\"color: #f59e0b;\">Save Up to </span> £250 on Hot Tubs",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h1",
-            "secondary_heading": "",
+            "secondary_heading": "Get 15% off this week only! Includes UK delivery, warranty &amp; flexible finance options.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
-            "button_position": "beside",
+            "button_position": "below",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/foam-hot-tubs",
+            "button_link": "shopify://collections/hot-tub-full-range",
             "button_style": "primary"
           }
         },
@@ -41,7 +41,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-3d84dcf68fca6feb87f642e9dd46f9f5": null,
+            "header-a431aaffa7ac6cfba78d73a73b3c53f9": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
@@ -84,13 +84,6 @@
             "heading": "‎",
             "button_label": "Shop Pebble White",
             "button_link": "shopify://collections/foam-hot-tubs"
-          }
-        },
-        "image_hc4WwT": {
-          "settings": {
-            "image": null,
-            "image_tablet": null,
-            "image_mobile": null
           }
         }
       },
