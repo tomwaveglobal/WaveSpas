@@ -515,7 +515,8 @@
           "settings": {
             "eyebrow": "Story",
             "title": "[product]",
-            "text": "Every Wave spa starts with one question: what would make you use it on a Tuesday, not just on holiday?"
+            "text": "Every Wave spa starts with one question: what would make you use it on a Tuesday, not just on holiday?",
+            "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg"
           }
         },
         "slide_2": {
@@ -523,7 +524,8 @@
           "settings": {
             "eyebrow": "Design",
             "title": "Made for British weather",
-            "text": "Eco foam walls and a sealed lid hold the heat in, so the water is ready when the garden isn't."
+            "text": "Eco foam walls and a sealed lid hold the heat in, so the water is ready when the garden isn't.",
+            "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg"
           }
         },
         "slide_3": {
@@ -531,7 +533,8 @@
           "settings": {
             "eyebrow": "Evenings",
             "title": "Ten minutes is enough",
-            "text": "You don't need a free evening. Lift the lid, sink in, and let the day go."
+            "text": "You don't need a free evening. Lift the lid, sink in, and let the day go.",
+            "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg"
           }
         }
       },
@@ -551,16 +554,16 @@
         "detail_1": {
           "type": "detail",
           "settings": {
-            "media_index": 5,
+            "media_index": 6,
             "title": "Air Foam seats",
-            "text": "Moulded into the shell, set face to face.",
+            "text": "Moulded into the shell and set face to face, so everyone can lean back.",
             "requires": "Air Foam"
           }
         },
         "detail_2": {
           "type": "detail",
           "settings": {
-            "media_index": 6,
+            "media_index": 5,
             "title": "VertaAir™ bubbles",
             "text": "A V-shaped chamber rises from the seat into your lower back.",
             "requires": "VertaAir"
@@ -569,16 +572,16 @@
         "detail_3": {
           "type": "detail",
           "settings": {
-            "media_index": 7,
-            "title": "WiFi control",
-            "text": "Set the temperature from your phone before you get home.",
+            "media_index": 4,
+            "title": "Warm before you are home",
+            "text": "WiFi app control: set the temperature from the sofa or the car.",
             "requires": "WiFi"
           }
         },
         "detail_4": {
           "type": "detail",
           "settings": {
-            "media_index": 8,
+            "media_index": 0,
             "title": "Eco foam walls",
             "text": "Dense, rigid insulation on every side.",
             "requires": "PE foam wall"
