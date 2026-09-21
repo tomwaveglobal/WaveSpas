@@ -494,7 +494,7 @@
       "type": "wave-fy27b-box",
       "settings": {
         "heading": "In the box",
-        "lede": "Everything you need for your first soak.",
+        "lede": "Everything you need for your first soak — cover included.",
         "soft": false
       }
     },
@@ -586,13 +586,23 @@
             "text": "Dense, rigid insulation on every side.",
             "requires": "PE foam wall"
           }
+        },
+        "detail_5": {
+          "type": "detail",
+          "settings": {
+            "media_index": 7,
+            "title": "Spa light ready",
+            "text": "A built-in socket for the Wave spa light, sold separately.",
+            "requires": "spa light"
+          }
         }
       },
       "block_order": [
         "detail_1",
         "detail_2",
         "detail_3",
-        "detail_4"
+        "detail_4",
+        "detail_5"
       ],
       "settings": {
         "heading": "Design details",

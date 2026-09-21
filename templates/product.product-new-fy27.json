@@ -665,9 +665,9 @@
           "type": "benefit",
           "settings": {
             "tier": "lush",
-            "glyph": "quiet",
-            "title": "Up, or right down",
-            "text": "A full massage, or VertaCalm™ for a quiet soak."
+            "glyph": "seat",
+            "title": "Seats that hold you",
+            "text": "Moulded Air Foam seats in every Lush spa."
           }
         },
         "benefit_5": {
@@ -687,7 +687,7 @@
             "requires": "LED strip",
             "glyph": "light",
             "title": "Glow after dark",
-            "text": "LED strip ready for evenings under the stars."
+            "text": "LED strip and spa light ready. Both sold separately."
           }
         },
         "benefit_7": {
@@ -696,16 +696,16 @@
             "tier": "luxe",
             "glyph": "jets",
             "title": "Jets on demand",
-            "text": "VertaJet™: four hydro-jets, two intensities."
+            "text": "VertaJet™: four hydro-jets, adjustable intensity."
           }
         },
         "benefit_8": {
           "type": "benefit",
           "settings": {
             "tier": "luxe",
-            "glyph": "zones",
-            "title": "Two jet zones",
-            "text": "VertaZone™: two jet units, two pairs of jets."
+            "glyph": "bubbles",
+            "title": "Both at once",
+            "text": "Run the bubbles and the jets together, or either on its own."
           }
         },
         "benefit_9": {
@@ -735,7 +735,7 @@
         "model_usdz": "https://cdn.shopify.com/3d/models/o/61f4119a150ace04/Garda.usdz",
         "model_poster": "https://cdn.shopify.com/s/files/1/0058/2284/0889/files/preview_images/Garda.jpg?v=1728636177&width=1600",
         "lite_lede": "Step in, sink down, switch off. Everything you need, nothing you don't.",
-        "lush_lede": "Moulded seats, two bubble speeds and warm water waiting when you get home.",
+        "lush_lede": "Moulded seats, WiFi control and warm water waiting when you get home.",
         "luxe_lede": "Hydro-jets and climbing bubbles, aimed exactly where you carry the day.",
         "seats_label": "moulded seats",
         "people_label": "people",
@@ -873,7 +873,7 @@
             "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
             "signature": "Light work.",
             "for": "For getting in without a second thought.",
-            "features": "Open floor to stretch out\nBubbles all round\nTool-free setup"
+            "features": "Open floor to stretch out\nBubble massage\nCover included\nWaveFlow™ dual filtration"
           }
         },
         "tier_2": {
@@ -883,9 +883,9 @@
             "name": "Lush",
             "collection_handle": "lush-hot-tubs",
             "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
-            "signature": "Turn it down.",
+            "signature": "Settle in.",
             "for": "For evenings you want to last.",
-            "features": "Moulded Air Foam seats\nTwo bubble speeds\nWiFi app control"
+            "features": "Moulded Air Foam seats\nWiFi app control\nRising VertaAir™ bubbles on foam & frame\nWaveFlow™ dual filtration"
           }
         },
         "tier_3": {
@@ -897,7 +897,7 @@
             "image": "shopify://shop_images/AdriaticZoom.png",
             "signature": "Where you want it.",
             "for": "For pressure exactly where you need it.",
-            "features": "Four hydro-massage jets\nBubbles up the wall behind you\nSeparate bubble and jet controls"
+            "features": "Four hydro-massage jets, adjustable intensity\nVertaAir™ bubbles on every spa\nBubbles and jets together or apart\nWaveFlow™ dual filtration"
           }
         }
       },
@@ -1107,7 +1107,7 @@
           "type": "question",
           "settings": {
             "question": "Is it noisy?",
-            "answer": "<p>Barely. The heater and pump hum quietly, and the low bubble speed keeps late evenings neighbour-friendly.</p>"
+            "answer": "<p>Barely. The heater and pump hum quietly, and with the bubbles off it is quiet enough for a late evening.</p>"
           }
         },
         "question_5": {
