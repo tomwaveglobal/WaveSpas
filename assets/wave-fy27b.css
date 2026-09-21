@@ -67,7 +67,18 @@
 .wfb-bar__buy s { opacity: 0.55; }
 @media (max-width: 989px) {
   .wfb-bar__links { display: none; }
-  .wfb-bar__inner { justify-content: space-between; }
+  .wfb-bar__inner { gap: 12px; justify-content: space-between; }
+  .wfb-bar__id { flex: 1; min-width: 0; }
+  .wfb-bar__id > div { min-width: 0; }
+  .wfb-bar__name,
+  .wfb-bar__sub { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .wfb-bar__buy { padding: 0 16px; font-size: 13px; }
+}
+@media (max-width: 479px) {
+  .wfb-bar__thumb,
+  .wfb-bar__sub { display: none; }
+  .wfb-bar__buy span[aria-hidden] { display: none; }
+  .wfb-bar__buy [data-price] { display: none; }
 }
 
 /* Hero -------------------------------------------------------------------- */
