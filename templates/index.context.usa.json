@@ -38,6 +38,23 @@
             "button_link": "shopify://collections/inflatable-hot-tubs"
           }
         },
+        "image_rmPQY4": {
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
+            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
+            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
+            "heading": "Your evening escape.",
+            "heading_size": "title-lg tracking-heading",
+            "secondary_heading": "Step into the season hot tubs were made for. Crisp fall air, soft light, and nowhere else to be.",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below",
+            "button_label": "Find Yours",
+            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
+            "button_style": "secondary"
+          }
+        },
         "image_9rd3Vt": {
           "disabled": false,
           "settings": {
@@ -51,23 +68,6 @@
             "button_position": "below",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/hot-tub-full-range",
-            "button_style": "secondary"
-          }
-        },
-        "image_rmPQY4": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
-            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
-            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
-            "heading": "Your evening escape.",
-            "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Step into the season hot tubs were made for. Crisp autumn air, soft light, and nowhere else to be.",
-            "secondary_heading_size": "title-xxs",
-            "secondary_heading_weight": "font-normal",
-            "button_position": "below",
-            "button_label": "Find Yours",
-            "button_link": "https://wavespas.com/en-us/collections/hot-tub-full-range",
             "button_style": "secondary"
           }
         },
