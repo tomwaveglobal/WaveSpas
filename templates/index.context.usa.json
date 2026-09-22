@@ -14,6 +14,7 @@
   "parent": "index.json",
   "sections": {
     "slideshow_aYCGKX": {
+      "settings": {},
       "blocks": {
         "image_JUM7dH": {
           "disabled": true,
@@ -38,20 +39,23 @@
           }
         },
         "image_9rd3Vt": {
+          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_4478ed00-29bc-49be-835f-023c77359b82.jpg",
             "image_mobile": "shopify://shop_images/Mobile_056ad8b5-fc0a-4146-9419-8e27cf8587c0.jpg",
-            "heading": "Sale extended: <br>\n<span style=\"color: #F59E0B;\">Up to 15% off.</span>",
+            "heading": "Up to <span style=\"color: #f59e0b;\">15%</span> off <br> Hot Tubs",
             "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Save on all inflatable and frame spas, plus our accessories range.",
+            "secondary_heading": "<strong>Save up to $300.</strong> Complete with fast delivery, full warranty, and easy, flexible finance.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_position": "below",
-            "button_label": "Shop Inflatables",
-            "button_link": "shopify://collections/inflatable-hot-tubs"
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/hot-tub-full-range",
+            "button_style": "secondary"
           }
         },
         "image_rmPQY4": {
+          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
@@ -86,21 +90,22 @@
       "block_order": [
         "image_JUM7dH",
         "image_EUEdiE",
-        "image_9rd3Vt",
         "image_rmPQY4",
+        "image_9rd3Vt",
         "image_hc4WwT"
-      ],
-      "settings": {}
+      ]
     },
     "featured-product": {
       "settings": {
         "product": "ontario-hot-tub-etl"
-      }
+      },
+      "blocks": {}
     },
     "blog-posts-collage": {
       "settings": {
         "blog": "wave-spas-usa"
-      }
+      },
+      "blocks": {}
     }
   }
 }
