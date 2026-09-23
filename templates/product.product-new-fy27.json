@@ -1168,13 +1168,15 @@
         "image_1": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wave-fy27-xsection-inside.png"
+            "image": "shopify://shop_images/wave-fy27-xsection-inside.png",
+            "image_mobile": "shopify://shop_images/wave-fy27-xsection-inside-mobile.png"
           }
         },
         "image_2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wave-fy27-xsection-heat.png"
+            "image": "shopify://shop_images/wave-fy27-xsection-heat.png",
+            "image_mobile": "shopify://shop_images/wave-fy27-xsection-heat-mobile.png"
           }
         }
       },
@@ -1185,7 +1187,7 @@
       "settings": {
         "layout": "horizontal",
         "image_height": "adapt",
-        "image_height_mobile": "adapt",
+        "image_height_mobile": "400px",
         "heading": "The warmth stays with you.",
         "heading_size": "title-md",
         "heading_alignment": "text-center",
