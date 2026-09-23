@@ -1187,7 +1187,7 @@
       "settings": {
         "layout": "horizontal",
         "image_height": "adapt",
-        "image_height_mobile": "400px",
+        "image_height_mobile": "adapt",
         "heading": "The warmth stays with you.",
         "heading_size": "title-md",
         "heading_alignment": "text-center",
