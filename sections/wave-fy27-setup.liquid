@@ -1,6 +1,7 @@
 {{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
 {%- liquid
+  assign setup_video = section.settings.video | default: product.metafields.custom.setup_video.value
   assign minutes = product.metafields.specs.setup_minutes.value | default: section.settings.setup_minutes
   assign heading = section.settings.heading | replace: '[minutes]', minutes
   if minutes == blank or minutes == 0
@@ -26,7 +27,11 @@
       </div>
 
       <div>
-        {%- if minutes != blank and minutes > 0 -%}
+        {%- if setup_video != blank -%}
+          <div class="wf-su__video" data-wf-reveal>
+            {{ setup_video | video_tag: image_size: '1100x', controls: true, playsinline: true, muted: false, preload: 'metadata' }}
+          </div>
+        {%- elsif minutes != blank and minutes > 0 -%}
           <div class="wf-su__clock" data-wf-reveal>
             <svg viewBox="0 0 200 200" aria-hidden="true">
               <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(13,17,20,.08)" stroke-width="3"/>
@@ -36,10 +41,6 @@
                   <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/>
                 </linearGradient>
               </defs>
-              {%- for i in (0..59) -%}
-                {%- assign tick = i | modulo: 5 -%}
-                <line x1="100" y1="{% if tick == 0 %}14{% else %}17{% endif %}" x2="100" y2="20" stroke="rgba(13,17,20,{% if tick == 0 %}.35{% else %}.12{% endif %})" stroke-width="1" transform="rotate({{ i | times: 6 }} 100 100)"/>
-              {%- endfor -%}
             </svg>
             <div class="wf-su__readout">
               <span class="wf-fig"><span data-wf-count="{{ minutes }}">{{ minutes }}</span><small>min</small></span>
@@ -73,6 +74,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "info": "[minutes] becomes the setup time.", "default": "Out of the box in [minutes] minutes." },
     { "type": "text", "id": "heading_no_time", "label": "Heading when no time is set", "default": "Out of the box. No tools." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "No tools, no electrician, no groundwork. Everything you need is in the box, and it plugs into a standard outdoor socket." },
+    { "type": "video", "id": "video", "label": "Setup video", "info": "Falls back to the product's setup_video metafield, then to the clock." },
     { "type": "number", "id": "setup_minutes", "label": "Setup time (minutes)", "info": "Used when the product has no specs.setup_minutes metafield. 0 hides the clock.", "default": 20 },
     { "type": "text", "id": "clock_label", "label": "Clock label", "default": "box to built" },
     { "type": "text", "id": "plug_title", "label": "Power title", "default": "Standard 13 amp plug" },

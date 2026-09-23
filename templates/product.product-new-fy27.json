@@ -361,6 +361,7 @@
         },
         "icon_list_4xTkbm": {
           "type": "icon_list",
+          "disabled": true,
           "repeater": "{{ product.metafields.custom.product_icons.value }}",
           "settings": {
             "heading": "Product Highlights",
@@ -426,6 +427,12 @@
           "settings": {
             "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
           }
+        },
+        "liquid_wave_trust": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-fy27-trust' %}"
+          }
         }
       },
       "block_order": [
@@ -448,6 +455,7 @@
         "contona_button_design",
         "share",
         "liquid_wave_finance",
+        "liquid_wave_trust",
         "on_site_message_KFREgF",
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
@@ -629,143 +637,6 @@
         "padding_horizontal_mobile": 0,
         "border_thickness": 0,
         "lazy": true
-      }
-    },
-    "wf_overview": {
-      "type": "wave-fy27-overview",
-      "blocks": {
-        "benefit_1": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lite",
-            "glyph": "floor",
-            "title": "Room to stretch",
-            "text": "An open floor to float, sprawl or sit where you like."
-          }
-        },
-        "benefit_2": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lite",
-            "glyph": "bubbles",
-            "title": "Bubbles all round",
-            "text": "No bad seat in the house."
-          }
-        },
-        "benefit_3": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lite",
-            "glyph": "filter",
-            "title": "Clear water, easily",
-            "text": "WaveFlow™ filtration keeps it fresh."
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lush",
-            "glyph": "seat",
-            "title": "Seats that hold you",
-            "text": "Moulded Air Foam seats in every Lush spa."
-          }
-        },
-        "benefit_5": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lush",
-            "requires": "WiFi",
-            "glyph": "wifi",
-            "title": "Warm on arrival",
-            "text": "Turn up the heat from your phone on the way home."
-          }
-        },
-        "benefit_6": {
-          "type": "benefit",
-          "settings": {
-            "tier": "lush",
-            "requires": "LED strip",
-            "glyph": "light",
-            "title": "Glow after dark",
-            "text": "LED strip and spa light ready. Both sold separately."
-          }
-        },
-        "benefit_7": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
-            "glyph": "jets",
-            "title": "Jets on demand",
-            "text": "VertaJet™: four hydro-jets, adjustable intensity."
-          }
-        },
-        "benefit_8": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
-            "glyph": "bubbles",
-            "title": "Both at once",
-            "text": "Run the bubbles and the jets together, or either on its own."
-          }
-        },
-        "benefit_9": {
-          "type": "benefit",
-          "settings": {
-            "tier": "luxe",
-            "glyph": "wifi",
-            "title": "Your soak, your way",
-            "text": "Separate bubble and jet controls in the app."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4",
-        "benefit_5",
-        "benefit_6",
-        "benefit_7",
-        "benefit_8",
-        "benefit_9"
-      ],
-      "settings": {
-        "model_match": "Garda",
-        "model_url": "https://cdn.shopify.com/3d/models/o/0ab095981a4ddaa8/Garda.glb",
-        "model_usdz": "https://cdn.shopify.com/3d/models/o/61f4119a150ace04/Garda.usdz",
-        "model_poster": "https://cdn.shopify.com/s/files/1/0058/2284/0889/files/preview_images/Garda.jpg?v=1728636177&width=1600",
-        "lite_lede": "Step in, sink down, switch off. Everything you need, nothing you don't.",
-        "lush_lede": "Moulded seats, WiFi control and warm water waiting when you get home.",
-        "luxe_lede": "Hydro-jets and climbing bubbles, aimed exactly where you carry the day.",
-        "seats_label": "moulded seats",
-        "people_label": "people",
-        "heat_label": "all year round",
-        "cost_label": "to run, used most days",
-        "setup_label": "to build, no tools",
-        "show_notes": false
-      }
-    },
-    "wf_ecofoam": {
-      "type": "wave-fy27-ecofoam",
-      "settings": {
-        "scope": "any",
-        "heading": "The warmth stays with you.",
-        "lede": "Eco foam locks the heat in, so it's warm when you are and costs less to run.",
-        "lede_thinner": "Now slimmer, with more room inside.",
-        "image": "shopify://shop_images/Website_Garda_Overhead_Snow.jpg",
-        "image_mobile": "shopify://shop_images/Website_Garda_Overhead_Snow_mobile_4f3ec29b-c9ba-484b-be71-ee7922466732.jpg",
-        "hint": "Tap a number to explore.",
-        "lid_title": "Sealed-in lid",
-        "lid_text": "Traps heat at the top, where most tries to escape.",
-        "wall_title": "[wall] cm eco foam walls",
-        "wall_text": "Dense foam on every side keeps the warmth in the water.",
-        "heater_title": "Built-in heater",
-        "heater_text": "Holds a steady 40°C. Set it from your phone.",
-        "base_title": "Insulated base",
-        "base_text": "Stops cold ground stealing your heat.",
-        "old_thickness": 15,
-        "inflatable_kwh": 16,
-        "show_notes": false
       }
     },
     "wf_vertaair": {
@@ -1147,6 +1018,7 @@
         "trust_1": {
           "type": "trust",
           "settings": {
+            "glyph": "truck",
             "title": "Free next-day delivery",
             "text": "Order by 6:30pm."
           }
@@ -1154,6 +1026,7 @@
         "trust_2": {
           "type": "trust",
           "settings": {
+            "glyph": "shield",
             "title": "2-year warranty",
             "text": "Backed by our UK team."
           }
@@ -1161,6 +1034,7 @@
         "trust_4": {
           "type": "trust",
           "settings": {
+            "glyph": "card",
             "title": "Spread the cost",
             "text": "Pay in 3 or monthly, subject to status."
           }
@@ -1287,16 +1161,127 @@
         "heading": "Need help?",
         "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible.</p>"
       }
+    },
+    "image_comparison": {
+      "type": "image-comparison",
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wave-fy27-xsection-inside.png",
+            "subheading": "Construction",
+            "heading": "Inside the spa"
+          }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wave-fy27-xsection-heat.png",
+            "subheading": "On a 2°C night",
+            "heading": "The heat stays in"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "image_2"
+      ],
+      "settings": {
+        "layout": "horizontal",
+        "image_height": "adapt",
+        "image_height_mobile": "adapt",
+        "heading": "The warmth stays with you.",
+        "heading_size": "title-md",
+        "heading_alignment": "text-center",
+        "heading_tag": "h2",
+        "description": "<p>Drag to see how the eco foam wall, the integrated heater and the lid keep the heat in the water.</p>",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "scroll_spy": {
+      "type": "scroll-spy",
+      "blocks": {
+        "back_to_top": {
+          "type": "back_to_top",
+          "settings": {}
+        },
+        "nav_item_1": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Tech specs",
+            "target_id": "product-details"
+          }
+        },
+        "nav_item_2": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Running costs",
+            "target_id": "wf_running_cost"
+          }
+        },
+        "nav_item_3": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Inside",
+            "target_id": "image_comparison"
+          }
+        },
+        "nav_item_4": {
+          "type": "nav_item",
+          "settings": {
+            "title": "VertaAir™",
+            "target_id": "wf_vertaair"
+          }
+        },
+        "nav_item_5": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Setup",
+            "target_id": "wf_setup"
+          }
+        },
+        "nav_item_6": {
+          "type": "nav_item",
+          "settings": {
+            "title": "The range",
+            "target_id": "wf_tiers"
+          }
+        },
+        "nav_item_7": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Questions",
+            "target_id": "wf_questions"
+          }
+        }
+      },
+      "block_order": [
+        "back_to_top",
+        "nav_item_1",
+        "nav_item_2",
+        "nav_item_3",
+        "nav_item_4",
+        "nav_item_5",
+        "nav_item_6",
+        "nav_item_7"
+      ],
+      "settings": {
+        "show_highlight": true,
+        "full_width": false
+      }
     }
   },
   "order": [
     "main-product",
+    "scroll_spy",
     "product-details",
-    "ss_product_videos_4_BQjpxE",
-    "wf_overview",
-    "wf_ecofoam",
-    "wf_vertaair",
     "wf_running_cost",
+    "ss_product_videos_4_BQjpxE",
+    "image_comparison",
+    "wf_vertaair",
     "wf_setup",
     "wf_tiers",
     "wf_questions",

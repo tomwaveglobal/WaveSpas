@@ -770,3 +770,32 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
 .vpa[data-vpa-size] .vpa__tile-body.vpa__tile-body--no-media { grid-template-columns: minmax(0, 1fr); }
 
 .wf-rc__bundle-line { margin: 0; padding: 16px 18px; border-radius: var(--wf-radius-card); background: var(--wf-soft); font-size: var(--text-sm); }
+
+/* Buy box trust strip (snippets/wave-fy27-trust.liquid) ----------------- */
+.wf-buytrust {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  list-style: none;
+  border-radius: var(--rounded-block, 16px);
+  background: #fafafa;
+  font-family: var(--font-body-family);
+}
+.wf-buytrust li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--text-sm); line-height: 1.45; color: #3f3f46; }
+.wf-buytrust li + li { margin-top: 10px; }
+.wf-buytrust b { color: #000; font-weight: 600; }
+.wf-buytrust__icon { flex: none; width: 20px; height: 20px; margin-top: 1px; color: #000; }
+
+/* Setup video (replaces the clock) -------------------------------------- */
+.wf-su__video {
+  position: relative;
+  border-radius: var(--wf-radius);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+.wf-su__video video,
+.wf-su__video img,
+.wf-su__video .video-wrapper { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Closer trust icons ----------------------------------------------------- */
+.wf-trust__icon { width: 26px; height: 26px; margin-bottom: 12px; color: currentColor; }
