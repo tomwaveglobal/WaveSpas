@@ -1212,49 +1212,49 @@
           "type": "nav_item",
           "settings": {
             "title": "Tech specs",
-            "target_id": "product-details"
+            "target_id": "shopify-section-template--30100170375555__product-details"
           }
         },
         "nav_item_2": {
           "type": "nav_item",
           "settings": {
             "title": "Running costs",
-            "target_id": "wf_running_cost"
+            "target_id": "shopify-section-template--30100170375555__wf_running_cost"
           }
         },
         "nav_item_3": {
           "type": "nav_item",
           "settings": {
             "title": "Inside",
-            "target_id": "image_comparison"
+            "target_id": "shopify-section-template--30100170375555__image_comparison"
           }
         },
         "nav_item_4": {
           "type": "nav_item",
           "settings": {
             "title": "VertaAir™",
-            "target_id": "wf_vertaair"
+            "target_id": "shopify-section-template--30100170375555__wf_vertaair"
           }
         },
         "nav_item_5": {
           "type": "nav_item",
           "settings": {
             "title": "Setup",
-            "target_id": "wf_setup"
+            "target_id": "shopify-section-template--30100170375555__wf_setup"
           }
         },
         "nav_item_6": {
           "type": "nav_item",
           "settings": {
             "title": "The range",
-            "target_id": "wf_tiers"
+            "target_id": "shopify-section-template--30100170375555__wf_tiers"
           }
         },
         "nav_item_7": {
           "type": "nav_item",
           "settings": {
             "title": "Questions",
-            "target_id": "wf_questions"
+            "target_id": "shopify-section-template--30100170375555__wf_questions"
           }
         }
       },
