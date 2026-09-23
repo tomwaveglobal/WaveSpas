@@ -566,8 +566,9 @@ wf-explode { display: block; }
   padding: 0;
   list-style: none;
 }
-.wf-trust li { padding-right: 22px; }
+.wf-trust li { padding-right: 22px; text-align: center; }
 .wf-trust li + li { padding-left: 22px; border-left: 1px solid var(--wf-line); }
+.wf-trust .wf-trust__icon { margin-inline: auto; }
 .wf-trust .wf-body { margin-top: 6px; font-size: 14px; }
 @media (max-width: 749px) {
   .wf-trust { grid-template-columns: 1fr; }
@@ -809,3 +810,6 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
 
 /* Closer trust icons ----------------------------------------------------- */
 .wf-trust__icon { width: 26px; height: 26px; margin-bottom: 12px; color: currentColor; }
+
+/* Scroll spy (core section) — centre the tabs on this template ---------- */
+.scrollspy-section .scrollspy-list { justify-content: center; }

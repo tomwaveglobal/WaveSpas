@@ -231,6 +231,7 @@
         },
         "share": {
           "type": "share",
+          "disabled": true,
           "settings": {
             "share_label": "Share",
             "show_help_desk": false,
@@ -489,154 +490,6 @@
         "divider": false,
         "full_width": true,
         "rounded": true
-      }
-    },
-    "ss_product_videos_4_BQjpxE": {
-      "type": "ss-product-videos-4",
-      "blocks": {
-        "video_CXhrnf": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_1.value }}",
-            "title": ""
-          }
-        },
-        "video_VrKtej": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_2.value }}",
-            "title": ""
-          }
-        },
-        "video_bAPp8w": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_3.value }}",
-            "title": ""
-          }
-        },
-        "video_8pUzmC": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_4.value }}",
-            "title": ""
-          }
-        },
-        "video_MMUJfe": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_5.value }}",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_CXhrnf",
-        "video_VrKtej",
-        "video_bAPp8w",
-        "video_8pUzmC",
-        "video_MMUJfe"
-      ],
-      "name": "SS - Product videos #4",
-      "settings": {
-        "videos_position": "below_buy",
-        "heading": "",
-        "heading_custom": false,
-        "heading_font": "system_ui_n4",
-        "heading_size": 15,
-        "heading_size_mobile": 15,
-        "heading_height": 130,
-        "heading_align": "center",
-        "heading_align_mobile": "center",
-        "slider_view": 4.6,
-        "slider_view_mobile": 3.6,
-        "slider_gap": 16,
-        "slider_gap_mobile": 12,
-        "slider_mt": 4,
-        "slider_mt_mobile": 4,
-        "card_padding": 3,
-        "card_radius": 300,
-        "card_border_thickness": 3,
-        "card_hover": true,
-        "card_first_animation": true,
-        "video_ratio": "square",
-        "video_ratio_mobile": "square",
-        "video_overlay": 0,
-        "title_custom": false,
-        "title_font": "josefin_sans_n4",
-        "title_size": 14,
-        "title_size_mobile": 12,
-        "title_height": 130,
-        "title_mt": 10,
-        "title_mt_mobile": 10,
-        "title_align": "center",
-        "title_align_mobile": "center",
-        "arrow_size": 10,
-        "arrow_size_mobile": 10,
-        "arrow_border_thickness": 0,
-        "arrow_show_desktop": true,
-        "arrow_show_mobile": false,
-        "dots_size": 10,
-        "dots_size_mobile": 10,
-        "dots_mt": 0,
-        "dots_mt_mobile": 8,
-        "dots_show_desktop": false,
-        "dots_show_mobile": false,
-        "modal_width": 300,
-        "modal_width_mobile": 260,
-        "modal_padding_vertical": 0,
-        "modal_padding_vertical_mobile": 0,
-        "modal_padding_horizontal": 0,
-        "modal_padding_horizontal_mobile": 0,
-        "modal_radius": 16,
-        "modal_border_thickness": 0,
-        "modal_overlay": 0.3,
-        "modal_video_radius": 0,
-        "modal_video_border_thickness": 0,
-        "modal_video_ratio": "portrait",
-        "modal_video_ratio_mobile": "portrait",
-        "use_progress": true,
-        "action_size": 28,
-        "action_size_mobile": 36,
-        "action_border_thickness": 0,
-        "buttons_size": 32,
-        "buttons_size_mobile": 36,
-        "buttons_border_thickness": 0,
-        "card_bg_color": "#ffffff",
-        "card_bg_gradient": "",
-        "card_border_color": "#1f1f1f",
-        "video_overlay_color": "#000000",
-        "card_animation_color": "#1f1f1f",
-        "play_button_color": "#ffffff",
-        "title_color": "#000000",
-        "arrow_color": "#ffffff",
-        "arrow_hover_color": "#ffffff",
-        "arrow_bg_color": "#000000",
-        "arrow_bg_hover_color": "#555555",
-        "arrow_border_color": "#000000",
-        "arrow_border_hover_color": "#555555",
-        "dots_color": "#000000",
-        "modal_overlay_color": "#242424",
-        "modal_bg_color": "#ffffff",
-        "modal_border_color": "#000000",
-        "modal_video_border_color": "#000000",
-        "action_icon_color": "#ffffff",
-        "action_bg_color": "#000000",
-        "action_border_color": "#000000",
-        "buttons_icon_color": "#000000",
-        "buttons_bg_color": "#ffffff",
-        "buttons_border_color": "#000000",
-        "heading_color": "#000000",
-        "background_color": "#ffffff",
-        "border_color": "#000000",
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_horizontal": 0,
-        "padding_horizontal_mobile": 0,
-        "border_thickness": 0,
-        "lazy": true
       }
     },
     "wf_vertaair": {
@@ -1268,6 +1121,8 @@
       ],
       "settings": {
         "show_highlight": true,
+        "text_alignment": "center",
+        "text_alignment_mobile": "center",
         "full_width": false
       }
     }
@@ -1277,7 +1132,6 @@
     "scroll_spy",
     "product-details",
     "wf_running_cost",
-    "ss_product_videos_4_BQjpxE",
     "image_comparison",
     "wf_vertaair",
     "wf_setup",
