@@ -1168,17 +1168,13 @@
         "image_1": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wave-fy27-xsection-inside.png",
-            "subheading": "Construction",
-            "heading": "Inside the spa"
+            "image": "shopify://shop_images/wave-fy27-xsection-inside.png"
           }
         },
         "image_2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wave-fy27-xsection-heat.png",
-            "subheading": "On a 2°C night",
-            "heading": "The heat stays in"
+            "image": "shopify://shop_images/wave-fy27-xsection-heat.png"
           }
         }
       },
