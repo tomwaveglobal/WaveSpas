@@ -780,7 +780,17 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
   background: #fafafa;
   font-family: var(--font-body-family);
 }
-.wf-buytrust li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--text-sm); line-height: 1.45; color: #3f3f46; }
+.wf-buytrust li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: #3f3f46;
+}
+/* the theme nudges bare svgs in the product info column — pin ours */
+.wf-buytrust li > svg { align-self: start !important; margin: 2px 0 0 !important; }
 .wf-buytrust li + li { margin-top: 10px; }
 .wf-buytrust b { color: #000; font-weight: 600; }
 .wf-buytrust__icon { flex: none; width: 20px; height: 20px; margin-top: 1px; color: #000; }
