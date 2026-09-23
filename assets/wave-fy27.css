@@ -379,10 +379,13 @@ wf-explode { display: block; }
    ========================================================================== */
 .wf-su {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(40px, 6vw, 96px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 3.5vw, 56px);
   align-items: center;
+  max-width: 1040px;      /* keep the steps and video close together */
+  margin-inline: auto;
 }
+.wf-su .wf-lede { margin-top: 14px; max-width: 34ch; }
 @media (max-width: 989px) { .wf-su { grid-template-columns: 1fr; } }
 .wf-su__clock { position: relative; width: min(100%, 380px); margin-inline: auto; aspect-ratio: 1; }
 .wf-su__clock svg { width: 100%; height: 100%; transform: rotate(-90deg); }
@@ -391,12 +394,12 @@ wf-explode { display: block; }
 .wf-su__readout { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
 .wf-su__readout .wf-fig { font-size: calc(var(--wf-size-fig) * 2); }
 .wf-su__readout .wf-small { margin-top: 10px; font-size: 14px; }
-.wf-su__steps { margin: 32px 0 0; padding: 0; list-style: none; counter-reset: wf-step; }
+.wf-su__steps { margin: 24px 0 0; padding: 0; list-style: none; counter-reset: wf-step; }
 .wf-su__steps li {
   display: grid;
   grid-template-columns: 40px 1fr;
   gap: 0 12px;
-  padding: 18px 0;
+  padding: 14px 0;
   border-top: 1px solid var(--wf-line);
   counter-increment: wf-step;
 }
@@ -417,9 +420,9 @@ wf-explode { display: block; }
 .wf-plug {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 28px;
-  padding: 18px 20px;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 14px 16px;
   border-radius: 16px;
   background: #fff;
   box-shadow: inset 0 0 0 1px var(--wf-line);
@@ -799,6 +802,8 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
 /* Setup video (replaces the clock) -------------------------------------- */
 .wf-su__video {
   position: relative;
+  width: min(100%, 520px);
+  margin-inline: auto;
   border-radius: var(--wf-radius);
   overflow: hidden;
   background: #000;
