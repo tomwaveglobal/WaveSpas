@@ -60,48 +60,100 @@
         "parallax_direction": "vertical"
       }
     },
+    "wf_trust": {
+      "type": "wave-fy27-collection-trust",
+      "blocks": {
+        "delivery": {
+          "type": "trust",
+          "settings": {
+            "glyph": "truck",
+            "title": "Free next-day delivery",
+            "text": "Order by 6:30pm, with a one-hour DPD window."
+          }
+        },
+        "warranty": {
+          "type": "trust",
+          "settings": {
+            "glyph": "shield",
+            "title": "2-year warranty",
+            "text": "Handled by our own UK team."
+          }
+        },
+        "finance": {
+          "type": "trust",
+          "settings": {
+            "glyph": "card",
+            "title": "Spread the cost",
+            "text": "Pay in 3 or monthly, subject to status."
+          }
+        },
+        "support": {
+          "type": "trust",
+          "settings": {
+            "glyph": "chat",
+            "title": "UK support",
+            "text": "Mon–Fri 8:30–5:30, Sat 8–4."
+          }
+        }
+      },
+      "block_order": [
+        "delivery",
+        "warranty",
+        "finance",
+        "support"
+      ],
+      "settings": {
+        "soft": false
+      }
+    },
     "main-collection": {
       "type": "main-collection",
       "blocks": {
         "subcollections": {
           "type": "subcollections",
+          "disabled": true,
           "settings": {
             "menu": "subcollections",
             "show_count": false
           }
         },
-        "promotion": {
+        "compare_tile": {
           "type": "promotion",
           "settings": {
-            "position": 7,
+            "position": 4,
             "column_size": "1",
-            "image": "{{ collection.metafields.custom.promo_image.value }}",
+            "row_size": "1",
+            "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
             "content_position": "md:items-end",
             "text_alignment": "center",
-            "heading": "{{ collection.metafields.custom.promo_image_heading.value }}",
-            "content": "<p>{{ collection.metafields.custom.promo_image_description | metafield_tag }}</p>",
-            "button_label": "{{ collection.metafields.custom.promo_image_button_label.value }}",
-            "button_link": "{{ collection.metafields.custom.promo_image_button_link.value }}",
+            "content_layout": "default",
+            "subheading": "Not sure which?",
+            "heading": "Lite, Lush or Luxe",
+            "heading_size": "title-md",
+            "content": "<p>See what each one adds, side by side.</p>",
+            "button_label": "Compare the range",
+            "button_link": "#compare-tiers",
             "button_style": "secondary",
+            "button_size": "md",
             "button_external": false,
             "button_icon": true,
             "content_position_mobile": "items-end",
             "text_alignment_mobile": "center",
             "color_text": "#ffffff",
-            "color_button_text": "#4d5940",
+            "color_button_text": "#000000",
             "color_button_background": "#ffffff",
             "color_button_gradient": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 30
+            "overlay_opacity": 40
           }
         }
       },
       "block_order": [
         "subcollections",
-        "promotion"
+        "compare_tile"
       ],
       "settings": {
-        "products_per_page": 50,
+        "products_per_page": 24,
         "columns": 3,
         "columns_mobile": "1",
         "pagination": "paginated",
@@ -111,10 +163,156 @@
         "filter_color_swatches": true,
         "enable_sorting": true,
         "padding_top": 40,
-        "padding_bottom": 100,
+        "padding_bottom": 80,
         "divider": false,
         "full_width": false,
         "rounded": true
+      }
+    },
+    "wf_tiers": {
+      "type": "wave-fy27-collection-tiers",
+      "blocks": {
+        "lite": {
+          "type": "tier",
+          "settings": {
+            "name": "Lite",
+            "collection_handle": "lite-hot-tubs",
+            "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
+            "signature": "Light work.",
+            "for": "For getting in without a second thought.",
+            "features": "Open floor to stretch out\nBubble massage\nCover included\nWaveFlow™ dual filtration"
+          }
+        },
+        "lush": {
+          "type": "tier",
+          "settings": {
+            "name": "Lush",
+            "collection_handle": "lush-hot-tubs",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
+            "signature": "Settle in.",
+            "for": "For evenings you want to last.",
+            "features": "Moulded Air Foam seats\nWiFi app control\nRising VertaAir™ bubbles on foam & frame\nWaveFlow™ dual filtration"
+          }
+        },
+        "luxe": {
+          "type": "tier",
+          "settings": {
+            "name": "Luxe",
+            "collection_handle": "luxe-hot-tubs",
+            "image": "shopify://shop_images/AdriaticZoom.png",
+            "signature": "Where you want it.",
+            "for": "For pressure exactly where you need it.",
+            "features": "Four hydro-massage jets, adjustable intensity\nVertaAir™ bubbles on every spa\nBubbles and jets together or apart\nWaveFlow™ dual filtration"
+          }
+        }
+      },
+      "block_order": [
+        "lite",
+        "lush",
+        "luxe"
+      ],
+      "settings": {
+        "anchor": "compare-tiers",
+        "eyebrow": "The FY27 range",
+        "heading": "Three ways to soak.",
+        "lede": "Choose how you want it to feel.",
+        "current_label": "You're viewing",
+        "current_button": "See the spas",
+        "button_prefix": "Shop",
+        "from_label": "From",
+        "spa_label": "spa",
+        "spas_label": "spas",
+        "footnote": ""
+      }
+    },
+    "wf_questions": {
+      "type": "wave-fy27-questions",
+      "blocks": {
+        "q_tier": {
+          "type": "question",
+          "settings": {
+            "topic": "Choosing",
+            "question": "Lite, Lush or Luxe: which is right for me?",
+            "answer": "<p>Lite is the simple way in, with an open floor to stretch out, bubble massage and a cover included. Lush adds moulded seats and WiFi app control. Luxe adds four hydro-massage jets you can run with the bubbles or on their own. Every spa has WaveFlow™ dual filtration.</p>"
+          }
+        },
+        "q_build": {
+          "type": "question",
+          "settings": {
+            "topic": "Choosing",
+            "question": "What's the difference between inflatable, drop stitch, eco foam and frame?",
+            "answer": "<p>Inflatable spas are the lightest and pack away easily. Drop stitch walls are firmer, with straighter sides. Eco foam spas have insulated foam walls. Frame spas sit inside a wood-effect frame. Each spa's page shows its size, heater and what's in the box.</p>"
+          }
+        },
+        "q_cost": {
+          "type": "question",
+          "settings": {
+            "topic": "Running costs",
+            "question": "How much will it cost to run?",
+            "answer": "<p>It depends on the spa, how often you use it and what you pay for electricity. Every spa page has a running-cost calculator, so you can put in your own numbers before you buy.</p>"
+          }
+        },
+        "q_fit": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Will it fit in my garden?",
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
+          }
+        },
+        "q_winter": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Can I use it in winter?",
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+          }
+        },
+        "q_finance": {
+          "type": "question",
+          "settings": {
+            "topic": "Paying",
+            "question": "Can I spread the cost?",
+            "answer": "<p>Yes. You can pay in 3 or spread the cost monthly at checkout, subject to status. 18+, UK residents only.</p>"
+          }
+        },
+        "q_delivery": {
+          "type": "question",
+          "settings": {
+            "topic": "Delivery",
+            "question": "When will it arrive?",
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
+          }
+        },
+        "q_planning": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Do I need planning permission?",
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_tier",
+        "q_build",
+        "q_cost",
+        "q_fit",
+        "q_winter",
+        "q_finance",
+        "q_delivery",
+        "q_planning"
+      ],
+      "settings": {
+        "nav_label": "Questions",
+        "eyebrow": "Before you buy",
+        "heading": "Your questions, answered.",
+        "lede": "Quick answers to what people ask most.",
+        "contact_text": "Still deciding? Our UK team is here six days a week.",
+        "contact_link": "/pages/contact",
+        "contact_label": "Talk to us",
+        "open_first": true,
+        "faq_schema": true
       }
     },
     "images-with-text-overlay": {
@@ -267,7 +465,10 @@
   },
   "order": [
     "main-collection-banner",
+    "wf_trust",
     "main-collection",
+    "wf_tiers",
+    "wf_questions",
     "images-with-text-overlay",
     "recently-viewed"
   ]

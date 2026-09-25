@@ -13,6 +13,14 @@
     "market": "usa"
   },
   "sections": {
+    "wf_trust": {
+      "disabled": true,
+      "settings": {}
+    },
+    "wf_questions": {
+      "disabled": true,
+      "settings": {}
+    },
     "images-with-text-overlay": {
       "disabled": false,
       "settings": {},
