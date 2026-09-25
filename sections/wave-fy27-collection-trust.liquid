@@ -1,0 +1,53 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- comment -%}
+  Reasons to buy, shown between the collection banner and the grid.
+{%- endcomment -%}
+<wf-section class="wf{% if section.settings.soft %} wf--soft{% endif %}" id="wf-{{ section.id }}">
+  <div class="wf__inner wf__inner--tight">
+    <ul class="wf-trust" role="list" data-wf-reveal style="--n: {{ section.blocks.size }}">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          {%- render 'wave-fy27-glyph', name: block.settings.glyph, class: 'wf-trust__icon' -%}
+          <h3 class="wf-h3" style="font-size:16px">{{ block.settings.title }}</h3>
+          <p class="wf-body">{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 trust strip",
+  "settings": [
+    { "type": "checkbox", "id": "soft", "label": "Grey background", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Reason",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "glyph",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Delivery" },
+            { "value": "shield", "label": "Warranty" },
+            { "value": "card", "label": "Payment" },
+            { "value": "chat", "label": "Support" },
+            { "value": "plug", "label": "Plug" },
+            { "value": "check", "label": "Tick" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Reason" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Detail." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["collection"] }
+}
+{% endschema %}

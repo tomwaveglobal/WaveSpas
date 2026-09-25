@@ -1,0 +1,97 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- comment -%}
+  Collection version of wave-fy27-tiers: helps shoppers pick Lite, Lush or Luxe.
+  The tier whose collection is being viewed gets the flag and scrolls back to the grid.
+{%- endcomment -%}
+<wf-section class="wf wf--soft" id="{{ section.settings.anchor | default: section.id | handleize }}">
+  <div class="wf__inner">
+    <div class="wf-head wf-head--center">
+      <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+    </div>
+
+    <div class="wf-tiers">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign is_current = false
+          if collection.handle == block.settings.collection_handle
+            assign is_current = true
+          endif
+          assign col = collections[block.settings.collection_handle]
+          assign href = routes.collections_url | append: '/' | append: block.settings.collection_handle
+          assign img = block.settings.image | default: col.featured_image
+          assign features = block.settings.features | newline_to_br | split: '<br />'
+        -%}
+        <article class="wf-tier{% if is_current %} is-current{% endif %}" data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+          {%- if is_current -%}<span class="wf-tier__flag">{{ section.settings.current_label }}</span>{%- endif -%}
+          {%- if img != blank -%}
+            <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: block.settings.name }}</div>
+          {%- endif -%}
+          <h3 class="wf-h2">{{ block.settings.name }}</h3>
+          <p class="wf-tier__sig">{{ block.settings.signature }}</p>
+          <p class="wf-body">{{ block.settings.for }}</p>
+          <ul role="list">
+            {%- for f in features -%}
+              {%- assign f = f | strip -%}
+              {%- if f != blank -%}
+                <li>{%- render 'wave-fy27-glyph', name: 'check' -%}<span>{{ f }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- if col != blank and col.products_count > 0 -%}
+            <p class="wf-tier__from">
+              {{ section.settings.from_label }} <strong>{{ col.products | map: 'price' | sort | first | money }}</strong>
+              <span class="wf-small"> · {{ col.products_count }} {% if col.products_count == 1 %}{{ section.settings.spa_label }}{% else %}{{ section.settings.spas_label }}{% endif %}</span>
+            </p>
+          {%- endif -%}
+          {%- if is_current -%}
+            <a class="button button--primary" href="#ProductGridContainer"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.current_button }}</span></a>
+          {%- else -%}
+            <a class="button button--secondary" href="{{ href }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_prefix }} {{ block.settings.name }}</span></a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="wf-small" style="margin-top:28px;text-align:center">{{ section.settings.footnote }}</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 range chooser",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor", "info": "Link to this section with #anchor, e.g. from a promo tile.", "default": "compare-tiers" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The FY27 range" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three ways to soak." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Choose how you want it to feel." },
+    { "type": "text", "id": "current_label", "label": "Current tier flag", "default": "You're viewing" },
+    { "type": "text", "id": "current_button", "label": "Current tier button", "default": "See the spas" },
+    { "type": "text", "id": "button_prefix", "label": "Other tier button prefix", "default": "Shop" },
+    { "type": "text", "id": "from_label", "label": "From label", "default": "From" },
+    { "type": "text", "id": "spa_label", "label": "Count label (one)", "default": "spa" },
+    { "type": "text", "id": "spas_label", "label": "Count label (many)", "default": "spas" },
+    { "type": "text", "id": "footnote", "label": "Footnote" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Tier",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Lush" },
+        { "type": "text", "id": "collection_handle", "label": "Collection handle", "info": "Price, count and image show once the collection has published products.", "default": "lush-hot-tubs" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "signature", "label": "Signature line", "default": "Settle in." },
+        { "type": "text", "id": "for", "label": "Who it's for", "default": "For evenings you want to last." },
+        { "type": "textarea", "id": "features", "label": "Features", "info": "One per line.", "default": "Moulded seats\nWiFi app control" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["collection"] }
+}
+{% endschema %}
