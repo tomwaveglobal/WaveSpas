@@ -56,7 +56,7 @@
           }
         },
         "image_9rd3Vt": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Carousel_Home_page_4478ed00-29bc-49be-835f-023c77359b82.jpg",
             "image_mobile": "shopify://shop_images/Mobile_056ad8b5-fc0a-4146-9419-8e27cf8587c0.jpg",
