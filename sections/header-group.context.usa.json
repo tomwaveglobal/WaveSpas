@@ -14,15 +14,19 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {},
       "blocks": {
         "announcement_imVJK": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "icon": "none",
             "text": "<em><strong>15% off Inflatables  </strong></em>Shop Now",
             "link": "shopify://collections/inflatable-hot-tubs",
+            "header-24e0f4853ddd71212a81d4fe0200b7df": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>Labor Day Sale  </strong></em>Shop Now",
+            "header-976134bf0cd8e076d5281509a24123bf": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -34,8 +38,10 @@
             "icon": "rocket",
             "text": "<em><strong>Free Wi-Fi Upgrade</strong></em>  on Inflatable Hot Tubs",
             "link": "shopify://collections/inflatable-hot-tubs",
+            "header-cad989b3b042f34a6e3ec9637eec2927": null,
             "hide_icon_mobile": true,
             "text_mobile": "<em><strong>5% off  </strong></em>All Hot Tubs",
+            "header-d11bd180ed9faa1a8cf482cb0ba4650e": null,
             "highlighted_text": "text",
             "highlighted_scribble": "circle"
           }
@@ -61,10 +67,13 @@
         "announcement_qLAXY",
         "announcement-2",
         "announcement-1"
-      ],
-      "settings": {}
+      ]
     },
     "header": {
+      "settings": {
+        "menu": "nav-2026-us",
+        "menu_mobile": "nav-2026-us"
+      },
       "blocks": {
         "mega_menu_tab_zgiwaa": {
           "settings": {
@@ -99,11 +108,7 @@
         "mega_menu_tab_63jewV",
         "mega_menu_tab_RkApqL",
         "mega_menu_tab_MyVeNJ"
-      ],
-      "settings": {
-        "menu": "nav-2026-us",
-        "menu_mobile": "nav-2026-us"
-      }
+      ]
     }
   }
 }

@@ -17,7 +17,7 @@
       "settings": {},
       "blocks": {
         "announcement-2": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "icon": "sale",
             "text": "<em><strong>15% off all hot tubs </strong></em>+ Free Starter Kit",
