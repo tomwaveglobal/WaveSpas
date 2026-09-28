@@ -23,7 +23,7 @@
             "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
-            "header-a2b41576635b20b71218e08d1b129055": null,
+            "header-2630c6877f083af04a5546340c215e2d": null,
             "heading": "Your evening escape.",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
@@ -36,6 +36,23 @@
             "button_style": "secondary",
             "button_external": false,
             "button_icon": false
+          }
+        },
+        "image_EUEdiE": {
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-1.jpg",
+            "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-2.jpg",
+            "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-3_b3954eed-eadf-49ec-9817-e015aa4fc4ed.jpg",
+            "heading": "<span style=\"color:#f59e0b;\">15% off</span> \n<br>\nhot tubs",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "secondary_heading": "Enhance your outdoor living space for less.",
+            "secondary_heading_size": "title-xxs",
+            "secondary_heading_weight": "font-normal",
+            "button_position": "below",
+            "button_label": "Shop Now",
+            "button_link": "https://wavespas.com/collections/hot-tub-full-range"
           }
         },
         "image_9rd3Vt": {
@@ -53,23 +70,6 @@
             "button_label": "Explore The Range",
             "button_link": "https://wavespas.com/collections/hot-tub-full-range",
             "button_style": "secondary"
-          }
-        },
-        "image_EUEdiE": {
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-1.jpg",
-            "image_tablet": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-2.jpg",
-            "image_mobile": "shopify://shop_images/UK_Not-Over-yet_Sept26---Copy-3_b3954eed-eadf-49ec-9817-e015aa4fc4ed.jpg",
-            "heading": "<span style=\"color:#f59e0b;\">15% off</span> \n<br>\nhot tubs",
-            "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h2",
-            "secondary_heading": "Enhance your outdoor living space for less.",
-            "secondary_heading_size": "title-xxs",
-            "secondary_heading_weight": "font-normal",
-            "button_position": "below",
-            "button_label": "Shop Now",
-            "button_link": "https://wavespas.com/collections/hot-tub-full-range"
           }
         },
         "image_JUM7dH": {
