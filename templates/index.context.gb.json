@@ -23,7 +23,7 @@
             "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
-            "header-2630c6877f083af04a5546340c215e2d": null,
+            "header-e64a71d70886e43a31a9f9af7af803cd": null,
             "heading": "Your evening escape.",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
@@ -99,7 +99,7 @@
     },
     "featured-product": {
       "settings": {
-        "product": "adriatic-hot-tub"
+        "product": "atlantic-hot-tub"
       },
       "blocks": {}
     },
