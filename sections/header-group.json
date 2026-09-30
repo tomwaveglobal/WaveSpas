@@ -325,6 +325,23 @@
             "overlay_opacity": 20
           }
         },
+        "mega_menu_tab_promo_HpHPqr": {
+          "type": "mega_menu_tab_promo",
+          "settings": {
+            "promo_menu_title": "Hot Tubs",
+            "tab": 2,
+            "collection": "foam-hot-tubs",
+            "image_ratio": "square",
+            "heading": "All Eco Foam",
+            "subtext": "",
+            "overlay_content": true,
+            "link": "",
+            "tag": "",
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 40
+          }
+        },
         "mega_menu_tab_promo_FDMpAF": {
           "type": "mega_menu_tab_promo",
           "settings": {
@@ -1129,6 +1146,7 @@
         "mega_menu_tab_promo_HeRgPe",
         "mega_menu_tab_promo_Bt7Ndw",
         "mega_menu_tab_promo_TAU9Ra",
+        "mega_menu_tab_promo_HpHPqr",
         "mega_menu_tab_promo_FDMpAF",
         "mega_menu_tab_promo_HMyjJg",
         "mega_menu_tab_promo_cPLFxX",
