@@ -393,16 +393,25 @@
                 {%- endif -%}
                 {%- for promo_block in section.blocks -%}
                   {%- if tab_promos_count >= 3 -%}{%- break -%}{%- endif -%}
-                  {%- if promo_block.type != 'mega_menu_tab_promo' or promo_block.settings.image == blank -%}{%- continue -%}{%- endif -%}
+                  {%- if promo_block.type != 'mega_menu_tab_promo' -%}{%- continue -%}{%- endif -%}
                   {%- assign promo_menu_handle = promo_block.settings.promo_menu_title | downcase | handle -%}
                   {%- if promo_menu_handle != menu_title_handle or promo_block.settings.tab != i -%}{%- continue -%}{%- endif -%}
+                  {%- liquid
+                    # A collection fills in whatever the block leaves blank, so a
+                    # collection card only needs the collection and a short label.
+                    assign promo_collection = promo_block.settings.collection
+                    assign promo_block_image = promo_block.settings.image | default: promo_collection.featured_image
+                    assign promo_block_heading = promo_block.settings.heading | default: promo_collection.title
+                    assign promo_block_link = promo_block.settings.link | default: promo_collection.url
+                  -%}
+                  {%- if promo_block_image == blank -%}{%- continue -%}{%- endif -%}
                   {%- render 'mega-menu-promo-card',
-                    image: promo_block.settings.image,
+                    image: promo_block_image,
                     image_ratio: promo_block.settings.image_ratio,
-                    heading: promo_block.settings.heading,
+                    heading: promo_block_heading,
                     subtext: promo_block.settings.subtext,
                     overlay_content: promo_block.settings.overlay_content,
-                    link: promo_block.settings.link,
+                    link: promo_block_link,
                     tag: promo_block.settings.tag,
                     color_text: promo_block.settings.color_text,
                     color_overlay: promo_block.settings.color_overlay,
@@ -413,8 +422,16 @@
                 {%- endfor -%}
               {%- endcapture -%}
               {%- liquid
+                assign tab_show_promos = 'tab_show_promos_' | append: i
+                assign show_promos_only = false
+                if block.settings[tab_show_promos] and tab_promos_count > 0
+                  assign show_promos_only = true
+                endif
+
                 assign promo_layout_class = ''
-                if tab_promos_count > 0
+                if show_promos_only
+                  assign promo_layout_class = ' mega-menu__panel--promos-only'
+                elsif tab_promos_count > 0
                   assign promo_layout_class = ' mega-menu__panel--promos-' | append: tab_promos_count
                   if block.settings.tab_promo_layout == 'row'
                     assign promo_layout_class = promo_layout_class | append: ' mega-menu__panel--promos-row'
@@ -424,7 +441,7 @@
               <div id="TabPanel-{{ block.id }}-{{ forloop_index }}" class="mega-menu__panel{% if tab_promos_count == 0 %} without-promo{% endif %}{{ promo_layout_class }} grid w-full" role="tabpanel"{% unless forloop_first %} hidden{% endunless %}>
                 <div class="grid gap-8">
                   <div class="flex items-center justify-between gap-4">
-                    {%- if block.settings.heading_2 != blank -%}
+                    {%- if block.settings.heading_2 != blank and show_promos_only == false -%}
                       <p class="text-sm text-opacity leading-none uppercase">{{ block.settings.heading_2 | escape }}</p>
                     {%- endif -%}
                     <a class="mega-menu__link link icon-with-text" href="{{ block.settings[tab_target_link].object.url }}">
@@ -437,6 +454,11 @@
                       {%- render 'icon', icon: 'arrow-right', size: 'sm', class: 'transform shrink-0' -%}
                     </a>
                   </div>
+                  {%- if show_promos_only -%}
+                    <div class="mega-menu__promos grid">
+                      {{- tab_promos -}}
+                    </div>
+                  {%- else -%}
                   {%- liquid
                     assign column = 4
                     if products != blank and products.count < 4
@@ -491,8 +513,9 @@
                       {%- endfor -%}
                     </motion-list>
                   </slider-element>
+                  {%- endif -%}
                 </div>
-                {%- if tab_promos_count > 0 -%}
+                {%- if tab_promos_count > 0 and show_promos_only == false -%}
                   <div class="mega-menu__promos grid">
                     {{- tab_promos -}}
                   </div>

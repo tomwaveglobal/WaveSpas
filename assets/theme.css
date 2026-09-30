@@ -16950,3 +16950,10 @@ shopify-account::part(dialog) .account__heading {
 @media screen and (min-width:1280px){
   .mega-menu__panel--promos-row .card-grid--4{--card-grid-per-row:4}
 }
+/* A tab set to show promos instead of products: the cards take the product
+   grid's place, three across, e.g. Lite / Lush / Luxe collection cards. */
+.mega-menu__panel--promos-only{grid-template-columns:minmax(0,1fr)}
+.mega-menu__panel--promos-only .mega-menu__promos{
+  width:100%;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
