@@ -1,0 +1,49 @@
+{%- doc -%}
+  Renders one promotion card inside a tabbed mega menu panel.
+
+  Shared by the promo settings on the mega_menu_tab block and the
+  mega_menu_tab_promo blocks, so both look identical.
+
+  @param {object} image - Promo image
+  @param {string} [image_ratio] - Image ratio (adapt, square, portrait, landscape, wide)
+  @param {string} [heading] - Promo heading
+  @param {string} [subtext] - Promo subtext (inline rich text)
+  @param {boolean} [overlay_content] - Show the text over the image
+  @param {string} [link] - Promo link
+  @param {string} [tag] - Badge text
+  @param {object} [color_text] - Text colour
+  @param {object} [color_overlay] - Overlay colour
+  @param {number} [overlay_opacity] - Overlay opacity, 0-100
+  @param {string} [attributes] - Extra attributes, e.g. block.shopify_attributes
+{%- enddoc -%}
+
+<div class="media-card media-card--{{ settings.card_style }}{% if overlay_content %} media-card--overlap{% endif %}"{% if attributes != blank %} {{ attributes }}{% endif %}>
+  <a class="media-card__link flex flex-col w-full h-full relative"{% if link != blank %} href="{{ link }}"{% else %} role="link" aria-disabled="true"{% endif %}
+    aria-label="{{ heading | default: subtext | escape }}"
+    style="--color-foreground: {{ color_text.rgb }};--color-overlay: {{ color_overlay.rgb }};--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};"
+  >
+    {%- if tag != blank -%}
+      <div class="badges z-2 absolute grid gap-3 pointer-events-none">
+        <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none">{{ tag | escape }}</span>
+      </div>
+    {%- endif -%}
+    <div class="media media--{{ image_ratio | default: 'square' }} relative overflow-hidden">
+      {{- image | image_url: width: image.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080', is: 'lazy-image' -}}
+    </div>
+    {%- if heading != blank or subtext != blank -%}
+      <div class="media-card__content flex justify-between items-center gap-4 w-full">
+        <div class="media-card__text opacity-0 shrink-1 grid gap-0d5">
+          {%- if heading != blank -%}
+            <p>
+              <span class="heading reversed-link text-xl-3xl tracking-tighter leading-tight">{{ heading | escape }}</span>
+            </p>
+          {%- endif -%}
+          {%- if subtext != blank -%}
+            <p class="leading-none text-xs">{{ subtext }}</p>
+          {%- endif -%}
+        </div>
+        {%- render 'icon', icon: 'arrow-right', size: 'xs', class: 'transform shrink-0 hidden xl:block' -%}
+      </div>
+    {%- endif -%}
+  </a>
+</div>

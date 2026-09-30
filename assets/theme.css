@@ -16923,3 +16923,30 @@ shopify-account::part(dialog) .account__heading {
 }
 .mega-menu[open] .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{opacity:.55}
 .no-js .mega-menu__nav--tabs[data-reveal-flow] .mega-menu__nav-group{opacity:.55}
+
+/* Mega menu tab promos — up to three per tab. Stacked in the promo column
+   by default; the "row" layout moves them under the products so the product
+   grid gets the full panel width back. A row always has three slots, so a
+   card is the same size whether one, two or three are set. */
+.mega-menu__promos{
+  gap:var(--sp-4);
+  align-content:start;
+  width:var(--nav-promo-width);
+}
+.mega-menu__promos .media-card{width:100%}
+.mega-menu__panel--promos-row{grid-template-columns:minmax(0,1fr)}
+.mega-menu__panel--promos-row .mega-menu__promos{
+  width:100%;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media screen and (min-width:768px){
+  .mega-menu__panel--promos-row :is(.card-grid--3,.card-grid--4){--card-grid-per-row:3}
+}
+@media screen and (min-width:1024px){
+  .mega-menu__panel--promos-row .slider{
+    --slider-container:calc(var(--page-container) - var(--nav-tabs-width) - var(--nav-tabs-gap));
+  }
+}
+@media screen and (min-width:1280px){
+  .mega-menu__panel--promos-row .card-grid--4{--card-grid-per-row:4}
+}

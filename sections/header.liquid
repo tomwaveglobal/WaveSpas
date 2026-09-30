@@ -1073,6 +1073,17 @@
           "default": false
         },
         {
+          "type": "select",
+          "id": "tab_promo_layout",
+          "label": "Promo layout",
+          "info": "Each tab can show up to three promos: its own, plus any Mega menu tab promo blocks. Stacked works best with landscape or wide images.",
+          "options": [
+            { "value": "column", "label": "Stacked beside products" },
+            { "value": "row", "label": "In a row under products" }
+          ],
+          "default": "column"
+        },
+        {
           "type": "range",
           "id": "tab_icon_size",
           "min": 20,
@@ -2767,6 +2778,122 @@
           "id": "tab_swatch_13",
           "label": "Colour swatch for tab 13",
           "info": "Draws a colour circle instead of an icon image. Use for a Shop by colour group."
+        }
+      ]
+    },
+    {
+      "type": "mega_menu_tab_promo",
+      "name": "Mega menu tab promo",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Adds a promo to one tab of a tabbed mega menu. A tab shows up to three promos — its own promo first, then these blocks in the order they sit here."
+        },
+        {
+          "type": "text",
+          "id": "promo_menu_title",
+          "label": "Mega menu title",
+          "info": "Must match the Menu title of the tabbed mega menu, e.g. Hot Tubs."
+        },
+        {
+          "type": "range",
+          "id": "tab",
+          "label": "Tab number",
+          "info": "The tab's number in that mega menu's settings, e.g. 2 for Tab 2.",
+          "min": 1,
+          "max": 16,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.global.settings.image_ratio.options__1.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.global.settings.image_ratio.options__2.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.global.settings.image_ratio.options__3.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.global.settings.image_ratio.options__4.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.global.settings.image_ratio.options__5.label"
+            }
+          ],
+          "default": "landscape",
+          "label": "t:sections.global.settings.image_ratio.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "inline_richtext",
+          "id": "subtext",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "checkbox",
+          "id": "overlay_content",
+          "default": true,
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "text",
+          "id": "tag",
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "color",
+          "id": "color_text",
+          "label": "t:sections.global.settings.color_text.label",
+          "default": "#ffffff"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "color",
+          "id": "color_overlay",
+          "label": "t:sections.global.settings.color_overlay.label",
+          "default": "#000000"
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank }}",
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.global.settings.overlay_opacity.label",
+          "default": 40
         }
       ]
     }
