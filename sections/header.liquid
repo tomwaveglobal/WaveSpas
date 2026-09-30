@@ -93,6 +93,42 @@
   </script>
 {%- endif -%}
 
+{%- comment -%}
+  Mega menu promo videos: paused on the first frame until the card is hovered
+  or focused, then played; rewound when the pointer leaves so the card always
+  rests on the same frame. Delegated from the document because the menu
+  panels arrive through the Section Rendering API after load, and a script
+  inside them would never run.
+{%- endcomment -%}
+<script>
+  (function () {
+    var CARD = '.media-card--hover-play';
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function toggle(event, play) {
+      if (!event.target.closest) return;
+      var card = event.target.closest(CARD);
+      // Moving between children of the same card fires over/out too; ignore it.
+      if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+      var video = card.querySelector('video');
+      if (!video) return;
+      if (play) {
+        if (reduceMotion.matches) return;
+        var playing = video.play();
+        if (playing && playing.catch) playing.catch(function () {});
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+
+    document.addEventListener('mouseover', function (event) { toggle(event, true); });
+    document.addEventListener('mouseout', function (event) { toggle(event, false); });
+    document.addEventListener('focusin', function (event) { toggle(event, true); });
+    document.addEventListener('focusout', function (event) { toggle(event, false); });
+  })();
+</script>
+
 {% schema %}
 {
   "name": "t:sections.header.name",
@@ -2738,7 +2774,20 @@
           "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Optional. Shown instead of the image, paused on its first frame until hovered, then it plays. Use a short MP4 — a GIF cannot be paused, so convert it to MP4 first."
+        },
+        {
+          "type": "checkbox",
+          "id": "mono_until_hover",
+          "label": "Black and white until hovered",
+          "info": "Turns to colour on hover. Works with an image or a video.",
+          "default": false
+        },
+        {
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "select",
           "id": "image_ratio",
           "options": [
@@ -2767,54 +2816,54 @@
           "label": "t:sections.global.settings.image_ratio.label"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "text",
           "id": "heading",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label",
           "info": "e.g. Lite. Leave blank to use the collection title."
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "inline_richtext",
           "id": "subtext",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_subtext.label"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "checkbox",
           "id": "overlay_content",
           "default": true,
           "label": "t:sections.header.blocks.mega_menu.settings.promo_overlay_content.label"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "url",
           "id": "link",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label",
           "info": "Leave blank to link to the collection."
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "text",
           "id": "tag",
           "label": "t:sections.header.blocks.mega_menu.settings.promo_tag.label"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "color",
           "id": "color_text",
           "label": "t:sections.global.settings.color_text.label",
           "default": "#ffffff"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "color",
           "id": "color_overlay",
           "label": "t:sections.global.settings.color_overlay.label",
           "default": "#000000"
         },
         {
-          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank }}",
+          "visible_if": "{{ block.settings.image != blank or block.settings.collection != blank or block.settings.video != blank }}",
           "type": "range",
           "id": "overlay_opacity",
           "min": 0,

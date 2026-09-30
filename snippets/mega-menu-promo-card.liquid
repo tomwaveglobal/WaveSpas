@@ -14,10 +14,12 @@
   @param {object} [color_text] - Text colour
   @param {object} [color_overlay] - Overlay colour
   @param {number} [overlay_opacity] - Overlay opacity, 0-100
+  @param {object} [video] - Shopify-hosted video, shown in place of the image; plays on hover
+  @param {boolean} [mono_until_hover] - Black and white until hovered
   @param {string} [attributes] - Extra attributes, e.g. block.shopify_attributes
 {%- enddoc -%}
 
-<div class="media-card media-card--{{ settings.card_style }}{% if overlay_content %} media-card--overlap{% endif %}"{% if attributes != blank %} {{ attributes }}{% endif %}>
+<div class="media-card media-card--{{ settings.card_style }}{% if overlay_content %} media-card--overlap{% endif %}{% if mono_until_hover %} media-card--mono{% endif %}{% if video != blank %} media-card--hover-play{% endif %}"{% if attributes != blank %} {{ attributes }}{% endif %}>
   <a class="media-card__link flex flex-col w-full h-full relative"{% if link != blank %} href="{{ link }}"{% else %} role="link" aria-disabled="true"{% endif %}
     aria-label="{{ heading | default: subtext | escape }}"
     style="--color-foreground: {{ color_text.rgb }};--color-overlay: {{ color_overlay.rgb }};--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};"
@@ -28,7 +30,16 @@
       </div>
     {%- endif -%}
     <div class="media media--{{ image_ratio | default: 'square' }} relative overflow-hidden">
-      {{- image | image_url: width: image.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080', is: 'lazy-image' -}}
+      {%- if video != blank -%}
+        {%- comment -%}
+          Paused on its first frame (the poster) until the card is hovered —
+          the header section's script plays it and rewinds it on the way out.
+          A GIF cannot be paused, which is why this takes a video instead.
+        {%- endcomment -%}
+        {{- video | video_tag: muted: true, loop: true, playsinline: true, preload: 'metadata', image_size: '1080x', class: 'media-card__video' -}}
+      {%- else -%}
+        {{- image | image_url: width: image.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080', is: 'lazy-image' -}}
+      {%- endif -%}
     </div>
     {%- if heading != blank or subtext != blank -%}
       <div class="media-card__content flex justify-between items-center gap-4 w-full">

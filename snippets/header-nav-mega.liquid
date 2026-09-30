@@ -274,7 +274,7 @@
                     assign promo_block_heading = promo_block.settings.heading | default: promo_collection.title
                     assign promo_block_link = promo_block.settings.link | default: promo_collection.url
                   -%}
-                  {%- if promo_block_image == blank -%}{%- continue -%}{%- endif -%}
+                  {%- if promo_block_image == blank and promo_block.settings.video == blank -%}{%- continue -%}{%- endif -%}
                   {%- render 'mega-menu-promo-card',
                     image: promo_block_image,
                     image_ratio: promo_block.settings.image_ratio,
@@ -286,6 +286,8 @@
                     color_text: promo_block.settings.color_text,
                     color_overlay: promo_block.settings.color_overlay,
                     overlay_opacity: promo_block.settings.overlay_opacity,
+                    video: promo_block.settings.video,
+                    mono_until_hover: promo_block.settings.mono_until_hover,
                     attributes: promo_block.shopify_attributes
                   -%}
                   {%- assign tab_promos_count = tab_promos_count | plus: 1 -%}

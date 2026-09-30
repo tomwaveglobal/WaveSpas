@@ -16815,3 +16815,18 @@ shopify-account::part(dialog) .account__heading {
   width:100%;
   grid-template-columns:repeat(var(--promo-columns,3),minmax(0,1fr));
 }
+/* Promo card video: sized by the same ratio options as the image. */
+.media-card__video{display:block;width:100%;height:100%;object-fit:cover}
+.media--square>.media-card__video{aspect-ratio:1 / 1}
+.media--portrait>.media-card__video{aspect-ratio:4 / 5}
+.media--landscape>.media-card__video{aspect-ratio:4 / 3}
+.media--wide>.media-card__video{aspect-ratio:16 / 9}
+/* "Black and white until hovered" — only where there is a hover to reveal it,
+   so touch screens simply show the card in colour. */
+@media (hover:hover){
+  .media-card--mono .media :is(img,video){
+    filter:grayscale(1);
+    transition:filter .5s ease,transform var(--animation-primary);
+  }
+  .media-card--mono .media-card__link:is(:hover,:focus-visible) .media :is(img,video){filter:none}
+}
