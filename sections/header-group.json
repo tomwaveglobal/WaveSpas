@@ -279,6 +279,7 @@
             "promo_menu_title": "Hot Tubs",
             "tab": 2,
             "collection": "lite-hot-tubs",
+            "image": "shopify://shop_images/Bubble_Gif_New_2.gif",
             "image_ratio": "square",
             "heading": "Wave Lite",
             "subtext": "",
@@ -375,7 +376,7 @@
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_aePWta": {
