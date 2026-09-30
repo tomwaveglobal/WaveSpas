@@ -16782,10 +16782,10 @@ shopify-account::part(dialog) .account__heading {
 .shopify-section-group-header-group {
   z-index: 20 !important;
 }
-/* Mega menu tab promos — up to three per tab. Stacked in the promo column
+/* Mega menu tab promos — up to four per tab. Stacked in the promo column
    by default; the "row" layout moves them under the products so the product
-   grid gets the full panel width back. A row always has three slots, so a
-   card is the same size whether one, two or three are set. */
+   grid gets the full panel width back. A row has at least three slots, so a
+   card keeps its size with fewer set; a fourth card adds a fourth slot. */
 .mega-menu__promos{
   gap:var(--sp-4);
   align-content:start;
@@ -16795,7 +16795,7 @@ shopify-account::part(dialog) .account__heading {
 .mega-menu__panel--promos-row{grid-template-columns:minmax(0,1fr)}
 .mega-menu__panel--promos-row .mega-menu__promos{
   width:100%;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(var(--promo-columns,3),minmax(0,1fr));
 }
 @media screen and (min-width:768px){
   .mega-menu__panel--promos-row :is(.card-grid--3,.card-grid--4){--card-grid-per-row:3}
@@ -16809,9 +16809,9 @@ shopify-account::part(dialog) .account__heading {
   .mega-menu__panel--promos-row .card-grid--4{--card-grid-per-row:4}
 }
 /* A tab set to show promos instead of products: the cards take the product
-   grid's place, three across, e.g. Lite / Lush / Luxe collection cards. */
+   grid's place, three across, or four when four are set. */
 .mega-menu__panel--promos-only{grid-template-columns:minmax(0,1fr)}
 .mega-menu__panel--promos-only .mega-menu__promos{
   width:100%;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(var(--promo-columns,3),minmax(0,1fr));
 }

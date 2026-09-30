@@ -226,7 +226,7 @@
                 endif
               -%}
               {%- comment -%}
-                Up to three promos per tab: the promo set on the tab itself comes
+                Up to four promos per tab: the promo set on the tab itself comes
                 first, then any "Mega menu tab promo" blocks pointed at this menu
                 and tab number, in the order they sit in the editor.
               {%- endcomment -%}
@@ -262,7 +262,7 @@
                   {%- assign tab_promos_count = 1 -%}
                 {%- endif -%}
                 {%- for promo_block in section.blocks -%}
-                  {%- if tab_promos_count >= 3 -%}{%- break -%}{%- endif -%}
+                  {%- if tab_promos_count >= 4 -%}{%- break -%}{%- endif -%}
                   {%- if promo_block.type != 'mega_menu_tab_promo' -%}{%- continue -%}{%- endif -%}
                   {%- assign promo_menu_handle = promo_block.settings.promo_menu_title | downcase | handle -%}
                   {%- if promo_menu_handle != menu_title_handle or promo_block.settings.tab != i -%}{%- continue -%}{%- endif -%}
@@ -325,7 +325,7 @@
                     </a>
                   </div>
                   {%- if show_promos_only -%}
-                    <div class="mega-menu__promos grid">
+                    <div class="mega-menu__promos grid" style="--promo-columns: {{ tab_promos_count | at_least: 3 }};">
                       {{- tab_promos -}}
                     </div>
                   {%- else -%}
@@ -386,7 +386,7 @@
                   {%- endif -%}
                 </div>
                 {%- if tab_promos_count > 0 and show_promos_only == false -%}
-                  <div class="mega-menu__promos grid">
+                  <div class="mega-menu__promos grid" style="--promo-columns: {{ tab_promos_count | at_least: 3 }};">
                     {{- tab_promos -}}
                   </div>
                 {%- endif -%}
