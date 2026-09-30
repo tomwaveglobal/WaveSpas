@@ -280,14 +280,14 @@
             "tab": 2,
             "collection": "lite-hot-tubs",
             "image_ratio": "square",
-            "heading": "",
+            "heading": "Wave Lite",
             "subtext": "",
             "overlay_content": true,
             "link": "",
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_promo_Bt7Ndw": {
@@ -297,14 +297,14 @@
             "tab": 2,
             "collection": "lush-hot-tubs",
             "image_ratio": "square",
-            "heading": "",
+            "heading": "Wave Lush",
             "subtext": "",
             "overlay_content": true,
             "link": "",
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_promo_TAU9Ra": {
@@ -314,14 +314,14 @@
             "tab": 2,
             "collection": "luxe-hot-tubs",
             "image_ratio": "square",
-            "heading": "",
+            "heading": "Wave Luxe",
             "subtext": "",
             "overlay_content": true,
             "link": "",
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_promo_FDMpAF": {
@@ -332,14 +332,14 @@
             "collection": "lite-hot-tubs",
             "image": "shopify://shop_images/Atlantic_Brown_Rattan_1.jpg",
             "image_ratio": "square",
-            "heading": "",
+            "heading": "Wave Lite",
             "subtext": "",
             "overlay_content": true,
             "link": "",
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_promo_HMyjJg": {
@@ -350,14 +350,14 @@
             "collection": "lush-hot-tubs",
             "image": "shopify://shop_images/Aegean_Navy_1.jpg",
             "image_ratio": "square",
-            "heading": "",
+            "heading": "Wave Lush",
             "subtext": "",
             "overlay_content": true,
             "link": "",
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 20
           }
         },
         "mega_menu_tab_promo_cPLFxX": {
@@ -368,7 +368,7 @@
             "collection": "luxe-hot-tubs",
             "image": "shopify://shop_images/Pacific_Grey_Rattan_1.jpg",
             "image_ratio": "landscape",
-            "heading": "",
+            "heading": "Wave Luxe",
             "subtext": "",
             "overlay_content": true,
             "link": "",
