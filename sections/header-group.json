@@ -372,7 +372,7 @@
             "tag": "",
             "color_text": "#ffffff",
             "color_overlay": "#000000",
-            "overlay_opacity": 40
+            "overlay_opacity": 10
           }
         },
         "mega_menu_tab_aePWta": {
@@ -1138,7 +1138,7 @@
         "menu": "nav-2027-uk",
         "menu_mobile": "nav-2027-uk",
         "menu_active": "block",
-        "hover_menu": true,
+        "hover_menu": false,
         "header_layout": "left-center",
         "sticky_header_type": "always",
         "icons_size": "lg",
