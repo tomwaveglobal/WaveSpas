@@ -190,12 +190,40 @@
             "color_overlay": "#000000",
             "overlay_opacity": 30
           }
+        },
+        "type_4": {
+          "type": "collection",
+          "settings": {
+            "collection": "drop-stitch-hot-tubs",
+            "image": "shopify://shop_images/Ontario_Hero_Upscaled_and_Graded.jpg",
+            "title": "Drop Stitch",
+            "description": "Firmer, straighter walls than a standard inflatable",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "type_5": {
+          "type": "collection",
+          "settings": {
+            "collection": "hot-tub-ice-baths",
+            "image": "shopify://shop_images/Ice-Bath-Lifestyle-homepage--mobile.jpg",
+            "title": "Ice Baths",
+            "description": "Cold plunge tubs for recovery after exercise",
+            "overlay_content": false,
+            "color_text": "#ffffff",
+            "color_overlay": "#000000",
+            "overlay_opacity": 30
+          }
         }
       },
       "block_order": [
         "type_1",
+        "type_4",
         "type_2",
-        "type_3"
+        "type_3",
+        "type_5"
       ],
       "settings": {
         "card_style": "card",
@@ -203,7 +231,7 @@
         "image_ratio": "landscape",
         "show_products_count": false,
         "show_view_all": false,
-        "columns": 3,
+        "columns": 5,
         "carousel_on_desktop": false,
         "columns_mobile": "2",
         "swipe_on_mobile": true,
