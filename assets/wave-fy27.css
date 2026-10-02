@@ -16,6 +16,23 @@
   --wf-accent: #f59e0b;
   --wf-accent-ink: #b45309;
   --wf-aqua: #a8e8e2;
+
+  /* technology colour keys (render styles palette) — one hue per system, never swapped.
+     hot: solid tube + arrowheads · cold: solid tube + arrowheads · air: beaded path into bubbles, never a solid tube
+     ghost: translucent shells and pale water so the colours read */
+  --wf-hot: #f59e0b;
+  --wf-hot-orange: #f2a21c;
+  --wf-hot-red: #e4573d;
+  --wf-cold: #3075cf;
+  --wf-cold-blue: #2e7ba6;
+  --wf-cold-navy: #1e3159;
+  --wf-air: #36ab70;
+  --wf-air-green: #24463a;
+  --wf-air-light: #4e7d6b;
+  --wf-ghost: #c9d1d8;
+  --wf-ghost-charcoal: #3f444a;
+  --wf-ghost-grey: #909090;
+  --wf-ghost-white: #e5e7e7;
   --wf-radius: var(--rounded-block, 20px);
   --wf-radius-card: var(--rounded-card, 16px);
   --wf-gutter: var(--page-padding, 20px);
@@ -284,6 +301,16 @@ wf-explode { display: block; }
 }
 .wf-va__stage svg { display: block; width: 100%; height: auto; }
 .wf-va__stage .wf-seg { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); white-space: nowrap; }
+
+/* diagram colours: air = green, shell / water / bather = ghost grey */
+.wf-va__glow { stop-color: var(--wf-air); }
+.wf-va__water { stop-color: var(--wf-ghost-white); }
+.wf-va__shell { fill: var(--wf-ghost-white); fill-opacity: 0.04; stroke: var(--wf-ghost); stroke-opacity: 0.18; }
+.wf-va__surface { fill: none; stroke: var(--wf-ghost); stroke-opacity: 0.55; stroke-width: 1.5; }
+.wf-va__bather { fill: var(--wf-ghost); fill-opacity: 0.09; stroke: var(--wf-ghost); stroke-opacity: 0.6; stroke-width: 1.5; stroke-linejoin: round; }
+.wf-va__bather-detail { fill: none; stroke: var(--wf-ghost); stroke-opacity: 0.22; stroke-width: 1.5; stroke-linecap: round; }
+.wf-va__chamber { fill: none; stroke: var(--wf-air); stroke-linecap: round; }
+.wf-va__bubbles { fill: var(--wf-air); }
 .wf-va__zone,
 .wf-va__chamber,
 .wf-va__bubbles { transition: opacity 0.9s var(--wf-ease); }
