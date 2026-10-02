@@ -29,7 +29,7 @@
           "type": "collection",
           "settings": {
             "collection": "lush-hot-tubs",
-            "image": "shopify://shop_images/Atlantic_Grey_Rattan_1.jpg",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
             "title": "Lush",
             "description": "Our mid range: more comfort, more features",
             "overlay_content": false,
@@ -42,7 +42,7 @@
           "type": "collection",
           "settings": {
             "collection": "luxe-hot-tubs",
-            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
+            "image": "shopify://shop_images/Hero3.png",
             "title": "Luxe",
             "description": "Our premium range: the ultimate Wave Spas experience",
             "overlay_content": false,
