@@ -3,8 +3,9 @@
   Monthly figures update when the variant changes (listens for the theme's variant:change event).
 
   @param {object} product - Product being viewed
-  @param {boolean} [show_test_notes] - Show amber notes for terms that still need confirming
-  @param {boolean} [payl8r_confirmed] - Show a Payl8r monthly figure only once 24-month interest-free terms are confirmed
+  Headline leads with the lowest monthly option: Payl8r (powered by Dopple) over 24 months at its lowest rate.
+  Payl8r is interest-bearing beyond 30 days (flat rate from 0.8% a month, subject to status), so it carries a
+  representative example. Terms from wavespas.com/pages/payl8r, checked 2 Oct 2026.
 {%- enddoc -%}
 {{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
 {%- liquid
@@ -18,7 +19,11 @@
   endif
   assign pay3 = price | divided_by: 3 | money
   assign pay12 = price | divided_by: 12 | money
-  assign pay24 = price | divided_by: 24 | money
+  comment
+    Payl8r flat rate: monthly = price / 24 + price × 0.8%
+  endcomment
+  assign dopple_interest = price | times: 8 | divided_by: 1000
+  assign dopple24 = price | divided_by: 24 | plus: dopple_interest | money
   assign logo_klarna = images['Klarna_paypal.png']
   assign logo_dividebuy = images['DivideBuy.png']
   assign logo_payl8r = images['Payl8r.png']
@@ -27,8 +32,7 @@
   <details class="wfin__panel">
     <summary class="wfin__summary">
       <p class="wfin__headline">
-        <span data-fin-dividebuy{% unless dividebuy_ok %} hidden{% endunless %}>Spread the cost from <strong data-fin-split="12">{{ pay12 }}</strong> a month, interest-free</span>
-        <span data-fin-fallback{% if dividebuy_ok %} hidden{% endif %}>Pay in 3 interest-free payments of <strong data-fin-split="3">{{ pay3 }}</strong></span>
+        Spread the cost from <strong data-fin-dopple>{{ dopple24 }}</strong> a month over 24 months with Payl8r, rates from 0.8% a month
       </p>
       <span class="wfin__logos" aria-hidden="true">
         {%- if logo_klarna != blank -%}{{ logo_klarna | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
@@ -51,20 +55,13 @@
           <a class="wfin__link link" href="/pages/dividebuy">Details</a>
         </li>
         <li>
-          {%- if payl8r_confirmed -%}
-            <span class="wfin__plan-name">24 months <span class="wfin__chip">Interest-free</span></span>
-            <span class="wfin__amount"><strong data-fin-split="24">{{ pay24 }}</strong> a month</span>
-          {%- else -%}
-            <span class="wfin__plan-name">Up to 24 months</span>
-            <span class="wfin__amount wpdp-muted">Plans to suit you</span>
-          {%- endif -%}
-          <a class="wfin__link link" href="/pages/payl8r-finance-powered-by-dopple" target="_blank" rel="noopener">Get a quote</a>
+          <span class="wfin__plan-name">24 months <span class="wfin__chip">From 0.8% a month</span></span>
+          <span class="wfin__amount">From <strong data-fin-dopple>{{ dopple24 }}</strong> a month</span>
+          <a class="wfin__link link" href="/pages/payl8r">Details</a>
         </li>
       </ul>
       <p class="wfin__legal">Choose your plan at checkout. 18+, UK residents only, subject to status. T&amp;Cs apply.</p>
-      {%- if show_test_notes and payl8r_confirmed == false -%}
-        <p class="wpdp-note">Payl8r monthly figure hidden until 24-month interest-free terms are confirmed.</p>
-      {%- endif -%}
+      <p class="wfin__legal">Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04.</p>
     </div>
   </details>
 </wave-finance>
@@ -90,7 +87,9 @@
         });
         const eligible = price >= Number(this.dataset.dbMin) && price <= Number(this.dataset.dbMax);
         this.querySelectorAll('[data-fin-dividebuy]').forEach((el) => { el.hidden = !eligible; });
-        this.querySelectorAll('[data-fin-fallback]').forEach((el) => { el.hidden = eligible; });
+        this.querySelectorAll('[data-fin-dopple]').forEach((el) => {
+          el.textContent = this.money.format(Math.floor(price / 24 + Math.floor(price * 8 / 1000)) / 100);
+        });
       }
     });
   }

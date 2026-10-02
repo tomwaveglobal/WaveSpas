@@ -244,7 +244,7 @@
         "liquid_wave_finance": {
           "type": "liquid",
           "settings": {
-            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
+            "liquid": "{% render 'wave-finance-options', product: product %}"
           }
         },
         "liquid_wave_trust": {
