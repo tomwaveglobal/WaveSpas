@@ -16,6 +16,7 @@
           "type": "collection",
           "settings": {
             "collection": "lite-hot-tubs",
+            "image": "shopify://shop_images/Pacific_Brown_Rattan_1.jpg",
             "title": "Lite",
             "description": "Our entry range: everything you need to get started",
             "overlay_content": false,
@@ -28,6 +29,7 @@
           "type": "collection",
           "settings": {
             "collection": "lush-hot-tubs",
+            "image": "shopify://shop_images/Atlantic_Grey_Rattan_1.jpg",
             "title": "Lush",
             "description": "Our mid range: more comfort, more features",
             "overlay_content": false,
@@ -40,6 +42,7 @@
           "type": "collection",
           "settings": {
             "collection": "luxe-hot-tubs",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
             "title": "Luxe",
             "description": "Our premium range: the ultimate Wave Spas experience",
             "overlay_content": false,
@@ -81,6 +84,7 @@
           "type": "collection",
           "settings": {
             "collection": "2-person-hot-tubs",
+            "image": "shopify://shop_images/Como_Graphite_2.jpg",
             "title": "2 Person",
             "description": "",
             "overlay_content": false,
@@ -93,6 +97,7 @@
           "type": "collection",
           "settings": {
             "collection": "4-person-hot-tubs",
+            "image": "shopify://shop_images/Tahoe_Charcoal_2.jpg",
             "title": "4 Person",
             "description": "",
             "overlay_content": false,
@@ -105,6 +110,7 @@
           "type": "collection",
           "settings": {
             "collection": "6-person-hot-tubs",
+            "image": "shopify://shop_images/Garda_Pebble_1.jpg",
             "title": "6 Person",
             "description": "",
             "overlay_content": false,
@@ -150,6 +156,7 @@
           "type": "collection",
           "settings": {
             "collection": "inflatable-hot-tubs",
+            "image": "shopify://shop_images/Pacific_Dark_Grey_1.jpg",
             "title": "Inflatable",
             "description": "Lightweight, portable and quick to set up",
             "overlay_content": false,
@@ -162,6 +169,7 @@
           "type": "collection",
           "settings": {
             "collection": "foam-hot-tubs",
+            "image": "shopify://shop_images/Como_Graphite_3.jpg",
             "title": "Foam",
             "description": "Eco foam walls for better insulation and a firmer feel",
             "overlay_content": false,
@@ -174,6 +182,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-frame-spas",
+            "image": "shopify://shop_images/Adriatic-Aerial_wave_logo.jpg",
             "title": "Frame",
             "description": "Sturdy aluminium frame for a more permanent look",
             "overlay_content": false,
@@ -219,6 +228,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-chemicals",
+            "image": "shopify://shop_images/hot-tub-chemical-starter-kit-the-500g-collection-wave-spas-uk-194707.jpg",
             "title": "Chemicals",
             "description": "",
             "overlay_content": false,
@@ -231,6 +241,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-filters",
+            "image": "shopify://shop_images/mega-bundle-replacement-filter-cartridgenon-threaded-48-pack-wave-spas-uk-274055.jpg",
             "title": "Filters",
             "description": "",
             "overlay_content": false,
@@ -243,6 +254,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-covers",
+            "image": "shopify://shop_images/como-energy-save-thermal-cover-6-person-wave-spas-uk-264533.jpg",
             "title": "Covers",
             "description": "",
             "overlay_content": false,
@@ -255,6 +267,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-mats",
+            "image": "shopify://shop_images/3x3_Mat.png",
             "title": "Mats & Ground Protection",
             "description": "",
             "overlay_content": false,
@@ -267,6 +280,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-starter-kits",
+            "image": "shopify://shop_images/hot-tub-chemical-starter-kit-wave-spas-uk-146182.jpg",
             "title": "Starter Kits",
             "description": "",
             "overlay_content": false,
@@ -279,6 +293,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-spa-maintenance",
+            "image": "shopify://shop_images/wave-spa-3-in-1-cleaning-kit-cleaning-mitt-net-brush-wave-spas-uk-797405.jpg",
             "title": "Cleaning & Maintenance",
             "description": "",
             "overlay_content": false,
@@ -291,6 +306,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-head-rests-drink-holders",
+            "image": "shopify://shop_images/luxury-spa-comfort-pack-drinks-holder-2-head-rests-black-wave-spas-uk-946796.jpg",
             "title": "Seats, Head Rests & Drink Holders",
             "description": "",
             "overlay_content": false,
@@ -303,6 +319,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-lights",
+            "image": "shopify://shop_images/sunlight_01.jpg",
             "title": "Lights & Aromatherapy",
             "description": "",
             "overlay_content": false,
@@ -315,6 +332,7 @@
           "type": "collection",
           "settings": {
             "collection": "air-gazebos-tents",
+            "image": "shopify://shop_images/Tent_in_use.png",
             "title": "Gazebos & Spa Shelters",
             "description": "",
             "overlay_content": false,
@@ -327,6 +345,7 @@
           "type": "collection",
           "settings": {
             "collection": "hot-tub-spare-parts",
+            "image": "shopify://shop_images/wave-spa-repair-patch-kit-wave-spas-uk-705779.jpg",
             "title": "Spare Parts",
             "description": "",
             "overlay_content": false,
