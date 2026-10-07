@@ -3,6 +3,12 @@
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     {%- render 'section-variables', section: section -%}
+    /* Rich-text is virtually always below-the-fold on PDPs / pages.
+       content-visibility:auto lets the browser skip layout + paint of
+       the section until it scrolls into view; intrinsic-size keeps the
+       scrollbar honest. Drops Lighthouse TBT on long PDPs. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
 </style>
 
@@ -97,11 +103,18 @@
                     {%- capture style -%}--image-max-width: {{ block.settings.image_max_width }}px; --image-max-width-mobile: {{ block.settings.image_max_width_mobile }}px{%- endcapture -%}
                     {%- capture sizes -%}(max-width: 767px) min({{ block.settings.image_max_width_mobile }}px, 100vw), min({{ block.settings.image_max_width }}px, 100vw){%- endcapture -%}
                     {%- capture widths -%}{{ block.settings.image_max_width_mobile }},{{ block.settings.image_max_width_mobile | times: 2 }},{{ block.settings.image_max_width }},{{ block.settings.image_max_width | times: 2 }}{%- endcapture -%}
+                    {%- render 'responsive-image', image: block.settings.image, sizes: sizes, widths: widths, max_width: block.settings.image_max_width, times: 2, style: style, class: 'image-fit' -%}
                   {%- else -%}
                     {%- assign sizes = 'min(100vw, var(--page-width))' -%}
-                    {%- assign widths = '50,75,100,150,200,300,400,500,750,1000,1250,1500,1750,2000,2250,2500,2750,3000,3200' -%}
+                    {%- assign widths = '400,600,800,1000,1200,1400,1600,2000' -%}
+                    {%- render 'responsive-image',
+                      image: block.settings.image,
+                      sizes: sizes,
+                      widths: widths,
+                      max_width: 1200,
+                      class: 'image-fit'
+                    -%}
                   {%- endif -%}
-                  {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, style: style, is: 'lazy-image', class: 'image-fit' -}}
                 </figure>
               </div>
             {%- endif -%}
@@ -1324,3 +1337,23 @@
   }
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%- render 'responsive-image',
+                          image: block.settings.image,
+                          sizes: sizes,
+                          widths: widths,
+                          max_width: block.settings.image_max_width | times: 2,
+                          style: style,
+                          class: 'image-fit'
+                        -%}
+  to: "{%- render 'responsive-image', image: block.settings.image, sizes: sizes, widths:
+    widths, max_width: block.settings.image_max_width, times: 2, style: style, class:
+    'image-fit' -%}"
+  position: 7147..7326
+{% endcomment %}

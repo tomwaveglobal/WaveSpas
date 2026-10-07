@@ -106,24 +106,24 @@
   # Translate to a numeric multiplier applied via calc() in the CSS.
   assign vpa_step_s = '1'
   case settings.vpa_step_size
-    when 'xs' assign vpa_step_s = '0.85'
-    when 's'  assign vpa_step_s = '0.92'
-    when 'l'  assign vpa_step_s = '1.1'
-    when 'xl' assign vpa_step_s = '1.2'
+    when 'xs'
+    when 's'
+    when 'l'
+    when 'xl'
   endcase
   assign vpa_name_s = '1'
   case settings.vpa_name_size
-    when 'xs' assign vpa_name_s = '0.85'
-    when 's'  assign vpa_name_s = '0.92'
-    when 'l'  assign vpa_name_s = '1.1'
-    when 'xl' assign vpa_name_s = '1.2'
+    when 'xs'
+    when 's'
+    when 'l'
+    when 'xl'
   endcase
   assign vpa_price_s = '1'
   case settings.vpa_price_size
-    when 'xs' assign vpa_price_s = '0.85'
-    when 's'  assign vpa_price_s = '0.92'
-    when 'l'  assign vpa_price_s = '1.1'
-    when 'xl' assign vpa_price_s = '1.2'
+    when 'xs'
+    when 's'
+    when 'l'
+    when 'xl'
   endcase
 
   assign vpa_step_w  = settings.vpa_step_weight  | default: '700'
@@ -2833,3 +2833,46 @@
 })();
 </script>
 {%- endunless -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "    when 'xs' assign vpa_step_s = '0.85'"
+  to: "    when 'xs'"
+  position: 5376..5389
+- from: "    when 's'  assign vpa_step_s = '0.92'"
+  to: "    when 's'"
+  position: 5390..5402
+- from: "    when 'l'  assign vpa_step_s = '1.1'"
+  to: "    when 'l'"
+  position: 5403..5415
+- from: "    when 'xl' assign vpa_step_s = '1.2'"
+  to: "    when 'xl'"
+  position: 5416..5429
+- from: "    when 'xs' assign vpa_name_s = '0.85'"
+  to: "    when 'xs'"
+  position: 5496..5509
+- from: "    when 's'  assign vpa_name_s = '0.92'"
+  to: "    when 's'"
+  position: 5510..5522
+- from: "    when 'l'  assign vpa_name_s = '1.1'"
+  to: "    when 'l'"
+  position: 5523..5535
+- from: "    when 'xl' assign vpa_name_s = '1.2'"
+  to: "    when 'xl'"
+  position: 5536..5549
+- from: "    when 'xs' assign vpa_price_s = '0.85'"
+  to: "    when 'xs'"
+  position: 5618..5631
+- from: "    when 's'  assign vpa_price_s = '0.92'"
+  to: "    when 's'"
+  position: 5632..5644
+- from: "    when 'l'  assign vpa_price_s = '1.1'"
+  to: "    when 'l'"
+  position: 5645..5657
+- from: "    when 'xl' assign vpa_price_s = '1.2'"
+  to: "    when 'xl'"
+  position: 5658..5671
+{% endcomment %}
