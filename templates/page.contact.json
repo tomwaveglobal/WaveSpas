@@ -222,7 +222,7 @@
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
         "subheading": "",
-        "description": "<p>We'd love to hear from you. Our team is here to help. <br/>The best way to contact us is to use our automated chat below, 'Kai' can answer most questions and raise a support ticket if needed.</p>",
+        "description": "<p>We'd love to hear from you. Our team is here to help.&nbsp;<br/>The best way to contact us is to use our automated chat below, 'Kai' can answer most questions and raise a support ticket if needed.</p>",
         "highlighted_text": "none",
         "color_text": "",
         "color_background": "",
@@ -335,6 +335,41 @@
         "full_width": false,
         "rounded": false
       }
+    },
+    "1791814965deac602b": {
+      "type": "apps",
+      "blocks": {
+        "everdesk_photo_upload_w4htE6": {
+          "type": "shopify://apps/everdesk/blocks/photo-upload/01a0c4c4-9f31-7b67-bd31-11ed1aee6bd2",
+          "settings": {
+            "heading": "Send us your photos and videos",
+            "intro": "<p>Already speaking to our team? Add photos or videos to your enquiry here, rather than in a new email — they go straight onto your ticket.</p>",
+            "button_label": "Send files",
+            "show_message": true,
+            "max_width": 720,
+            "padding_top": 40,
+            "padding_bottom": 40
+          }
+        }
+      },
+      "block_order": [
+        "everdesk_photo_upload_w4htE6"
+      ],
+      "settings": {
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -344,6 +379,7 @@
     "rich-text",
     "contact-form",
     "zendesk_chat_hKYhnA",
-    "multicolumn_PUdCbp"
+    "multicolumn_PUdCbp",
+    "1791814965deac602b"
   ]
 }
