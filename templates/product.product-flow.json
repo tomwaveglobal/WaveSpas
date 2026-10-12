@@ -254,8 +254,7 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
@@ -271,8 +270,7 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
@@ -288,8 +286,7 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          },
-          "disabled": true
+          }
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",

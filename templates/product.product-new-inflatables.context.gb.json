@@ -47,6 +47,23 @@
           }
         }
       }
+    },
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "on_site_message_KFREgF": {
+          "settings": {},
+          "disabled": true
+        },
+        "on_site_message_CFpriq": {
+          "settings": {},
+          "disabled": true
+        },
+        "on_site_message_hKD98d": {
+          "settings": {},
+          "disabled": true
+        }
+      }
     }
   }
 }
