@@ -13,6 +13,27 @@
   },
   "parent": "product.product-new-inflatables.json",
   "sections": {
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "on_site_message_KFREgF": {
+          "disabled": false,
+          "settings": {}
+        },
+        "on_site_message_CFpriq": {
+          "disabled": false,
+          "settings": {}
+        },
+        "on_site_message_hKD98d": {
+          "disabled": false,
+          "settings": {}
+        },
+        "liquid_wave_finance": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
+    },
     "comparison_table_GXKLn7": {
       "settings": {},
       "blocks": {
@@ -45,23 +66,6 @@
           "settings": {
             "product": "pacific-hot-tub"
           }
-        }
-      }
-    },
-    "main-product": {
-      "settings": {},
-      "blocks": {
-        "on_site_message_KFREgF": {
-          "settings": {},
-          "disabled": true
-        },
-        "on_site_message_CFpriq": {
-          "settings": {},
-          "disabled": true
-        },
-        "on_site_message_hKD98d": {
-          "settings": {},
-          "disabled": true
         }
       }
     }
