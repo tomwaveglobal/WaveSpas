@@ -630,7 +630,8 @@
         "padding_horizontal_mobile": 0,
         "border_thickness": 0,
         "lazy": true
-      }
+      },
+      "disabled": true
     },
     "help-drawer": {
       "type": "help-drawer",
@@ -1756,12 +1757,17 @@
         "narrow": false,
         "rounded": false
       }
+    },
+    "wave_review_highlights": {
+      "type": "wave-review-highlights",
+      "settings": {}
     }
   },
   "order": [
     "main-product",
     "17840224521f0f53e5",
     "ss_product_videos_4_BQjpxE",
+    "wave_review_highlights",
     "help-drawer",
     "scroll_spy_aPhVjp",
     "video_BqrMRT",

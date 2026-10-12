@@ -1,0 +1,254 @@
+{%- doc -%}
+  "What our customers are saying" carousel of real Reviews.io reviews.
+  Product source pulls reviews for the current product's SKUs and tops up with store reviews when there are too few.
+  The rating summary is the average across all reviews, not only the ones shown.
+  Reviews load in the browser from the public Reviews.io API; the section stays hidden if nothing loads.
+{%- enddoc -%}
+{%- liquid
+  assign skus = ''
+  if section.settings.source == 'product' and product
+    assign skus = product.variants | map: 'sku' | compact | uniq | join: ';'
+  endif
+-%}
+<wave-reviews
+  class="wrev"
+  hidden
+  data-store="{{ section.settings.store | escape }}"
+  data-skus="{{ skus | escape }}"
+  data-min-rating="{{ section.settings.min_rating }}"
+  data-count="{{ section.settings.count }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  style="--wrev-bg: {{ section.settings.background }}; --wrev-star: {{ section.settings.star_colour }}; --wrev-pt: {{ section.settings.padding_top }}px; --wrev-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    <div class="wrev__head">
+      <div>
+        <h2 class="wrev__title">{{ section.settings.heading | escape }}</h2>
+        <p class="wrev__summary" data-rev-summary hidden>
+          <span class="wrev__stars" aria-hidden="true">★★★★★</span>
+          <strong data-rev-average></strong> out of 5 from <span data-rev-total></span> reviews
+        </p>
+      </div>
+      <div class="wrev__controls">
+        <button type="button" class="wrev__btn" data-rev-toggle aria-label="Pause carousel">
+          <svg data-icon-pause width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="3" y="2" width="3" height="10" rx="1"/><rect x="8" y="2" width="3" height="10" rx="1"/></svg>
+          <svg data-icon-play hidden width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2.5v9l7.5-4.5z"/></svg>
+        </button>
+        <button type="button" class="wrev__btn" data-rev-prev aria-label="Previous review">
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+        <button type="button" class="wrev__btn" data-rev-next aria-label="Next review">
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="m5 2 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+      </div>
+    </div>
+    <ul class="wrev__track" data-rev-track role="list" aria-label="Customer reviews"></ul>
+    <p class="wrev__note">Reviews from verified customers, collected by REVIEWS.io.</p>
+  </div>
+</wave-reviews>
+
+<style>
+  .wrev { display: block; padding: var(--wrev-pt) 0 var(--wrev-pb); background: var(--wrev-bg); }
+  .wrev[hidden] { display: none; }
+  .wrev__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
+  .wrev__title { margin: 0; }
+  .wrev__summary { margin: 8px 0 0; font-size: 14px; }
+  .wrev__stars { color: var(--wrev-star); letter-spacing: 2px; margin-right: 4px; }
+  .wrev__controls { display: flex; gap: 8px; }
+  .wrev__btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid #d4d4d8; border-radius: 50%; background: #fff; color: #000; fill: currentColor; cursor: pointer; transition: border-color .2s; }
+  .wrev__btn:hover { border-color: #000; }
+  .wrev__btn:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+  .wrev__track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 32px) / 3); gap: 16px; margin: 0; padding: 0 0 4px; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .wrev__track::-webkit-scrollbar { display: none; }
+  .wrev__card { display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 12px; background: #f4f4f5; scroll-snap-align: start; }
+  .wrev__card-stars { color: var(--wrev-star); font-size: 16px; letter-spacing: 2px; }
+  .wrev__card-title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.3; }
+  .wrev__card-text { margin: 0; font-size: 15px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+  .wrev__card-foot { margin-top: auto; padding-top: 6px; font-size: 13px; color: #52525b; }
+  .wrev__card-foot strong { color: #000; font-weight: 600; }
+  .wrev__verified { color: var(--wrev-star); }
+  .wrev__note { margin: 16px 0 0; font-size: 12px; color: #71717a; }
+  @media (max-width: 989px) { .wrev__track { grid-auto-columns: calc((100% - 16px) / 2); } }
+  @media (max-width: 599px) {
+    .wrev__track { grid-auto-columns: 85%; gap: 12px; }
+    .wrev__btn[data-rev-prev], .wrev__btn[data-rev-next] { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .wrev__track { scroll-behavior: auto; } }
+</style>
+
+<script>
+  if (!customElements.get('wave-reviews')) {
+    customElements.define('wave-reviews', class extends HTMLElement {
+      connectedCallback() {
+        this.track = this.querySelector('[data-rev-track]');
+        this.toggle = this.querySelector('[data-rev-toggle]');
+        this.delay = Number(this.dataset.autoplay) * 1000;
+        this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.userPaused = this.reduced || !this.delay;
+        this.hovered = false;
+        this.visible = false;
+        this.load().catch(() => {});
+      }
+      disconnectedCallback() {
+        clearInterval(this.timer);
+        if (this.observer) this.observer.disconnect();
+        document.removeEventListener('visibilitychange', this.onVisibility);
+      }
+      api(path, params) {
+        const url = new URL('https://api.reviews.io/' + path);
+        Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+        return fetch(url).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+      }
+      async load() {
+        const store = this.dataset.store;
+        const min = Number(this.dataset.minRating);
+        const count = Number(this.dataset.count);
+        /* only reviews with enough text to be worth reading */
+        const keep = (rating, text) => Number(rating) >= min && text && text.trim().length >= 40;
+        let reviews = [];
+        let stats = null;
+        if (this.dataset.skus) {
+          const data = await this.api('product/review', { store, sku: this.dataset.skus, per_page: 50, page: 0 });
+          const list = (data.reviews && data.reviews.data) || [];
+          reviews = list.filter((r) => keep(r.rating, r.review)).map((r) => ({ rating: r.rating, title: r.title, text: r.review, reviewer: r.reviewer, when: r.timeago }));
+          if (data.stats && Number(data.stats.count) > 0) stats = { average: data.stats.average, total: data.stats.count };
+        }
+        if (reviews.length < 3) {
+          const data = await this.api('merchant/reviews', { store, per_page: 50, page: 0 });
+          const list = (data.reviews || []).filter((r) => keep(r.rating, r.comments));
+          reviews = reviews.concat(list.map((r) => ({ rating: r.rating, title: r.title, text: r.comments, reviewer: r.reviewer, when: r.timeago })));
+          if (!stats && data.stats) stats = { average: data.stats.average_rating, total: data.stats.total_reviews };
+        }
+        reviews = reviews.slice(0, count);
+        if (!reviews.length) return;
+        reviews.forEach((review) => this.track.appendChild(this.card(review)));
+        if (stats) {
+          this.querySelector('[data-rev-average]').textContent = Number(stats.average).toFixed(1);
+          this.querySelector('[data-rev-total]').textContent = Number(stats.total).toLocaleString('en-GB');
+          this.querySelector('[data-rev-summary]').hidden = false;
+        }
+        this.hidden = false;
+        this.bind();
+      }
+      card(review) {
+        const li = document.createElement('li');
+        li.className = 'wrev__card';
+        const rating = Math.round(Number(review.rating));
+        const stars = document.createElement('span');
+        stars.className = 'wrev__card-stars';
+        stars.setAttribute('role', 'img');
+        stars.setAttribute('aria-label', rating + ' out of 5 stars');
+        stars.textContent = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        li.appendChild(stars);
+        if (review.title) {
+          const title = document.createElement('p');
+          title.className = 'wrev__card-title';
+          title.textContent = review.title;
+          li.appendChild(title);
+        }
+        const text = document.createElement('p');
+        text.className = 'wrev__card-text';
+        text.textContent = review.text.trim();
+        li.appendChild(text);
+        const foot = document.createElement('p');
+        foot.className = 'wrev__card-foot';
+        const who = review.reviewer || {};
+        const name = document.createElement('strong');
+        name.textContent = [who.first_name, who.last_name ? who.last_name.charAt(0) + '.' : ''].filter(Boolean).join(' ') || 'Customer';
+        foot.appendChild(name);
+        if (who.verified_buyer === 'yes') {
+          const verified = document.createElement('span');
+          verified.className = 'wrev__verified';
+          verified.textContent = ' · Verified buyer';
+          foot.appendChild(verified);
+        }
+        if (review.when) foot.appendChild(document.createTextNode(' · ' + review.when));
+        li.appendChild(foot);
+        return li;
+      }
+      bind() {
+        this.querySelector('[data-rev-prev]').addEventListener('click', () => this.step(-1));
+        this.querySelector('[data-rev-next]').addEventListener('click', () => this.step(1));
+        if (!this.delay) {
+          this.toggle.hidden = true;
+          return;
+        }
+        this.toggle.addEventListener('click', () => {
+          this.userPaused = !this.userPaused;
+          this.sync();
+        });
+        this.addEventListener('pointerenter', () => { this.hovered = true; this.sync(); });
+        this.addEventListener('pointerleave', () => { this.hovered = false; this.sync(); });
+        this.addEventListener('focusin', () => { this.hovered = true; this.sync(); });
+        this.addEventListener('focusout', () => { this.hovered = false; this.sync(); });
+        this.track.addEventListener('touchstart', () => { this.userPaused = true; this.sync(); }, { passive: true });
+        this.onVisibility = () => this.sync();
+        document.addEventListener('visibilitychange', this.onVisibility);
+        this.observer = new IntersectionObserver(([entry]) => { this.visible = entry.isIntersecting; this.sync(); });
+        this.observer.observe(this);
+        this.sync();
+      }
+      /* rotate only while on screen, the tab is visible, and nobody is hovering, focused or has paused it */
+      sync() {
+        const run = !this.userPaused && !this.hovered && this.visible && !document.hidden;
+        clearInterval(this.timer);
+        if (run) this.timer = setInterval(() => this.step(1), this.delay);
+        this.toggle.setAttribute('aria-label', this.userPaused ? 'Play carousel' : 'Pause carousel');
+        this.toggle.querySelector('[data-icon-pause]').hidden = this.userPaused;
+        this.toggle.querySelector('[data-icon-play]').hidden = !this.userPaused;
+      }
+      step(direction) {
+        const card = this.track.firstElementChild;
+        if (!card) return;
+        const width = card.getBoundingClientRect().width + parseFloat(getComputedStyle(this.track).columnGap || 0);
+        const max = this.track.scrollWidth - this.track.clientWidth;
+        let left = this.track.scrollLeft + direction * width;
+        if (left > max + 2) left = 0;
+        if (left < -2) left = max;
+        this.track.scrollTo({ left });
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Review highlights",
+  "tag": "section",
+  "class": "section-wave-reviews",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What our customers are saying" },
+    { "type": "text", "id": "store", "label": "REVIEWS.io store ID", "default": "wave-spas" },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Reviews to show",
+      "options": [
+        { "value": "product", "label": "This product, topped up with store reviews" },
+        { "value": "store", "label": "Store reviews only" }
+      ],
+      "default": "product",
+      "info": "Product reviews only work on product pages."
+    },
+    {
+      "type": "select",
+      "id": "min_rating",
+      "label": "Minimum star rating shown",
+      "options": [
+        { "value": "3", "label": "3 stars" },
+        { "value": "4", "label": "4 stars" },
+        { "value": "5", "label": "5 stars" }
+      ],
+      "default": "4",
+      "info": "The rating summary always uses every review."
+    },
+    { "type": "range", "id": "count", "label": "Number of reviews", "min": 3, "max": 20, "step": 1, "default": 12 },
+    { "type": "range", "id": "autoplay", "label": "Rotate every (seconds, 0 = off)", "min": 0, "max": 12, "step": 1, "default": 6 },
+    { "type": "color", "id": "star_colour", "label": "Star colour", "default": "#ffae00" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "presets": [{ "name": "Review highlights" }]
+}
+{% endschema %}
