@@ -423,6 +423,12 @@
           "settings": {
             "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
           }
+        },
+        "liquid_wave_reviews": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-review-snippets', product: product %}"
+          }
         }
       },
       "block_order": [
@@ -449,6 +455,7 @@
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
         "on_site_message_EFzeYN",
+        "liquid_wave_reviews",
         "text_7jAC96",
         "product_bundle_tWCDMV",
         "pickup_availability",
@@ -1760,7 +1767,8 @@
     },
     "wave_review_highlights": {
       "type": "wave-review-highlights",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     }
   },
   "order": [
