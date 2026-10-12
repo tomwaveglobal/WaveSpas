@@ -13,6 +13,31 @@
   },
   "parent": "product.product-flow.json",
   "sections": {
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "text_nncjDG": {
+          "disabled": true,
+          "settings": {}
+        },
+        "on_site_message_KFREgF": {
+          "disabled": false,
+          "settings": {}
+        },
+        "on_site_message_CFpriq": {
+          "disabled": false,
+          "settings": {}
+        },
+        "on_site_message_hKD98d": {
+          "disabled": false,
+          "settings": {}
+        },
+        "liquid_wave_finance": {
+          "disabled": true,
+          "settings": {}
+        }
+      }
+    },
     "comparison_table_GXKLn7": {
       "settings": {},
       "blocks": {
@@ -45,15 +70,6 @@
           "settings": {
             "product": "pacific-hot-tub"
           }
-        }
-      }
-    },
-    "main-product": {
-      "settings": {},
-      "blocks": {
-        "text_nncjDG": {
-          "disabled": true,
-          "settings": {}
         }
       }
     }
