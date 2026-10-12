@@ -315,6 +315,7 @@
         },
         "liquid_wave_reviews": {
           "type": "liquid",
+          "disabled": true,
           "settings": {
             "liquid": "{% render 'wave-review-snippets', product: product %}"
           }
