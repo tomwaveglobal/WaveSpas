@@ -255,7 +255,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_CFpriq": {
           "type": "on_site_message",
@@ -271,7 +272,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_hKD98d": {
           "type": "on_site_message",
@@ -287,7 +289,8 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
-          }
+          },
+          "disabled": true
         },
         "on_site_message_EFzeYN": {
           "type": "on_site_message",
@@ -418,6 +421,12 @@
             "background_height": 0,
             "border_radius": 0
           }
+        },
+        "liquid_wave_finance": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
+          }
         }
       },
       "block_order": [
@@ -439,6 +448,7 @@
         "text_nncjDG",
         "buy_buttons_nBMjqf",
         "share",
+        "liquid_wave_finance",
         "on_site_message_KFREgF",
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
