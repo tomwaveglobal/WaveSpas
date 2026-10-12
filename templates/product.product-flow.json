@@ -240,6 +240,13 @@
             "help_page_external": false
           }
         },
+        "liquid_wave_finance": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
+          }
+        },
         "on_site_message_KFREgF": {
           "type": "on_site_message",
           "settings": {
@@ -303,6 +310,12 @@
             "message_limit_amount": "100000",
             "message_background": "#fafafa",
             "message_text_color": "#00a341"
+          }
+        },
+        "liquid_wave_reviews": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-review-snippets', product: product %}"
           }
         },
         "text_7jAC96": {
@@ -417,18 +430,6 @@
             "background_height": 0,
             "border_radius": 0
           }
-        },
-        "liquid_wave_finance": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
-          }
-        },
-        "liquid_wave_reviews": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "{% render 'wave-review-snippets', product: product %}"
-          }
         }
       },
       "block_order": [
@@ -537,6 +538,7 @@
         "video_8pUzmC",
         "video_MMUJfe"
       ],
+      "disabled": true,
       "name": "SS - Product videos #4",
       "settings": {
         "videos_position": "below_buy",
@@ -637,8 +639,23 @@
         "padding_horizontal_mobile": 0,
         "border_thickness": 0,
         "lazy": true
-      },
-      "disabled": true
+      }
+    },
+    "wave_review_highlights": {
+      "type": "wave-review-highlights",
+      "disabled": true,
+      "settings": {
+        "heading": "What our customers are saying",
+        "store": "wave-spas",
+        "source": "product",
+        "min_rating": "4",
+        "count": 12,
+        "autoplay": 6,
+        "star_colour": "#ffae00",
+        "background": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     },
     "help-drawer": {
       "type": "help-drawer",
@@ -1764,11 +1781,6 @@
         "narrow": false,
         "rounded": false
       }
-    },
-    "wave_review_highlights": {
-      "type": "wave-review-highlights",
-      "settings": {},
-      "disabled": true
     }
   },
   "order": [
