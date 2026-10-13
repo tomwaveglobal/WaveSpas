@@ -31,7 +31,7 @@
           "type": "announcement",
           "settings": {
             "icon": "sale",
-            "text": "FREE <em><strong>NEXT DAY  </strong></em>delivery on Hot Tubs",
+            "text": "FREE <em><strong>NEXT DAY &nbsp;</strong></em>delivery on Hot Tubs",
             "link": "shopify://collections/hot-tub-full-range",
             "hide_icon_mobile": true,
             "text_mobile": "",
@@ -41,6 +41,7 @@
         },
         "announcement-1": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "icon": "truck",
             "text": "<em><strong>Guaranteed</strong></em> Next Day Delivery",
@@ -1214,6 +1215,9 @@
         "show_social": true,
         "enable_language_selector": true,
         "enable_country_selector": true,
+        "enable_country_selector_header_mobile": true,
+        "header_country_selector_style": "flag",
+        "header_country_selector_show_currency": true,
         "transparent_color_text": "#ffffff",
         "color_text": "#171717",
         "color_background": "#ffffff",
