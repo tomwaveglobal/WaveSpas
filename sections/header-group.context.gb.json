@@ -28,7 +28,15 @@
         },
         "announcement_mnCMPh": {
           "disabled": false,
-          "settings": {}
+          "settings": {
+            "text_mobile": ""
+          }
+        },
+        "announcement-1": {
+          "settings": {
+            "text": "<em><strong>BUY NOW, PAY LATER </strong></em>with flexible finance options&nbsp;",
+            "icon": "creadit_card"
+          }
         }
       }
     },
