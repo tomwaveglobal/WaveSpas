@@ -16,10 +16,12 @@
   @param {number} [overlay_opacity] - Overlay opacity, 0-100
   @param {object} [video] - Shopify-hosted video, shown in place of the image; plays on hover
   @param {boolean} [mono_until_hover] - Black and white until hovered
+  @param {object[]} [highlights] - Product Spec metaobjects from the collection's custom.collection_highlights metafield
+  @param {object} [highlights_color] - Highlights background, from the collection's custom.collection_colour metafield
   @param {string} [attributes] - Extra attributes, e.g. block.shopify_attributes
 {%- enddoc -%}
 
-<div class="media-card media-card--{{ settings.card_style }}{% if overlay_content %} media-card--overlap{% endif %}{% if mono_until_hover %} media-card--mono{% endif %}{% if video != blank %} media-card--hover-play{% endif %}"{% if attributes != blank %} {{ attributes }}{% endif %}>
+<div class="media-card media-card--{{ settings.card_style }}{% if overlay_content %} media-card--overlap{% endif %}{% if mono_until_hover %} media-card--mono{% endif %}{% if video != blank %} media-card--hover-play{% endif %}{% if highlights != blank %} media-card--with-highlights{% endif %}"{% if attributes != blank %} {{ attributes }}{% endif %}>
   <a class="media-card__link flex flex-col w-full h-full relative"{% if link != blank %} href="{{ link }}"{% else %} role="link" aria-disabled="true"{% endif %}
     aria-label="{{ heading | default: subtext | escape }}"
     style="--color-foreground: {{ color_text.rgb }};--color-overlay: {{ color_overlay.rgb }};--overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};"
@@ -29,6 +31,7 @@
         <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none">{{ tag | escape }}</span>
       </div>
     {%- endif -%}
+    {%- if highlights != blank -%}<div class="media-card__top relative">{%- endif -%}
     <div class="media media--{{ image_ratio | default: 'square' }} relative overflow-hidden">
       {%- if video != blank -%}
         {%- comment -%}
@@ -54,6 +57,33 @@
           {%- endif -%}
         </div>
         {%- render 'icon', icon: 'arrow-right', size: 'xs', class: 'transform shrink-0 hidden xl:block' -%}
+      </div>
+    {%- endif -%}
+    {%- if highlights != blank -%}</div>{%- endif -%}
+    {%- if highlights != blank -%}
+      {%- comment -%}
+        The same Product Spec entries the product tile shows, set per
+        collection, on the collection's own colour.
+      {%- endcomment -%}
+      <div class="media-card__highlights grid grid-cols-2"{% if highlights_color != blank %} style="--highlights-background: {{ highlights_color.rgb }};"{% endif %}>
+        {%- for item in highlights limit: 4 -%}
+          <div class="media-card__highlight flex items-start gap-2">
+            {%- if item.icon.value != blank -%}
+              {%- assign icon_alt = item.icon.value.alt | default: item.title | escape -%}
+              {%- assign max_width = item.icon.value.width -%}
+              <figure class="shrink-0 relative inline-block">
+                {%- capture widths -%}{{ 24 | times: 1.5 | at_most: max_width | round }}, {{ 24 | times: 2 | at_most: max_width }}, {{ 24 | times: 3 | at_most: max_width }}{%- endcapture -%}
+                {{- item.icon.value | image_url: width: max_width | image_tag: loading: 'lazy', sizes: '24px', widths: widths, alt: icon_alt, class: 'w-full h-full' -}}
+              </figure>
+            {%- endif -%}
+            <div class="flex flex-col gap-1 text-xs font-medium leading-none">
+              {{- item.title | escape -}}
+              {%- if item.description != blank -%}
+                <p class="font-normal text-3xs leading-tight">{{ item.description | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
       </div>
     {%- endif -%}
   </a>

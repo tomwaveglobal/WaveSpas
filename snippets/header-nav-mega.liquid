@@ -288,6 +288,8 @@
                     overlay_opacity: promo_block.settings.overlay_opacity,
                     video: promo_block.settings.video,
                     mono_until_hover: promo_block.settings.mono_until_hover,
+                    highlights: promo_collection.metafields.custom.collection_highlights.value,
+                    highlights_color: promo_collection.metafields.custom.collection_colour.value,
                     attributes: promo_block.shopify_attributes
                   -%}
                   {%- assign tab_promos_count = tab_promos_count | plus: 1 -%}
