@@ -16831,9 +16831,9 @@ shopify-account::part(dialog) .account__heading {
   .media-card--mono .media-card__link:is(:hover,:focus-visible) .media :is(img,video){filter:none}
 }
 /* Collection highlights under a promo card: the collection's Product Spec
-   entries on its own colour (Lite, Lush, Luxe). Icons are knocked out to
-   white so any icon file reads on any of the colours. The image keeps its
-   ratio rather than filling the card, so the strip sits under it. */
+   entries in one scrolling row (the theme's icons-carousel slides it along
+   on hover), icons in the collection's colour (Lite, Lush, Luxe). The image
+   keeps its ratio rather than filling the card, so the row sits under it. */
 .media-card--with-highlights{overflow:hidden}
 .media-card--with-highlights .media-card__top>.media{
   height:auto;
@@ -16841,11 +16841,27 @@ shopify-account::part(dialog) .account__heading {
   border-end-end-radius:0;
 }
 .media-card__highlights{
-  gap:var(--sp-3) var(--sp-4);
-  padding:var(--sp-4) var(--sp-5);
-  background-color:rgb(var(--highlights-background,38 38 38));
-  color:#fff;
+  padding-block:var(--sp-4);
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
 }
-.media-card__highlight figure{width:var(--sp-5);aspect-ratio:1 / 1}
-.media-card__highlight img{filter:brightness(0) invert(1)}
-.media-card__highlight p{opacity:.85}
+.media-card__highlights::-webkit-scrollbar{display:none}
+.media-card__highlight{
+  padding-inline:var(--sp-5);
+  scroll-snap-align:start;
+  white-space:nowrap;
+  border-inline-start:1px solid rgb(var(--color-border-light));
+}
+.media-card__highlight:first-child{border-inline-start:0}
+.media-card__highlight-icon{
+  width:var(--sp-6);
+  aspect-ratio:1 / 1;
+  background-color:rgb(var(--highlights-color,38 38 38));
+  -webkit-mask:var(--icon) center / contain no-repeat;
+  mask:var(--icon) center / contain no-repeat;
+}
+.media-card__highlight p{opacity:.7}

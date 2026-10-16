@@ -17,7 +17,7 @@
   @param {object} [video] - Shopify-hosted video, shown in place of the image; plays on hover
   @param {boolean} [mono_until_hover] - Black and white until hovered
   @param {object[]} [highlights] - Product Spec metaobjects from the collection's custom.collection_highlights metafield
-  @param {object} [highlights_color] - Highlights background, from the collection's custom.collection_colour metafield
+  @param {object} [highlights_color] - Highlight icon colour, from the collection's custom.collection_colour metafield
   @param {string} [attributes] - Extra attributes, e.g. block.shopify_attributes
 {%- enddoc -%}
 
@@ -63,18 +63,15 @@
     {%- if highlights != blank -%}
       {%- comment -%}
         The same Product Spec entries the product tile shows, set per
-        collection, on the collection's own colour.
+        collection, in one row that slides along on hover (or swipe), the
+        same carousel the product tile uses. Icons are drawn as a mask so
+        they take the collection's colour whatever colour the file is.
       {%- endcomment -%}
-      <div class="media-card__highlights grid grid-cols-2"{% if highlights_color != blank %} style="--highlights-background: {{ highlights_color.rgb }};"{% endif %}>
+      <div class="media-card__highlights flex flex-nowrap" is="icons-carousel"{% if highlights_color != blank %} style="--highlights-color: {{ highlights_color.rgb }};"{% endif %}>
         {%- for item in highlights limit: 4 -%}
-          <div class="media-card__highlight flex items-start gap-2">
+          <div class="media-card__highlight shrink-0 flex items-start gap-2">
             {%- if item.icon.value != blank -%}
-              {%- assign icon_alt = item.icon.value.alt | default: item.title | escape -%}
-              {%- assign max_width = item.icon.value.width -%}
-              <figure class="shrink-0 relative inline-block">
-                {%- capture widths -%}{{ 24 | times: 1.5 | at_most: max_width | round }}, {{ 24 | times: 2 | at_most: max_width }}, {{ 24 | times: 3 | at_most: max_width }}{%- endcapture -%}
-                {{- item.icon.value | image_url: width: max_width | image_tag: loading: 'lazy', sizes: '24px', widths: widths, alt: icon_alt, class: 'w-full h-full' -}}
-              </figure>
+              <span class="media-card__highlight-icon shrink-0" style="--icon: url('{{ item.icon.value | image_url: width: 96 }}');" aria-hidden="true"></span>
             {%- endif -%}
             <div class="flex flex-col gap-1 text-xs font-medium leading-none">
               {{- item.title | escape -}}
