@@ -16830,3 +16830,22 @@ shopify-account::part(dialog) .account__heading {
   }
   .media-card--mono .media-card__link:is(:hover,:focus-visible) .media :is(img,video){filter:none}
 }
+/* Collection highlights under a promo card: the collection's Product Spec
+   entries on its own colour (Lite, Lush, Luxe). Icons are knocked out to
+   white so any icon file reads on any of the colours. The image keeps its
+   ratio rather than filling the card, so the strip sits under it. */
+.media-card--with-highlights{overflow:hidden}
+.media-card--with-highlights .media-card__top>.media{
+  height:auto;
+  border-end-start-radius:0;
+  border-end-end-radius:0;
+}
+.media-card__highlights{
+  gap:var(--sp-3) var(--sp-4);
+  padding:var(--sp-4) var(--sp-5);
+  background-color:rgb(var(--highlights-background,38 38 38));
+  color:#fff;
+}
+.media-card__highlight figure{width:var(--sp-5);aspect-ratio:1 / 1}
+.media-card__highlight img{filter:brightness(0) invert(1)}
+.media-card__highlight p{opacity:.85}
