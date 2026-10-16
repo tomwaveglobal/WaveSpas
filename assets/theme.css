@@ -16832,7 +16832,7 @@ shopify-account::part(dialog) .account__heading {
 }
 /* Collection highlights under a promo card: the collection's Product Spec
    entries in one scrolling row (the theme's icons-carousel slides it along
-   on hover), icons in the collection's colour (Lite, Lush, Luxe). The image
+   on hover), white on the collection's colour (Lite, Lush, Luxe). The image
    keeps its ratio rather than filling the card, so the row sits under it. */
 .media-card--with-highlights{overflow:hidden}
 .media-card--with-highlights .media-card__top>.media{
@@ -16842,6 +16842,8 @@ shopify-account::part(dialog) .account__heading {
 }
 .media-card__highlights{
   padding-block:var(--sp-4);
+  background-color:rgb(var(--highlights-color,38 38 38));
+  color:#fff;
   overflow-x:auto;
   overflow-y:hidden;
   scroll-snap-type:x mandatory;
@@ -16854,14 +16856,14 @@ shopify-account::part(dialog) .account__heading {
   padding-inline:var(--sp-5);
   scroll-snap-align:start;
   white-space:nowrap;
-  border-inline-start:1px solid rgb(var(--color-border-light));
+  border-inline-start:1px solid rgb(255 255 255 / .3);
 }
 .media-card__highlight:first-child{border-inline-start:0}
 .media-card__highlight-icon{
   width:var(--sp-6);
   aspect-ratio:1 / 1;
-  background-color:rgb(var(--highlights-color,38 38 38));
+  background-color:#fff;
   -webkit-mask:var(--icon) center / contain no-repeat;
   mask:var(--icon) center / contain no-repeat;
 }
-.media-card__highlight p{opacity:.7}
+.media-card__highlight p{opacity:.85}

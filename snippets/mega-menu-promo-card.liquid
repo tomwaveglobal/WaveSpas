@@ -17,7 +17,7 @@
   @param {object} [video] - Shopify-hosted video, shown in place of the image; plays on hover
   @param {boolean} [mono_until_hover] - Black and white until hovered
   @param {object[]} [highlights] - Product Spec metaobjects from the collection's custom.collection_highlights metafield
-  @param {object} [highlights_color] - Highlight icon colour, from the collection's custom.collection_colour metafield
+  @param {object} [highlights_color] - Highlights background colour, from the collection's custom.collection_colour metafield
   @param {string} [attributes] - Extra attributes, e.g. block.shopify_attributes
 {%- enddoc -%}
 
@@ -64,8 +64,9 @@
       {%- comment -%}
         The same Product Spec entries the product tile shows, set per
         collection, in one row that slides along on hover (or swipe), the
-        same carousel the product tile uses. Icons are drawn as a mask so
-        they take the collection's colour whatever colour the file is.
+        same carousel the product tile uses, on the collection's colour.
+        Icons are drawn as a mask so they come out white whatever colour
+        the file is.
       {%- endcomment -%}
       <div class="media-card__highlights flex flex-nowrap" is="icons-carousel"{% if highlights_color != blank %} style="--highlights-color: {{ highlights_color.rgb }};"{% endif %}>
         {%- for item in highlights limit: 4 -%}
