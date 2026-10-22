@@ -9,6 +9,8 @@
 
 {%- liquid
   assign accessories = product.metafields.custom.compatible_accessories.value
+  assign model_name = product.title | split: ' | ' | first | strip
+  assign model_key = model_name | downcase
 
   assign present = '^^'
   for accessory in accessories
@@ -108,11 +110,36 @@
       <div id="CompatV2Panel-{{ section.id }}-{{ tab_index }}" role="tabpanel"{% unless forloop.first %} hidden{% endunless %}>
         <slider-element id="CompatV2Slider-{{ section.id }}-{{ tab_index }}" class="grid slider{% if section.settings.carousel_on_desktop %} slider--desktop{% endif %}{% if section.settings.swipe_on_mobile %} slider--tablet{% endif %}" selector=".card-grid>.card"{% if section.settings.carousel_on_desktop or section.settings.swipe_on_mobile %} tabindex="0"{% endif %}>
           <motion-list motion-reduced class="product-grid card-grid card-grid--{{ section.settings.columns }} mobile:card-grid--{{ section.settings.columns_mobile }} grid">
+              {%- comment -%}
+                Two passes: accessories with a variant for this model (e.g. the Garda size of a cover)
+                first, opening on that variant; everything else after.
+              {%- endcomment -%}
+              {%- for pass in (1..2) -%}
               {%- for accessory in accessories -%}
                 {%- liquid
                   assign tab = accessory.metafields.custom.accessory_tab.value | default: accessory.type | default: 'Accessories' | strip
                   if tab != tab_title
                     continue
+                  endif
+                  assign model_match = false
+                  if accessory.has_only_default_variant == false
+                    for variant in accessory.variants
+                      assign variant_key = variant.title | downcase
+                      if variant_key contains model_key
+                        assign model_match = true
+                        break
+                      endif
+                    endfor
+                  endif
+                  if pass == 1 and model_match == false
+                    continue
+                  endif
+                  if pass == 2 and model_match
+                    continue
+                  endif
+                  assign card_option = blank
+                  if model_match
+                    assign card_option = model_name
                   endif
                   assign seen_key = '|' | append: accessory.id | append: '|'
                   if accessory.id == product.id or seen contains seen_key
@@ -127,6 +154,8 @@
                 {%- render 'product-card',
                   product: accessory,
                   product_id: accessory.id,
+                  active_color: card_option,
+                  active_option: card_option,
                   section_id: section.id,
                   block_id: tab_index,
                   image_ratio: settings.product_image_ratio,
@@ -147,6 +176,7 @@
                   save_type: settings.product_save_type,
                   show_icon_list: settings.product_icon_list
                 -%}
+              {%- endfor -%}
               {%- endfor -%}
           </motion-list>
         </slider-element>
