@@ -10,6 +10,13 @@
 {%- liquid
   assign accessories = product.metafields.custom.compatible_accessories.value
   assign model_name = product.title | split: ' | ' | first | strip
+  comment
+    FY27 titles lead with the spec tier ("Lush Garda"); variants are named for the model ("Garda").
+  endcomment
+  assign model_first_word = model_name | split: ' ' | first
+  if model_first_word == 'Lite' or model_first_word == 'Lush' or model_first_word == 'Luxe'
+    assign model_name = model_name | remove_first: model_first_word | strip
+  endif
   assign model_key = model_name | downcase
 
   assign present = '^^'
