@@ -547,6 +547,13 @@
             "title": "Questions",
             "target_id": "shopify-section-template--30100170375555__wf_questions"
           }
+        },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What fits",
+            "target_id": "shopify-section-template--30100170375555__compatible_accessories"
+          }
         }
       },
       "block_order": [
@@ -557,7 +564,8 @@
         "nav_item_4",
         "nav_item_5",
         "nav_item_6",
-        "nav_item_7"
+        "nav_item_7",
+        "nav_item_whatfits"
       ],
       "settings": {
         "show_highlight": true,
@@ -1216,6 +1224,32 @@
         "heading": "Need help?",
         "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible.</p>"
       }
+    },
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 8,
+        "columns": 4,
+        "carousel_on_desktop": false,
+        "tab_order": "Filters, Covers, Chemicals, Head Rests, Lights, Cleaning & Maintenance, Spare Parts, Replacement Liner, Steps, Insulating Floor Mat, Ground Sheet, Tent",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "What fits this hot tub",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Compatible Accessories",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -1228,6 +1262,7 @@
     "wf_setup",
     "wf_tiers",
     "wf_questions",
+    "compatible_accessories",
     "wf_closer",
     "reviews",
     "product-recommendations",

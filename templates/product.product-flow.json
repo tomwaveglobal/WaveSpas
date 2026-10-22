@@ -743,12 +743,20 @@
             "title": "Reviews",
             "target_id": "shopify-section-template--29200497246595__rich_text_XazzCf"
           }
+        },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What Fits",
+            "target_id": "shopify-section-template--29200497246595__compatible_accessories"
+          }
         }
       },
       "block_order": [
         "back_to_top_jnb8cL",
         "nav_item_yXJLBm",
         "nav_item_pM68Hf",
+        "nav_item_whatfits",
         "nav_item_QUgAC3",
         "nav_item_qVtYUr",
         "nav_item_q9yLhM"
@@ -1737,6 +1745,32 @@
         "narrow": false,
         "rounded": false
       }
+    },
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 8,
+        "columns": 4,
+        "carousel_on_desktop": false,
+        "tab_order": "Filters, Covers, Chemicals, Head Rests, Lights, Cleaning & Maintenance, Spare Parts, Replacement Liner, Steps, Insulating Floor Mat, Ground Sheet, Tent",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "What fits this hot tub",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Compatible Accessories",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -1750,6 +1784,7 @@
     "image-with-text-1",
     "video_with_text_8VEKJe",
     "product-details",
+    "compatible_accessories",
     "comparison_table_GXKLn7",
     "faq",
     "rich_text_XazzCf",
