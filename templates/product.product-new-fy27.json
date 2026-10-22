@@ -559,13 +559,13 @@
       "block_order": [
         "back_to_top",
         "nav_item_1",
+        "nav_item_whatfits",
         "nav_item_2",
         "nav_item_3",
         "nav_item_4",
         "nav_item_5",
         "nav_item_6",
-        "nav_item_7",
-        "nav_item_whatfits"
+        "nav_item_7"
       ],
       "settings": {
         "show_highlight": true,
@@ -1256,13 +1256,13 @@
     "main-product",
     "scroll_spy",
     "product-details",
+    "compatible_accessories",
     "wf_running_cost",
     "image_comparison",
     "wf_vertaair",
     "wf_setup",
     "wf_tiers",
     "wf_questions",
-    "compatible_accessories",
     "wf_closer",
     "reviews",
     "product-recommendations",
