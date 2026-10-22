@@ -740,12 +740,20 @@
             "title": "Reviews",
             "target_id": "shopify-section-template--28923892892035__rich_text_XazzCf"
           }
+        },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What Fits",
+            "target_id": "shopify-section-template--28923892892035__compatible_accessories"
+          }
         }
       },
       "block_order": [
         "back_to_top_jnb8cL",
         "nav_item_yXJLBm",
         "nav_item_pM68Hf",
+        "nav_item_whatfits",
         "nav_item_QUgAC3",
         "nav_item_qVtYUr",
         "nav_item_q9yLhM"
@@ -1982,6 +1990,32 @@
         "full_width": false,
         "rounded": false
       }
+    },
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 12,
+        "columns": 4,
+        "carousel_on_desktop": false,
+        "tab_order": "Filters, Covers, Chemicals, Comfort, Cleaning, Lights, Setup, Spare Parts, Liners",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "What fits this hot tub",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Compatible Accessories",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -1996,6 +2030,7 @@
     "image-with-text-2",
     "timeline_87wmYq",
     "product-details",
+    "compatible_accessories",
     "rich_text_j33Gc7",
     "comparison_table_GXKLn7",
     "faq",
