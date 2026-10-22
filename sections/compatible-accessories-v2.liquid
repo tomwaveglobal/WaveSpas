@@ -204,7 +204,7 @@
         if (panel) panel.hidden = !active;
       });
       indicators.forEach((group, i) => {
-        group.hidden = i !== index;
+        group.hidden = i !== index || !overflows(i);
         if (i === index) {
           group.querySelectorAll('button').forEach((button) => {
             if (typeof button.unload === 'function') button.unload();
@@ -213,6 +213,14 @@
         }
       });
     };
+
+    // Only show the carousel arrows when that tab's products don't all fit.
+    const overflows = (i) => {
+      const panel = document.getElementById(tabs[i].getAttribute('aria-controls'));
+      const slider = panel && panel.querySelector('slider-element');
+      return !!slider && slider.scrollWidth > slider.clientWidth + 1;
+    };
+    if (indicators[0]) indicators[0].hidden = !overflows(0);
 
     tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i)));
   })();
