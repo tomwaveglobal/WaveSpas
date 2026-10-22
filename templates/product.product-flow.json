@@ -1751,7 +1751,7 @@
       "settings": {
         "product_limit": 12,
         "columns": 4,
-        "carousel_on_desktop": false,
+        "carousel_on_desktop": true,
         "tab_order": "Filters, Covers, Chemicals, Comfort, Cleaning, Lights, Setup, Spare Parts, Liners",
         "quick_add": true,
         "columns_mobile": "1",
