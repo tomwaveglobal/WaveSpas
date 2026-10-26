@@ -123,7 +123,7 @@
     "advanced_badge_map_2_image": "shopify://shop_images/15_starterkit-badge.png",
     "advanced_badge_map_2_show_text": false,
     "advanced_badge_map_3_text": "10% Off",
-    "advanced_badge_map_3_image": "shopify://shop_images/Extra_5__Off0_fe67293d-7237-4a5e-95b6-c25ceeab0fb9.png",
+    "advanced_badge_map_3_image": "shopify://shop_images/Black_Friday.png",
     "advanced_badge_map_3_show_text": false,
     "advanced_badge_map_4_text": "Free Wifi Controller",
     "advanced_badge_map_4_image": "shopify://shop_images/Inflatable_WiFi.png",
@@ -358,13 +358,11 @@
         "type": "shopify://apps/everdesk/blocks/chat-widget/01a0c4c4-9f31-7b67-bd31-11ed1aee6bd2",
         "disabled": false,
         "settings": {
-          "theme": "glass",
           "position": "bottom-right",
           "offset_side": 20,
           "offset_bottom": 20,
-          "accent": "#0f172a",
-          "test_mode": true,
-          "launcher_label": "Chat with us"
+          "launcher_label": "Chat with us",
+          "test_mode": true
         }
       }
     }
