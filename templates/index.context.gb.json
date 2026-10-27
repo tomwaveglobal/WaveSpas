@@ -21,7 +21,7 @@
           "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Sunset_Serenity_in_the_Garden_Spa.png",
-            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
+            "image_tablet": "shopify://shop_images/resized_1023x768_3e6ee50c-3045-42dd-b5c2-751cff90359a.png",
             "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
             "header-c63d63d40ca6a6d8f76c659fecf74078": null,
             "heading": "<span style=\"color: #FFFFFF;\">EARLY</span><br>\n    <span style=\"color: #F59E0B;\">BLACK FRIDAY</span><br>\n    <span style=\"color: #FFFFFF;\">ACCESS</span>",
@@ -63,7 +63,7 @@
             "image_mobile": "shopify://shop_images/US_Seasonal-transition-222_1c158cad-1812-4556-879a-69f9bc67cc35.jpg",
             "heading": "The water's waiting...",
             "heading_size": "title-lg tracking-heading",
-            "secondary_heading": "Crafted to hold the warmth long after dusk. Ready whenever you are, season after season.",
+            "secondary_heading": "A little warmth goes a long way. Your perfect end to the day starts here.",
             "secondary_heading_size": "title-xxs",
             "secondary_heading_weight": "font-normal",
             "button_position": "below",
