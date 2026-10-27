@@ -18,7 +18,7 @@
       "blocks": {
         "image_YL8tbf": {
           "type": "image",
-          "disabled": true,
+          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Sunset_Serenity_in_the_Garden_Spa.png",
             "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
