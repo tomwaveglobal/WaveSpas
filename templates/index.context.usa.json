@@ -42,8 +42,8 @@
           "disabled": false,
           "settings": {
             "image": "shopify://shop_images/wave_spa_reference_crop_4464x1395_2169e76d-3052-4a31-b497-0972afba9b80.png",
-            "image_tablet": "shopify://shop_images/US_Seasonal-Transition_01-2_aef2a6df-d007-4d10-9922-3e1cd17700ff.jpg",
-            "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
+            "image_tablet": "shopify://shop_images/wave_spa_1023x768_2da5fd66-604e-4035-8879-38a759e9425c.png",
+            "image_mobile": "shopify://shop_images/Golden_Sunset_Hot_Tub_Retreat.png",
             "heading": "<span style=\"color: #FFFFFF;\">EARLY</span><br>\n    <span style=\"color: #F59E0B;\">BLACK FRIDAY</span><br>\n    <span style=\"color: #FFFFFF;\">ACCESS</span>",
             "heading_size": "title-lg tracking-heading",
             "secondary_heading": "Get ahead of the rush with early savings on inflatable hot tubs.",
