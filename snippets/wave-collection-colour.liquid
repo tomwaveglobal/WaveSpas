@@ -1,0 +1,82 @@
+{%- doc -%}
+  Brings the FY27 collection colour (Wave Lite / Lush / Luxe) into the PDP: the Product Highlights become a
+  strip in the collection colour with white icons, text and dividers (as in the Hot Tubs mega menu), and the
+  collection word in the title is tinted when the title ends with it ("Garda Lush").
+  The collection comes from the product's Lite / Lush / Luxe tag; renders nothing without one.
+
+  @param {object} product - Product being viewed
+{%- enddoc -%}
+{%- liquid
+  assign collection_name = blank
+  if product.tags contains 'Lite'
+    assign collection_name = 'Lite'
+    assign collection_colour = '#728BA3'
+    assign collection_rgb = '114 139 163'
+  elsif product.tags contains 'Lush'
+    assign collection_name = 'Lush'
+    assign collection_colour = '#9F3C1E'
+    assign collection_rgb = '159 60 30'
+  elsif product.tags contains 'Luxe'
+    assign collection_name = 'Luxe'
+    assign collection_colour = '#56223B'
+    assign collection_rgb = '86 34 59'
+  endif
+
+  assign title_last_word = product.title | split: ' | ' | first | strip | split: ' ' | last
+-%}
+{%- if collection_name != blank -%}
+  <style>
+    .product .product__highlights.with-heading {
+      border: 0;
+      color: #fff;
+      background-color: {{ collection_colour }};
+    }
+    .product .product__highlights.with-heading > p {
+      position: static;
+      padding: 0;
+      transform: none;
+      background: none;
+      color: #fff;
+    }
+    .product .product__highlights.with-heading .product-card__spec {
+      --color-background: {{ collection_rgb }};
+    }
+    .product .product__highlights.with-heading .product-card__icons {
+      gap: var(--sp-5) 0;
+    }
+    .product .product__highlights.with-heading .product-card__icon {
+      padding: 0 var(--sp-5);
+      border-radius: 0;
+      border-inline-start: 1px solid rgb(255 255 255 / 0.3);
+      background: none;
+      color: #fff;
+    }
+    .product .product__highlights.with-heading .product-card__icon:first-child {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+    }
+    .product .product__highlights.with-heading .product-card__icon figure {
+      width: var(--sp-6);
+    }
+    .product .product__highlights.with-heading .product-card__icon img {
+      filter: brightness(0) invert(1);
+    }
+    .product .product__highlights.with-heading .product-card__icon .text-opacity {
+      color: rgb(255 255 255 / 0.8);
+      opacity: 1;
+    }
+    @media screen and (min-width: 1024px) {
+      .product .product__gallery-container .product__highlights.with-heading .product-card__icons {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .product .product__gallery-container .product__highlights.with-heading .product-card__icon:nth-child(3n + 1) {
+        padding-inline-start: 0;
+        border-inline-start: 0;
+      }
+    }
+    {%- if title_last_word == collection_name %}
+      .product__info .product__title split-words > .word:last-child { color: {{ collection_colour }}; }
+    {%- endif %}
+  </style>
+{%- endif -%}
