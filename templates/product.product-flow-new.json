@@ -242,74 +242,8 @@
         },
         "liquid_wave_finance": {
           "type": "liquid",
-          "disabled": true,
           "settings": {
             "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
-          }
-        },
-        "on_site_message_KFREgF": {
-          "type": "on_site_message",
-          "settings": {
-            "message_custom_icon": "shopify://shop_images/Klarna_paypal.png",
-            "message_icon_width": 100,
-            "message_image_checkbox": true,
-            "message_image_link": "",
-            "message_image_popup_title": "Finance Options",
-            "message": "<p>Starting at #amount* per month</p>",
-            "message_divide_amount": "3",
-            "message_price_range": "100",
-            "message_limit_amount": "100000",
-            "message_background": "#fafafa",
-            "message_text_color": "#00a341"
-          }
-        },
-        "on_site_message_CFpriq": {
-          "type": "on_site_message",
-          "settings": {
-            "message_custom_icon": "shopify://shop_images/DivideBuy.png",
-            "message_icon_width": 100,
-            "message_image_checkbox": true,
-            "message_image_link": "",
-            "message_image_popup_title": "Finance Options",
-            "message": "<p>Starting at #amount* per month</p>",
-            "message_divide_amount": "12",
-            "message_price_range": "100",
-            "message_limit_amount": "100000",
-            "message_background": "#fafafa",
-            "message_text_color": "#00a341"
-          }
-        },
-        "on_site_message_hKD98d": {
-          "type": "on_site_message",
-          "settings": {
-            "message_custom_icon": "shopify://shop_images/Payl8r.png",
-            "message_icon_width": 100,
-            "message_image_checkbox": true,
-            "message_image_link": "https://payl8r.com/retailers/payment-detail?retailer=wavedirec152h2hgw5kf",
-            "message_image_popup_title": "Finance Options",
-            "message": "<p>Starting at #amount* per month</p>",
-            "message_divide_amount": "24",
-            "message_price_range": "100",
-            "message_limit_amount": "100000",
-            "message_background": "#fafafa",
-            "message_text_color": "#00a341"
-          }
-        },
-        "on_site_message_EFzeYN": {
-          "type": "on_site_message",
-          "disabled": true,
-          "settings": {
-            "message_custom_icon": "shopify://shop_images/shop_buttons.png",
-            "message_icon_width": 100,
-            "message_image_checkbox": true,
-            "message_image_link": "",
-            "message_image_popup_title": "Finance Options",
-            "message": "<p>Starting at #amount* per month</p>",
-            "message_divide_amount": "24",
-            "message_price_range": "100",
-            "message_limit_amount": "100000",
-            "message_background": "#fafafa",
-            "message_text_color": "#00a341"
           }
         },
         "liquid_wave_reviews": {
@@ -453,10 +387,6 @@
         "contona_button_design",
         "share",
         "liquid_wave_finance",
-        "on_site_message_KFREgF",
-        "on_site_message_CFpriq",
-        "on_site_message_hKD98d",
-        "on_site_message_EFzeYN",
         "liquid_wave_reviews",
         "text_7jAC96",
         "product_bundle_tWCDMV",
@@ -756,6 +686,13 @@
             "target_id": "shopify-section-template--29200497246595__product-details"
           }
         },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What Fits",
+            "target_id": "shopify-section-template--29200497246595__compatible_accessories"
+          }
+        },
         "nav_item_QUgAC3": {
           "type": "nav_item",
           "settings": {
@@ -775,13 +712,6 @@
           "settings": {
             "title": "Reviews",
             "target_id": "shopify-section-template--29200497246595__rich_text_XazzCf"
-          }
-        },
-        "nav_item_whatfits": {
-          "type": "nav_item",
-          "settings": {
-            "title": "What Fits",
-            "target_id": "shopify-section-template--29200497246595__compatible_accessories"
           }
         }
       },
@@ -805,8 +735,159 @@
         "full_width": false
       }
     },
+    "product-details": {
+      "type": "product-details",
+      "blocks": {
+        "specification_g7Fp6A": {
+          "type": "specification",
+          "repeater": "{{ product.metafields.custom.in_the_box.value }}",
+          "settings": {
+            "icon": "{{ block.repeater.icon.value }}",
+            "heading": "{{ block.repeater.label.value }}",
+            "text_size": "text-sm"
+          }
+        },
+        "collapsible_tab_VJ49Qd": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Key Features",
+            "content": "{{ product.metafields.custom.key_features | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Dimensions",
+            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Technical Specs",
+            "content": "{{ product.metafields.custom.tech_specs | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-3": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Collapsible row 3",
+            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-4": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Collapsible row 4",
+            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "specification_g7Fp6A",
+        "collapsible_tab_VJ49Qd",
+        "collapsible_tab-1",
+        "collapsible_tab-2",
+        "collapsible_tab-3",
+        "collapsible_tab-4"
+      ],
+      "custom_css": [],
+      "settings": {
+        "style": "with-border",
+        "open_first_row": true,
+        "specifications_heading": "Included In The Box",
+        "heading": "Product details",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#171717",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 12,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "tab_order": "Filters, Covers, Chemicals, Comfort, Cleaning, Lights, Setup, Spare Parts, Liners",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "What fits this hot tub",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Compatible Accessories",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
     "video_BqrMRT": {
       "type": "video",
+      "disabled": true,
       "name": "t:sections.video.presets.name",
       "settings": {
         "transparent_header": false,
@@ -935,8 +1016,8 @@
         "heading_tag": "h2",
         "subheading": "",
         "description": "{{ product.description }}",
-        "button_label": "View Tech Spec",
-        "button_link": "#shopify-section-template--25647455076739__product-details",
+        "button_label": "",
+        "button_link": "",
         "button_external": false,
         "button_icon": true,
         "highlighted_text": "scribble",
@@ -1119,122 +1200,6 @@
         "rounded": false,
         "enable_parallax": false,
         "parallax_direction": "vertical"
-      }
-    },
-    "product-details": {
-      "type": "product-details",
-      "blocks": {
-        "specification_g7Fp6A": {
-          "type": "specification",
-          "repeater": "{{ product.metafields.custom.in_the_box.value }}",
-          "settings": {
-            "icon": "{{ block.repeater.icon.value }}",
-            "heading": "{{ block.repeater.label.value }}",
-            "text_size": "text-sm"
-          }
-        },
-        "collapsible_tab_VJ49Qd": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Key Features",
-            "content": "{{ product.metafields.custom.key_features | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Dimensions",
-            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Technical Specs",
-            "content": "{{ product.metafields.custom.tech_specs | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-3": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Collapsible row 3",
-            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-4": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Collapsible row 4",
-            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        }
-      },
-      "block_order": [
-        "specification_g7Fp6A",
-        "collapsible_tab_VJ49Qd",
-        "collapsible_tab-1",
-        "collapsible_tab-2",
-        "collapsible_tab-3",
-        "collapsible_tab-4"
-      ],
-      "custom_css": [],
-      "settings": {
-        "style": "with-border",
-        "open_first_row": true,
-        "specifications_heading": "Included In The Box",
-        "heading": "Product details",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "#171717",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 28,
-        "padding_bottom": 28,
-        "divider": false,
-        "full_width": false,
-        "rounded": true
       }
     },
     "comparison_table_GXKLn7": {
@@ -1790,32 +1755,6 @@
         "narrow": false,
         "rounded": false
       }
-    },
-    "compatible_accessories": {
-      "type": "compatible-accessories-v2",
-      "settings": {
-        "product_limit": 12,
-        "columns": 4,
-        "carousel_on_desktop": true,
-        "tab_order": "Filters, Covers, Chemicals, Comfort, Cleaning, Lights, Setup, Spare Parts, Liners",
-        "quick_add": true,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "heading": "What fits this hot tub",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "Compatible Accessories",
-        "description": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "padding_top": 48,
-        "padding_bottom": 48,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
-      }
     }
   },
   "order": [
@@ -1825,12 +1764,12 @@
     "wave_review_highlights",
     "help-drawer",
     "scroll_spy_aPhVjp",
+    "product-details",
+    "compatible_accessories",
     "video_BqrMRT",
     "collage",
     "image-with-text-1",
     "video_with_text_8VEKJe",
-    "product-details",
-    "compatible_accessories",
     "comparison_table_GXKLn7",
     "faq",
     "rich_text_XazzCf",
