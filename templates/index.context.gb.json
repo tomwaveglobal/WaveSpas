@@ -23,7 +23,7 @@
             "image": "shopify://shop_images/Sunset_Serenity_in_the_Garden_Spa.png",
             "image_tablet": "shopify://shop_images/resized_1023x768_3e6ee50c-3045-42dd-b5c2-751cff90359a.png",
             "image_mobile": "shopify://shop_images/ChatGPT_Image_Sep_22_2026_11_10_40_AM_1.png",
-            "header-c63d63d40ca6a6d8f76c659fecf74078": null,
+            "header-254a0ab576ce20261711727b6de7a75e": null,
             "heading": "<span style=\"color: #FFFFFF;\">EARLY</span><br>\n    <span style=\"color: #F59E0B;\">BLACK FRIDAY</span><br>\n    <span style=\"color: #FFFFFF;\">ACCESS</span>",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
@@ -56,7 +56,7 @@
           }
         },
         "image_9rd3Vt": {
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/US_Seasonal-transition-2_f51373ad-ce36-48d6-b7cb-bf03603ac57d.jpg",
             "image_tablet": "shopify://shop_images/US_Seasonal-transition-22_f9931515-33ce-403e-ac88-bbd4e37c6f30.jpg",
