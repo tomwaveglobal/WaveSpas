@@ -55,7 +55,7 @@
         "liquid_PrDUTW": {
           "type": "liquid",
           "settings": {
-            "liquid": ""
+            "liquid": "{% render 'wave-collection-marker', product: product %}"
           }
         },
         "text_DDUxag": {
@@ -370,10 +370,10 @@
       "block_order": [
         "breadcrumb_rcrAce",
         "vendor_br9FVx",
+        "liquid_PrDUTW",
         "title",
         "reviews_io_reviewsio_rating_output_L6AWE4",
         "liquid_3cEkGz",
-        "liquid_PrDUTW",
         "text_DDUxag",
         "description",
         "product_variations_rEWtef",

@@ -1,0 +1,66 @@
+{%- doc -%}
+  Renders the FY27 collection marker (Wave Lite / Lush / Luxe) above the PDP title: a small square in the
+  collection colour, the collection name and its tagline. Takes the place of the vendor line, and tints the
+  collection word in the title when the title ends with it ("Garda Lush").
+  The collection comes from the product's Lite / Lush / Luxe tag; renders nothing without one.
+
+  @param {object} product - Product being viewed
+{%- enddoc -%}
+{%- liquid
+  assign collection_name = blank
+  if product.tags contains 'Lite'
+    assign collection_name = 'Lite'
+    assign collection_colour = '#728BA3'
+    assign collection_tagline = 'Make light work of it.'
+  elsif product.tags contains 'Lush'
+    assign collection_name = 'Lush'
+    assign collection_colour = '#9F3C1E'
+    assign collection_tagline = 'Take your pick.'
+  elsif product.tags contains 'Luxe'
+    assign collection_name = 'Luxe'
+    assign collection_colour = '#56223B'
+    assign collection_tagline = 'Turn up the intensity.'
+  endif
+
+  assign title_last_word = product.title | split: ' | ' | first | strip | split: ' ' | last
+-%}
+{%- if collection_name != blank -%}
+  <style>
+    .product__info:has(.wave-collection) .product__vendor { display: none; }
+    .wave-collection {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 8px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #000;
+    }
+    .wave-collection__chip {
+      flex: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--wave-collection);
+    }
+    .wave-collection__name { font-weight: 600; }
+    .wave-collection__tagline { color: rgba(0, 0, 0, 0.6); }
+    .wave-collection__tagline::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 12px;
+      margin-right: 8px;
+      vertical-align: -1px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+    {%- if title_last_word == collection_name %}
+      .product__info:has(.wave-collection) .product__title split-words > .word:last-child { color: {{ collection_colour }}; }
+    {%- endif %}
+  </style>
+  <div class="wave-collection" style="--wave-collection: {{ collection_colour }};">
+    <span class="wave-collection__chip" aria-hidden="true"></span>
+    <span class="wave-collection__name">Wave {{ collection_name }}</span>
+    <span class="wave-collection__tagline">{{ collection_tagline }}</span>
+  </div>
+{%- endif -%}
