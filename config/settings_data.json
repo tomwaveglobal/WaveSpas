@@ -307,11 +307,6 @@
         "disabled": false,
         "settings": {}
       },
-      "11945366711752539959": {
-        "type": "shopify://apps/zendesk/blocks/zendesk_web_widget/c0b417b1-b90b-4754-baaf-f55627e6acd4",
-        "disabled": false,
-        "settings": {}
-      },
       "8764476057892802672": {
         "type": "shopify://apps/stoq/blocks/main/4bb73be2-b7c2-4870-949f-c528145452a3",
         "disabled": false,
@@ -354,15 +349,22 @@
           "show_empty_stars": true
         }
       },
+      "11945366711752539959": {
+        "type": "shopify://apps/zendesk/blocks/zendesk_web_widget/c0b417b1-b90b-4754-baaf-f55627e6acd4",
+        "disabled": true,
+        "settings": {}
+      },
       "16859463583119579546": {
-        "type": "shopify://apps/everdesk/blocks/chat-widget/01a0c4c4-9f31-7b67-bd31-11ed1aee6bd2",
+        "type": "shopify://apps/wave-chat/blocks/chat-widget/01a0c4c4-9f31-7b67-bd31-11ed1aee6bd2",
         "disabled": false,
         "settings": {
-          "position": "bottom-right",
+          "position": "bottom-left",
           "offset_side": 20,
-          "offset_bottom": 20,
-          "launcher_label": "Chat with us",
-          "test_mode": true
+          "offset_bottom": 40,
+          "launcher_label": "",
+          "test_mode": false,
+          "fallback_skin": "classic",
+          "fallback_accent": "#0f172a"
         }
       }
     }
