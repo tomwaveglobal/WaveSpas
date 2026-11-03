@@ -33,8 +33,15 @@
           {%- if img != blank -%}
             <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: block.settings.name }}</div>
           {%- endif -%}
-          <h3 class="wf-h2">{{ block.settings.name }}</h3>
-          <p class="wf-tier__sig">{{ block.settings.signature }}</p>
+          <div class="wf-tier__head">
+            {%- if block.settings.tier != blank -%}
+              <img class="wf-tier__badge" src="{{ 'wave-badge-' | append: block.settings.tier | append: '.svg' | asset_url }}" alt="" width="137" height="200" loading="lazy">
+            {%- endif -%}
+            <div>
+              <h3 class="wf-h2">{{ block.settings.name }}</h3>
+              <p class="wf-tier__sig">{{ block.settings.signature }}</p>
+            </div>
+          </div>
           <p class="wf-body">{{ block.settings.for }}</p>
           <ul role="list">
             {%- for f in features -%}

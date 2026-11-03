@@ -525,6 +525,8 @@ wf-explode { display: block; }
 .wf-tier__img img { width: 100%; height: 100%; object-fit: cover; }
 .wf-tier .wf-h2 { font-size: clamp(28px, 2.6vw, 36px); }
 .wf-tier__sig { margin: 8px 0 0; font-size: 16px; font-weight: 600; color: var(--wf-accent-ink); }
+.wf-tier__head { display: flex; align-items: center; gap: 14px; }
+.wf-tier__badge { flex: none; width: clamp(36px, 3.2vw, 42px); height: auto; }
 .wf-tier ul { flex: 1; margin: 20px 0 0; padding: 0; list-style: none; }
 .wf-tier li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--wf-line); font-size: 15px; line-height: 1.45; }
 .wf-tier li svg { flex: none; width: 16px; height: 16px; margin-top: 3px; color: var(--wf-accent-ink); }
