@@ -676,50 +676,58 @@
           "type": "nav_item",
           "settings": {
             "title": "Description",
-            "target_id": "shopify-section-template--29200497246595__collage"
+            "target_id": "collage"
           }
         },
         "nav_item_pM68Hf": {
           "type": "nav_item",
           "settings": {
             "title": "Tech Specs",
-            "target_id": "shopify-section-template--29200497246595__product-details"
+            "target_id": "product-details"
           }
         },
         "nav_item_whatfits": {
           "type": "nav_item",
           "settings": {
             "title": "What Fits",
-            "target_id": "shopify-section-template--29200497246595__compatible_accessories"
+            "target_id": "compatible_accessories"
           }
         },
         "nav_item_QUgAC3": {
           "type": "nav_item",
           "settings": {
-            "title": "Comparison Table",
-            "target_id": "shopify-section-template--29200497246595__comparison_table_GXKLn7"
+            "title": "Compare",
+            "target_id": "wave_fy27_tiers_GqR9DN"
           }
         },
         "nav_item_qVtYUr": {
           "type": "nav_item",
           "settings": {
             "title": "FAQs",
-            "target_id": "shopify-section-template--29200497246595__faq"
+            "target_id": "wave_fy27_questions_zCr8mk"
           }
         },
         "nav_item_q9yLhM": {
           "type": "nav_item",
           "settings": {
             "title": "Reviews",
-            "target_id": "shopify-section-template--29200497246595__rich_text_XazzCf"
+            "target_id": "rich_text_XazzCf,custom_liquid_YwqJMM,174653922467a5c413"
+          }
+        },
+        "nav_item_setup": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Setup",
+            "target_id": "wave_fy27_setup_KmyXeR"
           }
         }
       },
       "block_order": [
         "back_to_top_jnb8cL",
-        "nav_item_yXJLBm",
         "nav_item_pM68Hf",
         "nav_item_whatfits",
+        "nav_item_yXJLBm",
+        "nav_item_setup",
         "nav_item_QUgAC3",
         "nav_item_qVtYUr",
         "nav_item_q9yLhM"

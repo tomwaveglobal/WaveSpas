@@ -3,7 +3,8 @@
   Sets --wf-tier / --wf-tier-ink / --wf-tier-rgb on the page and uses them for: the collection icon to the
   left of the title, and the collection word in the title ("Garda Lush"); the Product Highlights as a white
   card with icons in the collection colour; the variant picker's selections, step numbers and ticks; the
-  FY27 sections' accent (eyebrows, setup ring and step numbers, question tags); and the buy button.
+  FY27 sections' accent (eyebrows, setup ring and step numbers, question tags); the buy button; and the
+  Compatible accessories tabs.
   The hot / cold / air diagram colours and the dark FY27 sections keep their own colours. Theme section
   subtitles take --wf-tier-ink in wave-fy27-pdp-layout.
 
@@ -138,6 +139,23 @@
     .product__info .product-form__submit.button--primary:not([disabled]):is(:hover, :focus-visible) {
       color: #fff;
       background-color: color-mix(in srgb, rgb(var(--wf-tier-rgb-ink)) 82%, #000);
+    }
+
+    /* Compatible accessories tabs: selected tab in the collection colour, the rest tinted */
+    .shopify-section:has([id^='CompatV2Tabs-']) .tab__item {
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .shopify-section:has([id^='CompatV2Tabs-']) .tab__item[aria-selected='true'] {
+      --color-button-background: var(--wf-tier-rgb-ink);
+      --color-button-border: var(--wf-tier-rgb-ink);
+      --color-button-text: 255 255 255;
+      opacity: 1;
+    }
+    .shopify-section:has([id^='CompatV2Tabs-']) .tab__item[aria-selected='false'] {
+      background-color: rgb(var(--wf-tier-rgb) / 0.08);
+    }
+    .shopify-section:has([id^='CompatV2Tabs-']) .tab__item[aria-selected='false']:is(:hover, :focus-visible) {
+      background-color: rgb(var(--wf-tier-rgb) / 0.16);
     }
 
     /* Variant picker: selections, step numbers and ticks */

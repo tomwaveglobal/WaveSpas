@@ -8470,19 +8470,20 @@ class ScrollSpy extends HTMLElement {
 
   updateActiveLink() {
     let current = '';
-      
+    // A section is current while it crosses a line a third of the way down the screen, so the
+    // highlight follows what's being read rather than what's hidden under the header and nav.
+    const line = window.innerHeight * 0.35;
+
     this.scrollspyLinks.forEach(link => {
       const targetIds = link.hasAttribute('data-target') ? link.getAttribute('data-target').split(',') : [];
 
       targetIds.forEach((targetId) => {
         const section = document.getElementById(targetId);
-        
+
         if (section) {
-          const offset = 0;
-          const sectionTop = section.offsetTop - offset;
-          const sectionBottom = sectionTop + section.offsetHeight;
-          
-          if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+          const rect = section.getBoundingClientRect();
+
+          if (rect.top <= line && rect.bottom > line) {
             current = targetId;
           }
         }
