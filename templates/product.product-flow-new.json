@@ -400,7 +400,7 @@
       ],
       "settings": {
         "enable_sticky_info": false,
-        "media_size": 55,
+        "media_size": 60,
         "gallery_layout": "scroll",
         "thumbnail_position": "below",
         "image_ratio": "square",
