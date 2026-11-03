@@ -18,6 +18,35 @@
         "image": "shopify://shop_images/Blog_header_1dc746f2-29fe-4d8c-ada5-41e54ced00b1.jpg"
       },
       "blocks": {}
+    },
+    "rich_text_rrgLRX": {
+      "settings": {
+        "heading": "Buy 2 and save&nbsp;30<em>% off</em>&nbsp;chemicals",
+        "highlighted_scribble": "basic-underline"
+      },
+      "blocks": {}
+    },
+    "staged_product_bundle_7GVH3a": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "product_bundle_M3rftG": {
+      "disabled": false,
+      "settings": {
+        "products": [
+          "chlorine-granules-1kg-etl",
+          "chlorine-granules-5kg",
+          "algaecide-etl",
+          "sparkle-clarifier-etl",
+          "alkalinity-increaser-1kg-etl",
+          "chlorine-tablets-5kg"
+        ],
+        "minimum_quantity": 2,
+        "maximum_quantity": 2,
+        "prevent_duplicate_products": false
+      },
+      "blocks": {}
     }
   }
 }
