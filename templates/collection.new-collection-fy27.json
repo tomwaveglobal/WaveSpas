@@ -22,11 +22,17 @@
         },
         "breadcrumb": {
           "type": "breadcrumb",
+          "disabled": true,
           "settings": {
             "show_collections_link": true,
             "show_collection_title": true
-          },
-          "disabled": true
+          }
+        },
+        "fy27_badge": {
+          "type": "fy27_badge",
+          "settings": {
+            "tier": "auto"
+          }
         },
         "title": {
           "type": "title",
@@ -46,12 +52,6 @@
             "text_letter_spacing": 0,
             "text_capitalize": false,
             "secondary_color": true
-          }
-        },
-        "fy27_badge": {
-          "type": "fy27_badge",
-          "settings": {
-            "tier": "auto"
           }
         }
       },
@@ -128,6 +128,7 @@
         "finance",
         "support"
       ],
+      "disabled": true,
       "settings": {
         "soft": false
       }
