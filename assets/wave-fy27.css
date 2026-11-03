@@ -485,6 +485,12 @@ wf-explode { display: block; }
   box-shadow: inset 0 0 0 1px var(--wf-line);
 }
 .wf-tier.is-current { box-shadow: inset 0 0 0 2px #000; }
+/* each card in its collection colour (Lite / Lush / Luxe); --wf-accent-ink is the text-safe shade */
+.wf-tier[data-tier='lite'] { --wf-accent: #728BA3; --wf-accent-ink: #61768B; }
+.wf-tier[data-tier='lush'] { --wf-accent: #9F3C1E; --wf-accent-ink: #9F3C1E; }
+.wf-tier[data-tier='luxe'] { --wf-accent: #56223B; --wf-accent-ink: #56223B; }
+.wf-tier[data-tier].is-current { box-shadow: inset 0 0 0 2px var(--wf-accent); }
+.wf-tier[data-tier] .wf-tier__flag { color: #fff; background: var(--wf-accent-ink); }
 .wf-tier__flag {
   position: absolute;
   top: -12px;

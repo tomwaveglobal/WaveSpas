@@ -24,7 +24,7 @@
           assign img = block.settings.image | default: col.featured_image
           assign features = block.settings.features | newline_to_br | split: '<br />'
         -%}
-        <article class="wf-tier{% if is_current %} is-current{% endif %}" data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+        <article class="wf-tier{% if is_current %} is-current{% endif %}" data-tier="{{ block.settings.tier }}" data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
           {%- if is_current -%}<span class="wf-tier__flag">{{ section.settings.current_label }}</span>{%- endif -%}
           {%- if img != blank -%}
             <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: block.settings.name }}</div>

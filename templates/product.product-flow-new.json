@@ -365,10 +365,17 @@
             "background_height": 0,
             "border_radius": 0
           }
+        },
+        "liquid_wave_collection": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-collection-colour', product: product, part: 'header' %}"
+          }
         }
       },
       "block_order": [
         "breadcrumb_rcrAce",
+        "liquid_wave_collection",
         "vendor_br9FVx",
         "title",
         "reviews_io_reviewsio_rating_output_L6AWE4",

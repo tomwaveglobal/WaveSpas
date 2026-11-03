@@ -1,9 +1,11 @@
 {%- comment -%}
-  FY27 collection badge (Lite / Lush / Luxe) for the collection banner.
-  Sits to the left of the banner's title and description; the banner adds
-  .wf-tier-banner to its box when this renders.
+  FY27 collection badge (Lite / Lush / Luxe). In the collection banner it sits
+  to the left of the title and description (the banner adds .wf-tier-banner to
+  its box when this renders); on product pages wave-collection-colour uses it
+  in the collection line. Size it with --wf-badge-w / --wf-badge-h.
 
   {% render 'wave-fy27-tier-badge', tier: 'luxe', image: block.settings.image, block: block %}
+  {% render 'wave-fy27-tier-badge', tier: 'lush' %}
 
   The built-in badge is a stand-in until the FY27 badge artwork is final;
   pass an image to use that instead.
@@ -17,7 +19,10 @@
     else
       assign badge_colour = '#56223B'
   endcase
-  assign clip_id = 'wf-tier-clip-' | append: block.id
+  assign clip_id = 'wf-tier-clip-' | append: tier
+  if block
+    assign clip_id = clip_id | append: '-' | append: block.id
+  endif
 -%}
 <style>
   .wf-tier-banner {
@@ -53,9 +58,9 @@
     align-items: center;
     justify-content: center;
     gap: 6%;
-    width: var(--wf-badge-w);
-    height: var(--wf-badge-h);
-    border-radius: 0.625rem;
+    width: var(--wf-badge-w, 3.5rem);
+    height: var(--wf-badge-h, 5rem);
+    border-radius: calc(var(--wf-badge-w, 3.5rem) * 0.125);
     background: var(--wf-badge-colour);
     color: #fff;
     overflow: hidden;
@@ -69,7 +74,7 @@
   .wf-tier-badge__name {
     font-family: var(--font-heading-family);
     font-weight: var(--font-heading-weight);
-    font-size: calc(var(--wf-badge-w) * 0.2);
+    font-size: calc(var(--wf-badge-w, 3.5rem) * 0.2);
     line-height: 1;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -94,11 +99,11 @@
   }
 </style>
 {%- if image != blank -%}
-  <div class="wf-tier-badge wf-tier-badge--image" {{ block.shopify_attributes }}>
+  <div class="wf-tier-badge wf-tier-badge--image"{% if block %} {{ block.shopify_attributes }}{% endif %}>
     {{- image | image_url: width: 240 | image_tag: alt: '', loading: 'eager', widths: '120,160,240', sizes: '80px' -}}
   </div>
 {%- else -%}
-  <div class="wf-tier-badge" style="--wf-badge-colour: {{ badge_colour }};" aria-hidden="true" {{ block.shopify_attributes }}>
+  <div class="wf-tier-badge" style="--wf-badge-colour: {{ badge_colour }};" aria-hidden="true"{% if block %} {{ block.shopify_attributes }}{% endif %}>
     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" focusable="false">
       <defs><clipPath id="{{ clip_id }}"><circle cx="24" cy="24" r="18"/></clipPath></defs>
       <path d="M3.33 16.48A22 22 0 0 1 44.67 16.48M44.67 31.52A22 22 0 0 1 3.33 31.52"/>

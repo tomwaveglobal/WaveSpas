@@ -1,82 +1,203 @@
 {%- doc -%}
-  Brings the FY27 collection colour (Wave Lite / Lush / Luxe) into the PDP: the Product Highlights become a
-  strip in the collection colour with white icons, text and dividers (as in the Hot Tubs mega menu), and the
-  collection word in the title is tinted when the title ends with it ("Garda Lush").
-  The collection comes from the product's Lite / Lush / Luxe tag; renders nothing without one.
+  Brings the FY27 collection colour (Wave Lite / Lush / Luxe) into the PDP, after the FY27 catalogue pages:
+  - part 'header': the collection line, a badge and "**Lush** Collection" linking to the collection.
+  - no part: the page styles, plus the size pill ("4 or 6 Person Round") under the title.
+
+  The styles set --wf-tier / --wf-tier-ink / --wf-tier-rgb on the page and use them to turn the Product
+  Highlights into a white card with icons in the collection colour, colour the variant picker's selections,
+  step numbers and ticks, tint the collection word in the title ("Garda Lush"), and give the FY27 sections
+  the collection colour as their accent (eyebrows, setup ring, question tags). The hot / cold / air diagram
+  colours and the dark FY27 sections keep their own colours.
+
+  The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
+  Renders nothing for other products. --wf-tier-ink is the text-safe shade (Lite's slate is too light
+  for small text on white).
 
   @param {object} product - Product being viewed
+  @param {string} [part] - 'header' for the collection line; leave out for the styles and size pill
 {%- enddoc -%}
 {%- liquid
-  assign collection_name = blank
+  assign tier = blank
   if product.tags contains 'Lite'
-    assign collection_name = 'Lite'
-    assign collection_colour = '#728BA3'
-    assign collection_rgb = '114 139 163'
+    assign tier = 'lite'
   elsif product.tags contains 'Lush'
-    assign collection_name = 'Lush'
-    assign collection_colour = '#9F3C1E'
-    assign collection_rgb = '159 60 30'
+    assign tier = 'lush'
   elsif product.tags contains 'Luxe'
-    assign collection_name = 'Luxe'
-    assign collection_colour = '#56223B'
-    assign collection_rgb = '86 34 59'
+    assign tier = 'luxe'
+  else
+    assign handle_start = product.handle | split: '-' | first
+    if handle_start == 'lite' or handle_start == 'lush' or handle_start == 'luxe'
+      assign tier = handle_start
+    endif
   endif
 
-  assign title_last_word = product.title | split: ' | ' | first | strip | split: ' ' | last
+  case tier
+    when 'lite'
+      assign collection_name = 'Lite'
+      assign collection_colour = '#728BA3'
+      assign collection_ink = '#61768B'
+      assign collection_rgb = '114 139 163'
+      assign icon_filter = 'brightness(0) saturate(100%) invert(42%) sepia(88%) saturate(218%) hue-rotate(167deg) brightness(112%) contrast(48%)'
+    when 'lush'
+      assign collection_name = 'Lush'
+      assign collection_colour = '#9F3C1E'
+      assign collection_ink = '#9F3C1E'
+      assign collection_rgb = '159 60 30'
+      assign icon_filter = 'brightness(0) saturate(100%) invert(51%) sepia(78%) saturate(9062%) hue-rotate(17deg) brightness(75%) contrast(77%)'
+    when 'luxe'
+      assign collection_name = 'Luxe'
+      assign collection_colour = '#56223B'
+      assign collection_ink = '#56223B'
+      assign collection_rgb = '86 34 59'
+      assign icon_filter = 'brightness(0) saturate(100%) invert(12%) sepia(45%) saturate(4031%) hue-rotate(-49deg) brightness(65%) contrast(80%)'
+  endcase
 -%}
-{%- if collection_name != blank -%}
-  <style>
-    .product .product__highlights.with-heading {
-      border: 0;
-      color: #fff;
-      background-color: {{ collection_colour }};
-    }
-    .product .product__highlights.with-heading > p {
-      position: static;
-      padding: 0;
-      transform: none;
-      background: none;
-      color: #fff;
-    }
-    .product .product__highlights.with-heading .product-card__spec {
-      --color-background: {{ collection_rgb }};
-    }
-    .product .product__highlights.with-heading .product-card__icons {
-      gap: var(--sp-5) 0;
-    }
-    .product .product__highlights.with-heading .product-card__icon {
-      padding: 0 var(--sp-5);
-      border-radius: 0;
-      border-inline-start: 1px solid rgb(255 255 255 / 0.3);
-      background: none;
-      color: #fff;
-    }
-    .product .product__highlights.with-heading .product-card__icon:first-child {
-      padding-inline-start: 0;
-      border-inline-start: 0;
-    }
-    .product .product__highlights.with-heading .product-card__icon figure {
-      width: var(--sp-6);
-    }
-    .product .product__highlights.with-heading .product-card__icon img {
-      filter: brightness(0) invert(1);
-    }
-    .product .product__highlights.with-heading .product-card__icon .text-opacity {
-      color: rgb(255 255 255 / 0.8);
-      opacity: 1;
-    }
-    @media screen and (min-width: 1024px) {
-      .product .product__gallery-container .product__highlights.with-heading .product-card__icons {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+{%- if tier != blank -%}
+  {%- if part == 'header' -%}
+    {%- liquid
+      assign collection_handle = tier | append: '-hot-tubs'
+      assign collection_url = collections[collection_handle].url | default: routes.all_products_collection_url
+    -%}
+    <a class="wf-pdp-collection" href="{{ collection_url }}">
+      {%- render 'wave-fy27-tier-badge', tier: tier -%}
+      <span class="wf-pdp-collection__name"><strong>{{ collection_name }}</strong> Collection</span>
+    </a>
+  {%- else -%}
+    {%- liquid
+      assign title_last_word = product.title | split: ' | ' | first | strip | split: ' ' | last
+
+      assign people = ''
+      for option in product.options_with_values
+        assign option_name = option.name | downcase
+        if option_name == 'size'
+          for value in option.values
+            assign value_name = value.name | default: value
+            assign count = value_name | split: ' ' | first | plus: 0
+            if count > 0
+              assign people = people | append: count | append: ','
+            endif
+          endfor
+        endif
+      endfor
+      assign people = people | split: ',' | uniq | join: ' or '
+
+      assign shape = blank
+      for shape_tag in product.tags
+        case shape_tag
+          when 'Round', 'Square', 'Octagonal', 'Oval', 'Rectangular'
+            assign shape = shape_tag
+            break
+        endcase
+      endfor
+    -%}
+    <style>
+      :root {
+        --wf-tier: {{ collection_colour }};
+        --wf-tier-ink: {{ collection_ink }};
+        --wf-tier-rgb: {{ collection_rgb }};
       }
-      .product .product__gallery-container .product__highlights.with-heading .product-card__icon:nth-child(3n + 1) {
+
+      /* FY27 sections: collection colour as the accent */
+      :root .wf:not(.wf--dark) {
+        --wf-accent: var(--wf-tier);
+        --wf-accent-ink: var(--wf-tier-ink);
+      }
+
+      /* Collection line and size pill */
+      .wf-pdp-collection {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--sp-3);
+        color: rgb(var(--color-foreground));
+        text-decoration: none;
+        --wf-badge-w: 2.5rem;
+        --wf-badge-h: 2.5rem;
+      }
+      .wf-pdp-collection .wf-tier-badge svg { width: 72%; }
+      .wf-pdp-collection .wf-tier-badge__name { display: none; }
+      .wf-pdp-collection__name {
+        font-family: var(--font-body-family);
+        font-weight: var(--font-body-weight);
+        font-size: var(--text-lg);
+        line-height: 1;
+      }
+      .wf-pdp-collection__name strong {
+        font-family: var(--font-heading-family);
+        font-weight: var(--font-heading-weight);
+      }
+      .wf-pdp-pill {
+        display: inline-block;
+        margin: 0;
+        padding: 0.3125rem 0.75rem;
+        border-radius: 99px;
+        background: var(--wf-tier-ink);
+        color: #fff;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.2;
+      }
+
+      /* Product Highlights: white catalogue card, icons in the collection colour */
+      .product .product__highlights.with-heading {
+        border: 1px solid rgb(var(--color-foreground) / 0.1);
+        background-color: rgb(var(--color-background));
+      }
+      .product .product__highlights.with-heading > p {
+        position: static;
+        padding: 0;
+        transform: none;
+        background: none;
+        font-weight: var(--font-heading-weight);
+      }
+      .product .product__highlights.with-heading .product-card__icons {
+        gap: var(--sp-5) 0;
+      }
+      .product .product__highlights.with-heading .product-card__icon {
+        padding: 0 var(--sp-5);
+        border-radius: 0;
+        border-inline-start: 1px solid rgb(var(--color-foreground) / 0.1);
+        background: none;
+      }
+      .product .product__highlights.with-heading .product-card__icon:first-child {
         padding-inline-start: 0;
         border-inline-start: 0;
       }
-    }
-    {%- if title_last_word == collection_name %}
-      .product__info .product__title split-words > .word:last-child { color: {{ collection_colour }}; }
-    {%- endif %}
-  </style>
+      .product .product__highlights.with-heading .product-card__icon figure {
+        width: var(--sp-6);
+      }
+      .product .product__highlights.with-heading .product-card__icon img {
+        filter: {{ icon_filter }};
+      }
+      @media screen and (min-width: 1024px) {
+        .product .product__gallery-container .product__highlights.with-heading .product-card__icons {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .product .product__gallery-container .product__highlights.with-heading .product-card__icon:nth-child(3n + 1) {
+          padding-inline-start: 0;
+          border-inline-start: 0;
+        }
+      }
+
+      /* Variant picker: selections, step numbers and ticks */
+      .product .vpa {
+        --vpa-accent: var(--wf-tier-ink);
+        --vpa-accent-soft: rgb(var(--wf-tier-rgb) / 0.1);
+        --vpa-border-selected: var(--wf-tier);
+        --vpa-surface-selected: rgb(var(--wf-tier-rgb) / 0.05);
+        --vpa-border-strong: var(--wf-tier);
+      }
+      .product .vpa__step--complete .vpa__num {
+        border-color: var(--wf-tier);
+        background: var(--wf-tier);
+        color: #fff;
+      }
+      {%- if title_last_word == collection_name %}
+        .product__info .product__title split-words > .word:last-child { color: var(--wf-tier); }
+      {%- endif %}
+    </style>
+    {%- if people != blank -%}
+      <p class="wf-pdp-pill">{{ people }} Person{% if shape != blank %} {{ shape }}{% endif %}</p>
+    {%- endif -%}
+  {%- endif -%}
 {%- endif -%}
