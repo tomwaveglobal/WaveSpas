@@ -3,9 +3,9 @@
   Sets --wf-tier / --wf-tier-ink / --wf-tier-rgb on the page and uses them for: the collection icon to the
   left of the title, and the collection word in the title ("Garda Lush"); the Product Highlights as a white
   card with icons in the collection colour; the variant picker's selections, step numbers and ticks; the
-  FY27 sections' accent (eyebrows, setup ring and step numbers, question tags); and the Compatible
-  accessories subtitle, styled like the FY27 eyebrows. The hot / cold / air diagram colours and the dark
-  FY27 sections keep their own colours.
+  FY27 sections' accent (eyebrows, setup ring and step numbers, question tags); and the buy button.
+  The hot / cold / air diagram colours and the dark FY27 sections keep their own colours. Theme section
+  subtitles take --wf-tier-ink in wave-fy27-pdp-layout.
 
   The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
   Renders nothing for other products. --wf-tier-ink (and --wf-tier-rgb-ink) is the text-safe shade (Lite's
@@ -84,16 +84,6 @@
       height: 0.9em;
       border-radius: 0.16em;
       background: var(--wf-tier) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'><defs><clipPath id='c'><circle cx='24' cy='24' r='18'/></clipPath></defs><path d='M3.33 16.48A22 22 0 0 1 44.67 16.48M44.67 31.52A22 22 0 0 1 3.33 31.52'/><g clip-path='url(%23c)' stroke-width='2.6'><path d='M0 15q4-3 8 0t8 0 8 0 8 0 8 0 8 0'/><path d='M0 21q4-3 8 0t8 0 8 0 8 0 8 0 8 0'/><path d='M0 27q4-3 8 0t8 0 8 0 8 0 8 0 8 0'/><path d='M0 33q4-3 8 0t8 0 8 0 8 0 8 0 8 0'/></g></svg>") center / 70% no-repeat;
-    }
-
-    /* Compatible accessories subtitle, as the FY27 eyebrows */
-    .shopify-section:has([id^='CompatV2Tabs-']) .title-wrapper .grid > p.heading:first-child {
-      font-family: var(--font-body-family);
-      font-size: var(--text-sm);
-      font-weight: 600;
-      line-height: 1.3;
-      letter-spacing: 0;
-      color: var(--wf-tier-ink);
     }
 
     /* Product Highlights: white catalogue card, icons in the collection colour */
