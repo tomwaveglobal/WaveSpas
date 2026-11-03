@@ -8,8 +8,8 @@
   FY27 sections keep their own colours.
 
   The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
-  Renders nothing for other products. --wf-tier-ink is the text-safe shade (Lite's slate is too light
-  for small text on white).
+  Renders nothing for other products. --wf-tier-ink (and --wf-tier-rgb-ink) is the text-safe shade (Lite's
+  slate is too light for small or white text on white); the buy button uses it.
 
   @param {object} product - Product being viewed
 {%- enddoc -%}
@@ -34,18 +34,21 @@
       assign collection_colour = '#728BA3'
       assign collection_ink = '#61768B'
       assign collection_rgb = '114 139 163'
+      assign collection_ink_rgb = '97 118 139'
       assign icon_filter = 'brightness(0) saturate(100%) invert(42%) sepia(88%) saturate(218%) hue-rotate(167deg) brightness(112%) contrast(48%)'
     when 'lush'
       assign collection_name = 'Lush'
       assign collection_colour = '#9F3C1E'
       assign collection_ink = '#9F3C1E'
       assign collection_rgb = '159 60 30'
+      assign collection_ink_rgb = '159 60 30'
       assign icon_filter = 'brightness(0) saturate(100%) invert(51%) sepia(78%) saturate(9062%) hue-rotate(17deg) brightness(75%) contrast(77%)'
     when 'luxe'
       assign collection_name = 'Luxe'
       assign collection_colour = '#56223B'
       assign collection_ink = '#56223B'
       assign collection_rgb = '86 34 59'
+      assign collection_ink_rgb = '86 34 59'
       assign icon_filter = 'brightness(0) saturate(100%) invert(12%) sepia(45%) saturate(4031%) hue-rotate(-49deg) brightness(65%) contrast(80%)'
   endcase
 -%}
@@ -56,6 +59,7 @@
       --wf-tier: {{ collection_colour }};
       --wf-tier-ink: {{ collection_ink }};
       --wf-tier-rgb: {{ collection_rgb }};
+      --wf-tier-rgb-ink: {{ collection_ink_rgb }};
     }
 
     /* FY27 sections: collection colour as the accent */
@@ -132,6 +136,18 @@
         padding-inline-start: 0;
         border-inline-start: 0;
       }
+    }
+
+    /* Buy button (also the sticky one) in the collection colour */
+    .product__info .product-form__submit.button--primary {
+      --color-button-background: var(--wf-tier-rgb-ink);
+      --color-button-border: var(--wf-tier-rgb-ink);
+      --color-button-text: 255 255 255;
+      transition: background-color 0.3s;
+    }
+    .product__info .product-form__submit.button--primary:not([disabled]):is(:hover, :focus-visible) {
+      color: #fff;
+      background-color: color-mix(in srgb, rgb(var(--wf-tier-rgb-ink)) 82%, #000);
     }
 
     /* Variant picker: selections, step numbers and ticks */
