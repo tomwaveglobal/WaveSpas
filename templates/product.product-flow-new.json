@@ -1303,7 +1303,6 @@
             "tier": "lite",
             "name": "Lite",
             "collection_handle": "lite-hot-tubs",
-            "image": "shopify://shop_images/lite_3.png",
             "signature": "Light work.",
             "for": "For getting in without a second thought.",
             "features": "Open floor to stretch out\nBubble massage\nCover included\nWaveFlow™ dual filtration"
@@ -1315,7 +1314,6 @@
             "tier": "lush",
             "name": "Lush",
             "collection_handle": "lush-hot-tubs",
-            "image": "shopify://shop_images/lush_3.png",
             "signature": "Settle in.",
             "for": "For evenings you want to last.",
             "features": "Moulded Air Foam seats\nWiFi app control\nRising VertaAir™ bubbles on foam & frame\nWaveFlow™ dual filtration"
@@ -1327,7 +1325,6 @@
             "tier": "luxe",
             "name": "Luxe",
             "collection_handle": "luxe-hot-tubs",
-            "image": "shopify://shop_images/luxe_3.png",
             "signature": "Where you want it.",
             "for": "For pressure exactly where you need it.",
             "features": "Four hydro-massage jets, adjustable intensity\nVertaAir™ bubbles on every spa\nBubbles and jets together or apart\nWaveFlow™ dual filtration"
