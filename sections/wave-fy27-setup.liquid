@@ -91,6 +91,46 @@
       ]
     }
   ],
-  "enabled_on": { "templates": ["product"] }
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "FY27 setup",
+      "settings": {
+        "nav_label": "Setup",
+        "eyebrow": "Plug and play",
+        "heading": "Built in [minutes] minutes.",
+        "heading_no_time": "Out of the box. No tools.",
+        "lede": "No tools, no electrician, no groundwork.",
+        "setup_minutes": 20,
+        "clock_label": "box to built",
+        "plug_title": "Standard 13 amp plug",
+        "plug_text": "Plugs into an RCD-protected outdoor socket.",
+        "show_notes": false
+      },
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Pick a flat spot",
+            "text": "Patio, base or decking rated for the weight."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Build it",
+            "text": "Everything's in the box."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Plug in, fill, heat",
+            "text": "Set 40°C. Fill today, soak tomorrow."
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
