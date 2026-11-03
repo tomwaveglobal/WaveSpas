@@ -14,6 +14,13 @@
     main .shopify-section:not([id$='__main-product']):not([id$='__product-details']) > .wf > .wf__inner {
       padding-inline: calc(var(--page-padding) + clamp(40px, 20vw, 60px) * 2);
     }
+
+    /* Rich text with a heading (e.g. Reviews) adds its own grid-gap padding twice at this width;
+       the inset above already lines it up, so drop it. */
+    main .shopify-section .collage.with-richtext,
+    main .shopify-section .collage.with-richtext > :is(.title-wrapper, .rich-text) {
+      padding-inline: 0;
+    }
   }
 
   /* Buy row: Contona wraps the buy button and its Visualise button in a column (<contona-slot>), which
