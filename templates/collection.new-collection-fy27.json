@@ -25,12 +25,15 @@
           "settings": {
             "show_collections_link": true,
             "show_collection_title": true
-          }
+          },
+          "disabled": true
         },
         "title": {
           "type": "title",
           "settings": {
-            "title_size": "title-md"
+            "title_size": "title-md",
+            "title_style": "first_word_bold",
+            "title_suffix": "Collection"
           }
         },
         "description_JJYJe8": {
@@ -42,19 +45,26 @@
             "text_line_height": 1.6,
             "text_letter_spacing": 0,
             "text_capitalize": false,
-            "secondary_color": false
+            "secondary_color": true
+          }
+        },
+        "fy27_badge": {
+          "type": "fy27_badge",
+          "settings": {
+            "tier": "auto"
           }
         }
       },
       "block_order": [
         "spacing",
         "breadcrumb",
+        "fy27_badge",
         "title",
         "description_JJYJe8"
       ],
       "settings": {
-        "transparent_header": true,
-        "show_image": true,
+        "transparent_header": false,
+        "show_image": false,
         "image_height": "400px",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
@@ -62,7 +72,7 @@
         "image_height_mobile": "auto",
         "content_position_mobile": "items-end justify-start",
         "text_alignment_mobile": "left",
-        "color_text": "#ffffff",
+        "color_text": "",
         "color_background": "",
         "gradient_background": "",
         "color_overlay": "#000000",

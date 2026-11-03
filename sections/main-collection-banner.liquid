@@ -15,6 +15,18 @@
   endif
 
   assign collection_alt = desktop_image.alt | default: collection.title
+
+  assign fy27_tier = blank
+  assign badge_block = section.blocks | where: 'type', 'fy27_badge' | first
+  if badge_block
+    assign fy27_tier = badge_block.settings.tier
+    if fy27_tier == 'auto'
+      assign fy27_tier = collection.handle | split: '-' | first
+    endif
+    unless fy27_tier == 'lite' or fy27_tier == 'lush' or fy27_tier == 'luxe'
+      assign fy27_tier = blank
+    endunless
+  endif
 -%}
 
 <style>
@@ -27,6 +39,15 @@
         --ratio-percent: {{ 1 | divided_by: desktop_image.aspect_ratio | times: 100 }}%;
       {% endif -%}
     {% endif -%}
+  }
+
+  #shopify-section-{{ section.id }} .wf-title-strong {
+    font-weight: var(--font-heading-weight);
+  }
+
+  #shopify-section-{{ section.id }} .wf-title-light {
+    font-family: var(--font-body-family);
+    font-weight: var(--font-body-weight);
   }
 
   {%- if mobile_image != blank and section.settings.image_height_mobile == 'adapt' %}
@@ -63,7 +84,7 @@
       {%- if section.blocks.size > 0 -%}
         <div class="banner__content overflow-hidden{% if desktop_image != blank %} absolute z-1 top-0 left-0 w-full h-full{% endif %}">
           <div class="page-width w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
-            <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
+            <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}{% if fy27_tier != blank %} wf-tier-banner{% endif %}">
               {%- assign delay = 0 -%}
               {%- for block in section.blocks -%}
                 {%- liquid
@@ -96,9 +117,31 @@
                       </nav>
                     </animate-element>
 
+                  {%- when 'fy27_badge' -%}
+                    {%- if fy27_tier != blank -%}
+                      {%- render 'wave-fy27-tier-badge', tier: fy27_tier, image: block.settings.image, block: block -%}
+                    {%- endif -%}
+
                   {%- when 'title' -%}
+                    {%- liquid
+                      assign title_content = collection.title
+                      if block.settings.title_style == 'first_word_bold'
+                        assign title_words = collection.title | split: ' '
+                        assign title_first = title_words.first | escape
+                        assign title_rest = block.settings.title_suffix | default: '' | escape
+                        if title_rest == blank and title_words.size > 1
+                          assign title_rest = collection.title | remove_first: title_words.first | strip | escape
+                        endif
+                        capture title_content
+                          echo '<strong class="wf-title-strong">' | append: title_first | append: '</strong>'
+                          if title_rest != blank
+                            echo ' <span class="wf-title-light">' | append: title_rest | append: '</span>'
+                          endif
+                        endcapture
+                      endif
+                    -%}
                     <h1 class="banner__title heading leading-none {{ block.settings.title_size }}{% if block.settings.title_size == 'title-lg' or block.settings.title_size == 'title-xl' %} tracking-heading{% endif %}{% unless desktop_image %} relative{% endunless %}" {{ block.shopify_attributes }}>
-                      {%- render 'heading-content', content: collection.title, style: 'none', delay: delay -%}
+                      {%- render 'heading-content', content: title_content, style: 'none', delay: delay -%}
                       {%- unless desktop_image -%}
                         {%- if collection.metafields.theme.marquee.value != blank -%}
                           <div class="block absolute bottom-0 w-full pointer-events-none">
@@ -518,6 +561,54 @@
           ],
           "default": "title-xl",
           "label": "t:sections.global.settings.title_size.label"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "label": "Title style",
+          "options": [
+            { "value": "default", "label": "Collection title" },
+            { "value": "first_word_bold", "label": "Bold first word" }
+          ],
+          "default": "default",
+          "info": "Bold first word sets the first word of the collection title in bold and the rest in regular weight, e.g. **Luxe** Collection."
+        },
+        {
+          "visible_if": "{{ block.settings.title_style == 'first_word_bold' }}",
+          "type": "text",
+          "id": "title_suffix",
+          "label": "Replace the rest of the title with",
+          "info": "Leave blank to keep the rest of the collection title."
+        }
+      ]
+    },
+    {
+      "type": "fy27_badge",
+      "name": "FY27 collection badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows the Lite, Lush or Luxe badge beside the title and description. Collections that aren't one of the three show nothing."
+        },
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Collection",
+          "options": [
+            { "value": "auto", "label": "From the collection handle" },
+            { "value": "lite", "label": "Lite" },
+            { "value": "lush", "label": "Lush" },
+            { "value": "luxe", "label": "Luxe" }
+          ],
+          "default": "auto",
+          "info": "Handles that start lite-, lush- or luxe- are picked up automatically."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Badge artwork",
+          "info": "Optional. Replaces the built-in badge, e.g. connect a collection metafield."
         }
       ]
     },
