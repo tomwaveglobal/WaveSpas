@@ -672,13 +672,6 @@
           "type": "back_to_top",
           "settings": {}
         },
-        "nav_item_yXJLBm": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Description",
-            "target_id": "collage"
-          }
-        },
         "nav_item_pM68Hf": {
           "type": "nav_item",
           "settings": {
@@ -691,6 +684,20 @@
           "settings": {
             "title": "What Fits",
             "target_id": "compatible_accessories"
+          }
+        },
+        "nav_item_yXJLBm": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Description",
+            "target_id": "collage"
+          }
+        },
+        "nav_item_setup": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Setup",
+            "target_id": "wave_fy27_setup_KmyXeR"
           }
         },
         "nav_item_QUgAC3": {
@@ -712,13 +719,6 @@
           "settings": {
             "title": "Reviews",
             "target_id": "rich_text_XazzCf,custom_liquid_YwqJMM,174653922467a5c413"
-          }
-        },
-        "nav_item_setup": {
-          "type": "nav_item",
-          "settings": {
-            "title": "Setup",
-            "target_id": "wave_fy27_setup_KmyXeR"
           }
         }
       },
@@ -913,6 +913,44 @@
         "divider": false,
         "full_width": true,
         "rounded": false
+      }
+    },
+    "wave_fy27_running_cost_AG9ek3": {
+      "type": "wave-fy27-running-cost",
+      "name": "FY27 running cost",
+      "settings": {
+        "nav_label": "Running costs",
+        "eyebrow": "Running costs",
+        "heading": "Warm water, sensible bills.",
+        "lede": "See what it costs to run, before you buy.",
+        "lede_es": "See what it costs to run, and what EnergySave™ saves you.",
+        "bundle_line": "EnergySave™ adds a thermal cover and insulated floor mats, worth up to £200.",
+        "size_label": "Size",
+        "usage_label": "How often you'll use it",
+        "usage_1": "Weekends",
+        "usage_2": "Most days",
+        "usage_3": "Every day",
+        "rate_label": "Your electricity price, per kWh",
+        "rate_gbp": 28,
+        "rate_eur": 30,
+        "rate_usd": 17,
+        "standard_label": "Standard",
+        "energysave_label": "EnergySave™ bundle",
+        "energysave_saving": 30,
+        "per_month": "a month",
+        "per_year": "a year",
+        "save_prefix": "Save around",
+        "save_suffix": "a year with EnergySave™.",
+        "payback_prefix": "The bundle adds",
+        "payback_middle": "and pays for itself in about",
+        "payback_suffix": "months.",
+        "cta_label": "Choose EnergySave™",
+        "basis_prefix": "Based on",
+        "basis_middle": "days a month at",
+        "basis_es": "EnergySave assumes [pct]% less energy. Your bill depends on weather and use.",
+        "calculator_link": "",
+        "calculator_label": "Full calculator",
+        "show_notes": false
       }
     },
     "collage": {
@@ -1950,6 +1988,7 @@
     "product-details",
     "compatible_accessories",
     "video_BqrMRT",
+    "wave_fy27_running_cost_AG9ek3",
     "collage",
     "image-with-text-1",
     "wave_fy27_setup_KmyXeR",
