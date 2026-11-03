@@ -1,0 +1,96 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign setup_video = section.settings.video | default: product.metafields.custom.setup_video.value
+  assign minutes = product.metafields.specs.setup_minutes.value | default: section.settings.setup_minutes
+  assign heading = section.settings.heading | replace: '[minutes]', minutes
+  if minutes == blank or minutes == 0
+    assign heading = section.settings.heading_no_time
+  endif
+-%}
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-su">
+      <div>
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ heading }}</h2>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+
+        <ol class="wf-su__steps" data-wf-reveal style="--wf-delay: .24s">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              <h3 class="wf-h3">{{ block.settings.title }}</h3>
+              <p class="wf-body">{{ block.settings.text }}</p>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+
+      <div>
+        {%- if setup_video != blank -%}
+          <div class="wf-su__video" data-wf-reveal>
+            {{ setup_video | video_tag: image_size: '1100x', controls: true, playsinline: true, muted: false, preload: 'metadata' }}
+          </div>
+        {%- elsif minutes != blank and minutes > 0 -%}
+          <div class="wf-su__clock" data-wf-reveal>
+            <svg viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(13,17,20,.08)" stroke-width="3"/>
+              <circle class="wf-su__ring" cx="100" cy="100" r="92" fill="none" stroke="url(#wfRing-{{ section.id }})" stroke-width="3" stroke-linecap="round" pathLength="1"/>
+              <defs>
+                <linearGradient id="wfRing-{{ section.id }}" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="wf-su__readout">
+              <span class="wf-fig"><span data-wf-count="{{ minutes }}">{{ minutes }}</span><small>min</small></span>
+              <p class="wf-small">{{ section.settings.clock_label }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="wf-plug" data-wf-reveal style="--wf-delay: .1s">
+          {%- render 'wave-fy27-glyph', name: 'plug', class: 'wf-glyph' -%}
+          <div>
+            <h3 class="wf-h3" style="font-size:16px">{{ section.settings.plug_title }}</h3>
+            <p class="wf-body">{{ section.settings.plug_text }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.show_notes -%}
+      <p class="wf-note">Test note: the setup time comes from <code>specs.setup_minutes</code> when it's set, otherwise this section's setting ({{ section.settings.setup_minutes }} min). The FY27 Collections Matrix said to make no timed setup claim until product has measured one in a real garden. The 20 minutes is here at Kate's request, so get it confirmed before launch. Set the time to 0 to fall back to "no tools" wording. Heating time is deliberately not claimed.</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 setup",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Setup" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Plug and play" },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "[minutes] becomes the setup time.", "default": "Out of the box in [minutes] minutes." },
+    { "type": "text", "id": "heading_no_time", "label": "Heading when no time is set", "default": "Out of the box. No tools." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "No tools, no electrician, no groundwork. Everything you need is in the box, and it plugs into a standard outdoor socket." },
+    { "type": "video", "id": "video", "label": "Setup video", "info": "Falls back to the product's setup_video metafield, then to the clock." },
+    { "type": "number", "id": "setup_minutes", "label": "Setup time (minutes)", "info": "Used when the product has no specs.setup_minutes metafield. 0 hides the clock.", "default": 20 },
+    { "type": "text", "id": "clock_label", "label": "Clock label", "default": "box to built" },
+    { "type": "text", "id": "plug_title", "label": "Power title", "default": "Standard 13 amp plug" },
+    { "type": "textarea", "id": "plug_text", "label": "Power text", "default": "Runs from an RCD-protected outdoor socket. No hard-wiring, no electrician, no extra cost." },
+    { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Step" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What happens." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

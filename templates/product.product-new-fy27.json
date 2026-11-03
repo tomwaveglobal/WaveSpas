@@ -231,6 +231,7 @@
         },
         "share": {
           "type": "share",
+          "disabled": true,
           "settings": {
             "share_label": "Share",
             "show_help_desk": false,
@@ -243,7 +244,13 @@
         "liquid_wave_finance": {
           "type": "liquid",
           "settings": {
-            "liquid": "{% render 'wave-finance-options', product: product, show_test_notes: true, payl8r_confirmed: false %}"
+            "liquid": "{% render 'wave-finance-options', product: product %}"
+          }
+        },
+        "liquid_wave_trust": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-fy27-trust' %}"
           }
         },
         "on_site_message_KFREgF": {
@@ -367,6 +374,7 @@
         },
         "icon_list_4xTkbm": {
           "type": "icon_list",
+          "disabled": true,
           "repeater": "{{ product.metafields.custom.product_icons.value }}",
           "settings": {
             "heading": "Product Highlights",
@@ -448,6 +456,7 @@
         "contona_button_design",
         "share",
         "liquid_wave_finance",
+        "liquid_wave_trust",
         "on_site_message_KFREgF",
         "on_site_message_CFpriq",
         "on_site_message_hKD98d",
@@ -483,558 +492,89 @@
         "rounded": true
       }
     },
-    "ss_product_videos_4_BQjpxE": {
-      "type": "ss-product-videos-4",
-      "blocks": {
-        "video_CXhrnf": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_1.value }}",
-            "title": ""
-          }
-        },
-        "video_VrKtej": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_2.value }}",
-            "title": ""
-          }
-        },
-        "video_bAPp8w": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_3.value }}",
-            "title": ""
-          }
-        },
-        "video_8pUzmC": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_4.value }}",
-            "title": ""
-          }
-        },
-        "video_MMUJfe": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_5.value }}",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_CXhrnf",
-        "video_VrKtej",
-        "video_bAPp8w",
-        "video_8pUzmC",
-        "video_MMUJfe"
-      ],
-      "name": "SS - Product videos #4",
-      "settings": {
-        "videos_position": "below_buy",
-        "heading": "",
-        "heading_custom": false,
-        "heading_font": "system_ui_n4",
-        "heading_size": 15,
-        "heading_size_mobile": 15,
-        "heading_height": 130,
-        "heading_align": "center",
-        "heading_align_mobile": "center",
-        "slider_view": 4.6,
-        "slider_view_mobile": 3.6,
-        "slider_gap": 16,
-        "slider_gap_mobile": 12,
-        "slider_mt": 4,
-        "slider_mt_mobile": 4,
-        "card_padding": 3,
-        "card_radius": 300,
-        "card_border_thickness": 3,
-        "card_hover": true,
-        "card_first_animation": true,
-        "video_ratio": "square",
-        "video_ratio_mobile": "square",
-        "video_overlay": 0,
-        "title_custom": false,
-        "title_font": "josefin_sans_n4",
-        "title_size": 14,
-        "title_size_mobile": 12,
-        "title_height": 130,
-        "title_mt": 10,
-        "title_mt_mobile": 10,
-        "title_align": "center",
-        "title_align_mobile": "center",
-        "arrow_size": 10,
-        "arrow_size_mobile": 10,
-        "arrow_border_thickness": 0,
-        "arrow_show_desktop": true,
-        "arrow_show_mobile": false,
-        "dots_size": 10,
-        "dots_size_mobile": 10,
-        "dots_mt": 0,
-        "dots_mt_mobile": 8,
-        "dots_show_desktop": false,
-        "dots_show_mobile": false,
-        "modal_width": 300,
-        "modal_width_mobile": 260,
-        "modal_padding_vertical": 0,
-        "modal_padding_vertical_mobile": 0,
-        "modal_padding_horizontal": 0,
-        "modal_padding_horizontal_mobile": 0,
-        "modal_radius": 16,
-        "modal_border_thickness": 0,
-        "modal_overlay": 0.3,
-        "modal_video_radius": 0,
-        "modal_video_border_thickness": 0,
-        "modal_video_ratio": "portrait",
-        "modal_video_ratio_mobile": "portrait",
-        "use_progress": true,
-        "action_size": 28,
-        "action_size_mobile": 36,
-        "action_border_thickness": 0,
-        "buttons_size": 32,
-        "buttons_size_mobile": 36,
-        "buttons_border_thickness": 0,
-        "card_bg_color": "#ffffff",
-        "card_bg_gradient": "",
-        "card_border_color": "#1f1f1f",
-        "video_overlay_color": "#000000",
-        "card_animation_color": "#1f1f1f",
-        "play_button_color": "#ffffff",
-        "title_color": "#000000",
-        "arrow_color": "#ffffff",
-        "arrow_hover_color": "#ffffff",
-        "arrow_bg_color": "#000000",
-        "arrow_bg_hover_color": "#555555",
-        "arrow_border_color": "#000000",
-        "arrow_border_hover_color": "#555555",
-        "dots_color": "#000000",
-        "modal_overlay_color": "#242424",
-        "modal_bg_color": "#ffffff",
-        "modal_border_color": "#000000",
-        "modal_video_border_color": "#000000",
-        "action_icon_color": "#ffffff",
-        "action_bg_color": "#000000",
-        "action_border_color": "#000000",
-        "buttons_icon_color": "#000000",
-        "buttons_bg_color": "#ffffff",
-        "buttons_border_color": "#000000",
-        "heading_color": "#000000",
-        "background_color": "#ffffff",
-        "border_color": "#000000",
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_horizontal": 0,
-        "padding_horizontal_mobile": 0,
-        "border_thickness": 0,
-        "lazy": true
-      }
-    },
-    "help-drawer": {
-      "type": "help-drawer",
-      "blocks": {
-        "content-1": {
-          "type": "content",
-          "settings": {
-            "icon": "truck",
-            "heading": "<em>Shipping Information</em>",
-            "text": "<p>Free next-day tracked delivery for all spas via DPD, with an option for Saturday delivery available for an extra £9.99. Upon dispatch, DPD will provide you with a one-hour tracking window.</p>",
-            "highlighted_text": "text",
-            "highlighted_scribble": "circle",
-            "color_text": "#171717",
-            "color_background": "#f9f9f9",
-            "gradient_background": "",
-            "color_highlight": "#052c31",
-            "gradient_highlight": ""
-          }
-        },
-        "content-2": {
-          "type": "content",
-          "settings": {
-            "icon": "headphone",
-            "heading": "<em>Customer Support</em>",
-            "text": "<p>Our friendly customer service team is ready to help with your Spa or order questions.</p><p>Email us At: <a href=\"mailto:support@waveglobal.com\" title=\"mailto:support@wavespas.com\">support@wavespas.com</a></p><p><strong>Monday to Friday: 8:30am – 5:30pm</strong></p><p><strong>Saturday: 8:00am – 4:00pm</strong></p><p>We aim to reply within <strong>8 working hours</strong>, so you’ll never be left waiting too long. If you message us outside these hours, no worries - we’ll dive right back in as soon as we’re back online. </p><p>Thanks for your patience and for being part of our community <br/></p>",
-            "highlighted_text": "text",
-            "highlighted_scribble": "circle",
-            "color_text": "#171717",
-            "color_background": "#f9f9f9",
-            "gradient_background": "",
-            "color_highlight": "#052c31",
-            "gradient_highlight": ""
-          }
-        },
-        "content-3": {
-          "type": "content",
-          "disabled": true,
-          "settings": {
-            "icon": "chat_bubble",
-            "heading": "FAQ’s",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "color_text": "#be123c",
-            "color_background": "#fff1f2",
-            "gradient_background": "",
-            "color_highlight": "#ffddbf",
-            "gradient_highlight": ""
-          }
-        },
-        "content-4": {
-          "type": "content",
-          "disabled": true,
-          "settings": {
-            "icon": "phone",
-            "heading": "Contact Us",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "color_text": "#4d7c0f",
-            "color_background": "#f7fee7",
-            "gradient_background": "",
-            "color_highlight": "#ffddbf",
-            "gradient_highlight": ""
-          }
-        }
-      },
-      "block_order": [
-        "content-1",
-        "content-2",
-        "content-3",
-        "content-4"
-      ],
-      "settings": {
-        "heading": "Need help?",
-        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible.</p>"
-      }
-    },
-    "scroll_spy_aPhVjp": {
+    "scroll_spy": {
       "type": "scroll-spy",
       "blocks": {
-        "back_to_top_jnb8cL": {
+        "back_to_top": {
           "type": "back_to_top",
           "settings": {}
         },
-        "nav_item_yXJLBm": {
+        "nav_item_1": {
           "type": "nav_item",
           "settings": {
-            "title": "Description",
-            "target_id": "shopify-section-template--29200497246595__collage"
+            "title": "Tech specs",
+            "target_id": "shopify-section-template--30074949271939__product-details"
           }
         },
-        "nav_item_pM68Hf": {
+        "nav_item_2": {
           "type": "nav_item",
           "settings": {
-            "title": "Tech Specs",
-            "target_id": "shopify-section-template--29200497246595__product-details"
+            "title": "Running costs",
+            "target_id": "shopify-section-template--30074949271939__wf_running_cost"
           }
         },
-        "nav_item_QUgAC3": {
+        "nav_item_3": {
           "type": "nav_item",
           "settings": {
-            "title": "Comparison Table",
-            "target_id": "shopify-section-template--29200497246595__comparison_table_GXKLn7"
+            "title": "Inside",
+            "target_id": "shopify-section-template--30074949271939__image_comparison"
           }
         },
-        "nav_item_qVtYUr": {
+        "nav_item_4": {
           "type": "nav_item",
           "settings": {
-            "title": "FAQs",
-            "target_id": "shopify-section-template--29200497246595__faq"
+            "title": "VertaAir™",
+            "target_id": "shopify-section-template--30074949271939__wf_vertaair"
           }
         },
-        "nav_item_q9yLhM": {
+        "nav_item_5": {
           "type": "nav_item",
           "settings": {
-            "title": "Reviews",
-            "target_id": "shopify-section-template--29200497246595__rich_text_XazzCf"
+            "title": "Setup",
+            "target_id": "shopify-section-template--30074949271939__wf_setup"
+          }
+        },
+        "nav_item_6": {
+          "type": "nav_item",
+          "settings": {
+            "title": "The range",
+            "target_id": "shopify-section-template--30074949271939__wf_tiers"
+          }
+        },
+        "nav_item_7": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Questions",
+            "target_id": "shopify-section-template--30074949271939__wf_questions"
           }
         },
         "nav_item_whatfits": {
           "type": "nav_item",
           "settings": {
-            "title": "What Fits",
-            "target_id": "shopify-section-template--29200497246595__compatible_accessories"
+            "title": "What fits",
+            "target_id": "shopify-section-template--30074949271939__compatible_accessories"
           }
         }
       },
       "block_order": [
-        "back_to_top_jnb8cL",
-        "nav_item_yXJLBm",
-        "nav_item_pM68Hf",
+        "back_to_top",
+        "nav_item_1",
         "nav_item_whatfits",
-        "nav_item_QUgAC3",
-        "nav_item_qVtYUr",
-        "nav_item_q9yLhM"
+        "nav_item_2",
+        "nav_item_3",
+        "nav_item_4",
+        "nav_item_5",
+        "nav_item_6",
+        "nav_item_7"
       ],
-      "name": "t:sections.scroll-spy.name",
       "settings": {
         "show_highlight": true,
         "text_alignment": "center",
         "text_alignment_mobile": "center",
         "color_text": "#171717",
-        "color_background": "#fafafa",
+        "color_background": "#e8eaeb",
         "gradient_background": "",
         "full_width": false
-      }
-    },
-    "collage": {
-      "type": "collage",
-      "blocks": {
-        "image-1": {
-          "type": "image",
-          "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_1_subtitle.value }}</strong></em>",
-            "heading": "{{ product.metafields.custom.product_collage_image_1_title.value }}",
-            "link": "",
-            "invert_subheading_heading": false,
-            "image": "{{ product.metafields.custom.product_image_1.value }}",
-            "image_ratio": "square",
-            "content_position": "md:items-end md:justify-start",
-            "text_alignment": "left",
-            "image_ratio_mobile": "landscape",
-            "content_position_mobile": "items-end justify-start",
-            "text_alignment_mobile": "left",
-            "highlighted_text": "text",
-            "highlighted_scribble": "basic-underline",
-            "color_text": "#ffffff",
-            "color_highlight": "#f59e0b",
-            "gradient_highlight": "radial-gradient(rgba(255, 255, 255, 1), rgba(255, 204, 75, 1) 100%)",
-            "color_overlay": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "image-2": {
-          "type": "image",
-          "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_3_subtitle.value }}</strong></em>",
-            "heading": "{{ product.metafields.custom.product_collage_image_3_title.value }}",
-            "link": "",
-            "invert_subheading_heading": false,
-            "image": "{{ product.metafields.custom.product_image_3.value }}",
-            "image_ratio": "portrait",
-            "content_position": "md:items-end md:justify-start",
-            "text_alignment": "left",
-            "image_ratio_mobile": "square",
-            "content_position_mobile": "items-end justify-start",
-            "text_alignment_mobile": "left",
-            "highlighted_text": "text",
-            "highlighted_scribble": "circle",
-            "color_text": "#ffffff",
-            "color_highlight": "#f59e0b",
-            "gradient_highlight": "",
-            "color_overlay": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "image-3": {
-          "type": "image",
-          "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_2_subtitle.value }}</strong></em>",
-            "heading": "{{ product.metafields.custom.product_collage_image_2_title.value }}",
-            "link": "",
-            "invert_subheading_heading": false,
-            "image": "{{ product.metafields.custom.product_image_2.value }}",
-            "image_ratio": "portrait",
-            "content_position": "md:items-end md:justify-end",
-            "text_alignment": "right",
-            "image_ratio_mobile": "square",
-            "content_position_mobile": "items-end justify-end",
-            "text_alignment_mobile": "right",
-            "highlighted_text": "text",
-            "highlighted_scribble": "basic-underline",
-            "color_text": "#ffffff",
-            "color_highlight": "#f59e0b",
-            "gradient_highlight": "",
-            "color_overlay": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image-4": {
-          "type": "image",
-          "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_4_subtitle.value }}</strong></em>",
-            "heading": "{{ product.metafields.custom.product_collage_image_4_title.value }}",
-            "link": "",
-            "invert_subheading_heading": false,
-            "image": "{{ product.metafields.custom.product_image_4.value }}",
-            "image_ratio": "square",
-            "content_position": "md:items-end md:justify-end",
-            "text_alignment": "right",
-            "image_ratio_mobile": "landscape",
-            "content_position_mobile": "items-end justify-end",
-            "text_alignment_mobile": "right",
-            "highlighted_text": "text",
-            "highlighted_scribble": "circle",
-            "color_text": "#ffffff",
-            "color_highlight": "#f59e0b",
-            "gradient_highlight": "",
-            "color_overlay": "#000000",
-            "overlay_opacity": 10
-          }
-        }
-      },
-      "block_order": [
-        "image-1",
-        "image-2",
-        "image-3",
-        "image-4"
-      ],
-      "settings": {
-        "heading": "Experience <em>ultimate</em> relaxation",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "{{ product.description }}",
-        "button_label": "View Tech Spec",
-        "button_link": "#shopify-section-template--25647455076739__product-details",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 48,
-        "padding_bottom": 0,
-        "divider": false,
-        "full_width": false,
-        "rounded": true,
-        "enable_parallax": true
-      }
-    },
-    "image-with-text-1": {
-      "type": "image-with-text",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/temp_1_1.png",
-            "image_width": "custom",
-            "image_max_width": 60,
-            "image_max_width_mobile": 60
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "{{ product.metafields.custom.product_hero_image_1_title.value }}",
-            "heading_size": "title-md",
-            "heading_tag": "h2",
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.metafields.custom.product_hero_image_1_description | metafield_tag }}",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "image",
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "image": "{{ product.metafields.custom.product_image_5.value }}",
-        "image_height": "600px",
-        "image_width": "large",
-        "layout": "image_first",
-        "text_alignment": "left",
-        "content_position": "align-self-center",
-        "image_height_mobile": "400px",
-        "text_alignment_mobile": "left",
-        "color_text": "#171717",
-        "color_background": "",
-        "gradient_background": "",
-        "color_background_2": "#fafafa",
-        "gradient_background_2": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": false,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
-      }
-    },
-    "wave_soak_timeline": {
-      "type": "wave-pdp-soak-timeline",
-      "settings": {
-        "heading": "From box to <em>first soak</em>",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "start_temp": 10,
-        "target_temp": 38,
-        "setup_text": "No tools needed.",
-        "fill_text": "With a garden hose at normal mains pressure.",
-        "soak_text": "Keep the lid on between soaks to hold the heat.",
-        "winter_text": "<p>Heating takes longer in cold weather. FrostFree™ protection switches on automatically below 5 °C to keep the pipes from freezing.</p>",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
-      }
-    },
-    "wave_jet_map": {
-      "type": "wave-pdp-jet-map",
-      "settings": {
-        "heading": "Where the <em>massage</em> comes from",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-lg tracking-heading",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "bubbles_title": "AquaBubble™ floor ring",
-        "bubbles_text": "Air bubbles rise from the floor all the way round, with two speeds.",
-        "bubbles_text_lite": "Air bubbles rise from the floor all the way round, on a single speed.",
-        "seats_title": "Air Foam seats",
-        "seats_text": "Built-in seats so everyone sits at the right height.",
-        "open_floor_title": "Open floor",
-        "open_floor_text": "No moulded seats, so there's room to stretch out.",
-        "vertaair_text": "Vertical bubble jets rise up the spa wall behind you.",
-        "jets_text": "Four hydro-massage jets with two intensities.",
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
       }
     },
     "product-details": {
@@ -1042,12 +582,23 @@
       "blocks": {
         "specification_g7Fp6A": {
           "type": "specification",
-          "disabled": true,
           "repeater": "{{ product.metafields.custom.in_the_box.value }}",
           "settings": {
             "icon": "{{ block.repeater.icon.value }}",
             "heading": "{{ block.repeater.label.value }}",
             "text_size": "text-sm"
+          }
+        },
+        "collapsible_tab_pcqY8C": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Description",
+            "content": "{{ product.description }}",
+            "metafields": "",
+            "text_size": "text-base"
           }
         },
         "collapsible_tab_VJ49Qd": {
@@ -1115,6 +666,7 @@
       },
       "block_order": [
         "specification_g7Fp6A",
+        "collapsible_tab_pcqY8C",
         "collapsible_tab_VJ49Qd",
         "collapsible_tab-1",
         "collapsible_tab-2",
@@ -1154,187 +706,83 @@
         "rounded": true
       }
     },
-    "wave_in_the_box": {
-      "type": "wave-pdp-in-the-box",
+    "wf_running_cost": {
+      "type": "wave-fy27-running-cost",
       "settings": {
-        "heading": "What's in the <em>box</em>",
-        "subheading": "",
-        "description": "",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "show_extras": true,
-        "extras_heading": "You'll also want",
-        "extras_count": 3,
-        "show_test_notes": true,
-        "color_text": "",
-        "color_background": "",
-        "color_highlight": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false
+        "nav_label": "Running costs",
+        "eyebrow": "Running costs",
+        "heading": "Warm water, sensible bills.",
+        "lede": "See what it costs to run, before you buy.",
+        "lede_es": "See what it costs to run, and what EnergySave™ saves you.",
+        "bundle_line": "EnergySave™ adds a thermal cover and insulated floor mats, worth up to £200.",
+        "size_label": "Size",
+        "usage_label": "How often you'll use it",
+        "usage_1": "Weekends",
+        "usage_2": "Most days",
+        "usage_3": "Every day",
+        "rate_label": "Your electricity price, per kWh",
+        "rate_gbp": 28,
+        "rate_eur": 30,
+        "rate_usd": 17,
+        "standard_label": "Standard",
+        "energysave_label": "EnergySave™ bundle",
+        "energysave_saving": 30,
+        "per_month": "a month",
+        "per_year": "a year",
+        "save_prefix": "Save around",
+        "save_suffix": "a year with EnergySave™.",
+        "payback_prefix": "The bundle adds",
+        "payback_middle": "and pays for itself in about",
+        "payback_suffix": "months.",
+        "cta_label": "Choose EnergySave™",
+        "basis_prefix": "Based on",
+        "basis_middle": "days a month at",
+        "basis_es": "EnergySave assumes [pct]% less energy. Your bill depends on weather and use.",
+        "calculator_link": "/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
+        "calculator_label": "Full calculator",
+        "show_notes": false
       }
     },
-    "comparison_table_GXKLn7": {
-      "type": "comparison-table",
+    "image_comparison": {
+      "type": "image-comparison",
       "blocks": {
-        "headings_bXLdix": {
-          "type": "headings",
+        "image_1": {
+          "type": "image",
           "settings": {
-            "heading_1": "Best For",
-            "heading_2": "Dimensions",
-            "heading_3": "Shape & Build",
-            "heading_4": "Built-In Air Foam Seats",
-            "heading_5": "Bubble Massage",
-            "heading_6": "Wave VertaAir™ Vertical Bubbles",
-            "heading_7": "Wave VertaJet™ Hydro-Jets",
-            "heading_8": "WiFi App Control",
-            "heading_9": "LED Strip Compatible",
-            "heading_10": "Spa Light Ready",
-            "heading_11": "Cover & Lid",
-            "heading_12": "Heater & Filtration",
-            "heading_13": "Colours",
-            "heading_14": "",
-            "heading_15": "",
-            "heading_16": "",
-            "heading_17": "",
-            "heading_18": "",
-            "heading_19": "",
-            "heading_20": "",
-            "heading_21": "",
-            "heading_22": "",
-            "heading_23": "",
-            "heading_24": "",
-            "heading_25": ""
+            "image": "shopify://shop_images/wave-fy27-xsection-inside.png",
+            "image_mobile": "shopify://shop_images/wave-fy27-xsection-inside-mobile.png",
+            "subheading": "",
+            "heading": "",
+            "content_position": "end",
+            "color_text": "#ffffff"
           }
         },
-        "values_fy27Lite": {
-          "type": "values",
+        "image_2": {
+          "type": "image",
           "settings": {
-            "product": "lite-tahoe-hot-tub",
-            "collection": "lite-hot-tubs",
-            "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
-            "button_label": "Shop Collection",
-            "value_1": "<p><strong>Wave Lite</strong><br/>Everything you need to get in the water</p>",
-            "value_2": "<p>4 Person | 156×69cm<br/>6 Person | 184×69cm</p>",
-            "value_3": "<p>Round<br/>Rigid 8cm WaveEco™ foam wall</p>",
-            "value_4": "<p>FALSE</p>",
-            "value_5": "<p>Single speed<br/>Open floor to stretch out</p>",
-            "value_6": "<p>FALSE</p>",
-            "value_7": "<p>FALSE</p>",
-            "value_8": "<p>FALSE</p>",
-            "value_9": "<p>FALSE</p>",
-            "value_10": "<p>TRUE</p>",
-            "value_11": "<p>Cover plus separate inflatable lid (2 pieces)</p>",
-            "value_12": "<p>Integrated heater up to 40°C<br/>WaveFlow™ dual filtration</p>",
-            "value_13": "<p>SWATCHES: fy27-matte-black</p>",
-            "value_14": "",
-            "value_15": "",
-            "value_16": "",
-            "value_17": "",
-            "value_18": "",
-            "value_19": "",
-            "value_20": "",
-            "value_21": "",
-            "value_22": "",
-            "value_23": "",
-            "value_24": "",
-            "value_25": "",
-            "text_size": "text-sm"
-          }
-        },
-        "values_fy27Lush": {
-          "type": "values",
-          "settings": {
-            "product": "lush-garda-hot-tub",
-            "collection": "lush-hot-tubs",
-            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
-            "button_label": "Shop Collection",
-            "value_1": "<p><strong>Wave Lush</strong><br/>Seated comfort and smart control</p>",
-            "value_2": "<p>4 &amp; 6 Person | 190×190×69cm</p>",
-            "value_3": "<p>Square<br/>Rigid 15cm WaveEco™ foam wall, Teslin outer</p>",
-            "value_4": "<p>TRUE</p>",
-            "value_5": "<p>Two speeds<br/>Low for a quiet soak, high for a full massage</p>",
-            "value_6": "<p>TRUE</p>",
-            "value_7": "<p>FALSE</p>",
-            "value_8": "<p>TRUE</p>",
-            "value_9": "<p>TRUE</p>",
-            "value_10": "<p>TRUE</p>",
-            "value_11": "<p>Integrated lid &amp; cover (1 piece)</p>",
-            "value_12": "<p>Integrated heater up to 40°C<br/>WaveFlow™ dual filtration</p>",
-            "value_13": "<p>SWATCHES: charcoal-black, flint-grey, fy27-breton-stripe, fy27-burgundy, fy27-navy-foam</p>",
-            "value_14": "",
-            "value_15": "",
-            "value_16": "",
-            "value_17": "",
-            "value_18": "",
-            "value_19": "",
-            "value_20": "",
-            "value_21": "",
-            "value_22": "",
-            "value_23": "",
-            "value_24": "",
-            "value_25": "",
-            "text_size": "text-sm"
-          }
-        },
-        "values_fy27Luxe": {
-          "type": "values",
-          "settings": {
-            "product": "luxe-garda-hot-tub",
-            "collection": "luxe-hot-tubs",
-            "image": "shopify://shop_images/AdriaticZoom.png",
-            "button_label": "Shop Collection",
-            "value_1": "<p><strong>Wave Luxe</strong><br/>The full hydro-massage experience</p>",
-            "value_2": "<p>4 &amp; 6 Person | 190×190×69cm</p>",
-            "value_3": "<p>Square<br/>Rigid 15cm WaveEco™ foam wall, Teslin outer</p>",
-            "value_4": "<p>TRUE</p>",
-            "value_5": "<p>Two speeds<br/>Low for a quiet soak, high for a full massage</p>",
-            "value_6": "<p>TRUE</p>",
-            "value_7": "<p>4 jets, 2 intensities<br/>Integrated pump, runs with or without bubbles</p>",
-            "value_8": "<p>TRUE</p>",
-            "value_9": "<p>TRUE</p>",
-            "value_10": "<p>TRUE</p>",
-            "value_11": "<p>Integrated lid &amp; cover (1 piece)</p>",
-            "value_12": "<p>Integrated heater up to 40°C<br/>WaveFlow™ dual filtration</p>",
-            "value_13": "<p>SWATCHES: charcoal-black, fy27-navy-foam</p>",
-            "value_14": "",
-            "value_15": "",
-            "value_16": "",
-            "value_17": "",
-            "value_18": "",
-            "value_19": "",
-            "value_20": "",
-            "value_21": "",
-            "value_22": "",
-            "value_23": "",
-            "value_24": "",
-            "value_25": "",
-            "text_size": "text-sm"
+            "image": "shopify://shop_images/wave-fy27-xsection-heat.png",
+            "image_mobile": "shopify://shop_images/wave-fy27-xsection-heat-mobile.png",
+            "subheading": "",
+            "heading": "",
+            "content_position": "end",
+            "color_text": "#ffffff"
           }
         }
       },
       "block_order": [
-        "headings_bXLdix",
-        "values_fy27Lite",
-        "values_fy27Lush",
-        "values_fy27Luxe"
+        "image_1",
+        "image_2"
       ],
-      "name": "t:sections.comparison-table.name",
       "settings": {
-        "sticky_product_info": false,
-        "first_available_variant": false,
-        "show_vendor": false,
-        "show_price": true,
-        "show_rating": true,
-        "heading": "Compare Lite, Lush &amp; Luxe",
-        "heading_size": "title-lg tracking-heading",
-        "heading_alignment": "text-center md:items-center",
+        "layout": "horizontal",
+        "image_height": "adapt",
+        "image_height_mobile": "adapt",
+        "heading": "The warmth stays with you.",
+        "heading_size": "title-md",
+        "heading_alignment": "text-center",
         "heading_tag": "h2",
         "subheading": "",
-        "description": "",
+        "description": "<p>Drag to see how the eco foam wall, the integrated heater and the lid keep the heat in the water.</p>",
         "button_label": "",
         "button_link": "",
         "button_external": false,
@@ -1350,183 +798,272 @@
         "color_button_text": "",
         "color_button_background": "",
         "color_button_gradient": "",
-        "padding_top": 0,
-        "padding_bottom": 20,
+        "padding_top": 72,
+        "padding_bottom": 72,
         "divider": false,
         "full_width": false,
-        "rounded": false
+        "rounded": true
       }
     },
-    "faq": {
-      "type": "faq",
+    "wf_vertaair": {
+      "type": "wave-fy27-vertaair",
       "blocks": {
-        "question-1": {
-          "type": "question",
+        "point_1": {
+          "type": "point",
           "settings": {
-            "title": "{{ product.metafields.custom.faq_question_1.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_1 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "title": "From the seat, not the floor",
+            "text": "The bubbles meet you where you sit.",
+            "jets_only": false
           }
         },
-        "question-2": {
-          "type": "question",
+        "point_2": {
+          "type": "point",
           "settings": {
-            "title": "{{ product.metafields.custom.faq_question_2.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_2 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "title": "Made for tired backs",
+            "text": "Aimed at the muscles that feel the day most.",
+            "jets_only": false
           }
         },
-        "question-3": {
-          "type": "question",
+        "point_3": {
+          "type": "point",
           "settings": {
-            "title": "{{ product.metafields.custom.faq_question_3.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_3 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-4": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_4.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_4 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-5": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_5.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_5 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_power": {
-          "type": "question",
-          "settings": {
-            "title": "Does it plug into a normal socket?",
-            "text": "<p>Plug it into a weatherproof outdoor socket with RCD protection, and never use an extension lead. Power supply: <strong>[TBC: confirm 13 A plug]</strong>. Cable length: <strong>[TBC]</strong>.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_base": {
-          "type": "question",
-          "settings": {
-            "title": "What base do I need, and how heavy is it when full?",
-            "text": "<p>Set it on a flat, level, solid surface such as patio slabs, concrete or decking rated for the weight. Avoid soft lawn. Filled weight: <strong>[TBC]</strong> for each size, before anyone gets in.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_planning": {
-          "type": "question",
-          "settings": {
-            "title": "Do I need planning permission?",
-            "text": "<p>A portable hot tub on a patio or lawn doesn't usually need planning permission. Raised decking over 30 cm, a listed building or a conservation area can change that, so check with your local council if any apply.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_noise": {
-          "type": "question",
-          "settings": {
-            "title": "How noisy is it?",
-            "text": "<p>The bubble blower is the loudest part. Measured noise: <strong>[TBC] dB</strong> on low and <strong>[TBC] dB</strong> on high.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question_wave_care": {
-          "type": "question",
-          "settings": {
-            "title": "How much looking after does it need?",
-            "text": "<p>A few minutes a few times a week: test and balance the water, rinse the filter, and keep the lid on between soaks. Replace filters every <strong>[TBC]</strong> and change the water every <strong>[TBC]</strong>.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "disabled": true,
-          "settings": {
-            "heading": "Didn’t find your answer?",
-            "text": "<p>Don't hestitate to contact us</p>",
-            "show_phone": false,
-            "avatar_height": 60,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "title": "Works with the jets",
+            "text": "Run VertaAir™ with VertaJet™, or on its own.",
+            "jets_only": true
           }
         }
       },
       "block_order": [
-        "question-1",
-        "question-2",
-        "question-3",
-        "question-4",
-        "question-5",
-        "question_wave_power",
-        "question_wave_base",
-        "question_wave_planning",
-        "question_wave_noise",
-        "question_wave_care",
-        "contact"
+        "point_1",
+        "point_2",
+        "point_3"
       ],
       "settings": {
-        "style": "with-background",
-        "heading": "FAQs",
-        "heading_size": "title-lg tracking-heading",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "<p>Didn't find your answer? You can also check out the <a href=\"/blogs/knowledge-base\" title=\"Knowledge Base\">Support Centre.</a><br/>Or chat to us directly using the chat pop up in the bottom left corner.<br/></p>",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "#171717",
-        "color_background": "#fafafa",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "#ffffff",
-        "color_button_background": "#000000",
-        "color_button_gradient": "",
-        "color_overlay": "#ffffff",
-        "overlay_opacity": 4,
-        "padding_top": 84,
-        "padding_bottom": 20,
-        "divider": false,
-        "narrow": false,
-        "rounded": false
+        "nav_label": "VertaAir™",
+        "always_show": false,
+        "eyebrow": "Wave VertaAir™",
+        "heading": "Your lower back will thank you.",
+        "lede": "A V-shaped air chamber rises from the seat and works the bubbles into your lower back.",
+        "base_label": "Floor bubbles",
+        "verta_label": "VertaAir™",
+        "diagram_label": "A V-shaped air chamber rises from the seat, sending bubbles across the bather's lower back",
+        "show_notes": false
       }
     },
-    "custom_liquid_YwqJMM": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.name",
+    "wf_setup": {
+      "type": "wave-fy27-setup",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Pick a flat spot",
+            "text": "Patio, base or decking rated for the weight."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Build it",
+            "text": "Everything's in the box."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Plug in, fill, heat",
+            "text": "Set 40°C. Fill today, soak tomorrow."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
       "settings": {
-        "liquid": "<a href=\"https://www.reviews.co.uk/company-reviews/store/wave-spas\" target=\"_blank\">\n  <picture>\n    <source type=\"image/png\" srcset=\"https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2.png 1x, https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2@2x.png 2x\">\n    <img src=\"https://s3-eu-west-1.amazonaws.com/reviews-global/images/trust-badges/reviews-trust-logo-2.png\">\n  </picture>\n</a>",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 52,
-        "padding_bottom": 12,
-        "divider": false,
-        "narrow": false,
-        "rounded": false
+        "nav_label": "Setup",
+        "eyebrow": "Plug and play",
+        "heading": "Built in [minutes] minutes.",
+        "heading_no_time": "Out of the box. No tools.",
+        "lede": "No tools, no electrician, no groundwork.",
+        "setup_minutes": 20,
+        "clock_label": "box to built",
+        "plug_title": "Standard 13 amp plug",
+        "plug_text": "Plugs into an RCD-protected outdoor socket.",
+        "show_notes": false
       }
     },
-    "174653922467a5c413": {
+    "wf_tiers": {
+      "type": "wave-fy27-tiers",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "tier": "lite",
+            "name": "Lite",
+            "collection_handle": "lite-hot-tubs",
+            "image": "shopify://shop_images/Tahoe_Charcoal_1.jpg",
+            "signature": "Light work.",
+            "for": "For getting in without a second thought.",
+            "features": "Open floor to stretch out\nBubble massage\nCover included\nWaveFlow™ dual filtration"
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "tier": "lush",
+            "name": "Lush",
+            "collection_handle": "lush-hot-tubs",
+            "image": "shopify://shop_images/Garda_Charcoal_1.jpg",
+            "signature": "Settle in.",
+            "for": "For evenings you want to last.",
+            "features": "Moulded Air Foam seats\nWiFi app control\nRising VertaAir™ bubbles on foam & frame\nWaveFlow™ dual filtration"
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "tier": "luxe",
+            "name": "Luxe",
+            "collection_handle": "luxe-hot-tubs",
+            "image": "shopify://shop_images/AdriaticZoom.png",
+            "signature": "Where you want it.",
+            "for": "For pressure exactly where you need it.",
+            "features": "Four hydro-massage jets, adjustable intensity\nVertaAir™ bubbles on every spa\nBubbles and jets together or apart\nWaveFlow™ dual filtration"
+          }
+        }
+      },
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ],
+      "settings": {
+        "nav_label": "Compare",
+        "eyebrow": "The FY27 range",
+        "heading": "Three ways to soak.",
+        "lede": "Choose how you want it to feel.",
+        "current_label": "You're viewing",
+        "current_button": "Choose yours",
+        "button_prefix": "Explore",
+        "from_label": "From"
+      }
+    },
+    "wf_questions": {
+      "type": "wave-fy27-questions",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Will it fit in my garden?",
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "How much looking after does it need?",
+            "answer": "<p>A few minutes a week. Rinse the filter after a soak, test the water twice a week and refresh it every 1 to 3 months. Our water care guides show you how.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Can I use it in winter?",
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Is it noisy?",
+            "answer": "<p>Barely. The heater and pump hum quietly, and with the bubbles off it is quiet enough for a late evening.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Do I need planning permission?",
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "When will it arrive?",
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6"
+      ],
+      "settings": {
+        "nav_label": "Questions",
+        "eyebrow": "Questions",
+        "heading": "Before you buy.",
+        "lede": "Quick answers to what people ask most.",
+        "contact_text": "Still deciding? Our UK team is here six days a week.",
+        "contact_link": "/pages/contact",
+        "contact_label": "Talk to us",
+        "open_first": false,
+        "faq_schema": true
+      }
+    },
+    "wf_closer": {
+      "type": "wave-fy27-closer",
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "glyph": "truck",
+            "title": "Free next-day delivery",
+            "text": "Order by 6:30pm."
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "glyph": "shield",
+            "title": "2-year warranty",
+            "text": "Backed by our UK team."
+          }
+        },
+        "trust_4": {
+          "type": "trust",
+          "settings": {
+            "glyph": "card",
+            "title": "Spread the cost",
+            "text": "Pay in 3 or monthly, subject to status."
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_4"
+      ],
+      "settings": {
+        "heading": "Tonight could look like this.",
+        "image": "shopify://shop_images/Carousel_Home_page_V2_090d5293-2df6-4e97-9c2d-61d9f3e15305.jpg",
+        "image_mobile": "shopify://shop_images/US_Seasonal-Transition_01-3_60c8a10e-790b-4f3d-8dd7-b86bcb6376ef.jpg",
+        "image_alt": "A Wave hot tub in a garden at dusk",
+        "overlay": 45,
+        "button_label": "Choose yours"
+      }
+    },
+    "reviews": {
       "type": "apps",
       "blocks": {
         "reviews_io_reviewsio_polaris_pbUztm": {
@@ -1611,240 +1148,81 @@
         "rounded": true
       }
     },
-    "wave_why_wave": {
-      "type": "wave-pdp-why-wave",
-      "settings": {
-        "padding_top": 24,
-        "padding_bottom": 24
-      },
+    "help-drawer": {
+      "type": "help-drawer",
       "blocks": {
-        "why_trustpilot": {
-          "type": "proof",
-          "settings": {
-            "icon": "star",
-            "title": "UK's highest-rated hot tub brand",
-            "text": "Rated by Wave owners on Trustpilot"
-          }
-        },
-        "why_delivery": {
-          "type": "proof",
-          "settings": {
-            "icon": "package",
-            "title": "Free next-day delivery",
-            "text": "Tracked by DPD with a one-hour window",
-            "link": "/pages/shipping-and-returns"
-          }
-        },
-        "why_kit": {
-          "type": "proof",
-          "settings": {
-            "icon": "check-circle",
-            "title": "Free starter kit",
-            "text": "Chemicals and filters to get you going",
-            "only_with_label": "Starter Kit"
-          }
-        },
-        "why_support": {
-          "type": "proof",
-          "settings": {
-            "icon": "comment",
-            "title": "UK support team",
-            "text": "Mon–Fri 8:30am–5:30pm, Sat 8am–4pm"
-          }
-        }
-      },
-      "block_order": [
-        "why_trustpilot",
-        "why_delivery",
-        "why_kit",
-        "why_support"
-      ]
-    },
-    "wave_water_care": {
-      "type": "wave-pdp-water-care",
-      "settings": {
-        "heading": "Water care made <em>simple</em>",
-        "starter_kit": "hot-tub-chemical-starter-kit-screw-on-threaded-filters",
-        "guide_link": "/blogs/knowledge-base/filter-maintenance",
-        "guide_label": "Read the water care guide"
-      },
-      "blocks": {
-        "c1": {
-          "type": "step",
-          "settings": {
-            "when": "After every soak",
-            "task": "Rinse the filter",
-            "detail": "A quick blast with the garden hose, and pop the lid back on."
-          }
-        },
-        "c2": {
-          "type": "step",
-          "settings": {
-            "when": "Twice a week",
-            "task": "Test and balance",
-            "detail": "Chlorine 3–5 ppm, pH 7.2–7.6. Test again before you get in."
-          }
-        },
-        "c3": {
-          "type": "step",
-          "settings": {
-            "when": "Each day you use it",
-            "task": "Top up the chlorine",
-            "detail": "About 1.5 g for a 4 person spa, 2 g for a 6 person."
-          }
-        },
-        "c4": {
-          "type": "step",
-          "settings": {
-            "when": "Weekly",
-            "task": "Deep clean and shock",
-            "detail": "Soak the filter in filter cleaner for an hour, then add a non-chlorine oxidiser."
-          }
-        },
-        "c5": {
-          "type": "step",
-          "settings": {
-            "when": "Every 2–4 weeks",
-            "task": "Fit a new cartridge",
-            "detail": "Closer to every 2 weeks if you're in most days."
-          }
-        },
-        "c6": {
-          "type": "step",
-          "settings": {
-            "when": "Every 1–3 months",
-            "task": "Drain and refill",
-            "detail": "Every 3–4 months if you only use it occasionally."
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2",
-        "c3",
-        "c4",
-        "c5",
-        "c6"
-      ]
-    },
-    "wave_size_costs_v2": {
-      "type": "wave-pdp-size-costs-v2",
-      "settings": {
-        "heading": "Pick your size, see what it <em>costs</em>",
-        "subheading": "Sizes & running costs",
-        "calculator_link": "/pages/hot-tub-running-cost-calculator-estimate-your-monthly-bill",
-        "heading_size": "title-lg tracking-heading"
-      }
-    },
-    "delivery_steps_v2": {
-      "type": "multicolumn-with-icons",
-      "settings": {
-        "style": "with-background",
-        "columns": 3,
-        "heading": "After you order, you're <em>covered</em>",
-        "heading_size": "title-md",
-        "highlighted_text": "scribble",
-        "highlighted_scribble": "basic-underline",
-        "subheading": "Delivery"
-      },
-      "blocks": {
-        "step_order": {
-          "type": "column",
-          "settings": {
-            "icon": "time",
-            "heading": "Order by 6:30pm",
-            "text": "<p>We process it and get it out the door the same day.</p>"
-          }
-        },
-        "step_window": {
-          "type": "column",
+        "content-1": {
+          "type": "content",
           "settings": {
             "icon": "truck",
-            "heading": "One-hour window",
-            "text": "<p>DPD send you a one-hour delivery window on the day.</p>"
+            "heading": "<em>Shipping Information</em>",
+            "text": "<p>Free next-day tracked delivery for all spas via DPD, with an option for Saturday delivery available for an extra £9.99. Upon dispatch, DPD will provide you with a one-hour tracking window.</p>",
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle",
+            "color_text": "#171717",
+            "color_background": "#f9f9f9",
+            "gradient_background": "",
+            "color_highlight": "#052c31",
+            "gradient_highlight": ""
           }
         },
-        "step_free": {
-          "type": "column",
+        "content-2": {
+          "type": "content",
           "settings": {
-            "icon": "box",
-            "heading": "Free next day",
-            "text": "<p>Tracked next-day delivery on every spa. Saturday delivery is £9.99.</p>"
+            "icon": "headphone",
+            "heading": "<em>Customer Support</em>",
+            "text": "<p>Our friendly customer service team is ready to help with your Spa or order questions.</p><p>Email us At: <a href=\"mailto:support@waveglobal.com\" title=\"mailto:support@wavespas.com\">support@wavespas.com</a></p><p><strong>Monday to Friday: 8:30am – 5:30pm</strong></p><p><strong>Saturday: 8:00am – 4:00pm</strong></p><p>We aim to reply within <strong>8 working hours</strong>, so you’ll never be left waiting too long. If you message us outside these hours, no worries - we’ll dive right back in as soon as we’re back online. </p><p>Thanks for your patience and for being part of our community <br/></p>",
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle",
+            "color_text": "#171717",
+            "color_background": "#f9f9f9",
+            "gradient_background": "",
+            "color_highlight": "#052c31",
+            "gradient_highlight": ""
           }
         },
-        "step_setup": {
-          "type": "column",
+        "content-3": {
+          "type": "content",
+          "disabled": true,
           "settings": {
-            "icon": "shield",
-            "heading": "Set up and fill",
-            "text": "<p>No tools needed. Fill it, heat it, and you're in.</p>"
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         },
-        "step_warranty": {
-          "type": "column",
+        "content-4": {
+          "type": "content",
+          "disabled": true,
           "settings": {
-            "icon": "shield",
-            "heading": "2 year warranty",
-            "text": "<p>Two years of cover on your spa, handled by our own UK team.</p>"
-          }
-        },
-        "step_support": {
-          "type": "column",
-          "settings": {
-            "icon": "support",
-            "heading": "UK support team",
-            "text": "<p>Mon–Fri 8:30am–5:30pm, Sat 8am–4pm. We reply within 8 working hours.</p>"
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         }
       },
       "block_order": [
-        "step_order",
-        "step_window",
-        "step_free",
-        "step_setup",
-        "step_warranty",
-        "step_support"
-      ]
-    },
-    "wave_setup_guide_v2": {
-      "type": "wave-pdp-setup-guide-v2",
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
+      ],
       "settings": {
-        "heading": "Set up in <em>minutes</em>, not afternoons",
-        "subheading": "Setup & guides",
-        "guide_link": "/pages/hot-tub-spa-how-to-guide",
-        "guide_label": "Setup guides & videos"
-      },
-      "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "text": "Unroll it on a flat, solid surface"
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "text": "Clip the walls together and drop the liner in"
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "text": "Connect the heater, fill with a hose and switch on"
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3"
-      ]
-    },
-    "wave_fits_v2": {
-      "type": "wave-pdp-fits-v2",
-      "settings": {
-        "heading": "Will it <em>fit</em>?",
-        "subheading": "Space & power"
+        "heading": "Need help?",
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible.</p>"
       }
     },
     "compatible_accessories": {
@@ -1876,26 +1254,18 @@
   },
   "order": [
     "main-product",
-    "wave_why_wave",
-    "ss_product_videos_4_BQjpxE",
-    "help-drawer",
-    "scroll_spy_aPhVjp",
-    "collage",
-    "image-with-text-1",
-    "wave_soak_timeline",
-    "wave_setup_guide_v2",
-    "wave_jet_map",
+    "scroll_spy",
     "product-details",
     "compatible_accessories",
-    "wave_in_the_box",
-    "wave_water_care",
-    "wave_size_costs_v2",
-    "wave_fits_v2",
-    "comparison_table_GXKLn7",
-    "delivery_steps_v2",
-    "faq",
-    "custom_liquid_YwqJMM",
-    "174653922467a5c413",
-    "product-recommendations"
+    "wf_running_cost",
+    "image_comparison",
+    "wf_vertaair",
+    "wf_setup",
+    "wf_tiers",
+    "wf_questions",
+    "wf_closer",
+    "reviews",
+    "product-recommendations",
+    "help-drawer"
   ]
 }

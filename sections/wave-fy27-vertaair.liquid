@@ -1,0 +1,136 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign kf = product.metafields.custom.key_features | metafield_text
+  assign show = false
+  if kf contains 'VertaAir' or section.settings.always_show
+    assign show = true
+  endif
+  assign has_jets = false
+  if product.tags contains 'hydro-jets'
+    assign has_jets = true
+  endif
+-%}
+{%- if show -%}
+<wf-section class="wf wf--dark" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-va">
+      <div class="wf-va__stage" data-toggle-root data-mode="verta" data-wf-reveal>
+        <svg viewBox="0 0 600 560" role="img" aria-label="{{ section.settings.diagram_label | escape }}">
+          <defs>
+            <radialGradient id="wfZoneV-{{ section.id }}" cx=".5" cy=".5" r=".5">
+              <stop class="wf-va__glow" offset="0" stop-opacity=".45"/><stop class="wf-va__glow" offset="1" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="wfWaterV-{{ section.id }}" x1="0" y1="0" x2="0" y2="1">
+              <stop class="wf-va__water" offset="0" stop-opacity=".12"/><stop class="wf-va__water" offset="1" stop-opacity=".04"/>
+            </linearGradient>
+          </defs>
+
+          {%- comment -%} spa wall behind the bather, and the seat {%- endcomment -%}
+          <rect class="wf-va__shell" x="130" y="60" width="340" height="420" rx="36"/>
+          <rect class="wf-va__shell" x="110" y="470" width="380" height="36" rx="14"/>
+
+          {%- comment -%} massage zones {%- endcomment -%}
+          <ellipse class="wf-va__zone wf-va__zone--base" cx="300" cy="500" rx="190" ry="50" fill="url(#wfZoneV-{{ section.id }})"/>
+          <g class="wf-va__zone wf-va__zone--verta">
+            <ellipse cx="300" cy="420" rx="80" ry="55" fill="url(#wfZoneV-{{ section.id }})"/>
+            <ellipse cx="258" cy="370" rx="70" ry="65" fill="url(#wfZoneV-{{ section.id }})"/>
+            <ellipse cx="342" cy="370" rx="70" ry="65" fill="url(#wfZoneV-{{ section.id }})"/>
+          </g>
+
+          {%- comment -%} bather, seen from behind: head and neck clear of the water, arms tucked in at the sides {%- endcomment -%}
+          <g>
+            <path class="wf-va__bather" d="M300 52 C320 52 335 66 336 90 C337 110 332 124 322 134 C320 146 321 158 324 166 C340 178 380 180 406 194 C422 203 428 222 427 248 C427 300 424 350 420 392 C418 412 408 424 398 432 C400 448 402 460 402 474 L198 474 C198 460 200 448 202 432 C192 424 182 412 180 392 C176 350 173 300 173 248 C172 222 178 203 194 194 C220 180 260 178 276 166 C279 158 280 146 278 134 C268 124 263 110 264 90 C265 66 280 52 300 52Z"/>
+            <path class="wf-va__bather-detail" d="M208 236 C205 300 202 360 198 420 M392 236 C395 300 398 360 402 420"/>
+            <path class="wf-va__bather-detail" d="M300 190 v270" stroke-dasharray="2 8"/>
+          </g>
+
+          {%- comment -%} V chamber: from the seat across the lower back {%- endcomment -%}
+          {%- comment -%} air is a beaded path breaking into bubbles, never a solid tube {%- endcomment -%}
+          <g class="wf-va__chamber">
+            <path d="M300 466 L232 336 M300 466 L368 336" stroke-width="5" stroke-dasharray="0 11"/>
+          </g>
+
+          {%- comment -%} bubbles rising the full length of each arm {%- endcomment -%}
+          <g class="wf-va__bubbles wf-va__bubbles--verta">
+            {%- for i in (1..18) -%}
+              {%- liquid
+                assign t = i | times: 0.12
+                assign r = i | modulo: 3 | plus: 3
+                assign wob = i | modulo: 4 | times: 5 | minus: 7
+              -%}
+              <circle cx="{{ 296 | plus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 0 | minus: 66 | plus: wob }}px;--dy:-126px;--t:{{ t }}s;--d:2.2s;transform-box:fill-box;transform-origin:center"/>
+              <circle cx="{{ 304 | minus: wob }}" cy="460" r="{{ r }}" style="--dx:{{ 66 | minus: wob }}px;--dy:-126px;--t:{{ t | plus: 0.06 }}s;--d:2.2s;transform-box:fill-box;transform-origin:center"/>
+            {%- endfor -%}
+          </g>
+
+          {%- comment -%} floor-only bubbles, for comparison {%- endcomment -%}
+          <g class="wf-va__bubbles wf-va__bubbles--base">
+            {%- for i in (1..18) -%}
+              {%- liquid
+                assign x = i | times: 19 | plus: 132
+                assign t = i | modulo: 6 | times: 0.3
+                assign r = i | modulo: 3 | plus: 2
+              -%}
+              <circle cx="{{ x }}" cy="540" r="{{ r }}" style="--dx:0px;--dy:-70px;--t:{{ t }}s;--d:2.2s;transform-box:fill-box;transform-origin:center"/>
+            {%- endfor -%}
+          </g>
+
+          {%- comment -%} water: surface sits below the chin, drawn over the body {%- endcomment -%}
+          <rect x="0" y="172" width="600" height="388" fill="url(#wfWaterV-{{ section.id }})"/>
+          <path class="wf-va__surface" d="M0 172 Q75 164 150 172 T300 172 T450 172 T600 172"/>
+        </svg>
+        <wf-toggle class="wf-seg" data-attr="mode" role="group" aria-label="Compare bubble coverage">
+          <button type="button" data-value="base" aria-pressed="false">{{ section.settings.base_label }}</button>
+          <button type="button" data-value="verta" aria-pressed="true">{{ section.settings.verta_label }}</button>
+        </wf-toggle>
+      </div>
+
+      <div>
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+        <ul class="wf-va__points" role="list" data-wf-reveal style="--wf-delay: .24s">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.jets_only and has_jets == false -%}{%- continue -%}{%- endif -%}
+            <li {{ block.shopify_attributes }}><h3 class="wf-h3">{{ block.settings.title }}</h3><p class="wf-body">{{ block.settings.text }}</p></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+    {%- if section.settings.show_notes -%}
+      <p class="wf-note">Test note: this section only shows on spas whose key features mention VertaAir (Lush Como, Garda and Adriatic, and every Luxe). The diagram shows the V chamber rising from the seat across the lower back. Luxe Garda's spec says "vertical on the hydro-jet side, Y-chamber opposite", so check the shape with product before launch. Coverage glows are illustrative.</p>
+    {%- endif -%}
+  </div>
+</wf-section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FY27 VertaAir",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "VertaAir™" },
+    { "type": "checkbox", "id": "always_show", "label": "Show on every product", "info": "Off: only shows when key features mention VertaAir.", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Wave VertaAir™" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bubbles that climb." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Most spas only bubble from the floor. VertaAir™ runs a V-shaped air chamber up from the seat, so the massage works into your lower back instead of fizzing around your feet." },
+    { "type": "text", "id": "base_label", "label": "Comparison label", "default": "Floor bubbles" },
+    { "type": "text", "id": "verta_label", "label": "VertaAir label", "default": "VertaAir™" },
+    { "type": "text", "id": "diagram_label", "label": "Diagram description (for screen readers)", "default": "A V-shaped air chamber rises from the seat, sending bubbles across the bather's lower back" },
+    { "type": "checkbox", "id": "show_notes", "label": "Show test notes", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Point" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Why it matters." },
+        { "type": "checkbox", "id": "jets_only", "label": "Only on spas with hydro-jets", "default": false }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] }
+}
+{% endschema %}

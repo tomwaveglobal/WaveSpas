@@ -1,0 +1,23 @@
+{%- comment -%}
+  Small trust strip for the buy box, under the finance panel.
+  {% render 'wave-fy27-trust' %}
+{%- endcomment -%}
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<ul class="wf-buytrust" role="list">
+  <li>
+    {%- render 'wave-fy27-glyph', name: 'truck', class: 'wf-buytrust__icon' -%}
+    <span><b>Free next-day delivery</b> — order by 6:30pm, with a one-hour DPD window</span>
+  </li>
+  <li>
+    {%- render 'wave-fy27-glyph', name: 'plug', class: 'wf-buytrust__icon' -%}
+    <span><b>Set up and fill</b> — no tools needed</span>
+  </li>
+  <li>
+    {%- render 'wave-fy27-glyph', name: 'shield', class: 'wf-buytrust__icon' -%}
+    <span><b>2 year warranty</b> — handled by our own UK team</span>
+  </li>
+  <li>
+    {%- render 'wave-fy27-glyph', name: 'chat', class: 'wf-buytrust__icon' -%}
+    <span><b>UK support</b> — Mon–Fri 8:30–5:30, Sat 8–4</span>
+  </li>
+</ul>
