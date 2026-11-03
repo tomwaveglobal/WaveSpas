@@ -1,28 +1,14 @@
 {%- comment -%}
-  FY27 collection badge (Lite / Lush / Luxe). In the collection banner it sits
-  to the left of the title and description (the banner adds .wf-tier-banner to
-  its box when this renders). Size it with --wf-badge-w / --wf-badge-h.
+  FY27 collection badge (Lite / Lush / Luxe), from assets/wave-badge-{tier}.svg. In the collection
+  banner it sits to the left of the title and description (the banner adds .wf-tier-banner to its
+  box when this renders). Size it with --wf-badge-w; the height follows the badge's shape.
 
   {% render 'wave-fy27-tier-badge', tier: 'luxe', image: block.settings.image, block: block %}
   {% render 'wave-fy27-tier-badge', tier: 'lush' %}
 
-  The built-in badge is a stand-in until the FY27 badge artwork is final;
-  pass an image to use that instead.
+  Pass an image to use other artwork instead.
 {%- endcomment -%}
-{%- liquid
-  case tier
-    when 'lite'
-      assign badge_colour = '#728BA3'
-    when 'lush'
-      assign badge_colour = '#9F3C1E'
-    else
-      assign badge_colour = '#56223B'
-  endcase
-  assign clip_id = 'wf-tier-clip-' | append: tier
-  if block
-    assign clip_id = clip_id | append: '-' | append: block.id
-  endif
--%}
+{%- assign badge_file = 'wave-badge-' | append: tier | append: '.svg' -%}
 <style>
   .wf-tier-banner {
     position: relative;
@@ -30,9 +16,8 @@
     min-width: 0;
     max-width: 100%;
     padding-inline-start: calc(var(--wf-badge-w) + var(--wf-badge-gap));
-    min-height: calc(var(--wf-badge-h) + 2 * clamp(var(--sp-10), 3.368vw, var(--sp-16)));
+    min-height: calc(var(--wf-badge-w) * 1.4616 + 2 * clamp(var(--sp-10), 3.368vw, var(--sp-16)));
     --wf-badge-w: 3.5rem;
-    --wf-badge-h: 5rem;
     --wf-badge-gap: 1rem;
   }
 
@@ -52,38 +37,13 @@
   }
 
   .wf-tier-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6%;
+    display: block;
     width: var(--wf-badge-w, 3.5rem);
-    height: var(--wf-badge-h, 5rem);
-    border-radius: calc(var(--wf-badge-w, 3.5rem) * 0.125);
-    background: var(--wf-badge-colour);
-    color: #fff;
-    overflow: hidden;
+    aspect-ratio: 137.06 / 200.32;
   }
 
-  .wf-tier-badge svg {
-    width: 68%;
-    height: auto;
-  }
-
-  .wf-tier-badge__name {
-    font-family: var(--font-heading-family);
-    font-weight: var(--font-heading-weight);
-    font-size: calc(var(--wf-badge-w, 3.5rem) * 0.2);
-    line-height: 1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .wf-tier-badge--image {
-    background: none;
-  }
-
-  .wf-tier-badge--image img {
+  .wf-tier-badge img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -92,27 +52,14 @@
   @media screen and (min-width: 768px) {
     .wf-tier-banner {
       --wf-badge-w: 5rem;
-      --wf-badge-h: 7.25rem;
       --wf-badge-gap: 2.25rem;
     }
   }
 </style>
-{%- if image != blank -%}
-  <div class="wf-tier-badge wf-tier-badge--image"{% if block %} {{ block.shopify_attributes }}{% endif %}>
+<div class="wf-tier-badge"{% if block %} {{ block.shopify_attributes }}{% endif %}>
+  {%- if image != blank -%}
     {{- image | image_url: width: 240 | image_tag: alt: '', loading: 'eager', widths: '120,160,240', sizes: '80px' -}}
-  </div>
-{%- else -%}
-  <div class="wf-tier-badge" style="--wf-badge-colour: {{ badge_colour }};" aria-hidden="true"{% if block %} {{ block.shopify_attributes }}{% endif %}>
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" focusable="false">
-      <defs><clipPath id="{{ clip_id }}"><circle cx="24" cy="24" r="18"/></clipPath></defs>
-      <path d="M3.33 16.48A22 22 0 0 1 44.67 16.48M44.67 31.52A22 22 0 0 1 3.33 31.52"/>
-      <g clip-path="url(#{{ clip_id }})" stroke-width="2.6">
-        <path d="M0 15q4-3 8 0t8 0 8 0 8 0 8 0 8 0"/>
-        <path d="M0 21q4-3 8 0t8 0 8 0 8 0 8 0 8 0"/>
-        <path d="M0 27q4-3 8 0t8 0 8 0 8 0 8 0 8 0"/>
-        <path d="M0 33q4-3 8 0t8 0 8 0 8 0 8 0 8 0"/>
-      </g>
-    </svg>
-    <span class="wf-tier-badge__name">{{ tier }}</span>
-  </div>
-{%- endif -%}
+  {%- else -%}
+    <img src="{{ badge_file | asset_url }}" alt="" width="137" height="200" loading="eager">
+  {%- endif -%}
+</div>
