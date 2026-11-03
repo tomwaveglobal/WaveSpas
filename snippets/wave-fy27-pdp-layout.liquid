@@ -1,0 +1,15 @@
+{%- comment -%}
+  FY27 product page layout. From 1536px the theme insets Product details by twice the grid gap
+  (.specifications-section); this gives the template's other sections the same inset so their
+  content lines up with it. Backgrounds stay full width; only the content moves in.
+
+  {% render 'wave-fy27-pdp-layout' %}
+{%- endcomment -%}
+<style>
+  @media screen and (min-width: 1536px) {
+    main .shopify-section:not([id$='__main-product']):not([id$='__product-details']) > .section > .page-width:not(.page-width--full),
+    main .shopify-section:not([id$='__main-product']):not([id$='__product-details']) > .wf > .wf__inner {
+      padding-inline: calc(var(--page-padding) + clamp(40px, 20vw, 60px) * 2);
+    }
+  }
+</style>
