@@ -19,6 +19,13 @@
       },
       "blocks": {}
     },
+    "rich_text_rrgLRX": {
+      "settings": {
+        "heading": "Buy 2 and save&nbsp;30<em>% off</em>&nbsp;chemicals",
+        "highlighted_scribble": "basic-underline"
+      },
+      "blocks": {}
+    },
     "staged_product_bundle_7GVH3a": {
       "disabled": true,
       "settings": {},
@@ -34,14 +41,10 @@
           "sparkle-clarifier-etl",
           "alkalinity-increaser-1kg-etl",
           "chlorine-tablets-5kg"
-        ]
-      },
-      "blocks": {}
-    },
-    "rich_text_rrgLRX": {
-      "settings": {
-        "heading": "Buy 2 and save&nbsp;30<em>% off</em>&nbsp;chemicals",
-        "highlighted_scribble": "basic-underline"
+        ],
+        "minimum_quantity": 2,
+        "maximum_quantity": 2,
+        "prevent_duplicate_products": false
       },
       "blocks": {}
     }
