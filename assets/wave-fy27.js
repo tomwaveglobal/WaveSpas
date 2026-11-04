@@ -216,6 +216,9 @@
       this.out('rate', this.unit === 'p' ? `${Math.round(this.rate * 100)}p` : money(this.rate, this.currency));
       this.out('kwh', `${kwh}`);
       this.out('days', `${this.days}`);
+      const litres = parseInt(s.litres, 10) || 0;
+      this.querySelectorAll('[data-litres]').forEach((el) => (el.hidden = !litres));
+      if (litres) this.out('litres', this.currency === 'USD' ? `${Math.round(litres * 0.2642)} gallons` : `${litres} litres`);
       const bars = this.querySelectorAll('.wf-rc__bar i');
       if (bars[0]) bars[0].style.transform = 'scaleX(1)';
       if (bars[1]) bars[1].style.transform = `scaleX(${1 - this.saving})`;

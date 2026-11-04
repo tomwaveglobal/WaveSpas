@@ -45,9 +45,9 @@
       {%- liquid
         comment
           The calculator page gives one kWh a day per spa type, which matches the largest size.
-          Smaller sizes scale by footprint area (the same rule used for the variant kWh metafields),
-          unless the variant has its own specs.kwh_per_day. Every size is the same depth, so area tracks
-          water volume. Each size lists its variant ids so the calculator follows the size chosen in
+          Smaller sizes scale by water capacity when it's known (see above), otherwise by footprint
+          area (the same rule used for the variant kWh metafields), unless the variant has its own
+          specs.kwh_per_day. Each size lists its variant ids so the calculator follows the size chosen in
           the buy box, and it opens on the selected variant's size.
         endcomment
         assign current_variant = product.selected_or_first_available_variant
@@ -61,6 +61,49 @@
             endif
           endif
         endfor
+
+        comment
+          Water capacity per size, in litres: the variant's specs.water_litres if set, else the
+          "Water Capacity" line in the Technical Specs text ("4 Person | 650L (171GAL) | 6 Person | 985L"),
+          matched by the size's label, or its first figure when the product has one size.
+        endcomment
+        assign cap_text = ''
+        assign spec_text = product.metafields.custom.tech_specs | metafield_tag | replace: '<', ' <' | strip_html | replace: '&nbsp;', ' ' | downcase
+        if spec_text contains 'water capacity'
+          assign cap_parts = spec_text | split: 'water capacity'
+          assign cap_text = cap_parts[1] | slice: 0, 160
+        endif
+        assign litres_csv = ''
+        assign max_litres = 0
+        if size_option
+          for value in size_option.values
+            assign litres = 0
+            assign size_index = size_option.position | minus: 1
+            for variant in product.variants
+              if variant.options[size_index] == value and variant.metafields.specs.water_litres.value != blank
+                assign litres = variant.metafields.specs.water_litres.value | plus: 0
+                break
+              endif
+            endfor
+            if litres == 0 and cap_text != blank
+              assign label = value | split: '|' | first | strip | downcase
+              assign after = cap_text
+              if cap_text contains label
+                assign label_parts = cap_text | split: label
+                assign after = label_parts[1]
+              endif
+              assign litres = after | split: 'l' | first | split: ' ' | last | remove: ',' | plus: 0
+            endif
+            if litres < 100 or litres > 5000
+              assign litres = 0
+            endif
+            if litres > max_litres
+              assign max_litres = litres
+            endif
+            assign litres_csv = litres_csv | append: litres | append: ','
+          endfor
+        endif
+        assign litres_arr = litres_csv | split: ','
       -%}
       <script type="application/json" data-sizes>
         [
@@ -93,10 +136,15 @@
                     endif
                   endif
                 endfor
+                assign litres = litres_arr[this_size] | plus: 0
                 assign size_kwh = size_variant.metafields.specs.kwh_per_day.value
                 if size_kwh == blank
                   assign size_kwh = kwh_day
-                  if value contains '|' and max_w > 0
+                  if litres > 0 and max_litres > 0
+                    if litres < max_litres
+                      assign size_kwh = kwh_day | times: litres | divided_by: max_litres | round: 1
+                    endif
+                  elsif value contains '|' and max_w > 0
                     assign w = value | split: '|' | last | strip | split: 'x' | first | plus: 0
                     if w > 0 and w < max_w
                       assign size_kwh = w | times: w | times: kwh_day | divided_by: max_w | divided_by: max_w | round: 1
@@ -104,10 +152,10 @@
                   endif
                 endif
               -%}
-              {"label": {{ value | split: '|' | first | strip | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "kwh": {{ size_kwh | json }}, "variants": [{{ size_ids | split: ',' | join: ',' }}]}{% unless forloop.last %},{% endunless %}
+              {"label": {{ value | split: '|' | first | strip | json }}, "price": {{ std_price | json }}, "es": {{ es_price | json }}, "kwh": {{ size_kwh | json }}, "litres": {{ litres | json }}, "variants": [{{ size_ids | split: ',' | join: ',' }}]}{% unless forloop.last %},{% endunless %}
             {%- endfor -%}
           {%- else -%}
-            {"label": "", "price": {{ product.price | json }}, "es": 0, "kwh": {{ kwh_day | json }}}
+            {"label": "", "price": {{ product.price | json }}, "es": 0, "kwh": {{ kwh_day | json }}, "litres": 0}
           {%- endif -%}
         ]
       </script>
@@ -175,14 +223,14 @@
         {%- endif -%}
 
         <p class="wf-small wf-rc__basis">
-          {{ section.settings.basis_prefix }} <span data-out="kwh">{{ kwh_day }}</span> kWh a day × <span data-out="days">15</span> {{ section.settings.basis_middle }} <span data-out="rate">{{ rate }}{{ unit }}</span>.{% if has_es %} {{ section.settings.basis_es | replace: '[pct]', section.settings.energysave_saving }}{% endif %}
+          {{ section.settings.basis_prefix }} <span data-litres hidden><span data-out="litres"></span>, about </span><span data-out="kwh">{{ kwh_day }}</span> kWh a day × <span data-out="days">15</span> {{ section.settings.basis_middle }} <span data-out="rate">{{ rate }}{{ unit }}</span>.{% if has_es %} {{ section.settings.basis_es | replace: '[pct]', section.settings.energysave_saving }}{% endif %}
           {%- if section.settings.calculator_link != blank %} <a class="wf-link" href="{{ section.settings.calculator_link }}">{{ section.settings.calculator_label }}</a>{% endif %}
         </p>
       </div>
     </wf-cost>
 
     {%- if section.settings.show_notes -%}
-      <p class="wf-note">Test note: this uses the same method as the Wave calculator page (kWh a day × days used × unit rate). kWh comes from <code>specs.kwh_per_day</code> ({{ kwh_day }} for the largest size); smaller sizes scale by footprint area unless the variant has its own figure. Lush and Luxe Garda 4 and 6 person are the same 190 cm shell in the FY27 spec, so they cost the same. EnergySave saving is the {{ section.settings.energysave_saving }}% setting, from Kate's ~30% figure; it isn't measured. Payback compares the cheapest Standard and EnergySave prices for each size. Confirm what the bundle contains and write the cards to match.</p>
+      <p class="wf-note">Test note: this uses the same method as the Wave calculator page (kWh a day × days used × unit rate). kWh comes from <code>specs.kwh_per_day</code> ({{ kwh_day }} for the largest size); smaller sizes scale by water capacity (the variant's <code>specs.water_litres</code>, else the Water Capacity line in Technical Specs), or by footprint area when no capacity is known, unless the variant has its own figure. Lush and Luxe Garda 4 and 6 person are the same 190 cm shell in the FY27 spec, so they cost the same. EnergySave saving is the {{ section.settings.energysave_saving }}% setting, from Kate's ~30% figure; it isn't measured. Payback compares the cheapest Standard and EnergySave prices for each size. Confirm what the bundle contains and write the cards to match.</p>
     {%- endif -%}
   </div>
 </wf-section>
