@@ -157,7 +157,8 @@
       this.data = JSON.parse(this.querySelector('[data-sizes]').textContent);
       this.currency = this.dataset.currency;
       this.saving = parseFloat(this.dataset.saving) / 100;
-      this.size = 0;
+      /* opens on the selected variant's size: the button Liquid marked as pressed */
+      this.size = parseInt(this.querySelector('[data-size][aria-pressed="true"]')?.dataset.size || '0', 10);
       this.days = parseFloat(this.dataset.days);
       this.rate = parseFloat(this.dataset.rate);
       this.unit = this.dataset.unit;
@@ -182,6 +183,15 @@
         this.render();
       });
       this.querySelector('[data-add-es]')?.addEventListener('click', () => this.chooseEnergySave());
+      /* follow the size chosen in the buy box */
+      onVariant((v) => {
+        const i = this.data.findIndex((s) => (s.variants || []).includes(v.id));
+        if (i < 0 || i === this.size) return;
+        this.size = i;
+        const btn = this.querySelector(`[data-size="${i}"]`);
+        if (btn) this.press(btn, '[data-size]');
+        this.render();
+      });
       this.render();
     }
     press(btn, sel) {
