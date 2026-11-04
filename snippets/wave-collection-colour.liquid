@@ -10,7 +10,8 @@
 
   The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
   Renders nothing for other products. --wf-tier-ink (and --wf-tier-rgb-ink) is the text-safe shade (Lite's
-  slate is too light for small or white text on white); the buy button uses it.
+  slate is too light for small or white text on white); the buy button uses it. --wf-tier-light is the
+  tint for text on black (the running-cost panel): rust and plum are too dark there.
 
   @param {object} product - Product being viewed
 {%- enddoc -%}
@@ -36,6 +37,7 @@
       assign collection_ink = '#61768B'
       assign collection_rgb = '114 139 163'
       assign collection_ink_rgb = '97 118 139'
+      assign collection_light = '#8198AD'
       assign icon_filter = 'brightness(0) saturate(100%) invert(42%) sepia(88%) saturate(218%) hue-rotate(167deg) brightness(112%) contrast(48%)'
     when 'lush'
       assign collection_name = 'Lush'
@@ -43,6 +45,7 @@
       assign collection_ink = '#9F3C1E'
       assign collection_rgb = '159 60 30'
       assign collection_ink_rgb = '159 60 30'
+      assign collection_light = '#E07B5C'
       assign icon_filter = 'brightness(0) saturate(100%) invert(51%) sepia(78%) saturate(9062%) hue-rotate(17deg) brightness(75%) contrast(77%)'
     when 'luxe'
       assign collection_name = 'Luxe'
@@ -50,6 +53,7 @@
       assign collection_ink = '#56223B'
       assign collection_rgb = '86 34 59'
       assign collection_ink_rgb = '86 34 59'
+      assign collection_light = '#CC7DA3'
       assign icon_filter = 'brightness(0) saturate(100%) invert(12%) sepia(45%) saturate(4031%) hue-rotate(-49deg) brightness(65%) contrast(80%)'
   endcase
 -%}
@@ -61,12 +65,17 @@
       --wf-tier-ink: {{ collection_ink }};
       --wf-tier-rgb: {{ collection_rgb }};
       --wf-tier-rgb-ink: {{ collection_ink_rgb }};
+      --wf-tier-light: {{ collection_light }};
     }
 
     /* FY27 sections: collection colour as the accent */
     :root .wf:not(.wf--dark) {
       --wf-accent: var(--wf-tier);
       --wf-accent-ink: var(--wf-tier-ink);
+    }
+    /* on the black running-cost panel the collection colour needs a lighter tint to read (7:1 on black) */
+    :root .wf .wf-rc__panel {
+      --wf-accent: var(--wf-tier-light);
     }
     :root .wf .wf-su__steps li::before {
       background: var(--wf-tier-ink);

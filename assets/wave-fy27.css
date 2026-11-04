@@ -396,7 +396,8 @@ wf-explode { display: block; }
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
-.wf-rc__save p { margin: 0; font-size: 16px; line-height: 1.5; }
+.wf-rc__save p { flex: 1 1 280px; min-width: 0; margin: 0; font-size: 16px; line-height: 1.5; }
+.wf-rc__save .button { flex: none; white-space: nowrap; }
 .wf-rc__save strong { color: var(--wf-accent); font-variant-numeric: tabular-nums; }
 .wf-rc__basis { margin-top: 24px; }
 .wf-rc__basis a { color: #fff; }
