@@ -437,7 +437,7 @@
         "collection_9kDDVV": {
           "type": "collection",
           "settings": {
-            "collection": "hot-tub-frame-spas",
+            "collection": "hot-tub-modular-spas",
             "image": "shopify://shop_images/mobile_04.jpg",
             "title": "Frame Hot Tub",
             "description": "",
@@ -760,7 +760,7 @@
           "settings": {
             "subheading": "",
             "heading": "Frame",
-            "link": "shopify://collections/hot-tub-frame-spas",
+            "link": "shopify://collections/hot-tub-modular-spas",
             "invert_subheading_heading": false,
             "image": "shopify://shop_images/Mobile_b92d214f-3c25-4868-b9cf-e474c5bc6f1a.jpg",
             "image_ratio": "square",
