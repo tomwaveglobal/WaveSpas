@@ -23,6 +23,14 @@
   from the shared handle to the regional one. Without one of those a product
   that is missing from the target market's catalog will bounce.
 
+  Only markets with their own web presence (a /en-xx subfolder) get a locale
+  prefix. A market with no web presence of its own — "Guernsey, Isle of Man,
+  Jersey" is served from the primary domain alongside the UK — has no
+  /en-gg, /en-je or /en-im path, and linking to one 404s (Semrush flagged 281
+  such links on 2026-11-09). Liquid cannot see a market's web presence, so
+  those markets carry the market metafield `routing.served_from_root = true`
+  and resolve to the root path, exactly like the default market.
+
   @param {object} country - Entry from `localization.available_countries`
   @param {string} [eu_override] - Product URL path override for the EU market
   @param {string} [us_override] - Product URL path override for the US market
@@ -80,12 +88,21 @@
   endif
 
   comment
-    Non-default markets carry their locale slug; the default market is served
-    from the root. `target_path` is blank when we are already at the root, so
-    fall back to '/' — an empty href resolves to the *current* URL, which would
-    leave the visitor on the page without ever switching market.
+    Markets with their own subfolder carry their locale slug; the default
+    market, and any market flagged `routing.served_from_root` (no web presence
+    of its own), are served from the root. `target_path` is blank when we are
+    already at the root, so fall back to '/' — an empty href resolves to the
+    *current* URL, which would leave the visitor on the page without ever
+    switching market.
   endcomment
+  assign served_from_root = false
   if country.market.metafields.default.market == true
+    assign served_from_root = true
+  elsif country.market.metafields.routing.served_from_root == true
+    assign served_from_root = true
+  endif
+
+  if served_from_root
     assign market_url = target_path | default: '/'
   else
     assign market_prefix = '/' | append: localization.language.iso_code | append: '-' | append: country_slug
