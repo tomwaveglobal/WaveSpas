@@ -92,7 +92,7 @@
     {%- render 'section-heading', section: section -%}
 
     {%- unless compat_full -%}
-      <compat-accessories-loader class="block" style="min-height: var(--compat-placeholder-height, 36rem);" aria-busy="true"></compat-accessories-loader>
+      <compat-accessories-loader class="block" style="min-height: var(--compat-placeholder-height, 48rem);" aria-busy="true"></compat-accessories-loader>
       <script>
         if (!customElements.get('compat-accessories-loader')) {
           customElements.define('compat-accessories-loader', class extends HTMLElement {
