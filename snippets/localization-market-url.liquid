@@ -70,6 +70,14 @@
 
   assign target_path = ''
   if link_override != blank
+    comment
+      Overrides are stored without a leading slash (products/x), but tolerate one
+      so a hand-entered "/products/x" doesn't become //products/x.
+    endcomment
+    assign override_head = link_override | slice: 0
+    if override_head == '/'
+      assign link_override = link_override | slice: 1, 2000
+    endif
     assign target_path = '/' | append: link_override
   else
     assign current_path = request.path
