@@ -8,7 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_button_background }}">
-    <link rel="canonical" href="{{ canonical_url }}">
+    {%- comment -%}
+      The wave-spas-usa blog holds word-for-word copies of wave-spas-uk articles
+      under the same handle (Semrush "duplicate content", 2026-11-10). When a
+      US article has a UK original, point its canonical at the UK article on the
+      root domain so search engines treat the UK one as the source.
+    {%- endcomment -%}
+    {%- liquid
+      assign page_canonical = canonical_url
+      if template.name == 'article' and blog.handle == 'wave-spas-usa'
+        assign article_slug = article.handle | split: '/' | last
+        assign uk_article_key = 'wave-spas-uk/' | append: article_slug
+        if articles[uk_article_key] != blank
+          assign page_canonical = shop.url | append: '/blogs/' | append: uk_article_key
+        endif
+      endif
+    -%}
+    <link rel="canonical" href="{{ page_canonical }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- comment %}theme-check-disable RemoteAsset{% endcomment %}
