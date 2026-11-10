@@ -43,8 +43,17 @@
 {%- enddoc -%}
 
 {%- liquid
+  comment
+    Markets with no web presence of their own (routing.served_from_root) live on
+    the UK root and sell from its catalog, so they take the UK override even when
+    their country.code says otherwise. "Guernsey, Isle of Man, Jersey" carries
+    country.code EU, which sent it to /products/*-ce paths that only exist under
+    EU subfolders (2026-11-10 broken-link report: /produits/spa-tahoe-ce).
+  endcomment
   assign link_override = ''
-  if country.market.metafields.country.code == 'EU'
+  if country.market.metafields.routing.served_from_root == true
+    assign link_override = uk_override
+  elsif country.market.metafields.country.code == 'EU'
     assign link_override = eu_override
   elsif country.market.metafields.country.code == 'US'
     assign link_override = us_override
@@ -61,6 +70,14 @@
 
   assign target_path = ''
   if link_override != blank
+    comment
+      Overrides are stored without a leading slash (products/x), but tolerate one
+      so a hand-entered "/products/x" doesn't become //products/x.
+    endcomment
+    assign override_head = link_override | slice: 0
+    if override_head == '/'
+      assign link_override = link_override | slice: 1, 2000
+    endif
     assign target_path = '/' | append: link_override
   else
     assign current_path = request.path
@@ -102,10 +119,38 @@
     assign served_from_root = true
   endif
 
+  comment
+    Keep the visitor's language only if the target market offers it. German and
+    French are enabled in just a few markets (de: Germany, Switzerland; fr:
+    France), so /de-ee or /fr-us do not exist — the 2026-11-10 broken-link
+    report had 1,716 such links. Otherwise fall back to English, which every
+    market has, or failing that to the market's first language.
+  endcomment
+  assign target_language = ''
+  assign fallback_language = ''
+  for language in country.available_languages
+    if language.iso_code == localization.language.iso_code
+      assign target_language = language
+    endif
+    if language.iso_code == 'en' or fallback_language == blank
+      assign fallback_language = language
+    endif
+  endfor
+  if target_language == blank
+    assign target_language = fallback_language
+  endif
+  assign language_code = target_language.iso_code | default: localization.language.iso_code
+
   if served_from_root
+    comment
+      The root serves the primary language bare and the others under /de, /fr.
+    endcomment
     assign market_url = target_path | default: '/'
+    if target_language != blank and target_language.primary == false
+      assign market_url = '/' | append: language_code | append: target_path
+    endif
   else
-    assign market_prefix = '/' | append: localization.language.iso_code | append: '-' | append: country_slug
+    assign market_prefix = '/' | append: language_code | append: '-' | append: country_slug
     assign market_url = market_prefix | append: target_path
   endif
 
