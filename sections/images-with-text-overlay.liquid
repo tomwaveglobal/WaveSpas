@@ -56,8 +56,21 @@
                   endif
 
                   assign delay = 0
+
+                  comment
+                    Text blocks can be limited to one market region, so a template can carry
+                    UK, EU and US copy side by side (e.g. custom.uk/eu/us_seo_description).
+                    Markets served from the UK root (routing.served_from_root) read as UK.
+                  endcomment
+                  assign wave_region = localization.market.metafields.country.code | default: 'UK' | downcase
+                  if localization.market.metafields.routing.served_from_root == true
+                    assign wave_region = 'uk'
+                  endif
                 -%}
                 {%- for block in section.blocks -%}
+                {%- if block.type == 'text' and block.settings.market != blank and block.settings.market != 'all' and block.settings.market != wave_region -%}
+                  {%- continue -%}
+                {%- endif -%}
                 {%- case block.type -%}
                   {%- when '@app' -%}
                     {%- render block -%}
@@ -762,6 +775,19 @@
           "id": "text",
           "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
           "label": "t:sections.global.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "market",
+          "label": "Show in market",
+          "info": "Show this text only to visitors in one region, so UK, EU and US copy can sit side by side.",
+          "options": [
+            { "value": "all", "label": "All markets" },
+            { "value": "uk", "label": "UK" },
+            { "value": "eu", "label": "EU" },
+            { "value": "us", "label": "US" }
+          ],
+          "default": "all"
         },
         {
           "type": "select",
