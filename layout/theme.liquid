@@ -17,13 +17,14 @@
     {%- liquid
       assign page_canonical = canonical_url
       if template.name == 'article' and blog.handle == 'wave-spas-usa'
-        assign uk_article_key = 'wave-spas-uk/' | append: article.handle
+        assign article_slug = article.handle | split: '/' | last
+        assign uk_article_key = 'wave-spas-uk/' | append: article_slug
         if articles[uk_article_key] != blank
           assign page_canonical = shop.url | append: '/blogs/' | append: uk_article_key
         endif
       endif
     -%}
-    <link rel="canonical" href="{{ page_canonical }}"><!--dbg {{ template.name }}|{{ blog.handle }}|{{ uk_article_key }}|{{ articles[uk_article_key].title }}|{{ articles[uk_article_key] | json | slice: 0, 40 }}-->
+    <link rel="canonical" href="{{ page_canonical }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- comment %}theme-check-disable RemoteAsset{% endcomment %}
