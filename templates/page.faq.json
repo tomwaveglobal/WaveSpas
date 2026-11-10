@@ -292,7 +292,7 @@
           "type": "question",
           "settings": {
             "title": "What payment options do you offer?",
-            "text": "<p>We provide a selection of payment options including: Card payment (including Apple Pay, Google Pay and Shop Pay), PayPal, Klarna, DivideBuy and Super.</p>",
+            "text": "<p>We provide a selection of payment options including: Card payment (including Apple Pay, Google Pay and Shop Pay), PayPal, Klarna, DivideBuy and Super.</p><p><em>WAVE DIRECT LIMITED is an Introducer Appointed Representative of Social Money Limited t/a Payl8r who is authorised by the FCA under Ref. Number 675283. Credit is subject to creditworthiness and affordability assessments. Missed payments may affect your credit file, future borrowing and incur fees. Representative APR 65.5%.</em></p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
