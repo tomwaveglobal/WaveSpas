@@ -110,7 +110,15 @@
     if settings.product_disable_collection_portion
       assign product_url = product.url
     endif
+    # Crawlable hrefs stay on the clean (canonical) product URL. The preselected
+    # variant travels in data-variant-id and is added back to the href on
+    # hover/tap/focus/click by the inline script in layout/theme.liquid. Linking
+    # ?variant= URLs directly made crawlers report ~1,850 pages with no
+    # self-referencing hreflang (Semrush, Nov 2026).
+    assign product_href = product_url
+    assign variant_attr = ''
     if preselect_variant != blank
+      assign variant_attr = ' data-variant-id="' | append: preselect_variant.id | append: '"'
       if product_url contains '?'
         assign product_url = product_url | append: '&variant=' | append: preselect_variant.id
       else
@@ -200,7 +208,7 @@
 
         {%- render 'product-badges', product: product, vertical_badges: vertical_badges, show_sold_out: show_sold_out, show_save_amount: show_save_amount, save_type: save_type, badge_context: badge_context, class: 'z-2 absolute grid gap-3 pointer-events-none' -%}
 
-        <a class="block relative media media--{{ image_ratio }}{% unless image_fill %} media--contain{% endunless %}{% unless show_secondary_image and media_count > 1 %} overflow-hidden{% endunless %}" href="{{ product_url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
+        <a class="block relative media media--{{ image_ratio }}{% unless image_fill %} media--contain{% endunless %}{% unless show_secondary_image and media_count > 1 %} overflow-hidden{% endunless %}" href="{{ product_href }}"{{ variant_attr }} aria-label="{{ product.title | escape }}" tabindex="-1">
           {%- unless featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}
             {%- if show_secondary_image and media_count > 1 -%}
               <template>
@@ -288,7 +296,7 @@
                   </span>
                 </button>
               {%- else -%}
-                <a href="{{ product_url }}" class="button button--primary pointer-events-auto md:hidden" is="hover-link" aria-label="{{ 'products.product.view_product_label' | t: title: product.title | escape }}">
+                <a href="{{ product_href }}"{{ variant_attr }} class="button button--primary pointer-events-auto md:hidden" is="hover-link" aria-label="{{ 'products.product.view_product_label' | t: title: product.title | escape }}">
                   <span class="btn-fill" data-fill></span>
                   <span class="btn-text">
                     {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
@@ -336,7 +344,7 @@
                     </span>
                   </button>
                 {%- else -%}
-                  <a href="{{ product_url }}" class="button button--primary pointer-events-auto md:opacity-0" is="hover-link" aria-label="{{ 'products.product.view_product_label' | t: title: product.title | escape }}">
+                  <a href="{{ product_href }}"{{ variant_attr }} class="button button--primary pointer-events-auto md:opacity-0" is="hover-link" aria-label="{{ 'products.product.view_product_label' | t: title: product.title | escape }}">
                     <span class="btn-fill" data-fill></span>
                     <span class="btn-text">
                       {%- render 'icon', icon: 'cart', size: 'sm', class: 'md:hidden' -%}
@@ -393,7 +401,7 @@
           {%- endif -%}
         {%- endif -%}
         {%- if show_color_swatches and settings.product_card_swatches_overlay -%}
-          {%- render 'product-card-swatches', product: product, product_url: product_url, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
+          {%- render 'product-card-swatches', product: product, product_url: product_href, variant_attr: variant_attr, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
         {%- endif -%}
       </div>
     {%- else -%}
@@ -415,7 +423,7 @@
 
       <div class="product-card__details flex flex-col lg:flex-row items-baseline gap-2 w-full">
         <p class="grow{% if title_truncation %} line-clamp-{{ title_line_limit }}{% endif %}">
-          <a class="product-card__title reversed-link text-base-xl font-medium leading-tight" href="{{ product_url }}">
+          <a class="product-card__title reversed-link text-base-xl font-medium leading-tight" href="{{ product_href }}"{{ variant_attr }}>
             {% if product.metafields.product_card_overwrite.title != blank %}
               {{ product.metafields.product_card_overwrite.title | escape }}
             {% else %}
@@ -433,9 +441,9 @@
       <div class="ruk_rating_snippet" data-sku="{{ product.handle }};{{ product.variants | map: 'sku' | join: ';' }};{{ product.variants | map: 'id' | join: ';' }}"></div>
 
       {%- if show_color_swatches and settings.product_card_swatches_overlay == false -%}
-        {%- render 'product-card-swatches', product: product, product_url: product_url, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
+        {%- render 'product-card-swatches', product: product, product_url: product_href, variant_attr: variant_attr, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
       {%- elsif show_color_swatches and settings.product_card_swatches_overlay and settings.product_card_swatches_keep_text -%}
-        {%- render 'product-card-swatches', product: product, product_url: product_url, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
+        {%- render 'product-card-swatches', product: product, product_url: product_href, variant_attr: variant_attr, show_quick_view: show_quick_view, quick_view_id: quick_view_id -%}
       {%- endif -%}
     </div>
 
