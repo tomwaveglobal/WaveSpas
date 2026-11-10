@@ -164,12 +164,12 @@
             "text_max_size": 38,
             "secondary_color": false,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "market": "uk"
           }
         },
         "text_AbXBqV": {
           "type": "text",
-          "disabled": true,
           "settings": {
             "text": "{{ collection.metafields.custom.us_seo_description | metafield_tag }}",
             "text_font": "body",
@@ -177,12 +177,12 @@
             "text_max_size": 32,
             "secondary_color": false,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "market": "us"
           }
         },
         "text_FWnFJx": {
           "type": "text",
-          "disabled": true,
           "settings": {
             "text": "{{ collection.metafields.custom.eu_seo_description | metafield_tag }}",
             "text_font": "body",
@@ -190,7 +190,8 @@
             "text_max_size": 32,
             "secondary_color": false,
             "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "highlighted_scribble": "circle",
+            "market": "eu"
           }
         }
       },
