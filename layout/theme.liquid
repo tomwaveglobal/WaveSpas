@@ -23,7 +23,7 @@
         endif
       endif
     -%}
-    <link rel="canonical" href="{{ page_canonical }}">
+    <link rel="canonical" href="{{ page_canonical }}"><!--dbg {{ template.name }}|{{ blog.handle }}|{{ uk_article_key }}|{{ articles[uk_article_key].title }}|{{ articles[uk_article_key] | json | slice: 0, 40 }}-->
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- comment %}theme-check-disable RemoteAsset{% endcomment %}
