@@ -5,8 +5,33 @@
   Each accessory goes under the tab named in its own custom.accessory_tab metafield, falling back to
   its product type. Tabs follow the "Tab order" setting; any others follow in the order first seen.
   Renders nothing when the product has no compatible accessories.
+
+  Deferred loading (page speed): rendering every accessory card (up to 8 tabs x 12 cards) cost
+  ~0.5s of server time and ~540KB of HTML on each hot tub page. On the product page itself the
+  section now outputs only its heading and a <compat-accessories-loader>, which fetches the cards
+  from the layout-less alternate template product.compat-accessories.json (same section, same
+  settings) once the visitor scrolls within ~1200px of it. That template, and the theme editor,
+  render the full section.
 {%- endcomment -%}
 
+{%- liquid
+  assign compat_full = false
+  if template.suffix == 'compat-accessories' or request.design_mode
+    assign compat_full = true
+  endif
+
+  if compat_full == false
+    comment
+      Cheap check on the raw metafield (a list of product GIDs) — doesn't load the products.
+    endcomment
+    assign compat_show = false
+    if product.metafields.custom.compatible_accessories != blank
+      assign compat_show = true
+    endif
+  endif
+-%}
+
+{%- if compat_full -%}
 {%- liquid
   assign accessories = product.metafields.custom.compatible_accessories.value
   assign model_name = product.title | split: ' | ' | first | strip
@@ -46,9 +71,14 @@
   endfor
 
   assign tabs = tab_list | remove_first: '^^' | split: '^^'
+  assign compat_show = false
+  if tabs.size > 0
+    assign compat_show = true
+  endif
 -%}
+{%- endif -%}
 
-{%- if tabs.size > 0 -%}
+{%- if compat_show -%}
 <style>
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
@@ -61,6 +91,66 @@
   <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
     {%- render 'section-heading', section: section -%}
 
+    {%- unless compat_full -%}
+      <compat-accessories-loader class="block" style="min-height: var(--compat-placeholder-height, 48rem);" aria-busy="true"></compat-accessories-loader>
+      <script>
+        if (!customElements.get('compat-accessories-loader')) {
+          customElements.define('compat-accessories-loader', class extends HTMLElement {
+            connectedCallback() {
+              if (!('IntersectionObserver' in window)) return this.load();
+              this.observer = new IntersectionObserver((entries) => {
+                if (!entries.some((entry) => entry.isIntersecting)) return;
+                this.observer.disconnect();
+                this.load();
+              }, { rootMargin: '1200px 0px' });
+              this.observer.observe(this);
+            }
+
+            disconnectedCallback() {
+              if (this.observer) this.observer.disconnect();
+            }
+
+            load() {
+              if (this.loading) return;
+              this.loading = true;
+              // The current path keeps the market/language prefix (/fr, /en-us …), so prices and copy match the page.
+              const url = new URL(window.location.pathname, window.location.origin);
+              url.searchParams.set('view', 'compat-accessories');
+              const previewTheme = new URLSearchParams(window.location.search).get('preview_theme_id');
+              if (previewTheme) url.searchParams.set('preview_theme_id', previewTheme);
+
+              const section = this.closest('.shopify-section');
+              fetch(url, { credentials: 'same-origin' })
+                .then((response) => (response.ok ? response.text() : Promise.reject(response.status)))
+                .then((html) => {
+                  const body = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-compat-body]');
+                  if (!body) {
+                    // No accessories available in this market.
+                    if (section) section.hidden = true;
+                    return;
+                  }
+                  // Build the nodes in this document (not the parsed one) so the theme's custom elements upgrade.
+                  const holder = document.createElement('div');
+                  holder.innerHTML = body.outerHTML;
+                  const content = holder.firstElementChild;
+                  this.replaceWith(content);
+                  // Scripts added through innerHTML don't run; re-create them.
+                  content.querySelectorAll('script').forEach((oldScript) => {
+                    const script = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach((attr) => script.setAttribute(attr.name, attr.value));
+                    script.textContent = oldScript.textContent;
+                    oldScript.replaceWith(script);
+                  });
+                })
+                .catch(() => {
+                  if (section) section.hidden = true;
+                });
+            }
+          });
+        }
+      </script>
+    {%- else -%}
+    <div data-compat-body>
     <div id="CompatV2Tabs-{{ section.id }}" class="tab-list flex gap-6 justify-between">
       <scroll-shadow class="scroll-shadow grid overflow-hidden">
         <div class="scroll-area grid">
@@ -189,8 +279,6 @@
         </slider-element>
       </div>
     {%- endfor -%}
-  </div>
-</div>
 
 <script>
   (() => {
@@ -232,6 +320,10 @@
     tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i)));
   })();
 </script>
+    </div>
+    {%- endunless -%}
+  </div>
+</div>
 {%- elsif request.design_mode -%}
   <div class="page-width" style="padding-block: 2rem; text-align: center; opacity: 0.7;">
     <p><strong>Compatible accessories</strong> — this product has no compatible accessories yet. Add them in Shopify admin under the product's <em>Compatible accessories</em> metafield.</p>
