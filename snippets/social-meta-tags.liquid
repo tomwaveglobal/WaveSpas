@@ -4,6 +4,8 @@
 
   Dynamically adjusts content based on page type (product, article, password) with appropriate titles, descriptions, and images.
 
+  @param {string} [description] - Meta description to use instead of page_description
+
   @example
   {% render 'social-meta-tags' %}
 {%- enddoc -%}
@@ -12,7 +14,7 @@
   assign og_title = page_title
   assign og_url = canonical_url
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = description | default: page_description | default: shop.description | default: shop.name
 
   if request.page_type == 'product'
     assign og_title = product.title | strip_html
