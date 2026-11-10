@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "layout": false,
+  "sections": {
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 12,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "tab_order": "Filters, Covers, Chemicals, Comfort, Cleaning, Lights, Setup, Spare Parts, Liners",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "What fits this hot tub",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Compatible Accessories",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "compatible_accessories"
+  ]
+}
