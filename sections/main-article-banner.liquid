@@ -105,9 +105,9 @@
                             {%- if block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
                               {%- capture article_meta -%}
                                 {%- if block.settings.show_date -%}
-                                  <li class="inline-flex items-center gap-2 text-sm relative" itemprop="dateCreated pubdate datePublished">
+                                  <li class="inline-flex items-center gap-2 text-sm relative">
                                     {%- render 'icon', icon: 'calendar', size: 'xs', class: 'stroke-1' -%}
-                                    {{- article.published_at | time_tag: format: 'date' -}}
+                                    <time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%:z' }}" itemprop="datePublished dateCreated">{{- article.published_at | date: format: 'date' -}}</time>
                                   </li>
                                 {%- endif -%}
                                 {%- if block.settings.show_comments -%}
