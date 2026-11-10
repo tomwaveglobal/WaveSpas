@@ -799,7 +799,9 @@
                                   <p class="horizontal-product__title font-medium text-base leading-tight">
                                     {%- liquid
                                       if block.settings.clickable
-                                        echo variant.product.title | link_to: variant.url, class: 'reversed-link'
+                                        # Clean href; variant added on interaction (layout/theme.liquid)
+                                        assign variant_link_title = variant.product.title | escape
+                                        echo '<a class="reversed-link" href="' | append: variant.product.url | append: '" data-variant-id="' | append: variant.id | append: '">' | append: variant_link_title | append: '</a>'
                                       else
                                         echo variant.product.title | escape
                                       endif

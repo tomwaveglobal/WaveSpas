@@ -91,6 +91,28 @@
 
     <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script>
+      /* Links to a specific variant (product cards, swatches, upsells) carry
+         href = clean product URL + data-variant-id. Add ?variant= only when a
+         shopper interacts, so crawlers never find parameterised product URLs
+         (those have no self-referencing hreflang). Runs in the capture phase,
+         ahead of instant-page, so hover prefetch sees the final URL. */
+      (function () {
+        function upgrade(e) {
+          var a = e.target && e.target.closest && e.target.closest('a[data-variant-id]');
+          if (!a || a.dataset.variantApplied) return;
+          try {
+            var u = new URL(a.href, location.href);
+            u.searchParams.set('variant', a.dataset.variantId);
+            a.href = u.toString();
+            a.dataset.variantApplied = '1';
+          } catch (err) {}
+        }
+        ['mouseover', 'touchstart', 'pointerdown', 'focusin', 'click', 'auxclick', 'contextmenu'].forEach(function (t) {
+          document.addEventListener(t, upgrade, { capture: true, passive: true });
+        });
+      })();
+    </script>
 
     {%- if settings.enable_tab_attention -%}
       <script src="{{ 'tab-attention.js' | asset_url }}" defer="defer"></script>

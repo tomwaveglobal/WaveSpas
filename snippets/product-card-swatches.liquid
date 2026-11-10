@@ -6,7 +6,8 @@
   (settings.product_card_swatches_overlay = true).
 
   @param {object} product - Product object
-  @param {string} product_url - Product URL (collection-scoped)
+  @param {string} product_url - Product URL (collection-scoped, no ?variant=)
+  @param {string} [variant_attr] - ' data-variant-id="…"' for the card's preselected variant
   @param {boolean} show_quick_view - Whether quick view is enabled (affects aria-controls)
   @param {string} quick_view_id - Quick view modal ID
 {%- enddoc -%}
@@ -73,9 +74,11 @@
               assign values = values | join: ',' | append: ',' | append: value | split: ','
               assign color_count = color_count | plus: 1
               assign color_title = product.title | append: ' - ' | append: value
-              assign color_url = variant.url | within: collection
+              # Link the clean product URL; the variant is added on interaction
+              # (see the data-variant-id script in layout/theme.liquid).
+              assign color_url = product.url | within: collection
               if settings.product_disable_collection_portion
-                assign color_url = variant.url
+                assign color_url = product.url
               endif
 
               assign swatch = blank
@@ -91,14 +94,14 @@
             -%}
             {%- if color_count <= max_color_count -%}
               <li>
-                {%- render 'swatch', href: color_url, title: color_title, value: value, value_label: value, swatch: swatch -%}
+                {%- render 'swatch', href: color_url, variant_id: variant.id, title: color_title, value: value, value_label: value, swatch: swatch -%}
               </li>
             {%- endif -%}
           {%- endunless -%}
         {%- endfor -%}
       </ul>
       {%- if color_count > max_color_count -%}
-        <a href="{{ product_url }}" class="reversed-link font-medium text-xs text-opacity leading-none tracking-widest" is="hover-link"{% if show_quick_view %} aria-controls="{{ quick_view_id }}" aria-expanded="false"{% endif %}>+{{ color_count | minus: max_color_count }}</a>
+        <a href="{{ product_url }}"{{ variant_attr }} class="reversed-link font-medium text-xs text-opacity leading-none tracking-widest" is="hover-link"{% if show_quick_view %} aria-controls="{{ quick_view_id }}" aria-expanded="false"{% endif %}>+{{ color_count | minus: max_color_count }}</a>
       {%- endif -%}
     </div>
     {%- if color_count < 1 -%}
