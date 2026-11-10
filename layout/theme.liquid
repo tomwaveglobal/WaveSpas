@@ -70,12 +70,24 @@
       {%- endif -%}
     </title>
 
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
+    {%- comment -%}
+      /collections and /search have no description of their own, so Shopify gives them the
+      homepage's, which crawlers report as duplicate meta descriptions. Use our own for those.
+    {%- endcomment -%}
+    {%- liquid
+      assign meta_description = page_description
+      if request.page_type == 'list-collections'
+        assign meta_description = 'general.meta.collections_description' | t
+      elsif request.page_type == 'search'
+        assign meta_description = 'general.meta.search_description' | t
+      endif
+    -%}
+    {%- if meta_description -%}
+      <meta name="description" content="{{ meta_description | escape }}">
     {%- endif -%}
 
     {%- liquid
-      render 'social-meta-tags'
+      render 'social-meta-tags', description: meta_description
       
       render 'css-variables'
       echo 'theme.css' | asset_url | stylesheet_tag: preload: true
