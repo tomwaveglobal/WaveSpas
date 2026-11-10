@@ -87,7 +87,55 @@
       </script>
     {%- endif -%}
 
-    {{ content_for_header }}
+    {%- comment -%}
+      Hreflang for regional product listings.
+      Shopify's automatic hreflang tags (inside content_for_header) drop the
+      markets whose catalog doesn't carry the product, but they always keep the
+      root (UK) alternates: x-default, en, /de and /fr. Regional listings such as
+      garda-hot-tub-ce (EU) and garda-hot-tub-etl (US) aren't in the UK catalog,
+      so those four URLs 404 and then 301 via the shop's URL redirects. Semrush
+      flagged 2,775 of these "hreflang redirect" links on 2026-11-10.
+
+      A product isn't sold on the root when its custom.uk_override_url points to
+      a different listing (EU/US variants all carry the UK handle there). For
+      those products, remove every alternate whose path has no market subfolder
+      (/products/..., /de/products/..., /fr/products/...). The /en-xx market
+      alternates are left untouched. This works by matching strings only, so if
+      Shopify changes its markup the tags pass through unchanged.
+    {%- endcomment -%}
+    {%- liquid
+      assign strip_root_hreflang = false
+      if template.name == 'product'
+        assign uk_listing = product.metafields.custom.uk_override_url.value | default: ''
+        assign own_listing = 'products/' | append: product.handle
+        if uk_listing != blank and uk_listing != own_listing
+          assign strip_root_hreflang = true
+        endif
+      endif
+    -%}
+    {%- if strip_root_hreflang -%}
+      {%- assign alt_marker = '<link rel="alternate" hreflang="' -%}
+      {%- assign alt_chunks = content_for_header | split: alt_marker -%}
+      {%- capture filtered_header -%}
+        {%- for chunk in alt_chunks -%}
+          {%- if forloop.first -%}
+            {{- chunk -}}
+            {%- continue -%}
+          {%- endif -%}
+          {%- assign alt_tag = chunk | split: '>' | first -%}
+          {%- assign alt_href = alt_tag | split: 'href="' | last | split: '"' | first -%}
+          {%- assign first_segment = alt_href | split: '/' | slice: 3 | first -%}
+          {%- if first_segment contains '-' -%}
+            {{- alt_marker -}}{{- chunk -}}
+          {%- else -%}
+            {{- chunk | remove_first: alt_tag | remove_first: '>' -}}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {{ filtered_header }}
+    {%- else -%}
+      {{ content_for_header }}
+    {%- endif -%}
 
     <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
