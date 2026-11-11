@@ -157,7 +157,8 @@
       this.data = JSON.parse(this.querySelector('[data-sizes]').textContent);
       this.currency = this.dataset.currency;
       this.saving = parseFloat(this.dataset.saving) / 100;
-      this.size = 0;
+      /* opens on the selected variant's size: the button Liquid marked as pressed */
+      this.size = parseInt(this.querySelector('[data-size][aria-pressed="true"]')?.dataset.size || '0', 10);
       this.days = parseFloat(this.dataset.days);
       this.rate = parseFloat(this.dataset.rate);
       this.unit = this.dataset.unit;
@@ -182,6 +183,15 @@
         this.render();
       });
       this.querySelector('[data-add-es]')?.addEventListener('click', () => this.chooseEnergySave());
+      /* follow the size chosen in the buy box */
+      onVariant((v) => {
+        const i = this.data.findIndex((s) => (s.variants || []).includes(v.id));
+        if (i < 0 || i === this.size) return;
+        this.size = i;
+        const btn = this.querySelector(`[data-size="${i}"]`);
+        if (btn) this.press(btn, '[data-size]');
+        this.render();
+      });
       this.render();
     }
     press(btn, sel) {
@@ -206,6 +216,9 @@
       this.out('rate', this.unit === 'p' ? `${Math.round(this.rate * 100)}p` : money(this.rate, this.currency));
       this.out('kwh', `${kwh}`);
       this.out('days', `${this.days}`);
+      const litres = parseInt(s.litres, 10) || 0;
+      this.querySelectorAll('[data-litres]').forEach((el) => (el.hidden = !litres));
+      if (litres) this.out('litres', this.currency === 'USD' ? `${Math.round(litres * 0.2642)} gallons` : `${litres} litres`);
       const bars = this.querySelectorAll('.wf-rc__bar i');
       if (bars[0]) bars[0].style.transform = 'scaleX(1)';
       if (bars[1]) bars[1].style.transform = `scaleX(${1 - this.saving})`;
@@ -446,6 +459,53 @@
     }
   }
 
+
+  /* <wf-sizecard> — shows the Dimensions metafield rows for the chosen size.
+     The source is the metafield's rich text: an H6 per size, then "Label: value" paragraphs. */
+  class WfSizeCard extends HTMLElement {
+    connectedCallback() {
+      const tpl = this.querySelector('template[data-size-source]');
+      if (!tpl) return;
+      this.groups = {};
+      let current = null;
+      [...tpl.content.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li')].forEach((el) => {
+        const text = el.textContent.trim();
+        if (!text) return;
+        if (/^H[1-6]$/.test(el.tagName)) {
+          current = text;
+          this.groups[current] = [];
+        } else if (current) {
+          const i = text.indexOf(':');
+          this.groups[current].push(i > 0 ? [text.slice(0, i).trim(), text.slice(i + 1).trim()] : ['', text]);
+        }
+      });
+      this.show(this.dataset.current);
+      onVariant((v) => this.show(v.title || v.option1));
+    }
+    find(title) {
+      if (!title) return null;
+      const t = title.toLowerCase();
+      const keys = Object.keys(this.groups);
+      return keys.find((k) => k.toLowerCase() === t) || keys.find((k) => t.indexOf(k.toLowerCase()) === 0) || null;
+    }
+    show(title) {
+      const key = this.find(title);
+      this.hidden = !key;
+      if (!key) return;
+      const dl = this.querySelector('[data-size-rows]');
+      const name = this.querySelector('[data-size-name]');
+      if (name) name.textContent = key;
+      dl.innerHTML = '';
+      this.groups[key].forEach(([label, value]) => {
+        const dt = document.createElement('dt');
+        dt.textContent = label;
+        const dd = document.createElement('dd');
+        dd.textContent = value;
+        dl.append(dt, dd);
+      });
+    }
+  }
+
   const define = (name, cls) => customElements.get(name) || customElements.define(name, cls);
   define('wf-section', WfSection);
   define('wf-localnav', WfLocalNav);
@@ -459,6 +519,7 @@
   define('wf-tabbar', WfTabBar);
   define('wf-slides', WfSlides);
   define('wf-carousel', WfCarousel);
+  define('wf-sizecard', WfSizeCard);
 
   window.WaveFY27 = { money };
 })();

@@ -16,8 +16,11 @@
       </div>
 
       <div class="wf-qa__list" data-wf-reveal style="--wf-delay: .1s">
+        {%- assign shown = 0 -%}
         {%- for block in section.blocks -%}
-          <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <details {{ block.shopify_attributes }}{% if shown == 1 and section.settings.open_first %} open{% endif %}>
             <summary><span class="wf-h3">{{ block.settings.question }}</span><i aria-hidden="true"></i></summary>
             <div class="wf-qa__a">
               {%- if block.settings.topic != blank -%}<span class="wf-qa__tag">{{ block.settings.topic }}</span>{%- endif -%}
@@ -31,21 +34,26 @@
 </wf-section>
 
 {%- if section.settings.faq_schema and section.blocks.size > 0 -%}
+  {%- capture faq_items -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+      {
+        "@type": "Question",
+        "name": {{ block.settings.question | strip_html | json }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+      },
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign faq_items = faq_items | strip -%}
+  {%- if faq_items != blank -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [
-        {%- for block in section.blocks -%}
-          {
-            "@type": "Question",
-            "name": {{ block.settings.question | strip_html | json }},
-            "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
-          }{% unless forloop.last %},{% endunless %}
-        {%- endfor -%}
-      ]
+      "mainEntity": [{{ faq_items | remove_last: ',' }}]
     }
   </script>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -69,10 +77,76 @@
       "settings": [
         { "type": "text", "id": "topic", "label": "Topic", "info": "Optional small label, e.g. Running costs." },
         { "type": "text", "id": "question", "label": "Question", "default": "Question" },
-        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" },
+        { "type": "text", "id": "only_tag", "label": "Only on products tagged", "info": "Optional. Leave blank to show on every product, e.g. Outdoor Sauna." }
       ]
     }
   ],
-  "enabled_on": { "templates": ["product", "collection", "list-collections"] }
+  "enabled_on": { "templates": ["product", "collection", "list-collections"] },
+  "presets": [
+    {
+      "name": "FY27 questions",
+      "settings": {
+        "nav_label": "Questions",
+        "eyebrow": "Questions",
+        "heading": "Before you buy.",
+        "lede": "Quick answers to what people ask most.",
+        "contact_text": "Still deciding? Our UK team is here six days a week.",
+        "contact_label": "Talk to us",
+        "open_first": false,
+        "faq_schema": true
+      },
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Will it fit in my garden?",
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "How much looking after does it need?",
+            "answer": "<p>A few minutes a week. Rinse the filter after a soak, test the water twice a week and refresh it every 1 to 3 months. Our water care guides show you how.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Can I use it in winter?",
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Is it noisy?",
+            "answer": "<p>Barely. The heater and pump hum quietly, and with the bubbles off it is quiet enough for a late evening.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Do I need planning permission?",
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "When will it arrive?",
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

@@ -1,0 +1,42 @@
+{%- comment -%}
+  FY27 product page layout. From 1536px the theme insets Product details by twice the grid gap
+  (.specifications-section); this gives the template's other sections the same inset so their
+  content lines up with it. Backgrounds stay full width; only the content moves in.
+  Also styles the theme sections' subtitles like the FY27 eyebrows (in the collection colour) and
+  tidies the buy row around Contona's Visualise button.
+
+  {% render 'wave-fy27-pdp-layout' %}
+{%- endcomment -%}
+<style>
+  @media screen and (min-width: 1536px) {
+    main .shopify-section:not([id$='__main-product']):not([id$='__product-details']) > .section > .page-width:not(.page-width--full),
+    main .shopify-section > product-recommendations > .section > .page-width:not(.page-width--full),
+    main .shopify-section:not([id$='__main-product']):not([id$='__product-details']) > .wf > .wf__inner {
+      padding-inline: calc(var(--page-padding) + clamp(40px, 20vw, 60px) * 2);
+    }
+
+    /* Rich text with a heading (e.g. Reviews) adds its own grid-gap padding twice at this width;
+       the inset above already lines it up, so drop it. */
+    main .shopify-section .collage.with-richtext,
+    main .shopify-section .collage.with-richtext > :is(.title-wrapper, .rich-text) {
+      padding-inline: 0;
+    }
+  }
+
+  /* Buy row: Contona wraps the buy button and its Visualise button in a column (<contona-slot>), which
+     stretched the quantity selector to the height of both. Dissolve the wrapper so quantity and buy
+     button share a row at the same height, with Visualise full width underneath. */
+  .product__info .buy-buttons > contona-slot { display: contents !important; }
+  .product__info .buy-buttons > contona-slot > .product-form__submit { flex: 1 1 0% !important; }
+  .product__info .buy-buttons > contona-slot > [data-contona-host] { flex: 1 0 100% !important; }
+
+  /* Theme section subtitles (Tech specs, Compatible Accessories, Reviews …) as the FY27 eyebrows */
+  main .shopify-section .title-wrapper .grid > p.heading:first-child:not(:last-child) {
+    font-family: var(--font-body-family);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: var(--wf-tier-ink, #b45309);
+  }
+</style>

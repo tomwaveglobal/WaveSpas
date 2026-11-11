@@ -13,11 +13,28 @@
           {% case block.type %}
             {% when 'nav_item' %}
               {%- if block.settings.title != blank -%}
-                {%- assign target_id = block.settings.target_id | split: ',' -%}
+                {%- liquid
+                  # A target can be a full element ID, or just a section's key in this template
+                  # ("product-details"), which is resolved to this template's section ID so the
+                  # links survive the template being copied to another theme.
+                  assign template_prefix = section.id | split: '__' | first
+                  assign targets = ''
+                  assign target_list = block.settings.target_id | remove: ' ' | strip_newlines | split: ','
+                  for target in target_list
+                    if target == blank
+                      continue
+                    endif
+                    unless target contains 'shopify-section-' or target contains '__'
+                      assign target = 'shopify-section-' | append: template_prefix | append: '__' | append: target
+                    endunless
+                    assign targets = targets | append: target | append: ','
+                  endfor
+                  assign target_id = targets | split: ','
+                -%}
                 <li class="scrollspy-item" {{ block.shopify_attributes }}>
-                  <a href="#{{ target_id | first | strip }}" 
+                  <a href="#{{ target_id | first }}"
                     class="scrollspy-link menu__item text-sm-lg flex items-center font-medium z-2 relative cursor-pointer whitespace-nowrap"
-                    data-target="{{ block.settings.target_id | remove: ' ' | strip_newlines }}"
+                    data-target="{{ target_id | join: ',' }}"
                     aria-label="{{ block.settings.title }}"
                   >
                     <span class="btn-text">{{ block.settings.title }}</span>

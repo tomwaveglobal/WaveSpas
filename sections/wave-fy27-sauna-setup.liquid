@@ -1,0 +1,123 @@
+{%- comment -%}
+  FY27 sauna — setup. Indoor saunas (tag "Indoor Sauna") show the indoor steps and power note;
+  everything else shows the outdoor ones. Steps are blocks with a "kind".
+  Image: the section's indoor/outdoor image, else the product's second image.
+{%- endcomment -%}
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign kind = 'outdoor'
+  if product.tags contains 'Indoor Sauna'
+    assign kind = 'indoor'
+  endif
+  if kind == 'indoor'
+    assign heading = section.settings.indoor_heading
+    assign lede = section.settings.indoor_lede
+    assign power_title = section.settings.indoor_power_title
+    assign power_text = section.settings.indoor_power_text
+    assign img = section.settings.indoor_image
+  else
+    assign heading = section.settings.outdoor_heading
+    assign lede = section.settings.outdoor_lede
+    assign power_title = section.settings.outdoor_power_title
+    assign power_text = section.settings.outdoor_power_text
+    assign img = section.settings.outdoor_image
+  endif
+  if img == blank and product.media.size > 1
+    assign img = product.media[1].preview_image
+  endif
+-%}
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-su wf-su--sauna">
+      <div>
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ heading }}</h2>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ lede }}</p>
+
+        <ol class="wf-su__steps" data-wf-reveal style="--wf-delay: .24s">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.kind != kind -%}{%- continue -%}{%- endif -%}
+            <li {{ block.shopify_attributes }}>
+              <h3 class="wf-h3">{{ block.settings.title }}</h3>
+              <p class="wf-body">{{ block.settings.text }}</p>
+            </li>
+          {%- endfor -%}
+        </ol>
+
+        {%- if power_title != blank -%}
+          <div class="wf-plug" data-wf-reveal style="--wf-delay: .3s">
+            {%- render 'wave-fy27-glyph', name: 'plug', class: 'wf-glyph' -%}
+            <div>
+              <h3 class="wf-h3" style="font-size:16px">{{ power_title }}</h3>
+              <p class="wf-body">{{ power_text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if img != blank -%}
+        <div class="wf-su__photo" data-wf-reveal style="--wf-delay: .1s">
+          {{ img | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400', alt: product.title }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 sauna setup",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Setup" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Setting up" },
+    { "type": "header", "content": "Indoor saunas" },
+    { "type": "text", "id": "indoor_heading", "label": "Heading", "default": "It clips together." },
+    { "type": "textarea", "id": "indoor_lede", "label": "Intro", "default": "The panels arrive flat-packed and buckle into place. The glass front comes already framed." },
+    { "type": "image_picker", "id": "indoor_image", "label": "Image", "info": "Falls back to the product's second image." },
+    { "type": "text", "id": "indoor_power_title", "label": "Power title", "default": "Power cord included" },
+    { "type": "textarea", "id": "indoor_power_text", "label": "Power text", "default": "Ask us which socket suits your size before you order." },
+    { "type": "header", "content": "Outdoor saunas" },
+    { "type": "text", "id": "outdoor_heading", "label": "Heading", "default": "Build it once. Use it all winter." },
+    { "type": "textarea", "id": "outdoor_lede", "label": "Intro", "default": "It arrives in a wooden crate, with the glass front already framed." },
+    { "type": "image_picker", "id": "outdoor_image", "label": "Image", "info": "Falls back to the product's second image." },
+    { "type": "text", "id": "outdoor_power_title", "label": "Power title", "default": "Wired in by an electrician" },
+    { "type": "textarea", "id": "outdoor_power_text", "label": "Power text", "default": "The stove needs its own supply. Book the electrician before delivery day." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "select",
+          "id": "kind",
+          "label": "Shows on",
+          "options": [
+            { "value": "indoor", "label": "Indoor saunas" },
+            { "value": "outdoor", "label": "Outdoor saunas" }
+          ],
+          "default": "indoor"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Step" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What happens." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "FY27 sauna setup",
+      "blocks": [
+        { "type": "step", "settings": { "kind": "indoor", "title": "Pick a spot", "text": "A level floor indoors, near the socket you'll use." } },
+        { "type": "step", "settings": { "kind": "indoor", "title": "Clip it together", "text": "The panels buckle into place. Two people make it easier." } },
+        { "type": "step", "settings": { "kind": "indoor", "title": "Plug in, warm up", "text": "Set the temperature on the panel and let it warm up." } },
+        { "type": "step", "settings": { "kind": "outdoor", "title": "Prepare a base", "text": "Flat, level and firm, with room to walk around it." } },
+        { "type": "step", "settings": { "kind": "outdoor", "title": "Build the cabin", "text": "Everything for the cabin is in the crate." } },
+        { "type": "step", "settings": { "kind": "outdoor", "title": "Fit the stove", "text": "A qualified electrician wires in the Harvia Vega." } },
+        { "type": "step", "settings": { "kind": "outdoor", "title": "Load the stones", "text": "Heat it up, then reach for the ladle." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

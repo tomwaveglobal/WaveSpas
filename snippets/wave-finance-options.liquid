@@ -2,6 +2,8 @@
   Renders a single "Spread the cost" finance panel under the price, replacing separate finance rows.
   Monthly figures update when the variant changes (listens for the theme's variant:change event).
   Headline leads with the lowest monthly option: Payl8r (powered by Dopple) over 24 months at its lowest rate.
+  The closed panel is kept short; the rates, terms and representative example sit in the expanded panel
+  (Kate's call, 3 Nov 2026).
   Payl8r is interest-bearing beyond 30 days (flat rate from 0.8% a month, subject to status), so it carries a
   representative example. Terms from wavespas.com/pages/payl8r, checked 2 Oct 2026.
   The months slider shows sample amounts only: 3 = Klarna, 12 = DivideBuy when eligible, every other step = Payl8r.
@@ -32,15 +34,15 @@
 <wave-finance class="wpdp wfin" data-price="{{ price }}" data-currency="{{ cart.currency.iso_code }}" data-db-min="{{ dividebuy_min }}" data-db-max="{{ dividebuy_max }}" data-variant-ids="{{ product.variants | map: 'id' | join: ',' }}">
   <details class="wfin__panel">
     <summary class="wfin__summary">
-      <p class="wfin__headline">
-        Spread the cost from <strong data-fin-dopple>{{ dopple24 }}</strong> a month over 24 months with Payl8r, rates from 0.8% a month
-      </p>
+      <span class="wfin__eyebrow">Spread the cost</span>
+      <p class="wfin__headline">From <strong data-fin-dopple>{{ dopple24 }}</strong><span class="wfin__per">/month</span></p>
+      <p class="wfin__sub">Over 24 months with Payl8r. Or pay in 3.</p>
       <span class="wfin__logos" aria-hidden="true">
         {%- if logo_klarna != blank -%}{{ logo_klarna | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
         {%- if logo_dividebuy != blank -%}{{ logo_dividebuy | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
         {%- if logo_payl8r != blank -%}{{ logo_payl8r | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
       </span>
-      <span class="wfin__toggle"><span class="wfin__show">See all payment options</span><span class="wfin__hide">Hide payment options</span></span>
+      <span class="wfin__toggle"><span class="wfin__show">See all payment options</span><span class="wfin__hide">Hide payment options</span><svg class="wfin__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </summary>
 
     <div class="wfin__body">
@@ -78,6 +80,25 @@
   </details>
 </wave-finance>
 <style>
+  /* Closed panel: a short, bold lead, tinted with the FY27 collection colour where the page has one */
+  .wfin .wfin__panel {
+    border-color: rgb(var(--wf-tier-rgb, 0 0 0) / 0.16);
+    background: rgb(var(--wf-tier-rgb, 0 0 0) / 0.04);
+  }
+  .wfin .wfin__summary { gap: 0.2rem 1rem; padding: 1.1rem 1.25rem; }
+  .wfin .wfin__summary > :not(.wfin__logos) { grid-column: 1; }
+  .wfin .wfin__logos { grid-column: 2; grid-row: 1 / span 4; }
+  .wfin .wfin__eyebrow { font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--wf-tier-ink, #b45309); }
+  .wfin .wfin__headline { display: flex; align-items: baseline; gap: 0.3rem; margin: 0.1rem 0 0; font-size: 1rem; line-height: 1; }
+  .wfin .wfin__headline strong { font-size: clamp(1.75rem, 2.2vw, 2.125rem); font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .wfin .wfin__per { margin-inline-start: -0.2rem; font-size: 1rem; font-weight: 500; }
+  .wfin .wfin__sub { margin: 0.35rem 0 0; font-size: 0.9rem; line-height: 1.4; color: rgb(var(--color-foreground) / 0.7); }
+  .wfin .wfin__toggle { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600; color: rgb(var(--color-foreground)); text-decoration: none; }
+  .wfin .wfin__chev { width: 12px; height: 12px; transition: transform 0.2s; }
+  .wfin .wfin__panel[open] .wfin__chev { transform: rotate(180deg); }
+  @media (max-width: 420px) {
+    .wfin .wfin__logos { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+  }
   .wfin__calc { margin-bottom: 20px; padding: 16px 18px; border-radius: 12px; background: #f4f4f5; }
   .wfin__calc-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
   .wfin__calc-label { font-size: 14px; font-weight: 600; }
