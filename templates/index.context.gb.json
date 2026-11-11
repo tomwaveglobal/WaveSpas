@@ -19,7 +19,7 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Home-Banner--1.jpg",
+            "image": "shopify://shop_images/Home_Banner__test.jpg",
             "image_tablet": "shopify://shop_images/Home-Banner--3.jpg",
             "image_mobile": "shopify://shop_images/Home-Banner--2.jpg",
             "heading": "",
