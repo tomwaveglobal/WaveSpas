@@ -28,8 +28,37 @@
       async
     ></script>
 
+    {%- comment -%}
+      Regional copies of a product (-etl = US, -ce = EU) and USA-blog articles share
+      their UK twin's title, which crawlers report as duplicate <title> tags. Name the
+      region in the store name for those pages; UK pages are unchanged.
+    {%- endcomment -%}
+    {%- liquid
+      assign title_site_name = shop.name
+      if request.page_type == 'product'
+        assign handle_end_4 = product.handle | slice: -4, 4
+        assign handle_end_3 = product.handle | slice: -3, 3
+        if handle_end_4 == '-etl'
+          assign title_site_name = shop.name | append: ' USA'
+        elsif handle_end_3 == '-ce'
+          assign title_site_name = shop.name | append: ' Europe'
+        endif
+      elsif request.page_type == 'article' and blog.handle == 'wave-spas-usa'
+        assign title_site_name = shop.name | append: ' USA'
+      endif
+
+      assign title_text = page_title
+      if title_site_name != shop.name
+        assign shop_name_size = shop.name | size
+        assign shop_name_offset = 0 | minus: shop_name_size
+        assign title_end = page_title | strip | slice: shop_name_offset, shop_name_size
+        if title_end == shop.name
+          assign title_text = page_title | strip | replace_last: shop.name, title_site_name
+        endif
+      endif
+    -%}
     <title>
-      {{- page_title -}}
+      {{- title_text -}}
       {%- if current_tags -%}
         {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
       {%- endif -%}
@@ -37,7 +66,7 @@
       {%- if request.page_type == 'password' -%}
         {{- shop.name -}}
       {%- else -%}
-        {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+        {%- unless title_text contains title_site_name %} &ndash; {{ title_site_name }}{% endunless -%}
       {%- endif -%}
     </title>
 
