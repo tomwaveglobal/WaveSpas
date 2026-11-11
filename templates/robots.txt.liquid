@@ -1,0 +1,27 @@
+{%- comment -%}
+  Shopify's default robots.txt rules, plus one Allow.
+  /checkouts/internal/preloads.js is injected into every page by content_for_header,
+  but the default "Disallow: /checkouts/" blocks it, so SEO crawlers report it as a
+  disallowed internal resource on every page. The longer Allow path wins over the
+  shorter Disallow (Google's robots.txt spec), and the rest of /checkouts/ stays blocked.
+{%- endcomment -%}
+{% for group in robots.default_groups %}
+  {{- group.user_agent }}
+
+  {%- assign blocks_checkouts = false -%}
+  {%- for rule in group.rules -%}
+    {{ rule }}
+    {%- if rule.directive == 'Disallow' and rule.value == '/checkouts/' -%}
+      {%- assign blocks_checkouts = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if blocks_checkouts %}
+{{ 'Allow: /checkouts/internal/preloads.js' }}
+  {%- endif -%}
+
+  {%- if group.sitemap != blank %}
+{{ group.sitemap }}
+  {%- endif %}
+
+{% endfor %}
