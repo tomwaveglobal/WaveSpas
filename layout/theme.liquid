@@ -77,18 +77,34 @@
         endif
       endif
     -%}
-    <title>
-      {{- title_text -}}
-      {%- if current_tags -%}
-        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
-      {%- endif -%}
-      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-      {%- if request.page_type == 'password' -%}
-        {{- shop.name -}}
-      {%- else -%}
-        {%- unless title_text contains title_site_name %} &ndash; {{ title_site_name }}{% endunless -%}
-      {%- endif -%}
-    </title>
+    {%- comment -%}
+      Crawlers flag titles over 70 characters. Only add " – {store name}" when the title
+      has room for it; a title that already contains the store name never gets it.
+    {%- endcomment -%}
+    {%- liquid
+      assign title_full = title_text | strip
+      if current_tags
+        assign meta_tags = current_tags | join: ', '
+        assign title_tags = 'general.meta.tags' | t: tags: meta_tags
+        assign title_full = title_full | append: ' – ' | append: title_tags
+      endif
+      if current_page != 1
+        assign title_page = 'general.meta.page' | t: page: current_page
+        assign title_full = title_full | append: ' – ' | append: title_page
+      endif
+      if request.page_type == 'password'
+        assign title_full = title_full | append: shop.name
+      else
+        unless title_full contains title_site_name
+          assign title_with_site = title_full | append: ' – ' | append: title_site_name
+          assign title_with_site_size = title_with_site | size
+          if title_with_site_size <= 70
+            assign title_full = title_with_site
+          endif
+        endunless
+      endif
+    -%}
+    <title>{{ title_full }}</title>
 
     {%- comment -%}
       /collections and /search have no description of their own, so Shopify gives them the
