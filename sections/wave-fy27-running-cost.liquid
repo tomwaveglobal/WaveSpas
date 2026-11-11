@@ -188,7 +188,10 @@
         </div>
 
         {%- if has_es and section.settings.bundle_line != blank -%}
-          <p class="wf-body wf-rc__bundle-line">{{ section.settings.bundle_line }}</p>
+          <p class="wf-rc__bundle-line">
+            {%- render 'wave-fy27-glyph', name: 'check', class: 'wf-rc__tick' -%}
+            <span>{{ section.settings.bundle_line }}</span>
+          </p>
         {%- endif -%}
       </div>
 
@@ -198,25 +201,28 @@
             <span class="wf-rc__name">{{ section.settings.standard_label }}</span>
             <span class="wf-fig"><span data-out="std-month">—</span><small>/month</small></span>
             <p class="wf-small"><span data-out="std-year">—</span> {{ section.settings.per_year }}</p>
+            {%- if has_es -%}<div class="wf-rc__bar" aria-hidden="true"><i></i></div>{%- endif -%}
           </div>
           {%- if has_es -%}
             <div class="wf-rc__col wf-rc__col--es">
-              <span class="wf-rc__name">{{ section.settings.energysave_label }}</span>
+              <span class="wf-rc__name">
+                {{ section.settings.energysave_label }}
+                {%- if section.settings.es_flag != blank -%}
+                  <span class="wf-rc__flag">{{ section.settings.es_flag | replace: '[pct]', section.settings.energysave_saving }}</span>
+                {%- endif -%}
+              </span>
               <span class="wf-fig wf-fig--accent"><span data-out="es-month">—</span><small>/month</small></span>
               <p class="wf-small"><span data-out="es-year">—</span> {{ section.settings.per_year }}</p>
+              <div class="wf-rc__bar wf-rc__bar--es" aria-hidden="true"><i style="transform:scaleX(.7)"></i></div>
             </div>
           {%- endif -%}
         </div>
 
         {%- if has_es -%}
-          <div class="wf-rc__bars" aria-hidden="true">
-            <div class="wf-rc__bar"><i></i></div>
-            <div class="wf-rc__bar wf-rc__bar--es"><i style="transform:scaleX(.7)"></i></div>
-          </div>
           <div class="wf-rc__save">
             <p>
               {{ section.settings.save_prefix }} <strong data-out="save-year">—</strong> {{ section.settings.save_suffix }}
-              <span data-payback hidden><br><span class="wf-small">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
+              <span data-payback hidden><span class="wf-small">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
             </p>
             <button type="button" class="button button--primary" is="hover-button" data-add-es><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.cta_label }}</span></button>
           </div>
@@ -258,6 +264,7 @@
     { "type": "header", "content": "Results" },
     { "type": "text", "id": "standard_label", "label": "Standard label", "default": "Standard" },
     { "type": "text", "id": "energysave_label", "label": "EnergySave label", "default": "EnergySave™ bundle" },
+    { "type": "text", "id": "es_flag", "label": "EnergySave tag", "info": "[pct] becomes the saving. Leave blank to hide.", "default": "[pct]% less energy" },
     { "type": "range", "id": "energysave_saving", "label": "EnergySave saving", "min": 5, "max": 60, "step": 1, "unit": "%", "default": 30 },
     { "type": "text", "id": "per_month", "label": "Per month", "default": "a month" },
     { "type": "text", "id": "per_year", "label": "Per year", "default": "a year" },
@@ -307,6 +314,7 @@
         "rate_usd": 17,
         "standard_label": "Standard",
         "energysave_label": "EnergySave™ bundle",
+        "es_flag": "[pct]% less energy",
         "energysave_saving": 30,
         "per_month": "a month",
         "per_year": "a year",
