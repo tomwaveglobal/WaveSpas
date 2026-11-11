@@ -41,7 +41,9 @@
     },
     "meta": {
       "tags": "Tagged \"{{ tags }}\"",
-      "page": "Page {{ page }}"
+      "page": "Page {{ page }}",
+      "collections_description": "Every Wave Spas collection in one place: hot tubs, covers, water care, spare parts and accessories, sorted so you can find what fits yours.",
+      "search_description": "Search Wave Spas for hot tubs, accessories, water care and spare parts. Type a model or part name to find what fits your tub."
     },
     "pagination": {
       "label": "Pagination",

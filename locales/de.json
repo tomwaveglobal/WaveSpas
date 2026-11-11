@@ -41,7 +41,9 @@
     },
     "meta": {
       "tags": "Getaggt \"{{ tags }}\"",
-      "page": "Seite {{ page }}"
+      "page": "Seite {{ page }}",
+      "collections_description": "Alle Wave Spas Kollektionen auf einen Blick: Whirlpools, Abdeckungen, Wasserpflege, Ersatzteile und Zubehör – so finden Sie, was zu Ihrem passt.",
+      "search_description": "Durchsuchen Sie Wave Spas nach Whirlpools, Zubehör, Wasserpflege und Ersatzteilen. Geben Sie ein Modell oder Teil ein, um das Passende zu finden."
     },
     "pagination": {
       "label": "Seitennummerierung",

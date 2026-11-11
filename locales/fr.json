@@ -41,7 +41,9 @@
     },
     "meta": {
       "tags": "Mots clés \"{{ tags }}\"",
-      "page": "Page {{ page }}"
+      "page": "Page {{ page }}",
+      "collections_description": "Toutes les collections Wave Spas réunies : spas, couvertures, traitement de l’eau, pièces détachées et accessoires, pour trouver ce qui convient au vôtre.",
+      "search_description": "Recherchez sur Wave Spas des spas, accessoires, produits de traitement de l’eau et pièces détachées. Saisissez un modèle ou une pièce pour trouver le bon."
     },
     "pagination": {
       "label": "Pagination",
