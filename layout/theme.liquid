@@ -19,6 +19,10 @@
       if template.name == 'article' and blog.handle == 'wave-spas-usa'
         assign article_slug = article.handle | split: '/' | last
         assign uk_article_key = 'wave-spas-uk/' | append: article_slug
+        assign canonical_article = article.metafields.custom.canonical_article.value
+        if canonical_article != blank
+          assign uk_article_key = canonical_article.handle
+        endif
         if articles[uk_article_key] != blank
           assign page_canonical = shop.url | append: '/blogs/' | append: uk_article_key
         endif
