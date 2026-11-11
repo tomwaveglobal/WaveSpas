@@ -933,7 +933,7 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
 .wf-sh__mesh { stroke: #000; stroke-opacity: 0.25; stroke-width: 1; }
 .wf-sh__bench { fill: var(--wf-ghost); fill-opacity: 0.22; }
 .wf-sh__skirt { fill: var(--wf-ghost); fill-opacity: 0.05; }
-.wf-sh__person { fill: var(--wf-ghost); fill-opacity: 0.09; stroke: var(--wf-ghost); stroke-opacity: 0.55; stroke-width: 1.5; stroke-linejoin: round; }
+.wf-sh__person { fill: #141416; stroke: var(--wf-ghost); stroke-opacity: 0.55; stroke-width: 1.5; stroke-linejoin: round; }
 .wf-sh__carbon { fill: var(--wf-hot); fill-opacity: 0.85; }
 .wf-sh__ruby { fill: var(--wf-hot-red); }
 .wf-sh__waves { fill: none; stroke: var(--wf-hot); stroke-width: 2; stroke-linecap: round; }
