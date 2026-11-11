@@ -40,7 +40,7 @@
           "settings": {
             "heading": "Master your spa's chemistry for a perfect soak.",
             "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h2",
+            "heading_tag": "h1",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }

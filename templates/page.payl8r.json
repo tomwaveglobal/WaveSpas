@@ -32,7 +32,7 @@
           "settings": {
             "heading": "PayL8r",
             "heading_size": "title-xl tracking-heading",
-            "heading_tag": "h2",
+            "heading_tag": "h1",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }

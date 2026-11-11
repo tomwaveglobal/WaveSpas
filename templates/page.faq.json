@@ -40,7 +40,7 @@
           "settings": {
             "heading": "Everything You Need to Know in One Place.",
             "heading_size": "title-lg tracking-heading",
-            "heading_tag": "h2",
+            "heading_tag": "h1",
             "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "highlighted_reveal": false
