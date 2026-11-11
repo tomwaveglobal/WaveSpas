@@ -61,7 +61,7 @@
 
       {%- if settings.share_whatsapp -%}
         <li>
-          <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="//web.whatsapp.com/send?text={{ share_link | url_encode }}" aria-describedby="a11y-new-window-message" aria-label="{{ 'general.social.alt_text.share_on_whatsapp' | t | escape }}">
+          <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="https://api.whatsapp.com/send?text={{ share_link | url_encode }}" aria-describedby="a11y-new-window-message" aria-label="{{ 'general.social.alt_text.share_on_whatsapp' | t | escape }}">
             {%- render 'icon-brand', icon: 'whatsapp', size: 'sm' -%}
             <span class="sr-only">{{ 'general.social.alt_text.share_on_whatsapp' | t }}</span>
           </a>
@@ -152,7 +152,7 @@
 
             {%- if settings.share_whatsapp -%}
               <li>
-                <a target="_blank" rel="noopener noreferrer" class="social-sharing__link flex items-center gap-4 text-sm" href="//web.whatsapp.com/send?text={{ share_link | url_encode }}" aria-describedby="a11y-new-window-message" aria-label="{{ 'general.social.alt_text.share_on_whatsapp' | t | escape }}">
+                <a target="_blank" rel="noopener noreferrer" class="social-sharing__link flex items-center gap-4 text-sm" href="https://api.whatsapp.com/send?text={{ share_link | url_encode }}" aria-describedby="a11y-new-window-message" aria-label="{{ 'general.social.alt_text.share_on_whatsapp' | t | escape }}">
                   {%- render 'icon-brand', icon: 'whatsapp', size: 'lg' -%}
                   <span aria-hidden="true">{{ 'general.social.share_on_whatsapp' | t }}</span>
                   <span class="sr-only">{{ 'general.social.alt_text.share_on_whatsapp' | t }}</span>
