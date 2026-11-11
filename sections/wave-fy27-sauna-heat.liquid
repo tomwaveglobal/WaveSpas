@@ -1,0 +1,230 @@
+{%- comment -%}
+  FY27 sauna — how it heats.
+  Infrared saunas (tag "Infrared Sauna") get the carbon + ruby panel diagram; every other sauna gets the
+  stove-and-stones diagram (barrel silhouette when tagged "Barrel Sauna", otherwise the cube).
+  Points are blocks with a "kind" so one template carries copy for both.
+  The size card reads the product's custom.dimensions rich text (one H6 per size, then "Label: value"
+  lines) and follows the chosen variant.
+{%- endcomment -%}
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign kind = 'traditional'
+  if product.tags contains 'Infrared Sauna'
+    assign kind = 'infrared'
+  endif
+  assign shape = 'cube'
+  if product.tags contains 'Barrel Sauna'
+    assign shape = 'barrel'
+  endif
+  assign variant = product.selected_or_first_available_variant
+  assign dims = product.metafields.custom.dimensions
+-%}
+<wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-sh" data-toggle-root data-mode="{% if kind == 'infrared' %}all{% else %}steam{% endif %}">
+      <div class="wf-sh__copy">
+        <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+        {%- if kind == 'infrared' -%}
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.ir_heading }}</h2>
+          <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.ir_lede }}</p>
+        {%- else -%}
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.trad_heading }}</h2>
+          <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.trad_lede }}</p>
+        {%- endif -%}
+
+        <ul class="wf-sh__points" role="list" data-wf-reveal style="--wf-delay: .24s">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.kind != kind -%}{%- continue -%}{%- endif -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="wf-sh__key wf-sh__key--{{ block.settings.key }}" aria-hidden="true"></span>
+              <div>
+                <h3 class="wf-h3">{{ block.settings.title }}</h3>
+                <p class="wf-body">{{ block.settings.text }}</p>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if dims != blank and section.settings.show_size_card -%}
+          <wf-sizecard class="wf-sh__size" data-current="{{ variant.title | escape }}" data-wf-reveal style="--wf-delay: .3s">
+            <p class="wf-sh__size-label">{{ section.settings.size_label }} <strong data-size-name>{{ variant.title }}</strong></p>
+            <dl data-size-rows></dl>
+            <template data-size-source>{{ dims | metafield_tag }}</template>
+          </wf-sizecard>
+        {%- endif -%}
+      </div>
+
+      <div class="wf-sh__stage wf-sh__stage--{{ kind }}" data-wf-reveal style="--wf-delay: .1s">
+        {%- if kind == 'infrared' -%}
+          <svg viewBox="0 0 640 460" role="img" aria-label="{{ section.settings.ir_diagram_label | escape }}">
+            <defs>
+              <radialGradient id="wfShRuby-{{ section.id }}"><stop offset="0" stop-color="#e4573d" stop-opacity=".75"/><stop offset="1" stop-color="#e4573d" stop-opacity="0"/></radialGradient>
+            </defs>
+            <rect class="wf-sh__shell" x="110" y="52" width="420" height="368" rx="8"/>
+            <rect class="wf-sh__shell" x="98" y="36" width="444" height="18" rx="4"/>
+            <path class="wf-sh__floor" d="M60 420H580"/>
+
+            <g class="wf-sh__layer is-carbon">
+              <rect class="wf-sh__carbon" x="196" y="96" width="120" height="150" rx="4"/>
+              <rect class="wf-sh__carbon" x="324" y="96" width="120" height="150" rx="4"/>
+              <rect class="wf-sh__carbon" x="122" y="104" width="20" height="176" rx="3"/>
+              <rect class="wf-sh__carbon" x="498" y="104" width="20" height="176" rx="3"/>
+              <rect class="wf-sh__carbon" x="214" y="320" width="212" height="54" rx="4"/>
+              <path class="wf-sh__mesh" d="M196 126h120M196 156h120M196 186h120M196 216h120M324 126h120M324 156h120M324 186h120M324 216h120M214 338h212M214 356h212"/>
+              <g class="wf-sh__waves wf-sh__waves--carbon">
+                <path style="--t:0s" d="M160 160q16 32 0 64"/><path style="--t:.6s" d="M178 150q22 42 0 84"/>
+                <path style="--t:.3s" d="M480 160q-16 32 0 64"/><path style="--t:.9s" d="M462 150q-22 42 0 84"/>
+                <path style="--t:.2s" d="M262 302q58 -16 116 0"/><path style="--t:.8s" d="M250 290q70 -22 140 0"/>
+              </g>
+            </g>
+
+            <g class="wf-sh__layer is-ruby">
+              <ellipse cx="320" cy="78" rx="150" ry="22" fill="url(#wfShRuby-{{ section.id }})"/>
+              <ellipse cx="156" cy="190" rx="20" ry="90" fill="url(#wfShRuby-{{ section.id }})"/>
+              <ellipse cx="484" cy="190" rx="20" ry="90" fill="url(#wfShRuby-{{ section.id }})"/>
+              <rect class="wf-sh__ruby" x="200" y="74" width="240" height="8" rx="4"/>
+              <rect class="wf-sh__ruby" x="152" y="112" width="8" height="160" rx="4"/>
+              <rect class="wf-sh__ruby" x="480" y="112" width="8" height="160" rx="4"/>
+            </g>
+
+            <rect class="wf-sh__bench" x="150" y="282" width="340" height="14" rx="3"/>
+            <rect class="wf-sh__skirt" x="150" y="296" width="340" height="124"/>
+            <g class="wf-sh__person">
+              <circle cx="320" cy="164" r="24"/>
+              <path d="M286 204c0-12 68-12 68 0l6 78h-80Z"/>
+              <path d="M292 282h24v124h-24ZM324 282h24v124h-24Z"/>
+            </g>
+          </svg>
+          <wf-toggle class="wf-seg" data-attr="mode" role="group" aria-label="{{ section.settings.ir_toggle_label | escape }}">
+            <button type="button" data-value="all" aria-pressed="true">{{ section.settings.ir_all_label }}</button>
+            <button type="button" data-value="carbon" aria-pressed="false">{{ section.settings.ir_carbon_label }}</button>
+            <button type="button" data-value="ruby" aria-pressed="false">{{ section.settings.ir_ruby_label }}</button>
+          </wf-toggle>
+        {%- else -%}
+          <svg viewBox="0 0 640 460" role="img" aria-label="{{ section.settings.trad_diagram_label | escape }}">
+            {%- if shape == 'barrel' -%}
+              <clipPath id="wfShCab-{{ section.id }}"><path d="M60 0H580V420H60Z"/></clipPath>
+              <circle class="wf-sh__shell" cx="320" cy="236" r="194" clip-path="url(#wfShCab-{{ section.id }})"/>
+              <circle class="wf-sh__shell wf-sh__shell--inner" cx="320" cy="236" r="176" clip-path="url(#wfShCab-{{ section.id }})"/>
+            {%- else -%}
+              <rect class="wf-sh__shell" x="116" y="60" width="408" height="360" rx="6"/>
+              <rect class="wf-sh__shell" x="100" y="40" width="440" height="22" rx="4"/>
+            {%- endif -%}
+            <path class="wf-sh__floor" d="M60 420H580"/>
+
+            <g class="wf-sh__layer is-heat">
+              <path class="wf-sh__air" d="M320 262V120c0-30-40-44-90-40-46 4-70 40-70 92v96"/>
+              <path class="wf-sh__air" d="M320 262V120c0-30 40-44 90-40 46 4 70 40 70 92v96"/>
+              <path class="wf-sh__air-head" d="M152 258l8 12 8-12M472 258l8 12 8-12"/>
+            </g>
+
+            <rect class="wf-sh__bench" x="150" y="300" width="108" height="14" rx="3"/>
+            <rect class="wf-sh__bench" x="382" y="300" width="108" height="14" rx="3"/>
+            <path class="wf-sh__skirt-line" d="M160 314v106M248 314v106M392 314v106M480 314v106"/>
+            <g class="wf-sh__person">
+              <circle cx="204" cy="222" r="18"/><path d="M180 252c0-10 48-10 48 0l4 48h-56Z"/>
+              <circle cx="436" cy="222" r="18"/><path d="M412 252c0-10 48-10 48 0l4 48h-56Z"/>
+            </g>
+
+            <rect class="wf-sh__stove" x="288" y="304" width="64" height="116" rx="4"/>
+            <path class="wf-sh__stove-line" d="M296 330h48M296 342h48"/>
+            <rect class="wf-sh__cage" x="282" y="270" width="76" height="36" rx="3"/>
+            <g class="wf-sh__stones">
+              <circle cx="296" cy="282" r="8"/><circle cx="312" cy="278" r="9"/><circle cx="330" cy="281" r="8"/><circle cx="345" cy="279" r="7"/>
+              <circle cx="304" cy="295" r="8"/><circle cx="322" cy="294" r="9"/><circle cx="340" cy="295" r="8"/>
+            </g>
+
+            <g class="wf-sh__layer is-steam">
+              <circle class="wf-sh__drop" cx="320" cy="210" r="5"/>
+              <g class="wf-sh__steam">
+                <path style="--t:0s" d="M302 262c-14-22 14-40 0-62s14-40 0-62"/>
+                <path style="--t:.7s" d="M320 262c-14-22 14-40 0-62s14-40 0-62s14-40 0-62"/>
+                <path style="--t:1.4s" d="M338 262c-14-22 14-40 0-62s14-40 0-62"/>
+              </g>
+            </g>
+          </svg>
+          <wf-toggle class="wf-seg" data-attr="mode" role="group" aria-label="{{ section.settings.trad_toggle_label | escape }}">
+            <button type="button" data-value="steam" aria-pressed="true">{{ section.settings.trad_steam_label }}</button>
+            <button type="button" data-value="heat" aria-pressed="false">{{ section.settings.trad_heat_label }}</button>
+          </wf-toggle>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 sauna heat",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "How it heats" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it heats" },
+    { "type": "header", "content": "Infrared saunas" },
+    { "type": "text", "id": "ir_heading", "label": "Heading", "default": "Warmth that finds you." },
+    { "type": "textarea", "id": "ir_lede", "label": "Intro", "default": "Carbon panels at your back, sides and calves, with ruby heaters alongside. It feels like sitting in low sun." },
+    { "type": "text", "id": "ir_toggle_label", "label": "Toggle label (screen readers)", "default": "Show heaters" },
+    { "type": "text", "id": "ir_all_label", "label": "Toggle: both", "default": "Both" },
+    { "type": "text", "id": "ir_carbon_label", "label": "Toggle: carbon", "default": "Carbon" },
+    { "type": "text", "id": "ir_ruby_label", "label": "Toggle: ruby", "default": "Ruby" },
+    { "type": "text", "id": "ir_diagram_label", "label": "Diagram description", "default": "An infrared sauna seen from the front, with carbon panels behind, beside and below the bather and ruby heaters along the top and sides" },
+    { "type": "header", "content": "Traditional saunas" },
+    { "type": "text", "id": "trad_heading", "label": "Heading", "default": "Pour, wait, breathe out." },
+    { "type": "textarea", "id": "trad_lede", "label": "Intro", "default": "An electric stove heats the stones. A ladle of water on top sends steam rolling through the cabin." },
+    { "type": "text", "id": "trad_toggle_label", "label": "Toggle label (screen readers)", "default": "Show heat or steam" },
+    { "type": "text", "id": "trad_steam_label", "label": "Toggle: steam", "default": "Steam" },
+    { "type": "text", "id": "trad_heat_label", "label": "Toggle: heat", "default": "Dry heat" },
+    { "type": "text", "id": "trad_diagram_label", "label": "Diagram description", "default": "An outdoor sauna seen from the front, with benches either side of an electric stove topped with stones, and steam rising from the stones" },
+    { "type": "header", "content": "Size card" },
+    { "type": "checkbox", "id": "show_size_card", "label": "Show the size card", "info": "Reads the Dimensions metafield and follows the chosen size.", "default": true },
+    { "type": "text", "id": "size_label", "label": "Size card label", "default": "Your size:" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "kind",
+          "label": "Shows on",
+          "options": [
+            { "value": "infrared", "label": "Infrared saunas" },
+            { "value": "traditional", "label": "Stove saunas" }
+          ],
+          "default": "infrared"
+        },
+        {
+          "type": "select",
+          "id": "key",
+          "label": "Colour key",
+          "options": [
+            { "value": "carbon", "label": "Carbon (amber)" },
+            { "value": "ruby", "label": "Ruby (red)" },
+            { "value": "stove", "label": "Stove (amber)" },
+            { "value": "steam", "label": "Steam (white)" },
+            { "value": "none", "label": "Plain" }
+          ],
+          "default": "none"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Point" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "What it does." }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "FY27 sauna heat",
+      "blocks": [
+        { "type": "point", "settings": { "kind": "infrared", "key": "carbon", "title": "Carbon panels", "text": "Behind you, beside you and at your calves, so the warmth is even." } },
+        { "type": "point", "settings": { "kind": "infrared", "key": "ruby", "title": "Ruby heaters", "text": "They sit alongside the carbon and bring the cabin up to heat." } },
+        { "type": "point", "settings": { "kind": "infrared", "key": "none", "title": "Your settings", "text": "Set it on the digital panel or over Wi-Fi. Bluetooth plays your music." } },
+        { "type": "point", "settings": { "kind": "traditional", "key": "stove", "title": "The stove", "text": "A Harvia Vega, sold separately. Your size shows the output we recommend." } },
+        { "type": "point", "settings": { "kind": "traditional", "key": "steam", "title": "The stones", "text": "Lava stones hold the heat, ready for the next ladle." } },
+        { "type": "point", "settings": { "kind": "traditional", "key": "none", "title": "In the box", "text": "Bucket, ladle, sand timer and thermometer." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

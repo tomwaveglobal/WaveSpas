@@ -978,3 +978,109 @@ wf-model.is-ready .wf-model__hint { opacity: 1; }
 
 /* Scroll spy (core section) — centre the tabs on this template ---------- */
 .scrollspy-section .scrollspy-list { justify-content: center; }
+
+/* ==========================================================================
+   Sauna — how it heats (sections/wave-fy27-sauna-heat.liquid)
+   Diagram keys: carbon = amber (--wf-hot), ruby = red (--wf-hot-red), steam = ghost white.
+   ========================================================================== */
+.wf-sh {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+@media (max-width: 989px) { .wf-sh { grid-template-columns: 1fr; } }
+.wf-sh__points { margin: 32px 0 0; padding: 0; list-style: none; }
+.wf-sh__points li { display: flex; gap: 14px; padding: 18px 0; border-top: 1px solid var(--wf-line); }
+.wf-sh__points li:last-child { border-bottom: 1px solid var(--wf-line); }
+.wf-sh__points .wf-body { margin-top: 6px; }
+.wf-sh__key { flex: none; width: 12px; height: 12px; margin-top: 6px; border-radius: 3px; background: var(--wf-line); }
+.wf-sh__key--carbon,
+.wf-sh__key--stove { background: var(--wf-hot); }
+.wf-sh__key--ruby { background: var(--wf-hot-red); }
+.wf-sh__key--steam { background: #fff; box-shadow: inset 0 0 0 1.5px var(--wf-ghost-grey); }
+.wf-sh__key--none { background: #000; }
+
+.wf-sh__size {
+  display: block;
+  margin-top: 28px;
+  padding: 20px 22px;
+  border-radius: var(--wf-radius-card);
+  background: var(--wf-soft);
+}
+.wf-sh__size[hidden] { display: none; }
+.wf-sh__size-label { margin: 0 0 12px; font-size: 14px; color: var(--wf-muted); }
+.wf-sh__size-label strong { color: var(--wf-ink); font-weight: 600; }
+.wf-sh__size dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 18px; margin: 0; font-size: 15px; line-height: 1.45; }
+.wf-sh__size dt { color: var(--wf-muted); }
+.wf-sh__size dd { margin: 0; color: var(--wf-ink); font-weight: 500; }
+@media (max-width: 549px) {
+  .wf-sh__size dl { grid-template-columns: 1fr; gap: 2px; }
+  .wf-sh__size dd + dt { margin-top: 10px; }
+}
+
+.wf-sh__stage {
+  position: relative;
+  padding-bottom: 72px;
+  border-radius: var(--wf-radius);
+  background: #0b0b0c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.wf-sh__stage svg { display: block; width: 100%; height: auto; }
+.wf-sh__stage .wf-seg { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); white-space: nowrap; color: #fff; background: rgba(255, 255, 255, 0.12); }
+.wf-sh__stage .wf-seg button[aria-pressed='true'] { color: #000; background: #fff; }
+
+.wf-sh__shell { fill: var(--wf-ghost-white); fill-opacity: 0.03; stroke: var(--wf-ghost); stroke-opacity: 0.32; stroke-width: 1.5; }
+.wf-sh__shell--inner { fill: none; stroke-opacity: 0.14; }
+.wf-sh__floor,
+.wf-sh__skirt-line,
+.wf-sh__stove-line,
+.wf-sh__mesh { fill: none; stroke: var(--wf-ghost); stroke-opacity: 0.22; stroke-width: 1.5; stroke-linecap: round; }
+.wf-sh__mesh { stroke: #000; stroke-opacity: 0.25; stroke-width: 1; }
+.wf-sh__bench { fill: var(--wf-ghost); fill-opacity: 0.22; }
+.wf-sh__skirt { fill: var(--wf-ghost); fill-opacity: 0.05; }
+.wf-sh__person { fill: #141416; stroke: var(--wf-ghost); stroke-opacity: 0.55; stroke-width: 1.5; stroke-linejoin: round; }
+.wf-sh__carbon { fill: var(--wf-hot); fill-opacity: 0.85; }
+.wf-sh__ruby { fill: var(--wf-hot-red); }
+.wf-sh__waves { fill: none; stroke: var(--wf-hot); stroke-width: 2; stroke-linecap: round; }
+.wf-sh__waves path { opacity: 0; animation: wf-pulse 2.4s var(--wf-ease) infinite; animation-delay: var(--t, 0s); }
+@keyframes wf-pulse { 0% { opacity: 0; } 30% { opacity: 0.9; } 100% { opacity: 0; } }
+
+.wf-sh__stove { fill: #26262a; stroke: var(--wf-ghost); stroke-opacity: 0.4; stroke-width: 1.5; }
+.wf-sh__cage { fill: none; stroke: var(--wf-ghost); stroke-opacity: 0.5; stroke-width: 1.5; }
+.wf-sh__stones circle { fill: var(--wf-ghost-grey); stroke: #0b0b0c; stroke-width: 1.5; }
+.wf-sh__stage--traditional .wf-sh__stones circle { animation: wf-glow 3.2s ease-in-out infinite alternate; }
+@keyframes wf-glow { from { fill: var(--wf-ghost-grey); } to { fill: #c2703a; } }
+.wf-sh__air { fill: none; stroke: var(--wf-hot); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 6 10; animation: wf-flow 1.6s linear infinite; }
+.wf-sh__air-head { fill: none; stroke: var(--wf-hot); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes wf-flow { to { stroke-dashoffset: -32; } }
+.wf-sh__steam { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; }
+.wf-sh__steam path { opacity: 0; animation: wf-steam 3.6s ease-out infinite; animation-delay: var(--t, 0s); }
+@keyframes wf-steam {
+  0% { opacity: 0; transform: translateY(20px); }
+  25% { opacity: 0.55; }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+.wf-sh__drop { fill: #a8d4f0; animation: wf-drop 3.6s ease-in infinite; }
+@keyframes wf-drop { 0% { opacity: 0; transform: translateY(-30px); } 15% { opacity: 1; } 30% { opacity: 1; transform: translateY(60px); } 31%, 100% { opacity: 0; transform: translateY(60px); } }
+
+.wf-sh__layer { transition: opacity 0.7s var(--wf-ease); }
+.wf-sh[data-mode='carbon'] .wf-sh__layer.is-ruby,
+.wf-sh[data-mode='ruby'] .wf-sh__layer.is-carbon,
+.wf-sh[data-mode='steam'] .wf-sh__layer.is-heat,
+.wf-sh[data-mode='heat'] .wf-sh__layer.is-steam { opacity: 0.12; }
+
+/* ==========================================================================
+   Sauna — setup photo and range cards
+   ========================================================================== */
+.wf-su--sauna { align-items: start; gap: clamp(32px, 5vw, 80px); }
+.wf-su__photo { border-radius: var(--wf-radius); overflow: hidden; aspect-ratio: 4 / 5; background: #e9e9ea; }
+.wf-su__photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 989px) { .wf-su__photo { aspect-ratio: 4 / 3; } }
+
+.wf-tiers--sauna .wf-tier__kind { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--wf-accent-ink); }
+.wf-tiers--sauna .wf-tier.is-current { box-shadow: inset 0 0 0 2px #000; }
+.wf-tiers--sauna .wf-tier__flag { color: #fff; background: #000; }
+.wf-tier__sizes { margin: 16px 0 0; font-size: 15px; }
+.wf-tier__sizes span { color: var(--wf-muted); }

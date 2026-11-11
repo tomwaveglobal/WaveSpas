@@ -16,8 +16,11 @@
       </div>
 
       <div class="wf-qa__list" data-wf-reveal style="--wf-delay: .1s">
+        {%- assign shown = 0 -%}
         {%- for block in section.blocks -%}
-          <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <details {{ block.shopify_attributes }}{% if shown == 1 and section.settings.open_first %} open{% endif %}>
             <summary><span class="wf-h3">{{ block.settings.question }}</span><i aria-hidden="true"></i></summary>
             <div class="wf-qa__a">
               {%- if block.settings.topic != blank -%}<span class="wf-qa__tag">{{ block.settings.topic }}</span>{%- endif -%}
@@ -31,21 +34,26 @@
 </wf-section>
 
 {%- if section.settings.faq_schema and section.blocks.size > 0 -%}
+  {%- capture faq_items -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+      {
+        "@type": "Question",
+        "name": {{ block.settings.question | strip_html | json }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+      },
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign faq_items = faq_items | strip -%}
+  {%- if faq_items != blank -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [
-        {%- for block in section.blocks -%}
-          {
-            "@type": "Question",
-            "name": {{ block.settings.question | strip_html | json }},
-            "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
-          }{% unless forloop.last %},{% endunless %}
-        {%- endfor -%}
-      ]
+      "mainEntity": [{{ faq_items | remove_last: ',' }}]
     }
   </script>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -69,7 +77,8 @@
       "settings": [
         { "type": "text", "id": "topic", "label": "Topic", "info": "Optional small label, e.g. Running costs." },
         { "type": "text", "id": "question", "label": "Question", "default": "Question" },
-        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" }
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" },
+        { "type": "text", "id": "only_tag", "label": "Only on products tagged", "info": "Optional. Leave blank to show on every product, e.g. Outdoor Sauna." }
       ]
     }
   ],

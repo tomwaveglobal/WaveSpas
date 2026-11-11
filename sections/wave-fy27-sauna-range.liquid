@@ -1,0 +1,104 @@
+{%- comment -%}
+  FY27 sauna — the range. One card per sauna, parallel construction (same shape, four lines each).
+  The card for the product being viewed is flagged and its button returns to the buy box.
+  Sizes come from the product's first option. No prices here: price lives in the buy box.
+{%- endcomment -%}
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+<wf-section class="wf wf--soft" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
+  <div class="wf__inner">
+    <div class="wf-head wf-head--center">
+      <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
+      <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+    </div>
+
+    <div class="wf-tiers wf-tiers--sauna">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign p = block.settings.product
+          if p == blank
+            continue
+          endif
+          assign is_current = false
+          if p.id == product.id
+            assign is_current = true
+          endif
+          assign img = block.settings.image | default: p.featured_image
+          assign name = block.settings.name | default: p.title
+          assign features = block.settings.features | newline_to_br | split: '<br />'
+          assign sizes = p.options_with_values.first.values | join: ' · '
+        -%}
+        <article class="wf-tier{% if is_current %} is-current{% endif %}" data-wf-reveal style="--wf-delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+          {%- if is_current -%}<span class="wf-tier__flag">{{ section.settings.current_label }}</span>{%- endif -%}
+          {%- if img != blank -%}
+            <div class="wf-tier__img">{{ img | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 400px, 80vw', widths: '450, 700, 900', alt: name }}</div>
+          {%- endif -%}
+          <p class="wf-tier__kind">{{ block.settings.kind_label }}</p>
+          <h3 class="wf-h2">{{ name }}</h3>
+          <p class="wf-tier__sig">{{ block.settings.signature }}</p>
+          <p class="wf-body">{{ block.settings.for }}</p>
+          <ul role="list">
+            {%- for f in features -%}
+              {%- assign f = f | strip -%}
+              {%- if f != blank -%}
+                <li>{%- render 'wave-fy27-glyph', name: 'check' -%}<span>{{ f }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- if sizes != blank -%}
+            <p class="wf-tier__sizes"><span>{{ section.settings.sizes_label }}</span> {{ sizes }}</p>
+          {%- endif -%}
+          {%- if is_current -%}
+            <wf-buy><button type="button" class="button button--primary" is="hover-button"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.current_button }}</span></button></wf-buy>
+          {%- else -%}
+            <a class="button button--secondary" href="{{ p.url }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_prefix }} {{ name }}</span></a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</wf-section>
+
+{% schema %}
+{
+  "name": "FY27 sauna range",
+  "settings": [
+    { "type": "text", "id": "nav_label", "label": "Nav label", "default": "The range" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The sauna range" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three ways to warm up." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat." },
+    { "type": "text", "id": "current_label", "label": "Current sauna flag", "default": "You're viewing" },
+    { "type": "text", "id": "current_button", "label": "Current sauna button", "default": "Choose your size" },
+    { "type": "text", "id": "button_prefix", "label": "Other sauna button prefix", "default": "Explore the" },
+    { "type": "text", "id": "sizes_label", "label": "Sizes label", "default": "Sizes" }
+  ],
+  "blocks": [
+    {
+      "type": "sauna",
+      "name": "Sauna",
+      "limit": 4,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "name", "label": "Name", "info": "Defaults to the product title." },
+        { "type": "text", "id": "kind_label", "label": "Kind", "default": "Outdoor" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Defaults to the product's first image." },
+        { "type": "text", "id": "signature", "label": "Signature line", "default": "Heat, your way." },
+        { "type": "text", "id": "for", "label": "Who it's for", "default": "For evenings that need warming up." },
+        { "type": "textarea", "id": "features", "label": "Features", "info": "One per line. Keep the same number on every card.", "default": "Feature one\nFeature two\nFeature three\nFeature four" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "FY27 sauna range",
+      "blocks": [
+        { "type": "sauna", "settings": { "name": "Indoor Infrared", "kind_label": "Indoor", "signature": "Heat indoors.", "for": "For a spare corner of the house.", "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in" } },
+        { "type": "sauna", "settings": { "name": "Barrel", "kind_label": "Outdoor", "signature": "Face to face.", "for": "For the bottom of the garden, and company.", "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other" } },
+        { "type": "sauna", "settings": { "name": "Cube", "kind_label": "Outdoor", "signature": "Square to the fence.", "for": "For lining up with the garden you have.", "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
