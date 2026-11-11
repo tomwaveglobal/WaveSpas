@@ -178,8 +178,11 @@
         })
       );
       const range = this.querySelector('input[type="range"]');
+      const fill = () => range && range.style.setProperty('--pct', `${((range.value - range.min) / (range.max - range.min)) * 100}%`);
+      fill();
       range?.addEventListener('input', () => {
         this.rate = parseFloat(range.value) / 100;
+        fill();
         this.render();
       });
       this.querySelector('[data-add-es]')?.addEventListener('click', () => this.chooseEnergySave());
