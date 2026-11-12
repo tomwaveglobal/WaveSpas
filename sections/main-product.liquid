@@ -1117,7 +1117,7 @@
 
             <div class="grid gap-2">
               <div class="grid gap-1">
-                <p class="text-base font-medium leading-tight">{{ product.title }}</p>
+                <p class="text-base font-medium leading-tight">{{ product.metafields.product_card_overwrite.title.value | default: product.title }}</p>
                 {%- unless product.has_only_default_variant -%}
                   <div class="text-xs leading-tight" data-sticky-product-options>
                     {{- product.selected_or_first_available_variant.title -}}
