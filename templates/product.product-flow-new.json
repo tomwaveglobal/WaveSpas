@@ -668,8 +668,16 @@
             "target_id": "collage"
           }
         },
+        "nav_item_running_costs": {
+          "type": "nav_item",
+          "settings": {
+            "title": "Running Costs",
+            "target_id": "wave_fy27_running_cost_AG9ek3"
+          }
+        },
         "nav_item_setup": {
           "type": "nav_item",
+          "disabled": true,
           "settings": {
             "title": "Setup",
             "target_id": "wave_fy27_setup_KmyXeR"
@@ -700,8 +708,9 @@
       "block_order": [
         "back_to_top_jnb8cL",
         "nav_item_pM68Hf",
-        "nav_item_whatfits",
         "nav_item_yXJLBm",
+        "nav_item_running_costs",
+        "nav_item_whatfits",
         "nav_item_setup",
         "nav_item_QUgAC3",
         "nav_item_qVtYUr",

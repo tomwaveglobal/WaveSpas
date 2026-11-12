@@ -8432,6 +8432,13 @@ class ScrollSpy extends HTMLElement {
 
   connectedCallback() {
     this.scrollspyLinks.forEach(link => {
+      // Hide links whose sections aren't on the page (e.g. a section switched off in the editor)
+      const targetIds = link.hasAttribute('data-target') ? link.getAttribute('data-target').split(',').filter(Boolean) : [];
+      if (targetIds.length && !targetIds.some((id) => document.getElementById(id))) {
+        const item = link.closest('.scrollspy-item');
+        if (item) item.hidden = true;
+        return;
+      }
       link.addEventListener('click', this.handleScrollspyLinkClick.bind(this));
     });
     
@@ -8453,7 +8460,8 @@ class ScrollSpy extends HTMLElement {
     const section = document.getElementById(targetIds[0]);
     
     if (section) {
-      const sectionTop = window.scrollY + section.getBoundingClientRect().top - this.headerHeight;
+      // Land below the sticky header AND this sticky nav bar, so the section's title isn't hidden under them.
+      const sectionTop = window.scrollY + section.getBoundingClientRect().top - this.headerHeight - this.offsetHeight;
       window.scrollTo({
         top: sectionTop,
         behavior: theme.config.motionReduced ? 'auto' : 'smooth'
@@ -8490,6 +8498,21 @@ class ScrollSpy extends HTMLElement {
       });
     });
     
+
+    // Short sections (e.g. Reviews) can sit entirely above or below the line; if nothing crosses it, use the
+    // last linked section that's on screen with its top in the upper 60% of the viewport.
+    if (!current) {
+      this.scrollspyLinks.forEach(link => {
+        if (link.closest('.scrollspy-item')?.hidden) return;
+        const targetIds = link.hasAttribute('data-target') ? link.getAttribute('data-target').split(',').filter(Boolean) : [];
+        const els = targetIds.map((id) => document.getElementById(id)).filter(Boolean);
+        if (!els.length) return;
+        const top = els[0].getBoundingClientRect().top;
+        const bottom = els[els.length - 1].getBoundingClientRect().bottom;
+        if (top < window.innerHeight * 0.6 && bottom > this.getBoundingClientRect().bottom) current = targetIds[0];
+      });
+    }
+
     this.scrollspyLinks.forEach(link => {
       const targetIds = link.hasAttribute('data-target') ? link.getAttribute('data-target').split(',') : [];
       let active = false;
