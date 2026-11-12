@@ -247,10 +247,10 @@
             "help_page_external": false
           }
         },
-        "liquid_wave_finance": {
-          "type": "liquid",
+        "wave_finance": {
+          "type": "wave_finance",
           "settings": {
-            "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
+            "markets": "gb"
           }
         },
         "liquid_wave_reviews": {
@@ -341,7 +341,7 @@
         "buy_buttons_nBMjqf",
         "contona_button_design",
         "share",
-        "liquid_wave_finance",
+        "wave_finance",
         "liquid_wave_reviews",
         "text_7jAC96",
         "product_bundle_tWCDMV",

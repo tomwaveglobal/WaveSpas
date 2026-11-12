@@ -740,6 +740,20 @@
                 show_price: block.settings.show_price,
               -%}
 
+            {%- when 'wave_finance' -%}
+              {%- liquid
+                assign finance_markets = block.settings.markets | downcase | remove: ' ' | split: ','
+                assign show_finance = true
+                if block.settings.markets != blank
+                  unless finance_markets contains localization.market.handle
+                    assign show_finance = false
+                  endunless
+                endif
+                if show_finance
+                  render 'wave-finance-options', product: product, block: block
+                endif
+              -%}
+
             {%- when 'liquid' -%}
               {%- if block.settings.liquid != blank -%}
                 <div class="rte" {{ block.shopify_attributes }}>
@@ -3286,6 +3300,216 @@
           "id": "help_page_external",
           "label": "t:sections.global.settings.button_external.label",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "wave_finance",
+      "name": "Wave: Finance options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "The \"Spread the cost\" finance panel. Every word, logo, link and rate below is editable. Monthly amounts are worked out from the variant price."
+        },
+        {
+          "type": "text",
+          "id": "markets",
+          "label": "Show in markets",
+          "default": "gb",
+          "info": "Market handles, separated by commas (e.g. gb). Leave blank to show in every market."
+        },
+        {
+          "type": "header",
+          "content": "Closed panel"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Spread the cost"
+        },
+        {
+          "type": "text",
+          "id": "from_text",
+          "label": "Before the amount",
+          "default": "From"
+        },
+        {
+          "type": "text",
+          "id": "per_month_short",
+          "label": "After the amount",
+          "default": "/month"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Over 24 months with Payl8r. Or pay in 3."
+        },
+        {
+          "type": "text",
+          "id": "show_label",
+          "label": "Open link",
+          "default": "See all payment options"
+        },
+        {
+          "type": "text",
+          "id": "hide_label",
+          "label": "Close link",
+          "default": "Hide payment options"
+        },
+        {
+          "type": "header",
+          "content": "Logos"
+        },
+        {
+          "type": "paragraph",
+          "content": "Shown on the right in two rows: Klarna and PayPal on top, Payl8r and DivideBuy underneath. Leave a logo empty to use the standard one."
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_1",
+          "label": "Klarna logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_2",
+          "label": "PayPal logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_3",
+          "label": "Payl8r logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_4",
+          "label": "DivideBuy logo"
+        },
+        {
+          "type": "header",
+          "content": "Calculator"
+        },
+        {
+          "type": "text",
+          "id": "calc_label",
+          "label": "Label",
+          "default": "Pay over"
+        },
+        {
+          "type": "text",
+          "id": "calc_months",
+          "label": "Months word",
+          "default": "months"
+        },
+        {
+          "type": "text",
+          "id": "calc_payments",
+          "label": "Payments word (3-payment step)",
+          "default": "payments"
+        },
+        {
+          "type": "text",
+          "id": "per_month",
+          "label": "Per month wording",
+          "default": "a month"
+        },
+        {
+          "type": "text",
+          "id": "calc_note",
+          "label": "Note",
+          "default": "Sample amounts. Your rate and payments are confirmed when you apply."
+        },
+        {
+          "type": "text",
+          "id": "klarna_meta",
+          "label": "Klarna line (3-payment step)",
+          "default": "Klarna · 3 interest-free payments"
+        },
+        {
+          "type": "text",
+          "id": "dividebuy_meta",
+          "label": "DivideBuy line (12-month step)",
+          "default": "DivideBuy · 0% interest, subject to status"
+        },
+        {
+          "type": "text",
+          "id": "payl8r_meta",
+          "label": "Payl8r line (other steps)",
+          "default": "Payl8r · from 0.8% a month, subject to status"
+        },
+        {
+          "type": "header",
+          "content": "Details links"
+        },
+        {
+          "type": "text",
+          "id": "details_label",
+          "label": "Link wording",
+          "default": "Details",
+          "info": "Shown after the provider line under the calculator."
+        },
+        {
+          "type": "text",
+          "id": "plan1_url",
+          "label": "Klarna details page",
+          "default": "/pages/klarna"
+        },
+        {
+          "type": "text",
+          "id": "plan2_url",
+          "label": "DivideBuy details page",
+          "default": "/pages/dividebuy"
+        },
+        {
+          "type": "text",
+          "id": "plan3_url",
+          "label": "Payl8r details page",
+          "default": "/pages/payl8r"
+        },
+        {
+          "type": "header",
+          "content": "Rates"
+        },
+        {
+          "type": "range",
+          "id": "payl8r_rate",
+          "label": "Payl8r lowest monthly rate",
+          "min": 0.1,
+          "max": 5,
+          "step": 0.1,
+          "unit": "%",
+          "default": 0.8,
+          "info": "Used for the 'From £…/month' figures. Update the Payl8r wording and legal text to match."
+        },
+        {
+          "type": "number",
+          "id": "dividebuy_min",
+          "label": "DivideBuy minimum price (£)",
+          "default": 50
+        },
+        {
+          "type": "number",
+          "id": "dividebuy_max",
+          "label": "DivideBuy maximum price (£)",
+          "default": 6000
+        },
+        {
+          "type": "header",
+          "content": "Legal"
+        },
+        {
+          "type": "textarea",
+          "id": "legal_1",
+          "label": "Legal text 1",
+          "default": "Choose your plan at checkout. 18+, UK residents only, subject to status. T&Cs apply."
+        },
+        {
+          "type": "textarea",
+          "id": "legal_2",
+          "label": "Legal text 2 (representative example)",
+          "default": "Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04."
         }
       ]
     },

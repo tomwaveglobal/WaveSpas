@@ -7,106 +7,205 @@
   Payl8r is interest-bearing beyond 30 days (flat rate from 0.8% a month, subject to status), so it carries a
   representative example. Terms from wavespas.com/pages/payl8r, checked 2 Oct 2026.
   The months slider shows sample amounts only: 3 = Klarna, 12 = DivideBuy when eligible, every other step = Payl8r.
+  Its provider line links to that provider's details page (the separate plans list was dropped, 12 Nov 2026).
+
+  Every word, logo, link and rate comes from the "Wave: Finance options" block on main-product (theme editor).
+  Rendered without a block (the older templates' custom-liquid blocks), it falls back to the values below,
+  which are also the block's defaults.
+
+  Look: like Product Highlights (white box, light grey border, title in the border, grey inner tile); black and grey only. Logos sit on the
+  right in two rows: Klarna and PayPal, then Payl8r and DivideBuy (assets/wave-pay-*.png, or the block's logos).
 
   @param {object} product - Product being viewed
+  @param {object} [block] - The wave_finance block whose settings hold the text, logos, links and rates
 {%- enddoc -%}
 {{ 'wave-pdp.css' | asset_url | stylesheet_tag }}
 {%- liquid
+  assign s = block.settings
+
+  assign t_title = s.title | default: 'Spread the cost'
+  assign t_from = s.from_text | default: 'From'
+  assign t_per = s.per_month_short | default: '/month'
+  assign t_sub = s.subheading | default: 'Over 24 months with Payl8r. Or pay in 3.'
+  assign t_show = s.show_label | default: 'See all payment options'
+  assign t_hide = s.hide_label | default: 'Hide payment options'
+  assign t_month = s.per_month | default: 'a month'
+  assign t_calc_label = s.calc_label | default: 'Pay over'
+  assign t_calc_months = s.calc_months | default: 'months'
+  assign t_calc_payments = s.calc_payments | default: 'payments'
+  assign t_calc_note = s.calc_note | default: 'Sample amounts. Your rate and payments are confirmed when you apply.'
+  assign t_meta_klarna = s.klarna_meta | default: 'Klarna · 3 interest-free payments'
+  assign t_meta_dividebuy = s.dividebuy_meta | default: 'DivideBuy · 0% interest, subject to status'
+  assign t_meta_payl8r = s.payl8r_meta | default: 'Payl8r · from 0.8% a month, subject to status'
+  assign t_details = s.details_label | default: 'Details'
+  assign url_klarna = s.plan1_url | default: '/pages/klarna'
+  assign url_dividebuy = s.plan2_url | default: '/pages/dividebuy'
+  assign url_payl8r = s.plan3_url | default: '/pages/payl8r'
+  assign t_legal1 = s.legal_1 | default: 'Choose your plan at checkout. 18+, UK residents only, subject to status. T&amp;Cs apply.'
+  assign t_legal2 = s.legal_2 | default: 'Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04.'
+
+  assign payl8r_rate = s.payl8r_rate | default: 0.8
+  assign dividebuy_min = s.dividebuy_min | default: 50 | times: 100
+  assign dividebuy_max = s.dividebuy_max | default: 6000 | times: 100
+
+  comment
+    Logos: block image if set, else the theme asset (assets/wave-pay-*.png). Top row Klarna + PayPal,
+    second row Payl8r + DivideBuy.
+  endcomment
+  assign logo_srcs = ''
+  for n in (1..4)
+    assign key = 'logo_' | append: n
+    case n
+      when 1
+        assign fallback = 'wave-pay-klarna.png'
+        assign alt = 'Klarna'
+      when 2
+        assign fallback = 'wave-pay-paypal.png'
+        assign alt = 'PayPal'
+      when 3
+        assign fallback = 'wave-pay-payl8r.png'
+        assign alt = 'Payl8r'
+      when 4
+        assign fallback = 'wave-pay-dividebuy.png'
+        assign alt = 'DivideBuy'
+    endcase
+    if s[key] != blank
+      assign src = s[key] | image_url: height: 64
+    else
+      assign src = fallback | asset_url
+    endif
+    assign logo_srcs = logo_srcs | append: src | append: '|' | append: alt | append: '^'
+  endfor
+  assign logos = logo_srcs | split: '^'
+
   assign variant = product.selected_or_first_available_variant
   assign price = variant.price
-  assign dividebuy_min = 5000
-  assign dividebuy_max = 600000
-  assign dividebuy_ok = false
-  if price >= dividebuy_min and price <= dividebuy_max
-    assign dividebuy_ok = true
-  endif
-  assign pay3 = price | divided_by: 3 | money
-  assign pay12 = price | divided_by: 12 | money
   comment
-    Payl8r flat rate: monthly = price / 24 + price × 0.8%
+    Payl8r flat rate: monthly = price / 24 + price × rate% (rate a month, 0.8 by default)
   endcomment
-  assign dopple_interest = price | times: 8 | divided_by: 1000
+  assign dopple_interest = price | times: payl8r_rate | divided_by: 100 | floor
   assign dopple24 = price | divided_by: 24 | plus: dopple_interest | money
-  assign logo_klarna = images['Klarna_paypal.png']
-  assign logo_dividebuy = images['DivideBuy.png']
-  assign logo_payl8r = images['Payl8r.png']
 -%}
-<wave-finance class="wpdp wfin" data-price="{{ price }}" data-currency="{{ cart.currency.iso_code }}" data-db-min="{{ dividebuy_min }}" data-db-max="{{ dividebuy_max }}" data-variant-ids="{{ product.variants | map: 'id' | join: ',' }}">
+<wave-finance
+  class="wpdp wfin"
+  data-price="{{ price }}"
+  data-currency="{{ cart.currency.iso_code }}"
+  data-db-min="{{ dividebuy_min }}"
+  data-db-max="{{ dividebuy_max }}"
+  data-rate="{{ payl8r_rate }}"
+  data-variant-ids="{{ product.variants | map: 'id' | join: ',' }}"
+  data-t-months="{{ t_calc_months | escape }}"
+  data-t-payments="{{ t_calc_payments | escape }}"
+  data-t-klarna="{{ t_meta_klarna | escape }}"
+  data-t-dividebuy="{{ t_meta_dividebuy | escape }}"
+  data-t-payl8r="{{ t_meta_payl8r | escape }}"
+  data-url-klarna="{{ url_klarna | escape }}"
+  data-url-dividebuy="{{ url_dividebuy | escape }}"
+  data-url-payl8r="{{ url_payl8r | escape }}"
+  {{ block.shopify_attributes }}
+>
   <details class="wfin__panel">
     <summary class="wfin__summary">
-      <span class="wfin__eyebrow">Spread the cost</span>
-      <p class="wfin__headline">From <strong data-fin-dopple>{{ dopple24 }}</strong><span class="wfin__per">/month</span></p>
-      <p class="wfin__sub">Over 24 months with Payl8r. Or pay in 3.</p>
+      <span class="wfin__eyebrow">{{ t_title }}</span>
+      <p class="wfin__headline">{{ t_from }} <strong data-fin-dopple>{{ dopple24 }}</strong><span class="wfin__per">{{ t_per }}</span></p>
+      <p class="wfin__sub">{{ t_sub }}</p>
       <span class="wfin__logos" aria-hidden="true">
-        {%- if logo_klarna != blank -%}{{ logo_klarna | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-        {%- if logo_dividebuy != blank -%}{{ logo_dividebuy | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-        {%- if logo_payl8r != blank -%}{{ logo_payl8r | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
+        {%- for logo in logos -%}
+          {%- assign parts = logo | split: '|' -%}
+          {%- if forloop.index == 1 or forloop.index == 3 %}<span class="wfin__logo-row">{% endif -%}
+          <img src="{{ parts[0] }}" alt="" width="60" height="25" loading="lazy">
+          {%- if forloop.index == 2 or forloop.index == 4 or forloop.last %}</span>{% endif -%}
+        {%- endfor -%}
       </span>
-      <span class="wfin__toggle"><span class="wfin__show">See all payment options</span><span class="wfin__hide">Hide payment options</span><svg class="wfin__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="wfin__toggle"><span class="wfin__show">{{ t_show }}</span><span class="wfin__hide">{{ t_hide }}</span><svg class="wfin__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </summary>
 
     <div class="wfin__body">
       <div class="wfin__calc">
         <div class="wfin__calc-head">
-          <label class="wfin__calc-label" for="wfin-months-{{ product.id }}">Pay over <span data-fin-calc-months>24 months</span></label>
-          <span class="wfin__calc-amount"><strong data-fin-calc-amount>{{ dopple24 }}</strong> a month</span>
+          <label class="wfin__calc-label" for="wfin-months-{{ product.id }}">{{ t_calc_label }} <span data-fin-calc-months>24 {{ t_calc_months }}</span></label>
+          <span class="wfin__calc-amount"><strong data-fin-calc-amount>{{ dopple24 }}</strong> {{ t_month }}</span>
         </div>
-        <input class="wfin__calc-range" id="wfin-months-{{ product.id }}" type="range" min="0" max="5" step="1" value="5" aria-valuetext="24 months" data-fin-calc>
+        <input class="wfin__calc-range" id="wfin-months-{{ product.id }}" type="range" min="0" max="5" step="1" value="5" aria-valuetext="24 {{ t_calc_months | escape }}" data-fin-calc>
         <div class="wfin__calc-ticks" aria-hidden="true"><span>3</span><span>6</span><span>9</span><span>12</span><span>18</span><span>24</span></div>
-        <p class="wfin__calc-meta" data-fin-calc-meta>Payl8r · from 0.8% a month, subject to status</p>
-        <p class="wfin__calc-note">Sample amounts. Your rate and payments are confirmed when you apply.</p>
+        <p class="wfin__calc-meta"><span data-fin-calc-meta>{{ t_meta_payl8r }}</span> <a class="wfin__calc-link" href="{{ url_payl8r }}" data-fin-calc-link>{{ t_details }}</a></p>
+        <p class="wfin__calc-note">{{ t_calc_note }}</p>
       </div>
 
-      <ul class="wfin__plans" role="list">
-        <li>
-          <span class="wfin__plan-name">Pay in 3 <span class="wfin__chip">Interest-free</span></span>
-          <span class="wfin__amount"><strong data-fin-split="3">{{ pay3 }}</strong> × 3</span>
-          <a class="wfin__link link" href="/pages/klarna">Details</a>
-        </li>
-        <li data-fin-dividebuy{% unless dividebuy_ok %} hidden{% endunless %}>
-          <span class="wfin__plan-name">12 months <span class="wfin__chip">0% interest</span></span>
-          <span class="wfin__amount"><strong data-fin-split="12">{{ pay12 }}</strong> a month</span>
-          <a class="wfin__link link" href="/pages/dividebuy">Details</a>
-        </li>
-        <li>
-          <span class="wfin__plan-name">24 months <span class="wfin__chip">From 0.8% a month</span></span>
-          <span class="wfin__amount">From <strong data-fin-dopple>{{ dopple24 }}</strong> a month</span>
-          <a class="wfin__link link" href="/pages/payl8r">Details</a>
-        </li>
-      </ul>
-      <p class="wfin__legal">Choose your plan at checkout. 18+, UK residents only, subject to status. T&amp;Cs apply.</p>
-      <p class="wfin__legal">Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04.</p>
+      {%- if t_legal1 != blank %}<p class="wfin__legal">{{ t_legal1 }}</p>{% endif %}
+      {%- if t_legal2 != blank %}<p class="wfin__legal">{{ t_legal2 }}</p>{% endif %}
     </div>
   </details>
 </wave-finance>
 <style>
-  /* Closed panel: a short, bold lead, tinted with the FY27 collection colour where the page has one */
+  /* Laid out like Product Highlights: white box with a light grey border, the title sitting in the top
+     border, and the summary in a soft grey tile inside. Black, white and grey only. */
+  .wfin { display: block; margin-top: var(--sp-8); }
   .wfin .wfin__panel {
-    border-color: rgb(var(--wf-tier-rgb, 0 0 0) / 0.16);
-    background: rgb(var(--wf-tier-rgb, 0 0 0) / 0.04);
+    position: relative;
+    overflow: visible;
+    padding: var(--sp-6);
+    border: 1px solid rgb(var(--color-border-light, var(--color-foreground) / 0.1));
+    border-radius: var(--rounded-block, 10px);
+    background: rgb(var(--color-background));
   }
-  .wfin .wfin__summary { gap: 0.2rem 1rem; padding: 1.1rem 1.25rem; }
+  .wfin .wfin__summary {
+    gap: 0.2rem 1rem;
+    padding: var(--sp-4) var(--sp-6);
+    border-radius: var(--sp-2d5);
+    background: rgb(var(--color-foreground) / 0.025);
+  }
   .wfin .wfin__summary > :not(.wfin__logos) { grid-column: 1; }
-  .wfin .wfin__logos { grid-column: 2; grid-row: 1 / span 4; }
-  .wfin .wfin__eyebrow { font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--wf-tier-ink, #b45309); }
-  .wfin .wfin__headline { display: flex; align-items: baseline; gap: 0.3rem; margin: 0.1rem 0 0; font-size: 1rem; line-height: 1; }
-  .wfin .wfin__headline strong { font-size: clamp(1.75rem, 2.2vw, 2.125rem); font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-  .wfin .wfin__per { margin-inline-start: -0.2rem; font-size: 1rem; font-weight: 500; }
-  .wfin .wfin__sub { margin: 0.35rem 0 0; font-size: 0.9rem; line-height: 1.4; color: rgb(var(--color-foreground) / 0.7); }
-  .wfin .wfin__toggle { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600; color: rgb(var(--color-foreground)); text-decoration: none; }
+  .wfin .wfin__logos {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+  .wfin .wfin__logo-row { display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem; }
+  .wfin .wfin__logo-row img { display: block; width: auto; height: 26px; margin: 0; border-radius: 0; }
+  /* Title in the border, as the Product Highlights heading */
+  .wfin .wfin__eyebrow {
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: var(--sp-5d5);
+    transform: translateY(-50%);
+    padding: 0 var(--sp-2d5);
+    background: rgb(var(--color-background));
+    font-size: var(--text-base);
+    font-weight: var(--font-medium, 500);
+    line-height: 1.25;
+    color: rgb(var(--color-foreground));
+  }
+  @media screen and (min-width: 768px) {
+    .wfin .wfin__eyebrow { font-size: var(--text-lg); }
+  }
+  .wfin .wfin__headline { display: flex; align-items: baseline; gap: 0.3rem; margin: 0; font-size: var(--text-sm); line-height: 1; }
+  .wfin .wfin__headline strong { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .wfin .wfin__per { margin-inline-start: -0.2rem; font-size: var(--text-sm); font-weight: 500; }
+  .wfin .wfin__sub { margin: 0.35rem 0 0; font-size: var(--text-sm); line-height: 1.4; color: rgb(var(--color-foreground) / 0.65); }
+  .wfin .wfin__toggle { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.6rem; font-size: var(--text-sm); font-weight: 500; color: rgb(var(--color-foreground)); text-decoration: none; }
   .wfin .wfin__chev { width: 12px; height: 12px; transition: transform 0.2s; }
   .wfin .wfin__panel[open] .wfin__chev { transform: rotate(180deg); }
+  .wfin .wfin__body { display: grid; gap: var(--sp-2); padding: var(--sp-4) 0 0; }
+  .wfin .wfin__legal { font-size: 11px; line-height: 1.45; }
   @media (max-width: 420px) {
-    .wfin .wfin__logos { grid-column: 1; grid-row: auto; margin-top: 0.5rem; }
+    .wfin .wfin__panel { padding: var(--sp-5) var(--sp-4) var(--sp-4); }
+    .wfin .wfin__summary { padding: var(--sp-4); }
+    .wfin .wfin__eyebrow { inset-inline-start: var(--sp-3); }
+    .wfin .wfin__logos { grid-column: 1; grid-row: auto; align-items: flex-start; margin-top: 0.5rem; }
+    .wfin .wfin__logo-row { justify-content: flex-start; }
   }
-  .wfin__calc { margin-bottom: 20px; padding: 16px 18px; border-radius: 12px; background: #f4f4f5; }
+  .wfin__calc { margin-bottom: var(--sp-1); padding: 14px 16px; border-radius: 10px; background: rgb(var(--color-foreground) / 0.025); }
   .wfin__calc-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
   .wfin__calc-label { font-size: 14px; font-weight: 600; }
   .wfin__calc-amount { font-size: 14px; }
   .wfin__calc-amount strong { font-size: 22px; font-variant-numeric: tabular-nums; }
-  .wfin__calc-range { display: block; width: 100%; margin: 14px 0 6px; accent-color: #000; cursor: pointer; }
+  .wfin__calc-range { display: block; width: 100%; margin: 10px 0 4px; accent-color: #000; cursor: pointer; }
   .wfin__calc-ticks { display: flex; justify-content: space-between; padding: 0 2px; font-size: 12px; color: #71717a; font-variant-numeric: tabular-nums; }
-  .wfin__calc-meta { margin: 12px 0 0; font-size: 13px; font-weight: 600; }
+  .wfin__calc-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; margin: 10px 0 0; font-size: 13px; font-weight: 600; }
+  .wfin .wfin__calc-link { font-size: 13px; font-weight: 500; color: rgb(var(--color-foreground)); text-decoration: underline; text-underline-offset: 3px; background: none; white-space: nowrap; }
   .wfin__calc-note { margin: 4px 0 0; font-size: 12px; color: #71717a; }
 </style>
 <script>
@@ -115,6 +214,7 @@
       connectedCallback() {
         this.ids = (this.dataset.variantIds || '').split(',');
         this.price = Number(this.dataset.price);
+        this.rate = Number(this.dataset.rate) || 0.8;
         this.range = this.querySelector('[data-fin-calc]');
         if (this.range) this.range.addEventListener('input', () => this.calc());
         this.money = new Intl.NumberFormat('en-GB', { style: 'currency', currency: this.dataset.currency || 'GBP' });
@@ -129,13 +229,8 @@
         document.removeEventListener('variant:change', this.onVariant, true);
       }
       update(price) {
-        this.querySelectorAll('[data-fin-split]').forEach((el) => {
-          el.textContent = this.money.format(Math.floor(price / Number(el.dataset.finSplit)) / 100);
-        });
         this.price = price;
         this.calc();
-        const eligible = this.dbEligible(price);
-        this.querySelectorAll('[data-fin-dividebuy]').forEach((el) => { el.hidden = !eligible; });
         this.querySelectorAll('[data-fin-dopple]').forEach((el) => {
           el.textContent = this.money.format(this.payl8r(price, 24) / 100);
         });
@@ -143,27 +238,36 @@
       dbEligible(price) {
         return price >= Number(this.dataset.dbMin) && price <= Number(this.dataset.dbMax);
       }
-      /* Payl8r flat rate at its lowest, 0.8% a month: price / months + 0.8% of price, in pence */
+      /* Payl8r flat rate at its lowest (data-rate % a month): price / months + rate% of price, in pence */
       payl8r(price, months) {
-        return Math.floor(price / months) + Math.floor(price * 8 / 1000);
+        return Math.floor(price / months) + Math.floor(price * this.rate / 100);
       }
       /* sample plan for each slider step: 3 = Klarna, 12 = DivideBuy when eligible, the rest = Payl8r */
       calc() {
         if (!this.range) return;
         const months = [3, 6, 9, 12, 18, 24][Number(this.range.value)];
         const price = this.price;
-        let pence, meta;
+        const d = this.dataset;
+        let pence, meta, url;
         if (months === 3) {
           pence = Math.floor(price / 3);
-          meta = 'Klarna · 3 interest-free payments';
+          meta = d.tKlarna;
+          url = d.urlKlarna;
         } else if (months === 12 && this.dbEligible(price)) {
           pence = Math.floor(price / 12);
-          meta = 'DivideBuy · 0% interest, subject to status';
+          meta = d.tDividebuy;
+          url = d.urlDividebuy;
         } else {
           pence = this.payl8r(price, months);
-          meta = 'Payl8r · from 0.8% a month, subject to status';
+          meta = d.tPayl8r;
+          url = d.urlPayl8r;
         }
-        const label = months === 3 ? '3 payments' : months + ' months';
+        const link = this.querySelector('[data-fin-calc-link]');
+        if (link) {
+          link.hidden = !url;
+          if (url) link.href = url;
+        }
+        const label = months + ' ' + (months === 3 ? d.tPayments : d.tMonths);
         this.querySelector('[data-fin-calc-months]').textContent = label;
         this.querySelector('[data-fin-calc-amount]').textContent = this.money.format(pence / 100);
         this.querySelector('[data-fin-calc-meta]').textContent = meta;

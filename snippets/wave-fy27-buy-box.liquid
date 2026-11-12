@@ -54,6 +54,10 @@
     font-weight: var(--font-medium, 500);
   }
   .product__info .vpa[data-vpa-root] .vpa__head { font-size: var(--text-base); }
+  @media screen and (min-width: 768px) {
+    .product__info .vpa[data-vpa-root] .vpa__head,
+    .product__info .vpa[data-vpa-root] .vpa__title { font-size: var(--text-lg); }
+  }
   .product__info .vpa[data-vpa-root] .vpa__status {
     min-width: 0;
     overflow: hidden;
@@ -208,9 +212,10 @@
   .product__info .buy-buttons > .product-form__submit {
     grid-column: 1 / -1;
   }
-  .product__info .buy-buttons > contona-slot > [data-contona-host] {
-    grid-column: auto;
-    margin: 0 !important;
+  /* Contona puts its host either beside the buy button (in <contona-slot>) or straight into the info
+     column after the buy buttons, depending on the page; style both. */
+  .product__info [data-contona-host] {
+    margin: var(--sp-3) 0 0 !important;
     --ctn-bg: rgb(var(--color-button-background, 0 0 0)) !important;
     --ctn-fg: rgb(var(--color-button-text, 255 255 255)) !important;
     --ctn-radius: var(--buttons-radius, 999px) !important;
@@ -220,6 +225,7 @@
     --ctn-border-width: 9px !important;
     --ctn-border: rgb(var(--color-button-background, 0 0 0)) !important;
   }
+  .product__info .buy-buttons > contona-slot > [data-contona-host] { grid-column: auto; margin: 0 !important; }
   .product__info .buy-buttons > .restock-rocket-button-container { margin: 0 !important; min-width: 0; }
   .product__info .buy-buttons .restock-rocket-button {
     width: 100% !important;
