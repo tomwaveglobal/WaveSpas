@@ -144,7 +144,7 @@
   data-vpa-selected-bg="{% if settings.vpa_selected_bg == false %}off{% else %}on{% endif %}"
   data-vpa-color-layout="{{ block.settings.colour_layout | default: 'wrap' }}"
   data-vpa-color-label="{{ block.settings.colour_label | default: 'always' }}"
-  {%- if template.suffix == 'product-flow' or template.suffix == 'product-new-fy27' or template.suffix == 'product-new-inflatables' %} data-vpa-swatch-shape="rounded-square"{% endif %}
+  {%- if template.suffix == 'product-flow' or template.suffix == 'product-flow-new' or template.suffix == 'product-new-fy27' or template.suffix == 'product-new-inflatables' %} data-vpa-swatch-shape="rounded-square"{% endif %}
   style="--vpa-step-w: {{ vpa_step_w }}; --vpa-name-w: {{ vpa_name_w }}; --vpa-price-w: {{ vpa_price_w }}; --vpa-tag-w: {{ vpa_tag_w }}; --vpa-step-s: {{ vpa_step_s }}; --vpa-name-s: {{ vpa_name_s }}; --vpa-price-s: {{ vpa_price_s }}; padding-block-end: {{ settings.vpa_bottom_padding | default: 0 }}px; {{ vpa_badge_css }}"
   data-form-id="{{ product_form_id }}"
   data-dynamic="{{ block.settings.enable_dynamic_variants }}"

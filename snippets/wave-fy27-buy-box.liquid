@@ -1,0 +1,248 @@
+{%- doc -%}
+  Clean buy box for the product-flow-new template: restyles the stepped variant picker
+  (product-variant-picker-advanced) and the buy buttons. CSS only; the picker's markup and JS are shared
+  with the other PDP templates and stay as they are.
+
+  Picker: numbered steps ("1. Pick your colour") with no boxes or outlines; square colour swatches with
+  the chosen colour named in the step heading; size and edition as plain text buttons with no images;
+  step 4 (add-ons) is a soft panel and, as before, only appears once every option is chosen.
+  Buttons: buy button (theme default black) full width, with Contona's "Visualise in Garden" and Restock
+  Rocket's "Notify me when available" side by side underneath, styled to match it. Whichever of the two
+  is on its own takes the full width.
+
+  {% render 'wave-fy27-buy-box' %}
+{%- enddoc -%}
+<style>
+  /* ═══ Picker: steps without boxes ═══════════════════════════════════
+     .vpa[data-vpa-root] keeps these above the picker's own stylesheet, which loads later in the page. */
+  .product__info .vpa[data-vpa-root] {
+    gap: var(--sp-6);
+    --vpa-border: rgb(var(--color-foreground) / 0.14);
+    --vpa-border-selected: rgb(var(--color-foreground));
+    --vpa-border-strong: rgb(var(--color-foreground));
+    --vpa-surface-selected: rgb(var(--color-background));
+    --vpa-accent: rgb(var(--color-foreground));
+  }
+  .product__info .vpa[data-vpa-root] .vpa__step,
+  .product__info .vpa[data-vpa-root] .vpa__step--complete {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__step--locked { opacity: 0.4; }
+  .product__info .vpa[data-vpa-root] .vpa__head {
+    gap: var(--sp-1d5);
+    margin-block-end: var(--sp-3);
+    flex-wrap: nowrap;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__num,
+  .product__info .vpa[data-vpa-root] .vpa__step--complete .vpa__num,
+  .product__info .vpa[data-vpa-root] .vpa__step--locked .vpa__num {
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: var(--vpa-step-w);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__num::after { content: '.'; }
+  .product__info .vpa[data-vpa-root] .vpa__title {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium, 500);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__head { font-size: var(--text-base); }
+  .product__info .vpa[data-vpa-root] .vpa__status {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: var(--text-sm);
+    font-weight: var(--font-regular, 400);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__status::before { content: none; }
+
+  /* ═══ Colour: clean square swatches, name in the heading ════════════ */
+  .product__info .vpa[data-vpa-root] .vpa__choices--swatch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--sp-2d5);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch {
+    width: auto;
+    max-width: none;
+    gap: 0;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch .vpa__swatch-fill {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--vpa-border);
+    transform: none;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch input:checked + .vpa__swatch-fill {
+    box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
+    transform: none;
+  }
+  @media (hover: hover) {
+    .product__info .vpa[data-vpa-root] .vpa__swatch:hover .vpa__swatch-fill {
+      box-shadow: 0 0 0 1px rgb(var(--color-foreground) / 0.5);
+    }
+    .product__info .vpa[data-vpa-root] .vpa__swatch:hover input:checked + .vpa__swatch-fill {
+      box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
+    }
+  }
+  /* The heading names the chosen colour, so the labels under the swatches are for screen readers only
+     (each swatch also has a title tooltip). */
+  .product__info .vpa[data-vpa-root] .vpa__swatch-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  /* ═══ Size and edition: plain text buttons ══════════════════════════ */
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    gap: var(--sp-2d5);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile {
+    padding: var(--sp-3) var(--sp-4);
+    border: 1px solid var(--vpa-border);
+    border-radius: 8px;
+    background: rgb(var(--color-background));
+  }
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked) {
+    border-color: rgb(var(--color-foreground));
+    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground));
+    background: rgb(var(--color-background));
+  }
+  @media (hover: hover) {
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:hover { border-color: rgb(var(--color-foreground) / 0.5); }
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked):hover { border-color: rgb(var(--color-foreground)); }
+  }
+  .product__info .vpa[data-vpa-root] .vpa__tile-media { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__tile-body { display: block; }
+  .product__info .vpa[data-vpa-root] .vpa__tile-name {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium, 500);
+    line-height: 1.3;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__tile-price {
+    margin-block-start: 2px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-regular, 400);
+    color: rgb(var(--color-foreground) / 0.65);
+  }
+  /* Pre-order date and edition notes as small grey text, no pills */
+  .product__info .vpa[data-vpa-root] .vpa__chip,
+  .product__info .vpa[data-vpa-root] .vpa__tile-info {
+    margin-block-start: var(--sp-1d5);
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    color: rgb(var(--color-foreground) / 0.6);
+    font-size: 11px;
+    font-weight: var(--font-regular, 400);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__chip .icon { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__tile-info strong { font-weight: var(--font-medium, 500); }
+  /* Most popular / Sold out / % off sit on the top border instead of needing room inside the button */
+  .product__info .vpa[data-vpa-root] .vpa__tile .vpa__tag,
+  .product__info .vpa[data-vpa-root] .vpa__tile .vpa__discount {
+    top: 0;
+    right: var(--sp-2d5);
+    transform: translateY(-50%);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__tile:has(.vpa__discount:not([hidden])) .vpa__tag {
+    top: 0;
+    right: auto;
+    left: var(--sp-2d5);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile:has(.vpa__tile:has(.vpa__tag:not([hidden])):has(.vpa__discount:not([hidden]))) .vpa__tile {
+    padding-block-start: var(--sp-3);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile:has(.vpa__tag:not([hidden]), .vpa__discount:not([hidden])) {
+    padding-block-start: 8px;
+  }
+
+  /* ═══ 4. Optional add-ons: soft panel, shown once 1-3 are chosen ════ */
+  .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__status { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__step--addons[data-revealed='true'] {
+    padding: var(--sp-5);
+    border: 0;
+    border-radius: var(--rounded-card, 14px);
+    background: rgb(var(--color-foreground) / 0.03);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__addon {
+    border: 0;
+    border-radius: 10px;
+    padding: var(--sp-3) var(--sp-4);
+    background: rgb(var(--color-background));
+  }
+  .product__info .vpa[data-vpa-root] .vpa__addon:has(input.vpa__addon-check:checked) {
+    background: rgb(var(--color-background));
+    box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
+  }
+  .product__info .vpa[data-vpa-root] .vpa__addon-check { border-width: 1.5px; border-color: rgb(var(--color-foreground) / 0.35); }
+  .product__info .vpa[data-vpa-root] .vpa__addon-check:checked { border-color: rgb(var(--color-foreground)); }
+  .product__info .vpa[data-vpa-root] .vpa__addon-media { background: rgb(var(--color-foreground) / 0.03); }
+  .product__info .vpa[data-vpa-root] .vpa__addon-name { font-weight: var(--font-medium, 500); }
+  .product__info .vpa[data-vpa-root] .vpa__addon-price { font-weight: var(--font-regular, 400); }
+
+  /* ═══ Buy buttons ═══════════════════════════════════════════════════
+     Buy button full width; Visualise (Contona, in a shadow root styled through its --ctn-* variables)
+     and Notify me (Restock Rocket) share the row underneath at the same height, shape and type. */
+  .product__info .buy-buttons.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+  .product__info .buy-buttons > contona-slot > .product-form__submit,
+  .product__info .buy-buttons > .product-form__submit {
+    grid-column: 1 / -1;
+  }
+  .product__info .buy-buttons > contona-slot > [data-contona-host] {
+    grid-column: auto;
+    margin: 0 !important;
+    --ctn-bg: rgb(var(--color-button-background, 0 0 0)) !important;
+    --ctn-fg: rgb(var(--color-button-text, 255 255 255)) !important;
+    --ctn-radius: var(--buttons-radius, 999px) !important;
+    --ctn-font: var(--font-body-family) !important;
+    --ctn-width: 100% !important;
+    /* !important: Contona sets these inline on the host. It fixes the button at 44px tall; a border in the button colour brings it to 60px like the others */
+    --ctn-border-width: 9px !important;
+    --ctn-border: rgb(var(--color-button-background, 0 0 0)) !important;
+  }
+  .product__info .buy-buttons > .restock-rocket-button-container { margin: 0 !important; min-width: 0; }
+  .product__info .buy-buttons .restock-rocket-button {
+    width: 100% !important;
+    min-height: 60px !important;
+    height: 60px !important;
+    margin: 0 !important;
+    padding: 0 var(--sp-4) !important;
+    border: 0 !important;
+    border-radius: var(--buttons-radius, 999px) !important;
+    background: rgb(var(--color-button-background, 0 0 0)) !important;
+    color: rgb(var(--color-button-text, 255 255 255)) !important;
+    font-family: var(--font-body-family) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+  }
+  /* Phones: too narrow for two buttons side by side without wrapping, so all three stack full width */
+  @media screen and (max-width: 599px) {
+    .product__info .buy-buttons.grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  /* On its own (in stock: no Notify me; no Contona button: Notify me alone), take the full width */
+  .product__info .buy-buttons:not(:has(> .restock-rocket-button-container .restock-rocket-button)) > contona-slot > [data-contona-host],
+  .product__info .buy-buttons:not(:has(> contona-slot > [data-contona-host]:not([hidden]))) > .restock-rocket-button-container {
+    grid-column: 1 / -1;
+  }
+</style>
