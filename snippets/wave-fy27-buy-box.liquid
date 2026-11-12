@@ -3,9 +3,12 @@
   (product-variant-picker-advanced) and the buy buttons. CSS only; the picker's markup and JS are shared
   with the other PDP templates and stay as they are.
 
-  Picker: numbered steps ("1. Pick your colour") with no boxes or outlines; square colour swatches with
-  the chosen colour named in the step heading; size and edition as plain text buttons with no images;
-  step 4 (add-ons) is a soft panel and, as before, only appears once every option is chosen.
+  Picker: steps named simply (Colour, Size, Edition, Optional add-ons; block settings) at the Product
+  Highlights heading size, the chosen option in grey after the name; no step numbers, boxes or outlines.
+  Colour swatches are small, each in a light grey rounded box (black when chosen). Size and edition are
+  grey rounded buttons like the highlight tiles, outlined in black when chosen: name only, no images,
+  prices or % off. Out of stock options get a light orange outline and are crossed through. The add-ons step is a
+  soft panel and, as before, only appears once every option is chosen.
   Buttons: buy button (theme default black) full width, with Contona's "Visualise in Garden" and Restock
   Rocket's "Notify me when available" side by side underneath, styled to match it. Whichever of the two
   is on its own takes the full width.
@@ -31,73 +34,71 @@
     background: none;
   }
   .product__info .vpa[data-vpa-root] .vpa__step--locked { opacity: 0.4; }
+  /* Step headings: just the name ("Colour"), at the Product Highlights heading size, with the chosen
+     option after it in grey ("Colour: Charcoal Black"). No step numbers. */
   .product__info .vpa[data-vpa-root] .vpa__head {
-    gap: var(--sp-1d5);
+    gap: 0.4em;
     margin-block-end: var(--sp-3);
     flex-wrap: nowrap;
-  }
-  .product__info .vpa[data-vpa-root] .vpa__num,
-  .product__info .vpa[data-vpa-root] .vpa__step--complete .vpa__num,
-  .product__info .vpa[data-vpa-root] .vpa__step--locked .vpa__num {
-    width: auto;
-    height: auto;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    color: inherit;
-    font-size: inherit;
-    font-weight: var(--vpa-step-w);
-  }
-  .product__info .vpa[data-vpa-root] .vpa__num::after { content: '.'; }
-  .product__info .vpa[data-vpa-root] .vpa__title {
+    align-items: baseline;
     font-size: var(--text-base);
-    font-weight: var(--font-medium, 500);
+    line-height: 1.25;
   }
-  .product__info .vpa[data-vpa-root] .vpa__head { font-size: var(--text-base); }
+  .product__info .vpa[data-vpa-root] .vpa__num { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__title,
+  .product__info .vpa[data-vpa-root] .vpa__status {
+    font-size: var(--text-base);
+    font-weight: var(--font-regular, 400);
+  }
   @media screen and (min-width: 768px) {
     .product__info .vpa[data-vpa-root] .vpa__head,
-    .product__info .vpa[data-vpa-root] .vpa__title { font-size: var(--text-lg); }
+    .product__info .vpa[data-vpa-root] .vpa__title,
+    .product__info .vpa[data-vpa-root] .vpa__status { font-size: var(--text-lg); }
   }
+  .product__info .vpa[data-vpa-root] .vpa__step:not(.vpa__step--addons) .vpa__head:has(.vpa__status:not(:empty)) .vpa__title::after { content: ':'; }
   .product__info .vpa[data-vpa-root] .vpa__status {
     min-width: 0;
+    margin-inline-start: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular, 400);
+    color: rgb(var(--color-foreground) / 0.5);
   }
   .product__info .vpa[data-vpa-root] .vpa__status::before { content: none; }
 
-  /* ═══ Colour: clean square swatches, name in the heading ════════════ */
+  /* ═══ Colour: small swatches, each in a light grey rounded box; black box when chosen ═══ */
   .product__info .vpa[data-vpa-root] .vpa__choices--swatch {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: var(--sp-2d5);
+    gap: var(--sp-3) var(--sp-4);
   }
   .product__info .vpa[data-vpa-root] .vpa__swatch {
+    position: relative;
     width: auto;
     max-width: none;
     gap: 0;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.12);
+    transition: box-shadow 0.15s;
   }
-  .product__info .vpa[data-vpa-root] .vpa__swatch .vpa__swatch-fill {
-    width: 56px;
-    height: 56px;
-    border-radius: 6px;
-    box-shadow: 0 0 0 1px var(--vpa-border);
-    transform: none;
-  }
-  .product__info .vpa[data-vpa-root] .vpa__swatch input:checked + .vpa__swatch-fill {
-    box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
-    transform: none;
-  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch:has(input:checked) { box-shadow: inset 0 0 0 2px rgb(var(--color-foreground)); }
   @media (hover: hover) {
-    .product__info .vpa[data-vpa-root] .vpa__swatch:hover .vpa__swatch-fill {
-      box-shadow: 0 0 0 1px rgb(var(--color-foreground) / 0.5);
-    }
-    .product__info .vpa[data-vpa-root] .vpa__swatch:hover input:checked + .vpa__swatch-fill {
-      box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
-    }
+    .product__info .vpa[data-vpa-root] .vpa__swatch:hover { box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.4); }
+    .product__info .vpa[data-vpa-root] .vpa__swatch:has(input:checked):hover { box-shadow: inset 0 0 0 2px rgb(var(--color-foreground)); }
+  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch .vpa__swatch-fill,
+  .product__info .vpa[data-vpa-root] .vpa__swatch input:checked + .vpa__swatch-fill {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    box-shadow: none;
+    transform: none;
+  }
+  @media screen and (min-width: 768px) {
+    .product__info .vpa[data-vpa-root] .vpa__swatch .vpa__swatch-fill,
+    .product__info .vpa[data-vpa-root] .vpa__swatch input:checked + .vpa__swatch-fill { width: 56px; height: 56px; }
   }
   /* The heading names the chosen colour, so the labels under the swatches are for screen readers only
      (each swatch also has a title tooltip). */
@@ -111,27 +112,32 @@
     white-space: nowrap;
   }
 
-  /* ═══ Size and edition: plain text buttons ══════════════════════════ */
+  /* ═══ Size and edition: grey rounded buttons like the Product Highlights tiles; black outline when chosen ═══ */
   .product__info .vpa[data-vpa-root] .vpa__choices--tile {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
     gap: var(--sp-2d5);
   }
   .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile {
-    padding: var(--sp-3) var(--sp-4);
-    border: 1px solid var(--vpa-border);
-    border-radius: 8px;
-    background: rgb(var(--color-background));
+    padding: var(--sp-4) var(--sp-5);
+    border: 0;
+    border-radius: var(--sp-2d5);
+    background: rgb(var(--color-foreground) / 0.025);
+    box-shadow: none;
+    transition: box-shadow 0.15s, background-color 0.15s;
   }
   .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked) {
-    border-color: rgb(var(--color-foreground));
-    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground));
-    background: rgb(var(--color-background));
+    background: rgb(var(--color-foreground) / 0.025);
+    box-shadow: inset 0 0 0 2px rgb(var(--color-foreground));
   }
   @media (hover: hover) {
-    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:hover { border-color: rgb(var(--color-foreground) / 0.5); }
-    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked):hover { border-color: rgb(var(--color-foreground)); }
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:hover { background: rgb(var(--color-foreground) / 0.05); }
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked):hover { background: rgb(var(--color-foreground) / 0.025); }
   }
   .product__info .vpa[data-vpa-root] .vpa__tile-media { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__tile-price,
+  .product__info .vpa[data-vpa-root] .vpa__tile-info,
+  .product__info .vpa[data-vpa-root] .vpa__discount,
+  .product__info .vpa[data-vpa-root] .vpa__tag--sold-out { display: none !important; }
   .product__info .vpa[data-vpa-root] .vpa__tile-body { display: block; }
   .product__info .vpa[data-vpa-root] .vpa__tile-name {
     margin: 0;
@@ -177,8 +183,58 @@
     padding-block-start: 8px;
   }
 
+  /* ═══ Out of stock: light orange outline, crossed through (theme default style) ═══
+     Swatches: the colour has nothing sellable. Buttons: sold out, or not available with the choices so far. */
+  .product__info .vpa[data-vpa-root] { --vpa-oos: 240 140 90; }
+  .product__info .vpa[data-vpa-root] .vpa__choice--sold-out .vpa__swatch-fill::after { content: none; }
+  .product__info .vpa[data-vpa-root] .vpa__swatch.vpa__choice--sold-out:not(:has(input:checked)) {
+    box-shadow: inset 0 0 0 1px rgb(var(--vpa-oos) / 0.6);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__swatch.vpa__choice--sold-out .vpa__swatch-fill { opacity: 0.55; }
+  .product__info .vpa[data-vpa-root] .vpa__swatch.vpa__choice--sold-out::after,
+  .product__info .vpa[data-vpa-root] .vpa__tile:is(.vpa__tile--sold-out, .vpa__choice--unavailable)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to top right, transparent calc(50% - 0.75px), rgb(var(--vpa-oos) / 0.7) calc(50% - 0.75px), rgb(var(--vpa-oos) / 0.7) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+    pointer-events: none;
+  }
+  .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:is(.vpa__tile--sold-out, .vpa__choice--unavailable):not(:has(input:checked)) {
+    background: rgb(var(--color-background));
+    box-shadow: inset 0 0 0 1px rgb(var(--vpa-oos) / 0.6);
+  }
+  .product__info .vpa[data-vpa-root] .vpa__tile:is(.vpa__tile--sold-out, .vpa__choice--unavailable) > .vpa__tile-body { opacity: 0.5; }
+  .product__info .vpa[data-vpa-root] .vpa__tile--sold-out .vpa__tile-name,
+  .product__info .vpa[data-vpa-root] .vpa__choice--sold-out .vpa__swatch-label { text-decoration: none; }
+
   /* ═══ 4. Optional add-ons: soft panel, shown once 1-3 are chosen ════ */
   .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__status { display: none; }
+  /* X in the add-ons heading folds the list away and leaves the heading; it turns into + to open it again */
+  .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__head { align-items: center; }
+  .product__info .vpa[data-vpa-root] .vpa__step--addons[data-collapsed] .vpa__head { margin-block-end: 0; }
+  .product__info .vpa[data-vpa-root] .vpa__step--addons[data-collapsed] .vpa__addon-list { display: none; }
+  .wf-addons-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    margin-inline-start: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .wf-addons-toggle:hover { background: rgb(var(--color-foreground) / 0.06); }
+  .wf-addons-toggle:focus-visible { outline: 2px solid rgb(var(--color-foreground)); outline-offset: 2px; }
+  .wf-addons-toggle svg { width: 14px; height: 14px; transform: rotate(45deg); transition: transform 0.2s; }
+  .vpa__step--addons[data-collapsed] .wf-addons-toggle svg { transform: rotate(0deg); }
+  .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__title { cursor: pointer; }
   .product__info .vpa[data-vpa-root] .vpa__step--addons[data-revealed='true'] {
     padding: var(--sp-5);
     border: 0;
@@ -252,3 +308,35 @@
     grid-column: 1 / -1;
   }
 </style>
+<script>
+  /* X in the add-ons heading folds the list (it becomes + to open it again); the heading stays, and any ticked
+     add-ons stay ticked. The picker's markup is shared with other templates, so the button is added here
+     (product-flow-new only). Clicking the heading toggles too. */
+  (() => {
+    const add = () => {
+      document.querySelectorAll('.product__info .vpa__step--addons .vpa__head').forEach((head) => {
+        if (head.querySelector('.wf-addons-toggle')) return;
+        const step = head.closest('.vpa__step--addons');
+        const list = step.querySelector('.vpa__addon-list');
+        if (list && !list.id) list.id = 'WfAddons-' + Math.random().toString(36).slice(2, 8);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'wf-addons-toggle';
+        if (list) btn.setAttribute('aria-controls', list.id);
+        btn.innerHTML = '<svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+        const sync = () => {
+          const collapsed = step.hasAttribute('data-collapsed');
+          btn.setAttribute('aria-expanded', String(!collapsed));
+          btn.setAttribute('aria-label', collapsed ? 'Show add-ons' : 'Hide add-ons');
+        };
+        const toggle = () => { step.toggleAttribute('data-collapsed'); sync(); };
+        btn.addEventListener('click', toggle);
+        head.querySelector('.vpa__title')?.addEventListener('click', toggle);
+        head.appendChild(btn);
+        sync();
+      });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add);
+    else add();
+  })();
+</script>
