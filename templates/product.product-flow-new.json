@@ -912,7 +912,7 @@
         "image-1": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_1_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_1_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_1_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -923,19 +923,19 @@
             "image_ratio_mobile": "landscape",
             "content_position_mobile": "items-end justify-start",
             "text_alignment_mobile": "left",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "basic-underline",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "radial-gradient(rgba(255, 255, 255, 1), rgba(255, 204, 75, 1) 100%)",
             "color_overlay": "#000000",
-            "overlay_opacity": 30
+            "overlay_opacity": 55
           }
         },
         "image-2": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_3_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_3_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_3_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -946,19 +946,19 @@
             "image_ratio_mobile": "square",
             "content_position_mobile": "items-end justify-start",
             "text_alignment_mobile": "left",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 30
+            "overlay_opacity": 55
           }
         },
         "image-3": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_2_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_2_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_2_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -969,19 +969,19 @@
             "image_ratio_mobile": "square",
             "content_position_mobile": "items-end justify-end",
             "text_alignment_mobile": "right",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "basic-underline",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 0
+            "overlay_opacity": 55
           }
         },
         "image-4": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_4_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_4_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_4_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -992,13 +992,13 @@
             "image_ratio_mobile": "landscape",
             "content_position_mobile": "items-end justify-end",
             "text_alignment_mobile": "right",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 55
           }
         }
       },
