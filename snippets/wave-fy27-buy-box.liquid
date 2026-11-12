@@ -209,6 +209,28 @@
 
   /* ═══ 4. Optional add-ons: soft panel, shown once 1-3 are chosen ════ */
   .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__status { display: none; }
+  /* Close (X) button in the add-ons heading: hides the panel and unticks its add-ons */
+  .product__info .vpa[data-vpa-root] .vpa__step--addons[data-dismissed] { display: none !important; }
+  .product__info .vpa[data-vpa-root] .vpa__step--addons .vpa__head { align-items: center; }
+  .wf-addons-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    margin-inline-start: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .wf-addons-close:hover { background: rgb(var(--color-foreground) / 0.06); }
+  .wf-addons-close:focus-visible { outline: 2px solid rgb(var(--color-foreground)); outline-offset: 2px; }
+  .wf-addons-close svg { width: 14px; height: 14px; }
   .product__info .vpa[data-vpa-root] .vpa__step--addons[data-revealed='true'] {
     padding: var(--sp-5);
     border: 0;
@@ -282,3 +304,30 @@
     grid-column: 1 / -1;
   }
 </style>
+<script>
+  /* X in the add-ons heading. The picker's markup is shared with other templates, so the button is added
+     here (product-flow-new only). Closing unticks the add-ons so nothing hidden goes in the bag. */
+  (() => {
+    const add = () => {
+      document.querySelectorAll('.product__info .vpa__step--addons .vpa__head').forEach((head) => {
+        if (head.querySelector('.wf-addons-close')) return;
+        const step = head.closest('.vpa__step--addons');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'wf-addons-close';
+        btn.setAttribute('aria-label', 'Close add-ons');
+        btn.innerHTML = '<svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+        btn.addEventListener('click', () => {
+          step.querySelectorAll('.vpa__addon-check:checked').forEach((box) => {
+            box.checked = false;
+            box.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+          step.setAttribute('data-dismissed', '');
+        });
+        head.appendChild(btn);
+      });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add);
+    else add();
+  })();
+</script>
