@@ -13,7 +13,7 @@
   which are also the block's defaults.
 
   Look: white box with a light grey border like Product Highlights, black and grey text only. Logos sit on the
-  right in two rows: Klarna and PayPal, then Payl8r and DivideBuy.
+  right in two rows: Klarna and PayPal, then Payl8r and DivideBuy (assets/wave-pay-*.png, or the block's logos).
 
   @param {object} product - Product being viewed
   @param {object} [block] - The wave_finance block whose settings hold the text, logos, links and rates
@@ -53,9 +53,35 @@
   assign dividebuy_min = s.dividebuy_min | default: 50 | times: 100
   assign dividebuy_max = s.dividebuy_max | default: 6000 | times: 100
 
-  assign logo_1 = s.logo_1 | default: images['Klarna_paypal.png']
-  assign logo_2 = s.logo_2 | default: images['Payl8r.png']
-  assign logo_3 = s.logo_3 | default: images['DivideBuy.png']
+  comment
+    Logos: block image if set, else the theme asset (assets/wave-pay-*.png). Top row Klarna + PayPal,
+    second row Payl8r + DivideBuy.
+  endcomment
+  assign logo_srcs = ''
+  for n in (1..4)
+    assign key = 'logo_' | append: n
+    case n
+      when 1
+        assign fallback = 'wave-pay-klarna.png'
+        assign alt = 'Klarna'
+      when 2
+        assign fallback = 'wave-pay-paypal.png'
+        assign alt = 'PayPal'
+      when 3
+        assign fallback = 'wave-pay-payl8r.png'
+        assign alt = 'Payl8r'
+      when 4
+        assign fallback = 'wave-pay-dividebuy.png'
+        assign alt = 'DivideBuy'
+    endcase
+    if s[key] != blank
+      assign src = s[key] | image_url: height: 64
+    else
+      assign src = fallback | asset_url
+    endif
+    assign logo_srcs = logo_srcs | append: src | append: '|' | append: alt | append: '^'
+  endfor
+  assign logos = logo_srcs | split: '^'
 
   assign variant = product.selected_or_first_available_variant
   assign price = variant.price
@@ -92,15 +118,12 @@
       <p class="wfin__headline">{{ t_from }} <strong data-fin-dopple>{{ dopple24 }}</strong><span class="wfin__per">{{ t_per }}</span></p>
       <p class="wfin__sub">{{ t_sub }}</p>
       <span class="wfin__logos" aria-hidden="true">
-        {%- if logo_1 != blank -%}
-          <span class="wfin__logo-row">{{ logo_1 | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}</span>
-        {%- endif -%}
-        {%- if logo_2 != blank or logo_3 != blank -%}
-          <span class="wfin__logo-row">
-            {%- if logo_2 != blank -%}{{ logo_2 | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-            {%- if logo_3 != blank -%}{{ logo_3 | image_url: height: 60 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
-          </span>
-        {%- endif -%}
+        {%- for logo in logos -%}
+          {%- assign parts = logo | split: '|' -%}
+          {%- if forloop.index == 1 or forloop.index == 3 %}<span class="wfin__logo-row">{% endif -%}
+          <img src="{{ parts[0] }}" alt="" width="60" height="25" loading="lazy">
+          {%- if forloop.index == 2 or forloop.index == 4 or forloop.last %}</span>{% endif -%}
+        {%- endfor -%}
       </span>
       <span class="wfin__toggle"><span class="wfin__show">{{ t_show }}</span><span class="wfin__hide">{{ t_hide }}</span><svg class="wfin__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </summary>
@@ -156,10 +179,7 @@
     gap: 0.4rem;
   }
   .wfin .wfin__logo-row { display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem; }
-  /* The Klarna + PayPal artwork is one wide image; size it to the width of the row beneath so both rows line up */
-  .wfin .wfin__logos { display: inline-flex; }
-  .wfin .wfin__logo-row:first-child:not(:last-child) { width: 0; min-width: 100%; }
-  .wfin .wfin__logo-row:first-child:not(:last-child) img { width: 100%; height: auto; max-height: 40px; object-fit: contain; object-position: right center; }
+  .wfin .wfin__logo-row img { display: block; width: auto; height: 26px; margin: 0; border-radius: 0; }
   /* Section title size, as Product Highlights and the variant picker steps */
   .wfin .wfin__eyebrow {
     font-size: var(--text-base);
