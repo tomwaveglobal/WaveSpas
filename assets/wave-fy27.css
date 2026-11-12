@@ -338,11 +338,16 @@ wf-explode { display: block; }
    Running cost
    ========================================================================== */
 /* One card: controls on a soft panel (left), results on white (right).
-   Collection colour (--wf-tier-*, from snippets/wave-collection-colour) tints the
-   EnergySave side; without a collection it falls back to the amber accent. */
+   Black, white and grey only: the EnergySave side is marked in black (Kate, 12 Nov 2026),
+   not the collection colour. */
+.wf:has(.wf-rc),
+:root .wf:not(.wf--dark):has(.wf-rc) {
+  --wf-accent: #000;
+  --wf-accent-ink: #000;
+}
 .wf-rc {
-  --wf-rc-rgb: var(--wf-tier-rgb, 245 158 11);
-  --wf-rc-ink-rgb: var(--wf-tier-rgb-ink, 180 83 9);
+  --wf-rc-rgb: 0 0 0;
+  --wf-rc-ink-rgb: 0 0 0;
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   margin-top: clamp(40px, 5vw, 64px);
@@ -442,7 +447,7 @@ wf-explode { display: block; }
   box-shadow: inset 0 0 0 1px var(--wf-line);
 }
 .wf-rc__col--es {
-  background: rgb(var(--wf-rc-rgb) / 0.06);
+  background: rgb(var(--wf-rc-rgb) / 0.025);
   box-shadow: inset 0 0 0 2px rgb(var(--wf-rc-ink-rgb));
 }
 .wf-rc__name {
