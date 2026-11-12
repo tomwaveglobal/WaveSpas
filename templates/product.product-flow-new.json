@@ -250,7 +250,30 @@
         "wave_finance": {
           "type": "wave_finance",
           "settings": {
-            "markets": "gb"
+            "markets": "gb",
+            "title": "Spread the cost",
+            "from_text": "From",
+            "per_month_short": "/month",
+            "subheading": "",
+            "show_label": "See all payment options",
+            "hide_label": "Hide payment options",
+            "calc_label": "Pay over",
+            "calc_months": "months",
+            "calc_payments": "payments",
+            "per_month": "a month",
+            "calc_note": "Sample amounts. Your rate and payments are confirmed when you apply.",
+            "klarna_meta": "Klarna · 3 interest-free payments",
+            "dividebuy_meta": "DivideBuy · 0% interest, subject to status",
+            "payl8r_meta": "Payl8r · from 0.8% a month, subject to status",
+            "details_label": "Details",
+            "plan1_url": "/pages/klarna",
+            "plan2_url": "/pages/dividebuy",
+            "plan3_url": "/pages/payl8r",
+            "payl8r_rate": 0.8,
+            "dividebuy_min": 50,
+            "dividebuy_max": 6000,
+            "legal_1": "Choose your plan at checkout. 18+, UK residents only, subject to status. T&Cs apply.",
+            "legal_2": "Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04."
           }
         },
         "liquid_wave_reviews": {
@@ -894,6 +917,7 @@
         "per_year": "a year",
         "save_prefix": "Save around",
         "save_suffix": "a year with EnergySave™.",
+        "show_payback": false,
         "payback_prefix": "",
         "payback_middle": "",
         "payback_suffix": "",
