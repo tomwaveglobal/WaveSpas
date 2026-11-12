@@ -213,11 +213,11 @@
                           assign hide_rating = true
                           assign rating_max = 5
                           if card_product.metafields.reviewscouk.rating.value != blank
-                            assign rating_value = card_product.metafields.reviewscouk.rating.value
-                            assign rating_count = card_product.metafields.reviewscouk.rating.value
+                            assign rating_value = card_product.metafields.reviewscouk.rating.value | times: 1.0 | round: 1
+                            assign rating_count = card_product.metafields.reviewscouk.total.value | default: card_product.metafields.reviews.rating_count.value
                             assign hide_rating = false
                           elsif card_product.metafields.reviews.rating.value != blank and card_product.metafields.reviews.rating_count.value > 0
-                            assign rating_value = card_product.metafields.reviews.rating.value.rating | round: 1
+                            assign rating_value = card_product.metafields.reviews.rating.value.rating | times: 1.0 | round: 1
                             assign rating_count = card_product.metafields.reviews.rating_count.value
                             assign rating_max = card_product.metafields.reviews.rating.value.scale_max
                             assign hide_rating = false

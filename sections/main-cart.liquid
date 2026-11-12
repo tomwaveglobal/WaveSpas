@@ -1189,7 +1189,7 @@
                                           <span class="cart-item-stars__star cart-item-stars__star--empty">★</span>
                                         {%- endfor -%}
                                       </div>
-                                      <span class="cart-item-stars__value">{{ rating }}</span>
+                                      <span class="cart-item-stars__value">{{ rating_number | round: 1 }}</span>
                                       {%- if total_reviews and total_reviews != blank -%}
                                         <span class="cart-item-stars__count">({{ total_reviews }} Reviews)</span>
                                       {%- endif -%}

@@ -126,10 +126,10 @@
             assign rating_max = 5
           
             if product.metafields.reviewscouk.rating.value != blank
-              assign rating_value = product.metafields.reviewscouk.rating.value
-              assign rating_count = product.metafields.reviewscouk.rating.value
+              assign rating_value = product.metafields.reviewscouk.rating.value | times: 1.0 | round: 1
+              assign rating_count = product.metafields.reviewscouk.total.value | default: product.metafields.reviews.rating_count.value
             elsif product.metafields.reviews.rating.value != blank and product.metafields.reviews.rating_count.value > 0
-              assign rating_value = product.metafields.reviews.rating.value.rating | round: 1
+              assign rating_value = product.metafields.reviews.rating.value.rating | times: 1.0 | round: 1
               assign rating_count = product.metafields.reviews.rating_count.value
               assign rating_max = product.metafields.reviews.rating.value.scale_max
             else
