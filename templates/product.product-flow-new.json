@@ -62,7 +62,7 @@
         "liquid_PrDUTW": {
           "type": "liquid",
           "settings": {
-            "liquid": "{% render 'wave-collection-colour', product: product %}{% render 'wave-fy27-pdp-layout' %}{% render 'wave-fy27-buy-box' %}"
+            "liquid": "{% render 'wave-collection-colour', product: product %}{% render 'wave-fy27-pdp-layout' %}{% render 'wave-fy27-buy-box' %}{% render 'wave-fy27-pdp-clean' %}"
           }
         },
         "text_DDUxag": {
@@ -690,7 +690,7 @@
         "text_alignment": "left",
         "text_alignment_mobile": "center",
         "color_text": "#171717",
-        "color_background": "#fafafa",
+        "color_background": "#ececec",
         "gradient_background": "",
         "full_width": false
       }

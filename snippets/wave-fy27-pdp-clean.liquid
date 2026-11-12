@@ -1,0 +1,59 @@
+{%- doc -%}
+  Black, white and grey clean-up for the product-flow-new page sections (rendered from the template's
+  main-product liquid block, so it only affects that template):
+  - Compatible accessories tabs styled as the section navigation bar: a grey pill bar, the chosen tab a
+    black pill (the bar's grey comes from the scroll-spy section's background setting, #ececec)
+  - "Included in the box" images as rounded squares instead of circles
+  - Product tile prices: price on top, the compare-at price underneath, no "Save £x"
+
+  {% render 'wave-fy27-pdp-clean' %}
+{%- enddoc -%}
+<style>
+  /* ═══ Compatible accessories tabs, as the nav bar ═══════════════════ */
+  [id^='CompatV2Tabs-'] [role='tablist'] {
+    display: inline-flex;
+    gap: var(--sp-1);
+    padding: var(--sp-1);
+    border-radius: var(--buttons-radius, 999px);
+    background: #ececec;
+  }
+  [id^='CompatV2Tabs-'] .tab__item.button {
+    --color-button-background: 0 0 0 / 0;
+    --color-button-border: 0 0 0 / 0;
+    --color-button-text: var(--color-foreground);
+    min-height: 0;
+    height: var(--sp-10d5);
+    padding-inline: var(--sp-5);
+    border: 0;
+    background: transparent;
+    color: rgb(var(--color-foreground));
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium, 500);
+  }
+  [id^='CompatV2Tabs-'] .tab__item.button[aria-selected='true'] {
+    --color-button-background: var(--color-foreground);
+    --color-button-border: var(--color-foreground);
+    --color-button-text: var(--color-background);
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+  }
+  @media (hover: hover) {
+    [id^='CompatV2Tabs-'] .tab__item.button[aria-selected='false']:hover { background: rgb(var(--color-foreground) / 0.06); }
+  }
+  @media screen and (min-width: 768px) {
+    [id^='CompatV2Tabs-'] .tab__item.button { font-size: var(--text-base); }
+  }
+
+  /* ═══ Included in the box: rounded squares ══════════════════════════ */
+  [id$='__product-details'] .media.rounded-full {
+    border-radius: var(--rounded-block, 10px);
+  }
+
+  /* ═══ Product tiles: price, then compare-at price; no "Save £x" ═════ */
+  main .shopify-section:not([id$='__main-product']) .price--on-sale {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+  main .shopify-section:not([id$='__main-product']) .price .price__save { display: none; }
+</style>

@@ -222,7 +222,7 @@
           <div class="wf-rc__save">
             <p>
               {{ section.settings.save_prefix }} <strong data-out="save-year">—</strong> {{ section.settings.save_suffix }}
-              <span data-payback hidden><span class="wf-small">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>
+              {%- if section.settings.show_payback %}<span data-payback hidden><span class="wf-small">{{ section.settings.payback_prefix }} <span data-out="extra">—</span> {{ section.settings.payback_middle }} <span data-out="payback">—</span> {{ section.settings.payback_suffix }}</span></span>{% endif %}
             </p>
             <button type="button" class="button button--primary" is="hover-button" data-add-es><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.cta_label }}</span></button>
           </div>
@@ -270,6 +270,7 @@
     { "type": "text", "id": "per_year", "label": "Per year", "default": "a year" },
     { "type": "text", "id": "save_prefix", "label": "Saving text before", "default": "Save around" },
     { "type": "text", "id": "save_suffix", "label": "Saving text after", "default": "a year with EnergySave™." },
+    { "type": "checkbox", "id": "show_payback", "label": "Show the payback line", "info": "'The bundle adds £x and pays for itself in about y months.'", "default": false },
     { "type": "text", "id": "payback_prefix", "label": "Payback text 1", "default": "The bundle adds" },
     { "type": "text", "id": "payback_middle", "label": "Payback text 2", "default": "and pays for itself in about" },
     { "type": "text", "id": "payback_suffix", "label": "Payback text 3", "default": "months." },

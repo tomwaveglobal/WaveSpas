@@ -24,10 +24,12 @@
                     if target == blank
                       continue
                     endif
+                    # (a new variable: Liquid ignores reassigning the for-loop variable itself)
+                    assign resolved = target
                     unless target contains 'shopify-section-' or target contains '__'
-                      assign target = 'shopify-section-' | append: template_prefix | append: '__' | append: target
+                      assign resolved = 'shopify-section-' | append: template_prefix | append: '__' | append: target
                     endunless
-                    assign targets = targets | append: target | append: ','
+                    assign targets = targets | append: resolved | append: ','
                   endfor
                   assign target_id = targets | split: ','
                 -%}
