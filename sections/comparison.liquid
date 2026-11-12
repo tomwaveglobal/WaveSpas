@@ -490,7 +490,7 @@
                         {%- endfor -%}
                       </div>
                       <div class="review-text">
-                        {{ rating_value }} Based on {{ block.settings.review_count | default: 0 }} Reviews
+                        {{ rating_value | round: 1 }} Based on {{ block.settings.review_count | default: 0 }} Reviews
                       </div>
                     {%- endif -%}
                   {%- endif -%}
