@@ -3,9 +3,11 @@
   (product-variant-picker-advanced) and the buy buttons. CSS only; the picker's markup and JS are shared
   with the other PDP templates and stay as they are.
 
-  Picker: numbered steps ("1. Pick your colour") with no boxes or outlines; square colour swatches with
-  the chosen colour named in the step heading; size and edition as plain text buttons with no images;
-  step 4 (add-ons) is a soft panel and, as before, only appears once every option is chosen.
+  Picker: steps named simply (Colour, Size, Edition, Optional add-ons; block settings) at the Product
+  Highlights heading size, the chosen option in grey after the name; no step numbers, boxes or outlines.
+  Colour swatches are rounded squares, five to a row, sized by the column. Size and edition are grey
+  rounded buttons like the highlight tiles, outlined in black when chosen; no images. The add-ons step is a
+  soft panel and, as before, only appears once every option is chosen.
   Buttons: buy button (theme default black) full width, with Contona's "Visualise in Garden" and Restock
   Rocket's "Notify me when available" side by side underneath, styled to match it. Whichever of the two
   is on its own takes the full width.
@@ -31,72 +33,69 @@
     background: none;
   }
   .product__info .vpa[data-vpa-root] .vpa__step--locked { opacity: 0.4; }
+  /* Step headings: just the name ("Colour"), at the Product Highlights heading size, with the chosen
+     option after it in grey ("Colour: Charcoal Black"). No step numbers. */
   .product__info .vpa[data-vpa-root] .vpa__head {
-    gap: var(--sp-1d5);
+    gap: 0.4em;
     margin-block-end: var(--sp-3);
     flex-wrap: nowrap;
+    align-items: baseline;
+    font-size: var(--text-base);
+    line-height: 1.25;
   }
-  .product__info .vpa[data-vpa-root] .vpa__num,
-  .product__info .vpa[data-vpa-root] .vpa__step--complete .vpa__num,
-  .product__info .vpa[data-vpa-root] .vpa__step--locked .vpa__num {
-    width: auto;
-    height: auto;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    color: inherit;
-    font-size: inherit;
-    font-weight: var(--vpa-step-w);
-  }
-  .product__info .vpa[data-vpa-root] .vpa__num::after { content: '.'; }
-  .product__info .vpa[data-vpa-root] .vpa__title {
+  .product__info .vpa[data-vpa-root] .vpa__num { display: none; }
+  .product__info .vpa[data-vpa-root] .vpa__title,
+  .product__info .vpa[data-vpa-root] .vpa__status {
     font-size: var(--text-base);
     font-weight: var(--font-medium, 500);
   }
-  .product__info .vpa[data-vpa-root] .vpa__head { font-size: var(--text-base); }
   @media screen and (min-width: 768px) {
     .product__info .vpa[data-vpa-root] .vpa__head,
-    .product__info .vpa[data-vpa-root] .vpa__title { font-size: var(--text-lg); }
+    .product__info .vpa[data-vpa-root] .vpa__title,
+    .product__info .vpa[data-vpa-root] .vpa__status { font-size: var(--text-lg); }
   }
+  .product__info .vpa[data-vpa-root] .vpa__step:not(.vpa__step--addons) .vpa__head:has(.vpa__status:not(:empty)) .vpa__title::after { content: ':'; }
   .product__info .vpa[data-vpa-root] .vpa__status {
     min-width: 0;
+    margin-inline-start: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular, 400);
+    color: rgb(var(--color-foreground) / 0.5);
   }
   .product__info .vpa[data-vpa-root] .vpa__status::before { content: none; }
 
-  /* ═══ Colour: clean square swatches, name in the heading ════════════ */
+  /* ═══ Colour: rounded square swatches that fill the row, like the theme default ═══
+     Five to a row at any width (more wrap), so they grow and shrink with the column. */
   .product__info .vpa[data-vpa-root] .vpa__choices--swatch {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--sp-2d5);
   }
   .product__info .vpa[data-vpa-root] .vpa__swatch {
-    width: auto;
+    width: 100%;
     max-width: none;
+    justify-self: stretch;
     gap: 0;
   }
   .product__info .vpa[data-vpa-root] .vpa__swatch .vpa__swatch-fill {
-    width: 56px;
-    height: 56px;
-    border-radius: 6px;
-    box-shadow: 0 0 0 1px var(--vpa-border);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: var(--sp-2d5);
+    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.06);
     transform: none;
   }
   .product__info .vpa[data-vpa-root] .vpa__swatch input:checked + .vpa__swatch-fill {
-    box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
+    box-shadow: inset 0 0 0 2px rgb(var(--color-foreground));
     transform: none;
   }
   @media (hover: hover) {
     .product__info .vpa[data-vpa-root] .vpa__swatch:hover .vpa__swatch-fill {
-      box-shadow: 0 0 0 1px rgb(var(--color-foreground) / 0.5);
+      box-shadow: inset 0 0 0 1px rgb(var(--color-foreground) / 0.4);
     }
     .product__info .vpa[data-vpa-root] .vpa__swatch:hover input:checked + .vpa__swatch-fill {
-      box-shadow: inset 0 0 0 3px rgb(var(--color-background)), 0 0 0 2px rgb(var(--color-foreground));
+      box-shadow: inset 0 0 0 2px rgb(var(--color-foreground));
     }
   }
   /* The heading names the chosen colour, so the labels under the swatches are for screen readers only
@@ -111,25 +110,26 @@
     white-space: nowrap;
   }
 
-  /* ═══ Size and edition: plain text buttons ══════════════════════════ */
+  /* ═══ Size and edition: grey rounded buttons like the Product Highlights tiles; black outline when chosen ═══ */
   .product__info .vpa[data-vpa-root] .vpa__choices--tile {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
     gap: var(--sp-2d5);
   }
   .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile {
-    padding: var(--sp-3) var(--sp-4);
-    border: 1px solid var(--vpa-border);
-    border-radius: 8px;
-    background: rgb(var(--color-background));
+    padding: var(--sp-4) var(--sp-5);
+    border: 0;
+    border-radius: var(--sp-2d5);
+    background: rgb(var(--color-foreground) / 0.025);
+    box-shadow: none;
+    transition: box-shadow 0.15s, background-color 0.15s;
   }
   .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked) {
-    border-color: rgb(var(--color-foreground));
-    box-shadow: inset 0 0 0 1px rgb(var(--color-foreground));
-    background: rgb(var(--color-background));
+    background: rgb(var(--color-foreground) / 0.025);
+    box-shadow: inset 0 0 0 2px rgb(var(--color-foreground));
   }
   @media (hover: hover) {
-    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:hover { border-color: rgb(var(--color-foreground) / 0.5); }
-    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked):hover { border-color: rgb(var(--color-foreground)); }
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:hover { background: rgb(var(--color-foreground) / 0.05); }
+    .product__info .vpa[data-vpa-root] .vpa__choices--tile .vpa__tile:has(input:checked):hover { background: rgb(var(--color-foreground) / 0.025); }
   }
   .product__info .vpa[data-vpa-root] .vpa__tile-media { display: none; }
   .product__info .vpa[data-vpa-root] .vpa__tile-body { display: block; }
