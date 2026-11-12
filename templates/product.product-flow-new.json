@@ -43,7 +43,14 @@
         },
         "reviews_io_reviewsio_rating_output_L6AWE4": {
           "type": "shopify://apps/reviews-io/blocks/reviewsio-rating-output/92a082e5-b297-4e88-b428-ac96cbc505f9",
+          "disabled": true,
           "settings": {}
+        },
+        "liquid_wave_rating": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% render 'wave-product-rating', product: product, section_id: section.id, target: 'rich_text_XazzCf' %}"
+          }
         },
         "liquid_3cEkGz": {
           "type": "liquid",
@@ -319,6 +326,7 @@
         "vendor_br9FVx",
         "title",
         "reviews_io_reviewsio_rating_output_L6AWE4",
+        "liquid_wave_rating",
         "liquid_3cEkGz",
         "liquid_PrDUTW",
         "text_DDUxag",
