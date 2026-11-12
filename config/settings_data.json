@@ -149,7 +149,7 @@
     "product_icon_list_metafield": "custom.product_icons",
     "product_icon_list": true,
     "product_icon_list_max": 4,
-    "product_icon_list_carousel": false,
+    "product_icon_list_carousel": true,
     "product_disable_collection_portion": true,
     "cart_type": "page",
     "cart_icon": "bag",
