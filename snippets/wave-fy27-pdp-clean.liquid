@@ -5,7 +5,7 @@
     black pill (the bar's grey comes from the scroll-spy section's background setting, #ececec)
   - "Included in the box" images as rounded squares instead of circles
   - Prices (the product's own and the tiles'): price on top, the compare-at price underneath, no "Save £x"
-  - Gallery: light grey behind the product images. The photos have white backgrounds baked in, so the
+  - Gallery and product tiles: light grey behind the product images. The photos have white backgrounds baked in, so the
     images are multiplied onto the grey: white shows as the grey, colours are unchanged (lifestyle shots
     darken by ~4%). Display only; the image files are untouched.
   - Description (collage) as the theme's default: wider text column (2:3) with larger body copy, image
@@ -102,6 +102,13 @@
     background-color: #f4f4f4;
   }
   .product__gallery-container :is(.product__media, .product__thumbnail) img {
+    mix-blend-mode: multiply;
+  }
+  /* Same for the product tile images on the page (Compatible accessories, recommendations); not the quick view */
+  main .product-card__media .media:not(quick-view .media) {
+    background-color: #f4f4f4;
+  }
+  main .product-card__media .media:not(quick-view .media) img {
     mix-blend-mode: multiply;
   }
 </style>
