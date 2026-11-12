@@ -137,7 +137,7 @@
             "discount_label": "{n}% OFF",
             "sold_out_label": "Sold Out",
             "sold_out_hide_discount": false,
-            "prefix_edition_with_size": true,
+            "prefix_edition_with_size": false,
             "subscribe_savings_label": "Subscribe & Save",
             "subscribe_description": "<p>Get this delivered regularly and save on every order. Cancel anytime.</p>",
             "addon_onetime_label": "No, thanks — one-time only"
