@@ -1,7 +1,7 @@
 {%- doc -%}
   Brings the FY27 collection colour (Wave Lite / Lush / Luxe) into the PDP, after the FY27 catalogue pages.
   Sets --wf-tier / --wf-tier-ink / --wf-tier-rgb on the page and uses them for: the FY27 sections' accent
-  (eyebrows, setup ring and step numbers, question tags) and the collage's swoosh and image labels. The title, buy button and variant picker stay black, and the Product
+  (eyebrows, setup ring and step numbers, question tags). The title, buy button and variant picker stay black, and the Product
   Highlights keep the theme's default style.
   The hot / cold / air diagram colours and the dark FY27 sections keep their own colours. Theme section
   subtitles take --wf-tier-ink in wave-fy27-pdp-layout.
@@ -95,24 +95,6 @@
     }
     :root .wf .wf-su__steps li::before {
       background: var(--wf-tier-ink);
-    }
-
-    /* Collage on scroll: the swoosh under the heading in the collection colour, and the image labels
-       ("Wave VertaAir™") as collection-colour pills, so they read on light and dark images alike.
-       !important because the section and its blocks set these colours on their element IDs. */
-    .shopify-section:has(.collage.on-scroll) {
-      --color-highlight: var(--wf-tier-rgb) !important;
-    }
-    .shopify-section:has(.collage.on-scroll) [id^='shopify-block-'] .highlighted-text[data-style='text'] {
-      display: inline-block;
-      padding: 0.35em 0.8em;
-      border-radius: 99px;
-      line-height: 1.1;
-      background: rgb(var(--wf-tier-rgb-ink)) !important;
-      background-clip: border-box !important;
-      -webkit-background-clip: border-box !important;
-      color: #fff !important;
-      -webkit-text-fill-color: #fff !important;
     }
 
   </style>

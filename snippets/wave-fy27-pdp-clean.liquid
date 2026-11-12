@@ -5,6 +5,8 @@
     black pill (the bar's grey comes from the scroll-spy section's background setting, #ececec)
   - "Included in the box" images as rounded squares instead of circles
   - Product tile prices: price on top, the compare-at price underneath, no "Save £x"
+  - Description (collage) as the theme's default: wider text column (2:3) with larger body copy, image
+    captions as a small eyebrow over a bold heading (block settings: plain subheading, no highlight)
 
   {% render 'wave-fy27-pdp-clean' %}
 {%- enddoc -%}
@@ -56,4 +58,31 @@
     gap: 2px;
   }
   main .shopify-section:not([id$='__main-product']) .price .price__save { display: none; }
+
+  /* ═══ Description (collage): the theme's default layout and type ════ */
+  @media screen and (min-width: 1024px) {
+    [id$='__collage'] .collage.on-scroll {
+      grid-template-columns: 2fr 3fr;
+      gap: clamp(var(--sp-10), 4vw, var(--sp-20));
+    }
+  }
+  [id$='__collage'] .collage .title-wrapper .rte,
+  [id$='__collage'] .collage .title-wrapper .rte p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+  @media screen and (min-width: 768px) {
+    [id$='__collage'] .collage .title-wrapper .rte,
+    [id$='__collage'] .collage .title-wrapper .rte p { font-size: var(--text-lg); }
+  }
+  [id$='__collage'] .collage.on-scroll .banner__box p { max-width: min(100%, 22rem); }
+  [id$='__collage'] .collage .banner__box .text-base:first-child {
+    font-size: 15px;
+    font-weight: var(--font-medium, 500);
+    opacity: 0.9;
+  }
+  [id$='__collage'] .collage .banner__box .heading {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.05;
+  }
 </style>
