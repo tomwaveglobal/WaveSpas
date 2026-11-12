@@ -5,6 +5,9 @@
     black pill (the bar's grey comes from the scroll-spy section's background setting, #ececec)
   - "Included in the box" images as rounded squares instead of circles
   - Prices (the product's own and the tiles'): price on top, the compare-at price underneath, no "Save £x"
+  - Gallery: light grey behind the product images. The photos have white backgrounds baked in, so the
+    images are multiplied onto the grey: white shows as the grey, colours are unchanged (lifestyle shots
+    darken by ~4%). Display only; the image files are untouched.
   - Description (collage) as the theme's default: wider text column (2:3) with larger body copy, image
     captions as a small eyebrow over a bold heading (block settings: plain subheading, no highlight)
 
@@ -92,5 +95,13 @@
   [id$='__collage'] .collage .banner__box .heading {
     font-size: clamp(1.5rem, 2vw, 2rem);
     line-height: 1.05;
+  }
+
+  /* ═══ Gallery: light grey behind the product images (display only) ═══ */
+  .product__gallery-container :is(.product__media, .product__thumbnail) {
+    background-color: #f4f4f4;
+  }
+  .product__gallery-container :is(.product__media, .product__thumbnail) img {
+    mix-blend-mode: multiply;
   }
 </style>
