@@ -7,7 +7,7 @@
   The hot / cold / air diagram colours and the dark FY27 sections keep their own colours. Theme section
   subtitles take --wf-tier-ink in wave-fy27-pdp-layout.
 
-  With part: 'label' it renders only the collection badge (assets/wave-badge-{tier}.svg) as a label for the
+  With part: 'label' it renders only the square collection label (assets/wave-label-{tier}.svg) for the
   top right-hand corner of the main product image; main-product renders that inside the gallery.
 
   The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
@@ -56,7 +56,7 @@
 -%}
 {%- if tier != blank and part == 'label' -%}
   <div class="wf-tier-label pointer-events-none" aria-hidden="true">
-    <img src="{{ 'wave-badge-' | append: tier | append: '.svg' | asset_url }}" alt="" width="137" height="200">
+    <img src="{{ 'wave-label-' | append: tier | append: '.svg' | asset_url }}" alt="" width="500" height="500">
   </div>
   <style>
     .wf-tier-label {
@@ -64,19 +64,18 @@
       z-index: 2;
       top: var(--sp-4, 1rem);
       inset-inline-end: var(--sp-4, 1rem);
-      width: 3.5rem;
+      width: 4rem;
     }
     .wf-tier-label img {
       display: block;
       width: 100%;
       height: auto;
-      filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.12));
     }
     @media screen and (max-width: 767px) {
       .wf-tier-label {
         top: var(--sp-3, 0.75rem);
         inset-inline-end: var(--sp-3, 0.75rem);
-        width: 2.5rem;
+        width: 3rem;
       }
     }
   </style>
