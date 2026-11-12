@@ -515,6 +515,81 @@ wf-explode { display: block; }
 @media (max-width: 549px) { .wf-rc__save .button { width: 100%; } }
 .wf-rc__basis { margin-top: auto; padding-top: 20px; }
 
+/* "Focused" layout (section setting): one soft panel, everything centred. Two choices, a Standard /
+   EnergySave switch, one big monthly figure, the saving in words and one button. The electricity
+   price hides behind "Change" in the small print. */
+.wf-rc--focus {
+  display: block;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
+.wf-rcf {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  padding: clamp(36px, 5vw, 72px) clamp(16px, 4vw, 56px) clamp(28px, 4vw, 48px);
+  border-radius: clamp(18px, 2vw, 28px);
+  background: rgb(var(--color-foreground) / 0.03);
+  text-align: center;
+}
+.wf-rcf__choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px clamp(24px, 3vw, 40px); }
+.wf-rcf__choice { display: grid; justify-items: center; gap: 8px; }
+.wf-rcf__label { font-size: 13px; font-weight: 500; color: rgb(var(--color-foreground) / 0.55); }
+.wf-rcf .wf-seg { background: #fff; box-shadow: none; }
+
+/* Standard / EnergySave switch: a grey track with a white thumb */
+.wf-rcf__switch {
+  display: inline-flex;
+  margin-top: clamp(36px, 4.5vw, 56px);
+  padding: 4px;
+  border-radius: 999px;
+  background: rgb(var(--color-foreground) / 0.07);
+}
+.wf-rcf__switch input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.wf-rcf__switch label {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: rgb(var(--color-foreground) / 0.6);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.wf-rcf__switch input:checked + label { background: #fff; color: rgb(var(--color-foreground)); box-shadow: 0 1px 3px rgb(0 0 0 / 0.12); }
+.wf-rcf__switch input:focus-visible + label { outline: 2px solid #000; outline-offset: 2px; }
+
+.wf-rcf__result { display: grid; justify-items: center; margin-top: clamp(20px, 2.5vw, 28px); }
+.wf-rcf__fig {
+  margin: 0;
+  font-size: clamp(64px, 8.5vw, 112px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--color-foreground));
+}
+.wf-rcf__fig small { margin-left: 0.08em; font-size: 0.24em; font-weight: 500; letter-spacing: 0; color: rgb(var(--color-foreground) / 0.55); }
+.wf-rcf__year { margin: 12px 0 0; font-size: var(--text-base); color: rgb(var(--color-foreground) / 0.6); }
+/* show the chosen edition's figures */
+.wf-rcf:has(input[value='es']:checked) .wf-rcf--std,
+.wf-rcf:has(input[value='std']:checked) .wf-rcf--es { display: none; }
+
+.wf-rcf__save { max-width: 34rem; margin: clamp(24px, 3vw, 32px) 0 0; font-size: clamp(17px, 1.4vw, 20px); font-weight: 500; line-height: 1.4; }
+.wf-rcf__save strong { font-weight: 700; font-variant-numeric: tabular-nums; }
+.wf-rcf__bundle { max-width: 40rem; margin: 6px 0 0; font-size: var(--text-sm); line-height: 1.5; color: rgb(var(--color-foreground) / 0.6); }
+.wf-rcf__cta { margin-top: clamp(20px, 2.5vw, 28px); min-width: 240px; }
+
+.wf-rcf__basis { max-width: 40rem; margin-top: clamp(28px, 3.5vw, 40px); font-size: 13px; line-height: 1.5; color: rgb(var(--color-foreground) / 0.55); }
+.wf-rcf__basis summary { list-style: none; cursor: pointer; }
+.wf-rcf__basis summary::-webkit-details-marker { display: none; }
+.wf-rcf__change { margin-left: 4px; color: rgb(var(--color-foreground)); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.wf-rcf__basis[open] .wf-rcf__change { display: none; }
+.wf-rcf__rate { width: min(100%, 360px); margin: 16px auto 0; text-align: left; }
+.wf-rcf__basis p { margin: 12px 0 0; }
+
 /* ==========================================================================
    Setup
    ========================================================================== */
