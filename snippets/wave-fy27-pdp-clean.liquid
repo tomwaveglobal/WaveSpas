@@ -4,7 +4,7 @@
   - Compatible accessories tabs styled as the section navigation bar: a grey pill bar, the chosen tab a
     black pill (the bar's grey comes from the scroll-spy section's background setting, #ececec)
   - "Included in the box" images as rounded squares instead of circles
-  - Product tile prices: price on top, the compare-at price underneath, no "Save £x"
+  - Prices (the product's own and the tiles'): price on top, the compare-at price underneath, no "Save £x"
   - Description (collage) as the theme's default: wider text column (2:3) with larger body copy, image
     captions as a small eyebrow over a bold heading (block settings: plain subheading, no highlight)
 
@@ -57,7 +57,15 @@
     flex-wrap: nowrap;
     gap: 2px;
   }
-  main .shopify-section:not([id$='__main-product']) .price .price__save { display: none; }
+  /* No "Save £x" anywhere on the page: the product's own price (and the sticky bar) as well as the tiles */
+  .price .price__save { display: none !important; }
+  /* Product price: price, then the compare-at price underneath it */
+  .product__info .product__title .price--on-sale {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 2px;
+  }
 
   /* ═══ Description (collage): the theme's default layout and type ════ */
   @media screen and (min-width: 1024px) {
