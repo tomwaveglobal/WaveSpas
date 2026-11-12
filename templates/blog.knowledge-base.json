@@ -436,7 +436,7 @@
         "text_gMrEL9": {
           "type": "text",
           "settings": {
-            "text": "<p>Get instant guidance 24/7 through our virtual assistant, or reach out to our team of experts for more tailored support. Whether it's a quick fix or a deep dive into our award winning Waveflow systems, we'll get you back to relaxing in no time.</p>",
+            "text": "<p>Get instant guidance 24/7 through our virtual assistant, or reach out to our team of experts for more tailored support. Whether it's a quick fix or a deep dive into our award winning Waveflow systems, we'll get you back to relaxing in no time.<br/>Or email us at <a href=\"mailto:support@wavespas.com\" title=\"mailto:support@wavespas.com\">support@wavespas.com</a></p>",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
