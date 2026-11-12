@@ -58,24 +58,18 @@
     <img src="{{ 'wave-label-' | append: tier | append: '.svg' | asset_url }}" alt="" width="500" height="500">
   </div>
   <style>
+    /* Scales with the screen: ~44px on phones, ~66px on a laptop, up to 80px on large desktops */
     .wf-tier-label {
       position: absolute;
       z-index: 2;
-      top: var(--sp-4, 1rem);
-      inset-inline-end: var(--sp-4, 1rem);
-      width: 4rem;
+      top: clamp(12px, 0.6vw + 8px, 20px);
+      inset-inline-end: clamp(12px, 0.6vw + 8px, 20px);
+      width: clamp(44px, 3vw + 28px, 80px);
     }
     .wf-tier-label img {
       display: block;
       width: 100%;
       height: auto;
-    }
-    @media screen and (max-width: 767px) {
-      .wf-tier-label {
-        top: var(--sp-3, 0.75rem);
-        inset-inline-end: var(--sp-3, 0.75rem);
-        width: 3rem;
-      }
     }
   </style>
 {%- elsif tier != blank -%}
