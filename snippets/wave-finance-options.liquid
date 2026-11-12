@@ -12,7 +12,7 @@
   Rendered without a block (the older templates' custom-liquid blocks), it falls back to the values below,
   which are also the block's defaults.
 
-  Look: white box with a light grey border like Product Highlights, black and grey text only. Logos sit on the
+  Look: like Product Highlights (white box, light grey border, title in the border, grey inner tile); black and grey only. Logos sit on the
   right in two rows: Klarna and PayPal, then Payl8r and DivideBuy (assets/wave-pay-*.png, or the block's logos).
 
   @param {object} product - Product being viewed
@@ -163,25 +163,41 @@
   </details>
 </wave-finance>
 <style>
-  /* White box with the light grey border Product Highlights uses; black, white and grey only */
+  /* Laid out like Product Highlights: white box with a light grey border, the title sitting in the top
+     border, and the summary in a soft grey tile inside. Black, white and grey only. */
+  .wfin { display: block; margin-top: var(--sp-8); }
   .wfin .wfin__panel {
+    position: relative;
+    overflow: visible;
+    padding: var(--sp-6);
     border: 1px solid rgb(var(--color-border-light, var(--color-foreground) / 0.1));
     border-radius: var(--rounded-block, 10px);
     background: rgb(var(--color-background));
   }
-  .wfin .wfin__summary { gap: 0.2rem 1rem; padding: var(--sp-5) var(--sp-6); }
+  .wfin .wfin__summary {
+    gap: 0.2rem 1rem;
+    padding: var(--sp-4) var(--sp-6);
+    border-radius: var(--sp-2d5);
+    background: rgb(var(--color-foreground) / 0.025);
+  }
   .wfin .wfin__summary > :not(.wfin__logos) { grid-column: 1; }
   .wfin .wfin__logos {
     grid-column: 2;
-    grid-row: 1 / span 4;
+    grid-row: 1 / span 3;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.4rem;
   }
   .wfin .wfin__logo-row { display: flex; align-items: center; justify-content: flex-end; gap: 0.4rem; }
   .wfin .wfin__logo-row img { display: block; width: auto; height: 26px; margin: 0; border-radius: 0; }
-  /* Section title size, as Product Highlights and the variant picker steps */
+  /* Title in the border, as the Product Highlights heading */
   .wfin .wfin__eyebrow {
+    position: absolute;
+    inset-block-start: -1px;
+    inset-inline-start: var(--sp-5d5);
+    transform: translateY(-50%);
+    padding: 0 var(--sp-2d5);
+    background: rgb(var(--color-background));
     font-size: var(--text-base);
     font-weight: var(--font-medium, 500);
     line-height: 1.25;
@@ -190,18 +206,19 @@
   @media screen and (min-width: 768px) {
     .wfin .wfin__eyebrow { font-size: var(--text-lg); }
   }
-  .wfin .wfin__headline { display: flex; align-items: baseline; gap: 0.3rem; margin: 0.5rem 0 0; font-size: var(--text-sm); line-height: 1; }
+  .wfin .wfin__headline { display: flex; align-items: baseline; gap: 0.3rem; margin: 0; font-size: var(--text-sm); line-height: 1; }
   .wfin .wfin__headline strong { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
   .wfin .wfin__per { margin-inline-start: -0.2rem; font-size: var(--text-sm); font-weight: 500; }
   .wfin .wfin__sub { margin: 0.35rem 0 0; font-size: var(--text-sm); line-height: 1.4; color: rgb(var(--color-foreground) / 0.65); }
   .wfin .wfin__toggle { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.6rem; font-size: var(--text-sm); font-weight: 500; color: rgb(var(--color-foreground)); text-decoration: none; }
   .wfin .wfin__chev { width: 12px; height: 12px; transition: transform 0.2s; }
   .wfin .wfin__panel[open] .wfin__chev { transform: rotate(180deg); }
-  .wfin .wfin__body { padding: 0 var(--sp-6) var(--sp-6); }
+  .wfin .wfin__body { padding: var(--sp-5) 0 0; }
   .wfin .wfin__chip { background: rgb(var(--color-foreground) / 0.06); color: rgb(var(--color-foreground)); font-weight: 500; }
   @media (max-width: 420px) {
-    .wfin .wfin__summary { padding: var(--sp-4) var(--sp-5); }
-    .wfin .wfin__body { padding: 0 var(--sp-5) var(--sp-5); }
+    .wfin .wfin__panel { padding: var(--sp-5) var(--sp-4) var(--sp-4); }
+    .wfin .wfin__summary { padding: var(--sp-4); }
+    .wfin .wfin__eyebrow { inset-inline-start: var(--sp-3); }
     .wfin .wfin__logos { grid-column: 1; grid-row: auto; align-items: flex-start; margin-top: 0.5rem; }
     .wfin .wfin__logo-row { justify-content: flex-start; }
   }
