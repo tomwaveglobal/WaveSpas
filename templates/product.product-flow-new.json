@@ -198,7 +198,7 @@
         "buy_buttons_nBMjqf": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity_selector": true,
+            "show_quantity_selector": false,
             "show_price": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true,
@@ -312,59 +312,6 @@
             "enable_carousel": false,
             "show_below_media": true
           }
-        },
-        "text_LiCrpH": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "sale",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>Running Cost - From £2 a day</strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
-        },
-        "text_9JnzcB": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "wrench",
-            "icon_image": "shopify://shop_images/CS_key_point.png",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>UK-based 7-Day Customer Support</strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
-        },
-        "text_wxnQw7": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "icon_image": "shopify://shop_images/sale.png",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>Free Chemical & Filter Starter Kit </strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
         }
       },
       "block_order": [
@@ -393,10 +340,7 @@
         "pickup_availability",
         "complementary",
         "sticky_buy_button",
-        "icon_list_4xTkbm",
-        "text_LiCrpH",
-        "text_9JnzcB",
-        "text_wxnQw7"
+        "icon_list_4xTkbm"
       ],
       "settings": {
         "enable_sticky_info": false,
@@ -735,7 +679,7 @@
       "name": "t:sections.scroll-spy.name",
       "settings": {
         "show_highlight": true,
-        "text_alignment": "center",
+        "text_alignment": "left",
         "text_alignment_mobile": "center",
         "color_text": "#171717",
         "color_background": "#fafafa",
@@ -835,7 +779,7 @@
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
-        "subheading": "Tech specs",
+        "subheading": "",
         "description": "",
         "button_label": "",
         "button_link": "",
@@ -869,11 +813,11 @@
         "quick_add": true,
         "columns_mobile": "1",
         "swipe_on_mobile": true,
-        "heading": "What fits this hot tub",
+        "heading": "Compatible Accessories",
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
-        "subheading": "Compatible Accessories",
+        "subheading": "",
         "description": "",
         "highlighted_text": "none",
         "highlighted_scribble": "circle",
@@ -920,8 +864,8 @@
       "name": "FY27 running cost",
       "settings": {
         "nav_label": "Running costs",
-        "eyebrow": "Running costs",
-        "heading": "Warm water, sensible bills.",
+        "eyebrow": "",
+        "heading": "Running costs",
         "lede": "See what it costs to run, before you buy.",
         "lede_es": "See what it costs to run, and what EnergySave™ saves you.",
         "bundle_line": "EnergySave™ adds a thermal cover and insulated floor mats, worth up to £200.",
@@ -936,20 +880,21 @@
         "rate_usd": 17,
         "standard_label": "Standard",
         "energysave_label": "EnergySave™ bundle",
+        "es_flag": "[pct]% less energy",
         "energysave_saving": 30,
         "per_month": "a month",
         "per_year": "a year",
         "save_prefix": "Save around",
         "save_suffix": "a year with EnergySave™.",
-        "payback_prefix": "The bundle adds",
-        "payback_middle": "and pays for itself in about",
-        "payback_suffix": "months.",
+        "payback_prefix": "",
+        "payback_middle": "",
+        "payback_suffix": "",
         "cta_label": "Choose EnergySave™",
         "basis_prefix": "Based on",
         "basis_middle": "days a month at",
-        "basis_es": "EnergySave assumes [pct]% less energy. Your bill depends on weather and use.",
+        "basis_es": "",
         "calculator_link": "",
-        "calculator_label": "Full calculator",
+        "calculator_label": "",
         "show_notes": false
       }
     },
@@ -1188,6 +1133,7 @@
         "step_m8ByzH",
         "step_cK6faA"
       ],
+      "disabled": true,
       "name": "FY27 setup",
       "settings": {
         "nav_label": "Setup",
@@ -1339,7 +1285,7 @@
       "name": "FY27 range",
       "settings": {
         "nav_label": "Compare",
-        "eyebrow": "The FY27 range",
+        "eyebrow": "",
         "heading": "Three ways to soak.",
         "lede": "Choose how you want it to feel.",
         "current_label": "You're viewing",
@@ -1639,7 +1585,8 @@
           "settings": {
             "topic": "",
             "question": "Will it fit in my garden?",
-            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>",
+            "only_tag": ""
           }
         },
         "question_Nq767R": {
@@ -1647,7 +1594,8 @@
           "settings": {
             "topic": "",
             "question": "How much looking after does it need?",
-            "answer": "<p>A few minutes a week. Rinse the filter after a soak, test the water twice a week and refresh it every 1 to 3 months. Our water care guides show you how.</p>"
+            "answer": "<p>A few minutes a week. Rinse the filter after a soak, test the water twice a week and refresh it every 1 to 3 months. Our water care guides show you how.</p>",
+            "only_tag": ""
           }
         },
         "question_Vcy94h": {
@@ -1655,7 +1603,8 @@
           "settings": {
             "topic": "",
             "question": "Can I use it in winter?",
-            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>",
+            "only_tag": ""
           }
         },
         "question_9DT33f": {
@@ -1663,7 +1612,8 @@
           "settings": {
             "topic": "",
             "question": "Is it noisy?",
-            "answer": "<p>Barely. The heater and pump hum quietly, and with the bubbles off it is quiet enough for a late evening.</p>"
+            "answer": "<p>Barely. The heater and pump hum quietly, and with the bubbles off it is quiet enough for a late evening.</p>",
+            "only_tag": ""
           }
         },
         "question_3kKPwb": {
@@ -1671,7 +1621,8 @@
           "settings": {
             "topic": "",
             "question": "Do I need planning permission?",
-            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>",
+            "only_tag": ""
           }
         },
         "question_BgT9WH": {
@@ -1679,7 +1630,8 @@
           "settings": {
             "topic": "",
             "question": "When will it arrive?",
-            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>",
+            "only_tag": ""
           }
         }
       },
@@ -1694,7 +1646,7 @@
       "name": "FY27 questions",
       "settings": {
         "nav_label": "Questions",
-        "eyebrow": "Questions",
+        "eyebrow": "",
         "heading": "Before you buy.",
         "lede": "Quick answers to what people ask most.",
         "contact_text": "Still deciding? Our UK team is here six days a week.",
@@ -1832,7 +1784,7 @@
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "small",
         "heading_tag": "h2",
-        "subheading": "Reviews",
+        "subheading": "",
         "description": "",
         "button_label": "",
         "button_link": "",
