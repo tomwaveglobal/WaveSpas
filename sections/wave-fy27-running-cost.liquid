@@ -35,7 +35,7 @@
     </div>
 
     <wf-cost
-      class="wf-rc{% unless has_es %} wf-rc__single{% endunless %}{% if section.settings.layout == 'simple' %} wf-rc--simple{% endif %}""
+      class="wf-rc{% unless has_es %} wf-rc__single{% endunless %}{% if section.settings.layout == 'focus' %} wf-rc--focus{% endif %}""
       data-currency="{{ cart.currency.iso_code }}"
       data-saving="{% if has_es %}{{ section.settings.energysave_saving }}{% else %}0{% endif %}"
       data-days="15"
@@ -160,6 +160,75 @@
         ]
       </script>
 
+      {%- if section.settings.layout == 'focus' -%}
+        {%- comment -%}
+          Focused layout: two choices, one big figure, the saving in words, one button. The electricity
+          price sits behind "Change" in the small print. Same data-* hooks as the classic layout, so
+          <wf-cost> in wave-fy27.js drives both. The Standard / EnergySave switch is CSS only (:has).
+        {%- endcomment -%}
+        {%- assign es_flag = section.settings.es_flag | replace: '[pct]', section.settings.energysave_saving -%}
+        <div class="wf-rcf" data-wf-reveal>
+          <div class="wf-rcf__choices">
+            {%- if size_option.values.size > 1 -%}
+              <div class="wf-rcf__choice">
+              <span class="wf-rcf__label" aria-hidden="true">{{ section.settings.size_label }}</span>
+              <div class="wf-seg" role="group" aria-label="{{ section.settings.size_label | escape }}">
+                {%- for value in size_option.values -%}
+                  <button type="button" data-size="{{ forloop.index0 }}" aria-pressed="{% if forloop.index0 == start_size %}true{% else %}false{% endif %}">{{ value | split: '|' | first | strip }}</button>
+                {%- endfor -%}
+              </div>
+              </div>
+            {%- endif -%}
+            <div class="wf-rcf__choice">
+            <span class="wf-rcf__label" aria-hidden="true">{{ section.settings.usage_label }}</span>
+            <div class="wf-seg" role="group" aria-label="{{ section.settings.usage_label | escape }}">
+              <button type="button" data-days="6" aria-pressed="false">{{ section.settings.usage_1 }}</button>
+              <button type="button" data-days="15" aria-pressed="true">{{ section.settings.usage_2 }}</button>
+              <button type="button" data-days="30" aria-pressed="false">{{ section.settings.usage_3 }}</button>
+            </div>
+            </div>
+          </div>
+
+          {%- if has_es -%}
+            <div class="wf-rcf__switch" role="radiogroup" aria-label="{{ section.settings.standard_label | escape }} / {{ section.settings.energysave_label | escape }}">
+              <input type="radio" id="WfRcfStd-{{ section.id }}" name="WfRcf-{{ section.id }}" value="std">
+              <label for="WfRcfStd-{{ section.id }}">{{ section.settings.standard_label }}</label>
+              <input type="radio" id="WfRcfEs-{{ section.id }}" name="WfRcf-{{ section.id }}" value="es" checked>
+              <label for="WfRcfEs-{{ section.id }}">{{ section.settings.energysave_label }}</label>
+            </div>
+          {%- endif -%}
+
+          <div class="wf-rcf__result" aria-live="polite">
+            <p class="wf-rcf__fig wf-rcf--std"><span data-out="std-month">—</span><small>/month</small></p>
+            {%- if has_es -%}<p class="wf-rcf__fig wf-rcf--es"><span data-out="es-month">—</span><small>/month</small></p>{%- endif -%}
+            <p class="wf-rcf__year wf-rcf--std"><span data-out="std-year">—</span> {{ section.settings.per_year }}</p>
+            {%- if has_es -%}
+              <p class="wf-rcf__year wf-rcf--es"><span data-out="es-year">—</span> {{ section.settings.per_year }}{% if es_flag != blank %} · {{ es_flag }}{% endif %}</p>
+            {%- endif -%}
+          </div>
+
+          {%- if has_es -%}
+            <p class="wf-rcf__save">{{ section.settings.save_prefix }} <strong data-out="save-year">—</strong> {{ section.settings.save_suffix }}</p>
+            {%- if section.settings.bundle_line != blank -%}<p class="wf-rcf__bundle">{{ section.settings.bundle_line }}</p>{%- endif -%}
+            <button type="button" class="button button--primary wf-rcf__cta" is="hover-button" data-add-es><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.cta_label }}</span></button>
+          {%- endif -%}
+
+          <details class="wf-rcf__basis">
+            <summary>
+              {{ section.settings.basis_prefix }} <span data-litres hidden><span data-out="litres"></span>, about </span><span data-out="kwh">{{ kwh_day }}</span> kWh a day × <span data-out="days">15</span> {{ section.settings.basis_middle }} <span data-out="rate">{{ rate }}{{ unit }}</span>.
+              <span class="wf-rcf__change">Change</span>
+            </summary>
+            <div class="wf-rcf__rate">
+              <label class="wf-rc__label" for="WfRate-{{ section.id }}">{{ section.settings.rate_label }}</label>
+              <div class="wf-rc__rate">
+                <input id="WfRate-{{ section.id }}" type="range" min="10" max="60" step="1" value="{{ rate }}">
+                <output data-out="rate">{{ rate }}{{ unit }}</output>
+              </div>
+            </div>
+            {%- if has_es and section.settings.basis_es != blank -%}<p>{{ section.settings.basis_es | replace: '[pct]', section.settings.energysave_saving }}</p>{%- endif -%}
+          </details>
+        </div>
+      {%- else -%}
       <div class="wf-rc__controls" data-wf-reveal>
         {%- if size_option.values.size > 1 -%}
           <div>
@@ -233,6 +302,7 @@
           {%- if section.settings.calculator_link != blank %} <a class="wf-link" href="{{ section.settings.calculator_link }}">{{ section.settings.calculator_label }}</a>{% endif %}
         </p>
       </div>
+      {%- endif -%}
     </wf-cost>
 
     {%- if section.settings.show_notes -%}
@@ -247,7 +317,7 @@
   "name": "FY27 running cost",
   "settings": [
     { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Running costs" },
-    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "heading", "label": "Heading above the calculator" }, { "value": "simple", "label": "Simple: controls in a row, figures side by side" } ], "default": "heading" },
+    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "heading", "label": "Heading above the calculator" }, { "value": "focus", "label": "Focused: two choices and one big figure" } ], "default": "heading" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Running costs" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Know what it costs before it arrives." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "Tell us how often you'll use it and what you pay for electricity. We'll show you what to expect on the bill." },
