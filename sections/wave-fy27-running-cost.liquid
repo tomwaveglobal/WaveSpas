@@ -28,29 +28,20 @@
 {%- if kwh_day != blank -%}
 <wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
-    {%- assign outline = false -%}
-    {%- if section.settings.layout == 'outline' -%}{%- assign outline = true -%}{%- endif -%}
-    {%- unless outline -%}
     <div class="wf-head">
       <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
       <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
       <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{% if has_es %}{{ section.settings.lede_es }}{% else %}{{ section.settings.lede }}{% endif %}</p>
     </div>
-    {%- endunless -%}
 
     <wf-cost
-      class="wf-rc{% unless has_es %} wf-rc__single{% endunless %}{% if outline %} wf-rc--outline{% endif %}""
+      class="wf-rc{% unless has_es %} wf-rc__single{% endunless %}{% if section.settings.layout == 'simple' %} wf-rc--simple{% endif %}""
       data-currency="{{ cart.currency.iso_code }}"
       data-saving="{% if has_es %}{{ section.settings.energysave_saving }}{% else %}0{% endif %}"
       data-days="15"
       data-rate="{{ rate_decimal }}"
       data-unit="{{ unit }}"
     >
-      {%- if outline -%}
-        <h2 class="wf-rc__legend">{{ section.settings.heading }}</h2>
-        {%- capture rc_lede -%}{% if has_es %}{{ section.settings.lede_es }}{% else %}{{ section.settings.lede }}{% endif %}{%- endcapture -%}
-        {%- if rc_lede != blank -%}<p class="wf-rc__lede">{{ rc_lede }}</p>{%- endif -%}
-      {%- endif -%}
       {%- liquid
         comment
           The calculator page gives one kWh a day per spa type, which matches the largest size.
@@ -256,7 +247,7 @@
   "name": "FY27 running cost",
   "settings": [
     { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Running costs" },
-    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "heading", "label": "Heading above the calculator" }, { "value": "outline", "label": "Title in the outline (like Product Highlights)" } ], "default": "heading" },
+    { "type": "select", "id": "layout", "label": "Layout", "options": [ { "value": "heading", "label": "Heading above the calculator" }, { "value": "simple", "label": "Simple: controls in a row, figures side by side" } ], "default": "heading" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Running costs" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Know what it costs before it arrives." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "Tell us how often you'll use it and what you pay for electricity. We'll show you what to expect on the bill." },

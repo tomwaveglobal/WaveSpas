@@ -970,7 +970,7 @@
       "type": "wave-fy27-running-cost",
       "name": "FY27 running cost",
       "settings": {
-        "layout": "outline",
+        "layout": "simple",
         "nav_label": "Running costs",
         "eyebrow": "",
         "heading": "Running costs",

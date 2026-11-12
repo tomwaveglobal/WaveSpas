@@ -515,62 +515,54 @@ wf-explode { display: block; }
 @media (max-width: 549px) { .wf-rc__save .button { width: 100%; } }
 .wf-rc__basis { margin-top: auto; padding-top: 20px; }
 
-/* "Title in the outline" layout (section setting), after Product Highlights: a white box with a light
-   grey border, the title sitting in the top border, the controls and results in soft grey tiles. */
-.wf-rc--outline {
-  position: relative;
+/* "Simple" layout (section setting): no card or panels. The controls sit in one row, then the two
+   monthly figures side by side with a hairline between them (no cards, no bars), then the saving and
+   button. The section keeps its normal heading. */
+.wf-rc--simple {
+  display: block;
   overflow: visible;
-  gap: var(--sp-4) clamp(16px, 2vw, 24px);
-  margin-top: clamp(24px, 3vw, 40px);
-  padding: clamp(28px, 3vw, 40px) clamp(16px, 2.6vw, 32px) clamp(16px, 2.6vw, 32px);
-  border-radius: var(--rounded-block, 10px);
+  border-radius: 0;
   box-shadow: none;
-  border: 1px solid rgb(var(--color-border-light, 0 0 0 / 0.1));
+  background: none;
 }
-.wf-rc--outline .wf-rc__legend {
-  position: absolute;
-  top: -1px;
-  left: var(--sp-5d5, 22px);
-  transform: translateY(-50%);
-  margin: 0;
-  padding: 0 var(--sp-2d5, 10px);
-  background: #fff;
-  font-family: var(--font-body-family);
-  font-size: var(--text-base);
-  font-weight: var(--font-medium, 500);
-  line-height: 1.25;
-  letter-spacing: 0;
-  color: rgb(var(--color-foreground));
-}
-@media (min-width: 768px) { .wf-rc--outline .wf-rc__legend { font-size: var(--text-lg); } }
-.wf-rc--outline .wf-rc__lede {
-  grid-column: 1 / -1;
-  margin: 0;
-  font-size: var(--text-sm);
-  line-height: 1.5;
-  color: rgb(var(--color-foreground) / 0.65);
-}
-.wf-rc--outline .wf-rc__controls {
+.wf-rc--simple .wf-rc__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px clamp(24px, 3vw, 48px);
+  padding: 0 0 clamp(24px, 3vw, 32px);
   border: 0;
-  border-radius: var(--sp-2d5, 10px);
-  background: rgb(var(--color-foreground) / 0.025);
-  padding: clamp(20px, 2.4vw, 32px);
+  border-bottom: 1px solid var(--wf-line);
+  border-radius: 0;
+  background: none;
 }
-.wf-rc--outline .wf-rc__panel { padding: 0; }
-.wf-rc--outline .wf-rc__col {
-  border-radius: var(--sp-2d5, 10px);
+.wf-rc--simple .wf-rc__controls > div:has(.wf-rc__rate) { flex: 1 1 260px; max-width: 420px; }
+.wf-rc--simple .wf-rc__bundle-line { display: none; }
+.wf-rc--simple .wf-rc__panel { padding: clamp(24px, 3vw, 32px) 0 0; }
+.wf-rc--simple .wf-rc__cols { gap: 0; }
+.wf-rc--simple .wf-rc__col,
+.wf-rc--simple .wf-rc__col--es {
+  padding: 0;
+  border-radius: 0;
   box-shadow: none;
-  background: rgb(var(--color-foreground) / 0.025);
+  background: none;
 }
-.wf-rc--outline .wf-rc__col--es {
-  background: #fff;
-  box-shadow: inset 0 0 0 1.5px rgb(var(--color-foreground));
+.wf-rc--simple .wf-rc__col--es { padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--wf-line); }
+@media (max-width: 549px) {
+  .wf-rc--simple .wf-rc__col--es { padding: 20px 0 0; margin-top: 20px; border-left: 0; border-top: 1px solid var(--wf-line); }
 }
-.wf-rc--outline .wf-rc__save {
-  border-radius: var(--sp-2d5, 10px);
-  background: rgb(var(--color-foreground) / 0.025);
+.wf-rc--simple .wf-rc__name { min-height: 24px; }
+.wf-rc--simple .wf-rc__flag { position: static; transform: none; }
+.wf-rc--simple .wf-rc__rate { min-height: 40px; }
+.wf-rc--simple .wf-rc__bar { display: none; }
+.wf-rc--simple .wf-rc__save {
+  margin-top: clamp(24px, 3vw, 32px);
+  padding: clamp(20px, 2.4vw, 24px) 0 0;
+  border-top: 1px solid var(--wf-line);
+  border-radius: 0;
+  background: none;
 }
-.wf-rc--outline .wf-rc__basis { padding-top: var(--sp-4, 16px); }
+.wf-rc--simple .wf-rc__basis { padding-top: 16px; }
 
 /* ==========================================================================
    Setup
