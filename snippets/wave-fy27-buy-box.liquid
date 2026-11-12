@@ -3,8 +3,8 @@
   (product-variant-picker-advanced) and the buy buttons. CSS only; the picker's markup and JS are shared
   with the other PDP templates and stay as they are.
 
-  Picker: steps named simply (Colour, Size, Edition, Optional add-ons; block settings) at the Product
-  Highlights heading size, the chosen option in grey after the name; no step numbers, boxes or outlines.
+  Picker: steps named simply (Colour, Size, Edition, Optional add-ons; block settings) at the buy
+  button's text size, the chosen option in grey after the name; no step numbers, boxes or outlines.
   Colour swatches are small, each in a light grey rounded box (black when chosen). Size and edition are
   grey rounded buttons like the highlight tiles, outlined in black when chosen: name only, no images,
   prices or % off. Out of stock options get a light orange outline and are crossed through. The add-ons step is a
@@ -41,19 +41,15 @@
     margin-block-end: var(--sp-3);
     flex-wrap: nowrap;
     align-items: baseline;
-    font-size: var(--text-base);
+    font-size: var(--font-button-size, var(--text-base));
     line-height: 1.25;
   }
   .product__info .vpa[data-vpa-root] .vpa__num { display: none; }
+  /* Same size as the buy button text, at every width */
   .product__info .vpa[data-vpa-root] .vpa__title,
   .product__info .vpa[data-vpa-root] .vpa__status {
-    font-size: var(--text-base);
+    font-size: var(--font-button-size, var(--text-base));
     font-weight: var(--font-regular, 400);
-  }
-  @media screen and (min-width: 768px) {
-    .product__info .vpa[data-vpa-root] .vpa__head,
-    .product__info .vpa[data-vpa-root] .vpa__title,
-    .product__info .vpa[data-vpa-root] .vpa__status { font-size: var(--text-lg); }
   }
   .product__info .vpa[data-vpa-root] .vpa__step:not(.vpa__step--addons) .vpa__head:has(.vpa__status:not(:empty)) .vpa__title::after { content: ':'; }
   .product__info .vpa[data-vpa-root] .vpa__status {
