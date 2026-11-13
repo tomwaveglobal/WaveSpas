@@ -299,18 +299,25 @@
             "target_id": "product-details"
           }
         },
-        "nav_item_whatfits": {
-          "type": "nav_item",
-          "settings": {
-            "title": "What Fits",
-            "target_id": "compatible_accessories"
-          }
-        },
         "nav_item_yXJLBm": {
           "type": "nav_item",
           "settings": {
             "title": "Description",
             "target_id": "collage"
+          }
+        },
+        "nav_item_heat": {
+          "type": "nav_item",
+          "settings": {
+            "title": "How It Heats",
+            "target_id": "wf_sauna_heat"
+          }
+        },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What Fits",
+            "target_id": "compatible_accessories"
           }
         },
         "nav_item_setup": {
@@ -339,13 +346,6 @@
           "settings": {
             "title": "Reviews",
             "target_id": "rich_text_XazzCf,custom_liquid_YwqJMM,174653922467a5c413"
-          }
-        },
-        "nav_item_heat": {
-          "type": "nav_item",
-          "settings": {
-            "title": "How It Heats",
-            "target_id": "wf_sauna_heat"
           }
         }
       },
@@ -377,7 +377,7 @@
         "heading_Wqyzm3": {
           "type": "heading",
           "settings": {
-            "heading": "Tonight Could Look Like This",
+            "heading": "{{ product.metafields.custom.product_hero_image_1_title.value }}",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
             "highlighted_text": "none",
@@ -395,7 +395,7 @@
         "image": "{{ product.metafields.custom.product_image_5.value }}",
         "image_height": "750px",
         "content_width": "small",
-        "content_position": "md:items-center md:justify-start",
+        "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
         "image_mobile": "{{ product.metafields.custom.product_image_6.value }}",
         "image_height_mobile": "auto",
@@ -640,92 +640,6 @@
         "enable_parallax": true
       }
     },
-    "wf_sauna_heat": {
-      "type": "wave-fy27-sauna-heat",
-      "blocks": {
-        "ir_1": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "carbon",
-            "title": "Carbon panels",
-            "text": "Behind you, beside you and at your calves, so the warmth is even."
-          }
-        },
-        "ir_2": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "ruby",
-            "title": "Ruby heaters",
-            "text": "They sit alongside the carbon and bring the cabin up to heat."
-          }
-        },
-        "ir_3": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "none",
-            "title": "Your settings",
-            "text": "Set it on the digital panel or over Wi-Fi. Bluetooth plays your music."
-          }
-        },
-        "tr_1": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "stove",
-            "title": "The stove",
-            "text": "A Harvia Vega, sold separately. Your size shows the output we recommend."
-          }
-        },
-        "tr_2": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "steam",
-            "title": "The stones",
-            "text": "Lava stones hold the heat, ready for the next ladle."
-          }
-        },
-        "tr_3": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "none",
-            "title": "In the box",
-            "text": "Bucket, ladle, sand timer and thermometer."
-          }
-        }
-      },
-      "block_order": [
-        "ir_1",
-        "ir_2",
-        "ir_3",
-        "tr_1",
-        "tr_2",
-        "tr_3"
-      ],
-      "settings": {
-        "nav_label": "How it heats",
-        "eyebrow": "How it heats",
-        "ir_heading": "Warmth that finds you.",
-        "ir_lede": "Carbon panels at your back, sides and calves, with ruby heaters alongside. It feels like sitting in low sun.",
-        "ir_toggle_label": "Show heaters",
-        "ir_all_label": "Both",
-        "ir_carbon_label": "Carbon",
-        "ir_ruby_label": "Ruby",
-        "ir_diagram_label": "An infrared sauna seen from the front, with carbon panels behind, beside and below the bather and ruby heaters along the top and sides",
-        "trad_heading": "Pour, wait, breathe out.",
-        "trad_lede": "An electric stove heats the stones. A ladle of water on top sends steam rolling through the cabin.",
-        "trad_toggle_label": "Show heat or steam",
-        "trad_steam_label": "Steam",
-        "trad_heat_label": "Dry heat",
-        "trad_diagram_label": "An outdoor sauna seen from the front, with benches either side of an electric stove topped with stones, and steam rising from the stones",
-        "show_size_card": true,
-        "size_label": "Your size:"
-      }
-    },
     "compatible_accessories": {
       "type": "compatible-accessories-v2",
       "settings": {
@@ -758,88 +672,6 @@
         "divider": false,
         "full_width": false,
         "rounded": false
-      }
-    },
-    "wf_sauna_setup": {
-      "type": "wave-fy27-sauna-setup",
-      "blocks": {
-        "in_1": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Pick a spot",
-            "text": "A level floor indoors, near the socket you'll use."
-          }
-        },
-        "in_2": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Clip it together",
-            "text": "The panels buckle into place. Two people make it easier."
-          }
-        },
-        "in_3": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Plug in, warm up",
-            "text": "Set the temperature on the panel and let it warm up."
-          }
-        },
-        "out_1": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Prepare a base",
-            "text": "Flat, level and firm, with room to walk around it."
-          }
-        },
-        "out_2": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Build the cabin",
-            "text": "Everything for the cabin is in the crate."
-          }
-        },
-        "out_3": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Fit the stove",
-            "text": "A qualified electrician wires in the Harvia Vega."
-          }
-        },
-        "out_4": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Load the stones",
-            "text": "Heat it up, then reach for the ladle."
-          }
-        }
-      },
-      "block_order": [
-        "in_1",
-        "in_2",
-        "in_3",
-        "out_1",
-        "out_2",
-        "out_3",
-        "out_4"
-      ],
-      "settings": {
-        "nav_label": "Setup",
-        "eyebrow": "Setting up",
-        "indoor_heading": "It clips together.",
-        "indoor_lede": "The panels arrive flat-packed and buckle into place. The glass front comes already framed.",
-        "indoor_power_title": "Power cord included",
-        "indoor_power_text": "Ask us which socket suits your size before you order.",
-        "outdoor_heading": "Build it once. Use it all winter.",
-        "outdoor_lede": "It arrives in a wooden crate, with the glass front already framed.",
-        "outdoor_power_title": "Wired in by an electrician",
-        "outdoor_power_text": "The stove needs its own supply. Book the electrician before delivery day."
       }
     },
     "wf_sauna_range": {
@@ -886,7 +718,7 @@
       ],
       "settings": {
         "nav_label": "The range",
-        "eyebrow": "The sauna range",
+        "eyebrow": "",
         "heading": "Three ways to warm up.",
         "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
         "current_label": "You're viewing",
@@ -1016,8 +848,6 @@
     },
     "rich_text_XazzCf": {
       "type": "rich-text",
-      "blocks": {},
-      "block_order": [],
       "name": "t:sections.rich-text.name",
       "settings": {
         "text_alignment": "left",
@@ -1181,9 +1011,7 @@
     "image_with_text_overlay_CLQmcN",
     "product-details",
     "collage",
-    "wf_sauna_heat",
     "compatible_accessories",
-    "wf_sauna_setup",
     "wf_sauna_range",
     "wave_fy27_questions_zCr8mk",
     "rich_text_XazzCf",
