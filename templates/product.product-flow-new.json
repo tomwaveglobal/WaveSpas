@@ -375,7 +375,7 @@
       ],
       "settings": {
         "enable_sticky_info": false,
-        "media_size": 60,
+        "media_size": 65,
         "gallery_layout": "thumbnail",
         "thumbnail_position": "below",
         "image_ratio": "square",
@@ -654,13 +654,6 @@
             "target_id": "product-details"
           }
         },
-        "nav_item_whatfits": {
-          "type": "nav_item",
-          "settings": {
-            "title": "What Fits",
-            "target_id": "compatible_accessories"
-          }
-        },
         "nav_item_yXJLBm": {
           "type": "nav_item",
           "settings": {
@@ -673,6 +666,13 @@
           "settings": {
             "title": "Running Costs",
             "target_id": "wave_fy27_running_cost_AG9ek3"
+          }
+        },
+        "nav_item_whatfits": {
+          "type": "nav_item",
+          "settings": {
+            "title": "What Fits",
+            "target_id": "compatible_accessories"
           }
         },
         "nav_item_setup": {
@@ -1073,6 +1073,8 @@
         "rate_usd": 17,
         "standard_label": "Standard",
         "energysave_label": "EnergySave™ bundle",
+        "edition_label": "Edition",
+        "estimate_label": "Estimated running cost",
         "es_flag": "[pct]% less energy",
         "energysave_saving": 30,
         "per_month": "a month",
