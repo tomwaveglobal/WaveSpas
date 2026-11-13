@@ -201,9 +201,13 @@
 
         var pos = +input.dataset.optionPosition;
         var value = normOpt(input.dataset.value);
+        // Selectable whenever the combination EXISTS — in stock, pre-order or
+        // sold out. A sold-out size/edition must stay clickable so the form
+        // points at that variant and STOQ (Restock Rocket) can offer
+        // "Notify me when available"; updateTilePills marks it sold out and
+        // updateBuyButtons shows "Sold out". Only combinations with no variant
+        // at all are locked.
         var possible = variants.some(function (v) {
-          // Selectable if available in stock, back-orderable, OR has a pre-order date.
-          if (!v.available && !preOrderByVariant[v.id]) return false;
           if (normOpt(v['option' + pos]) !== value) return false;
           for (var i = 1; i <= optionCount; i++) {
             if (i === pos) continue;

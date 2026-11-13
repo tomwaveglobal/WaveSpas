@@ -502,7 +502,7 @@
                 colours can have different discount %.
               {%- endcomment -%}
               <span class="vpa__discount" data-tile-discount data-has-discount="{% if discount_text != '' %}true{% else %}false{% endif %}"{% if hide_discount %} hidden{% endif %}>{{ discount_text }}</span>
-              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}"{% if value_unavailable %} disabled{% endif %}>
+              <input type="radio" id="{{ input_id }}" name="vpa-{{ vpa_id }}-{{ option_pos }}" value="{{ value_string | escape }}" data-option-position="{{ option_pos }}" data-value="{{ value_string | escape }}" data-option-value="{{ value_string | escape }}" data-option-value-id="{{ value.id }}">
               <div class="vpa__tile-body{% if rep_image == blank %} vpa__tile-body--no-media{% endif %}">
                 {%- if rep_image != blank -%}
                   <div class="vpa__tile-media">
