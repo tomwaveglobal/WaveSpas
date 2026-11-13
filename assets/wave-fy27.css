@@ -515,9 +515,9 @@ wf-explode { display: block; }
 @media (max-width: 549px) { .wf-rc__save .button { width: 100%; } }
 .wf-rc__basis { margin-top: auto; padding-top: 20px; }
 
-/* "Focused" layout (section setting): one soft panel, everything centred. Two choices, a Standard /
-   EnergySave switch, one big monthly figure, the saving in words and one button. The electricity
-   price hides behind "Change" in the small print. */
+/* "Focused" layout (section setting): a horizontal soft-grey band. Choices stacked on the left
+   (size, usage, Standard / EnergySave, then the electricity price behind "Change"); a white card on
+   the right with one big monthly figure, the saving in words and one button. Stacks below 990px. */
 .wf-rc--focus {
   display: block;
   overflow: visible;
@@ -527,44 +527,82 @@ wf-explode { display: block; }
 }
 .wf-rcf {
   display: grid;
-  justify-items: center;
-  gap: 0;
-  padding: clamp(36px, 5vw, 72px) clamp(16px, 4vw, 56px) clamp(28px, 4vw, 48px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 3vw, 32px);
   border-radius: clamp(18px, 2vw, 28px);
-  background: rgb(var(--color-foreground) / 0.03);
-  text-align: center;
+  background: rgb(var(--color-foreground) / 0.04);
 }
-.wf-rcf__choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px clamp(24px, 3vw, 40px); }
-.wf-rcf__choice { display: grid; justify-items: center; gap: 8px; }
-.wf-rcf__label { font-size: 13px; font-weight: 500; color: rgb(var(--color-foreground) / 0.55); }
-.wf-rcf .wf-seg { background: #fff; box-shadow: none; }
+@media (min-width: 990px) {
+  .wf-rcf { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: stretch; }
+}
 
-/* Standard / EnergySave switch: a grey track with a white thumb */
+.wf-rcf__controls {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 28px);
+  padding: clamp(8px, 1.5vw, 16px) clamp(4px, 1vw, 8px);
+}
+.wf-rcf__choice { display: grid; justify-items: start; gap: 10px; }
+.wf-rcf__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground) / 0.55);
+}
+.wf-rcf .wf-seg { max-width: 100%; background: #fff; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08); }
+
+/* Standard / EnergySave switch: same pill track as the segments */
 .wf-rcf__switch {
   display: inline-flex;
-  margin-top: clamp(36px, 4.5vw, 56px);
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 100%;
   padding: 4px;
   border-radius: 999px;
-  background: rgb(var(--color-foreground) / 0.07);
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08);
 }
 .wf-rcf__switch input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-.wf-rcf__switch label {
-  padding: 8px 18px;
+.wf-rcf .wf-rcf__switch label {
+  display: inline-flex;
+  margin: 0;
+  white-space: nowrap;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 18px;
   border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: rgb(var(--color-foreground) / 0.6);
+  font: 500 15px/1 var(--font-body-family);
+  color: rgb(var(--color-foreground));
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.25s, color 0.25s;
 }
-.wf-rcf__switch input:checked + label { background: #fff; color: rgb(var(--color-foreground)); box-shadow: 0 1px 3px rgb(0 0 0 / 0.12); }
+.wf-rcf__switch input:checked + label { background: #000; color: #fff; }
 .wf-rcf__switch input:focus-visible + label { outline: 2px solid #000; outline-offset: 2px; }
 
-.wf-rcf__result { display: grid; justify-items: center; margin-top: clamp(20px, 2.5vw, 28px); }
+.wf-rcf__basis { margin-top: auto; padding-top: 4px; font-size: 13px; line-height: 1.5; color: rgb(var(--color-foreground) / 0.55); }
+.wf-rcf__basis summary { list-style: none; cursor: pointer; }
+.wf-rcf__basis summary::-webkit-details-marker { display: none; }
+.wf-rcf__change { margin-left: 4px; color: rgb(var(--color-foreground)); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.wf-rcf__basis[open] .wf-rcf__change { display: none; }
+.wf-rcf__rate { width: min(100%, 360px); margin-top: 16px; }
+.wf-rcf__basis p { margin: 12px 0 0; }
+
+/* Result card */
+.wf-rcf__panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.5vw, 28px);
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid rgb(0 0 0 / 0.1);
+  border-radius: clamp(14px, 1.6vw, 20px);
+  background: #fff;
+}
+.wf-rcf__result { display: grid; justify-items: start; gap: 12px; }
 .wf-rcf__fig {
   margin: 0;
-  font-size: clamp(64px, 8.5vw, 112px);
+  font-size: clamp(56px, 6.5vw, 96px);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.035em;
@@ -572,23 +610,29 @@ wf-explode { display: block; }
   color: rgb(var(--color-foreground));
 }
 .wf-rcf__fig small { margin-left: 0.08em; font-size: 0.24em; font-weight: 500; letter-spacing: 0; color: rgb(var(--color-foreground) / 0.55); }
-.wf-rcf__year { margin: 12px 0 0; font-size: var(--text-base); color: rgb(var(--color-foreground) / 0.6); }
+.wf-rcf__year { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0; font-size: var(--text-base); color: rgb(var(--color-foreground) / 0.6); }
+.wf-rcf__flag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-foreground) / 0.06);
+}
 /* show the chosen edition's figures */
 .wf-rcf:has(input[value='es']:checked) .wf-rcf--std,
 .wf-rcf:has(input[value='std']:checked) .wf-rcf--es { display: none; }
 
-.wf-rcf__save { max-width: 34rem; margin: clamp(24px, 3vw, 32px) 0 0; font-size: clamp(17px, 1.4vw, 20px); font-weight: 500; line-height: 1.4; }
+.wf-rcf__offer { display: grid; gap: 6px; margin-top: auto; padding-top: clamp(20px, 2.5vw, 28px); border-top: 1px solid rgb(0 0 0 / 0.1); }
+.wf-rcf__save { margin: 0; font-size: clamp(17px, 1.4vw, 19px); font-weight: 500; line-height: 1.4; }
 .wf-rcf__save strong { font-weight: 700; font-variant-numeric: tabular-nums; }
-.wf-rcf__bundle { max-width: 40rem; margin: 6px 0 0; font-size: var(--text-sm); line-height: 1.5; color: rgb(var(--color-foreground) / 0.6); }
-.wf-rcf__cta { margin-top: clamp(20px, 2.5vw, 28px); min-width: 240px; }
+.wf-rcf__bundle { margin: 0; font-size: var(--text-sm); line-height: 1.5; color: rgb(var(--color-foreground) / 0.6); }
+.wf-rcf__cta { width: 100%; margin-top: 14px; }
 
-.wf-rcf__basis { max-width: 40rem; margin-top: clamp(28px, 3.5vw, 40px); font-size: 13px; line-height: 1.5; color: rgb(var(--color-foreground) / 0.55); }
-.wf-rcf__basis summary { list-style: none; cursor: pointer; }
-.wf-rcf__basis summary::-webkit-details-marker { display: none; }
-.wf-rcf__change { margin-left: 4px; color: rgb(var(--color-foreground)); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.wf-rcf__basis[open] .wf-rcf__change { display: none; }
-.wf-rcf__rate { width: min(100%, 360px); margin: 16px auto 0; text-align: left; }
-.wf-rcf__basis p { margin: 12px 0 0; }
+@media (max-width: 549px) {
+  .wf-rcf .wf-seg button, .wf-rcf__switch label { padding: 0 14px; font-size: 14px; }
+}
 
 /* ==========================================================================
    Setup
