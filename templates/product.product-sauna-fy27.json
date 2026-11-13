@@ -1663,7 +1663,7 @@
         "sauna_barrel": {
           "type": "sauna",
           "settings": {
-            "product": "outdoor-barrel-sauna-thermo-spruce-black",
+            "product": "cobar-sauna",
             "name": "Barrel",
             "kind_label": "Outdoor",
             "signature": "Face to face.",
