@@ -464,7 +464,7 @@
 
 
   /* <wf-sizecard> — shows the Dimensions metafield rows for the chosen size.
-     The source is the metafield's rich text: an H6 per size, then "Label: value" paragraphs. */
+     The source is the metafield's rich text: an H6 per size, then bold-label or "Label: value" paragraphs. */
   class WfSizeCard extends HTMLElement {
     connectedCallback() {
       const tpl = this.querySelector('template[data-size-source]');
@@ -478,6 +478,14 @@
           current = text;
           this.groups[current] = [];
         } else if (current) {
+          /* Garda layout: a bold label then the value ("<strong>External</strong><br>63" / 160cm").
+             Older layout: "Label: value". */
+          const strong = el.querySelector('strong, b');
+          const label = strong ? strong.textContent.trim() : '';
+          if (label && text.indexOf(label) === 0 && text.length > label.length) {
+            this.groups[current].push([label, text.slice(label.length).trim()]);
+            return;
+          }
           const i = text.indexOf(':');
           this.groups[current].push(i > 0 ? [text.slice(0, i).trim(), text.slice(i + 1).trim()] : ['', text]);
         }
