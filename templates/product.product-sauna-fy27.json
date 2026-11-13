@@ -12,14 +12,6 @@
     "main-product": {
       "type": "main-product",
       "blocks": {
-        "breadcrumb_rcrAce": {
-          "type": "breadcrumb",
-          "disabled": true,
-          "settings": {
-            "show_collections_link": false,
-            "show_product_title": true
-          }
-        },
         "vendor_br9FVx": {
           "type": "vendor",
           "settings": {
@@ -36,26 +28,21 @@
           "settings": {
             "title_size": "product-title-md",
             "title_size_mobile": "product-title-md",
-            "title_tag": "h1",
+            "title_tag": "h2",
             "show_price": true,
             "show_rating": true
           }
         },
-        "reviews_io_reviewsio_rating_output_L6AWE4": {
-          "type": "shopify://apps/reviews-io/blocks/reviewsio-rating-output/92a082e5-b297-4e88-b428-ac96cbc505f9",
-          "settings": {}
-        },
-        "liquid_3cEkGz": {
+        "liquid_wave_rating": {
           "type": "liquid",
-          "disabled": true,
           "settings": {
-            "liquid": "<div id=\"pl-calculator-light-app\"></div>\n\n<script>\n  document.plCalcPrice = {\n    Price: 0.00\n  };\n\n  /* ✅ Username */\n  document.plCalcUsername = {\n    Username: 'wavedirec152h2hgw5kf'\n  };\n\n  /*\n    ✅ UPDATED selector\n    Targets:\n    <span class=\"money\">£1,678.67</span>\n  */\n  document.plCalcSelector = 'span.money';\n</script>\n\n<script\n  src=\"https://assets.payl8r.com/js/pl-calculator-light-app.js\"\n  id=\"pl-calculator-light-app-script\"\n  data-theme=\"spread\">\n</script>\n\n<script>\n  function payl8rTimed() {\n    if (document.readyState === 'complete') {\n      payl8rCalcPrice();\n    } else {\n      setTimeout(payl8rTimed, 10);\n    }\n  }\n\n  setTimeout(payl8rTimed, 10);\n\n  let payl8rObserverAttached = false;\n\n  function payl8rCalcPrice() {\n    const priceEl = document.querySelector(document.plCalcSelector);\n    if (!priceEl) return;\n\n    /* ✅ Safely parse currency like £1,678.67 */\n    const price = parseFloat(\n      priceEl.textContent.replace(/[^0-9.]/g, '')\n    );\n\n    if (isNaN(price)) return;\n\n    document.plCalcPrice.Price = price;\n    document.plCalcPrice.rerender(price);\n\n    /* ✅ Attach observer once */\n    if (payl8rObserverAttached) return;\n    payl8rObserverAttached = true;\n\n    const MutationObserver =\n      window.MutationObserver ||\n      window.WebKitMutationObserver ||\n      window.MozMutationObserver;\n\n    const observer = new MutationObserver(() => {\n      payl8rCalcPrice();\n    });\n\n    observer.observe(priceEl, {\n      attributes: true,\n      childList: true,\n      characterData: true,\n      subtree: true\n    });\n  }\n</script>"
+            "liquid": "{% render 'wave-product-rating', product: product, section_id: section.id, target: 'rich_text_XazzCf' %}"
           }
         },
         "liquid_PrDUTW": {
           "type": "liquid",
           "settings": {
-            "liquid": "{% render 'wave-collection-colour', product: product %}{% render 'wave-fy27-pdp-layout' %}"
+            "liquid": "{% render 'wave-collection-colour', product: product %}{% render 'wave-fy27-pdp-layout' %}{% render 'wave-fy27-buy-box' %}{% render 'wave-fy27-pdp-clean' %}"
           }
         },
         "text_DDUxag": {
@@ -65,32 +52,13 @@
             "iwidth": "custom",
             "icon_width": 20,
             "text": "{{ product.metafields.custom.description_snippet.value }}",
-            "text_size": "text-sm",
+            "text_size": "text-base",
             "text_color": "#000000",
             "icon_color": "#000000",
             "background_color": "rgba(0,0,0,0)",
             "alignment": "left",
             "background_height": 0,
             "border_radius": 0
-          }
-        },
-        "description": {
-          "type": "description",
-          "disabled": true,
-          "settings": {
-            "text_size": "text-sm"
-          }
-        },
-        "product_variations_rEWtef": {
-          "type": "product_variations",
-          "disabled": true,
-          "settings": {
-            "option_name": "Colour",
-            "option_value_metafield": "custom.variation_value",
-            "products": "{{ product.metafields.custom.variation_colour.value }}",
-            "enable_color_swatches": true,
-            "color_swatch_type": "variant",
-            "size_chart": ""
           }
         },
         "variant_picker_advanced_Vyc9TT": {
@@ -136,28 +104,6 @@
             "addon_onetime_label": "No, thanks — one-time only"
           }
         },
-        "variant_picker": {
-          "type": "variant_picker",
-          "disabled": true,
-          "settings": {
-            "enable_dynamic_variants": true,
-            "show_variant_labels": false,
-            "picker_type": "button",
-            "show_colour_buttons": false,
-            "enable_color_swatches": true,
-            "color_swatch_type": "color",
-            "size_chart": ""
-          }
-        },
-        "variant_pre_order_hC7D4E": {
-          "type": "variant_pre_order",
-          "disabled": true,
-          "settings": {
-            "text_size": "text-base lg:text-lg",
-            "color_text": "#ffffff",
-            "color_background": "#1f1f1f"
-          }
-        },
         "countdown": {
           "type": "countdown",
           "settings": {
@@ -168,37 +114,10 @@
             "gradient_background": ""
           }
         },
-        "text_nncjDG": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "sale",
-            "iwidth": "custom",
-            "icon_width": 20,
-            "text": "Free Starter Chemicals & Filters",
-            "text_size": "text-base",
-            "text_color": "#ffffff",
-            "icon_color": "#ffffff",
-            "background_color": "#f59e0b",
-            "alignment": "center",
-            "background_height": 12,
-            "border_radius": 0
-          }
-        },
-        "inventory": {
-          "type": "inventory",
-          "disabled": true,
-          "settings": {
-            "inventory_threshold": 10,
-            "show_inventory_transfer": false,
-            "show_inventory_quantity": "low",
-            "color_scheme": "accent-1"
-          }
-        },
         "buy_buttons_nBMjqf": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity_selector": true,
+            "show_quantity_selector": false,
             "show_price": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true,
@@ -240,64 +159,33 @@
             "help_page_external": false
           }
         },
-        "liquid_wave_finance": {
-          "type": "liquid",
+        "wave_finance": {
+          "type": "wave_finance",
           "settings": {
-            "liquid": "{%- if localization.market.handle == 'gb' -%}{% render 'wave-finance-options', product: product %}{%- endif -%}"
-          }
-        },
-        "liquid_wave_reviews": {
-          "type": "liquid",
-          "disabled": true,
-          "settings": {
-            "liquid": "{% render 'wave-review-snippets', product: product %}"
-          }
-        },
-        "text_7jAC96": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 20,
-            "text": "Klarna's Pay in 3 / Pay in 30 days are unregulated credit agreements. Borrowing more than you can afford or paying late may negatively impact your financial status and ability to obtain credit. 18+, UK residents only. Subject to status. Late fees may apply. <a href=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\" title=\"https://linkprotect.cudasvc.com/url?a=https%3a%2f%2fwww.klarna.com%2fuk%2fterms-and-conditions%2f&c=E,1,Cz_WXSTNFS0Bk1s1E-CwLK78ishiXFgp3canDnp6Js2o5J72YnObp4iWVUUBaO8IO4UBztUGa6BrmxNQYiB3yg77Ng85c1XS1n0WwmD8h2aacvU2Z1MuGLXlNA,,&typo=1\">Ts&Cs</a> apply.” or, if applicable, the limited one \"18+, T&C apply, Credit subject to status.",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
-        },
-        "product_bundle_tWCDMV": {
-          "type": "product_bundle",
-          "disabled": true,
-          "settings": {
-            "opened": true,
-            "clickable": true,
-            "variant_selection": false,
-            "icon": "box",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "heading": "Popular Add Ons",
-            "products": "{{ product.metafields.custom.popular_upgrades.value }}",
-            "metafield": ""
-          }
-        },
-        "pickup_availability": {
-          "type": "pickup_availability",
-          "disabled": true,
-          "settings": {}
-        },
-        "complementary": {
-          "type": "complementary",
-          "disabled": true,
-          "settings": {
-            "heading": "Pairs well with",
-            "product_limit": 4,
-            "show_vendor": false,
-            "show_price": true
+            "markets": "gb",
+            "title": "Spread the cost",
+            "from_text": "From",
+            "per_month_short": "/month",
+            "subheading": "",
+            "show_label": "See all payment options",
+            "hide_label": "Hide payment options",
+            "calc_label": "Pay over",
+            "calc_months": "months",
+            "calc_payments": "payments",
+            "per_month": "a month",
+            "calc_note": "Sample amounts. Your rate and payments are confirmed when you apply.",
+            "klarna_meta": "Klarna · 3 interest-free payments",
+            "dividebuy_meta": "DivideBuy · 0% interest, subject to status",
+            "payl8r_meta": "Payl8r · from 0.8% a month, subject to status",
+            "details_label": "Details",
+            "plan1_url": "/pages/klarna",
+            "plan2_url": "/pages/dividebuy",
+            "plan3_url": "/pages/payl8r",
+            "payl8r_rate": 0.8,
+            "dividebuy_min": 50,
+            "dividebuy_max": 6000,
+            "legal_1": "Choose your plan at checkout. 18+, UK residents only, subject to status. T&Cs apply.",
+            "legal_2": "Payl8r, powered by Dopple: 0% if repaid in full within 30 days, otherwise interest from 0.8% a month, subject to status. Representative example: borrowing £440.00 over 12 months at a fixed monthly interest rate of 2.50% (30.00% a year). Representative APR 65.5%. Monthly payment £47.67. Total repayable £572.04. Total charge for credit £132.04."
           }
         },
         "sticky_buy_button": {
@@ -312,96 +200,27 @@
             "enable_carousel": false,
             "show_below_media": true
           }
-        },
-        "text_LiCrpH": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "sale",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>Running Cost - From £2 a day</strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
-        },
-        "text_9JnzcB": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "wrench",
-            "icon_image": "shopify://shop_images/CS_key_point.png",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>UK-based 7-Day Customer Support</strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
-        },
-        "text_wxnQw7": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "icon_image": "shopify://shop_images/sale.png",
-            "iwidth": "custom",
-            "icon_width": 30,
-            "text": "<strong>Free Chemical & Filter Starter Kit </strong>",
-            "text_size": "text-sm",
-            "text_color": "#000000",
-            "icon_color": "#000000",
-            "background_color": "rgba(0,0,0,0)",
-            "alignment": "left",
-            "background_height": 0,
-            "border_radius": 0
-          }
         }
       },
       "block_order": [
-        "breadcrumb_rcrAce",
         "vendor_br9FVx",
         "title",
-        "reviews_io_reviewsio_rating_output_L6AWE4",
-        "liquid_3cEkGz",
+        "liquid_wave_rating",
         "liquid_PrDUTW",
         "text_DDUxag",
-        "description",
-        "product_variations_rEWtef",
         "variant_picker_advanced_Vyc9TT",
-        "variant_picker",
-        "variant_pre_order_hC7D4E",
         "countdown",
-        "text_nncjDG",
-        "inventory",
         "buy_buttons_nBMjqf",
         "contona_button_design",
         "share",
-        "liquid_wave_finance",
-        "liquid_wave_reviews",
-        "text_7jAC96",
-        "product_bundle_tWCDMV",
-        "pickup_availability",
-        "complementary",
+        "wave_finance",
         "sticky_buy_button",
-        "icon_list_4xTkbm",
-        "text_LiCrpH",
-        "text_9JnzcB",
-        "text_wxnQw7"
+        "icon_list_4xTkbm"
       ],
       "settings": {
         "enable_sticky_info": false,
         "media_size": 60,
-        "gallery_layout": "scroll",
+        "gallery_layout": "thumbnail",
         "thumbnail_position": "below",
         "image_ratio": "square",
         "image_zoom": "lightbox",
@@ -422,171 +241,6 @@
     "17840224521f0f53e5": {
       "type": "_blocks",
       "settings": {}
-    },
-    "ss_product_videos_4_BQjpxE": {
-      "type": "ss-product-videos-4",
-      "blocks": {
-        "video_CXhrnf": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_1.value }}",
-            "title": ""
-          }
-        },
-        "video_VrKtej": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_2.value }}",
-            "title": ""
-          }
-        },
-        "video_bAPp8w": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_3.value }}",
-            "title": ""
-          }
-        },
-        "video_8pUzmC": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_4.value }}",
-            "title": ""
-          }
-        },
-        "video_MMUJfe": {
-          "type": "video",
-          "settings": {
-            "video": "{{ product.metafields.custom.ugc_5.value }}",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_CXhrnf",
-        "video_VrKtej",
-        "video_bAPp8w",
-        "video_8pUzmC",
-        "video_MMUJfe"
-      ],
-      "disabled": true,
-      "name": "SS - Product videos #4",
-      "settings": {
-        "videos_position": "below_buy",
-        "heading": "",
-        "heading_custom": false,
-        "heading_font": "system_ui_n4",
-        "heading_size": 15,
-        "heading_size_mobile": 15,
-        "heading_height": 130,
-        "heading_align": "center",
-        "heading_align_mobile": "center",
-        "slider_view": 4.6,
-        "slider_view_mobile": 3.6,
-        "slider_gap": 16,
-        "slider_gap_mobile": 12,
-        "slider_mt": 4,
-        "slider_mt_mobile": 4,
-        "card_padding": 3,
-        "card_radius": 300,
-        "card_border_thickness": 3,
-        "card_hover": true,
-        "card_first_animation": true,
-        "video_ratio": "square",
-        "video_ratio_mobile": "square",
-        "video_overlay": 0,
-        "title_custom": false,
-        "title_font": "josefin_sans_n4",
-        "title_size": 14,
-        "title_size_mobile": 12,
-        "title_height": 130,
-        "title_mt": 10,
-        "title_mt_mobile": 10,
-        "title_align": "center",
-        "title_align_mobile": "center",
-        "arrow_size": 10,
-        "arrow_size_mobile": 10,
-        "arrow_border_thickness": 0,
-        "arrow_show_desktop": true,
-        "arrow_show_mobile": false,
-        "dots_size": 10,
-        "dots_size_mobile": 10,
-        "dots_mt": 0,
-        "dots_mt_mobile": 8,
-        "dots_show_desktop": false,
-        "dots_show_mobile": false,
-        "modal_width": 300,
-        "modal_width_mobile": 260,
-        "modal_padding_vertical": 0,
-        "modal_padding_vertical_mobile": 0,
-        "modal_padding_horizontal": 0,
-        "modal_padding_horizontal_mobile": 0,
-        "modal_radius": 16,
-        "modal_border_thickness": 0,
-        "modal_overlay": 0.3,
-        "modal_video_radius": 0,
-        "modal_video_border_thickness": 0,
-        "modal_video_ratio": "portrait",
-        "modal_video_ratio_mobile": "portrait",
-        "use_progress": true,
-        "action_size": 28,
-        "action_size_mobile": 36,
-        "action_border_thickness": 0,
-        "buttons_size": 32,
-        "buttons_size_mobile": 36,
-        "buttons_border_thickness": 0,
-        "card_bg_color": "#ffffff",
-        "card_bg_gradient": "",
-        "card_border_color": "#1f1f1f",
-        "video_overlay_color": "#000000",
-        "card_animation_color": "#1f1f1f",
-        "play_button_color": "#ffffff",
-        "title_color": "#000000",
-        "arrow_color": "#ffffff",
-        "arrow_hover_color": "#ffffff",
-        "arrow_bg_color": "#000000",
-        "arrow_bg_hover_color": "#555555",
-        "arrow_border_color": "#000000",
-        "arrow_border_hover_color": "#555555",
-        "dots_color": "#000000",
-        "modal_overlay_color": "#242424",
-        "modal_bg_color": "#ffffff",
-        "modal_border_color": "#000000",
-        "modal_video_border_color": "#000000",
-        "action_icon_color": "#ffffff",
-        "action_bg_color": "#000000",
-        "action_border_color": "#000000",
-        "buttons_icon_color": "#000000",
-        "buttons_bg_color": "#ffffff",
-        "buttons_border_color": "#000000",
-        "heading_color": "#000000",
-        "background_color": "#ffffff",
-        "border_color": "#000000",
-        "margin_top": 0,
-        "margin_bottom": 0,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_horizontal": 0,
-        "padding_horizontal_mobile": 0,
-        "border_thickness": 0,
-        "lazy": true
-      }
-    },
-    "wave_review_highlights": {
-      "type": "wave-review-highlights",
-      "disabled": true,
-      "settings": {
-        "heading": "What our customers are saying",
-        "store": "wave-spas",
-        "source": "product",
-        "min_rating": "4",
-        "count": 12,
-        "autoplay": 6,
-        "star_colour": "#ffae00",
-        "background": "#ffffff",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
     },
     "help-drawer": {
       "type": "help-drawer",
@@ -620,45 +274,11 @@
             "color_highlight": "#052c31",
             "gradient_highlight": ""
           }
-        },
-        "content-3": {
-          "type": "content",
-          "disabled": true,
-          "settings": {
-            "icon": "chat_bubble",
-            "heading": "FAQ’s",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "color_text": "#be123c",
-            "color_background": "#fff1f2",
-            "gradient_background": "",
-            "color_highlight": "#ffddbf",
-            "gradient_highlight": ""
-          }
-        },
-        "content-4": {
-          "type": "content",
-          "disabled": true,
-          "settings": {
-            "icon": "phone",
-            "heading": "Contact Us",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle",
-            "color_text": "#4d7c0f",
-            "color_background": "#f7fee7",
-            "gradient_background": "",
-            "color_highlight": "#ffddbf",
-            "gradient_highlight": ""
-          }
         }
       },
       "block_order": [
         "content-1",
-        "content-2",
-        "content-3",
-        "content-4"
+        "content-2"
       ],
       "settings": {
         "heading": "Need help?",
@@ -679,11 +299,11 @@
             "target_id": "product-details"
           }
         },
-        "nav_item_heat": {
+        "nav_item_whatfits": {
           "type": "nav_item",
           "settings": {
-            "title": "How It Heats",
-            "target_id": "wf_sauna_heat"
+            "title": "What Fits",
+            "target_id": "compatible_accessories"
           }
         },
         "nav_item_yXJLBm": {
@@ -720,13 +340,21 @@
             "title": "Reviews",
             "target_id": "rich_text_XazzCf,custom_liquid_YwqJMM,174653922467a5c413"
           }
+        },
+        "nav_item_heat": {
+          "type": "nav_item",
+          "settings": {
+            "title": "How It Heats",
+            "target_id": "wf_sauna_heat"
+          }
         }
       },
       "block_order": [
         "back_to_top_jnb8cL",
         "nav_item_pM68Hf",
-        "nav_item_heat",
         "nav_item_yXJLBm",
+        "nav_item_heat",
+        "nav_item_whatfits",
         "nav_item_setup",
         "nav_item_QUgAC3",
         "nav_item_qVtYUr",
@@ -735,12 +363,61 @@
       "name": "t:sections.scroll-spy.name",
       "settings": {
         "show_highlight": true,
-        "text_alignment": "center",
+        "text_alignment": "left",
         "text_alignment_mobile": "center",
         "color_text": "#171717",
-        "color_background": "#fafafa",
+        "color_background": "#ececec",
         "gradient_background": "",
         "full_width": false
+      }
+    },
+    "image_with_text_overlay_CLQmcN": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_Wqyzm3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Tonight Could Look Like This",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Wqyzm3"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "transparent_header": false,
+        "image": "{{ product.metafields.custom.product_image_5.value }}",
+        "image_height": "750px",
+        "content_width": "small",
+        "content_position": "md:items-center md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "{{ product.metafields.custom.product_image_6.value }}",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 10,
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
       }
     },
     "product-details": {
@@ -790,41 +467,13 @@
             "metafields": "",
             "text_size": "text-base"
           }
-        },
-        "collapsible_tab-3": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Collapsible row 3",
-            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-4": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Collapsible row 4",
-            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-            "metafields": "",
-            "text_size": "text-base"
-          }
         }
       },
       "block_order": [
         "specification_g7Fp6A",
         "collapsible_tab_VJ49Qd",
         "collapsible_tab-1",
-        "collapsible_tab-2",
-        "collapsible_tab-3",
-        "collapsible_tab-4"
+        "collapsible_tab-2"
       ],
       "custom_css": [],
       "settings": {
@@ -835,7 +484,7 @@
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
-        "subheading": "Tech specs",
+        "subheading": "",
         "description": "",
         "button_label": "",
         "button_link": "",
@@ -859,35 +508,13 @@
         "rounded": true
       }
     },
-    "video_BqrMRT": {
-      "type": "video",
-      "disabled": true,
-      "name": "t:sections.video.presets.name",
-      "settings": {
-        "transparent_header": false,
-        "video": "{{ product.metafields.custom.product_video.value.product_video.value }}",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "enable_video_autoplay": false,
-        "enable_video_looping": true,
-        "image_height": "adapt",
-        "video_mobile": "{{ product.metafields.custom.product_video_mobile.value.product_video_mobile.value }}",
-        "video_url_mobile": "",
-        "image_height_mobile": "adapt",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "divider": false,
-        "full_width": true,
-        "rounded": false
-      }
-    },
     "collage": {
       "type": "collage",
       "blocks": {
         "image-1": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_1_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_1_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_1_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -898,19 +525,19 @@
             "image_ratio_mobile": "landscape",
             "content_position_mobile": "items-end justify-start",
             "text_alignment_mobile": "left",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "basic-underline",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "radial-gradient(rgba(255, 255, 255, 1), rgba(255, 204, 75, 1) 100%)",
             "color_overlay": "#000000",
-            "overlay_opacity": 30
+            "overlay_opacity": 55
           }
         },
         "image-2": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_3_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_3_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_3_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -921,19 +548,19 @@
             "image_ratio_mobile": "square",
             "content_position_mobile": "items-end justify-start",
             "text_alignment_mobile": "left",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 30
+            "overlay_opacity": 55
           }
         },
         "image-3": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_2_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_2_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_2_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -944,19 +571,19 @@
             "image_ratio_mobile": "square",
             "content_position_mobile": "items-end justify-end",
             "text_alignment_mobile": "right",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "basic-underline",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 0
+            "overlay_opacity": 55
           }
         },
         "image-4": {
           "type": "image",
           "settings": {
-            "subheading": "<em><strong>{{ product.metafields.custom.product_collage_image_4_subtitle.value }}</strong></em>",
+            "subheading": "{{ product.metafields.custom.product_collage_image_4_subtitle.value }}",
             "heading": "{{ product.metafields.custom.product_collage_image_4_title.value }}",
             "link": "",
             "invert_subheading_heading": false,
@@ -967,13 +594,13 @@
             "image_ratio_mobile": "landscape",
             "content_position_mobile": "items-end justify-end",
             "text_alignment_mobile": "right",
-            "highlighted_text": "text",
+            "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#ffffff",
             "color_highlight": "#f59e0b",
             "gradient_highlight": "",
             "color_overlay": "#000000",
-            "overlay_opacity": 10
+            "overlay_opacity": 55
           }
         }
       },
@@ -998,7 +625,7 @@
         "highlighted_scribble": "basic-underline",
         "highlighted_reveal": false,
         "color_text": "",
-        "color_background": "",
+        "color_background": "#fafafa",
         "gradient_background": "",
         "color_highlight": "",
         "gradient_highlight": "",
@@ -1013,65 +640,114 @@
         "enable_parallax": true
       }
     },
-    "image-with-text-1": {
-      "type": "image-with-text",
+    "wf_sauna_heat": {
+      "type": "wave-fy27-sauna-heat",
       "blocks": {
-        "image": {
-          "type": "image",
+        "ir_1": {
+          "type": "point",
           "settings": {
-            "image": "shopify://shop_images/temp_1_1.png",
-            "image_width": "custom",
-            "image_max_width": 60,
-            "image_max_width_mobile": 60
+            "kind": "infrared",
+            "key": "carbon",
+            "title": "Carbon panels",
+            "text": "Behind you, beside you and at your calves, so the warmth is even."
           }
         },
-        "heading": {
-          "type": "heading",
+        "ir_2": {
+          "type": "point",
           "settings": {
-            "heading": "{{ product.metafields.custom.product_hero_image_1_title.value }}",
-            "heading_size": "title-md",
-            "heading_tag": "h2",
-            "highlighted_text": "scribble",
-            "highlighted_scribble": "basic-underline",
-            "highlighted_reveal": false
+            "kind": "infrared",
+            "key": "ruby",
+            "title": "Ruby heaters",
+            "text": "They sit alongside the carbon and bring the cabin up to heat."
           }
         },
-        "text": {
-          "type": "text",
+        "ir_3": {
+          "type": "point",
           "settings": {
-            "text": "{{ product.metafields.custom.product_hero_image_1_description | metafield_tag }}",
-            "text_font": "body",
-            "text_size": "subtext-md",
-            "text_max_size": 32,
-            "text_line_height": 1.6,
-            "text_letter_spacing": 0,
-            "text_capitalize": false,
-            "secondary_color": false,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
+            "kind": "infrared",
+            "key": "none",
+            "title": "Your settings",
+            "text": "Set it on the digital panel or over Wi-Fi. Bluetooth plays your music."
+          }
+        },
+        "tr_1": {
+          "type": "point",
+          "settings": {
+            "kind": "traditional",
+            "key": "stove",
+            "title": "The stove",
+            "text": "A Harvia Vega, sold separately. Your size shows the output we recommend."
+          }
+        },
+        "tr_2": {
+          "type": "point",
+          "settings": {
+            "kind": "traditional",
+            "key": "steam",
+            "title": "The stones",
+            "text": "Lava stones hold the heat, ready for the next ladle."
+          }
+        },
+        "tr_3": {
+          "type": "point",
+          "settings": {
+            "kind": "traditional",
+            "key": "none",
+            "title": "In the box",
+            "text": "Bucket, ladle, sand timer and thermometer."
           }
         }
       },
       "block_order": [
-        "image",
-        "heading",
-        "text"
+        "ir_1",
+        "ir_2",
+        "ir_3",
+        "tr_1",
+        "tr_2",
+        "tr_3"
       ],
-      "disabled": true,
       "settings": {
-        "image": "{{ product.metafields.custom.product_image_5.value }}",
-        "image_height": "600px",
-        "image_width": "large",
-        "layout": "image_first",
-        "text_alignment": "left",
-        "content_position": "align-self-center",
-        "image_height_mobile": "400px",
-        "text_alignment_mobile": "left",
-        "color_text": "#171717",
+        "nav_label": "How it heats",
+        "eyebrow": "How it heats",
+        "ir_heading": "Warmth that finds you.",
+        "ir_lede": "Carbon panels at your back, sides and calves, with ruby heaters alongside. It feels like sitting in low sun.",
+        "ir_toggle_label": "Show heaters",
+        "ir_all_label": "Both",
+        "ir_carbon_label": "Carbon",
+        "ir_ruby_label": "Ruby",
+        "ir_diagram_label": "An infrared sauna seen from the front, with carbon panels behind, beside and below the bather and ruby heaters along the top and sides",
+        "trad_heading": "Pour, wait, breathe out.",
+        "trad_lede": "An electric stove heats the stones. A ladle of water on top sends steam rolling through the cabin.",
+        "trad_toggle_label": "Show heat or steam",
+        "trad_steam_label": "Steam",
+        "trad_heat_label": "Dry heat",
+        "trad_diagram_label": "An outdoor sauna seen from the front, with benches either side of an electric stove topped with stones, and steam rising from the stones",
+        "show_size_card": true,
+        "size_label": "Your size:"
+      }
+    },
+    "compatible_accessories": {
+      "type": "compatible-accessories-v2",
+      "settings": {
+        "product_limit": 12,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "tab_order": "Stoves, Stones",
+        "quick_add": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "Compatible Accessories",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
         "color_background": "",
         "gradient_background": "",
-        "color_background_2": "#fafafa",
-        "gradient_background_2": "",
         "color_highlight": "",
         "gradient_highlight": "",
         "color_button_text": "",
@@ -1081,9 +757,142 @@
         "padding_bottom": 72,
         "divider": false,
         "full_width": false,
-        "rounded": false,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
+        "rounded": false
+      }
+    },
+    "wf_sauna_setup": {
+      "type": "wave-fy27-sauna-setup",
+      "blocks": {
+        "in_1": {
+          "type": "step",
+          "settings": {
+            "kind": "indoor",
+            "title": "Pick a spot",
+            "text": "A level floor indoors, near the socket you'll use."
+          }
+        },
+        "in_2": {
+          "type": "step",
+          "settings": {
+            "kind": "indoor",
+            "title": "Clip it together",
+            "text": "The panels buckle into place. Two people make it easier."
+          }
+        },
+        "in_3": {
+          "type": "step",
+          "settings": {
+            "kind": "indoor",
+            "title": "Plug in, warm up",
+            "text": "Set the temperature on the panel and let it warm up."
+          }
+        },
+        "out_1": {
+          "type": "step",
+          "settings": {
+            "kind": "outdoor",
+            "title": "Prepare a base",
+            "text": "Flat, level and firm, with room to walk around it."
+          }
+        },
+        "out_2": {
+          "type": "step",
+          "settings": {
+            "kind": "outdoor",
+            "title": "Build the cabin",
+            "text": "Everything for the cabin is in the crate."
+          }
+        },
+        "out_3": {
+          "type": "step",
+          "settings": {
+            "kind": "outdoor",
+            "title": "Fit the stove",
+            "text": "A qualified electrician wires in the Harvia Vega."
+          }
+        },
+        "out_4": {
+          "type": "step",
+          "settings": {
+            "kind": "outdoor",
+            "title": "Load the stones",
+            "text": "Heat it up, then reach for the ladle."
+          }
+        }
+      },
+      "block_order": [
+        "in_1",
+        "in_2",
+        "in_3",
+        "out_1",
+        "out_2",
+        "out_3",
+        "out_4"
+      ],
+      "settings": {
+        "nav_label": "Setup",
+        "eyebrow": "Setting up",
+        "indoor_heading": "It clips together.",
+        "indoor_lede": "The panels arrive flat-packed and buckle into place. The glass front comes already framed.",
+        "indoor_power_title": "Power cord included",
+        "indoor_power_text": "Ask us which socket suits your size before you order.",
+        "outdoor_heading": "Build it once. Use it all winter.",
+        "outdoor_lede": "It arrives in a wooden crate, with the glass front already framed.",
+        "outdoor_power_title": "Wired in by an electrician",
+        "outdoor_power_text": "The stove needs its own supply. Book the electrician before delivery day."
+      }
+    },
+    "wf_sauna_range": {
+      "type": "wave-fy27-sauna-range",
+      "blocks": {
+        "sauna_indoor": {
+          "type": "sauna",
+          "settings": {
+            "product": "indoor-infrared-sauna-carbon-ruby",
+            "name": "Indoor Infrared",
+            "kind_label": "Indoor",
+            "signature": "Heat indoors.",
+            "for": "For a spare corner of the house.",
+            "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
+          }
+        },
+        "sauna_barrel": {
+          "type": "sauna",
+          "settings": {
+            "product": "outdoor-barrel-sauna-thermo-spruce-black",
+            "name": "Barrel",
+            "kind_label": "Outdoor",
+            "signature": "Face to face.",
+            "for": "For the bottom of the garden, and company.",
+            "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
+          }
+        },
+        "sauna_cube": {
+          "type": "sauna",
+          "settings": {
+            "product": "outdoor-cube-sauna-thermo-spruce-black",
+            "name": "Cube",
+            "kind_label": "Outdoor",
+            "signature": "Square to the fence.",
+            "for": "For lining up with the garden you have.",
+            "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
+          }
+        }
+      },
+      "block_order": [
+        "sauna_indoor",
+        "sauna_barrel",
+        "sauna_cube"
+      ],
+      "settings": {
+        "nav_label": "The range",
+        "eyebrow": "The sauna range",
+        "heading": "Three ways to warm up.",
+        "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
+        "current_label": "You're viewing",
+        "current_button": "Choose your size",
+        "button_prefix": "Explore the",
+        "sizes_label": "Sizes"
       }
     },
     "wave_fy27_questions_zCr8mk": {
@@ -1195,7 +1004,7 @@
       "name": "FY27 questions",
       "settings": {
         "nav_label": "Questions",
-        "eyebrow": "Questions",
+        "eyebrow": "",
         "heading": "Before you buy.",
         "lede": "Quick answers to what people ask most about saunas.",
         "contact_text": "Still deciding? Our UK team is here six days a week.",
@@ -1205,125 +1014,10 @@
         "faq_schema": true
       }
     },
-    "faq": {
-      "type": "faq",
-      "blocks": {
-        "question-1": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_1.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_1 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-2": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_2.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_2 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-3": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_3.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_3 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-4": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_4.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_4 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "question-5": {
-          "type": "question",
-          "settings": {
-            "title": "{{ product.metafields.custom.faq_question_5.value }}",
-            "text": "{{ product.metafields.custom.faq_answer_5 | metafield_tag }}",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "disabled": true,
-          "settings": {
-            "heading": "Didn’t find your answer?",
-            "text": "<p>Don't hestitate to contact us</p>",
-            "show_phone": false,
-            "avatar_height": 60,
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "question-1",
-        "question-2",
-        "question-3",
-        "question-4",
-        "question-5",
-        "contact"
-      ],
-      "disabled": true,
-      "settings": {
-        "style": "with-background",
-        "heading": "FAQs",
-        "heading_size": "title-lg tracking-heading",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "<p>Didn't find your answer? You can also check out the <a href=\"/blogs/knowledge-base\" title=\"Knowledge Base\">Support Centre.</a><br/>Or chat to us directly using the chat pop up in the bottom left corner.<br/></p>",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "#171717",
-        "color_background": "#fafafa",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "#ffffff",
-        "color_button_background": "#000000",
-        "color_button_gradient": "",
-        "color_overlay": "#ffffff",
-        "overlay_opacity": 4,
-        "padding_top": 84,
-        "padding_bottom": 20,
-        "divider": false,
-        "narrow": false,
-        "rounded": false
-      }
-    },
     "rich_text_XazzCf": {
       "type": "rich-text",
-      "blocks": {
-        "image_JpaexC": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Trustpilot_Spas_fdf5fb6e-353f-4372-af45-25da5b1bb1bc.png",
-            "image_width": "custom",
-            "image_max_width": 400,
-            "image_max_width_mobile": 300
-          }
-        }
-      },
-      "block_order": [
-        "image_JpaexC"
-      ],
+      "blocks": {},
+      "block_order": [],
       "name": "t:sections.rich-text.name",
       "settings": {
         "text_alignment": "left",
@@ -1333,7 +1027,7 @@
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_width": "small",
         "heading_tag": "h2",
-        "subheading": "Reviews",
+        "subheading": "",
         "description": "",
         "button_label": "",
         "button_link": "",
@@ -1477,245 +1171,21 @@
         "narrow": false,
         "rounded": false
       }
-    },
-    "wf_sauna_heat": {
-      "type": "wave-fy27-sauna-heat",
-      "blocks": {
-        "ir_1": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "carbon",
-            "title": "Carbon panels",
-            "text": "Behind you, beside you and at your calves, so the warmth is even."
-          }
-        },
-        "ir_2": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "ruby",
-            "title": "Ruby heaters",
-            "text": "They sit alongside the carbon and bring the cabin up to heat."
-          }
-        },
-        "ir_3": {
-          "type": "point",
-          "settings": {
-            "kind": "infrared",
-            "key": "none",
-            "title": "Your settings",
-            "text": "Set it on the digital panel or over Wi-Fi. Bluetooth plays your music."
-          }
-        },
-        "tr_1": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "stove",
-            "title": "The stove",
-            "text": "A Harvia Vega, sold separately. Your size shows the output we recommend."
-          }
-        },
-        "tr_2": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "steam",
-            "title": "The stones",
-            "text": "Lava stones hold the heat, ready for the next ladle."
-          }
-        },
-        "tr_3": {
-          "type": "point",
-          "settings": {
-            "kind": "traditional",
-            "key": "none",
-            "title": "In the box",
-            "text": "Bucket, ladle, sand timer and thermometer."
-          }
-        }
-      },
-      "block_order": [
-        "ir_1",
-        "ir_2",
-        "ir_3",
-        "tr_1",
-        "tr_2",
-        "tr_3"
-      ],
-      "settings": {
-        "nav_label": "How it heats",
-        "eyebrow": "How it heats",
-        "ir_heading": "Warmth that finds you.",
-        "ir_lede": "Carbon panels at your back, sides and calves, with ruby heaters alongside. It feels like sitting in low sun.",
-        "ir_toggle_label": "Show heaters",
-        "ir_all_label": "Both",
-        "ir_carbon_label": "Carbon",
-        "ir_ruby_label": "Ruby",
-        "ir_diagram_label": "An infrared sauna seen from the front, with carbon panels behind, beside and below the bather and ruby heaters along the top and sides",
-        "trad_heading": "Pour, wait, breathe out.",
-        "trad_lede": "An electric stove heats the stones. A ladle of water on top sends steam rolling through the cabin.",
-        "trad_toggle_label": "Show heat or steam",
-        "trad_steam_label": "Steam",
-        "trad_heat_label": "Dry heat",
-        "trad_diagram_label": "An outdoor sauna seen from the front, with benches either side of an electric stove topped with stones, and steam rising from the stones",
-        "show_size_card": true,
-        "size_label": "Your size:"
-      }
-    },
-    "wf_sauna_setup": {
-      "type": "wave-fy27-sauna-setup",
-      "blocks": {
-        "in_1": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Pick a spot",
-            "text": "A level floor indoors, near the socket you'll use."
-          }
-        },
-        "in_2": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Clip it together",
-            "text": "The panels buckle into place. Two people make it easier."
-          }
-        },
-        "in_3": {
-          "type": "step",
-          "settings": {
-            "kind": "indoor",
-            "title": "Plug in, warm up",
-            "text": "Set the temperature on the panel and let it warm up."
-          }
-        },
-        "out_1": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Prepare a base",
-            "text": "Flat, level and firm, with room to walk around it."
-          }
-        },
-        "out_2": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Build the cabin",
-            "text": "Everything for the cabin is in the crate."
-          }
-        },
-        "out_3": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Fit the stove",
-            "text": "A qualified electrician wires in the Harvia Vega."
-          }
-        },
-        "out_4": {
-          "type": "step",
-          "settings": {
-            "kind": "outdoor",
-            "title": "Load the stones",
-            "text": "Heat it up, then reach for the ladle."
-          }
-        }
-      },
-      "block_order": [
-        "in_1",
-        "in_2",
-        "in_3",
-        "out_1",
-        "out_2",
-        "out_3",
-        "out_4"
-      ],
-      "settings": {
-        "nav_label": "Setup",
-        "eyebrow": "Setting up",
-        "indoor_heading": "It clips together.",
-        "indoor_lede": "The panels arrive flat-packed and buckle into place. The glass front comes already framed.",
-        "indoor_power_title": "Power cord included",
-        "indoor_power_text": "Ask us which socket suits your size before you order.",
-        "outdoor_heading": "Build it once. Use it all winter.",
-        "outdoor_lede": "It arrives in a wooden crate, with the glass front already framed.",
-        "outdoor_power_title": "Wired in by an electrician",
-        "outdoor_power_text": "The stove needs its own supply. Book the electrician before delivery day."
-      }
-    },
-    "wf_sauna_range": {
-      "type": "wave-fy27-sauna-range",
-      "blocks": {
-        "sauna_indoor": {
-          "type": "sauna",
-          "settings": {
-            "product": "indoor-infrared-sauna-carbon-ruby",
-            "name": "Indoor Infrared",
-            "kind_label": "Indoor",
-            "signature": "Heat indoors.",
-            "for": "For a spare corner of the house.",
-            "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
-          }
-        },
-        "sauna_barrel": {
-          "type": "sauna",
-          "settings": {
-            "product": "outdoor-barrel-sauna-thermo-spruce-black",
-            "name": "Barrel",
-            "kind_label": "Outdoor",
-            "signature": "Face to face.",
-            "for": "For the bottom of the garden, and company.",
-            "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
-          }
-        },
-        "sauna_cube": {
-          "type": "sauna",
-          "settings": {
-            "product": "outdoor-cube-sauna-thermo-spruce-black",
-            "name": "Cube",
-            "kind_label": "Outdoor",
-            "signature": "Square to the fence.",
-            "for": "For lining up with the garden you have.",
-            "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
-          }
-        }
-      },
-      "block_order": [
-        "sauna_indoor",
-        "sauna_barrel",
-        "sauna_cube"
-      ],
-      "settings": {
-        "nav_label": "The range",
-        "eyebrow": "The sauna range",
-        "heading": "Three ways to warm up.",
-        "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
-        "current_label": "You're viewing",
-        "current_button": "Choose your size",
-        "button_prefix": "Explore the",
-        "sizes_label": "Sizes"
-      }
     }
   },
   "order": [
     "main-product",
     "17840224521f0f53e5",
-    "ss_product_videos_4_BQjpxE",
-    "wave_review_highlights",
     "help-drawer",
     "scroll_spy_aPhVjp",
+    "image_with_text_overlay_CLQmcN",
     "product-details",
-    "video_BqrMRT",
-    "wf_sauna_heat",
     "collage",
-    "image-with-text-1",
+    "wf_sauna_heat",
+    "compatible_accessories",
     "wf_sauna_setup",
     "wf_sauna_range",
     "wave_fy27_questions_zCr8mk",
-    "faq",
     "rich_text_XazzCf",
     "custom_liquid_YwqJMM",
     "174653922467a5c413",
