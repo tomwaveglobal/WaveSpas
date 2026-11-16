@@ -9,8 +9,108 @@
  */
 {
   "sections": {
+    "product_comparison_nbyQxK": {
+      "type": "product-comparison",
+      "blocks": {
+        "product_hG3kTx": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "heading_1": "",
+            "value_1": "",
+            "heading_2": "",
+            "value_2": "",
+            "heading_3": "",
+            "value_3": "",
+            "heading_4": "",
+            "value_4": "",
+            "heading_5": "",
+            "value_5": "",
+            "heading_6": "",
+            "value_6": "",
+            "heading_7": "",
+            "value_7": "",
+            "heading_8": "",
+            "value_8": "",
+            "heading_9": "",
+            "value_9": "",
+            "heading_10": "",
+            "value_10": "",
+            "heading_11": "",
+            "value_11": "",
+            "heading_12": "",
+            "value_12": "",
+            "heading_13": "",
+            "value_13": "",
+            "heading_14": "",
+            "value_14": "",
+            "heading_15": "",
+            "value_15": "",
+            "heading_16": "",
+            "value_16": "",
+            "heading_17": "",
+            "value_17": "",
+            "heading_18": "",
+            "value_18": "",
+            "heading_19": "",
+            "value_19": "",
+            "heading_20": "",
+            "value_20": "",
+            "heading_21": "",
+            "value_21": "",
+            "heading_22": "",
+            "value_22": "",
+            "heading_23": "",
+            "value_23": "",
+            "heading_24": "",
+            "value_24": "",
+            "heading_25": "",
+            "value_25": "",
+            "text_size": "text-sm"
+          }
+        }
+      },
+      "block_order": [
+        "product_hG3kTx"
+      ],
+      "name": "t:sections.product-comparison.name",
+      "settings": {
+        "highlight_differences": true,
+        "sticky_product_info": true,
+        "first_available_variant": true,
+        "show_vendor": false,
+        "show_price": true,
+        "heading": "Compare Products",
+        "heading_size": "title-lg tracking-heading",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "#FAFAFA",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "divider": false,
+        "full_width": true,
+        "rounded": true
+      }
+    },
     "main-page": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "heading_size": "title-lg tracking-heading",
         "heading_alignment": "text-left",
@@ -186,6 +286,7 @@
     }
   },
   "order": [
+    "product_comparison_nbyQxK",
     "main-page",
     "comparison_Mr94Vq"
   ]
