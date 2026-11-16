@@ -681,8 +681,8 @@
           "type": "sauna",
           "settings": {
             "product": "indoor-infrared-sauna-carbon-ruby",
-            "name": "Indoor Infrared",
-            "kind_label": "Indoor",
+            "name": "Tularosa",
+            "kind_label": "Indoor infrared",
             "signature": "Heat indoors.",
             "for": "For a spare corner of the house.",
             "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
@@ -692,8 +692,8 @@
           "type": "sauna",
           "settings": {
             "product": "cobar-sauna",
-            "name": "Barrel",
-            "kind_label": "Outdoor",
+            "name": "Cobar",
+            "kind_label": "Outdoor barrel",
             "signature": "Face to face.",
             "for": "For the bottom of the garden, and company.",
             "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
@@ -703,8 +703,8 @@
           "type": "sauna",
           "settings": {
             "product": "outdoor-cube-sauna-thermo-spruce-black",
-            "name": "Cube",
-            "kind_label": "Outdoor",
+            "name": "Jama",
+            "kind_label": "Outdoor cube",
             "signature": "Square to the fence.",
             "for": "For lining up with the garden you have.",
             "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
@@ -735,7 +735,7 @@
           "settings": {
             "topic": "",
             "question": "Can it go indoors or outdoors?",
-            "answer": "<p>The infrared sauna is for indoor use only. The barrel and cube are built for the garden, from thermally modified spruce.</p>",
+            "answer": "<p>The Tularosa is an infrared sauna for indoor use only. The Cobar barrel and the Jama cube are built for the garden, from thermally modified spruce.</p>",
             "only_tag": ""
           }
         },
@@ -798,7 +798,7 @@
           "settings": {
             "topic": "",
             "question": "Do I need planning permission?",
-            "answer": "<p>Usually not for a garden building this size. Check with your council if you live in a listed building, a conservation area or a flat.</p>",
+            "answer": "<p>It depends on where it goes and how big it is. Check the dimensions against your council's rules for garden buildings, and ask them first if you live in a listed building, a conservation area or a flat.</p>",
             "only_tag": "Outdoor Sauna"
           }
         },
