@@ -41,7 +41,7 @@
                   >
                     {%- for block in section.blocks -%}
                       {%- if block.settings.product != blank -%}
-                        <option value="{{ block.settings.product.id }}"{% if forloop.index == forloop.parentloop.index %} selected{% endif %}>{{ block.settings.product.title }}</option>
+                        <option value="{{ block.settings.product.id }}"{% if forloop.index == forloop.parentloop.index %} selected{% endif %}>{{ block.settings.product.metafields.product_card_overwrite.title | default: block.settings.product.title }}</option>
                       {%- endif -%}
                     {%- endfor -%}
                   </select>
@@ -74,7 +74,7 @@
                         {%- if section.settings.show_vendor -%}
                           <p class="horizontal-product__vendor text-xs text-opacity">{{ card_product.vendor }}</p>
                         {%- endif -%}
-                        <a href="{{ card_product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ card_product.title }}</a>
+                        <a href="{{ card_product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ card_product.metafields.product_card_overwrite.title | default: card_product.title }}</a>
                       </div>
                       {%- if first_available_variant != blank -%}
                         <p class="text-xs text-opacity leading-tight">{{ first_available_variant.title }}</p>
@@ -322,7 +322,7 @@
                         {%- if section.settings.show_vendor -%}
                           <p class="horizontal-product__vendor text-xs text-opacity">{{ card_product.vendor }}</p>
                         {%- endif -%}
-                        <a href="{{ card_product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ card_product.title }}</a>
+                        <a href="{{ card_product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ card_product.metafields.product_card_overwrite.title | default: card_product.title }}</a>
                       </div>
                       {%- if first_available_variant != blank -%}
                         <p class="text-xs text-opacity leading-tight">{{ first_available_variant.title }}</p>
