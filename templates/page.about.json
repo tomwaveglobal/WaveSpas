@@ -45,7 +45,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "The UK's highest-rated portable hot tub brand",
+            "heading": "Hot tubs for people who never thought they'd own one",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
             "highlighted_text": "none",
@@ -104,7 +104,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>We started it because most people who want one will never have one.</p><p>For most households, a hot tub is shorthand for hassle. A patio you don't have. A contractor you don't want to call. A price tag that turns an afternoon's idea into a five-year plan. The biggest market in leisure, in other words, is the one that never gets to enjoy it.</p><p>We thought that was nonsense.</p><p>A decade later, Wave is the UK's highest-rated portable hot tub brand on Trustpilot, with thousands of five-star reviews from people who'd never have called themselves hot tub people. We built the company for them and we're still building it for them.</p><p><em>Tom & Dan, Founders</em></p>",
+            "text": "<p>We started it because most people who want one will never have one.</p><p>For most households, a hot tub is shorthand for hassle. A patio you don't have. A contractor you don't want to call. A price tag that turns an afternoon's idea into a five-year plan. The biggest market in leisure, in other words, is the one that never gets to enjoy it.</p><p>We thought that was nonsense.</p><p>A decade later, Wave has thousands of five-star reviews on Trustpilot from people who'd never have called themselves hot tub people. We built the company for them and we're still building it for them.</p><p><em>Tom & Dan, Founders</em></p>",
             "text_font": "body",
             "text_size": "subtext-md",
             "text_max_size": 32,
@@ -481,9 +481,9 @@
           "type": "content",
           "settings": {
             "subheading": "2026",
-            "heading": "Highest rated, by some distance.",
+            "heading": "The customers get the last word.",
             "heading_tag": "h2",
-            "text": "<p>Wave becomes the UK's highest-rated portable hot tub brand on Trustpilot. The customers, finally, get the last word.</p>",
+            "text": "<p>Wave passes 16,000 customer reviews on Trustpilot.</p>",
             "button_label": "",
             "button_link": "",
             "button_style": "primary",
