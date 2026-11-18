@@ -2,7 +2,6 @@
   FY27 collection page (new-collection-fy27), styled to match the product-flow-new PDP:
   - Same layout inset as the PDP from 1536px, and theme subtitles as FY27 eyebrows (wave-fy27-pdp-layout)
   - Collection colour (Lite / Lush / Luxe) from the collection handle, as on the PDP (wave-collection-colour)
-  - Section nav (Spas, Compare, FAQs, Reviews, About) is the only sticky bar; the filter bar scrolls with the grid
   - Product tiles: light grey behind the product images (multiplied, as on the PDP's tiles), price on top
     with the compare-at price underneath, no "Save £x"
   - Banner title: keeps the space between the bold first word and the rest ("Lush Collection"); the
@@ -19,10 +18,6 @@
 <style>
   /* ═══ Banner title: "Lush Collection", not "LushCollection" ══════════ */
   [id$='__main-collection-banner'] .wf-title-light { margin-inline-start: 0.24em; }
-
-  /* ═══ One sticky bar: the section nav (as on the PDP). The filter/sort bar scrolls with the grid
-     instead of sticking under the header on top of the nav. ═══ */
-  [id$='__main-collection'] facets-topbar.collection__topbar { position: relative; }
 
   /* ═══ Product tiles: price, then compare-at price; no "Save £x" ═════ */
   [id$='__main-collection'] .price--on-sale,
