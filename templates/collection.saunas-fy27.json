@@ -38,7 +38,7 @@
         "description_JJYJe8"
       ],
       "settings": {
-        "transparent_header": false,
+        "transparent_header": true,
         "show_image": true,
         "image": "{{ collection.metafields.custom.collection_banner.value }}",
         "image_height": "500px",
