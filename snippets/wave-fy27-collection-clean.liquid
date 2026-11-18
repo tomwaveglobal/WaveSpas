@@ -6,7 +6,8 @@
     with the compare-at price underneath, no "Save £x"
   - Banner title: keeps the space between the bold first word and the rest ("Lush Collection"); the
     theme's split-words animation drops it
-  - Banner with a photo grows to fit its text (it was clipping the title on phones)
+  - Banner with a photo grows to fit its text (it was clipping the title on phones); the editor's
+    image height is the minimum
 
   - ItemList structured data for the products in the collection, so search engines read the page as a
     product category (nothing is output while the collection has no published products)
@@ -43,14 +44,13 @@
   [id$='__main-collection-banner'] .wf-title-light { margin-inline-start: 0.24em; }
 
   /* ═══ Banner with a photo: grows to fit its text instead of clipping it ═══
-     The theme fixes the banner height (400px desktop; the "auto" mobile option has no CSS, so phones
-     get 260px) and lays the text over it with overflow hidden, which cut off the badge and title on
-     phones and the second paragraph on desktop. Here the set height is a minimum, the photo fills the
-     banner, and the text sits at the bottom with room to breathe. */
+     The theme fixes the banner height and lays the text over it with overflow hidden, which cut off
+     the badge and title on phones and the second paragraph on desktop. Here the height chosen in the
+     editor (Image height / Mobile image height) becomes a minimum, using the theme's own scale, the
+     photo fills the banner, and the text sits at the bottom with room to breathe. */
   [id$='__main-collection-banner'] .banner[class*='media--'] {
     display: flex;
     height: auto;
-    min-height: 400px;
   }
   [id$='__main-collection-banner'] .banner[class*='media--'] > .banner__media {
     position: absolute;
@@ -66,8 +66,32 @@
     height: auto;
     padding-block: clamp(32px, 4vw, 56px);
   }
+  {%- liquid
+    assign banner_sizes = '300,400,450,500,550,600,650,700,750,800,850,900' | split: ','
+    assign mobile_sizes = '200,250,300,400,500,600' | split: ','
+  -%}
+  {%- comment -%} Phones (theme: 65% of the setting; "auto"/"adapt" mobile heights keep that, never under 320px) {%- endcomment -%}
+  {%- for h in banner_sizes -%}
+    {%- assign n = h | times: 1 -%}
+  [id$='__main-collection-banner'] .banner.media--{{ h }}px { min-height: max(320px, {{ n | times: 0.65 }}px); }
+  {%- endfor %}
+  [id$='__main-collection-banner'] .banner.media--100vh { min-height: 100svh; }
   @media screen and (max-width: 767px) {
-    [id$='__main-collection-banner'] .banner[class*='media--'] { min-height: 320px; }
+    {%- for h in mobile_sizes %}
+    [id$='__main-collection-banner'] .banner.mobile\:media--{{ h }}px { min-height: {{ h }}px; }
+    {%- endfor %}
+    [id$='__main-collection-banner'] .banner.mobile\:media--100vh { min-height: 100svh; }
+  }
+  @media screen and (min-width: 768px) {
+    {%- for h in banner_sizes -%}
+      {%- assign n = h | times: 1 %}
+    [id$='__main-collection-banner'] .banner.media--{{ h }}px { min-height: {{ n | times: 0.85 }}px; }
+    {%- endfor %}
+  }
+  @media screen and (min-width: 1536px) {
+    {%- for h in banner_sizes %}
+    [id$='__main-collection-banner'] .banner.media--{{ h }}px { min-height: {{ h }}px; }
+    {%- endfor %}
   }
 
   /* ═══ Product tiles: price, then compare-at price; no "Save £x" ═════ */
