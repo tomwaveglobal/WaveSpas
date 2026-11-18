@@ -9,12 +9,15 @@
   With part: 'label' it renders only the square collection label (assets/wave-label-{tier}.svg) for the
   top right-hand corner of the main product image; main-product renders that inside the gallery.
 
-  The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…).
+  The collection comes from the product's Lite / Lush / Luxe tag, else its handle (lite-…, lush-…, luxe-…),
+  else the handle param.
   Renders nothing for other products. --wf-tier-ink (and --wf-tier-rgb-ink) is the text-safe shade (Lite's
   slate is too light for small or white text on white). --wf-tier-light is the
   tint for text on black (the running-cost panel): rust and plum are too dark there.
 
-  @param {object} product - Product being viewed
+  @param {object} product - Product being viewed (pass null on a collection page)
+  @param {string} [handle] - Collection handle to read the tier from when there is no product
+    (lite-hot-tubs, lush-…, luxe-…); used by wave-fy27-collection-clean
   @param {string} [part] - 'label' for the image label only; otherwise the page styles
 {%- enddoc -%}
 {%- liquid
@@ -26,7 +29,7 @@
   elsif product.tags contains 'Luxe'
     assign tier = 'luxe'
   else
-    assign handle_start = product.handle | split: '-' | first
+    assign handle_start = product.handle | default: handle | split: '-' | first
     if handle_start == 'lite' or handle_start == 'lush' or handle_start == 'luxe'
       assign tier = handle_start
     endif

@@ -90,6 +90,18 @@
       "name": "Tier",
       "limit": 3,
       "settings": [
+        {
+          "type": "select",
+          "id": "tier",
+          "label": "Tier",
+          "info": "Sets the collection colour and badge.",
+          "options": [
+            { "value": "lite", "label": "Lite" },
+            { "value": "lush", "label": "Lush" },
+            { "value": "luxe", "label": "Luxe" }
+          ],
+          "default": "lush"
+        },
         { "type": "text", "id": "name", "label": "Name", "default": "Lush" },
         { "type": "text", "id": "collection_handle", "label": "Collection handle", "info": "Price, count and image show once the collection has published products.", "default": "lush-hot-tubs" },
         { "type": "image_picker", "id": "image", "label": "Image" },
@@ -121,6 +133,7 @@
           "type": "tier",
           "settings": {
             "name": "Lite",
+            "tier": "lite",
             "collection_handle": "lite-hot-tubs",
             "signature": "Light work.",
             "for": "For getting in without a second thought.",
@@ -131,6 +144,7 @@
           "type": "tier",
           "settings": {
             "name": "Lush",
+            "tier": "lush",
             "collection_handle": "lush-hot-tubs",
             "signature": "Settle in.",
             "for": "For evenings you want to last.",
@@ -141,6 +155,7 @@
           "type": "tier",
           "settings": {
             "name": "Luxe",
+            "tier": "luxe",
             "collection_handle": "luxe-hot-tubs",
             "signature": "Where you want it.",
             "for": "For pressure exactly where you need it.",

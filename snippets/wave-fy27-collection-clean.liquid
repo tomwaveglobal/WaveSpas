@@ -1,0 +1,59 @@
+{%- doc -%}
+  FY27 collection page (new-collection-fy27), styled to match the product-flow-new PDP:
+  - Same layout inset as the PDP from 1536px, and theme subtitles as FY27 eyebrows (wave-fy27-pdp-layout)
+  - Collection colour (Lite / Lush / Luxe) from the collection handle, as on the PDP (wave-collection-colour)
+  - Section nav (Spas, Compare, FAQs, Reviews, About) is the only sticky bar; the filter bar scrolls with the grid
+  - Product tiles: light grey behind the product images (multiplied, as on the PDP's tiles), price on top
+    with the compare-at price underneath, no "Save £x"
+  - Banner title: keeps the space between the bold first word and the rest ("Lush Collection"); the
+    theme's split-words animation drops it
+  - About the range (images with text overlay): soft grey panel with black text, no image collage,
+    instead of the dark panel
+
+  Rendered from the template's custom liquid section, so it only affects this template.
+
+  {% render 'wave-fy27-collection-clean' %}
+{%- enddoc -%}
+{%- render 'wave-fy27-pdp-layout' -%}
+{%- render 'wave-collection-colour', handle: collection.handle -%}
+<style>
+  /* ═══ Banner title: "Lush Collection", not "LushCollection" ══════════ */
+  [id$='__main-collection-banner'] .wf-title-light { margin-inline-start: 0.24em; }
+
+  /* ═══ One sticky bar: the section nav (as on the PDP). The filter/sort bar scrolls with the grid
+     instead of sticking under the header on top of the nav. ═══ */
+  [id$='__main-collection'] facets-topbar.collection__topbar { position: relative; }
+
+  /* ═══ Product tiles: price, then compare-at price; no "Save £x" ═════ */
+  [id$='__main-collection'] .price--on-sale,
+  [id$='__recently-viewed'] .price--on-sale {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+  main .price .price__save { display: none !important; }
+
+  /* ═══ Product tiles: light grey behind the product images (display only) ═══ */
+  main .product-card__media .media:not(quick-view .media) {
+    background-color: #f4f4f4;
+  }
+  main .product-card__media .media:not(quick-view .media) img {
+    mix-blend-mode: multiply;
+  }
+
+  /* ═══ About the range: soft grey panel, black text, no image collage (washed-out
+     images behind text read as glass, which the FY27 look avoids) ═══ */
+  /* Without the images the panel takes its height from the text (the theme sizes it from the image ratio) */
+  [id$='__images-with-text-overlay'] scrolled-images { display: none; }
+  [id$='__images-with-text-overlay'] .banner.media--adapt { height: auto; padding-block-end: 0; }
+  [id$='__images-with-text-overlay'] .banner__content { position: relative; height: auto; }
+  [id$='__images-with-text-overlay'] .banner__content > .page-width {
+    height: auto;
+    padding-block: clamp(48px, 5vw, 72px);
+  }
+  [id$='__images-with-text-overlay'] .rte a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
