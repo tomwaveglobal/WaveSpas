@@ -168,8 +168,8 @@
 
         {%- comment -%}
           Top-right corner: the FY27 collection badge (Lite / Lush / Luxe) instead of the review rating.
-          Rating pill removed from tiles 2026-11-18 (Kate). Tier = Lite/Lush/Luxe tag, else handle prefix, else lite-/lush-/luxe-hot-tubs collection;
-          first two match snippets/wave-collection-colour.liquid.
+          Rating pill removed from tiles 2026-11-18 (Kate). Tag only: the badge shows on products tagged
+          Lite, Lush or Luxe (the new FY27 range); older products have none, so they get no badge.
         {%- endcomment -%}
         {%- liquid
           assign card_tier = blank
@@ -179,18 +179,6 @@
             assign card_tier = 'lush'
           elsif product.tags contains 'Luxe'
             assign card_tier = 'luxe'
-          else
-            assign card_handle_start = product.handle | split: '-' | first
-            if card_handle_start == 'lite' or card_handle_start == 'lush' or card_handle_start == 'luxe'
-              assign card_tier = card_handle_start
-            else
-              for card_collection in product.collections
-                if card_collection.handle == 'lite-hot-tubs' or card_collection.handle == 'lush-hot-tubs' or card_collection.handle == 'luxe-hot-tubs'
-                  assign card_tier = card_collection.handle | split: '-' | first
-                  break
-                endif
-              endfor
-            endif
           endif
         -%}
         {%- if card_tier != blank -%}
