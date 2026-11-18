@@ -638,6 +638,21 @@
         "full_width": true,
         "rounded": true,
         "enable_parallax": true
+      },
+      "disabled": true
+    },
+    "wf_read_more": {
+      "type": "wave-fy27-read-more",
+      "settings": {
+        "source": "collection",
+        "heading": "[collection]",
+        "collapsed_height": 300,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "color_background": "#f4f4f4",
+        "us_market_handle": "usa",
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     }
   },
@@ -650,6 +665,7 @@
     "wf_questions",
     "rich_text_WV8RVA",
     "custom_liquid_Ehq8yt",
+    "wf_read_more",
     "images-with-text-overlay",
     "recently-viewed"
   ]
