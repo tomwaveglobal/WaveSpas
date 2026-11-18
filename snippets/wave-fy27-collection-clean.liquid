@@ -6,6 +6,7 @@
     with the compare-at price underneath, no "Save £x"
   - Banner title: keeps the space between the bold first word and the rest ("Lush Collection"); the
     theme's split-words animation drops it
+  - Banner with a photo grows to fit its text (it was clipping the title on phones)
 
   - ItemList structured data for the products in the collection, so search engines read the page as a
     product category (nothing is output while the collection has no published products)
@@ -40,6 +41,34 @@
 <style>
   /* ═══ Banner title: "Lush Collection", not "LushCollection" ══════════ */
   [id$='__main-collection-banner'] .wf-title-light { margin-inline-start: 0.24em; }
+
+  /* ═══ Banner with a photo: grows to fit its text instead of clipping it ═══
+     The theme fixes the banner height (400px desktop; the "auto" mobile option has no CSS, so phones
+     get 260px) and lays the text over it with overflow hidden, which cut off the badge and title on
+     phones and the second paragraph on desktop. Here the set height is a minimum, the photo fills the
+     banner, and the text sits at the bottom with room to breathe. */
+  [id$='__main-collection-banner'] .banner[class*='media--'] {
+    display: flex;
+    height: auto;
+    min-height: 400px;
+  }
+  [id$='__main-collection-banner'] .banner[class*='media--'] > .banner__media {
+    position: absolute;
+    inset: 0;
+  }
+  [id$='__main-collection-banner'] .banner[class*='media--'] > .banner__content {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    height: auto;
+  }
+  [id$='__main-collection-banner'] .banner[class*='media--'] > .banner__content > .page-width {
+    height: auto;
+    padding-block: clamp(32px, 4vw, 56px);
+  }
+  @media screen and (max-width: 767px) {
+    [id$='__main-collection-banner'] .banner[class*='media--'] { min-height: 320px; }
+  }
 
   /* ═══ Product tiles: price, then compare-at price; no "Save £x" ═════ */
   [id$='__main-collection'] .price--on-sale,
