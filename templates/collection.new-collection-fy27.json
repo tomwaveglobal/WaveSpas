@@ -652,7 +652,8 @@
         "color_background": "#f4f4f4",
         "us_market_handle": "usa",
         "padding_top": 72,
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "full_width": true
       }
     }
   },
