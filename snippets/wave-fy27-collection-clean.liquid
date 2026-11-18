@@ -6,8 +6,6 @@
     with the compare-at price underneath, no "Save £x"
   - Banner title: keeps the space between the bold first word and the rest ("Lush Collection"); the
     theme's split-words animation drops it
-  - About the range (images with text overlay): soft grey panel with black text, no image collage,
-    instead of the dark panel
 
   - ItemList structured data for the products in the collection, so search engines read the page as a
     product category (nothing is output while the collection has no published products)
@@ -60,19 +58,4 @@
     mix-blend-mode: multiply;
   }
 
-  /* ═══ About the range: soft grey panel, black text, no image collage (washed-out
-     images behind text read as glass, which the FY27 look avoids) ═══ */
-  /* Without the images the panel takes its height from the text (the theme sizes it from the image ratio) */
-  [id$='__images-with-text-overlay'] scrolled-images { display: none; }
-  [id$='__images-with-text-overlay'] .banner.media--adapt { height: auto; padding-block-end: 0; }
-  [id$='__images-with-text-overlay'] .banner__content { position: relative; height: auto; }
-  [id$='__images-with-text-overlay'] .banner__content > .page-width {
-    height: auto;
-    padding-block: clamp(48px, 5vw, 72px);
-  }
-  [id$='__images-with-text-overlay'] .rte a {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
 </style>

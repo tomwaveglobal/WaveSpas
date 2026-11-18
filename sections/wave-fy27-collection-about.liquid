@@ -1,0 +1,62 @@
+{{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- comment -%}
+  FY27 "About" copy for a collection page: heading on the left, the collection's long copy on the right,
+  in the same two-column layout as the FY27 questions section. Replaces the images-with-text-overlay
+  collage on new-collection-fy27.
+  Copy: custom.uk_seo_description, or custom.us_seo_description in the US market (falls back to UK).
+  [collection] in the heading is replaced with the collection title.
+{%- endcomment -%}
+{%- liquid
+  assign about = collection.metafields.custom.uk_seo_description
+  if localization.market.handle == section.settings.us_market_handle and collection.metafields.custom.us_seo_description != blank
+    assign about = collection.metafields.custom.us_seo_description
+  endif
+  assign heading = section.settings.heading | replace: '[collection]', collection.title
+-%}
+{%- if about != blank -%}
+  <wf-section class="wf{% if section.settings.soft %} wf--soft{% endif %}" id="wf-{{ section.id }}">
+    <div class="wf__inner">
+      <div class="wf-qa wf-about">
+        <div class="wf-qa__intro">
+          {%- if section.settings.eyebrow != blank -%}<p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+          <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ heading }}</h2>
+        </div>
+        <div class="wf-about__copy" data-wf-reveal style="--wf-delay: .1s">
+          {{ about | metafield_tag }}
+        </div>
+      </div>
+    </div>
+  </wf-section>
+{%- endif -%}
+
+<style>
+  .wf-about__copy { font-size: var(--text-base); line-height: 1.6; color: var(--wf-ink-2); }
+  @media screen and (min-width: 768px) { .wf-about__copy { font-size: var(--text-lg); } }
+  .wf-about__copy > :first-child { margin-top: 0; }
+  .wf-about__copy p { margin: 0 0 14px; }
+  .wf-about__copy a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .wf-about__copy :is(h2, h3, h4) {
+    margin: 32px 0 10px;
+    font-family: var(--font-heading-family);
+    font-size: var(--wf-size-h3);
+    font-weight: var(--font-heading-weight);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--wf-ink);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FY27 collection about",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "[collection] is replaced with the collection title.", "default": "About [collection]" },
+    { "type": "checkbox", "id": "soft", "label": "Soft grey background", "default": false },
+    { "type": "text", "id": "us_market_handle", "label": "US market handle", "info": "In this market the US copy (custom.us_seo_description) shows instead of the UK copy.", "default": "usa" }
+  ],
+  "enabled_on": { "templates": ["collection"] },
+  "presets": [{ "name": "FY27 collection about" }]
+}
+{% endschema %}

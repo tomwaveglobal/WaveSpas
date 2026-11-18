@@ -20,22 +20,6 @@
     "wf_questions": {
       "disabled": true,
       "settings": {}
-    },
-    "images-with-text-overlay": {
-      "disabled": false,
-      "settings": {},
-      "blocks": {
-        "text": {
-          "disabled": true,
-          "settings": {}
-        },
-        "text_AbXBqV": {
-          "disabled": false,
-          "settings": {
-            "text_size": "subtext-sm"
-          }
-        }
-      }
     }
   }
 }
