@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-collection-banner": {
@@ -73,8 +82,6 @@
     },
     "main-collection": {
       "type": "main-collection",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "products_per_page": 24,
         "columns": 3,
@@ -175,8 +182,8 @@
         "contact_link": "/pages/contact-us",
         "contact_label": "Talk to us",
         "open_first": false,
-        "faq_schema": true,
-        "collection_faqs": true
+        "collection_faqs": true,
+        "faq_schema": true
       }
     },
     "recently-viewed": {
@@ -220,10 +227,10 @@
         "more_label": "Read more",
         "less_label": "Read less",
         "color_background": "#f4f4f4",
+        "full_width": true,
         "us_market_handle": "usa",
         "padding_top": 72,
-        "padding_bottom": 72,
-        "full_width": true
+        "padding_bottom": 72
       }
     },
     "wf_sauna_range": {

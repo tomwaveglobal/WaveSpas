@@ -63,7 +63,7 @@
         "description_JJYJe8"
       ],
       "settings": {
-        "transparent_header": false,
+        "transparent_header": true,
         "show_image": true,
         "image": "{{ collection.metafields.custom.collection_banner.value }}",
         "image_height": "400px",
@@ -492,36 +492,20 @@
         "rounded": false
       }
     },
-    "recently-viewed": {
-      "type": "recently-viewed",
+    "wf_read_more": {
+      "type": "wave-fy27-read-more",
       "settings": {
-        "product_limit": 6,
-        "columns": 4,
-        "carousel_on_desktop": true,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "heading": "Recently Viewed",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
+        "source": "collection",
+        "heading": "[collection]",
+        "text": "<p>Add your text here.</p>",
+        "collapsed_height": 300,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "color_background": "#f4f4f4",
+        "full_width": true,
+        "us_market_handle": "usa",
         "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": true
+        "padding_bottom": 72
       }
     },
     "images-with-text-overlay": {
@@ -610,6 +594,7 @@
         "text_AbXBqV",
         "text_FWnFJx"
       ],
+      "disabled": true,
       "settings": {
         "transparent_header": false,
         "image_height": "adapt",
@@ -638,22 +623,38 @@
         "full_width": true,
         "rounded": true,
         "enable_parallax": true
-      },
-      "disabled": true
+      }
     },
-    "wf_read_more": {
-      "type": "wave-fy27-read-more",
+    "recently-viewed": {
+      "type": "recently-viewed",
       "settings": {
-        "source": "collection",
-        "heading": "[collection]",
-        "collapsed_height": 300,
-        "more_label": "Read more",
-        "less_label": "Read less",
-        "color_background": "#f4f4f4",
-        "us_market_handle": "usa",
+        "product_limit": 6,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "Recently Viewed",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
         "padding_top": 72,
         "padding_bottom": 72,
-        "full_width": true
+        "divider": false,
+        "full_width": false,
+        "rounded": true
       }
     }
   },
