@@ -41,7 +41,7 @@
         "transparent_header": false,
         "show_image": true,
         "image": "{{ collection.metafields.custom.collection_banner.value }}",
-        "image_height": "600px",
+        "image_height": "900px",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
         "image_mobile": "{{ collection.metafields.custom.collection_image_mobile.value }}",
