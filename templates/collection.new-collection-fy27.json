@@ -39,7 +39,7 @@
           "settings": {
             "title_size": "title-md",
             "title_style": "first_word_bold",
-            "title_suffix": "Collection"
+            "title_suffix": "Hot Tubs"
           }
         },
         "description_JJYJe8": {
@@ -255,14 +255,15 @@
         "anchor": "compare-tiers",
         "eyebrow": "",
         "heading": "Three ways to soak.",
-        "lede": "Choose how you want it to feel.",
+        "lede": "Wave Lite, Wave Lush and Wave Luxe hot tubs, side by side.",
         "current_label": "You're viewing",
         "current_button": "See the spas",
         "button_prefix": "Explore",
         "from_label": "From",
         "spa_label": "spa",
         "spas_label": "spas",
-        "footnote": ""
+        "footnote": "",
+        "button_suffix": "hot tubs"
       }
     },
     "wf_questions": {
@@ -273,7 +274,8 @@
           "settings": {
             "topic": "Choosing",
             "question": "Lite, Lush or Luxe: which is right for me?",
-            "answer": "<p>Lite is the simple way in, with an open floor to stretch out, bubble massage and a cover included. Lush adds moulded seats and WiFi app control. Luxe adds four hydro-massage jets you can run with the bubbles or on their own. Every spa has WaveFlow™ dual filtration.</p>"
+            "answer": "<p>Lite is the simple way in, with an open floor to stretch out, bubble massage and a cover included. Lush adds moulded seats and WiFi app control. Luxe adds four hydro-massage jets you can run with the bubbles or on their own. Every spa has WaveFlow™ dual filtration.</p>",
+            "hide_with_collection_faqs": true
           }
         },
         "q_build": {
@@ -281,7 +283,8 @@
           "settings": {
             "topic": "Choosing",
             "question": "What's the difference between inflatable, drop stitch, eco foam and frame?",
-            "answer": "<p>Inflatable spas are the lightest and pack away easily. Drop stitch walls are firmer, with straighter sides. Eco foam spas have insulated foam walls. Frame spas sit inside a wood-effect frame. Each spa's page shows its size, heater and what's in the box.</p>"
+            "answer": "<p>Inflatable spas are the lightest and pack away easily. Drop stitch walls are firmer, with straighter sides. Eco foam spas have insulated foam walls. Frame spas sit inside a wood-effect frame. Each spa's page shows its size, heater and what's in the box.</p>",
+            "hide_with_collection_faqs": true
           }
         },
         "q_cost": {
@@ -305,7 +308,8 @@
           "settings": {
             "topic": "",
             "question": "Can I use it in winter?",
-            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>",
+            "hide_with_collection_faqs": true
           }
         },
         "q_finance": {
@@ -347,12 +351,13 @@
         "nav_label": "Questions",
         "eyebrow": "",
         "heading": "Before you buy.",
-        "lede": "Quick answers to what people ask most.",
+        "lede": "Quick answers about Wave [collection] hot tubs.",
         "contact_text": "Still deciding? Our UK team is here six days a week.",
         "contact_link": "/pages/contact-us",
         "contact_label": "Talk to us",
         "open_first": false,
-        "faq_schema": true
+        "faq_schema": true,
+        "collection_faqs": true
       }
     },
     "images-with-text-overlay": {
@@ -386,7 +391,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "{{ collection.title }}",
+            "heading": "About {{ collection.title }}",
             "heading_size": "title-md",
             "heading_tag": "h2",
             "highlighted_text": "none",

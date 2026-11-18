@@ -56,7 +56,7 @@
           {%- if is_current -%}
             <a class="button button--primary" href="#ProductGridContainer"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.current_button }}</span></a>
           {%- else -%}
-            <a class="button button--secondary" href="{{ href }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_prefix }} {{ block.settings.name }}</span></a>
+            <a class="button button--secondary" href="{{ href }}"><span class="btn-fill" data-fill></span><span class="btn-text">{{ section.settings.button_prefix }} {{ block.settings.name }}{% if section.settings.button_suffix != blank %} {{ section.settings.button_suffix }}{% endif %}</span></a>
           {%- endif -%}
         </article>
       {%- endfor -%}
@@ -79,6 +79,7 @@
     { "type": "text", "id": "current_label", "label": "Current tier flag", "default": "You're viewing" },
     { "type": "text", "id": "current_button", "label": "Current tier button", "default": "See the spas" },
     { "type": "text", "id": "button_prefix", "label": "Other tier button prefix", "default": "Shop" },
+    { "type": "text", "id": "button_suffix", "label": "Button suffix", "info": "After the tier name, e.g. hot tubs gives Explore Lite hot tubs. Descriptive link text helps search engines.", "default": "hot tubs" },
     { "type": "text", "id": "from_label", "label": "From label", "default": "From" },
     { "type": "text", "id": "spa_label", "label": "Count label (one)", "default": "spa" },
     { "type": "text", "id": "spas_label", "label": "Count label (many)", "default": "spas" },

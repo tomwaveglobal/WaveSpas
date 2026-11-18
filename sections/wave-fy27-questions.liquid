@@ -1,12 +1,20 @@
 {{ 'wave-fy27.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'wave-fy27.js' | asset_url }}" defer></script>
+{%- liquid
+  assign use_collection_faqs = false
+  if section.settings.collection_faqs and collection != blank and collection.metafields.custom.faq_question_1 != blank
+    assign use_collection_faqs = true
+  endif
+  assign range_name = collection.title | split: ' ' | first
+  assign lede = section.settings.lede | replace: '[collection]', range_name
+-%}
 <wf-section class="wf" id="wf-{{ section.id }}" data-wf-nav="{{ section.settings.nav_label | escape }}">
   <div class="wf__inner">
     <div class="wf-qa">
       <div class="wf-qa__intro">
         <p class="wf-eyebrow" data-wf-reveal>{{ section.settings.eyebrow }}</p>
         <h2 class="wf-h2" data-wf-reveal style="--wf-delay: .08s">{{ section.settings.heading }}</h2>
-        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ section.settings.lede }}</p>
+        <p class="wf-lede" data-wf-reveal style="--wf-delay: .16s">{{ lede }}</p>
         {%- if section.settings.contact_text != blank -%}
           <p class="wf-body" data-wf-reveal style="--wf-delay: .24s;margin-top:28px">
             {{ section.settings.contact_text }}
@@ -17,8 +25,24 @@
 
       <div class="wf-qa__list" data-wf-reveal style="--wf-delay: .1s">
         {%- assign shown = 0 -%}
+        {%- comment -%} The collection's own questions first (custom.faq_question_N / faq_answer_N), when turned on {%- endcomment -%}
+        {%- if use_collection_faqs -%}
+          {%- for i in (1..5) -%}
+            {%- assign q_key = 'faq_question_' | append: i -%}
+            {%- assign a_key = 'faq_answer_' | append: i -%}
+            {%- assign q = collection.metafields.custom[q_key].value -%}
+            {%- assign a = collection.metafields.custom[a_key] -%}
+            {%- if q == blank or a == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <details{% if shown == 1 and section.settings.open_first %} open{% endif %}>
+              <summary><span class="wf-h3">{{ q }}</span><i aria-hidden="true"></i></summary>
+              <div class="wf-qa__a">{{ a | metafield_tag }}</div>
+            </details>
+          {%- endfor -%}
+        {%- endif -%}
         {%- for block in section.blocks -%}
           {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+          {%- if use_collection_faqs and block.settings.hide_with_collection_faqs -%}{%- continue -%}{%- endif -%}
           {%- assign shown = shown | plus: 1 -%}
           <details {{ block.shopify_attributes }}{% if shown == 1 and section.settings.open_first %} open{% endif %}>
             <summary><span class="wf-h3">{{ block.settings.question }}</span><i aria-hidden="true"></i></summary>
@@ -33,10 +57,25 @@
   </div>
 </wf-section>
 
-{%- if section.settings.faq_schema and section.blocks.size > 0 -%}
+{%- if section.settings.faq_schema -%}
   {%- capture faq_items -%}
+    {%- if use_collection_faqs -%}
+      {%- for i in (1..5) -%}
+        {%- assign q_key = 'faq_question_' | append: i -%}
+        {%- assign a_key = 'faq_answer_' | append: i -%}
+        {%- assign q = collection.metafields.custom[q_key].value -%}
+        {%- assign a = collection.metafields.custom[a_key] -%}
+        {%- if q == blank or a == blank -%}{%- continue -%}{%- endif -%}
+        {
+          "@type": "Question",
+          "name": {{ q | strip_html | json }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ a | metafield_tag | strip_html | strip | json }} }
+        },
+      {%- endfor -%}
+    {%- endif -%}
     {%- for block in section.blocks -%}
       {%- if block.settings.only_tag != blank and product.tags contains block.settings.only_tag -%}{%- elsif block.settings.only_tag != blank -%}{%- continue -%}{%- endif -%}
+      {%- if use_collection_faqs and block.settings.hide_with_collection_faqs -%}{%- continue -%}{%- endif -%}
       {
         "@type": "Question",
         "name": {{ block.settings.question | strip_html | json }},
@@ -63,11 +102,12 @@
     { "type": "text", "id": "nav_label", "label": "Nav label", "default": "Questions" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Before you buy" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Your questions, answered." },
-    { "type": "textarea", "id": "lede", "label": "Intro", "default": "The things people ask us most before choosing a hot tub." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "info": "On a collection page, [collection] is replaced with the first word of the collection title, e.g. Lush.", "default": "The things people ask us most before choosing a hot tub." },
     { "type": "textarea", "id": "contact_text", "label": "Contact text", "default": "Still deciding? Our UK team is here Monday to Friday 8:30 to 5:30, and Saturday 8 to 4." },
     { "type": "url", "id": "contact_link", "label": "Contact link" },
     { "type": "text", "id": "contact_label", "label": "Contact link label", "default": "Talk to us" },
     { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": false },
+    { "type": "checkbox", "id": "collection_faqs", "label": "Start with the collection's own questions", "info": "Collection pages: shows the collection's FAQ metafields (custom.faq_question_1–5 with faq_answer_1–5) before the questions below.", "default": false },
     { "type": "checkbox", "id": "faq_schema", "label": "Add FAQ structured data for search", "info": "Turn off if another FAQ section on this page already outputs FAQ schema.", "default": true }
   ],
   "blocks": [
@@ -78,7 +118,8 @@
         { "type": "text", "id": "topic", "label": "Topic", "info": "Optional small label, e.g. Running costs." },
         { "type": "text", "id": "question", "label": "Question", "default": "Question" },
         { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer</p>" },
-        { "type": "text", "id": "only_tag", "label": "Only on products tagged", "info": "Optional. Leave blank to show on every product, e.g. Outdoor Sauna." }
+        { "type": "text", "id": "only_tag", "label": "Only on products tagged", "info": "Optional. Leave blank to show on every product, e.g. Outdoor Sauna." },
+        { "type": "checkbox", "id": "hide_with_collection_faqs", "label": "Hide when the collection's own questions show", "info": "Use for questions the collection's own FAQs already cover.", "default": false }
       ]
     }
   ],

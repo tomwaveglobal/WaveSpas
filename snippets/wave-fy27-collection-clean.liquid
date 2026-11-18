@@ -9,12 +9,36 @@
   - About the range (images with text overlay): soft grey panel with black text, no image collage,
     instead of the dark panel
 
+  - ItemList structured data for the products in the collection, so search engines read the page as a
+    product category (nothing is output while the collection has no published products)
+
   Rendered from the template's custom liquid section, so it only affects this template.
 
   {% render 'wave-fy27-collection-clean' %}
 {%- enddoc -%}
 {%- render 'wave-fy27-pdp-layout' -%}
 {%- render 'wave-collection-colour', handle: collection.handle -%}
+{%- if collection.products.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": {{ collection.title | json }},
+      "url": {{ request.origin | append: collection.url | json }},
+      "numberOfItems": {{ collection.products.size }},
+      "itemListElement": [
+        {%- for p in collection.products limit: 50 -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "name": {{ p.title | json }},
+            "url": {{ request.origin | append: p.url | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
 <style>
   /* ═══ Banner title: "Lush Collection", not "LushCollection" ══════════ */
   [id$='__main-collection-banner'] .wf-title-light { margin-inline-start: 0.24em; }
