@@ -166,36 +166,37 @@
           </quick-view>
         {%- endif -%}
 
-        {%- if show_rating -%}
-          {%- liquid
-            assign rating_max = 5
-            
-            if product.metafields.reviewscouk.rating.value != blank
-              assign rating_value = product.metafields.reviewscouk.rating.value | times: 1.0 | round: 1
-              assign rating_count = product.metafields.reviewscouk.total.value | default: product.metafields.reviews.rating_count.value
-            elsif product.metafields.reviews.rating.value != blank and product.metafields.reviews.rating_count.value > 0
-              assign rating_value = product.metafields.reviews.rating.value.rating | times: 1.0 | round: 1
-              assign rating_count = product.metafields.reviews.rating_count.value
-              assign rating_max = product.metafields.reviews.rating.value.scale_max
+        {%- comment -%}
+          Top-right corner: the FY27 collection badge (Lite / Lush / Luxe) instead of the review rating.
+          Rating pill removed from tiles 2026-11-18 (Kate). Tier = Lite/Lush/Luxe tag, else handle prefix, else lite-/lush-/luxe-hot-tubs collection;
+          first two match snippets/wave-collection-colour.liquid.
+        {%- endcomment -%}
+        {%- liquid
+          assign card_tier = blank
+          if product.tags contains 'Lite'
+            assign card_tier = 'lite'
+          elsif product.tags contains 'Lush'
+            assign card_tier = 'lush'
+          elsif product.tags contains 'Luxe'
+            assign card_tier = 'luxe'
+          else
+            assign card_handle_start = product.handle | split: '-' | first
+            if card_handle_start == 'lite' or card_handle_start == 'lush' or card_handle_start == 'luxe'
+              assign card_tier = card_handle_start
             else
-              assign hide_rating = true
-            endif
-          -%}
-          
-          {%- unless hide_rating -%}
-            <div class="rating product-card__rating z-2 absolute rounded-full flex items-center gap-2 md:gap-1d5 pointer-events-none" title="{{ 'general.accessibility.star_reviews_count' | t: count: rating_count | escape }}">
-              <span role="img" aria-label="{{ 'general.accessibility.star_reviews_info' | t: rating_value: rating_value, rating_max: rating_max }}">
-                {%- render 'icon', icon: 'star', size: 'xs' -%}
-              </span>
-              {%- liquid
-                if display_mode == 'count'
-                  echo 'general.accessibility.star_reviews_count' | t: count: rating_count
-                else
-                  echo rating_value
+              for card_collection in product.collections
+                if card_collection.handle == 'lite-hot-tubs' or card_collection.handle == 'lush-hot-tubs' or card_collection.handle == 'luxe-hot-tubs'
+                  assign card_tier = card_collection.handle | split: '-' | first
+                  break
                 endif
-              -%}
-            </div>
-          {%- endunless -%}
+              endfor
+            endif
+          endif
+        -%}
+        {%- if card_tier != blank -%}
+          <div class="product-card__tier z-2 absolute pointer-events-none">
+            <img src="{{ 'wave-badge-' | append: card_tier | append: '.svg' | asset_url }}" alt="Wave {{ card_tier | capitalize }}" width="137" height="200" loading="lazy">
+          </div>
         {%- endif -%}
 
         {%- render 'product-badges', product: product, vertical_badges: vertical_badges, show_sold_out: show_sold_out, show_save_amount: show_save_amount, save_type: save_type, badge_context: badge_context, class: 'z-2 absolute grid gap-3 pointer-events-none' -%}

@@ -9948,6 +9948,36 @@ details.active .drawer__promotions .mega-menu__item,
   inset-inline-end: var(--sp-3);
 }
 
+/* FY27 collection badge (Lite / Lush / Luxe) in the card's top-right corner */
+.product-card__tier {
+  inset-block-start: var(--sp-3);
+  inset-inline-end: var(--sp-3);
+  width: clamp(30px, 1.6vw + 20px, 52px);
+}
+
+.product-card__tier img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .product-card__tier {
+    inset-block-start: var(--sp-5);
+    inset-inline-end: var(--sp-5);
+  }
+}
+
+@media screen and (pointer: fine) {
+  .quick-view__button~.product-card__tier {
+    transition: opacity var(--animation-fast);
+  }
+
+  .js .product-card:hover .quick-view__button~.product-card__tier {
+    opacity: 0;
+  }
+}
+
 .product-card__rating .icon {
   color: rgb(var(--color-rating));
   width: var(--sp-3);
