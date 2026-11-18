@@ -46,12 +46,12 @@
           "type": "description",
           "settings": {
             "text_font": "body",
-            "text_size": "subtext-sm",
+            "text_size": "subtext-md",
             "text_max_size": 32,
             "text_line_height": 1.6,
             "text_letter_spacing": 0,
             "text_capitalize": false,
-            "secondary_color": true
+            "secondary_color": false
           }
         }
       },
