@@ -64,7 +64,7 @@
       ],
       "settings": {
         "transparent_header": false,
-        "show_image": false,
+        "show_image": true,
         "image_height": "400px",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
@@ -270,7 +270,8 @@
           "settings": {
             "topic": "Choosing",
             "question": "Lite, Lush or Luxe: which is right for me?",
-            "answer": "<p>Lite is the simple way in, with an open floor to stretch out, bubble massage and a cover included. Lush adds moulded seats and WiFi app control. Luxe adds four hydro-massage jets you can run with the bubbles or on their own. Every spa has WaveFlow™ dual filtration.</p>"
+            "answer": "<p>Lite is the simple way in, with an open floor to stretch out, bubble massage and a cover included. Lush adds moulded seats and WiFi app control. Luxe adds four hydro-massage jets you can run with the bubbles or on their own. Every spa has WaveFlow™ dual filtration.</p>",
+            "only_tag": ""
           }
         },
         "q_build": {
@@ -278,7 +279,8 @@
           "settings": {
             "topic": "Choosing",
             "question": "What's the difference between inflatable, drop stitch, eco foam and frame?",
-            "answer": "<p>Inflatable spas are the lightest and pack away easily. Drop stitch walls are firmer, with straighter sides. Eco foam spas have insulated foam walls. Frame spas sit inside a wood-effect frame. Each spa's page shows its size, heater and what's in the box.</p>"
+            "answer": "<p>Inflatable spas are the lightest and pack away easily. Drop stitch walls are firmer, with straighter sides. Eco foam spas have insulated foam walls. Frame spas sit inside a wood-effect frame. Each spa's page shows its size, heater and what's in the box.</p>",
+            "only_tag": ""
           }
         },
         "q_cost": {
@@ -286,7 +288,8 @@
           "settings": {
             "topic": "Running costs",
             "question": "How much will it cost to run?",
-            "answer": "<p>It depends on the spa, how often you use it and what you pay for electricity. Every spa page has a running-cost calculator, so you can put in your own numbers before you buy.</p>"
+            "answer": "<p>It depends on the spa, how often you use it and what you pay for electricity. Every spa page has a running-cost calculator, so you can put in your own numbers before you buy.</p>",
+            "only_tag": ""
           }
         },
         "q_fit": {
@@ -294,7 +297,8 @@
           "settings": {
             "topic": "",
             "question": "Will it fit in my garden?",
-            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>"
+            "answer": "<p>Check the footprint in the size options and leave about a metre around it. It needs flat, firm, level ground. A filled spa can weigh a tonne or more, so decking must be rated for it.</p>",
+            "only_tag": ""
           }
         },
         "q_winter": {
@@ -302,7 +306,8 @@
           "settings": {
             "topic": "",
             "question": "Can I use it in winter?",
-            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>"
+            "answer": "<p>Yes, all year round. Keep the cover on between soaks. Models with frost protection switch it on by themselves below 5°C.</p>",
+            "only_tag": ""
           }
         },
         "q_finance": {
@@ -310,7 +315,8 @@
           "settings": {
             "topic": "Paying",
             "question": "Can I spread the cost?",
-            "answer": "<p>Yes. You can pay in 3 or spread the cost monthly at checkout, subject to status. 18+, UK residents only.</p>"
+            "answer": "<p>Yes. You can pay in 3 or spread the cost monthly at checkout, subject to status. 18+, UK residents only.</p>",
+            "only_tag": ""
           }
         },
         "q_delivery": {
@@ -318,7 +324,8 @@
           "settings": {
             "topic": "Delivery",
             "question": "When will it arrive?",
-            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>"
+            "answer": "<p>Order by 6:30pm for free next-day delivery with a one-hour DPD window. Saturday delivery is £9.99.</p>",
+            "only_tag": ""
           }
         },
         "q_planning": {
@@ -326,7 +333,8 @@
           "settings": {
             "topic": "",
             "question": "Do I need planning permission?",
-            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>"
+            "answer": "<p>Usually not in a UK garden. Check with your council if you live in a listed building, a conservation area or a flat, or if your decking is over 30cm high.</p>",
+            "only_tag": ""
           }
         }
       },
