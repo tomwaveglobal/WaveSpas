@@ -1,0 +1,12 @@
+{
+  "parent": "collection.saunas-fy27.json",
+  "context": {
+    "market": "usa"
+  },
+  "sections": {
+    "wf_questions": {
+      "disabled": true,
+      "settings": {}
+    }
+  }
+}

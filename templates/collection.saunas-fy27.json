@@ -1,0 +1,292 @@
+{
+  "sections": {
+    "main-collection-banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "title-md",
+            "title_style": "first_word_bold",
+            "title_suffix": ""
+          }
+        },
+        "description_JJYJe8": {
+          "type": "description",
+          "settings": {
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "description_JJYJe8"
+      ],
+      "settings": {
+        "transparent_header": false,
+        "show_image": true,
+        "image": "{{ collection.metafields.custom.collection_banner.value }}",
+        "image_height": "400px",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "{{ collection.metafields.custom.collection_image_mobile.value }}",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_overlay": "#000000",
+        "overlay_opacity": 40,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "wf_collection_clean": {
+      "type": "custom-liquid",
+      "name": "FY27 page styles",
+      "settings": {
+        "liquid": "{% render 'wave-fy27-collection-clean' %}",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "main-collection": {
+      "type": "main-collection",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "products_per_page": 24,
+        "columns": 3,
+        "columns_mobile": "1",
+        "pagination": "paginated",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "filter_collapsed": true,
+        "filter_color_swatches": true,
+        "enable_sorting": true,
+        "show_on_model": false,
+        "buttons_style": "secondary",
+        "padding_top": 40,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "wf_questions": {
+      "type": "wave-fy27-questions",
+      "blocks": {
+        "q_where": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Can it go indoors or outdoors?",
+            "answer": "<p>The Tularosa is an infrared sauna for indoor use only. The Cobar barrel and the Jama cube are built for the garden, from thermally modified spruce.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        },
+        "q_diff": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "What's the difference between infrared and a stove sauna?",
+            "answer": "<p>Infrared panels warm you while the air around you stays milder. A stove sauna heats the air and the stones, and a ladle of water on the stones makes steam.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        },
+        "q_stove": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Is the stove included?",
+            "answer": "<p>The Tularosa has its infrared heaters built in. The Cobar and the Jama take the Harvia Vega stove and sauna stones, sold separately, so you can add them with the sauna. Each size shows the stove output we recommend.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        },
+        "q_power": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "What do I need to power it?",
+            "answer": "<p>The Tularosa comes with its power cord. Talk to us before you order and we'll confirm the socket your size needs. The Vega stove for the outdoor saunas must be installed by a qualified electrician, on its own supply.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        },
+        "q_planning": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "Do I need planning permission?",
+            "answer": "<p>For the Cobar and the Jama, it depends on where it goes and how big it is. Check the dimensions against your council's rules for garden buildings, and ask them first if you live in a listed building, a conservation area or a flat.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        },
+        "q_delivery": {
+          "type": "question",
+          "settings": {
+            "topic": "",
+            "question": "How does it arrive?",
+            "answer": "<p>The Tularosa comes flat-packed in three cartons, with the glass front already framed. The Cobar and the Jama come in one wooden crate. The crate size is in the tech specs, so check it against your gate or side access.</p>",
+            "only_tag": "",
+            "hide_with_collection_faqs": false
+          }
+        }
+      },
+      "block_order": [
+        "q_where",
+        "q_diff",
+        "q_stove",
+        "q_power",
+        "q_planning",
+        "q_delivery"
+      ],
+      "settings": {
+        "nav_label": "Questions",
+        "eyebrow": "",
+        "heading": "Before you buy.",
+        "lede": "Quick answers to what people ask most about saunas.",
+        "contact_text": "Still deciding? Our UK team is here six days a week.",
+        "contact_link": "/pages/contact-us",
+        "contact_label": "Talk to us",
+        "open_first": false,
+        "faq_schema": true,
+        "collection_faqs": true
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "product_limit": 6,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "Recently Viewed",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "wf_read_more": {
+      "type": "wave-fy27-read-more",
+      "settings": {
+        "source": "collection",
+        "heading": "[collection]",
+        "collapsed_height": 300,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "color_background": "#f4f4f4",
+        "us_market_handle": "usa",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "full_width": true
+      }
+    },
+    "wf_sauna_range": {
+      "type": "wave-fy27-sauna-range",
+      "blocks": {
+        "sauna_indoor": {
+          "type": "sauna",
+          "settings": {
+            "product": "indoor-infrared-sauna-carbon-ruby",
+            "name": "Tularosa",
+            "kind_label": "Indoor infrared",
+            "signature": "Heat indoors.",
+            "for": "For a spare corner of the house.",
+            "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
+          }
+        },
+        "sauna_barrel": {
+          "type": "sauna",
+          "settings": {
+            "product": "cobar-sauna",
+            "name": "Cobar",
+            "kind_label": "Outdoor barrel",
+            "signature": "Face to face.",
+            "for": "For the bottom of the garden, and company.",
+            "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
+          }
+        },
+        "sauna_cube": {
+          "type": "sauna",
+          "settings": {
+            "product": "outdoor-cube-sauna-thermo-spruce-black",
+            "name": "Jama",
+            "kind_label": "Outdoor cube",
+            "signature": "Square to the fence.",
+            "for": "For lining up with the garden you have.",
+            "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
+          }
+        }
+      },
+      "block_order": [
+        "sauna_indoor",
+        "sauna_barrel",
+        "sauna_cube"
+      ],
+      "settings": {
+        "nav_label": "The range",
+        "eyebrow": "",
+        "heading": "Three ways to warm up.",
+        "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
+        "current_label": "You're viewing",
+        "current_button": "Choose your size",
+        "button_prefix": "Explore the",
+        "sizes_label": "Sizes"
+      }
+    }
+  },
+  "order": [
+    "main-collection-banner",
+    "wf_collection_clean",
+    "main-collection",
+    "wf_sauna_range",
+    "wf_questions",
+    "wf_read_more",
+    "recently-viewed"
+  ]
+}
