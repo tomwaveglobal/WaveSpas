@@ -38,10 +38,10 @@
         "description_JJYJe8"
       ],
       "settings": {
-        "transparent_header": false,
+        "transparent_header": true,
         "show_image": true,
         "image": "{{ collection.metafields.custom.collection_banner.value }}",
-        "image_height": "400px",
+        "image_height": "450px",
         "content_position": "md:items-end md:justify-start",
         "text_alignment": "left",
         "image_mobile": "{{ collection.metafields.custom.collection_image_mobile.value }}",
@@ -99,6 +99,59 @@
         "divider": false,
         "full_width": false,
         "rounded": true
+      }
+    },
+    "wf_sauna_range": {
+      "type": "wave-fy27-sauna-range",
+      "blocks": {
+        "sauna_indoor": {
+          "type": "sauna",
+          "settings": {
+            "product": "indoor-infrared-sauna-carbon-ruby",
+            "name": "Tularosa",
+            "kind_label": "Indoor infrared",
+            "signature": "Heat indoors.",
+            "for": "For a spare corner of the house.",
+            "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
+          }
+        },
+        "sauna_barrel": {
+          "type": "sauna",
+          "settings": {
+            "product": "cobar-sauna",
+            "name": "Cobar",
+            "kind_label": "Outdoor barrel",
+            "signature": "Face to face.",
+            "for": "For the bottom of the garden, and company.",
+            "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
+          }
+        },
+        "sauna_cube": {
+          "type": "sauna",
+          "settings": {
+            "product": "outdoor-cube-sauna-thermo-spruce-black",
+            "name": "Jama",
+            "kind_label": "Outdoor cube",
+            "signature": "Square to the fence.",
+            "for": "For lining up with the garden you have.",
+            "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
+          }
+        }
+      },
+      "block_order": [
+        "sauna_indoor",
+        "sauna_barrel",
+        "sauna_cube"
+      ],
+      "settings": {
+        "nav_label": "The range",
+        "eyebrow": "",
+        "heading": "Three ways to warm up.",
+        "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
+        "current_label": "You're viewing",
+        "current_button": "Choose your size",
+        "button_prefix": "Explore the",
+        "sizes_label": "Sizes"
       }
     },
     "wf_questions": {
@@ -186,6 +239,22 @@
         "faq_schema": true
       }
     },
+    "wf_read_more": {
+      "type": "wave-fy27-read-more",
+      "settings": {
+        "source": "collection",
+        "heading": "[collection]",
+        "text": "<p>Add your text here.</p>",
+        "collapsed_height": 300,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "color_background": "#f4f4f4",
+        "full_width": true,
+        "us_market_handle": "usa",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
     "recently-viewed": {
       "type": "recently-viewed",
       "settings": {
@@ -216,74 +285,6 @@
         "divider": false,
         "full_width": false,
         "rounded": true
-      }
-    },
-    "wf_read_more": {
-      "type": "wave-fy27-read-more",
-      "settings": {
-        "source": "collection",
-        "heading": "[collection]",
-        "collapsed_height": 300,
-        "more_label": "Read more",
-        "less_label": "Read less",
-        "color_background": "#f4f4f4",
-        "full_width": true,
-        "us_market_handle": "usa",
-        "padding_top": 72,
-        "padding_bottom": 72
-      }
-    },
-    "wf_sauna_range": {
-      "type": "wave-fy27-sauna-range",
-      "blocks": {
-        "sauna_indoor": {
-          "type": "sauna",
-          "settings": {
-            "product": "indoor-infrared-sauna-carbon-ruby",
-            "name": "Tularosa",
-            "kind_label": "Indoor infrared",
-            "signature": "Heat indoors.",
-            "for": "For a spare corner of the house.",
-            "features": "Carbon and ruby infrared heaters\nHemlock cabin, black frame\nWi-Fi control and Bluetooth\nClips together, plugs in"
-          }
-        },
-        "sauna_barrel": {
-          "type": "sauna",
-          "settings": {
-            "product": "cobar-sauna",
-            "name": "Cobar",
-            "kind_label": "Outdoor barrel",
-            "signature": "Face to face.",
-            "for": "For the bottom of the garden, and company.",
-            "features": "Electric stove and stones\nThermo spruce, all black\nGrey glass front\nSeats facing each other"
-          }
-        },
-        "sauna_cube": {
-          "type": "sauna",
-          "settings": {
-            "product": "outdoor-cube-sauna-thermo-spruce-black",
-            "name": "Jama",
-            "kind_label": "Outdoor cube",
-            "signature": "Square to the fence.",
-            "for": "For lining up with the garden you have.",
-            "features": "Electric stove and stones\nThermally modified spruce\nGrey glass front\nSquare footprint"
-          }
-        }
-      },
-      "block_order": [
-        "sauna_indoor",
-        "sauna_barrel",
-        "sauna_cube"
-      ],
-      "settings": {
-        "nav_label": "The range",
-        "eyebrow": "",
-        "heading": "Three ways to warm up.",
-        "lede": "Infrared indoors, or stove and steam in the garden. Choose where you want the heat.",
-        "current_label": "You're viewing",
-        "current_button": "Choose your size",
-        "button_prefix": "Explore the",
-        "sizes_label": "Sizes"
       }
     }
   },
