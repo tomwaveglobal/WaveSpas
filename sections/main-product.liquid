@@ -35,6 +35,21 @@
 
 {%- liquid
   assign product_form_id = 'ProductForm-' | append: section.id | append: '-' | append: product.id
+  # Wave: Quote request — when the block is on (and the product matches its tag filter),
+  # the buy button, sticky add-to-cart bar and (optionally) finance panel are swapped out.
+  assign quote_mode = false
+  assign quote_hide_finance = false
+  assign quote_block = section.blocks | where: 'type', 'wave_quote' | first
+  if quote_block and quote_block.settings.enabled
+    assign quote_mode = true
+    assign quote_tag = quote_block.settings.only_tag | strip
+    if quote_tag != blank
+      unless product.tags contains quote_tag
+        assign quote_mode = false
+      endunless
+    endif
+    assign quote_hide_finance = quote_block.settings.hide_finance
+  endif
   assign media_count = product.media.size
   if section.settings.hide_first_media and media_count > 0
     assign media_count = media_count | minus: 1
@@ -645,7 +660,13 @@
                 image_fill: settings.product_image_fill
               -%}
 
+            {%- when 'wave_quote' -%}
+              {%- if quote_mode -%}
+                {%- render 'wave-quote-request', block: block, product: product, product_form_id: product_form_id -%}
+              {%- endif -%}
+
             {%- when 'buy_buttons' -%}
+              {%- if quote_mode -%}{%- continue -%}{%- endif -%}
               {%- render 'buy-buttons',
                 block: block,
                 section: section,
@@ -742,6 +763,9 @@
 
             {%- when 'wave_finance' -%}
               {%- liquid
+                if quote_mode and quote_hide_finance
+                  continue
+                endif
                 assign finance_markets = block.settings.markets | downcase | remove: ' ' | split: ','
                 assign show_finance = true
                 if block.settings.markets != blank
@@ -1097,7 +1121,7 @@
     </div>
 
     {%- assign sticky_buy_button = section.blocks | where: "type", "sticky_buy_button" | first -%}
-    {%- if product.available and sticky_buy_button -%}
+    {%- if product.available and sticky_buy_button and quote_mode == false -%}
       <product-sticky-form
         class="product-sticky-form w-full fixed z-20 bottom-0 right-0 pointer-events-none"
         id="ProductStickyForm-{{ section.id }}-{{ product.id }}"
@@ -3301,6 +3325,33 @@
           "label": "t:sections.global.settings.button_external.label",
           "default": false
         }
+      ]
+    },
+    {
+      "type": "wave_quote",
+      "name": "Wave: Quote request",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Swaps the buy button for a \"Contact us for a quote\" button that opens a delivery & installation form. Each form sends a Zendesk ticket (support@wavespas.com queue) with the subject \"Sauna Quote #number\" and any photos attached. While this is on, the buy button and sticky add-to-cart bar are hidden. Untick, or hide the block, to bring the buy button back." },
+        { "type": "checkbox", "id": "enabled", "label": "Replace the buy button with a quote button", "default": true },
+        { "type": "text", "id": "only_tag", "label": "Only on products tagged", "info": "Optional. Leave blank to apply to every product on this template." },
+        { "type": "checkbox", "id": "hide_finance", "label": "Hide the finance panel too", "default": true },
+        { "type": "header", "content": "Button" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Contact Us For A Quote" },
+        { "type": "text", "id": "button_note", "label": "Note under the button", "default": "Delivery and installation quoted for your garden within 2 working days." },
+        { "type": "header", "content": "Pop-up" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Delivery & Installation" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Get Your Custom <em>Quote</em>", "info": "Wrap a word in <em></em> for the amber swoosh." },
+        { "type": "textarea", "id": "intro", "label": "Intro", "default": "Every garden is different, so we quote every sauna delivery individually. Fill in the short form below and our team will get back to you within 2 working days with a quote for your property." },
+        { "type": "text", "id": "why_title", "label": "Why title", "default": "Why we quote individually" },
+        { "type": "richtext", "id": "why_text", "label": "Why text", "default": "<p>Outdoor saunas are large, heavy items. How we get yours into place depends on:</p><ul><li>whether a lorry can get to your property</li><li>the route from the kerb to where the sauna will go (gates, steps, side passages, overhead cables)</li><li>the ground it will stand on</li><li>whether you’d like us to arrange assembly</li></ul><p>Telling us about your site now means no surprises on delivery day.</p>" },
+        { "type": "text", "id": "before_title", "label": "Before you start title", "default": "Before you complete the form" },
+        { "type": "richtext", "id": "before_text", "label": "Before you start text", "default": "<p>Most outdoor saunas need a dedicated electrical supply, fitted by a qualified electrician. Your sauna also needs a firm, level base, such as a concrete slab, paving or a timber deck. If you’re not sure your site is ready, just tell us in the form and we’ll talk you through it.</p>" },
+        { "type": "header", "content": "Sending" },
+        { "type": "text", "id": "subject_prefix", "label": "Ticket subject", "default": "Sauna Quote", "info": "A reference number is added, e.g. Sauna Quote #4827315." },
+        { "type": "text", "id": "zendesk_subdomain", "label": "Zendesk subdomain", "default": "waveglobal", "info": "Tickets are created at <subdomain>.zendesk.com." },
+        { "type": "text", "id": "success_heading", "label": "Thank-you heading", "default": "Thanks, we’ve got it" },
+        { "type": "textarea", "id": "success_text", "label": "Thank-you text", "default": "Our team will be in touch within 2 working days with a quote for your property." }
       ]
     },
     {

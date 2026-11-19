@@ -200,6 +200,10 @@
             "enable_carousel": false,
             "show_below_media": true
           }
+        },
+        "wave_quote": {
+          "type": "wave_quote",
+          "settings": {}
         }
       },
       "block_order": [
@@ -211,6 +215,7 @@
         "variant_picker_advanced_Vyc9TT",
         "countdown",
         "buy_buttons_nBMjqf",
+        "wave_quote",
         "contona_button_design",
         "share",
         "wave_finance",

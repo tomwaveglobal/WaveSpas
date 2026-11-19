@@ -1,0 +1,234 @@
+{%- comment -%}
+  Wave: Quote request (main-product block "wave_quote").
+  Replaces the buy button with "Contact Us For A Quote". The button opens a delivery &
+  installation form; submitting it creates a Zendesk ticket (anonymous Requests API) with
+  the subject "<subject_prefix> #<reference>" and the customer's photos attached.
+  Assets: wave-quote-request.css / .js. The <dialog> is moved to <body> by the script so
+  it never sits inside product-info or the product form.
+{%- endcomment -%}
+{%- liquid
+  assign uid = 'WaveQuote-' | append: block.id
+  assign current = product.selected_or_first_available_variant
+  assign model_value = product.metafields.product_card_overwrite.title.value | default: product.title
+  unless product.has_only_default_variant
+    assign model_value = model_value | append: ' – ' | append: current.title
+  endunless
+  assign subdomain = block.settings.zendesk_subdomain | strip | default: 'waveglobal'
+-%}
+{{ 'wave-quote-request.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wave-quote-request.js' | asset_url }}" defer></script>
+
+<wave-quote-request class="wq-trigger" {{ block.shopify_attributes }}>
+  <button
+    type="button"
+    class="button button--primary button--fixed w-full"
+    is="hover-button"
+    aria-haspopup="dialog"
+    aria-controls="{{ uid }}"
+    data-wq-open
+  >
+    <span class="btn-fill" data-fill></span>
+    <span class="btn-text">{{ block.settings.button_label | default: 'Contact Us For A Quote' }}</span>
+  </button>
+  {%- if block.settings.button_note != blank -%}
+    <p class="wq-trigger__note">
+      {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
+      <span>{{ block.settings.button_note }}</span>
+    </p>
+  {%- endif -%}
+
+  <dialog
+    class="wq"
+    id="{{ uid }}"
+    aria-labelledby="{{ uid }}-title"
+    data-subdomain="{{ subdomain | escape }}"
+    data-subject="{{ block.settings.subject_prefix | default: 'Sauna Quote' | escape }}"
+    data-product-form="{{ product_form_id }}"
+    data-product-title="{{ product.metafields.product_card_overwrite.title.value | default: product.title | escape }}"
+    data-product-url="{{ shop.url }}{{ product.url }}"
+  >
+    <script type="application/json" data-wq-variants>
+      {%- capture variants_json -%}{
+        {%- for v in product.variants -%}"{{ v.id }}": {{ v.title | json }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
+      }{%- endcapture -%}{{ variants_json }}
+    </script>
+
+    <div class="wq__panel">
+      <button type="button" class="wq__close" data-wq-close aria-label="{{ 'general.accessibility.close' | t | escape }}">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="wq__scroll">
+        {%- comment -%} ───── Form view ───── {%- endcomment -%}
+        <div class="wq__view" data-wq-view="form">
+          <header class="wq__head">
+            {%- if block.settings.eyebrow != blank -%}<p class="wq__eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
+            <h2 class="wq__h2" id="{{ uid }}-title">
+              {%- render 'highlighted-text', content: block.settings.heading, style: 'scribble', scribble: 'basic-underline' -%}
+            </h2>
+            {%- if block.settings.intro != blank -%}<p class="wq__lede">{{ block.settings.intro }}</p>{%- endif -%}
+          </header>
+
+          <div class="wq__info">
+            {%- if block.settings.why_title != blank or block.settings.why_text != blank -%}
+              <div class="wq-card">
+                {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
+                <h3 class="wq__h3">{{ block.settings.why_title }}</h3>
+                <div class="wq-card__rte">{{ block.settings.why_text }}</div>
+              </div>
+            {%- endif -%}
+            {%- if block.settings.before_title != blank or block.settings.before_text != blank -%}
+              <div class="wq-card">
+                {%- render 'wave-fy27-glyph', name: 'plug', class: 'wq-glyph' -%}
+                <h3 class="wq__h3">{{ block.settings.before_title }}</h3>
+                <div class="wq-card__rte">{{ block.settings.before_text }}</div>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <form class="wq-form" novalidate data-wq-form>
+            {%- comment -%} Spam trap: real people never see or fill this. {%- endcomment -%}
+            <div class="wq-hp" aria-hidden="true">
+              <label>Leave this empty <input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <fieldset class="wq-step">
+              <legend class="wq-step__title"><span class="wq-step__num">1</span>Your details</legend>
+              <div class="wq-grid">
+                <label class="wq-field">
+                  <span class="wq-label">Name</span>
+                  <input class="wq-input" type="text" name="name" autocomplete="name" required>
+                </label>
+                <label class="wq-field">
+                  <span class="wq-label">Email</span>
+                  <input class="wq-input" type="email" name="email" autocomplete="email" required>
+                </label>
+                <label class="wq-field">
+                  <span class="wq-label">Phone</span>
+                  <input class="wq-input" type="tel" name="phone" autocomplete="tel" required>
+                </label>
+                <label class="wq-field">
+                  <span class="wq-label">Delivery postcode</span>
+                  <input class="wq-input" type="text" name="postcode" autocomplete="postal-code" autocapitalize="characters" required>
+                </label>
+                <label class="wq-field wq-field--full">
+                  <span class="wq-label">Sauna model and size you’re interested in</span>
+                  <input class="wq-input" type="text" name="model" value="{{ model_value | escape }}" required data-wq-model>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="wq-step">
+              <legend class="wq-step__title"><span class="wq-step__num">2</span>Your site</legend>
+
+              <fieldset class="wq-q">
+                <legend class="wq-label">Can a large lorry get to your property?</legend>
+                <div class="wq-chips">
+                  {%- assign opts = 'Yes,No,Not sure' | split: ',' -%}
+                  {%- for opt in opts -%}
+                    <label class="wq-chip"><input type="radio" name="lorry" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+
+              <fieldset class="wq-q">
+                <legend class="wq-label">Distance from the road to where the sauna will go</legend>
+                <div class="wq-chips">
+                  {%- assign opts = 'Under 10m,10–25m,Over 25m' | split: ',' -%}
+                  {%- for opt in opts -%}
+                    <label class="wq-chip"><input type="radio" name="distance" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+
+              <fieldset class="wq-q">
+                <legend class="wq-label">Any obstacles on the way? <span class="wq-hint">Tick all that apply</span></legend>
+                <div class="wq-chips">
+                  {%- assign opts = 'Steps,Narrow gates,Slopes,Overhead cables' | split: ',' -%}
+                  {%- for opt in opts -%}
+                    <label class="wq-chip wq-chip--check"><input type="checkbox" name="obstacles" value="{{ opt }}"><span>{{ opt }}</span></label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+
+              <fieldset class="wq-q">
+                <legend class="wq-label">Is your base already in place?</legend>
+                <div class="wq-chips">
+                  {%- assign opts = 'Yes,No,Planning one' | split: ',' -%}
+                  {%- for opt in opts -%}
+                    <label class="wq-chip"><input type="radio" name="base" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+
+              <fieldset class="wq-q">
+                <legend class="wq-label">Are you interested in assembly?</legend>
+                <div class="wq-chips">
+                  {%- assign opts = 'Yes,No,Tell me more' | split: ',' -%}
+                  {%- for opt in opts -%}
+                    <label class="wq-chip"><input type="radio" name="assembly" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            </fieldset>
+
+            <fieldset class="wq-step">
+              <legend class="wq-step__title"><span class="wq-step__num">3</span>Photos <span class="wq-hint">Optional but helpful</span></legend>
+              <div class="wq-grid">
+                <div class="wq-drop" data-wq-drop>
+                  <input class="wq-drop__input" type="file" id="{{ uid }}-route" name="photos_route" accept="image/*" multiple data-wq-files="access-route">
+                  <label class="wq-drop__zone" for="{{ uid }}-route">
+                    <svg class="wq-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    <strong>Access route and location</strong>
+                    <span>From the road to where the sauna will go</span>
+                  </label>
+                  <ul class="wq-drop__list" data-wq-list></ul>
+                </div>
+                <div class="wq-drop" data-wq-drop>
+                  <input class="wq-drop__input" type="file" id="{{ uid }}-base" name="photos_base" accept="image/*" multiple data-wq-files="base">
+                  <label class="wq-drop__zone" for="{{ uid }}-base">
+                    <svg class="wq-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                    <strong>Your base</strong>
+                    <span>If it’s already in place</span>
+                  </label>
+                  <ul class="wq-drop__list" data-wq-list></ul>
+                </div>
+              </div>
+              <p class="wq-hint wq-hint--block">Up to 8 photos each, 20MB max per photo.</p>
+            </fieldset>
+
+            <fieldset class="wq-step">
+              <legend class="wq-step__title"><span class="wq-step__num">4</span>Anything else we should know?</legend>
+              <label class="wq-field wq-field--full">
+                <span class="wq-sr">Anything else we should know?</span>
+                <textarea class="wq-input wq-input--area" name="notes" rows="4" placeholder="Parking, access times, anything about the site…"></textarea>
+              </label>
+            </fieldset>
+
+            <p class="wq-error" role="alert" hidden data-wq-error></p>
+
+            <div class="wq-submit">
+              <button type="submit" class="button button--primary button--fixed w-full" is="hover-button" data-wq-submit>
+                <span class="btn-fill" data-fill></span>
+                <span class="btn-text" data-wq-submit-label>Send my quote request</span>
+              </button>
+              <p class="wq-hint wq-hint--block">We’ll only use these details to prepare your quote.</p>
+            </div>
+          </form>
+        </div>
+
+        {%- comment -%} ───── Thank-you view ───── {%- endcomment -%}
+        <div class="wq__view wq__done" data-wq-view="done" hidden tabindex="-1">
+          <span class="wq-done__tick">{%- render 'wave-fy27-glyph', name: 'check', class: 'wq-glyph' -%}</span>
+          <h2 class="wq__h2">{{ block.settings.success_heading }}</h2>
+          <p class="wq__lede">{{ block.settings.success_text }}</p>
+          <p class="wq-ref">Your reference <strong data-wq-ref></strong></p>
+          <button type="button" class="button button--secondary" is="hover-button" data-wq-close>
+            <span class="btn-fill" data-fill></span>
+            <span class="btn-text">Back to the sauna</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</wave-quote-request>
