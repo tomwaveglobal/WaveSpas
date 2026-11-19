@@ -16,6 +16,19 @@
   assign subdomain = block.settings.zendesk_subdomain | strip | default: 'waveglobal'
 -%}
 {{ 'wave-quote-request.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Quote mode: hide Restock Rocket's "Notify me when available" button (app embed). It normally sits in
+  the buy buttons, which are hidden here, so the app would otherwise drop it elsewhere on the page.
+{%- endcomment -%}
+<style>
+  .restock-rocket-button-container,
+  .restock-rocket-button-product,
+  .restock-rocket-button-float,
+  .restock-rocket-button-container-float-left,
+  .restock-rocket-button-container-float-right,
+  .restock-rocket-sticky-button,
+  .product__info .restock-rocket-button { display: none !important; }
+</style>
 <script src="{{ 'wave-quote-request.js' | asset_url }}" defer></script>
 
 <wave-quote-request class="wq-trigger" {{ block.shopify_attributes }}>
@@ -31,10 +44,7 @@
     <span class="btn-text">{{ block.settings.button_label | default: 'Contact Us For A Quote' }}</span>
   </button>
   {%- if block.settings.button_note != blank -%}
-    <p class="wq-trigger__note">
-      {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
-      <span>{{ block.settings.button_note }}</span>
-    </p>
+    <p class="wq-trigger__note">{{ block.settings.button_note }}</p>
   {%- endif -%}
 
   <dialog
@@ -62,31 +72,34 @@
         {%- comment -%} ───── Form view ───── {%- endcomment -%}
         <div class="wq__view" data-wq-view="form">
           <header class="wq__head">
-            {%- if block.settings.eyebrow != blank -%}<p class="wq__eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
-            <h2 class="wq__h2" id="{{ uid }}-title">
+            <h2 class="wq__h2" id="{{ uid }}-title" tabindex="-1" autofocus>
               {%- render 'highlighted-text', content: block.settings.heading, style: 'scribble', scribble: 'basic-underline' -%}
             </h2>
             {%- if block.settings.intro != blank -%}<p class="wq__lede">{{ block.settings.intro }}</p>{%- endif -%}
           </header>
 
-          <div class="wq__info">
-            {%- if block.settings.why_title != blank or block.settings.why_text != blank -%}
-              <div class="wq-box wq-box--info">
-                <h3 class="wq-box__title">{{ block.settings.why_title }}</h3>
-                <div class="wq-box__tile">
-                  {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
-                  <div class="wq-card__rte">{{ block.settings.why_text }}</div>
-                </div>
-              </div>
-            {%- endif -%}
-            {%- if block.settings.before_title != blank or block.settings.before_text != blank -%}
-              <div class="wq-box wq-box--info">
-                <h3 class="wq-box__title">{{ block.settings.before_title }}</h3>
-                <div class="wq-box__tile">
-                  {%- render 'wave-fy27-glyph', name: 'plug', class: 'wq-glyph' -%}
-                  <div class="wq-card__rte">{{ block.settings.before_text }}</div>
-                </div>
-              </div>
+          {%- comment -%} One short "before you start" box; the longer "why" sits behind a toggle. {%- endcomment -%}
+          <div class="wq-box wq-box--info">
+            <h3 class="wq-box__title">{{ block.settings.before_title }}</h3>
+            <div class="wq-box__tile">
+              <ul class="wq-checks" role="list">
+                {%- if block.settings.power_text != blank -%}
+                  <li><strong>{{ block.settings.power_title }}</strong><span>{{ block.settings.power_text }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.base_text != blank -%}
+                  <li><strong>{{ block.settings.base_title }}</strong><span>{{ block.settings.base_text }}</span></li>
+                {%- endif -%}
+              </ul>
+              {%- if block.settings.before_note != blank -%}<p class="wq-note">{{ block.settings.before_note }}</p>{%- endif -%}
+            </div>
+            {%- if block.settings.why_text != blank -%}
+              <details class="wq-why">
+                <summary>
+                  <span>{{ block.settings.why_title }}</span>
+                  <svg class="wq-why__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="wq-card__rte">{{ block.settings.why_text }}</div>
+              </details>
             {%- endif -%}
           </div>
 
