@@ -108,7 +108,7 @@
     "product_badge_text_size_desktop": 12,
     "advanced_badge_mode_product": "both",
     "advanced_badge_mode_collection": "both",
-    "advanced_badge_mode_home": "text",
+    "advanced_badge_mode_home": "both",
     "advanced_badge_mode_search": "both",
     "advanced_badge_mode_nav": "both",
     "advanced_badge_image_mobile": "100",
