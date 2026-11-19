@@ -1198,7 +1198,7 @@
         "menu": "nav-2026-uk",
         "menu_mobile": "nav-2026-uk",
         "menu_active": "block",
-        "hover_menu": true,
+        "hover_menu": false,
         "header_layout": "left-center",
         "sticky_header_type": "always",
         "icons_size": "lg",
