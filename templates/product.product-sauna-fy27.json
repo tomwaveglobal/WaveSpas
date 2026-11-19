@@ -116,6 +116,7 @@
         },
         "buy_buttons_nBMjqf": {
           "type": "buy_buttons",
+          "disabled": true,
           "settings": {
             "show_quantity_selector": false,
             "show_price": false,
@@ -124,6 +125,27 @@
             "enable_back_in_stock": false,
             "show_back_in_stock_name": false,
             "show_back_in_stock_phone": false
+          }
+        },
+        "wave_quote": {
+          "type": "wave_quote",
+          "settings": {
+            "enabled": true,
+            "only_tag": "",
+            "hide_finance": false,
+            "button_label": "Contact Us For A Quote",
+            "button_note": "Delivery and installation quoted for your garden within 2 working days.",
+            "eyebrow": "Delivery & Installation",
+            "heading": "Get Your Custom Quote",
+            "intro": "Every garden is different, so we quote every sauna delivery individually. Fill in the short form below and our team will get back to you within 2 working days with a quote for your property.",
+            "why_title": "Why we quote individually",
+            "why_text": "<p>Outdoor saunas are large, heavy items. How we get yours into place depends on:</p><ul><li>whether a lorry can get to your property</li><li>the route from the kerb to where the sauna will go (gates, steps, side passages, overhead cables)</li><li>the ground it will stand on</li><li>whether you’d like us to arrange assembly</li></ul><p>Telling us about your site now means no surprises on delivery day.</p>",
+            "before_title": "Before you complete the form",
+            "before_text": "<p>Most outdoor saunas need a dedicated electrical supply, fitted by a qualified electrician. Your sauna also needs a firm, level base, such as a concrete slab, paving or a timber deck. If you’re not sure your site is ready, just tell us in the form and we’ll talk you through it.</p>",
+            "subject_prefix": "Sauna Quote",
+            "zendesk_subdomain": "waveglobal",
+            "success_heading": "Thanks, we’ve got it",
+            "success_text": "Our team will be in touch within 2 working days with a quote for your property."
           }
         },
         "contona_button_design": {
@@ -200,10 +222,6 @@
             "enable_carousel": false,
             "show_below_media": true
           }
-        },
-        "wave_quote": {
-          "type": "wave_quote",
-          "settings": {}
         }
       },
       "block_order": [
@@ -741,7 +759,8 @@
             "topic": "",
             "question": "Can it go indoors or outdoors?",
             "answer": "<p>The Tularosa is an infrared sauna for indoor use only. The Cobar barrel and the Jama cube are built for the garden, from thermally modified spruce.</p>",
-            "only_tag": ""
+            "only_tag": "",
+            "hide_with_collection_faqs": false
           }
         },
         "q_diff": {
@@ -750,7 +769,8 @@
             "topic": "",
             "question": "What's the difference between infrared and a stove sauna?",
             "answer": "<p>Infrared panels warm you while the air around you stays milder. A stove sauna heats the air and the stones, and a ladle of water on the stones makes steam.</p>",
-            "only_tag": ""
+            "only_tag": "",
+            "hide_with_collection_faqs": false
           }
         },
         "q_socket": {
@@ -759,7 +779,8 @@
             "topic": "",
             "question": "What do I need to plug it in?",
             "answer": "<p>It comes with its power cord. Talk to us before you order and we'll confirm the socket your size needs.</p>",
-            "only_tag": "Indoor Sauna"
+            "only_tag": "Indoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_floor": {
@@ -768,7 +789,8 @@
             "topic": "",
             "question": "Where in the house can it go?",
             "answer": "<p>Any dry room with a level floor and space to open the door. Check your size in the Dimensions tab, including the height.</p>",
-            "only_tag": "Indoor Sauna"
+            "only_tag": "Indoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_stove": {
@@ -777,7 +799,8 @@
             "topic": "",
             "question": "Is the stove included?",
             "answer": "<p>No. The Harvia Vega stove and the sauna stones are sold separately, so you can add them with the sauna. Your size shows the stove output we recommend.</p>",
-            "only_tag": "Outdoor Sauna"
+            "only_tag": "Outdoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_elec": {
@@ -786,7 +809,8 @@
             "topic": "",
             "question": "Do I need an electrician?",
             "answer": "<p>Yes. The stove must be installed by a qualified electrician, on its own supply.</p>",
-            "only_tag": "Outdoor Sauna"
+            "only_tag": "Outdoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_base": {
@@ -795,7 +819,8 @@
             "topic": "",
             "question": "What does it stand on?",
             "answer": "<p>A flat, level, firm base such as a concrete pad or paving. Check the footprint in the Dimensions tab and leave room to walk around it.</p>",
-            "only_tag": "Outdoor Sauna"
+            "only_tag": "Outdoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_planning": {
@@ -804,7 +829,8 @@
             "topic": "",
             "question": "Do I need planning permission?",
             "answer": "<p>It depends on where it goes and how big it is. Check the dimensions against your council's rules for garden buildings, and ask them first if you live in a listed building, a conservation area or a flat.</p>",
-            "only_tag": "Outdoor Sauna"
+            "only_tag": "Outdoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_delivery_in": {
@@ -813,7 +839,8 @@
             "topic": "",
             "question": "How does it arrive?",
             "answer": "<p>Flat-packed in three cartons, with the glass front already framed.</p>",
-            "only_tag": "Indoor Sauna"
+            "only_tag": "Indoor Sauna",
+            "hide_with_collection_faqs": false
           }
         },
         "q_delivery_out": {
@@ -822,7 +849,8 @@
             "topic": "",
             "question": "How does it arrive?",
             "answer": "<p>In one wooden crate. The crate size is in the tech specs, so check it against your gate or side access.</p>",
-            "only_tag": "Outdoor Sauna"
+            "only_tag": "Outdoor Sauna",
+            "hide_with_collection_faqs": false
           }
         }
       },
@@ -848,6 +876,7 @@
         "contact_link": "/pages/contact-us",
         "contact_label": "Talk to us",
         "open_first": false,
+        "collection_faqs": false,
         "faq_schema": true
       }
     },
