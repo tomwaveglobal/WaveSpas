@@ -52,6 +52,7 @@
     id="{{ uid }}"
     aria-labelledby="{{ uid }}-title"
     data-subdomain="{{ subdomain | escape }}"
+    data-recipient="{{ block.settings.recipient_email | default: 'support@wavespas.com' | strip | escape }}"
     data-subject="{{ block.settings.subject_prefix | default: 'Sauna Quote' | escape }}"
     data-product-form="{{ product_form_id }}"
     data-product-title="{{ product.metafields.product_card_overwrite.title.value | default: product.title | escape }}"

@@ -251,12 +251,16 @@
           body: JSON.stringify({
             request: {
               requester: { name: this.value('name'), email: this.value('email') },
+              recipient: d.recipient || SUPPORT_EMAIL,
               subject,
               comment: token ? { body, uploads: [token] } : { body },
             },
           }),
         });
         if (!res.ok) throw new Error(`request ${res.status}`);
+        const data = await res.json().catch(() => ({}));
+        // Zendesk holds anonymous requests in Suspended tickets if "Anyone can submit tickets" is off.
+        if (data.suspended_ticket) console.warn('[WaveQuote] Zendesk suspended the request:', data.suspended_ticket.cause);
 
         window.dataLayer?.push({ event: 'sauna_quote_submit', product: d.productTitle, quote_ref: ref });
         this.done(ref);
