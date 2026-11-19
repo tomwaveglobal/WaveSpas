@@ -76,11 +76,6 @@
               {%- render 'highlighted-text', content: block.settings.heading, style: 'scribble', scribble: 'basic-underline' -%}
             </h2>
             {%- if block.settings.intro != blank -%}<p class="wq__lede">{{ block.settings.intro }}</p>{%- endif -%}
-            <ul class="wq-meta" role="list">
-              <li>About 2 minutes</li>
-              <li>Quote within 2 working days</li>
-              <li>Photos optional</li>
-            </ul>
           </header>
 
           {%- comment -%} One short "before you start" box; the longer "why" sits behind a toggle. {%- endcomment -%}

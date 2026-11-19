@@ -325,16 +325,6 @@
 /* ── Easier scanning ── */
 .wq__head .wq__lede { max-width: 560px; }
 .wq__lede { font-size: var(--text-base, 16px); }
-.wq-meta { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 16px 0 0; padding: 0; list-style: none; }
-.wq-meta li {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.04);
-  font-size: var(--text-xs, 13px);
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--wq-ink-2);
-}
 .wq__head + .wq-box { margin-top: 36px; }
 .wq-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; padding: 0; list-style: none; }
 .wq-checks li { display: grid; align-content: start; gap: 4px; font-size: var(--text-sm, 14px); line-height: 1.5; color: var(--wq-ink-2); }
