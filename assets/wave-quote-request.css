@@ -131,7 +131,7 @@
 }
 
 /* ── Form ── */
-.wq-form { display: grid; gap: 32px; margin-top: 40px; }
+.wq-form { display: grid; gap: 32px; margin-top: 32px; }
 
 /* Step boxes — laid out like the FY27 finance panel ("Spread the cost"): white box with a light
    grey outline, the title sitting in the top border, the content in a soft grey tile inside. */
@@ -321,3 +321,74 @@
 .wq-ref { margin: 20px 0 28px; font-size: var(--text-sm, 14px); color: var(--wq-muted); }
 .wq-ref strong { display: block; margin-top: 4px; font-size: var(--title-xs, 22px); color: var(--wq-ink); font-variant-numeric: tabular-nums; }
 .wq-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ── Easier scanning ── */
+.wq__head .wq__lede { max-width: 560px; }
+.wq__lede { font-size: var(--text-base, 16px); }
+.wq-meta { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.wq-meta li {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.04);
+  font-size: var(--text-xs, 13px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--wq-ink-2);
+}
+.wq__head + .wq-box { margin-top: 36px; }
+.wq-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; padding: 0; list-style: none; }
+.wq-checks li { display: grid; align-content: start; gap: 4px; font-size: var(--text-sm, 14px); line-height: 1.5; color: var(--wq-ink-2); }
+.wq-checks strong { font-weight: 600; color: var(--wq-ink); }
+.wq-note { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--wq-line); font-size: var(--text-sm, 14px); line-height: 1.5; color: var(--wq-ink-2); }
+.wq-why { margin-top: 16px; }
+.wq-why summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  cursor: pointer;
+  font-size: var(--text-sm, 14px);
+  font-weight: 500;
+  color: var(--wq-ink);
+}
+.wq-why summary::-webkit-details-marker { display: none; }
+.wq-why__chev { width: 12px; height: 12px; transition: transform 0.2s; }
+.wq-why[open] .wq-why__chev { transform: rotate(180deg); }
+.wq-why .wq-card__rte { margin-top: 10px; }
+
+/* ── Phones ── */
+@media (max-width: 749px) {
+  .wq__h2 { font-size: var(--title-sm, 30px); }
+  .wq__head + .wq-box { margin-top: 28px; }
+  .wq-checks { grid-template-columns: 1fr; gap: 12px; }
+  .wq-form { gap: 28px; margin-top: 28px; }
+  .wq-chip span { padding: 10px 16px; }
+  /* Send button stays in reach at the bottom of the sheet */
+  .wq-submit {
+    position: sticky;
+    bottom: -32px;
+    z-index: 1;
+    margin: 0 -16px -32px;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -1px 0 var(--wq-line);
+  }
+  .wq-submit .wq-hint--block { margin-top: 8px; text-align: center; }
+}
+
+.wq__h2:focus { outline: none; }
+@media (max-width: 749px) {
+  /* Close button gets its own bar so it never sits over the fields */
+  .wq__panel { height: 100%; }
+  .wq__panel::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 1px 0 var(--wq-line);
+  }
+  .wq__close { top: 10px; right: 12px; }
+  .wq__scroll { margin-top: 60px; padding-top: 24px; }
+}

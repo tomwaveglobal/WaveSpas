@@ -72,28 +72,39 @@
         {%- comment -%} ───── Form view ───── {%- endcomment -%}
         <div class="wq__view" data-wq-view="form">
           <header class="wq__head">
-            <h2 class="wq__h2" id="{{ uid }}-title">
+            <h2 class="wq__h2" id="{{ uid }}-title" tabindex="-1" autofocus>
               {%- render 'highlighted-text', content: block.settings.heading, style: 'scribble', scribble: 'basic-underline' -%}
             </h2>
             {%- if block.settings.intro != blank -%}<p class="wq__lede">{{ block.settings.intro }}</p>{%- endif -%}
+            <ul class="wq-meta" role="list">
+              <li>About 2 minutes</li>
+              <li>Quote within 2 working days</li>
+              <li>Photos optional</li>
+            </ul>
           </header>
 
-          <div class="wq__info">
-            {%- if block.settings.why_title != blank or block.settings.why_text != blank -%}
-              <div class="wq-box wq-box--info">
-                <h3 class="wq-box__title">{{ block.settings.why_title }}</h3>
-                <div class="wq-box__tile">
-                  <div class="wq-card__rte">{{ block.settings.why_text }}</div>
-                </div>
-              </div>
-            {%- endif -%}
-            {%- if block.settings.before_title != blank or block.settings.before_text != blank -%}
-              <div class="wq-box wq-box--info">
-                <h3 class="wq-box__title">{{ block.settings.before_title }}</h3>
-                <div class="wq-box__tile">
-                  <div class="wq-card__rte">{{ block.settings.before_text }}</div>
-                </div>
-              </div>
+          {%- comment -%} One short "before you start" box; the longer "why" sits behind a toggle. {%- endcomment -%}
+          <div class="wq-box wq-box--info">
+            <h3 class="wq-box__title">{{ block.settings.before_title }}</h3>
+            <div class="wq-box__tile">
+              <ul class="wq-checks" role="list">
+                {%- if block.settings.power_text != blank -%}
+                  <li><strong>{{ block.settings.power_title }}</strong><span>{{ block.settings.power_text }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.base_text != blank -%}
+                  <li><strong>{{ block.settings.base_title }}</strong><span>{{ block.settings.base_text }}</span></li>
+                {%- endif -%}
+              </ul>
+              {%- if block.settings.before_note != blank -%}<p class="wq-note">{{ block.settings.before_note }}</p>{%- endif -%}
+            </div>
+            {%- if block.settings.why_text != blank -%}
+              <details class="wq-why">
+                <summary>
+                  <span>{{ block.settings.why_title }}</span>
+                  <svg class="wq-why__chev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </summary>
+                <div class="wq-card__rte">{{ block.settings.why_text }}</div>
+              </details>
             {%- endif -%}
           </div>
 
