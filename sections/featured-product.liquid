@@ -146,6 +146,12 @@
               spinning_block: spinning_block
             -%}
 
+            {%- if section.settings.show_media_badges -%}
+              <div id="BadgesOverlay-{{ section.id }}-{{ product.id }}">
+                {%- render 'product-badges', product: product, use_variant: true, show_save_amount: true, save_type: 'percentage', badge_mode_override: section.settings.badge_mode, class: 'z-2 absolute top-0 left-0 grid gap-3 p-4' -%}
+              </div>
+            {%- endif -%}
+
             {%- liquid
               if icon_list_block and icon_list_block.settings.show_below_media
                 echo icon_list_render
@@ -247,7 +253,7 @@
 
               {%- when 'badges' -%}
               <div class="product__badges" id="Badges-{{ section.id }}-{{ product.id }}" {{ block.shopify_attributes }}>
-                {%- render 'product-badges', product: product, use_variant: true, show_sold_out: block.settings.show_sold_out, show_save_amount: block.settings.show_save_amount, save_type: block.settings.save_type, class: 'flex flex-wrap gap-3' -%}
+                {%- render 'product-badges', product: product, use_variant: true, show_sold_out: block.settings.show_sold_out, show_save_amount: block.settings.show_save_amount, save_type: block.settings.save_type, badge_mode_override: section.settings.badge_mode, class: 'flex flex-wrap gap-3' -%}
               </div>
 
               {%- when 'description' -%}
@@ -976,6 +982,30 @@
       "type": "product",
       "id": "product",
       "label": "t:sections.global.settings.product.label"
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_media_badges",
+      "default": false,
+      "label": "Show badges on product image",
+      "info": "Sale / promo badges in the top-left corner of the image, as on product pages."
+    },
+    {
+      "type": "select",
+      "id": "badge_mode",
+      "label": "Badge style",
+      "info": "Applies to the image badges and the Badges block in this section.",
+      "options": [
+        { "value": "inherit", "label": "Use theme setting (Homepage)" },
+        { "value": "text", "label": "Text only" },
+        { "value": "image", "label": "Image only" },
+        { "value": "both", "label": "Image + text" }
+      ],
+      "default": "both"
     },
     {
       "type": "checkbox",

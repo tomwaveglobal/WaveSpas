@@ -18,6 +18,13 @@
     endcase
   endif
 
+  comment
+    A section can force its own mode (e.g. the homepage featured product), overriding the per-page setting.
+  endcomment
+  if badge_mode_override != blank and badge_mode_override != 'inherit'
+    assign badge_mode = badge_mode_override
+  endif
+
   assign badge_mode = badge_mode | default: 'hidden'
 -%}
 {%- if badge_mode != 'hidden' -%}
