@@ -71,17 +71,21 @@
 
           <div class="wq__info">
             {%- if block.settings.why_title != blank or block.settings.why_text != blank -%}
-              <div class="wq-card">
-                {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
-                <h3 class="wq__h3">{{ block.settings.why_title }}</h3>
-                <div class="wq-card__rte">{{ block.settings.why_text }}</div>
+              <div class="wq-box wq-box--info">
+                <h3 class="wq-box__title">{{ block.settings.why_title }}</h3>
+                <div class="wq-box__tile">
+                  {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
+                  <div class="wq-card__rte">{{ block.settings.why_text }}</div>
+                </div>
               </div>
             {%- endif -%}
             {%- if block.settings.before_title != blank or block.settings.before_text != blank -%}
-              <div class="wq-card">
-                {%- render 'wave-fy27-glyph', name: 'plug', class: 'wq-glyph' -%}
-                <h3 class="wq__h3">{{ block.settings.before_title }}</h3>
-                <div class="wq-card__rte">{{ block.settings.before_text }}</div>
+              <div class="wq-box wq-box--info">
+                <h3 class="wq-box__title">{{ block.settings.before_title }}</h3>
+                <div class="wq-box__tile">
+                  {%- render 'wave-fy27-glyph', name: 'plug', class: 'wq-glyph' -%}
+                  <div class="wq-card__rte">{{ block.settings.before_text }}</div>
+                </div>
               </div>
             {%- endif -%}
           </div>
@@ -92,41 +96,44 @@
               <label>Leave this empty <input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
             </div>
 
-            <fieldset class="wq-step">
-              <legend class="wq-step__title"><span class="wq-step__num">1</span>Your details</legend>
+            <fieldset class="wq-box">
+              <legend class="wq-box__title">Your details</legend>
+              <div class="wq-box__tile">
               <div class="wq-grid">
                 <label class="wq-field">
-                  <span class="wq-label">Name</span>
+                  <span class="wq-label">Name <span class="wq-req" aria-hidden="true">*</span></span>
                   <input class="wq-input" type="text" name="name" autocomplete="name" required>
                 </label>
                 <label class="wq-field">
-                  <span class="wq-label">Email</span>
+                  <span class="wq-label">Email <span class="wq-req" aria-hidden="true">*</span></span>
                   <input class="wq-input" type="email" name="email" autocomplete="email" required>
                 </label>
                 <label class="wq-field">
-                  <span class="wq-label">Phone</span>
-                  <input class="wq-input" type="tel" name="phone" autocomplete="tel" required>
+                  <span class="wq-label">Phone <span class="wq-hint">Optional</span></span>
+                  <input class="wq-input" type="tel" name="phone" autocomplete="tel">
                 </label>
                 <label class="wq-field">
-                  <span class="wq-label">Delivery postcode</span>
+                  <span class="wq-label">Delivery postcode <span class="wq-req" aria-hidden="true">*</span></span>
                   <input class="wq-input" type="text" name="postcode" autocomplete="postal-code" autocapitalize="characters" required>
                 </label>
                 <label class="wq-field wq-field--full">
                   <span class="wq-label">Sauna model and size you’re interested in</span>
-                  <input class="wq-input" type="text" name="model" value="{{ model_value | escape }}" required data-wq-model>
+                  <input class="wq-input" type="text" name="model" value="{{ model_value | escape }}" data-wq-model>
                 </label>
+              </div>
               </div>
             </fieldset>
 
-            <fieldset class="wq-step">
-              <legend class="wq-step__title"><span class="wq-step__num">2</span>Your site</legend>
+            <fieldset class="wq-box">
+              <legend class="wq-box__title">Your site</legend>
+              <div class="wq-box__tile">
 
               <fieldset class="wq-q">
                 <legend class="wq-label">Can a large lorry get to your property?</legend>
                 <div class="wq-chips">
                   {%- assign opts = 'Yes,No,Not sure' | split: ',' -%}
                   {%- for opt in opts -%}
-                    <label class="wq-chip"><input type="radio" name="lorry" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                    <label class="wq-chip"><input type="radio" name="lorry" value="{{ opt }}"><span>{{ opt }}</span></label>
                   {%- endfor -%}
                 </div>
               </fieldset>
@@ -136,7 +143,7 @@
                 <div class="wq-chips">
                   {%- assign opts = 'Under 10m,10–25m,Over 25m' | split: ',' -%}
                   {%- for opt in opts -%}
-                    <label class="wq-chip"><input type="radio" name="distance" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                    <label class="wq-chip"><input type="radio" name="distance" value="{{ opt }}"><span>{{ opt }}</span></label>
                   {%- endfor -%}
                 </div>
               </fieldset>
@@ -156,7 +163,7 @@
                 <div class="wq-chips">
                   {%- assign opts = 'Yes,No,Planning one' | split: ',' -%}
                   {%- for opt in opts -%}
-                    <label class="wq-chip"><input type="radio" name="base" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                    <label class="wq-chip"><input type="radio" name="base" value="{{ opt }}"><span>{{ opt }}</span></label>
                   {%- endfor -%}
                 </div>
               </fieldset>
@@ -166,14 +173,16 @@
                 <div class="wq-chips">
                   {%- assign opts = 'Yes,No,Tell me more' | split: ',' -%}
                   {%- for opt in opts -%}
-                    <label class="wq-chip"><input type="radio" name="assembly" value="{{ opt }}" required><span>{{ opt }}</span></label>
+                    <label class="wq-chip"><input type="radio" name="assembly" value="{{ opt }}"><span>{{ opt }}</span></label>
                   {%- endfor -%}
                 </div>
               </fieldset>
+              </div>
             </fieldset>
 
-            <fieldset class="wq-step">
-              <legend class="wq-step__title"><span class="wq-step__num">3</span>Photos <span class="wq-hint">Optional but helpful</span></legend>
+            <fieldset class="wq-box">
+              <legend class="wq-box__title">Photos <span class="wq-hint">Optional but helpful</span></legend>
+              <div class="wq-box__tile">
               <div class="wq-grid">
                 <div class="wq-drop" data-wq-drop>
                   <input class="wq-drop__input" type="file" id="{{ uid }}-route" name="photos_route" accept="image/*" multiple data-wq-files="access-route">
@@ -195,14 +204,17 @@
                 </div>
               </div>
               <p class="wq-hint wq-hint--block">Up to 8 photos each, 20MB max per photo.</p>
+              </div>
             </fieldset>
 
-            <fieldset class="wq-step">
-              <legend class="wq-step__title"><span class="wq-step__num">4</span>Anything else we should know?</legend>
+            <fieldset class="wq-box">
+              <legend class="wq-box__title">Anything else we should know?</legend>
+              <div class="wq-box__tile">
               <label class="wq-field wq-field--full">
                 <span class="wq-sr">Anything else we should know?</span>
                 <textarea class="wq-input wq-input--area" name="notes" rows="4" placeholder="Parking, access times, anything about the site…"></textarea>
               </label>
+              </div>
             </fieldset>
 
             <p class="wq-error" role="alert" hidden data-wq-error></p>

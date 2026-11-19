@@ -159,7 +159,7 @@
         if (!ok && !first) first = q.querySelector('input');
       });
       if (first) {
-        this.showError('Please fill in the highlighted questions.');
+        this.showError('Please add your name, email and delivery postcode.');
         first.focus({ preventScroll: true });
         first.closest('.wq-field, .wq-q')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return false;
@@ -191,8 +191,10 @@
     async submit(e) {
       e.preventDefault();
       this.hideError();
-      if (this.value('company_website')) return; // bot
-      if (!this.validate()) return;
+      // The theme's hover-button marks the submit button busy on any form submit (it expects a page load).
+      const unbusy = () => setTimeout(() => this.form.querySelector('[data-wq-submit]')?.removeAttribute('aria-busy'));
+      if (this.value('company_website')) return unbusy(); // bot
+      if (!this.validate()) return unbusy();
 
       const d = this.dialog.dataset;
       const sub = d.subdomain || 'waveglobal';
