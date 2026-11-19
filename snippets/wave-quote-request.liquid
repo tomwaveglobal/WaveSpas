@@ -16,6 +16,19 @@
   assign subdomain = block.settings.zendesk_subdomain | strip | default: 'waveglobal'
 -%}
 {{ 'wave-quote-request.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Quote mode: hide Restock Rocket's "Notify me when available" button (app embed). It normally sits in
+  the buy buttons, which are hidden here, so the app would otherwise drop it elsewhere on the page.
+{%- endcomment -%}
+<style>
+  .restock-rocket-button-container,
+  .restock-rocket-button-product,
+  .restock-rocket-button-float,
+  .restock-rocket-button-container-float-left,
+  .restock-rocket-button-container-float-right,
+  .restock-rocket-sticky-button,
+  .product__info .restock-rocket-button { display: none !important; }
+</style>
 <script src="{{ 'wave-quote-request.js' | asset_url }}" defer></script>
 
 <wave-quote-request class="wq-trigger" {{ block.shopify_attributes }}>
