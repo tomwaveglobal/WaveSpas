@@ -17,15 +17,13 @@
 /* ── PDP button ── */
 .wq-trigger { display: block; }
 .wq-trigger__note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin: 12px 0 0;
   font-size: var(--text-sm, 14px);
   line-height: 1.4;
   color: var(--wq-ink-2);
 }
-.wq-glyph { flex: none; width: 22px; height: 22px; color: var(--wq-accent); }
+/* Line icons in the site's grey (as the product highlight icons) */
+.wq-glyph { flex: none; width: 22px; height: 22px; color: #7d7d7d; }
 
 /* ── Dialog shell ── */
 .wq {
@@ -129,7 +127,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--wq-accent);
+  background: var(--wq-ink);
 }
 
 /* ── Form ── */

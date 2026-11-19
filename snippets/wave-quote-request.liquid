@@ -44,10 +44,7 @@
     <span class="btn-text">{{ block.settings.button_label | default: 'Contact Us For A Quote' }}</span>
   </button>
   {%- if block.settings.button_note != blank -%}
-    <p class="wq-trigger__note">
-      {%- render 'wave-fy27-glyph', name: 'truck', class: 'wq-glyph' -%}
-      <span>{{ block.settings.button_note }}</span>
-    </p>
+    <p class="wq-trigger__note">{{ block.settings.button_note }}</p>
   {%- endif -%}
 
   <dialog
@@ -75,7 +72,6 @@
         {%- comment -%} ───── Form view ───── {%- endcomment -%}
         <div class="wq__view" data-wq-view="form">
           <header class="wq__head">
-            {%- if block.settings.eyebrow != blank -%}<p class="wq__eyebrow">{{ block.settings.eyebrow }}</p>{%- endif -%}
             <h2 class="wq__h2" id="{{ uid }}-title">
               {%- render 'highlighted-text', content: block.settings.heading, style: 'scribble', scribble: 'basic-underline' -%}
             </h2>
