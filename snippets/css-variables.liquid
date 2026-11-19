@@ -256,6 +256,15 @@
       width: {{ settings.advanced_badge_image_desktop | default: 120 }}px;
     }
   }
+  {%- comment -%} Top-nav mega-menu cards: badge images at half the card size. {%- endcomment -%}
+  .mega-menu__container .badge-image {
+    width: {{ settings.advanced_badge_image_mobile | default: 60 | divided_by: 2.0 }}px;
+  }
+  @media screen and (min-width: 768px) {
+    .mega-menu__container .badge-image {
+      width: {{ settings.advanced_badge_image_desktop | default: 120 | divided_by: 2.0 }}px;
+    }
+  }
   .badge-image-wrap .badge-on-image {
     position: absolute;
     left: 50%;
