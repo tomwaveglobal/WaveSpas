@@ -36,11 +36,16 @@
   assign accessories = product.metafields.custom.compatible_accessories.value
   assign model_name = product.title | split: ' | ' | first | strip
   comment
-    FY27 titles lead with the spec tier ("Lush Garda"); variants are named for the model ("Garda").
+    FY27 titles carry the spec tier before or after the model ("Lush Garda", "Pacific Lush");
+    variants are named for the model alone ("Garda", "Pacific"), so drop the tier word.
   endcomment
-  assign model_first_word = model_name | split: ' ' | first
+  assign model_words = model_name | split: ' '
+  assign model_first_word = model_words | first
+  assign model_last_word = model_words | last
   if model_first_word == 'Lite' or model_first_word == 'Lush' or model_first_word == 'Luxe'
     assign model_name = model_name | remove_first: model_first_word | strip
+  elsif model_last_word == 'Lite' or model_last_word == 'Lush' or model_last_word == 'Luxe'
+    assign model_name = model_name | remove_last: model_last_word | strip
   endif
   assign model_key = model_name | downcase
 
