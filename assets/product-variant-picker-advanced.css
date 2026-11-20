@@ -354,6 +354,8 @@
     transition: opacity var(--vpa-t-reveal) ease, transform var(--vpa-t-reveal) ease, max-height var(--vpa-t-expand) ease, padding var(--vpa-t-reveal) ease, border-width var(--vpa-t-base) ease;
     pointer-events: none;
   }
+  /* No add-on left to show (all filtered out by stock rules) → no panel. */
+  .vpa__step--addons[data-empty] { display: none !important; }
   .vpa__step--addons[data-revealed="true"] {
     opacity: 1;
     transform: translateY(0);
