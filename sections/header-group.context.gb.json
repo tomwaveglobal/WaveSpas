@@ -34,8 +34,8 @@
         },
         "announcement-1": {
           "settings": {
-            "text": "<em><strong>BUY NOW, PAY LATER </strong></em>with flexible finance options&nbsp;",
-            "icon": "creadit_card"
+            "icon": "creadit_card",
+            "text": "<em><strong>BUY NOW, PAY LATER </strong></em>with flexible finance options&nbsp;"
           }
         }
       }
@@ -56,11 +56,24 @@
             "tab_target_3": "",
             "tab_target_link_3": ""
           }
+        },
+        "mega_menu_tab_63jewV": {
+          "settings": {
+            "menu_title": "Saunas",
+            "button_label": "View All Saunas",
+            "button_link": "shopify://collections/saunas",
+            "tab_target_1": "Saunas",
+            "tab_target_link_1": "shopify://collections/saunas",
+            "tab_group_2": "",
+            "tab_target_2": "Accessories",
+            "tab_target_link_2": "shopify://collections/sauna-accessories"
+          }
         }
       },
       "block_order": [
         "mega_menu_tab_zgiwaa",
         "mega_menu_tab_aePWta",
+        "mega_menu_tab_63jewV",
         "mega_menu_tab_RkApqL",
         "mega_menu_tab_MyVeNJ"
       ]

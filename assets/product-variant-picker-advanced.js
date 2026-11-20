@@ -774,7 +774,23 @@
     }
 
     function applyAllAddonMatches() {
-      root.querySelectorAll('label.vpa__addon').forEach(applyAddonMatch);
+      var rows = root.querySelectorAll('label.vpa__addon');
+      rows.forEach(applyAddonMatch);
+      // Every row hidden by the stock-visibility rules (e.g. all add-ons sold
+      // out with "show out of stock" off) → hide the whole step rather than
+      // leave an empty "Optional add-ons" panel. Re-evaluated on each
+      // selection, so it comes back if another size has an add-on in stock.
+      if (addonsStepEl) {
+        var anyVisible = false;
+        rows.forEach(function (r) { if (!r.hidden) anyVisible = true; });
+        if (anyVisible) {
+          addonsStepEl.removeAttribute('data-empty');
+          addonsStepEl.hidden = false;
+        } else {
+          addonsStepEl.setAttribute('data-empty', '');
+          addonsStepEl.hidden = true;
+        }
+      }
     }
 
     // Self-contained section refresh on selection — same mechanism the

@@ -61,7 +61,17 @@
   assign vpa_id = 'vpa-' | append: section_id | append: '-' | append: product_id
   assign popular_upgrades = product.metafields.custom.popular_upgrades.value
   assign addons_enabled = block.settings.addons_enabled
-  if popular_upgrades == blank
+  # Count add-ons that actually resolve on the storefront. A reference to a
+  # draft/archived product, or one not published to the Online Store, comes
+  # back empty, so the list can be non-blank with nothing to show. No
+  # renderable add-on → no step (stock is checked client-side in the JS).
+  assign addons_renderable = 0
+  for addon in popular_upgrades
+    if addon != blank and addon.handle != blank
+      assign addons_renderable = addons_renderable | plus: 1
+    endif
+  endfor
+  if popular_upgrades == blank or addons_renderable == 0
     assign addons_enabled = false
   endif
   assign size_chart = block.settings.size_chart
@@ -605,6 +615,7 @@
       </div>
       <div class="vpa__addon-list">
         {%- for addon in popular_upgrades -%}
+          {%- if addon == blank or addon.handle == blank -%}{%- continue -%}{%- endif -%}
           {%- liquid
             assign addon_variant = addon.selected_or_first_available_variant
             assign addon_image = addon.featured_image
@@ -810,6 +821,7 @@
   addonVariants: {
     {%- assign _emit_a = false -%}
     {%- for addon in popular_upgrades -%}
+      {%- if addon == blank or addon.handle == blank -%}{%- continue -%}{%- endif -%}
       {%- if _emit_a %},{% endif -%}
       {{ addon.handle | json }}: [
         {%- assign _emit_v = false -%}
