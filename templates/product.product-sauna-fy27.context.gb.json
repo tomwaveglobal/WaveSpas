@@ -12,5 +12,21 @@
     "market": "gb"
   },
   "parent": "product.product-sauna-fy27.json",
-  "sections": {}
+  "sections": {
+    "main-product": {
+      "settings": {},
+      "blocks": {
+        "wave_quote": {
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons_nBMjqf": {
+          "disabled": false,
+          "settings": {
+            "enable_back_in_stock": false
+          }
+        }
+      }
+    }
+  }
 }
