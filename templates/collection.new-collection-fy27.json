@@ -178,7 +178,7 @@
             "heading_size": "title-md",
             "content": "<p>See what each one adds, side by side.</p>",
             "button_label": "Compare the range",
-            "button_link": "#compare-tiers",
+            "button_link": "shopify://pages/compare-products",
             "button_style": "secondary",
             "button_size": "md",
             "button_external": false,
