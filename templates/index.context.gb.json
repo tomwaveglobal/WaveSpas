@@ -19,10 +19,10 @@
         "image_EUEdiE": {
           "disabled": false,
           "settings": {
-            "image": "shopify://shop_images/Home-Banner-_UK-1_2.jpg",
+            "image": "shopify://shop_images/Home-Banner_thanksgiving.jpg",
             "image_tablet": "shopify://shop_images/Home-Banner-_UK-3_2.jpg",
             "image_mobile": "shopify://shop_images/Home-Banner-_UK-2_2.jpg",
-            "heading": "Enjoy the discount on selected spas + big savings on accessories",
+            "heading": "Enjoy 20% off selected spas + big savings on accessories",
             "heading_size": "title-sm",
             "heading_tag": "h1",
             "secondary_heading": "",
@@ -41,7 +41,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-9b0e31f81ac39405f86ed753fd879e17": null,
+            "header-4944c51ba2784b7a85814b861a9fd3ae": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
