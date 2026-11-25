@@ -14,7 +14,9 @@
   "parent": "index.json",
   "sections": {
     "slideshow_aYCGKX": {
-      "settings": {},
+      "settings": {
+        "color_button_background": "#f59e0b"
+      },
       "blocks": {
         "image_EUEdiE": {
           "disabled": false,
@@ -41,7 +43,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-4944c51ba2784b7a85814b861a9fd3ae": null,
+            "header-e055b920bbb757c4bd7a094cc28f91ff": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
