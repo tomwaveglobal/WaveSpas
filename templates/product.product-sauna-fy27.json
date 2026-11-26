@@ -116,7 +116,6 @@
         },
         "buy_buttons_nBMjqf": {
           "type": "buy_buttons",
-          "disabled": true,
           "settings": {
             "show_quantity_selector": false,
             "show_price": false,
@@ -129,13 +128,14 @@
         },
         "wave_quote": {
           "type": "wave_quote",
+          "disabled": true,
           "settings": {
             "enabled": true,
             "only_tag": "",
             "hide_finance": false,
             "button_label": "Contact Us For A Quote",
             "button_note": "Delivery and installation quoted for your garden within 2 working days.",
-            "heading": "Get Your Custom <em>Quote</em>",
+            "heading": "Get Your Custom Quote",
             "intro": "Every garden is different, so we quote every sauna delivery individually. Answer a few quick questions and we’ll send your quote within 2 working days.",
             "before_title": "Before you start",
             "power_title": "Power",
