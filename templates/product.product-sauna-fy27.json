@@ -137,11 +137,17 @@
             "button_note": "Delivery and installation quoted for your garden within 2 working days.",
             "heading": "Get Your Custom <em>Quote</em>",
             "intro": "Every garden is different, so we quote every sauna delivery individually. Answer a few quick questions and we’ll send your quote within 2 working days.",
+            "before_title": "Before you start",
+            "power_title": "Power",
+            "power_text": "Most outdoor saunas need their own electrical supply, fitted by a qualified electrician.",
+            "base_title": "Base",
+            "base_text": "A firm, level base, such as a concrete slab, paving or a timber deck.",
+            "before_note": "Not sure your site is ready? Tell us in the form and we’ll talk you through it.",
             "why_title": "Why we quote individually",
             "why_text": "<p>Outdoor saunas are large, heavy items. How we get yours into place depends on:</p><ul><li>whether a lorry can get to your property</li><li>the route from the kerb to where the sauna will go (gates, steps, side passages, overhead cables)</li><li>the ground it will stand on</li><li>whether you’d like us to arrange assembly</li></ul><p>Telling us about your site now means no surprises on delivery day.</p>",
-            "before_title": "Before you start",
             "subject_prefix": "Sauna Quote",
             "zendesk_subdomain": "waveglobal",
+            "recipient_email": "support@wavespas.com",
             "success_heading": "Thanks, we’ve got it",
             "success_text": "Our team will be in touch within 2 working days with a quote for your property."
           }
@@ -241,7 +247,7 @@
       "settings": {
         "enable_sticky_info": false,
         "media_size": 60,
-        "gallery_layout": "thumbnail",
+        "gallery_layout": "scroll",
         "thumbnail_position": "below",
         "image_ratio": "square",
         "image_zoom": "lightbox",
