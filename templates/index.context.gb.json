@@ -16,7 +16,7 @@
     "slideshow_aYCGKX": {
       "settings": {
         "color_button_text": "#171717",
-        "color_button_background": "#f59e0b"
+        "color_button_background": "#ffffff"
       },
       "blocks": {
         "image_EUEdiE": {
@@ -24,7 +24,7 @@
           "settings": {
             "image": "shopify://shop_images/UK_SPA_CW_Homepage_26-1.jpg",
             "image_tablet": "shopify://shop_images/Home-Banner-_UK-3_2.jpg",
-            "image_mobile": "shopify://shop_images/Home-Banner-_UK-2_2.jpg",
+            "image_mobile": "shopify://shop_images/UK_SPA_CW_Homepage_26-2.jpg",
             "heading": "",
             "heading_size": "title-sm",
             "heading_tag": "h1",
@@ -44,7 +44,7 @@
             "image": "shopify://shop_images/Adriatic-is-back_Aug26-1.jpg",
             "image_tablet": "shopify://shop_images/Adriatic-is-back_Aug26-2.jpg",
             "image_mobile": "shopify://shop_images/Adriatic-is-back_Aug26-3.jpg",
-            "header-e1c10ae227d5aad80f38e4ee0d12ba3e": null,
+            "header-3dd03ffd4286e691e73aa1f410bc62ca": null,
             "heading": "‎",
             "heading_size": "title-sm",
             "heading_tag": "h2",
