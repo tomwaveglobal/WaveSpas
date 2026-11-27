@@ -458,94 +458,6 @@
         "parallax_direction": "vertical"
       }
     },
-    "product-details": {
-      "type": "product-details",
-      "blocks": {
-        "specification_g7Fp6A": {
-          "type": "specification",
-          "repeater": "{{ product.metafields.custom.in_the_box.value }}",
-          "settings": {
-            "icon": "{{ block.repeater.icon.value }}",
-            "heading": "{{ block.repeater.label.value }}",
-            "text_size": "text-sm"
-          }
-        },
-        "collapsible_tab_VJ49Qd": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Key Features",
-            "content": "{{ product.metafields.custom.key_features | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Dimensions",
-            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        },
-        "collapsible_tab-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "icon": "none",
-            "iwidth": "custom",
-            "icon_width": 24,
-            "heading": "Technical Specs",
-            "content": "{{ product.metafields.custom.tech_specs | metafield_tag }}",
-            "metafields": "",
-            "text_size": "text-base"
-          }
-        }
-      },
-      "block_order": [
-        "specification_g7Fp6A",
-        "collapsible_tab_VJ49Qd",
-        "collapsible_tab-1",
-        "collapsible_tab-2"
-      ],
-      "custom_css": [],
-      "settings": {
-        "style": "with-border",
-        "open_first_row": true,
-        "specifications_heading": "Included In The Box",
-        "heading": "Product details",
-        "heading_size": "title-md",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "button_external": false,
-        "button_icon": true,
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "highlighted_reveal": false,
-        "color_text": "#171717",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "divider": false,
-        "full_width": false,
-        "rounded": true
-      }
-    },
     "collage": {
       "type": "collage",
       "blocks": {
@@ -676,6 +588,94 @@
         "full_width": false,
         "rounded": true,
         "enable_parallax": true
+      }
+    },
+    "product-details": {
+      "type": "product-details",
+      "blocks": {
+        "specification_g7Fp6A": {
+          "type": "specification",
+          "repeater": "{{ product.metafields.custom.in_the_box.value }}",
+          "settings": {
+            "icon": "{{ block.repeater.icon.value }}",
+            "heading": "{{ block.repeater.label.value }}",
+            "text_size": "text-sm"
+          }
+        },
+        "collapsible_tab_VJ49Qd": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Key Features",
+            "content": "{{ product.metafields.custom.key_features | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Dimensions",
+            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        },
+        "collapsible_tab-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "heading": "Technical Specs",
+            "content": "{{ product.metafields.custom.tech_specs | metafield_tag }}",
+            "metafields": "",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "specification_g7Fp6A",
+        "collapsible_tab_VJ49Qd",
+        "collapsible_tab-1",
+        "collapsible_tab-2"
+      ],
+      "custom_css": [],
+      "settings": {
+        "style": "with-border",
+        "open_first_row": true,
+        "specifications_heading": "Included In The Box",
+        "heading": "Product details",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#171717",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
       }
     },
     "compatible_accessories": {
@@ -1058,8 +1058,8 @@
     "help-drawer",
     "scroll_spy_aPhVjp",
     "image_with_text_overlay_CLQmcN",
-    "product-details",
     "collage",
+    "product-details",
     "compatible_accessories",
     "wf_sauna_range",
     "wave_fy27_questions_zCr8mk",
